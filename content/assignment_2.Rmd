@@ -1,0 +1,53 @@
+---
+title: "Assignment 2 Information"
+output:
+  html_document:
+    css: style.css
+---
+
+# Assignment 2 {-}
+
+## Instructions {-}
+Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same started CSV of expression data from BF528's Project 1, available [here](https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html).  
+
+The project is laid out as such:  
+```
+main.R
+test_main.R
+report.Rmd
+```
+A skeleton of the functions you need to complete is in `main.R`. Tests have been pre-written to test your code and help you ensure it is running correctly, these are in `test_main.R`. Finally, we are also introducing the concept of R Markdown, which for this assignment is `report.Rmd`. The document itself goes into greater detail, but you will:  
+1. Complete the functions in `main.R` and use `testthat:test_file('test_main.R')` to ensure they work correctly.
+2. Read the R Markdown file and complete the section called **"Assignment"**. To do this, you can `source('main.R')` to bring over the functions you wrote in step one.
+3. Finally, annotate the functions you wrote and **Knit** the R Markdown report, complete with your additional comments and code execution.
+
+This page will go into detail on how the functions and their associated tests should work.
+
+## Function Details {-}
+
+### Bioconductor {-}
+While many useful R packages can be loaded through [CRAN](https://cran.r-project.org/) using the `install.packages()` syntax, a lot of specifically bioinformatics packages are exclusively released on [Bioconductor](https://bioconductor.org/install/). For this assignment we only need the package called [bioma**R**t](https://bioconductor.org/packages/release/bioc/html/biomaRt.html). R programmers fancy themselves very clever, so **R**s show up a lot.
+
+Naturally, we want to load our packages at the beginning of our script so all of the code we write beneath can access it as it runs. However, if a user or ourselves _already_ has this package installed we don't want to waste their time installing it again. The function `require()` can help us avoid unnecessary installation time and will help us develop faster. The Bioconductor link above has an example of this method.
+
+This section is untested.
+
+### Loading data {-}
+Perhaps the most integral part of using the many data wrangling abilities of R is actually entering your data into the R environment. While there are many ways to do this in R, we ultimately want this data to be in a **tibble**, which means the current form of the CSV will make R very angry if you attempt to load it in. This is because tibbles don't support row names very well, and the first column of our data doesn't have a name. Try to use the `load_expression()` data to load data from a `filename` parameter and **return** a tibble of that information. I called my firs column "probeids".
+
+#### Tests {-}
+The tests for this function are:  
+``` {r eval=FALSE}
+test_that("loading csv correctly", {
+  result_tib <- load_expression("/project/bf528/project_1/data/example_intensity_data.csv")
+  expect_equal(dim(result_tib), c(54675, 36))
+  expect_true(is_tibble(result_tib))
+})
+```
+This test uses the `load_expression()` you write to store the returned tibble in `result_tib`.  
+
+::::{style="background: pink;"}
+Note that this test is using the same file source as you are, but this may not always be the case.  
+::::
+
+The test then compares the dimensions of that result, and expects 54,675 rows and 36 columns. These are the dimensions of the input CSV. It also checks to confirm it is a tibble object (because tibbles are better than dataframes).

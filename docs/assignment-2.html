@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Assignment 2 Information</title>
-  <meta name="description" content="Assignment 2 Information" />
+  <title>Assignment 2 | Assignment 2 Information</title>
+  <meta name="description" content="Assignment 2 | Assignment 2 Information" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Assignment 2 Information" />
+  <meta property="og:title" content="Assignment 2 | Assignment 2 Information" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Assignment 2 Information" />
+  <meta name="twitter:title" content="Assignment 2 | Assignment 2 Information" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="assignment-2.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="basics.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -166,234 +166,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Assignment 2 Information</h1>
+<div id="assignment-2" class="section level1 unnumbered">
+<h1>Assignment 2</h1>
+<div id="instructions" class="section level2 unnumbered">
+<h2>Instructions</h2>
+<p>Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same started CSV of expression data from BF528’s Project 1, available <a href="https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html">here</a>.</p>
+<p>The project is laid out as such:</p>
+<pre><code>main.R
+test_main.R
+report.Rmd</code></pre>
+<p>A skeleton of the functions you need to complete is in <code>main.R</code>. Tests have been pre-written to test your code and help you ensure it is running correctly, these are in <code>test_main.R</code>. Finally, we are also introducing the concept of R Markdown, which for this assignment is <code>report.Rmd</code>. The document itself goes into greater detail, but you will:<br />
+1. Complete the functions in <code>main.R</code> and use <code>testthat:test_file('test_main.R')</code> to ensure they work correctly.
+2. Read the R Markdown file and complete the section called <strong>“Assignment”</strong>. To do this, you can <code>source('main.R')</code> to bring over the functions you wrote in step one.
+3. Finally, annotate the functions you wrote and <strong>Knit</strong> the R Markdown report, complete with your additional comments and code execution.</p>
+<p>This page will go into detail on how the functions and their associated tests should work.</p>
 </div>
-<div id="bf591---r-for-biological-sciences" class="section level1 unnumbered">
-<h1>BF591 - R for Biological Sciences</h1>
-<p><strong>Under construction</strong></p>
-<p><strong>Semester: Spring 2022</strong></p>
-<p><strong>Location: NA</strong></p>
-<p><strong>Time: NA</strong></p>
-<p>This course introduces the R programming language through the lens of practitioners
-in the biological sciences, particularly biology and bioinformatics. Key concepts
-and patterns of the language are covered, including:</p>
-<ul>
-<li>RStudio</li>
-<li>Data wrangling with tidyverse</li>
-<li>Data visualization with ggplot</li>
-<li>Essential biological data shapes and formats</li>
-<li>Core bioconductor packages</li>
-<li>Basic data exploration, including elementary statistical modeling and summarization</li>
-<li>“Toolifying” R scripts</li>
-<li>Communicating R code and results with RMarkdown</li>
-<li>Buidling R packages and unit testing strategies</li>
-<li>Building interactive tools with RShiny</li>
-</ul>
-<p>About 1/3 of the materials are inspired by the online textbook <a href="https://r4ds.had.co.nz">R for Data Science</a>, while the rest has been developed by practicing
-bioinformaticians based on their experiences.</p>
-<p>Weekly programming assignments will help students apply these techniques to realistic
-problems involving analysis and visualization of biological data. Students will be
-introduced to a unit testing paradigm that will help them write correct code and
-deposit all their code into github for evaluation.</p>
-<p>The course materials are aligned with <a href="https://bf528.rtfd.io">BF528 Applications in Translational
-Bioinformatics</a> and are intended to be taken in tandem,
-but the materials also stand alone as an independent class.</p>
-<div id="course-schedule" class="section level2 unnumbered">
-<h2>Course Schedule</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-date
-</th>
-<th style="text-align:left;">
-leclink
-</th>
-<th style="text-align:left;">
-assignment
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="basics.html">Basics</a>
-</td>
-<td style="text-align:left;">
-Your First Knitr
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="data_viz_1.html">Data Viz &amp; Exploration</a>
-</td>
-<td style="text-align:left;">
-The Many Faces of PCA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="data_wrangling.html">Data Wrangling</a>
-</td>
-<td style="text-align:left;">
-Volcanos and Clustergrams
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="programming.html">Programming</a>
-</td>
-<td style="text-align:left;">
-Count Distributions
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="data_types.html">Biological Data Types</a>
-</td>
-<td style="text-align:left;">
-Modular Differential Expression
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="data_viz_2.html">Data Viz 2</a>
-</td>
-<td style="text-align:left;">
-Visualizing Gene Networks
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="data_exploration.html">Data Exploration 2/Modeling</a>
-</td>
-<td style="text-align:left;">
-TBD
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="bioconductor.html">Core Bioconductor</a>
-</td>
-<td style="text-align:left;">
-TBD
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="bioconductor_packages.html">Bioconductor Packages</a>
-</td>
-<td style="text-align:left;">
-TBD
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="toolifying.html">Toolifying R</a>
-</td>
-<td style="text-align:left;">
-Making a R Command Line Tool
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="engineering.html">SoftwaRe EngineeRing</a>
-</td>
-<td style="text-align:left;">
-Basic R Package
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="communication.html">Communicating Results</a>
-</td>
-<td style="text-align:left;">
-Standardized Pipeline Reports
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-<a href="rshiny.html">RShiny</a>
-</td>
-<td style="text-align:left;">
-Interactive Analysis and Plotting
-</td>
-</tr>
-</tbody>
-</table>
+<div id="function-details" class="section level2 unnumbered">
+<h2>Function Details</h2>
+<div id="bioconductor" class="section level3 unnumbered">
+<h3>Bioconductor</h3>
+<p>While many useful R packages can be loaded through <a href="https://cran.r-project.org/">CRAN</a> using the <code>install.packages()</code> syntax, a lot of specifically bioinformatics packages are exclusively released on <a href="https://bioconductor.org/install/">Bioconductor</a>. For this assignment we only need the package called <a href="https://bioconductor.org/packages/release/bioc/html/biomaRt.html">bioma<strong>R</strong>t</a>. R programmers fancy themselves very clever, so <strong>R</strong>s show up a lot.</p>
+<p>Naturally, we want to load our packages at the beginning of our script so all of the code we write beneath can access it as it runs. However, if a user or ourselves <em>already</em> has this package installed we don’t want to waste their time installing it again. The function <code>require()</code> can help us avoid unnecessary installation time and will help us develop faster. The Bioconductor link above has an example of this method.</p>
+<p>This section is untested.</p>
 </div>
-<div id="course-values-and-policies" class="section level2 unnumbered">
-<h2>Course Values and Policies</h2>
-<p><strong>Everyone is welcome.</strong> Every background, race, color, creed, religion, ethnic
-origin, age, sex, sexual orientation, gender identity, nationality is welcome
-and celebrated in this course. Everyone deserves respect, patience, and
-kindness. Disrespectful language, discrimination, or harassment of any kind are
-not tolerated, and may result in removal from class or the University. This is
-not merely <a href="http://www.bu.edu/policies/policy-category/harassment-discrimination/">BU policy</a>.
-The instructors deem these principles to be inviolable human rights. Students
-should feel safe reporting any and all instances of discrimination or
-harassment to the instructor, to any of the Bioinformatics Program leadership,
-or the <a href="http://www.bu.edu/eoo/">BU Equal Opportunity Office</a>.</p>
-<p><strong>Everyone brings value.</strong> Each of us brings unique experiences, skills, and
-creativity to this course. Our diversity is our greatest asset.</p>
-<p><strong>Collaboration is highly encouraged.</strong> All students are encouraged to work
-together and seek out any and all available resources when completing projects
-in all aspects of the course, including sharing coding ideas and strategies with
-each other as well as those found on the internet. Any and all available
-resources may be brought to bear. However, consistent with BU policy, the bulk
-of your code and your final reports should be written in your own words and
-represent your own work and understanding of the material. Copying/pasting large
-sections of code is not acceptable and will be investigated as cheating (we check).</p>
-<p><strong>A safe space for dissent.</strong> For complex topics such as those covered in this
-class, there is seldom one correct answer, approach, or solution. Disagreement
-fosters innovation. All in the course, including students and TAs, are
-encouraged to express constructive criticism and alternative ideas on any
-aspect of the content.</p>
-<p><strong>We are always learning.</strong> Our knowledge and understanding is always
-incomplete. Even experts are fallible. The bioinformatics field evolves
-rapidly, and Rome was not built in a day. Be kind to yourself and to others.
-You are always smarter and more knowledgable today than you were yesterday.</p>
+<div id="loading-data" class="section level3 unnumbered">
+<h3>Loading data</h3>
+<p>Perhaps the most integral part of using the many data wrangling abilities of R is actually entering your data into the R environment. While there are many ways to do this in R, we ultimately want this data to be in a <strong>tibble</strong>, which means the current form of the CSV will make R very angry if you attempt to load it in. This is because tibbles don’t support row names very well, and the first column of our data doesn’t have a name. Try to use the <code>load_expression()</code> data to load data from a <code>filename</code> parameter and <strong>return</strong> a tibble of that information. I called my firs column “probeids”.</p>
+<div id="tests" class="section level4 unnumbered">
+<h4>Tests</h4>
+<p>The tests for this function are:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="assignment-2.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;loading csv correctly&quot;</span>, {</span>
+<span id="cb2-2"><a href="assignment-2.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  result_tib <span class="ot">&lt;-</span> <span class="fu">load_expression</span>(<span class="st">&quot;/project/bf528/project_1/data/example_intensity_data.csv&quot;</span>)</span>
+<span id="cb2-3"><a href="assignment-2.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(result_tib), <span class="fu">c</span>(<span class="dv">54675</span>, <span class="dv">36</span>))</span>
+<span id="cb2-4"><a href="assignment-2.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">is_tibble</span>(result_tib))</span>
+<span id="cb2-5"><a href="assignment-2.html#cb2-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p>This test uses the <code>load_expression()</code> you write to store the returned tibble in <code>result_tib</code>.</p>
+<div style="background: pink;">
+<p>Note that this test is using the same file source as you are, but this may not always be the case.</p>
+</div>
+<p>The test then compares the dimensions of that result, and expects 54,675 rows and 36 columns. These are the dimensions of the input CSV. It also checks to confirm it is a tibble object (because tibbles are better than dataframes).</p>
 
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -401,8 +215,8 @@ You are always smarter and more knowledgable today than you were yesterday.</p>
           </div>
         </div>
       </div>
-
-<a href="assignment-2.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
