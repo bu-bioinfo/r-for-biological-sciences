@@ -44,7 +44,7 @@ but the materials also stand alone as an independent class.
 
 ```{r syllabus, echo=FALSE, message=FALSE}
 library(kableExtra)
-schedule <- readr::read_csv("../_data/schedule.csv") %>%
+schedule <- readr::read_csv("../schedule.csv") %>%
    dplyr::mutate(leclink=stringr::str_glue("[{lecture}]({lecture_slug}.html)")) %>%
    dplyr::select(date, leclink, assignment)
 kbl(schedule)
