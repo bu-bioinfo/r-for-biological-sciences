@@ -1,14 +1,16 @@
-lecnum,date,lecture,lecture_slug,assignment,assignment_slug
-1,,Basics,basics,Your First Knitr,your_first_knitr
-2,,Data Viz & Exploration,data_viz_1,The Many Faces of PCA,pca
-3,,Data Wrangling,data_wrangling,Volcanos and Clustergrams,volcano_cluster
-4,,Programming,programming,Count Distributions,count_distributions
-5,,Biological Data Types,data_types,Modular Differential Expression,diff_exp
-6,,Data Viz 2,data_viz_2,Visualizing Gene Networks,network_viz
-7,,Data Exploration 2/Modeling,data_exploration,TBD,tbd
-8,,Core Bioconductor,bioconductor,TBD,tbd
-9,,Bioconductor Packages,bioconductor_packages,TBD,tbd
-10,,Toolifying R,toolifying,Making a R Command Line Tool,cli_tool
-11,,SoftwaRe EngineeRing,engineering,Basic R Package,r_package
-12,,Communicating Results,communication,Standardized Pipeline Reports,pipeline_report
-13,,RShiny,rshiny,Interactive Analysis and Plotting,interactive_plotting
+week,date,lecture,lecture_slug,assignment,assignment_slug
+1,1/24 & 1/26,Basics,basics,Your First Knitr,your_first_knitr
+2,1/31 & 2/2,Data Viz & Exploration,data_viz_1,The Many Faces of PCA,pca
+3,2/7 & 2/9,Data Wrangling,data_wrangling,Volcanos and Clustergrams,volcano_cluster
+4,2/14 & 2/16,Programming,programming,Count Distributions,count_distributions
+5,2/22 & 2/23,Biological Data Types,data_types,Modular Differential Expression,diff_exp
+6,2/28 & 3/2,Data Viz 2,data_viz_2,Visualizing Gene Networks,network_viz
+,,Spring Break,,,
+7,3/14 & 3/16,Data Exploration 2/Modeling,data_exploration,TBD,tbd
+8,3/21 & 3/23,Core Bioconductor,bioconductor,TBD,tbd
+9,3/28 & 3/30,Bioconductor Packages,bioconductor_packages,TBD,tbd
+10,4/4 & 4/6,Toolifying R,toolifying,Making a R Command Line Tool,cli_tool
+11,4/11 & 4/13,SoftwaRe EngineeRing,engineering,Basic R Package,r_package
+12,4/20 &,Communicating Results,communication,Standardized Pipeline Reports,pipeline_report
+13,4/25 & 4/27,RShiny,rshiny,Interactive Analysis and Plotting,interactive_plotting
+14,5/2 & 5/4,"Project work, no class",,,
