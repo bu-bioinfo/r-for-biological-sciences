@@ -66,6 +66,7 @@ This function presents an important concept in R: using built-ins to speed up ou
 
 #### Tests {-}
 ``` {r eval=FALSE}
+library(tibble)
 test_that("the correct rows are filtered out in filter_15()", {
   test_tib <- tibble(probeids=c('1_s_at', '2_s_at', '3_s_at', '4_s_at'),
                      GSM1=c(1.0, 3.95, 4.05, 0.5),
@@ -116,6 +117,7 @@ We have one final step in manipulating our data before we plot it. We have our o
 
 Once again, there are multiple ways to reorganize data in this way. We used the base function `match()` to connect our probe IDs to with our HGNC IDs in `name_ids`. We then used `tibble::add_column()` to insert the new data in the correct location. Finally, we created two tibbles of good and bad genes using `which()` and the `%in%` modifier. Which evaluates true conditions across a range of data, so we can pass the list of genes we want and select the correct ones. For instance:  
 ```{r which() demo}
+library(tibble)
 tib <- tibble(gene = c("gene1", "gene2", "gene3", "gene4"),
               affy = c("a_s_1", "a_s_2", "a_s_3", "a_s_4"))
 which(tib$gene %in% c("gene2", "gene3")) # returns the index of the TRUE rows

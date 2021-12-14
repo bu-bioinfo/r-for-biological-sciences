@@ -1,0 +1,48 @@
+---
+title: "Biology & Bioinformatics"
+output: html_document
+---
+
+# Biology & Bioinformatics
+
+## R in Biology
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+### Bioconductor
+
+## Gene Expression
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Differential Expression: Microarrays
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Differential Expression: Counts
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Biological Network Analysis
+
+### Overview
+
+### Learning Objectives
+
+### Skill List

@@ -1,0 +1,14 @@
+---
+title: "Preliminaries"
+output: html_document
+---
+
+# Preliminaries
+
+## RStudio
+
+## The R Script
+
+## git + github
+
+## Scripting workflow

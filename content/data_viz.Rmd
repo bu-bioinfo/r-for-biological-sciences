@@ -1,3 +1,0 @@
-# Data Visualization {#data-viz}
-
-Responsible plotting is dog's work.

@@ -1,0 +1,34 @@
+---
+title: "R Programming Basics"
+output: html_document
+---
+
+# R Programming
+
+## Basics
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+### R Syntax Basics
+
+### Functions
+
+### DRY: Don't Repeat Yourself
+
+### Unit Testing
+
+### Troubleshooting/Debugging Strategies
+
+### RMarkdown & knitr
+
+## Data Structures
+
+### Overview
+
+### Learning Objectives
+
+### Skill List

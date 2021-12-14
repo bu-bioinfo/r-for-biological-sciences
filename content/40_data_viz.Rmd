@@ -1,0 +1,30 @@
+---
+title: "Data Visualization"
+output: html_document
+---
+
+# Data Visualization
+
+## Part 1
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Part 2
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Part 3
+
+### Overview
+
+### Learning Objectives
+
+### Skill List

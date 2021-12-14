@@ -1,0 +1,22 @@
+---
+title: "Statistics Topics"
+output: html_document
+---
+
+# Statistics Topics
+
+## Distributions & Tests
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Modeling Primer
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
