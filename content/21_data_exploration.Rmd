@@ -2,9 +2,41 @@
 output: html_document
 ---
 
-# Data Exploration
+# Data Science
 
-## Part 1
+## Distributions & Tests {#ds-dists}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Data summarization & cleaning {#ds-summ}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Clustering {#ds-clust}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Data Modeling {#ds-model}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Network Analysis {#ds-networks}
 
 ### Overview
 

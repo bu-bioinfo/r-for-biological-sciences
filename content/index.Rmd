@@ -1,16 +1,20 @@
 ---
-title: "R for Biological Sciences"
+title: "BF591 - R for Biological Sciences"
 ---
 
-# BF591 - R for Biological Sciences {-}
-
-**Under construction**
+# Syllabus {-}
 
 **Semester: Spring 2022**
 
-**Location: NA**
+**Location: TBD**
 
-**Time: NA**
+**Time: M/W 8:00AM - 9:45AM**
+
+Contents:
+
+- [Course Schedule]
+- [Instructors]
+- [Course Values and Policies]
 
 This course introduces the R programming language through the lens of practitioners
 in the biological sciences, particularly biology and bioinformatics. Key concepts
@@ -22,6 +26,7 @@ and patterns of the language are covered, including:
    * Essential biological data shapes and formats
    * Core bioconductor packages
    * Basic data exploration, including elementary statistical modeling and summarization
+   * Elementary Data Science concepts
    * "Toolifying" R scripts
    * Communicating R code and results with RMarkdown
    * Buidling R packages and unit testing strategies
@@ -34,7 +39,10 @@ bioinformaticians based on their experiences.
 Weekly programming assignments will help students apply these techniques to realistic
 problems involving analysis and visualization of biological data. Students will be
 introduced to a unit testing paradigm that will help them write correct code and
-deposit all their code into github for evaluation.
+deposit all their code into github for evaluation. Students will implement an
+end-to-end project that begins with one of a set of provided datasets, implements a
+set of data summarization and exploration operations on it, and allows interaction
+with an RShiny app.
 
 The course materials are aligned with [BF528 Applications in Translational
 Bioinformatics](https://bf528.rtfd.io) and are intended to be taken in tandem,
@@ -42,13 +50,58 @@ but the materials also stand alone as an independent class.
 
 ## Course Schedule {-}
 
-```{r syllabus, echo=FALSE, message=FALSE}
-library(kableExtra)
-schedule <- readr::read_csv("../schedule.csv") %>%
-   dplyr::mutate(leclink=stringr::str_glue("[{lecture}]({lecture_slug}.html)")) %>%
-   dplyr::select(date, leclink, assignment)
-kbl(schedule)
-```
+**NB: Subject to change**
+
++------+-------------------+----------------------------------------------------------+---------------------------+
+| Week | Dates             | Topics                                                   | Assignment                |
++======+===================+==========================================================+===========================+
+| 1    | 1/24 & 1/26       | - [Preliminaries]                                        |                           |
+|      |                   | - [R Programming: Basics](#prog-basics)                  | [Assignment 1]            |
+|      |                   | - [Data Wrangling: Basics](#dw-basics)                   |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 2    | 1/31 & 2/2        | - [Data Wrangling: Arranging](#dw-arranging)             |                           |
+|      |                   | - [Data Viz: Grammar of Graphics](#dv-gg)                | [Assignment 2]            |
+|      |                   | - [Bio: R in Biology](#bio-r)                            |                           |
+|      |                   | - [Bio: Bioconductor Basics](#bio-bioconductor)          |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 3    | 2/7  & 2/9        | - [Data Sci: Distributions & Tests](#ds-dists)           |                           |
+|      |                   | - [R Programming: Structures & Iteration](#prog-struct)  | [Assignment 3]            |
+|      |                   | - [Data Sci: Summarization & Cleaning](#ds-summ)         |                           |
+|      |                   | - [Data Sci: Clustering](#ds-clust)                      |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 4    | 2/14 & 2/16       | - [Data Sci: Data Modeling](#ds-model)                   |                           |
+|      |                   | - [Bio: Gene Expression](#bio-geneexp)                   | [Assignment 4]            |
+|      |                   | - [Bio: Differential Expression: Microarrays](#bio-micro)|                           |
+|      |                   | - [Bio: Gene Set Enrichment Analysis](#bio-gsea)         |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 5    | 2/22 & 2/23       | - [Bio: High Throughput Sequencing](#bio-hts)            | [Assignment 5]            |
+|      |                   | - [Bio: Differential Expression: RNASeq](#bio-rnaseq)    |                           |
+|      |                   | - [Bio: Gene Set Enrichment Analysis](#bio-gsea)         |                           |
+|      |                   | - [R Programming: Style & Conventions](#prog-style)      |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 6    | 2/28 & 3/2        | - [Data Viz: Responsible Plotting](#dv-resp)             | [Assignment 6]            |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 7    | 3/14 & 3/16       | - [Bio: Biological Networks](#bio-networks)              | [Assignment 7]            |
+|      |                   | - [Data Sci: Network Analysis](#ds-networks)             |                           |
+|      |                   | - [Data Viz: Network Viz](#ds-network-viz)               |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 8    | 3/21 & 3/23       | - [Bio: Single Cell Sequencing](#bio-scseq)              | [Assignment 8]            |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 9    | 3/28 & ~~3/30~~   | - [RShiny]                                               | [Project]                 |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 10   | 4/4  & ~~4/6~~    | - [Toolification]                                        |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 11   | 4/11 & ~~4/13~~   | - [EngineeRing]                                          |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 12   | 4/20              | - [Communicating with R]                                 |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 13   | 4/25 & ~~4/27~~   | - No class - Project work                                |                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 14   | 5/2  & ~~5/4~~    | - No class - Project work                                | Project due               |
++------+-------------------+----------------------------------------------------------+---------------------------+
+
+**NB:** ~~struckout~~ - class not held, reserved for project work
+
 
 ## Course Values and Policies {-}
 

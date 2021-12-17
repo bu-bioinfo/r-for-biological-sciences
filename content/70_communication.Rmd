@@ -2,7 +2,7 @@
 output: html_document
 ---
 
-# Communication
+# Communicating with R
 
 ## Overview
 

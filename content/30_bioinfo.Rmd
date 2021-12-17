@@ -4,7 +4,7 @@ output: html_document
 
 # Biology & Bioinformatics
 
-## R in Biology
+## R in Biology {#bio-r}
 
 ### Overview
 
@@ -12,9 +12,7 @@ output: html_document
 
 ### Skill List
 
-### Bioconductor
-
-## Gene Expression
+## Bioconductor {#bio-bioconductor}
 
 ### Overview
 
@@ -22,7 +20,7 @@ output: html_document
 
 ### Skill List
 
-## Differential Expression: Microarrays
+## Gene Expression {#bio-geneexp}
 
 ### Overview
 
@@ -30,7 +28,7 @@ output: html_document
 
 ### Skill List
 
-## Differential Expression: Counts
+## Differential Expression: Microarrays {#bio-micro}
 
 ### Overview
 
@@ -38,7 +36,39 @@ output: html_document
 
 ### Skill List
 
-## Biological Network Analysis
+## Gene Set Enrichment Analysis {#bio-gsea}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## High Throughput Sequencing {#bio-hts}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Differential Expression: RNASeq {#bio-rnaseq}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Biological Network Analysis {#bio-networks}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Single Cell Sequencing Analysis {#bio-scseq}
 
 ### Overview
 

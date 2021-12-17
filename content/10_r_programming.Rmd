@@ -4,7 +4,7 @@ output: html_document
 
 # R Programming
 
-## Basics
+## Basics {#prog-basics}
 
 ### Overview
 
@@ -24,7 +24,15 @@ output: html_document
 
 ### RMarkdown & knitr
 
-## Data Structures
+## Data Structures & Iteration {#prog-struct}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
+## Coding Style and Conventions {#prog-style}
 
 ### Overview
 

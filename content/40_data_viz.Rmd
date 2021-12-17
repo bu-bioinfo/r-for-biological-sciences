@@ -4,7 +4,7 @@ output: html_document
 
 # Data Visualization
 
-## Part 1
+## Grammar of Graphics {#dv-gg}
 
 ### Overview
 
@@ -12,7 +12,7 @@ output: html_document
 
 ### Skill List
 
-## Part 2
+## Responsible Plotting {#dv-resp}
 
 ### Overview
 
@@ -20,7 +20,7 @@ output: html_document
 
 ### Skill List
 
-## Part 3
+## Network Viz {#ds-network-viz}
 
 ### Overview
 

@@ -4,7 +4,7 @@ output: html_document
 
 # Data Wrangling
 
-## Basics
+## Basics {#dw-basics}
 
 ### Overview
 
@@ -20,15 +20,7 @@ output: html_document
 
 ### Rectangular Data in Biology
 
-## Data Types & Relations
-
-### Overview
-
-### Learning Objectives
-
-### Skill List
-
-## Part 3
+## Arranging Data {#dw-arranging}
 
 ### Overview
 
