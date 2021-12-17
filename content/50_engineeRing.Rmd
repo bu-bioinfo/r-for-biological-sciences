@@ -1,5 +1,4 @@
 ---
-title: "EngineeRing"
 output: html_document
 ---
 
@@ -16,6 +15,7 @@ output: html_document
 ## Parallel Processing
 
 ### Overview
+1. Consider not using R for any legitimate development.
 
 ### Learning Objectives
 

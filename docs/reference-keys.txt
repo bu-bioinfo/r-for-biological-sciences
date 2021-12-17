@@ -27,7 +27,7 @@ the-tidyverse
 importing-data
 tidying-data
 rectangular-data-in-biology
-part-2
+data-types-relations
 overview-3
 learning-objectives-3
 skill-list-3
@@ -76,7 +76,7 @@ part-1-1
 overview-13
 learning-objectives-13
 skill-list-13
-part-2-1
+part-2
 overview-14
 learning-objectives-14
 skill-list-14

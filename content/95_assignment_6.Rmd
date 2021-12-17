@@ -1,5 +1,4 @@
 ---
-title: "Assignment 6 Information"
 output:
   html_document:
     css: style.css

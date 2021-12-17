@@ -1,5 +1,4 @@
 ---
-title: "R Programming Basics"
 output: html_document
 ---
 
