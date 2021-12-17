@@ -1,5 +1,4 @@
 ---
-title: "Preliminaries"
 output: html_document
 ---
 
