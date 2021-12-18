@@ -14,6 +14,8 @@ output: html_document
 
 ## Responsible Plotting {#dv-resp}
 
+"Good plots empower us to ask good questions." - Alberto Cairo, How Charts Lie
+
 ### Overview
 
 ### Learning Objectives
