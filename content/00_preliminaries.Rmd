@@ -4,6 +4,8 @@ output: html_document
 
 # Preliminaries
 
+## Prerequisites
+
 ## RStudio
 
 ## The R Script
