@@ -18,8 +18,12 @@ software platform for all analyses, unless otherwise noted. RStudio is a freely
 available and fully featured development environment for R, and has many
 convenient capabilities when learning R.
 
-::: {.nb}
+::: {.note}
 Nota bene! And stuff!
+:::
+
+::: {.hint}
+Avoid R whenever possible
 :::
 
 ::: {.warning}

@@ -38,7 +38,8 @@ R is one of the two most popular programming languages in biological data
 analysis and bioinformatics (the other being [python](https://python.org)).
 
 A major innovation in the R language came with the introduction of the
-[tidyverse](https://www.tidyverse.org/) set of open-source data manipulation and visualization packages, first developed by [Hadley Wickham](http://hadley.nz/)
+[tidyverse](https://www.tidyverse.org/), as set of open-source data manipulation and
+visualization packages, first developed by [Hadley Wickham](http://hadley.nz/)
 and now improved, supported, and maintained by his team of data scientists and
 software engineers and other individuals. The tidyverse is a collection of
 packages that specialize in different aspects of data manipulation with the goal
