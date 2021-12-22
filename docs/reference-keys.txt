@@ -136,3 +136,5 @@ communicating-with-r
 overview-27
 learning-objectives-27
 skill-list-27
+contribution-guide
+custom-blocks
