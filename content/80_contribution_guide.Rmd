@@ -1,0 +1,45 @@
+---
+output: html_document
+---
+
+# Contribution Guide
+
+This page contains some conventions and tips for writing material for this book.
+
+## Custom blocks
+
+There are a number of custom blocks that can be used for highlighting salient
+information throughout the text. The code inside the corresponding block below
+can be used to insert Notes, Hints, Information, and Warnings:
+
+::: {.note}
+```
+::: {.note}
+This is a note
+:::
+```
+:::
+
+::: {.hint}
+```
+::: {.hint}
+This is a hint
+:::
+```
+:::
+
+::: {.important}
+```
+::: {.important}
+This is an important
+:::
+```
+:::
+
+::: {.warning}
+```
+::: {.warning}
+This is a warning
+:::
+```
+:::

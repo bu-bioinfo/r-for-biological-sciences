@@ -1,29 +1,47 @@
 .bold {
   font-weight: bold;
 }
-.nb:before {
+.note:before {
   content: "Note:";
+  font-weight: bold;
 }
-.nb {
+.note {
   background: #eeeeff;
   border: 2px #333333 solid;
-  padding: 3px;
+  padding: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px; 
+}
+.hint:before {
+  content: "Hint:";
+  font-weight: bold;
+}
+.hint {
+  background: #ccffcc;
+  border: 2px #333333 solid;
+  padding: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px; 
 }
 .warning:before {
   content: "Warning:";
+  font-weight: bold;
 }
 .warning {
   background: #ffcc99;
   border: 2px #333333 solid;
-  padding: 3px;
+  padding: 5px;
   margin-top: 3px;
   margin-bottom: 3px;
 }
 .important:before {
   content: "Important:";
+  font-weight: bold;
 }
 .important {
   background: #ffffcc;
   border: 2px #333333 solid;
-  padding: 3px;
+  padding: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
