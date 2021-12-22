@@ -4,6 +4,32 @@ output: html_document
 
 # R Programming
 
+## Before you begin
+
+Turn off automatic environment saving in RStudio!
+
+## The R Script {#prog-the-r-script}
+
+The basic unit of an R program is the **R script**. An R script is a file that
+contains lines of R code that run sequentially as a unit to complete one or more
+tasks. Every R script file has a name, which you choose and should be descriptive
+but concise about what the script does; ``script.R``, ``do_it.R``, and
+``a_script_that_implements_my_very_cool_but_complicated_analysis_and_plots.R``
+are generally poor names for scripts, whereas ``analyze_gene_expression.R`
+might be more suitable.
+
+In RStudio, you can create a new script file in the current directory using the
+`New File -> R Script` menu item, the [new R Script](foo) button at the top of the
+screen, 
+
+## The Scripting Workflow {#prog-workflow}
+
+### Overview
+
+### Learning Objectives
+
+### Skill List
+
 ## Basics {#prog-basics}
 
 ### Overview

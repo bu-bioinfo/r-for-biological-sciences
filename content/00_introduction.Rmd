@@ -57,6 +57,14 @@ knowledge domains. This book covers many of these topics in relatively shallow
 depth, but with the intent of presenting just enough in each to enable the
 learner to become proficient in most day-to-day biological analysis tasks.
 
+## A Note About Reinventing the Wheel
+
+Many topics in this book are covered elsewhere in greater detail and depth. The
+content in each section is intended to stand alone, but may not provide a high
+level of detail that has been done better by others in online materials. These
+sections provide links to these other resources that provide more information,
+in case the instructions in this book are too terse.
+
 ## Sources and References
 
 The materials of this book were inspired and informed by a large number of
@@ -64,6 +72,6 @@ sources, including books and freely available online materials. The authors
 would like to thank the generosity of the creators and maintainers of these
 resources for making their valuable contributions:
 
-* [R for Data Science](https://r4ds.had.co.nz/), by Hadley Wickam and Garrett Grolemund
+* [R for Data Science](https://r4ds.had.co.nz/), by Hadley Wickam, Garrett Grolemund, et al
 * [Reproducible Analysis with R](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/), by State of Alaska's Salmon and People Project, NCEAS
 * [How Charts Lie: Getting Sparter about Visual Information](https://wwnorton.com/books/9781324001560/about-the-book), by Alberto Cairo
