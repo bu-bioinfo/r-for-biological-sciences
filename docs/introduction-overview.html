@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>BF591 - R for Biological Sciences</title>
-  <meta name="description" content="BF591 - R for Biological Sciences" />
+  <title>1 Introduction &amp; Overview | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="1 Introduction &amp; Overview | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="1 Introduction &amp; Overview | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="1 Introduction &amp; Overview | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introduction-overview.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="preliminaries.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -385,230 +385,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">BF591 - R for Biological Sciences</h1>
+<div id="introduction-overview" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction &amp; Overview</h1>
+<p>Since the publication of the first draft human genome in 2001, data has driven
+biological discovery at an exponential rate. Rapid technological innovations in
+data-generating biochemical instruments, computational resource availability,
+data storage, and analytical approaches including artificial intelligence,
+machine learning, and data science more generally have combined and synergized
+to enable advances in our understanding of biological systems by orders of
+magnitude. As the rate of development of these technologies has increased, so
+are practitioners of biological inquiry expected to keep up with the rapidly
+expanding set of knowledge, skills, and tools required to use them.</p>
+<p>Modern biological data analysis entails combining knowledge and skills from
+many domains, including not only biological concepts like molecular biology,
+genetics, genomics, and biochemistry, but also in computational and quantitative
+skills including statistics, mathematics, programming and software engineering,
+high performance and cloud computing, data visualization, and computer science.
+No one person can be expert in all of these areas, but modern software tools and
+packages made available by subject matter experts enable us to perform cutting
+edge analysis with a conceptual understanding of the topics.</p>
+<p>One such tool is the <a href="https://www.r-project.org">R programming language</a>, a
+statistical programming language and environment specifically designed to run
+statistical analyses and visualize data. R became popular in biological data
+analysis in the early to mid 2000s, when <a href="https://www.genome.gov/genetics-glossary/Microarray-Technology">microarray
+technology</a> came
+into widespread use enabling researchers to look for statistical differences in
+gene expression for thousands of genes across large numbers of samples. As a
+result of this popularity, a community of biological researchers and data
+analysts created a collection of software packages called
+<a href="https://www.bioconductor.org/">Bioconductor</a>, which made a vast array of
+cutting edge statistical and bioinformatic methodologies widely available. Today
+R is one of the two most popular programming languages in biological data
+analysis and bioinformatics (the other being <a href="https://python.org">python</a>).</p>
+<p>A major innovation in the R language came with the introduction of the
+<a href="https://www.tidyverse.org/">tidyverse</a> set of open-source data manipulation and visualization packages, first developed by <a href="http://hadley.nz/">Hadley Wickham</a>
+and now improved, supported, and maintained by his team of data scientists and
+software engineers and other individuals. The tidyverse is a collection of
+packages that specialize in different aspects of data manipulation with the goal
+of enabling powerful, consistent, and accurate data operations in the broad
+field of data science. While not changing the structure of the language <em>per
+se</em>, the tidyverse packages define a set of consistent programming conventions
+and patterns that are tailored to the types of manipulations required to make
+data “tidy” and, therefore, easier and more consistent to work with. The
+tidyverse therefore is something of its own “language” that is compatible with
+but distinct in convention from the base R language.</p>
+<p>This book and accompanying course focus on how to use R and its related package
+ecosystems to analyze, visualize, and communicate biological data analyses. As
+noted above, effective biological data analysis employs skills that span several
+knowledge domains. This book covers many of these topics in relatively shallow
+depth, but with the intent of presenting just enough in each to enable the
+learner to become proficient in most day-to-day biological analysis tasks.</p>
+<div id="a-note-about-reinventing-the-wheel" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> A Note About Reinventing the Wheel</h2>
+<p>Many topics in this book are covered elsewhere in greater detail and depth. The
+content in each section is intended to stand alone, but may not provide a high
+level of detail that has been done better by others in online materials. These
+sections provide links to these other resources that provide more information,
+in case the instructions in this book are too terse.</p>
 </div>
-<div id="syllabus" class="section level1 unnumbered">
-<h1>Syllabus</h1>
-<p><strong>Semester: Spring 2022</strong></p>
-<p><strong>Location: TBD</strong></p>
-<p><strong>Time: M/W 8:00AM - 9:45AM</strong></p>
-<p>Contents:</p>
+<div id="sources-and-references" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Sources and References</h2>
+<p>The materials of this book were inspired and informed by a large number of
+sources, including books and freely available online materials. The authors
+would like to thank the generosity of the creators and maintainers of these
+resources for making their valuable contributions:</p>
 <ul>
-<li><a href="index.html#course-schedule">Course Schedule</a></li>
-<li>[Instructors]</li>
-<li><a href="index.html#course-values-and-policies">Course Values and Policies</a></li>
+<li><a href="https://r4ds.had.co.nz/">R for Data Science</a>, by Hadley Wickam, Garrett Grolemund, et al</li>
+<li><a href="https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/">Reproducible Analysis with R</a>, by State of Alaska’s Salmon and People Project, NCEAS</li>
+<li><a href="https://wwnorton.com/books/9781324001560/about-the-book">How Charts Lie: Getting Sparter about Visual Information</a>, by Alberto Cairo</li>
 </ul>
-<p>This course introduces the R programming language through the lens of practitioners
-in the biological sciences, particularly biology and bioinformatics. Key concepts
-and patterns of the language are covered, including:</p>
-<ul>
-<li>RStudio</li>
-<li>Data wrangling with tidyverse</li>
-<li>Data visualization with ggplot</li>
-<li>Essential biological data shapes and formats</li>
-<li>Core bioconductor packages</li>
-<li>Basic data exploration, including elementary statistical modeling and summarization</li>
-<li>Elementary Data Science concepts</li>
-<li>“Toolifying” R scripts</li>
-<li>Communicating R code and results with RMarkdown</li>
-<li>Buidling R packages and unit testing strategies</li>
-<li>Building interactive tools with RShiny</li>
-</ul>
-<p>About 1/3 of the materials are inspired by the online textbook <a href="https://r4ds.had.co.nz">R for Data Science</a>, while the rest has been developed by practicing
-bioinformaticians based on their experiences.</p>
-<p>Weekly programming assignments will help students apply these techniques to realistic
-problems involving analysis and visualization of biological data. Students will be
-introduced to a unit testing paradigm that will help them write correct code and
-deposit all their code into github for evaluation. Students will implement an
-end-to-end project that begins with one of a set of provided datasets, implements a
-set of data summarization and exploration operations on it, and allows interaction
-with an RShiny app.</p>
-<p>The course materials are aligned with <a href="https://bf528.rtfd.io">BF528 Applications in Translational
-Bioinformatics</a> and are intended to be taken in tandem,
-but the materials also stand alone as an independent class.</p>
-<div id="course-schedule" class="section level2 unnumbered">
-<h2>Course Schedule</h2>
-<p><strong>NB: Subject to change</strong></p>
-<table>
-<colgroup>
-<col width="6%" />
-<col width="17%" />
-<col width="51%" />
-<col width="24%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Week</th>
-<th>Dates</th>
-<th>Topics</th>
-<th>Assignment</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>1/24 &amp; 1/26</td>
-<td><ul>
-<li><a href="preliminaries.html#preliminaries">Preliminaries</a></li>
-<li><a href="r-programming.html#prog-basics">R Programming: Basics</a></li>
-<li><a href="data-wrangling.html#dw-basics">Data Wrangling: Basics</a></li>
-</ul></td>
-<td>[Assignment 1]</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>1/31 &amp; 2/2</td>
-<td><ul>
-<li><a href="data-wrangling.html#dw-arranging">Data Wrangling: Arranging</a></li>
-<li><a href="data-visualization.html#dv-gg">Data Viz: Grammar of Graphics</a></li>
-<li><a href="biology-bioinformatics.html#bio-r">Bio: R in Biology</a></li>
-<li><a href="biology-bioinformatics.html#bio-bioconductor">Bio: Bioconductor Basics</a></li>
-</ul></td>
-<td><a href="assignment-2.html#assignment-2">Assignment 2</a></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>2/7 &amp; 2/9</td>
-<td><ul>
-<li><a href="data-science.html#ds-dists">Data Sci: Distributions &amp; Tests</a></li>
-<li><a href="r-programming.html#prog-struct">R Programming: Structures &amp; Iteration</a></li>
-<li><a href="data-science.html#ds-summ">Data Sci: Summarization &amp; Cleaning</a></li>
-<li><a href="data-science.html#ds-clust">Data Sci: Clustering</a></li>
-</ul></td>
-<td>[Assignment 3]</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>2/14 &amp; 2/16</td>
-<td><ul>
-<li><a href="data-science.html#ds-model">Data Sci: Data Modeling</a></li>
-<li><a href="biology-bioinformatics.html#bio-geneexp">Bio: Gene Expression</a></li>
-<li><a href="biology-bioinformatics.html#bio-micro">Bio: Differential Expression: Microarrays</a></li>
-<li><a href="biology-bioinformatics.html#bio-gsea">Bio: Gene Set Enrichment Analysis</a></li>
-</ul></td>
-<td>[Assignment 4]</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>2/22 &amp; 2/23</td>
-<td><ul>
-<li><a href="biology-bioinformatics.html#bio-hts">Bio: High Throughput Sequencing</a></li>
-<li><a href="biology-bioinformatics.html#bio-rnaseq">Bio: Differential Expression: RNASeq</a></li>
-<li><a href="biology-bioinformatics.html#bio-gsea">Bio: Gene Set Enrichment Analysis</a></li>
-<li><a href="r-programming.html#prog-style">R Programming: Style &amp; Conventions</a></li>
-</ul></td>
-<td>[Assignment 5]</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>2/28 &amp; 3/2</td>
-<td><ul>
-<li><a href="data-visualization.html#dv-resp">Data Viz: Responsible Plotting</a></li>
-</ul></td>
-<td><a href="assignment-6.html#assignment-6">Assignment 6</a></td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>3/14 &amp; 3/16</td>
-<td><ul>
-<li><a href="biology-bioinformatics.html#bio-networks">Bio: Biological Networks</a></li>
-<li><a href="data-science.html#ds-networks">Data Sci: Network Analysis</a></li>
-<li><a href="data-visualization.html#ds-network-viz">Data Viz: Network Viz</a></li>
-</ul></td>
-<td>[Assignment 7]</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>3/21 &amp; 3/23</td>
-<td><ul>
-<li><a href="biology-bioinformatics.html#bio-scseq">Bio: Single Cell Sequencing</a></li>
-</ul></td>
-<td>[Assignment 8]</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td>3/28 &amp; <del>3/30</del></td>
-<td><ul>
-<li><a href="rshiny.html#rshiny">RShiny</a></li>
-</ul></td>
-<td>[Project]</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td>4/4 &amp; <del>4/6</del></td>
-<td><ul>
-<li><a href="engineering.html#toolification">Toolification</a></li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>11</td>
-<td>4/11 &amp; <del>4/13</del></td>
-<td><ul>
-<li><a href="engineering.html#engineering">EngineeRing</a></li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>12</td>
-<td>4/20</td>
-<td><ul>
-<li><a href="communicating-with-r.html#communicating-with-r">Communicating with R</a></li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>13</td>
-<td>4/25 &amp; <del>4/27</del></td>
-<td><ul>
-<li>No class - Project work</li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>14</td>
-<td>5/2 &amp; <del>5/4</del></td>
-<td><ul>
-<li>No class - Project work</li>
-</ul></td>
-<td>Project due</td>
-</tr>
-</tbody>
-</table>
-<p><strong>NB:</strong> <del>struckout</del> - class not held, reserved for project work</p>
-</div>
-<div id="course-values-and-policies" class="section level2 unnumbered">
-<h2>Course Values and Policies</h2>
-<p><strong>Everyone is welcome.</strong> Every background, race, color, creed, religion, ethnic
-origin, age, sex, sexual orientation, gender identity, nationality is welcome
-and celebrated in this course. Everyone deserves respect, patience, and
-kindness. Disrespectful language, discrimination, or harassment of any kind are
-not tolerated, and may result in removal from class or the University. This is
-not merely <a href="http://www.bu.edu/policies/policy-category/harassment-discrimination/">BU policy</a>.
-The instructors deem these principles to be inviolable human rights. Students
-should feel safe reporting any and all instances of discrimination or
-harassment to the instructor, to any of the Bioinformatics Program leadership,
-or the <a href="http://www.bu.edu/eoo/">BU Equal Opportunity Office</a>.</p>
-<p><strong>Everyone brings value.</strong> Each of us brings unique experiences, skills, and
-creativity to this course. Our diversity is our greatest asset.</p>
-<p><strong>Collaboration is highly encouraged.</strong> All students are encouraged to work
-together and seek out any and all available resources when completing projects
-in all aspects of the course, including sharing coding ideas and strategies with
-each other as well as those found on the internet. Any and all available
-resources may be brought to bear. However, consistent with BU policy, the bulk
-of your code and your final reports should be written in your own words and
-represent your own work and understanding of the material. Copying/pasting large
-sections of code is not acceptable and will be investigated as cheating (we check).</p>
-<p><strong>A safe space for dissent.</strong> For complex topics such as those covered in this
-class, there is seldom one correct answer, approach, or solution. Disagreement
-fosters innovation. All in the course, including students and TAs, are
-encouraged to express constructive criticism and alternative ideas on any
-aspect of the content.</p>
-<p><strong>We are always learning.</strong> Our knowledge and understanding is always
-incomplete. Even experts are fallible. The bioinformatics field evolves
-rapidly, and Rome was not built in a day. Be kind to yourself and to others.
-You are always smarter and more knowledgable today than you were yesterday.</p>
 
 </div>
 </div>
@@ -617,8 +462,8 @@ You are always smarter and more knowledgable today than you were yesterday.</p>
           </div>
         </div>
       </div>
-
-<a href="introduction-overview.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="preliminaries.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

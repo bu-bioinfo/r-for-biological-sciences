@@ -1,0 +1,29 @@
+.bold {
+  font-weight: bold;
+}
+.nb:before {
+  content: "Note:";
+}
+.nb {
+  background: #eeeeff;
+  border: 2px #333333 solid;
+  padding: 3px;
+}
+.warning:before {
+  content: "Warning:";
+}
+.warning {
+  background: #ffcc99;
+  border: 2px #333333 solid;
+  padding: 3px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.important:before {
+  content: "Important:";
+}
+.important {
+  background: #ffffcc;
+  border: 2px #333333 solid;
+  padding: 3px;
+}
