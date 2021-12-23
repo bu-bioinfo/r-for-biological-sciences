@@ -11,6 +11,7 @@ rmd_files:
     - "60_rshiny.Rmd"
     - "70_communication.Rmd"
     - "80_contribution_guide.Rmd"
+    - "900_assignments.Rmd"
     - "91_assignment_2.Rmd"
     - "95_assignment_6.Rmd"
 delete_merged_file: true
