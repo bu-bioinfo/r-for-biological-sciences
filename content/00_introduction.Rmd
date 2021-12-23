@@ -58,13 +58,27 @@ knowledge domains. This book covers many of these topics in relatively shallow
 depth, but with the intent of presenting just enough in each to enable the
 learner to become proficient in most day-to-day biological analysis tasks.
 
+## Who This Book Is For
+
+This book was written for the practicing biologist wishing to learn how to use
+R to analyze biological data. A basic working knowledge of basic genetics,
+genomics, molecular biology, and biochemistry is assumed, but we endeavored to
+include enough pertinent background to understand the analysis concepts
+presented in the text. Basic knowledge of statistics is assumed, but again some
+background is provided as necessary to understand the analyses and concepts in
+the text. No further knowledge is assumed.
+
 ## A Note About Reinventing the Wheel
 
 Many topics in this book are covered elsewhere in greater detail and depth. The
 content in each section is intended to stand alone, but may not provide a high
 level of detail that has been done better by others in online materials. These
 sections provide links to these other resources that provide more information,
-in case the instructions in this book are too terse.
+in case the instructions in this book are too terse or unclear.
+
+::: {.box .readmore}
+* [Wikipedia - Reinventing the Wheel](https://en.wikipedia.org/wiki/Reinventing_the_wheel)
+:::
 
 ## Sources and References
 
