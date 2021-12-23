@@ -6,34 +6,227 @@ output:
 
 # Preliminaries
 
+## The R Language
 
-## Audience & Prerequisites
+R is a free programming language and environment where that language can be
+used. More specifically, R is a *statistical* programming language, designed
+for the express and exclusive purpose of conducting statistical analyses and
+visualizing data. Said differently, *R is not a general purpose programming
+language* unlike other languages such as python, Java, C, etc. As such, the
+language's real strengths are in the manipulation, analysis, and visualization
+of data and statistical procedures, though it is often used for other purposes
+(for example, web applications with [RShiny], or writing books like this one
+with [bookdown](https://bookdown.org/yihui/bookdown/)). You may download R for
+free from the [Comprehensive R Archive Network](https://cloud.r-project.org/).
 
-This book assumes minimal knowledge of programming
+::: {.box .note}
+
+The effective biological analysis practitioner knows how to use multiple tools
+for their appropriate purposes. The most common programming languages in this
+field are [python](https://www.python.org), R, and scripting languages like
+[The Bourne Again Shell - bash](https://www.gnu.org/software/bash/). While it is
+beyond the scope of this book to cover which tools are best used where, R is
+appropriate wherever data analysis and visualization are needed. Any operations
+that do not involve these aspects (e.g. manipulating text files, programming web
+servers, etc) are likely more suitable  for other languages and software.
+:::
+
+::: {.box .readmore}
+* [R Project Home Page](https://www.r-project.org/)
+* [Section on R from R for Data Science](https://r4ds.had.co.nz/introduction.html#r)
+:::
 
 ## RStudio
 
 This course assumes the learner is using the [RStudio](https://www.rstudio.com/)
 software platform for all analyses, unless otherwise noted. RStudio is a freely
-available and fully featured development environment for R, and has many
-convenient capabilities when learning R.
+available and fully featured integrated development environment (IDE) for R, and
+has many convenient capabilities when learning R. RStudio may be downloaded and
+installed for free from the site above.
 
-::: {.note}
-Nota bene! And stuff!
+::: {.box .important}
+By default, RStudio preserves your R environment when you shut it down and
+restores it when you start it again.
+
+**This is very bad practice!**
+
+The state of your R environment, which includes
+the values stored in variables, the R packages loaded, etc. from previously
+executed code is transient and may not reflect the results your code produces
+when run alone.
+
+Open the Tools > Global Options... menu and set:
+![Never save workspace](https://d33wubrfki0l68.cloudfront.net/7fa44a5471d40025344176ede4169c5ad3159482/1577f/screenshots/rstudio-workspace.png){width=75%}
+
+The book R for Data Science has an [excellent
+chapter](https://r4ds.had.co.nz/workflow-projects.html#workflow-projects) on why
+this is a problem and how to change the RStudio setting to avoid it.
 :::
 
-::: {.hint}
-Avoid R whenever possible
+::: {.box .readmore}
+* [RStudio Education - Beginners Guide](https://education.rstudio.com/learn/beginner/)
+* [ModernDrive R Series - Getting Started](https://moderndive.netlify.app/1-getting-started.html)
+* [R for Data Science - What is real, and where does your analysis "live"?](https://r4ds.had.co.nz/workflow-projects.html)
+* [R for Data Science - RStudio](https://r4ds.had.co.nz/introduction.html#rstudio)
 :::
 
-::: {.warning}
-Caveat emptor
-:::
-
-::: {.important}
-Muy importante
-:::
 
 ## git + github
 
-## Scripting workflow
+### Motivation
+
+Biological analysis entails writing code, which changes over time as you
+develop it, gain insight from your data, and identify new questions and
+hypotheses. A common pattern when developing scripts is to make copies of older
+code files to preserve them before making new changes to them. While it is a
+good idea to maintain a record of all the code you previously ran, over time
+this practice often leads to disorganized, cluttered, untidy analysis
+directories.
+
+For example, say you are working on a script named ``my_R_script.R`` and decide
+you want to add a new analysis that substantially changes the code. You might be
+tempted to make a copy of the current version of the code into a new file
+named ``my_R_script_v2.R`` that you then make changes to, leaving your original
+script intact and untouched going forward. You make your changes to your new
+script, produce some stunning and fascinating plots, present the analysis at a
+group meeting, only to discover later there was a critical bug in your code that
+made the plots misleading and requires substantial redevelopment . Rather than
+edit your version 2 of your script directly, you decide it is sensible to copy
+the file to ``my_R_script_v2_BAD.R`` and edit the version 2 script to fix the
+bug. You are satisfied with your new version 2 script, and so make a new copy
+``my_R_script_v2_final.R``. Upon review of your analysis, you are asked to
+implement new changes to the script based on reviewer feedback. You make a new
+copy of your script to ``my_R_script_v2_final_revision.R`` and make the
+requested changes. Perhaps now your script is final, but in your directory you
+now have five different versions of your analysis:
+
+```
+my_R_script.R
+my_R_script_v2.R
+my_R_script_v2_BAD.R
+my_R_script_v2_final.R
+my_R_script_v2_final_revision.R
+```
+
+When you write your code, you may know which scripts are which, and if you
+follow [good programming practice](#prog-style) and carefully commented your
+code you or your successors may be able to sleuth what was done. However, as
+time passes, the intimate knowledge you thought you had about your code will be
+replaced by other more immediately important things; eventually you may not even
+understand or even recognize your own code, let alone someone else trying to
+understand it. Not an ideal situation in any case. A better solution involves
+recording changes to code over time in such a way that you can recover old code
+if needed, but don't clutter your analytical workspace with unneeded files.
+``git`` provides an efficient solution to this problem.
+
+### git
+
+[git](https://git-scm.com/) is a free, open source [version
+control](https://en.wikipedia.org/wiki/Version_control) software program.
+Version control software is used to track and record changes to code over time, 
+potentially by many developers working on the same software project
+concurrently from different parts of the world. The base git software can be
+used on the command line, or with [graphical user interface
+applications](https://git-scm.com/downloads/guis) for popular operating systems.
+
+There are many excellent tutorials online (some linked below) that teach how to
+use ``git`` but the basic concepts are described below. The command line
+commands are listed, but the same operations apply in the graphical clients.
+
+* A **repository (or repo)** is a collection of files in a directory that you
+  have asked git to track (run ``git init`` in a new directory)
+* Each file you wish to track must be explicitly added to the repo (run
+  ``git add <filename>`` from within the git repo directory)
+* When you modify a tracked file, git will notice those differences and show
+  them to you with ``git status``
+* You may tell git to track the changes to the explicit files that changed (also
+  run ``git add <filename>`` to record changes)
+* A set of tracked changes is stored in the repo by making a **commit**.
+  A commit takes a snapshot of all the tracked files in the repo at the
+  time the commit is made (run ``git commit -c <commit message>`` with a concise
+  commit message that describes what was done)
+* Each commit has a date and time associated with it. The files in the
+  repo can be reset to exactly the state they were in at any commit,
+  thus preserving all previous versions of code.
+
+For the vast majority of use cases, the ``git init``, ``git status``, ``git
+add``, and ``git commit`` operations are all you will need to use git
+effectively. Two more commands, ``git push`` and ``git pull`` are needed when
+sharing your code with others as described in the next section.
+
+::: {.box .readmore}
+* [Official git tutorial videos](https://git-scm.com/videos)
+* [Official git book](https://git-scm.com/book/en/v2)
+* [Git Immersion](https://gitimmersion.com/) - a guided tour through git
+  commands
+* [DataCamp - Git for data scientists](https://www.datacamp.com/courses/introduction-to-git)
+:::
+
+### Git hosting platforms (GitHub)
+
+The basic git software only works on your local computer with local
+repositories. To share this code with others, and receive others' contributions,
+a copy of the repo must be made available in a centralized location that
+everyone can access. One such place is [github.com](https://github.com), which
+is a free web application that hosts git repos.
+[bitbucket.org](https://bitbucket.org) is another popular free git repo hosting
+service. These two services are practically the same, so we will focus on
+GitHub.
+
+::: {.box .note}
+There is no formal relationship between git and GitHub. git is an open source
+software project maintained by hundreds of developers around the world (and is
+[hosted on GitHub](https://github.com/git/git)). GitHub is an independently
+provided web service and application. The only connection between GitHub and git
+is that GitHub hosts git repos.
+:::
+
+As with git, there are many excellent tutorials on how to use GitHub, but the
+basic concepts are described below.
+
+* First you must create an account on GitHub if you don't have one already
+* Then, create a new repo on GitHub that you wish to contain your code
+  
+The next step depends on whether you have an existing local repo or not:
+
+* *If you do not already have a local git repo:* Follow the instructions on
+  GitHub to ``clone`` your GitHub repo and create a local copy that is connected
+  to the one on GitHub
+* *If you already have a local git repo:* Follow the instructions on the GitHub
+  to connect your local repo to the GitHub one (this is called "adding a
+  remote")
+  
+Now, your local repo is connected to the same repo on GitHub, and the changes
+you make to your local files can be sent, or ``push``ed to the repo on GitHub:
+
+* Make changes to your local files, and ``git add`` and ``git commit`` them as
+  above
+* Update the remote repo on GitHub by pushing your local commits with ``git
+  push``
+* Running ``git status`` will indicate whether your local repo is up to date
+  with your remote GitHub repo
+
+When you are working on a team of contributors to a GitHub repo, your local
+files will become out of date as others push their changes. To ensure your local
+repo is up to date with the GitHub repo, you must ``pull`` your changes from
+GitHub with ``git pull``.
+
+::: {.box .note}
+git was designed to automatically combine changes made to a code base by
+different developers whenever possible. However, if two people make changes to
+the same parts of the same file, git may not be able to resolve those changes
+on its own and the developers must communicate and decide what the code should
+be. These instances are called *merge conflicts* and can be challenging to
+resolve. Dealing with merge conflicts is beyond the scope of this book, but
+some resources are linked below for further reading.
+:::
+
+All the content and code for this book are [stored and available on
+GitHub](https://github.com/bu-bioinfo/r_for_biological_sciences), as are the
+[assignment code templates](#assignments).
+
+::: {.box .readmore}
+* [Official GitHub Tutorial](https://docs.github.com/en/get-started/quickstart/hello-world)
+* [FreeCodeCamp - Git and GitHub For Beginners](https://www.freecodecamp.org/news/git-and-github-for-beginners/)
+* [Official GitHub Tutorial on Merge Conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/about-merge-conflicts)
+:::
