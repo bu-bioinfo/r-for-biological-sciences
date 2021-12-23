@@ -1,11 +1,14 @@
 introduction-overview
+who-this-book-is-for
 a-note-about-reinventing-the-wheel
 sources-and-references
 preliminaries
-audience-prerequisites
+the-r-language
 rstudio
 git-github
-scripting-workflow
+motivation
+git
+git-hosting-platforms-github
 r-programming
 before-you-begin
 prog-the-r-script
@@ -138,3 +141,6 @@ learning-objectives-27
 skill-list-27
 contribution-guide
 custom-blocks
+section
+assignments
+overview-28

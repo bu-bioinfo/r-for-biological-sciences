@@ -139,15 +139,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction-overview.html"><a href="introduction-overview.html"><i class="fa fa-check"></i><b>1</b> Introduction &amp; Overview</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="introduction-overview.html"><a href="introduction-overview.html#a-note-about-reinventing-the-wheel"><i class="fa fa-check"></i><b>1.1</b> A Note About Reinventing the Wheel</a></li>
-<li class="chapter" data-level="1.2" data-path="introduction-overview.html"><a href="introduction-overview.html#sources-and-references"><i class="fa fa-check"></i><b>1.2</b> Sources and References</a></li>
+<li class="chapter" data-level="1.1" data-path="introduction-overview.html"><a href="introduction-overview.html#who-this-book-is-for"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-overview.html"><a href="introduction-overview.html#a-note-about-reinventing-the-wheel"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-overview.html"><a href="introduction-overview.html#sources-and-references"><i class="fa fa-check"></i><b>1.3</b> Sources and References</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>2</b> Preliminaries</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="preliminaries.html"><a href="preliminaries.html#audience-prerequisites"><i class="fa fa-check"></i><b>2.1</b> Audience &amp; Prerequisites</a></li>
+<li class="chapter" data-level="2.1" data-path="preliminaries.html"><a href="preliminaries.html#the-r-language"><i class="fa fa-check"></i><b>2.1</b> The R Language</a></li>
 <li class="chapter" data-level="2.2" data-path="preliminaries.html"><a href="preliminaries.html#rstudio"><i class="fa fa-check"></i><b>2.2</b> RStudio</a></li>
-<li class="chapter" data-level="2.3" data-path="preliminaries.html"><a href="preliminaries.html#git-github"><i class="fa fa-check"></i><b>2.3</b> git + github</a></li>
-<li class="chapter" data-level="2.4" data-path="preliminaries.html"><a href="preliminaries.html#scripting-workflow"><i class="fa fa-check"></i><b>2.4</b> Scripting workflow</a></li>
+<li class="chapter" data-level="2.3" data-path="preliminaries.html"><a href="preliminaries.html#git-github"><i class="fa fa-check"></i><b>2.3</b> git + github</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="preliminaries.html"><a href="preliminaries.html#motivation"><i class="fa fa-check"></i><b>2.3.1</b> Motivation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="preliminaries.html"><a href="preliminaries.html#git"><i class="fa fa-check"></i><b>2.3.2</b> git</a></li>
+<li class="chapter" data-level="2.3.3" data-path="preliminaries.html"><a href="preliminaries.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>2.3.3</b> Git hosting platforms (GitHub)</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="r-programming.html"><a href="r-programming.html"><i class="fa fa-check"></i><b>3</b> R Programming</a>
 <ul>
@@ -350,6 +355,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>11</b> Contribution Guide</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="contribution-guide.html"><a href="contribution-guide.html#custom-blocks"><i class="fa fa-check"></i><b>11.1</b> Custom blocks</a></li>
+<li class="chapter" data-level="11.2" data-path="contribution-guide.html"><a href="contribution-guide.html#section"><i class="fa fa-check"></i><b>11.2</b> —</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i><b>12</b> Assignments</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="assignments.html"><a href="assignments.html#overview-28"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html"><i class="fa fa-check"></i>Assignment 2</a>
 <ul>
@@ -391,35 +401,215 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="preliminaries" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Preliminaries</h1>
-<div id="audience-prerequisites" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Audience &amp; Prerequisites</h2>
-<p>This book assumes minimal knowledge of programming</p>
+<div id="the-r-language" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> The R Language</h2>
+<p>R is a free programming language and environment where that language can be
+used. More specifically, R is a <em>statistical</em> programming language, designed
+for the express and exclusive purpose of conducting statistical analyses and
+visualizing data. Said differently, <em>R is not a general purpose programming
+language</em> unlike other languages such as python, Java, C, etc. As such, the
+language’s real strengths are in the manipulation, analysis, and visualization
+of data and statistical procedures, though it is often used for other purposes
+(for example, web applications with <a href="rshiny.html#rshiny">RShiny</a>, or writing books like this one
+with <a href="https://bookdown.org/yihui/bookdown/">bookdown</a>). You may download R for
+free from the <a href="https://cloud.r-project.org/">Comprehensive R Archive Network</a>.</p>
+<div class="box note">
+<p>The effective biological analysis practitioner knows how to use multiple tools
+for their appropriate purposes. The most common programming languages in this
+field are <a href="https://www.python.org">python</a>, R, and scripting languages like
+<a href="https://www.gnu.org/software/bash/">The Bourne Again Shell - bash</a>. While it is
+beyond the scope of this book to cover which tools are best used where, R is
+appropriate wherever data analysis and visualization are needed. Any operations
+that do not involve these aspects (e.g. manipulating text files, programming web
+servers, etc) are likely more suitable for other languages and software.</p>
+</div>
+<div class="box readmore">
+<ul>
+<li><a href="https://www.r-project.org/">R Project Home Page</a></li>
+<li><a href="https://r4ds.had.co.nz/introduction.html#r">Section on R from R for Data Science</a></li>
+</ul>
+</div>
 </div>
 <div id="rstudio" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> RStudio</h2>
 <p>This course assumes the learner is using the <a href="https://www.rstudio.com/">RStudio</a>
 software platform for all analyses, unless otherwise noted. RStudio is a freely
-available and fully featured development environment for R, and has many
-convenient capabilities when learning R.</p>
-<div class="note">
-<p>Nota bene! And stuff!</p>
+available and fully featured integrated development environment (IDE) for R, and
+has many convenient capabilities when learning R. RStudio may be downloaded and
+installed for free from the site above.</p>
+<div class="box important">
+<p>By default, RStudio preserves your R environment when you shut it down and
+restores it when you start it again.</p>
+<p><strong>This is very bad practice!</strong></p>
+<p>The state of your R environment, which includes
+the values stored in variables, the R packages loaded, etc. from previously
+executed code is transient and may not reflect the results your code produces
+when run alone.</p>
+<p>Open the Tools &gt; Global Options… menu and set:
+<img src="https://d33wubrfki0l68.cloudfront.net/7fa44a5471d40025344176ede4169c5ad3159482/1577f/screenshots/rstudio-workspace.png" style="width:75.0%" alt="Never save workspace" /></p>
+<p>The book R for Data Science has an <a href="https://r4ds.had.co.nz/workflow-projects.html#workflow-projects">excellent
+chapter</a> on why
+this is a problem and how to change the RStudio setting to avoid it.</p>
 </div>
-<div class="hint">
-<p>Avoid R whenever possible</p>
-</div>
-<div class="warning">
-<p>Caveat emptor</p>
-</div>
-<div class="important">
-<p>Muy importante</p>
+<div class="box readmore">
+<ul>
+<li><a href="https://education.rstudio.com/learn/beginner/">RStudio Education - Beginners Guide</a></li>
+<li><a href="https://moderndive.netlify.app/1-getting-started.html">ModernDrive R Series - Getting Started</a></li>
+<li><a href="https://r4ds.had.co.nz/workflow-projects.html">R for Data Science - What is real, and where does your analysis “live”?</a></li>
+<li><a href="https://r4ds.had.co.nz/introduction.html#rstudio">R for Data Science - RStudio</a></li>
+</ul>
 </div>
 </div>
 <div id="git-github" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> git + github</h2>
+<div id="motivation" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Motivation</h3>
+<p>Biological analysis entails writing code, which changes over time as you
+develop it, gain insight from your data, and identify new questions and
+hypotheses. A common pattern when developing scripts is to make copies of older
+code files to preserve them before making new changes to them. While it is a
+good idea to maintain a record of all the code you previously ran, over time
+this practice often leads to disorganized, cluttered, untidy analysis
+directories.</p>
+<p>For example, say you are working on a script named <code>my_R_script.R</code> and decide
+you want to add a new analysis that substantially changes the code. You might be
+tempted to make a copy of the current version of the code into a new file
+named <code>my_R_script_v2.R</code> that you then make changes to, leaving your original
+script intact and untouched going forward. You make your changes to your new
+script, produce some stunning and fascinating plots, present the analysis at a
+group meeting, only to discover later there was a critical bug in your code that
+made the plots misleading and requires substantial redevelopment . Rather than
+edit your version 2 of your script directly, you decide it is sensible to copy
+the file to <code>my_R_script_v2_BAD.R</code> and edit the version 2 script to fix the
+bug. You are satisfied with your new version 2 script, and so make a new copy
+<code>my_R_script_v2_final.R</code>. Upon review of your analysis, you are asked to
+implement new changes to the script based on reviewer feedback. You make a new
+copy of your script to <code>my_R_script_v2_final_revision.R</code> and make the
+requested changes. Perhaps now your script is final, but in your directory you
+now have five different versions of your analysis:</p>
+<pre><code>my_R_script.R
+my_R_script_v2.R
+my_R_script_v2_BAD.R
+my_R_script_v2_final.R
+my_R_script_v2_final_revision.R</code></pre>
+<p>When you write your code, you may know which scripts are which, and if you
+follow <a href="r-programming.html#prog-style">good programming practice</a> and carefully commented your
+code you or your successors may be able to sleuth what was done. However, as
+time passes, the intimate knowledge you thought you had about your code will be
+replaced by other more immediately important things; eventually you may not even
+understand or even recognize your own code, let alone someone else trying to
+understand it. Not an ideal situation in any case. A better solution involves
+recording changes to code over time in such a way that you can recover old code
+if needed, but don’t clutter your analytical workspace with unneeded files.
+<code>git</code> provides an efficient solution to this problem.</p>
 </div>
-<div id="scripting-workflow" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Scripting workflow</h2>
+<div id="git" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> git</h3>
+<p><a href="https://git-scm.com/">git</a> is a free, open source <a href="https://en.wikipedia.org/wiki/Version_control">version
+control</a> software program.
+Version control software is used to track and record changes to code over time,
+potentially by many developers working on the same software project
+concurrently from different parts of the world. The base git software can be
+used on the command line, or with <a href="https://git-scm.com/downloads/guis">graphical user interface
+applications</a> for popular operating systems.</p>
+<p>There are many excellent tutorials online (some linked below) that teach how to
+use <code>git</code> but the basic concepts are described below. The command line
+commands are listed, but the same operations apply in the graphical clients.</p>
+<ul>
+<li>A <strong>repository (or repo)</strong> is a collection of files in a directory that you
+have asked git to track (run <code>git init</code> in a new directory)</li>
+<li>Each file you wish to track must be explicitly added to the repo (run
+<code>git add &lt;filename&gt;</code> from within the git repo directory)</li>
+<li>When you modify a tracked file, git will notice those differences and show
+them to you with <code>git status</code></li>
+<li>You may tell git to track the changes to the explicit files that changed (also
+run <code>git add &lt;filename&gt;</code> to record changes)</li>
+<li>A set of tracked changes is stored in the repo by making a <strong>commit</strong>.
+A commit takes a snapshot of all the tracked files in the repo at the
+time the commit is made (run <code>git commit -c &lt;commit message&gt;</code> with a concise
+commit message that describes what was done)</li>
+<li>Each commit has a date and time associated with it. The files in the
+repo can be reset to exactly the state they were in at any commit,
+thus preserving all previous versions of code.</li>
+</ul>
+<p>For the vast majority of use cases, the <code>git init</code>, <code>git status</code>, <code>git add</code>, and <code>git commit</code> operations are all you will need to use git
+effectively. Two more commands, <code>git push</code> and <code>git pull</code> are needed when
+sharing your code with others as described in the next section.</p>
+<div class="box readmore">
+<ul>
+<li><a href="https://git-scm.com/videos">Official git tutorial videos</a></li>
+<li><a href="https://git-scm.com/book/en/v2">Official git book</a></li>
+<li><a href="https://gitimmersion.com/">Git Immersion</a> - a guided tour through git
+commands</li>
+<li><a href="https://www.datacamp.com/courses/introduction-to-git">DataCamp - Git for data scientists</a></li>
+</ul>
+</div>
+</div>
+<div id="git-hosting-platforms-github" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Git hosting platforms (GitHub)</h3>
+<p>The basic git program only works on your local computer with local repositories.
+To share this code with others, and receive others’ contributions, a copy of the
+repo must be made available in a centralized location that everyone can access.
+One such place is <a href="https://github.com">github.com</a>, which is a free web
+application that hosts git repos. <a href="https://bitbucket.org">bitbucket.org</a> is
+another popular free git repo hosting service. These two services are
+practically the same, so we will focus on GitHub.</p>
+<div class="box note">
+<p>There is no formal relationship between git and GitHub. git is an open source
+software project maintained by hundreds of developers around the world (and is
+<a href="https://github.com/git/git">hosted on GitHub</a>). GitHub is an independently
+provided web service and application. The only connection between GitHub and git
+is that GitHub hosts git repos.</p>
+</div>
+<p>As with git, there are many excellent tutorials on how to use GitHub, but the
+basic concepts are described below.</p>
+<ul>
+<li>First you must create an account on GitHub if you don’t have one already</li>
+<li>Then, create a new repo on GitHub that you wish to contain your code</li>
+</ul>
+<p>The next step depends on whether you have an existing local repo or not:</p>
+<ul>
+<li><em>If you do not already have a local git repo:</em> Follow the instructions on
+GitHub to <code>clone</code> your GitHub repo and create a local copy that is connected
+to the one on GitHub</li>
+<li><em>If you already have a local git repo:</em> Follow the instructions on the GitHub
+to connect your local repo to the GitHub one (this is called “adding a
+remote”)</li>
+</ul>
+<p>Now, your local repo is connected to the same repo on GitHub, and the changes
+you make to your local files can be sent, or <code>push</code>ed to the repo on GitHub:</p>
+<ul>
+<li>Make changes to your local files, and <code>git add</code> and <code>git commit</code> them as
+above</li>
+<li>Update the remote repo on GitHub by pushing your local commits with <code>git   push</code></li>
+<li>Running <code>git status</code> will indicate whether your local repo is up to date
+with your remote GitHub repo</li>
+</ul>
+<p>When you are working on a team of contributors to a GitHub repo, your local
+files will become out of date as others push their changes. To ensure your local
+repo is up to date with the GitHub repo, you must <code>pull</code> your changes from
+GitHub with <code>git pull</code>.</p>
+<div class="box note">
+<p>git was designed to automatically combine changes made to a code base by
+different developers whenever possible. However, if two people make changes to
+the same parts of the same file, git may not be able to resolve those changes
+on its own and the developers must communicate and decide what the code should
+be. These instances are called <em>merge conflicts</em> and can be challenging to
+resolve. Dealing with merge conflicts is beyond the scope of this book, but
+some resources are linked below for further reading.</p>
+</div>
+<p>All the content and code for this book are <a href="https://github.com/bu-bioinfo/r_for_biological_sciences">stored and available on
+GitHub</a>, as are the
+<a href="assignments.html#assignments">assignment code templates</a>.</p>
+<div class="box readmore">
+<ul>
+<li><a href="https://docs.github.com/en/get-started/quickstart/hello-world">Official GitHub Tutorial</a></li>
+<li><a href="https://www.freecodecamp.org/news/git-and-github-for-beginners/">FreeCodeCamp - Git and GitHub For Beginners</a></li>
+<li><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/about-merge-conflicts">Official GitHub Tutorial on Merge Conflicts</a></li>
+</ul>
+</div>
 
+</div>
 </div>
 </div>
             </section>
