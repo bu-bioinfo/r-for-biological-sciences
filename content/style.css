@@ -1,16 +1,36 @@
 .bold {
   font-weight: bold;
 }
+.box{
+  border-radius: 8px;  
+  border: 2px #989898 solid;
+  padding-top: 3px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 3px;
+  margin-bottom: 3px;  
+}
+.tldr:before {
+  content: "tl;dr";
+  font-weight: bold;
+}
+.tldr {
+  background: #eeeeee;
+}
+.readmore:before {
+  content: "Further reading:";
+  font-weight: bold;
+}
+.readmore {
+  background: #eeeeee;
+}
 .note:before {
   content: "Note:";
   font-weight: bold;
 }
 .note {
   background: #eeeeff;
-  border: 2px #333333 solid;
-  padding: 5px;
-  margin-top: 3px;
-  margin-bottom: 3px; 
 }
 .hint:before {
   content: "Hint:";
@@ -18,10 +38,6 @@
 }
 .hint {
   background: #ccffcc;
-  border: 2px #333333 solid;
-  padding: 5px;
-  margin-top: 3px;
-  margin-bottom: 3px; 
 }
 .warning:before {
   content: "Warning:";
@@ -29,10 +45,6 @@
 }
 .warning {
   background: #ffcc99;
-  border: 2px #333333 solid;
-  padding: 5px;
-  margin-top: 3px;
-  margin-bottom: 3px;
 }
 .important:before {
   content: "Important:";
@@ -40,8 +52,4 @@
 }
 .important {
   background: #ffffcc;
-  border: 2px #333333 solid;
-  padding: 5px;
-  margin-top: 3px;
-  margin-bottom: 3px;
 }

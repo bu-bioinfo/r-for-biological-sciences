@@ -10,35 +10,43 @@ This page contains some conventions and tips for writing material for this book.
 
 There are a number of custom blocks that can be used for highlighting salient
 information throughout the text. The code inside the corresponding block below
-can be used to insert Notes, Hints, Information, and Warnings:
+can be used to insert different standout boxes:
 
-::: {.note}
+::: {.box .tldr}
 ```
-::: {.note}
+::: {.box .tldr}
+This is a tl;dr
+:::
+```
+:::
+
+::: {.box .note}
+```
+::: {.box .note}
 This is a note
 :::
 ```
 :::
 
-::: {.hint}
+::: {.box .hint}
 ```
-::: {.hint}
+::: {.box .hint}
 This is a hint
 :::
 ```
 :::
 
-::: {.important}
+::: {.box .important}
 ```
-::: {.important}
+::: {.box .important}
 This is an important
 :::
 ```
 :::
 
-::: {.warning}
+::: {.box .warning}
 ```
-::: {.warning}
+::: {.box .warning}
 This is a warning
 :::
 ```
