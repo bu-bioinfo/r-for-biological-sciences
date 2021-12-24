@@ -64,30 +64,31 @@ but the materials also stand alone as an independent class.
 |      |                   | - [Bio: R in Biology](#bio-r)                            |                           |
 |      |                   | - [Bio: Bioconductor Basics](#bio-bioconductor)          |                           |
 +------+-------------------+----------------------------------------------------------+---------------------------+
-| 3    | 2/7  & 2/9        | - [Data Sci: Distributions & Tests](#ds-dists)           |                           |
-|      |                   | - [R Programming: Structures & Iteration](#prog-struct)  | [Assignment 3]            |
-|      |                   | - [Data Sci: Summarization & Cleaning](#ds-summ)         |                           |
+| 3    | 2/7  & 2/9        | - [Data Sci: Data Modeling](#ds-model)                   |                           |
+|      |                   | - [Bio: Gene Expression](#bio-geneexp)                   | [Assignment 3]            |
+|      |                   | - [Bio: Differential Expression: Microarrays](#bio-micro)|                           |
 |      |                   | - [Data Sci: Clustering](#ds-clust)                      |                           |
 +------+-------------------+----------------------------------------------------------+---------------------------+
-| 4    | 2/14 & 2/16       | - [Data Sci: Data Modeling](#ds-model)                   |                           |
-|      |                   | - [Bio: Gene Expression](#bio-geneexp)                   | [Assignment 4]            |
-|      |                   | - [Bio: Differential Expression: Microarrays](#bio-micro)|                           |
+| 3    | 2/14 & 2/16       | - [Data Sci: Distributions & Tests](#ds-dists)           |                           |
+|      |                   | - [R Programming: Structures & Iteration](#prog-struct)  | [Assignment 4]            |
+|      |                   | - [Data Sci: Summarization & Cleaning](#ds-summ)         |                           |
 |      |                   | - [Bio: Gene Set Enrichment Analysis](#bio-gsea)         |                           |
 +------+-------------------+----------------------------------------------------------+---------------------------+
-| 5    | 2/22 & 2/23       | - [Bio: High Throughput Sequencing](#bio-hts)            | [Assignment 5]            |
-|      |                   | - [Bio: Differential Expression: RNASeq](#bio-rnaseq)    |                           |
+| 5    | 2/22 & 2/23       | - [Bio: High Throughput Sequencing](#bio-hts)            |                           |
+|      |                   | - [Bio: Differential Expression: RNASeq](#bio-rnaseq)    | [Assignment 5]            |
 |      |                   | - [Bio: Gene Set Enrichment Analysis](#bio-gsea)         |                           |
 |      |                   | - [R Programming: Style & Conventions](#prog-style)      |                           |
 +------+-------------------+----------------------------------------------------------+---------------------------+
 | 6    | 2/28 & 3/2        | - [Data Viz: Responsible Plotting](#dv-resp)             | [Assignment 6]            |
 +------+-------------------+----------------------------------------------------------+---------------------------+
-| 7    | 3/14 & 3/16       | - [Bio: Biological Networks](#bio-networks)              | [Assignment 7]            |
-|      |                   | - [Data Sci: Network Analysis](#ds-networks)             |                           |
+| 7    | 3/14 & 3/16       | - [Bio: Single Cell Sequencing](#bio-scseq)              | [Assignment 7]            |
+|      |                   | - [R Programming: Pipelines & Workflows](#prog-workflows)|                           |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 8    | 3/21 & 3/23       | - [RShiny]                                               | [Assignment 8]            |
++------+-------------------+----------------------------------------------------------+---------------------------+
+| 9    | 3/28 & 3/30       | - [Bio: Biological Networks](#bio-networks)              |                           |
+|      |                   | - [Data Sci: Network Analysis](#ds-networks)             | [Project]                 |
 |      |                   | - [Data Viz: Network Viz](#ds-network-viz)               |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 8    | 3/21 & 3/23       | - [Bio: Single Cell Sequencing](#bio-scseq)              | [Assignment 8]            |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 9    | 3/28 & ~~3/30~~   | - [RShiny]                                               | [Project]                 |
 +------+-------------------+----------------------------------------------------------+---------------------------+
 | 10   | 4/4  & ~~4/6~~    | - [Toolification]                                        |                           |
 +------+-------------------+----------------------------------------------------------+---------------------------+
@@ -138,4 +139,3 @@ aspect of the content.
 incomplete. Even experts are fallible. The bioinformatics field evolves
 rapidly, and Rome was not built in a day. Be kind to yourself and to others.
 You are always smarter and more knowledgable today than you were yesterday.
-

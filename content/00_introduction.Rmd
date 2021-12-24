@@ -49,7 +49,7 @@ se*, the tidyverse packages define a set of consistent programming conventions
 and patterns that are tailored to the types of manipulations required to make
 data "tidy" and, therefore, easier and more consistent to work with. The
 tidyverse therefore is something of its own "language" that is compatible with
-but distinct in convention from the base R language. 
+but distinct in convention from the base R language.
 
 This book and accompanying course focus on how to use R and its related package
 ecosystems to analyze, visualize, and communicate biological data analyses. As
@@ -88,5 +88,7 @@ would like to thank the generosity of the creators and maintainers of these
 resources for making their valuable contributions:
 
 * [R for Data Science](https://r4ds.had.co.nz/), by Hadley Wickam, Garrett Grolemund, et al
+* [STAT 545 - Data wrangling, exploration, and analysis with R](https://stat545.com/index.html)
+* [What They Forgot to Teach You About R](https://rstats.wtf/index.html)
 * [Reproducible Analysis with R](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/), by State of Alaska's Salmon and People Project, NCEAS
 * [How Charts Lie: Getting Sparter about Visual Information](https://wwnorton.com/books/9781324001560/about-the-book), by Alberto Cairo

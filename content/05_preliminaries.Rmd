@@ -6,7 +6,7 @@ output:
 
 # Preliminaries
 
-## The R Language
+## The R Language {#prelim-r}
 
 R is a free programming language and environment where that language can be
 used. More specifically, R is a *statistical* programming language, designed
@@ -55,8 +55,11 @@ the values stored in variables, the R packages loaded, etc. from previously
 executed code is transient and may not reflect the results your code produces
 when run alone.
 
-Open the Tools > Global Options... menu and set:
-![Never save workspace](https://d33wubrfki0l68.cloudfront.net/7fa44a5471d40025344176ede4169c5ad3159482/1577f/screenshots/rstudio-workspace.png){width=75%}
+Open the Tools > Global Options... menu and:
+1. Uncheck "Restore .RData into workspace at startup"
+2. Set "Save workspace to .RData on exit:" to "Never"
+
+![Never save workspace](rstudio_no_workspace_save.png){width=75%}
 
 The book R for Data Science has an [excellent
 chapter](https://r4ds.had.co.nz/workflow-projects.html#workflow-projects) on why
@@ -67,6 +70,7 @@ this is a problem and how to change the RStudio setting to avoid it.
 * [RStudio Education - Beginners Guide](https://education.rstudio.com/learn/beginner/)
 * [ModernDrive R Series - Getting Started](https://moderndive.netlify.app/1-getting-started.html)
 * [R for Data Science - What is real, and where does your analysis "live"?](https://r4ds.had.co.nz/workflow-projects.html)
+* [What They Forgot To Teach You About R - Always start R with a blank slate](https://rstats.wtf/save-source.html#always-start-r-with-a-blank-slate)
 * [R for Data Science - RStudio](https://r4ds.had.co.nz/introduction.html#rstudio)
 :::
 
@@ -90,15 +94,30 @@ named ``my_R_script_v2.R`` that you then make changes to, leaving your original
 script intact and untouched going forward. You make your changes to your new
 script, produce some stunning and fascinating plots, present the analysis at a
 group meeting, only to discover later there was a critical bug in your code that
-made the plots misleading and requires substantial redevelopment . Rather than
-edit your version 2 of your script directly, you decide it is sensible to copy
-the file to ``my_R_script_v2_BAD.R`` and edit the version 2 script to fix the
-bug. You are satisfied with your new version 2 script, and so make a new copy
-``my_R_script_v2_final.R``. Upon review of your analysis, you are asked to
-implement new changes to the script based on reviewer feedback. You make a new
-copy of your script to ``my_R_script_v2_final_revision.R`` and make the
-requested changes. Perhaps now your script is final, but in your directory you
-now have five different versions of your analysis:
+made the plots misleading and requires substantial redevelopment.
+
+::: {.box .note}
+**Bugs happen.** There are two types of bugs:
+
+1. Syntax bugs: bugs due to incorrect language usage, which R will tell you
+   about and can (usually) be easily identified and fixed
+2. Logic bugs: the code you write is syntactically correct, but does something
+   other than what you intend
+
+**Bugs are normal.** The scenario described above, where you present results only to
+discover your code wasn't doing what you thought it was doing, is extremely
+common and *it will happen to you*. This is normal, and finding a bug in your
+code does not mean you are a bad programmer.
+:::
+
+Rather than edit your version 2 of your script directly, you decide it is
+sensible to copy the file to ``my_R_script_v2_BAD.R`` and edit the version 2
+script to fix the bug. You are satisfied with your new version 2 script, and so
+make a new copy ``my_R_script_v2_final.R``. Upon review of your analysis, you
+are asked to implement new changes to the script based on reviewer feedback. You
+make a new copy of your script to ``my_R_script_v2_final_revision.R`` and make
+the requested changes. Perhaps now your script is final, but in your directory
+you now have five different versions of your analysis:
 
 ```
 my_R_script.R
@@ -123,7 +142,7 @@ if needed, but don't clutter your analytical workspace with unneeded files.
 
 [git](https://git-scm.com/) is a free, open source [version
 control](https://en.wikipedia.org/wiki/Version_control) software program.
-Version control software is used to track and record changes to code over time, 
+Version control software is used to track and record changes to code over time,
 potentially by many developers working on the same software project
 concurrently from different parts of the world. The base git software can be
 used on the command line, or with [graphical user interface
@@ -186,7 +205,7 @@ basic concepts are described below.
 
 * First you must create an account on GitHub if you don't have one already
 * Then, create a new repo on GitHub that you wish to contain your code
-  
+
 The next step depends on whether you have an existing local repo or not:
 
 * *If you do not already have a local git repo:* Follow the instructions on
@@ -195,7 +214,7 @@ The next step depends on whether you have an existing local repo or not:
 * *If you already have a local git repo:* Follow the instructions on the GitHub
   to connect your local repo to the GitHub one (this is called "adding a
   remote")
-  
+
 Now, your local repo is connected to the same repo on GitHub, and the changes
 you make to your local files can be sent, or ``push``ed to the repo on GitHub:
 

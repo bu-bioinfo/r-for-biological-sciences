@@ -6,40 +6,14 @@ output: html_document
 
 ## Distributions & Tests {#ds-dists}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
 
 ## Data summarization & cleaning {#ds-summ}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
 
 ## Clustering {#ds-clust}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
 
 ## Data Modeling {#ds-model}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
 
 ## Network Analysis {#ds-networks}
-
-### Overview
-
-### Learning Objectives
-
-### Skill List

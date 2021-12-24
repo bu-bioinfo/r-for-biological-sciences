@@ -1,15 +1,23 @@
+div.figure {
+  text-align: center;
+  background: rgba(240, 240, 240, 0.6);
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px;
+}
 .bold {
   font-weight: bold;
 }
 .box{
-  border-radius: 8px;  
+  border-radius: 8px;
   border: 2px #989898 solid;
   padding-top: 3px;
   padding-bottom: 0px;
   padding-left: 10px;
   padding-right: 10px;
   margin-top: 3px;
-  margin-bottom: 3px;  
+  margin-bottom: 3px;
 }
 .tldr:before {
   content: "tl;dr";
