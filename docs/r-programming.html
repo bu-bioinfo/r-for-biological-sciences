@@ -313,32 +313,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>11</b> Contribution Guide</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="contribution-guide.html"><a href="contribution-guide.html#custom-blocks"><i class="fa fa-check"></i><b>11.1</b> Custom blocks</a></li>
-<li class="chapter" data-level="11.2" data-path="contribution-guide.html"><a href="contribution-guide.html#section"><i class="fa fa-check"></i><b>11.2</b> —</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i><b>12</b> Assignments</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="assignments.html"><a href="assignments.html#overview-19"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html"><i class="fa fa-check"></i>Assignment 2</a>
+<li class="chapter" data-level="12.1" data-path="assignments.html"><a href="assignments.html#overview-19"><i class="fa fa-check"></i><b>12.1</b> Overview</a>
 <ul>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#problem-statement"><i class="fa fa-check"></i>Problem Statement</a></li>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#learning-objectives-19"><i class="fa fa-check"></i>Learning Objectives</a></li>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#skill-list-19"><i class="fa fa-check"></i>Skill List</a></li>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#instructions"><i class="fa fa-check"></i>Instructions</a></li>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#function-details"><i class="fa fa-check"></i>Function Details</a>
-<ul>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#bioconductor"><i class="fa fa-check"></i>1. Bioconductor</a></li>
-<li><a href="assignment-2.html#load_expression">2. <code>load_expression()</code></a></li>
-<li><a href="assignment-2.html#filter_15">3. <code>filter_15()</code></a></li>
-<li><a href="assignment-2.html#affy_to_hgnc">4. <code>affy_to_hgnc()</code></a></li>
-<li><a href="assignment-2.html#reduce_data">5. <code>reduce_data()</code></a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#assignment-2"><i class="fa fa-check"></i>Assignment 2</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#function-details"><i class="fa fa-check"></i>Function Details</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html"><i class="fa fa-check"></i>Assignment 6</a>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#assignment-6"><i class="fa fa-check"></i>Assignment 6</a>
 <ul>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#problem-statement-1"><i class="fa fa-check"></i>Problem Statement</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#learning-objectives-20"><i class="fa fa-check"></i>Learning Objectives</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#skill-list-20"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#problem-statement-1"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#skill-list-20"><i class="fa fa-check"></i>Skill List</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -550,7 +537,32 @@ use the <code>&lt;-</code> syntax when assigning values to variables!</p>
 </div>
 <div id="functions" class="section level3" number="3.4.2">
 <h3><span class="header-section-number">3.4.2</span> Functions</h3>
-<p>A function is a R provides a large number of</p>
+<p>Just as a variable is a symbolic representation of a value, a function is a
+symbolic representation of code. In other words, a function allows you to
+substitute a short name, e.g. <code>mean</code>, for a set of operations on a given input,
+e.g. the sum of a set of numbers divided by the number of numbers. R provides a
+<a href="https://rdrr.io/r/">very large number of functions</a> for common operations in
+its default environment, and more functions are provided by packages you can
+install separately.</p>
+<p>Because
+functions represent code, most functions are useful only if they can be passed
+different inputs. In R, functions accept arguments using the following pattern:</p>
+<pre><code>function_name(arg1 = val1, arg2 = val2, ...)</code></pre>
+<div class="box note">
+<p>At its core, R is a <em>functional programming language.</em> The details of what this
+means are outside the scope of this book, but as the name implies this refers to
+the language being structured around the use of functions. While this property
+has technical implications on the structure of the language, a more important
+consequence is the style of programming it entails. Compare the following two
+equivalent R code snippets:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-programming.html#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<div class="box readmore">
+<ul>
+<li><a href="https://rdrr.io/r/">rdrr.io - Base R Function Reference</a></li>
+<li><a href="https://adv-r.hadley.nz/fp.html">Advanced R - Functional Programming</a></li>
+</ul>
+</div>
 </div>
 <div id="dry-dont-repeat-yourself" class="section level3" number="3.4.3">
 <h3><span class="header-section-number">3.4.3</span> DRY: Don’t Repeat Yourself</h3>

@@ -115,6 +115,5 @@ learning-objectives-18
 skill-list-18
 contribution-guide
 custom-blocks
-section
 assignments
 overview-19
