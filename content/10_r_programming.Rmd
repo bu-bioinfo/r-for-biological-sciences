@@ -217,7 +217,42 @@ use the `<-` syntax when assigning values to variables!
 
 ### Functions
 
-A function is a R provides a large number of
+Just as a variable is a symbolic representation of a value, a function is a
+symbolic representation of code. In other words, a function allows you to
+substitute a short name, e.g. `mean`, for a set of operations on a given input,
+e.g. the sum of a set of numbers divided by the number of numbers. R provides a
+[very large number of functions](https://rdrr.io/r/) for common operations in
+its default environment, and more functions are provided by packages you can
+install separately.
+
+Because
+functions represent code, most functions are useful only if they can be passed
+different inputs. In R, functions accept arguments using the following pattern:
+
+```
+function_name(arg1 = val1, arg2 = val2, ...)
+```
+
+::: {.box .note}
+At its core, R is a *functional programming language.* The details of what this
+means are outside the scope of this book, but as the name implies this refers to
+the language being structured around the use of functions. While this property
+has technical implications on the structure of the language, a more important
+consequence is the style of programming it entails. Compare the following two
+equivalent R code snippets:
+
+```{r, results='hide'}
+
+x <- 3
+```
+
+
+:::
+
+::: {.box .readmore}
+* [rdrr.io - Base R Function Reference](https://rdrr.io/r/)
+* [Advanced R - Functional Programming](https://adv-r.hadley.nz/fp.html)
+:::
 
 ### DRY: Don't Repeat Yourself
 
