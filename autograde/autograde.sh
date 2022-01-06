@@ -21,26 +21,33 @@ ASSIGNMENT=$2
 echo "The directory is ${1} and the assignment name is ${2}."
 
 # scan all names in dir for assignment name, create CSV of missing/present
+students=0
+repos=0
 statuscsv=${ASSIGNMENT}_status.csv
 touch $statuscsv
 echo "student_folder,folder_exists,test_exists" >> $statuscsv
 for i in $DIRECTORY*/; do
+  ((students++))
   gitfolder=false
   testfile=false
-  [ -d "${i}${ASSIGNMENT}" ] && gitfolder=true
+  if [ -d "${i}${ASSIGNMENT}" ]; then
+    gitfolder=true
+    ((repos++))
+  fi
   [ -f "${i}${ASSIGNMENT}/test_main.R" ] && testfile=true
   echo "$i,$gitfolder,$testfile" >> $statuscsv 
 done
-# TODO: diff with original test_main.R?
-echo "X student dirs found, Y assignment repos found, X/Y% completed"
+echo "${students} student dirs found, ${repos} assignment repos found therein."
 
 # run_test.R on each and pipe output to csv
 module load R
+module load pandoc
 testcsv=${ASSIGNMENT}_tests.csv
 touch $testcsv
 echo "student_dir, test_result" >> tmp.csv
 for i in $DIRECTORY*/; do
   if [ -f "${i}${ASSIGNMENT}/test_main.R" ]; then
+    echo "Testing ${i}${ASSIGNMENT}/test_main.R..."
     echo "${i},"$(Rscript --vanilla run_test.R ${i}${ASSIGNMENT}/test_main.R) >> tmp.csv
   fi
 done

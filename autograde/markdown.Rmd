@@ -2,8 +2,8 @@
 title: "Autograding Report"
 output: html_document
 params:
-  status: "bf591-assignment-2_status.csv"
-  tests: "bf591-assignment-2_tests.csv"
+  status: ""
+  tests: ""
 ---
 
 ```{r Libraries and setup, echo=FALSE, results='hide', message=FALSE}
