@@ -1,0 +1,94 @@
+---
+title: "Autograding Report"
+output: html_document
+params:
+  status: ""
+  tests: ""
+---
+
+```{r Libraries and setup, echo=FALSE, results='hide', message=FALSE}
+suppressPackageStartupMessages({
+  library(tidyverse, quietly = T)
+  library(kableExtra)
+})
+commandArgs(TRUE)
+foldername <- strsplit(params$status, "\\.")[[1]][1]
+foldername <- strsplit(foldername, "_")[[1]][1]
+```
+This script was generated using `autograde.sh` located in:
+```{bash, echo=FALSE}
+pwd
+```
+This was used to test **`r paste0(foldername, "/")`** on `r date()`.
+
+## Student Status
+Below are the student folders found within the testing directory. If a student's directory contains a folder called **`r paste0(foldername, "/")`** then the assingment folder will read as `TRUE`. If, within that folder, there is a file called `test_main.R` then the testing file is present.
+```{r Draw status, echo=FALSE}
+statuscsv <- read_csv(params$status, show_col_types = F)
+statuscsv$student_folder <- str_replace_all(statuscsv$student_folder, 
+                                            pattern = "[\\./]", 
+                                            replacement = "")
+statuscsv %>%
+  mutate(folder_exists = cell_spec(folder_exists, 
+                                   background = ifelse(folder_exists, "lightgreen","pink")),
+         test_exists = cell_spec(test_exists, 
+                                 align = "center",
+                                 background = ifelse(test_exists, "lightgreen", "pink"))) -> 
+  statuscsv 
+
+colnames(statuscsv) <- c("Student folder", 
+                         "Assignment Folder Exists", 
+                         "test_main.R Exists")
+statuscsv %>%
+  kable(escape = FALSE, align = "c") %>%
+  kable_styling(full_width = TRUE)
+```
+
+## Testing Results
+Based on the tests available in `test_main.R`, each student's code will output whether a test has passed, failed, been skipped, or thrown a warning.
+
+```{r Plot test results, echo=FALSE}
+tests <- read_csv(params$tests, show_col_types = F)
+num_tests <- nchar(tests$test_result[1])
+tests <- cbind(tests, str_split_fixed(tests$test_result, "", n = num_tests))
+tests$percent <- apply(tests, 
+                       function(x) { length(which(x == "."))/ num_tests}, 
+                       MARGIN = 1)
+
+add_rect_row <- function(ylevel, status_arr) {
+  data.frame(xmin=0:(length(status_arr)-1),
+             xmax=1:length(status_arr),
+             ymin=rep(ylevel+0.15, 4),
+             ymax=rep(ylevel+0.85, 4),
+             fill=status_arr) %>%
+    return()
+}
+
+plotdf <- data.frame(xmin=NULL, xmax=NULL, ymin=NULL, ymax=NULL, fill=NULL)
+for (row in 1:dim(tests)[1]) {
+  plotdf <- rbind(plotdf, add_rect_row(row-1, 
+                                       as.character(tests[row, 4:dim(tests)[2]-1])))
+}
+
+ggplot(plotdf, aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)) +
+  geom_rect(aes(fill=fill, color="black")) +
+  scale_fill_manual("Test Status", 
+                    values=c("."="lightgreen", "E"="coral1", "S"="cyan3", "W"="orange"),
+                    labels=c("Pass", "Error", "Skipped", "Warning")) +
+  scale_colour_manual(values=c("."="lightgreen", "E"="coral1", "S"="cyan3", "W"="orange"), 
+                      guide="none") +
+  scale_x_continuous("Test",
+                     breaks=0.35:(dim(tests)[2]-3),
+                     labels=1:(dim(tests)[2]-3)) +
+  scale_y_continuous("Student Folder",
+                     breaks=0.5:(dim(tests)[1]),
+                     labels=tests$student_dir) +
+  theme(axis.text.y = element_text(angle=30),
+        axis.ticks.x=element_blank(),
+        axis.ticks.y=element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank())
+
+```
+
