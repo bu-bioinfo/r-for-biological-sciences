@@ -22,6 +22,12 @@ output: html_document
 
 ### Skill List
 
+## Publication Ready Plots
+
+::: {.box .readmore}
+* [ggpubr - publication ready plotting with ggplot](https://rpkgs.datanovia.com/ggpubr/)
+:::
+
 ## Network Viz {#ds-network-viz}
 
 ### Overview

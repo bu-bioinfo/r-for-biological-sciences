@@ -87,6 +87,7 @@ sources, including books and freely available online materials. The authors
 would like to thank the generosity of the creators and maintainers of these
 resources for making their valuable contributions:
 
+* [Hands-On Programming with R](https://rstudio-education.github.io/hopr/), by Garrett Grolemund
 * [R for Data Science](https://r4ds.had.co.nz/), by Hadley Wickam, Garrett Grolemund, et al
 * [STAT 545 - Data wrangling, exploration, and analysis with R](https://stat545.com/index.html)
 * [What They Forgot to Teach You About R](https://rstats.wtf/index.html)

@@ -4,8 +4,4 @@ output: html_document
 
 # Communicating with R
 
-## Overview
-
-## Learning Objectives
-
-## Skill List
+## RMarkdown & knitr

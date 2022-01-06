@@ -58,10 +58,10 @@ but the materials also stand alone as an independent class.
 | 1    | 1/24 & 1/26       | - [Preliminaries]                                        |                           |
 |      |                   | - [R Programming: Basics](#prog-basics)                  | [Assignment 1]            |
 |      |                   | - [Data Wrangling: Basics](#dw-basics)                   |                           |
+|      |                   | - [Bio: R in Biology](#bio-r)                            |                           |
 +------+-------------------+----------------------------------------------------------+---------------------------+
 | 2    | 1/31 & 2/2        | - [Data Wrangling: Arranging](#dw-arranging)             |                           |
 |      |                   | - [Data Viz: Grammar of Graphics](#dv-gg)                | [Assignment 2]            |
-|      |                   | - [Bio: R in Biology](#bio-r)                            |                           |
 |      |                   | - [Bio: Bioconductor Basics](#bio-bioconductor)          |                           |
 +------+-------------------+----------------------------------------------------------+---------------------------+
 | 3    | 2/7  & 2/9        | - [Data Sci: Data Modeling](#ds-model)                   |                           |

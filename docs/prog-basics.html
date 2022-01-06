@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 R Programming | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="3 R Programming | BF591 - R for Biological Sciences" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 R Programming | BF591 - R for Biological Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 R Programming | BF591 - R for Biological Sciences" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="preliminaries.html"/>
+<link rel="next" href="data-wrangling.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i>Course Schedule</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-values-and-policies"><i class="fa fa-check"></i>Course Values and Policies</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-overview.html"><a href="introduction-overview.html"><i class="fa fa-check"></i><b>1</b> Introduction &amp; Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-overview.html"><a href="introduction-overview.html#who-this-book-is-for"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-overview.html"><a href="introduction-overview.html#a-note-about-reinventing-the-wheel"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-overview.html"><a href="introduction-overview.html#sources-and-references"><i class="fa fa-check"></i><b>1.3</b> Sources and References</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>2</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="preliminaries.html"><a href="preliminaries.html#prelim-r"><i class="fa fa-check"></i><b>2.1</b> The R Language</a></li>
+<li class="chapter" data-level="2.2" data-path="preliminaries.html"><a href="preliminaries.html#rstudio"><i class="fa fa-check"></i><b>2.2</b> RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="preliminaries.html"><a href="preliminaries.html#before-you-begin"><i class="fa fa-check"></i><b>2.3</b> Before you begin</a></li>
+<li class="chapter" data-level="2.4" data-path="preliminaries.html"><a href="preliminaries.html#prog-the-r-script"><i class="fa fa-check"></i><b>2.4</b> The R Script</a></li>
+<li class="chapter" data-level="2.5" data-path="preliminaries.html"><a href="preliminaries.html#prog-workflow"><i class="fa fa-check"></i><b>2.5</b> The Scripting Workflow</a></li>
+<li class="chapter" data-level="2.6" data-path="preliminaries.html"><a href="preliminaries.html#git-github"><i class="fa fa-check"></i><b>2.6</b> git + github</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="preliminaries.html"><a href="preliminaries.html#motivation"><i class="fa fa-check"></i><b>2.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="2.6.2" data-path="preliminaries.html"><a href="preliminaries.html#git"><i class="fa fa-check"></i><b>2.6.2</b> git</a></li>
+<li class="chapter" data-level="2.6.3" data-path="preliminaries.html"><a href="preliminaries.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>2.6.3</b> Git hosting platforms (GitHub)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prog-basics.html"><a href="prog-basics.html"><i class="fa fa-check"></i><b>3</b> R Programming</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prog-basics.html"><a href="prog-basics.html#r-syntax-basics"><i class="fa fa-check"></i><b>3.1</b> R Syntax Basics</a></li>
+<li class="chapter" data-level="3.2" data-path="prog-basics.html"><a href="prog-basics.html#prog-types"><i class="fa fa-check"></i><b>3.2</b> Basic Types of Values</a></li>
+<li class="chapter" data-level="3.3" data-path="prog-basics.html"><a href="prog-basics.html#prog-struct"><i class="fa fa-check"></i><b>3.3</b> Data Structures &amp; Iteration</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="prog-basics.html"><a href="prog-basics.html#vectors"><i class="fa fa-check"></i><b>3.3.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.3.2" data-path="prog-basics.html"><a href="prog-basics.html#matrices"><i class="fa fa-check"></i><b>3.3.2</b> Matrices</a></li>
+<li class="chapter" data-level="3.3.3" data-path="prog-basics.html"><a href="prog-basics.html#lists-and-data-frames"><i class="fa fa-check"></i><b>3.3.3</b> Lists and data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="prog-basics.html"><a href="prog-basics.html#logical-tests-and-comparators"><i class="fa fa-check"></i><b>3.4</b> Logical Tests and Comparators</a></li>
+<li class="chapter" data-level="3.5" data-path="prog-basics.html"><a href="prog-basics.html#functions"><i class="fa fa-check"></i><b>3.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="prog-basics.html"><a href="prog-basics.html#prog-dry"><i class="fa fa-check"></i><b>3.5.1</b> DRY: Don’t Repeat Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="prog-basics.html"><a href="prog-basics.html#prog-style"><i class="fa fa-check"></i><b>3.6</b> Coding Style and Conventions</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="prog-basics.html"><a href="prog-basics.html#is-my-code-correct"><i class="fa fa-check"></i><b>3.6.1</b> Is my code correct?</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prog-basics.html"><a href="prog-basics.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>3.6.2</b> Does my code follow the <span>DRY principle</span>?</a></li>
+<li class="chapter" data-level="3.6.3" data-path="prog-basics.html"><a href="prog-basics.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>3.6.3</b> Did I choose concise but descriptive variable and function names?</a></li>
+<li class="chapter" data-level="3.6.4" data-path="prog-basics.html"><a href="prog-basics.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>3.6.4</b> Did I use indentation and naming conventions consistently throughout my code?</a></li>
+<li class="chapter" data-level="3.6.5" data-path="prog-basics.html"><a href="prog-basics.html#did-i-write-comments-especially-when-what-the-code-is-doing-is-not-obvious"><i class="fa fa-check"></i><b>3.6.5</b> Did I write comments, especially when what the code is doing is not obvious</a></li>
+<li class="chapter" data-level="3.6.6" data-path="prog-basics.html"><a href="prog-basics.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>3.6.6</b> How easy would it be for someone else to understand my code?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="prog-basics.html"><a href="prog-basics.html#troubleshootingdebugging-strategies"><i class="fa fa-check"></i><b>3.7</b> Troubleshooting/Debugging Strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#dw-basics"><i class="fa fa-check"></i><b>4.1</b> Basics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#overview"><i class="fa fa-check"></i><b>4.1.1</b> Overview</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#learning-objectives"><i class="fa fa-check"></i><b>4.1.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#skill-list"><i class="fa fa-check"></i><b>4.1.3</b> Skill List</a></li>
+<li class="chapter" data-level="4.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#the-tidyverse"><i class="fa fa-check"></i><b>4.1.4</b> The Tidyverse</a></li>
+<li class="chapter" data-level="4.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#importing-data"><i class="fa fa-check"></i><b>4.1.5</b> Importing Data</a></li>
+<li class="chapter" data-level="4.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#tidying-data"><i class="fa fa-check"></i><b>4.1.6</b> Tidying Data</a></li>
+<li class="chapter" data-level="4.1.7" data-path="data-wrangling.html"><a href="data-wrangling.html#rectangular-data-in-biology"><i class="fa fa-check"></i><b>4.1.7</b> Rectangular Data in Biology</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dw-arranging"><i class="fa fa-check"></i><b>4.2</b> Arranging Data</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#overview-1"><i class="fa fa-check"></i><b>4.2.1</b> Overview</a></li>
+<li class="chapter" data-level="4.2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.2.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#skill-list-1"><i class="fa fa-check"></i><b>4.2.3</b> Skill List</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>5</b> Data Science</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-science.html"><a href="data-science.html#ds-dists"><i class="fa fa-check"></i><b>5.1</b> Distributions &amp; Tests</a></li>
+<li class="chapter" data-level="5.2" data-path="data-science.html"><a href="data-science.html#ds-summ"><i class="fa fa-check"></i><b>5.2</b> Data summarization &amp; cleaning</a></li>
+<li class="chapter" data-level="5.3" data-path="data-science.html"><a href="data-science.html#ds-clust"><i class="fa fa-check"></i><b>5.3</b> Clustering</a></li>
+<li class="chapter" data-level="5.4" data-path="data-science.html"><a href="data-science.html#ds-model"><i class="fa fa-check"></i><b>5.4</b> Data Modeling</a></li>
+<li class="chapter" data-level="5.5" data-path="data-science.html"><a href="data-science.html#ds-networks"><i class="fa fa-check"></i><b>5.5</b> Network Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>6</b> Biology &amp; Bioinformatics</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-r"><i class="fa fa-check"></i><b>6.1</b> R in Biology</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-2"><i class="fa fa-check"></i><b>6.1.1</b> Overview</a></li>
+<li class="chapter" data-level="6.1.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-2"><i class="fa fa-check"></i><b>6.1.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.1.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-2"><i class="fa fa-check"></i><b>6.1.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-bioconductor"><i class="fa fa-check"></i><b>6.2</b> Bioconductor</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-3"><i class="fa fa-check"></i><b>6.2.1</b> Overview</a></li>
+<li class="chapter" data-level="6.2.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.2.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.2.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-3"><i class="fa fa-check"></i><b>6.2.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>6.3</b> Gene Expression</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-4"><i class="fa fa-check"></i><b>6.3.1</b> Overview</a></li>
+<li class="chapter" data-level="6.3.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-4"><i class="fa fa-check"></i><b>6.3.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.3.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-4"><i class="fa fa-check"></i><b>6.3.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>6.4</b> Differential Expression: Microarrays</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-5"><i class="fa fa-check"></i><b>6.4.1</b> Overview</a></li>
+<li class="chapter" data-level="6.4.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-5"><i class="fa fa-check"></i><b>6.4.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.4.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-5"><i class="fa fa-check"></i><b>6.4.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>6.5</b> Gene Set Enrichment Analysis</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-6"><i class="fa fa-check"></i><b>6.5.1</b> Overview</a></li>
+<li class="chapter" data-level="6.5.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-6"><i class="fa fa-check"></i><b>6.5.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.5.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-6"><i class="fa fa-check"></i><b>6.5.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>6.6</b> High Throughput Sequencing</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-7"><i class="fa fa-check"></i><b>6.6.1</b> Overview</a></li>
+<li class="chapter" data-level="6.6.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-7"><i class="fa fa-check"></i><b>6.6.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.6.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-7"><i class="fa fa-check"></i><b>6.6.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>6.7</b> Differential Expression: RNASeq</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-8"><i class="fa fa-check"></i><b>6.7.1</b> Overview</a></li>
+<li class="chapter" data-level="6.7.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-8"><i class="fa fa-check"></i><b>6.7.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.7.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-8"><i class="fa fa-check"></i><b>6.7.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>6.8</b> Biological Network Analysis</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-9"><i class="fa fa-check"></i><b>6.8.1</b> Overview</a></li>
+<li class="chapter" data-level="6.8.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-9"><i class="fa fa-check"></i><b>6.8.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.8.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-9"><i class="fa fa-check"></i><b>6.8.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>6.9</b> Single Cell Sequencing Analysis</a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-10"><i class="fa fa-check"></i><b>6.9.1</b> Overview</a></li>
+<li class="chapter" data-level="6.9.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-10"><i class="fa fa-check"></i><b>6.9.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.9.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-10"><i class="fa fa-check"></i><b>6.9.3</b> Skill List</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>7</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="data-visualization.html"><a href="data-visualization.html#dv-gg"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-11"><i class="fa fa-check"></i><b>7.1.1</b> Overview</a></li>
+<li class="chapter" data-level="7.1.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-11"><i class="fa fa-check"></i><b>7.1.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.1.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-11"><i class="fa fa-check"></i><b>7.1.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="data-visualization.html"><a href="data-visualization.html#dv-resp"><i class="fa fa-check"></i><b>7.2</b> Responsible Plotting</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-12"><i class="fa fa-check"></i><b>7.2.1</b> Overview</a></li>
+<li class="chapter" data-level="7.2.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-12"><i class="fa fa-check"></i><b>7.2.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.2.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-12"><i class="fa fa-check"></i><b>7.2.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-visualization.html"><a href="data-visualization.html#ds-network-viz"><i class="fa fa-check"></i><b>7.3</b> Network Viz</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-13"><i class="fa fa-check"></i><b>7.3.1</b> Overview</a></li>
+<li class="chapter" data-level="7.3.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-13"><i class="fa fa-check"></i><b>7.3.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.3.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-13"><i class="fa fa-check"></i><b>7.3.3</b> Skill List</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>8</b> EngineeRing</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="engineering.html"><a href="engineering.html#unit-testing"><i class="fa fa-check"></i><b>8.1</b> Unit Testing</a></li>
+<li class="chapter" data-level="8.2" data-path="engineering.html"><a href="engineering.html#toolification"><i class="fa fa-check"></i><b>8.2</b> Toolification</a></li>
+<li class="chapter" data-level="8.3" data-path="engineering.html"><a href="engineering.html#prog-workflows"><i class="fa fa-check"></i><b>8.3</b> Pipelines &amp; Workflows</a></li>
+<li class="chapter" data-level="8.4" data-path="engineering.html"><a href="engineering.html#parallel-processing"><i class="fa fa-check"></i><b>8.4</b> Parallel Processing</a></li>
+<li class="chapter" data-level="8.5" data-path="engineering.html"><a href="engineering.html#r-packages"><i class="fa fa-check"></i><b>8.5</b> R Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="rshiny.html"><a href="rshiny.html"><i class="fa fa-check"></i><b>9</b> RShiny</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="rshiny.html"><a href="rshiny.html#overview-14"><i class="fa fa-check"></i><b>9.1</b> Overview</a></li>
+<li class="chapter" data-level="9.2" data-path="rshiny.html"><a href="rshiny.html#learning-objectives-14"><i class="fa fa-check"></i><b>9.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="9.3" data-path="rshiny.html"><a href="rshiny.html#skill-list-14"><i class="fa fa-check"></i><b>9.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>10</b> Communicating with R</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="communicating-with-r.html"><a href="communicating-with-r.html#rmarkdown-knitr"><i class="fa fa-check"></i><b>10.1</b> RMarkdown &amp; knitr</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>11</b> Contribution Guide</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="contribution-guide.html"><a href="contribution-guide.html#custom-blocks"><i class="fa fa-check"></i><b>11.1</b> Custom blocks</a></li>
+<li class="chapter" data-level="11.2" data-path="contribution-guide.html"><a href="contribution-guide.html#section"><i class="fa fa-check"></i><b>11.2</b> —</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i><b>12</b> Assignments</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="assignments.html"><a href="assignments.html#overview-15"><i class="fa fa-check"></i><b>12.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#assignment-2"><i class="fa fa-check"></i>Assignment 2</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#function-details"><i class="fa fa-check"></i>Function Details</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#assignment-6"><i class="fa fa-check"></i>Assignment 6</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#problem-statement-1"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html#skill-list-16"><i class="fa fa-check"></i>Skill List</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">BF591 - R for Biological Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="prog-basics" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> R Programming</h1>
+<p>As with other subjects covered so far, the basic syntax of R is covered very
+well in other free online materials. Some of those excellent resources are
+linked at the end of this section, but a brief overview of the syntax is covered
+here. The code examples below can be written into a script and evaluated as
+described above or entered on the R Console directly and run by pressing
+<code>Enter</code>.</p>
+<div id="r-syntax-basics" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> R Syntax Basics</h2>
+<p>At its core, R (like all programming languages) is basically a fancy calculator.
+The syntax of most basic arithmetic operations in R should be familiar to you:</p>
+<pre><code>1 + 2 # addition
+[1] 3
+3 - 2 # subtraction
+[1] 1
+4 * 2 # multiplication
+[1] 8
+4 / 2 # division
+[1] 2
+1.234 + 2.345 - 3.5*4.9 # numbers can have decimals
+[1] -13.571
+1.234 + (2.345 - 3.5)*4.9 # expressions can contain parentheses
+[1] -4.4255
+2**2 # exponentiation
+[1] 4
+4**(1/2) # square root
+[1] 2
+9**(1/3) # cube root
+[1] 3</code></pre>
+<p>The <code>[1]</code> lines above are the output given by R when the preceding expression
+is executed. Any portion of a line starting with a <code>#</code> is a comment and ignored
+by R.</p>
+<p>R also supports storing values into symbolic placeholders called <em>variables</em>, or
+<em>objects</em>. An expression like those above can be assigned into a variable with a
+name using the <code>&lt;-</code> operator:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="prog-basics.html#cb4-1" aria-hidden="true" tabindex="-1"></a>new_var <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
+<p>Variables that have been assigned a value can be placed in subsequent
+expressions anywhere where their value is evaluated:</p>
+<pre><code>new_var - 2
+[1] 1
+another_var &lt;- new_var * 4</code></pre>
+<div class="box note">
+<p>The correct way to assign a value to a variable in R is with the <code>&lt;-</code> syntax,
+unlike many other programming languages which use <code>=</code>. However, although the <code>=</code>
+assignment syntax does work in R:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="prog-basics.html#cb6-1" aria-hidden="true" tabindex="-1"></a>new_var <span class="ot">=</span> <span class="dv">2</span> <span class="co"># works, but is not common convention!</span></span></code></pre></div>
+<p>this is considered bad practice and may cause confusion later. You should always
+use the <code>&lt;-</code> syntax when assigning values to variables!</p>
+</div>
+<div class="box note">
+<p>In R, the period <code>.</code> does not have a special meaning like it does in many other
+languages like python, C, javascript, etc. Therefore, <code>new.var</code> is a valid
+variable name just like <code>new_var</code>, even though it may look strange to those
+familiar with these other languages. While including <code>.</code> in your R variable
+names is valid, the results that you will use in programs written in other
+languages that do have a meaning for this character. Therefore, it is good
+practice to avoid using <code>.</code> characters in your variable names to reduce the
+chances of conflicts later.</p>
+</div>
+<div class="box readmore">
+<ul>
+<li><a href="https://rstudio-education.github.io/hopr/basics.html">Hands-On Programming with R</a></li>
+<li><a href="https://r4ds.had.co.nz/workflow-basics.html">R for Data Science - Workflow basics</a></li>
+</ul>
+</div>
+</div>
+<div id="prog-types" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Basic Types of Values</h2>
+<p>The most common type of value in R is the number, e.g. <code>1.0</code> or <code>1e-5</code> for
+<span class="math inline">\(10^{-5}\)</span>. For most practical purposes, R does not distinguish between numbers
+with fractional parts (e.g. <code>1.123</code>) and integers (e.g. <code>1</code>); a number is a
+number. In addition to numbers, there are some other types of values that are
+special in R:</p>
+<ul>
+<li><strong>logical or boolean values</strong> - <code>TRUE</code> or <code>FALSE</code>. Internally, R stores <code>TRUE</code>
+as the number <code>1</code> and <code>FALSE</code> as the number <code>0</code>. Generally, R interprets
+non-zero numbers as <code>TRUE</code> and <code>0</code> as <code>FALSE</code>, but it is good practice to supply
+the tokens <code>TRUE</code> or <code>FALSE</code> when an argument expects a logical value.</li>
+<li><strong>missing values</strong> - <code>NA</code>. <code>NA</code> is a special value that indicates a value is
+missing.</li>
+<li><strong>missing vectors</strong> - <code>NULL</code>. Similar to <code>NA</code>, <code>NULL</code> indicates that a vector,
+rather than a value, is missing. Vectors will be described in the <a href="prog-struct">next section
+on data strutures</a>.</li>
+<li><strong>factors</strong> - Factors are a complex type used in statistical models and are
+covered in <a href="ds-model">greater detail later</a></li>
+<li><strong>infinity</strong> - <code>Inf</code> and <code>-Inf</code>. These values encode what R understands to be
+positive or negative infinity, or any number divided by <code>0</code>.</li>
+<li><strong>impossible values</strong> - <code>NaN</code>. This value corresponds to the mathematically
+‘impossible’ or undefined value of <code>0/0</code>.</li>
+<li><strong>character data</strong> - <code>"value"</code>. R can store character data in the form of
+strings. Note R does not interpret string values by default, so <code>"1"</code> and <code>1</code>
+are distinct.</li>
+<li><strong>dates and times</strong> - R has a basic type to store dates and times (together
+termed a <em>datetime</em>, which includes both components). Internally, R stores
+datetimes as the fractional number of days since January 1, 1970, using negative
+numbers for earlier dates.</li>
+<li><strong>complex numbers</strong> - R can store complex numbers using the <code>complex</code>
+function.</li>
+</ul>
+<div class="box warning">
+<p>Unsurprisingly, R cannot perform computations on <code>NA</code>, <code>NaN</code>, or <code>Inf</code> values.
+Each of these values have an ‘infectious’ quality to them, where if they are
+mixed in with other values, the result of the computation reverts to the first
+of these values encountered:</p>
+<pre><code># this how to create a vector of 4 values in R
+x &lt;- c(1,2,3,NA)
+mean(x) # compute the mean of values that includes NA
+[1] NA
+mean(x,na.rm=TRUE) # remove NA values prior to computing mean
+[1] 2
+mean(c(1,2,3,NaN))
+[1] NaN
+mean(c(NA,NaN,1))
+[1] NA</code></pre>
+<p>If your code produces values that are not numbers as you expect, this suggests
+there are one of these values in your input, and need to be handled explicitly.</p>
+</div>
+<div class="box readmore">
+<ul>
+<li><a href="https://www.r-bloggers.com/2012/08/difference-between-na-and-nan-in-r/">The difference between NA and NaN in R</a></li>
+<li><a href="https://r4ds.had.co.nz/vectors.html#dates-and-date-times">R for Data Science - Dates and date-times</a></li>
+<li><a href="https://www.stat.berkeley.edu/~s133/dates.html">Dates and times in R</a></li>
+<li><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/complex.html">Complex numbers in R</a></li>
+</ul>
+</div>
+</div>
+<div id="prog-struct" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Data Structures &amp; Iteration</h2>
+<div id="vectors" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Vectors</h3>
+<p>Data structures in R (and other languages) are ways of storing and organizing
+more than one value together. The most basic data structure in R is a one
+dimensional sequence of values called a
+<a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/vector">vector</a>:</p>
+<pre><code># the c() function creates a vector
+x &lt;- c(1,2,3)
+[1] 1 2 3</code></pre>
+<p>The vector in R has a special property that all values contained in the vector
+must have the same type, from the list <a href="prog-types">described above</a>. When
+constructing a vector, R will <a href="https://rstudio-education.github.io/hopr/r-objects.html#coercion">coerce
+values</a> to the
+most general type if it encounters values of different types:</p>
+<pre><code>c(1,2,&quot;3&quot;)
+[1] &quot;1&quot; &quot;2&quot; &quot;3&quot;
+c(1,2,TRUE,FALSE)
+[1] 1 2 1 0
+c(1,2,NA) # note missing values stay missing
+[1] 1 2 NA
+c(&quot;1&quot;,2,NA,NaN) # NA stays, NaN is cast to a character type
+[1] &quot;1&quot; &quot;2&quot; NA &quot;NaN&quot;</code></pre>
+<p>In addition to having a single type, vectors also have a length, which is
+defined as the number of elements in the vector:</p>
+<pre><code>x &lt;- c(1,2,3)
+length(x)
+[1] 3</code></pre>
+<p>Internally, R is much more efficient at operating on vectors than individual
+elements separately. With numeric vectors, you can perform arithmetic operations
+on vectors of compatible size just as easily as individual values:</p>
+<pre><code>c(1,2) + c(3,4)
+[1] 4 6
+c(1,2) * c(3,4)
+[1] 3 8
+c(1,2) * c(3,4,5) # operating on vectors of different lengths raises warning, but still works
+[1] 3 8 5
+Warning message:
+In c(1, 2) * c(3, 4, 5) :
+  longer object length is not a multiple of shorter object length</code></pre>
+<div class="box warning">
+<p>In the example above, we multiplied a vector of length 2 with a vector of length
+3:</p>
+<pre><code>c(1,2) * c(3,4,5) # operating on vectors of different lengths raises warning, but still works
+[1] 3 8 5
+Warning message:
+In c(1, 2) * c(3, 4, 5) :
+  longer object length is not a multiple of shorter object length</code></pre>
+<p>Rather than raise an error and aborting, R merely emits a warning message about
+the vectors not having divisible lengths. So how did R decide the third value
+should be 5? Because R cycles through each vector and multiplies the values
+element-wise until the longest vector has had an operation performed on all its
+values:</p>
+<pre><code>c(1,2) * c(3,4,5) # yields: 1*3 2*4 1*5
+[1] 3 8 5
+Warning message:
+In c(1, 2) * c(3, 4, 5) :
+  longer object length is not a multiple of shorter object length
+c(1,2) * c(3,4,5,6) # yields: 1*3 2*4 1*5 2*6
+[1] 3 8 5 12</code></pre>
+<p>R will sometimes work in ways you don’t expect. Be careful to read warnings and
+check that your code does what you expect!</p>
+</div>
+</div>
+<div id="matrices" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Matrices</h3>
+<p>A matrix in R is simply the 2 dimensional version of a vector. That is, it is
+a rectangle of values that all have the same type, e.g. number, character,
+logical, etc. A matrix may be constructed using the vector notation described
+above and specifying the number of rows and columns the matrix should have, and
+Instead of having a length like a vector, it has <span class="math inline">\(m \times n\)</span> dimensions:</p>
+<pre><code># create a matrix with two rows and three columns containing integers
+A &lt;- matrix(c(1,2,3,4,5,6)
+       nrow = 2, ncol = 3, byrow=1
+      )
+A
+[,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+dim(A) # the dim function prints out the dimensions of the matrix, rows first
+[1] 2 3</code></pre>
+<p>Because a matrix is 2 dimensional, it can be transposed from <span class="math inline">\(m \times n\)</span> to be
+<span class="math inline">\(n \times m\)</span> using the <code>t()</code> function:</p>
+<pre><code># A defined above as a 2 x 3 matrix
+t(A)
+[,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+dim(t(A))
+[1] 3 2</code></pre>
+<div class="box readmore">
+<p><a href="https://rstudio-education.github.io/hopr/r-objects.html#atomic-vectors">Hands-On Programming with R</a>
+<a href="https://r4ds.had.co.nz/vectors.html">R for Data Science - Vectors</a></p>
+</div>
+</div>
+<div id="lists-and-data-frames" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Lists and data frames</h3>
+</div>
+</div>
+<div id="logical-tests-and-comparators" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Logical Tests and Comparators</h2>
+<p>As mentioned above, R recognizes logical values as a distinct type. R provides
+all the conventional infix logical operators:</p>
+<pre><code>1 == 1 # equality
+[1] TRUE
+1 != 1 # inequality
+[1] FALSE
+1 &lt; 2 # less than
+[1] TRUE
+1 &gt; 2 # greater than
+[1] FALSE
+1 &lt;= 2 # less than or equal to
+[1] TRUE
+1 &gt;= 2 # greater than or equal to</code></pre>
+<p>These operators also work on vectors, albeit with the same caveats about vector
+length as noted earlier:</p>
+<pre><code>x &lt;- c(1,2,3)
+x == 2
+[1] FALSE TRUE FALSE
+x &lt; 1
+[1] FALSE FALSE FALSE
+x &lt; 3
+[1] TRUE TRUE FALSE
+c(1,2) == c(1,3)
+[1] TRUE FALSE
+c(1,2) != c(1,3)
+[1] FALSE TRUE
+c(1,2) == c(1,2,3)
+[1] TRUE TRUE FALSE
+Warning message:
+In c(1, 2, 3) == c(1, 2) :
+  longer object length is not a multiple of shorter object length</code></pre>
+<p>R also provides many functions of the form <code>is.X</code> where <code>X</code> is some type or
+condition (recall that <code>.</code> is not a special character in R):</p>
+<pre><code>is.numeric(1) # is the argument numeric?
+[1] TRUE
+is.character(1) # is the argument a string?
+[1] FALSE
+is.character(&quot;ABC&quot;)
+[1] TRUE
+is.numeric(c(1,2,3)) # recall a vector has exactly one type
+[1] TRUE
+is.numeric(c(1,2,&quot;3&quot;))
+[1] FALSE
+is.na(c(1,2,NA))
+[1] FALSE FALSE TRUE</code></pre>
+<div class="box readmore">
+<p><a href="https://www.statmethods.net/management/operators.html">Quick-R - Operators</a></p>
+</div>
+</div>
+<div id="functions" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Functions</h2>
+<p>Just as a variable is a symbolic representation of a value, a function is a
+symbolic representation of code. In other words, a function allows you to
+substitute a short name, e.g. <code>mean</code>, for a set of operations on a given input,
+e.g. the sum of a set of numbers divided by the number of numbers. R provides a
+<a href="https://rdrr.io/r/">very large number of functions</a> for common operations in
+its default environment, and more functions are provided by packages you can
+install separately.</p>
+<p>Encapsulating many lines of code into a function is useful for (at least) five
+distinct reasons:</p>
+<ol style="list-style-type: decimal">
+<li>Make your code more concise and readable</li>
+<li>Allow you to avoid writing the same code over and over (i.e. reuse it)</li>
+<li>Allow you to systematically test pieces of your code to make sure they do
+what you intend</li>
+<li>Allow you to share your code easily with others</li>
+<li>Program using a functional programming style (see note box below)</li>
+</ol>
+<div class="box note">
+<p>At its core, R is a <em>functional programming language.</em> The details of what this
+means are outside the scope of this book, but as the name implies this refers to
+the language being structured around the use of functions. While this property
+has technical implications on the structure of the language, a more important
+consequence is the style of programming it entails. The functional programming
+style (or <em>paradigm</em>) has many advantages, including generally producing
+programs that are more concise, predictable, provably correct, and performant.
+<a href="https://www.tutorialspoint.com/functional_programming/index.htm">This tutorial</a>
+provides a good starting point for learning about functional programming.</p>
+</div>
+<p>In order to do anything useful, a function must generally be able to accept
+and execute on different inputs; e.g. the <code>sin</code> function wouldn’t be very useful
+if it didn’t accept a value! The terminology used in R and many other
+programming languages for this is the function must <em>accept</em> or allow you to
+<em>pass it arguments.</em> In R, functions accept arguments using the following
+*pattern:</p>
+<pre><code># a basic function signature
+function_name(arg1, arg2) # function accepts exactly 2 arguments</code></pre>
+<p>Here, <code>arg1</code> and <code>arg2</code> are <em>formal arguments</em> or <em>named arguments</em>, indicating
+this function accepts two arguments. The name of the function (i.e.
+<code>function_name</code>) and the pattern of arguments it accepts is called the
+function’s <em>signature.</em> Every function has at least one signature, and it is
+critical to understand it in order to use the function properly.</p>
+<p>In the above example, <code>arg1</code> and <code>arg2</code> are <em>required</em> arguments. This means
+that the function will not execute without exactly two arguments provided and
+will raise an error if you try otherwise:</p>
+<pre><code>mean() # compute the arithmetic mean, but of what?
+Error in mean.default() : argument &quot;x&quot; is missing, with no default</code></pre>
+<p>How do you know what arguments a function requires? All functions provided by
+base R and many other packages include detailed documentation that can be
+accessed directly through RStudio using either the <code>?</code> or <code>help()</code>:</p>
+<div class="figure">
+<img src="rstudio_help_fn_sigs.png" alt="" />
+<p class="caption">RStudio - help and function signatures</p>
+</div>
+<p>The second signature of the <code>mean</code> function introduces two new types of syntax:</p>
+<p><strong>Default argument values</strong> - e.g. <code>trim = 0</code>. These are formal arguments that
+have a default value if not provided explicitly.</p>
+<p><strong>Variable arguments</strong> - <code>...</code>. This means the <code>mean</code> function can accept
+arguments that are not explicitly listed in the signature.</p>
+<p>With these definitions, we can now understand the Arguments section of the help
+documentation:</p>
+<div class="figure">
+<img src="rstudio_mean_fn_args.png" alt="" />
+<p class="caption">Arguments to the mean function</p>
+</div>
+<p>In other words:</p>
+<ul>
+<li><code>x</code> is the vector of values (more on this in the <a href="prog-struct">next section on data
+structures</a>) we wish to compute the arithmetic mean for</li>
+<li><code>trim</code> is a fraction (i.e. a number between 0 and 0.5) that instructs R to
+remove a portion of the largest and smallest values from <code>x</code> prior to computing
+the mean.</li>
+<li><code>na.rm</code> is a logical value (i.e. either <code>TRUE</code> or <code>FALSE</code>) that instructs R to
+remove <code>NA</code> values from <code>x</code> before computing the mean.</li>
+</ul>
+<div class="box note">
+<p>All function arguments can be specified by name, regardless of whether there is
+a default value or not. For instance, the following two <code>mean</code> calls are
+equivalent:</p>
+<pre><code># this generates 100 normally distributed samples with mean 0 and standard deviation 1
+my_vals &lt;- rnorm(100,mean=0,sd=1)
+mean(my_vals)
+[1] -0.05826857
+mean(x=my_vals)
+[1] -0.05826857</code></pre>
+<p>To borrow from <a href="https://www.python.org/dev/peps/pep-0020/#id2">the Zen of
+Python</a>, “Explicit is better than
+implicit.” Being explicit about which variables are being passed as which
+arguments will almost always make your code easier to read and more likely to do
+what you intend.</p>
+</div>
+<div class="box warning">
+<p><strong>The <code>...</code> argument catchall can be very dangerous.</strong> It allows you to provide
+arguments to a function that have no meaning, and R will not raise an error.
+Consider the following call to <code>mean</code>:</p>
+<pre><code># this generates a vector of 100 normally distributed samples with mean 0 and standard deviation 1
+my_vals &lt;- rnorm(100,mean=0,sd=1)
+mean(x=my_vals,tirm=0.1)
+[1] -0.05826857</code></pre>
+<p>Did you spot the mistake? The <code>trim</code> argument name has been misspelled as
+<code>tirm</code>, but R did not report an error. Compare the value of mean without the
+typo:</p>
+<pre><code>mean(x=my_vals,trim=0.1)
+[1]-0.02139839</code></pre>
+<p>The value we get is different, because R recognizes <code>trim</code> but not <code>tirm</code> and
+changes its behavior accordingly. Not all functions have the <code>...</code> catchall in
+their signatures, but many do and so you must be diligent when supplying
+arguments to function calls!</p>
+</div>
+<div class="box readmore">
+<ul>
+<li><a href="https://r4ds.had.co.nz/functions.html">R for Data Science - Functions</a></li>
+<li><a href="https://rdrr.io/r/">rdrr.io - Base R Function Reference</a></li>
+<li><a href="https://adv-r.hadley.nz/fp.html">Advanced R - Functional Programming</a></li>
+</ul>
+</div>
+<div id="prog-dry" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> DRY: Don’t Repeat Yourself</h3>
+</div>
+</div>
+<div id="prog-style" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Coding Style and Conventions</h2>
+<p>Some very common worries among new programmers is: “Is my code terrible? How do
+I write good code?” There is no gold standard for what makes code “good”, but
+there are some questions you can ask of your code as a guide:</p>
+<div id="is-my-code-correct" class="section level3" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Is my code correct?</h3>
+<p>Does it produce the desired output? This is pretty obviously important in
+principle, but can be difficult to be sure that your code is correct. This is
+especially difficult if your codebase is large and complicated as it tends to
+become over time. While simple <a href="prog-debugging">trial and error</a> is an effective
+first approach, a more reliable albeit time- and thought-intensive strategy is
+to write <a href="prog-testing">explicit tests</a> for your code and run them regularly.</p>
+</div>
+<div id="does-my-code-follow-the-dry-principle" class="section level3" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Does my code follow the <a href="prog-dry">DRY principle</a>?</h3>
+<p>Don’t Repeat Yourself (DRY) is a powerful and helpful strategy to make your
+code more reliable. This typically involves identifying common patterns in your
+code and moving them to functions or objects.</p>
+</div>
+<div id="did-i-choose-concise-but-descriptive-variable-and-function-names" class="section level3" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Did I choose concise but descriptive variable and function names?</h3>
+</div>
+<div id="did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code" class="section level3" number="3.6.4">
+<h3><span class="header-section-number">3.6.4</span> Did I use indentation and naming conventions consistently throughout my code?</h3>
+</div>
+<div id="did-i-write-comments-especially-when-what-the-code-is-doing-is-not-obvious" class="section level3" number="3.6.5">
+<h3><span class="header-section-number">3.6.5</span> Did I write comments, especially when what the code is doing is not obvious</h3>
+<p>from reading it?</p>
+</div>
+<div id="how-easy-would-it-be-for-someone-else-to-understand-my-code" class="section level3" number="3.6.6">
+<h3><span class="header-section-number">3.6.6</span> How easy would it be for someone else to understand my code?</h3>
+<p>If someone else who has never seen my code before is asked to run and understand
+it, how easy would it be for them to do so?</p>
+</div>
+</div>
+<div id="troubleshootingdebugging-strategies" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Troubleshooting/Debugging Strategies</h2>
+<div class="box readmore">
+<p><a href="https://rstudio-education.github.io/hopr/debug.html">Hands-On Programming with R -Debugging R Code</a></p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="preliminaries.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-wrangling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
