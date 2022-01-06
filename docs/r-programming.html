@@ -159,14 +159,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="r-programming.html"><a href="r-programming.html#before-you-begin"><i class="fa fa-check"></i><b>3.1</b> Before you begin</a></li>
 <li class="chapter" data-level="3.2" data-path="r-programming.html"><a href="r-programming.html#prog-the-r-script"><i class="fa fa-check"></i><b>3.2</b> The R Script</a></li>
 <li class="chapter" data-level="3.3" data-path="r-programming.html"><a href="r-programming.html#prog-workflow"><i class="fa fa-check"></i><b>3.3</b> The Scripting Workflow</a></li>
-<li class="chapter" data-level="3.4" data-path="r-programming.html"><a href="r-programming.html#prog-basics"><i class="fa fa-check"></i><b>3.4</b> Basics</a>
+<li class="chapter" data-level="3.4" data-path="r-programming.html"><a href="r-programming.html#prog-basics"><i class="fa fa-check"></i><b>3.4</b> R Basics</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="r-programming.html"><a href="r-programming.html#r-syntax-basics"><i class="fa fa-check"></i><b>3.4.1</b> R Syntax Basics</a></li>
-<li class="chapter" data-level="3.4.2" data-path="r-programming.html"><a href="r-programming.html#functions"><i class="fa fa-check"></i><b>3.4.2</b> Functions</a></li>
-<li class="chapter" data-level="3.4.3" data-path="r-programming.html"><a href="r-programming.html#dry-dont-repeat-yourself"><i class="fa fa-check"></i><b>3.4.3</b> DRY: Don’t Repeat Yourself</a></li>
-<li class="chapter" data-level="3.4.4" data-path="r-programming.html"><a href="r-programming.html#unit-testing"><i class="fa fa-check"></i><b>3.4.4</b> Unit Testing</a></li>
-<li class="chapter" data-level="3.4.5" data-path="r-programming.html"><a href="r-programming.html#troubleshootingdebugging-strategies"><i class="fa fa-check"></i><b>3.4.5</b> Troubleshooting/Debugging Strategies</a></li>
-<li class="chapter" data-level="3.4.6" data-path="r-programming.html"><a href="r-programming.html#rmarkdown-knitr"><i class="fa fa-check"></i><b>3.4.6</b> RMarkdown &amp; knitr</a></li>
+<li class="chapter" data-level="3.4.2" data-path="r-programming.html"><a href="r-programming.html#prog-types"><i class="fa fa-check"></i><b>3.4.2</b> Basic Types of Values</a></li>
+<li class="chapter" data-level="3.4.3" data-path="r-programming.html"><a href="r-programming.html#basic-data-structures"><i class="fa fa-check"></i><b>3.4.3</b> Basic Data Structures</a></li>
+<li class="chapter" data-level="3.4.4" data-path="r-programming.html"><a href="r-programming.html#logical-tests-and-comparators"><i class="fa fa-check"></i><b>3.4.4</b> Logical Tests and Comparators</a></li>
+<li class="chapter" data-level="3.4.5" data-path="r-programming.html"><a href="r-programming.html#functions"><i class="fa fa-check"></i><b>3.4.5</b> Functions</a></li>
+<li class="chapter" data-level="3.4.6" data-path="r-programming.html"><a href="r-programming.html#dry-dont-repeat-yourself"><i class="fa fa-check"></i><b>3.4.6</b> DRY: Don’t Repeat Yourself</a></li>
+<li class="chapter" data-level="3.4.7" data-path="r-programming.html"><a href="r-programming.html#unit-testing"><i class="fa fa-check"></i><b>3.4.7</b> Unit Testing</a></li>
+<li class="chapter" data-level="3.4.8" data-path="r-programming.html"><a href="r-programming.html#troubleshootingdebugging-strategies"><i class="fa fa-check"></i><b>3.4.8</b> Troubleshooting/Debugging Strategies</a></li>
+<li class="chapter" data-level="3.4.9" data-path="r-programming.html"><a href="r-programming.html#rmarkdown-knitr"><i class="fa fa-check"></i><b>3.4.9</b> RMarkdown &amp; knitr</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="r-programming.html"><a href="r-programming.html#prog-struct"><i class="fa fa-check"></i><b>3.5</b> Data Structures &amp; Iteration</a></li>
 <li class="chapter" data-level="3.6" data-path="r-programming.html"><a href="r-programming.html#prog-style"><i class="fa fa-check"></i><b>3.6</b> Coding Style and Conventions</a></li>
@@ -313,6 +316,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>11</b> Contribution Guide</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="contribution-guide.html"><a href="contribution-guide.html#custom-blocks"><i class="fa fa-check"></i><b>11.1</b> Custom blocks</a></li>
+<li class="chapter" data-level="11.2" data-path="contribution-guide.html"><a href="contribution-guide.html#section"><i class="fa fa-check"></i><b>11.2</b> —</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i><b>12</b> Assignments</a>
 <ul>
@@ -359,9 +363,11 @@ restores it when you start it again.</p>
 the values stored in variables, the R packages loaded, etc. from previously
 executed code is transient and may not reflect the results your code produces
 when run alone.</p>
-<p>Open the Tools &gt; Global Options… menu and:
-1. Uncheck “Restore .RData into workspace at startup”
-2. Set “Save workspace to .RData on exit:” to “Never”</p>
+<p>Open the Tools &gt; Global Options… menu and:</p>
+<ol style="list-style-type: decimal">
+<li>Uncheck “Restore .RData into workspace at startup”</li>
+<li>Set “Save workspace to .RData on exit:” to “Never”</li>
+</ol>
 <div class="figure">
 <img src="rstudio_no_workspace_save.png" style="width:75.0%" alt="" />
 <p class="caption">Never save workspace</p>
@@ -423,13 +429,13 @@ useful and advanced tips on how to name files</li>
 </div>
 <div id="prog-workflow" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> The Scripting Workflow</h2>
-<p>But hold on, we’re still not quite ready. As mentioned above, <strong>all important R
-code should be written and saved in a file before you run it!</strong> Your scripts
-will very quickly contain many lines of code that are meant to be run in
-sequential order. While developing your code it is very helpful to run each
-individual line separately, building up your script incrementally over time. To
-illustrate how to do this, we will begin with a simple R code that stores the
-result of an arithmetic expression to a new variable:</p>
+<p>But hold on, we’re still not quite ready to start coding. As mentioned above,
+<strong>all important R code should be written and saved in a file before you run
+it!</strong> Your scripts will very quickly contain many lines of code that are meant
+to be run in sequential order. While developing your code it is very helpful to
+run each individual line separately, building up your script incrementally over
+time. To illustrate how to do this, we will begin with a simple R code that
+stores the result of an arithmetic expression to a new variable:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-programming.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stores the result of 1+1 into a variable named &#39;a&#39;</span></span>
 <span id="cb2-2"><a href="r-programming.html#cb2-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code></pre></div>
 <p>The concepts in this line of code will be covered in greater depth later, but
@@ -442,7 +448,8 @@ Windows or <code>Cmd-s</code> on Mac</li>
 <li>Execute the line or lines of code in your script you wish to evaluate using
 <code>Ctrl-Enter</code> on Windows or <code>Cmd-Enter</code> on Mac. By default only the line with
 the cursor is executed; you may click and drag with the mouse to select
-multiple lines to execute if needed.</li>
+multiple lines to execute if needed. <em>NB: you can press the up arrow key to
+recall previously run commands on the console.</em></li>
 <li>The executed code will be evaluated in the Console window, where you may
 inspect the result and modify the code if necessary.</li>
 <li>You may inspect the definitions of any variables you have declared in the
@@ -483,7 +490,7 @@ slate</a></li>
 </div>
 </div>
 <div id="prog-basics" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Basics</h2>
+<h2><span class="header-section-number">3.4</span> R Basics</h2>
 <p>As with other subjects covered so far, the basic syntax of R is covered very
 well in other free online materials. Some of those excellent resources are
 linked at the end of this section, but a brief overview of the syntax is covered
@@ -494,21 +501,19 @@ described above or entered on the R Console directly and run by pressing
 <h3><span class="header-section-number">3.4.1</span> R Syntax Basics</h3>
 <p>At its core, R (like all programming languages) is basically a fancy calculator.
 The syntax of most basic arithmetic operations in R should be familiar to you:</p>
-<pre><code># addition, subtraction, multiplication, division
-1 + 2
+<pre><code>1 + 2 # addition
 [1] 3
-3 - 2
+3 - 2 # subtraction
 [1] 1
-4 * 2
+4 * 2 # multiplication
 [1] 8
-4 / 2
+4 / 2 # division
 [1] 2
 1.234 + 2.345 - 3.5*4.9 # numbers can have decimals
 [1] -13.571
 1.234 + (2.345 - 3.5)*4.9 # expressions can contain parentheses
 [1] -4.4255
-# exponentiation
-2**2
+2**2 # exponentiation
 [1] 4
 4**(1/2) # square root
 [1] 2
@@ -534,9 +539,167 @@ assignment syntax does work in R:</p>
 <p>this is considered bad practice and may cause confusion later. You should always
 use the <code>&lt;-</code> syntax when assigning values to variables!</p>
 </div>
+<div class="box note">
+<p>In R, the period <code>.</code> does not have a special meaning like it does in many other
+languages like python, C, javascript, etc. Therefore, <code>new.var</code> is a valid
+variable name just like <code>new_var</code>, even though it may look strange to those
+familiar with these other languages. While including <code>.</code> in your R variable
+names is valid, the results that you will use in programs written in other
+languages that do have a meaning for this character. Therefore, it is good
+practice to avoid using <code>.</code> characters in your variable names to reduce the
+chances of conflicts later.</p>
 </div>
-<div id="functions" class="section level3" number="3.4.2">
-<h3><span class="header-section-number">3.4.2</span> Functions</h3>
+<div class="box readmore">
+<ul>
+<li><a href="https://r4ds.had.co.nz/workflow-basics.html">R for Data Science - Workflow basics</a></li>
+</ul>
+</div>
+</div>
+<div id="prog-types" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Basic Types of Values</h3>
+<p>The most common type of value in R is the number, e.g. <code>1.0</code> or <code>1e-5</code> for
+<span class="math inline">\(10^{-5}\)</span>. For most practical purposes, R does not distinguish between numbers
+with fractional parts (e.g. <code>1.123</code>) and integers (e.g. <code>1</code>); a number is a
+number. In addition to numbers, there are some other types of values that are
+special in R:</p>
+<ul>
+<li><strong>logical or boolean values</strong> - <code>TRUE</code> or <code>FALSE</code>. Internally, R stores <code>TRUE</code>
+as the number <code>1</code> and <code>FALSE</code> as the number <code>0</code>. Generally, R interprets
+non-zero numbers as <code>TRUE</code> and <code>0</code> as <code>FALSE</code>, but it is good practice to supply
+the tokens <code>TRUE</code> or <code>FALSE</code> when an argument expects a logical value.</li>
+<li><strong>missing values</strong> - <code>NA</code>. <code>NA</code> is a special value that indicates a value is
+missing.</li>
+<li><strong>missing vectors</strong> - <code>NULL</code>. Similar to <code>NA</code>, <code>NULL</code> indicates that a vector,
+rather than a value, is missing. Vectors will be described in the <a href="prog-struct">next section
+on data strutures</a>.</li>
+<li><strong>factors</strong> - Factors are a complex type used in statistical models and are
+covered in <a href="ds-model">greater detail later</a></li>
+<li><strong>infinity</strong> - <code>Inf</code> and <code>-Inf</code>. These values encode what R understands to be
+positive or negative infinity, or any number divided by <code>0</code>.</li>
+<li><strong>impossible values</strong> - <code>NaN</code>. This value corresponds to the mathematically
+‘impossible’ or undefined value of <code>0/0</code>.</li>
+<li><strong>character data</strong> - <code>"value"</code>. R can store character data in the form of
+strings. Note R does not interpret string values by default, so <code>"1"</code> and <code>1</code>
+are distinct.</li>
+<li><strong>dates and times</strong> - R has a basic type to store dates and times (together
+termed a <em>datetime</em>, which includes both components). Internally, R stores
+datetimes as the fractional number of days since January 1, 1970, using negative
+numbers for earlier dates.</li>
+<li><strong>complex numbers</strong> - R can store complex numbers using the <code>complex</code>
+function.</li>
+</ul>
+<div class="box warning">
+<p>Unsurprisingly, R cannot perform computations on <code>NA</code>, <code>NaN</code>, or <code>Inf</code> values.
+Each of these values have an ‘infectious’ quality to them, where if they are
+mixed in with other values, the result of the computation reverts to the first
+of these values encountered:</p>
+<pre><code># this how to create a vector of 4 values in R
+x &lt;- c(1,2,3,NA)
+mean(x) # compute the mean of values that includes NA
+[1] NA
+mean(x,na.rm=TRUE) # remove NA values prior to computing mean
+[1] 2
+mean(c(1,2,3,NaN))
+[1] NaN
+mean(c(NA,NaN,1))
+[1] NA</code></pre>
+<p>If your code produces values that are not numbers as you expect, this suggests
+there are one of these values in your input, and need to be handled explicitly.</p>
+</div>
+<div class="box readmore">
+<ul>
+<li><a href="https://www.r-bloggers.com/2012/08/difference-between-na-and-nan-in-r/">The difference between NA and NaN in R</a></li>
+<li><a href="https://www.stat.berkeley.edu/~s133/dates.html">Dates and times in R</a></li>
+<li><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/complex.html">Complex numbers in R</a></li>
+</ul>
+</div>
+</div>
+<div id="basic-data-structures" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Basic Data Structures</h3>
+<p>Data structures in R (and other languages) are ways of storing and organizing
+more than one value together. The most basic data structure in R is a one
+dimensional sequence of values called a
+<a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/vector">vector</a>:</p>
+<pre><code># the c() function creates a vector
+x &lt;- c(1,2,3)
+[1] 1 2 3</code></pre>
+<p>The vector in R has a special property that all values contained in the vector
+must have the same type, from the list <a href="prog-types">described above</a>. When
+constructing a vector, R will coerce values to the most general type if it
+encounters values of different types:</p>
+<pre><code>c(1,2,&quot;3&quot;)
+[1] &quot;1&quot; &quot;2&quot; &quot;3&quot;
+c(1,2,TRUE,FALSE)
+[1] 1 2 1 0
+c(1,2,NA) # note missing values stay missing
+[1] 1 2 NA
+c(&quot;1&quot;,2,NA,NaN) # NA stays, NaN is cast to a character type
+[1] &quot;1&quot; &quot;2&quot; NA &quot;NaN&quot;</code></pre>
+<p>In addition to having a single type, vectors also have a length, which is
+defined as the number of elements in the vector:</p>
+<pre><code>x &lt;- c(1,2,3)
+len(x)
+[1] 3</code></pre>
+<p>Internally, R is much more efficient at operating on vectors than individual
+elements separately. With numeric vectors, you can perform arithmetic operations
+on vectors of compatible size just as easily as individual values:</p>
+<pre><code>c(1,2) + c(3,4)
+[1] 4 6
+c(1,2) * c(3,4)
+[1] 3 8
+c(1,2) * c(3,4,5) # operating on vectors of different lengths raises warning, but still works
+[1] 3 8 5
+Warning message:
+In c(1, 2) * c(3, 4, 5) :
+  longer object length is not a multiple of shorter object length</code></pre>
+<div class="box warning">
+<p>In the example above, we multiplied a vector of length 2 with a vector of length
+3:</p>
+<pre><code>c(1,2) * c(3,4,5) # operating on vectors of different lengths raises warning, but still works
+[1] 3 8 5
+Warning message:
+In c(1, 2) * c(3, 4, 5) :
+  longer object length is not a multiple of shorter object length</code></pre>
+<p>Rather than raise an error and aborting, R merely emits a warning message about
+the vectors not having divisible lengths. So how did R decide the third value
+should be 5? Because R cycles through each vector and multiplies the values
+element-wise until the longest vector has had an operation performed on all its
+values:</p>
+<pre><code>c(1,2) * c(3,4,5) # yields: 1*3 2*4 1*5
+[1] 3 8 5
+Warning message:
+In c(1, 2) * c(3, 4, 5) :
+  longer object length is not a multiple of shorter object length
+c(1,2) * c(3,4,5,6) # yields: 1*3 2*4 1*5 2*6
+[1] 3 8 5 12</code></pre>
+<p>R will sometimes work in ways you don’t expect. Be careful to read warnings and
+check that your code does what you expect!</p>
+</div>
+<div class="box readmore">
+<p><a href="https://r4ds.had.co.nz/vectors.html" class="uri">https://r4ds.had.co.nz/vectors.html</a></p>
+</div>
+</div>
+<div id="logical-tests-and-comparators" class="section level3" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Logical Tests and Comparators</h3>
+<p>As mentioned above, R recognizes logical values as a distinct type. R provides
+all the conventional infix logical operators:</p>
+<pre><code>1 == 1 # equality
+[1] TRUE
+1 != 1 # inequality
+[1] FALSE
+1 &lt; 2 # less than
+[1] TRUE
+1 &gt; 2 # greater than
+[1] FALSE
+1 &lt;= 2 # less than or equal to
+[1] TRUE
+1 &gt;= 2 # greater than or equal to</code></pre>
+<div class="box readmore">
+<p>[Quick-R - Operators](<a href="https://www.statmethods.net/management/operators.html" class="uri">https://www.statmethods.net/management/operators.html</a>]</p>
+</div>
+</div>
+<div id="functions" class="section level3" number="3.4.5">
+<h3><span class="header-section-number">3.4.5</span> Functions</h3>
 <p>Just as a variable is a symbolic representation of a value, a function is a
 symbolic representation of code. In other words, a function allows you to
 substitute a short name, e.g. <code>mean</code>, for a set of operations on a given input,
@@ -544,42 +707,126 @@ e.g. the sum of a set of numbers divided by the number of numbers. R provides a
 <a href="https://rdrr.io/r/">very large number of functions</a> for common operations in
 its default environment, and more functions are provided by packages you can
 install separately.</p>
-<p>Because
-functions represent code, most functions are useful only if they can be passed
-different inputs. In R, functions accept arguments using the following pattern:</p>
-<pre><code>function_name(arg1 = val1, arg2 = val2, ...)</code></pre>
+<p>Encapsulating many lines of code into a function is useful for (at least) five
+distinct reasons:</p>
+<ol style="list-style-type: decimal">
+<li>Make your code more concise and readable</li>
+<li>Allow you to avoid writing the same code over and over (i.e. reuse it)</li>
+<li>Allow you to systematically test pieces of your code to make sure they do
+what you intend</li>
+<li>Allow you to share your code easily with others</li>
+<li>Program using a functional programming style (see note box below)</li>
+</ol>
 <div class="box note">
 <p>At its core, R is a <em>functional programming language.</em> The details of what this
 means are outside the scope of this book, but as the name implies this refers to
 the language being structured around the use of functions. While this property
 has technical implications on the structure of the language, a more important
-consequence is the style of programming it entails. Compare the following two
-equivalent R code snippets:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-programming.html#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
+consequence is the style of programming it entails. The functional programming
+style (or <em>paradigm</em>) has many advantages, including generally producing
+programs that are more concise, predictable, provably correct, and performant.
+<a href="https://www.tutorialspoint.com/functional_programming/index.htm">This tutorial</a>
+provides a good starting point for learning about functional programming.</p>
+</div>
+<p>In order to do anything useful, a function must generally be able to accept
+and execute on different inputs; e.g. the <code>sin</code> function wouldn’t be very useful
+if it didn’t accept a value! The terminology used in R and many other
+programming languages for this is the function must <em>accept</em> or allow you to
+<em>pass it arguments.</em> In R, functions accept arguments using the following
+*pattern:</p>
+<pre><code># a basic function signature
+function_name(arg1, arg2) # function accepts exactly 2 arguments</code></pre>
+<p>Here, <code>arg1</code> and <code>arg2</code> are <em>formal arguments</em> or <em>named arguments</em>, indicating
+this function accepts two arguments. The name of the function (i.e.
+<code>function_name</code>) and the pattern of arguments it accepts is called the
+function’s <em>signature.</em> Every function has at least one signature, and it is
+critical to understand it in order to use the function properly.</p>
+<p>In the above example, <code>arg1</code> and <code>arg2</code> are <em>required</em> arguments. This means
+that the function will not execute without exactly two arguments provided and
+will raise an error if you try otherwise:</p>
+<pre><code>mean() # compute the arithmetic mean, but of what?
+Error in mean.default() : argument &quot;x&quot; is missing, with no default</code></pre>
+<p>How do you know what arguments a function requires? All functions provided by
+base R and many other packages include detailed documentation that can be
+accessed directly through RStudio using either the <code>?</code> or <code>help()</code>:</p>
+<div class="figure">
+<img src="rstudio_help_fn_sigs.png" alt="" />
+<p class="caption">RStudio - help and function signatures</p>
+</div>
+<p>The second signature of the <code>mean</code> function introduces two new types of syntax:</p>
+<p><strong>Default argument values</strong> - e.g. <code>trim = 0</code>. These are formal arguments that
+have a default value if not provided explicitly.</p>
+<p><strong>Variable arguments</strong> - <code>...</code>. This means the <code>mean</code> function can accept
+arguments that are not explicitly listed in the signature.</p>
+<p>With these definitions, we can now understand the Arguments section of the help
+documentation:</p>
+<div class="figure">
+<img src="rstudio_mean_fn_args.png" alt="" />
+<p class="caption">Arguments to the mean function</p>
+</div>
+<p>In other words:</p>
+<ul>
+<li><code>x</code> is the vector of values (more on this in the <a href="prog-struct">next section on data
+structures</a>) we wish to compute the arithmetic mean for</li>
+<li><code>trim</code> is a fraction (i.e. a number between 0 and 0.5) that instructs R to
+remove a portion of the largest and smallest values from <code>x</code> prior to computing
+the mean.</li>
+<li><code>na.rm</code> is a logical value (i.e. either <code>TRUE</code> or <code>FALSE</code>) that instructs R to
+remove <code>NA</code> values from <code>x</code> before computing the mean.</li>
+</ul>
+<div class="box note">
+<p>All function arguments can be specified by name, regardless of whether there is
+a default value or not. For instance, the following two <code>mean</code> calls are
+equivalent:</p>
+<pre><code># this generates 100 normally distributed samples with mean 0 and standard deviation 1
+my_vals &lt;- rnorm(100,mean=0,sd=1)
+mean(my_vals)
+[1] -0.05826857
+mean(x=my_vals)
+[1] -0.05826857</code></pre>
+<p>To borrow from <a href="https://www.python.org/dev/peps/pep-0020/#id2">the Zen of
+Python</a>, “Explicit is better than
+implicit.” Being explicit about which variables are being passed as which
+arguments will almost always make your code easier to read and more likely to do
+what you intend.</p>
+</div>
+<div class="box warning">
+<p><strong>The <code>...</code> argument catchall can be very dangerous.</strong> It allows you to provide
+arguments to a function that have no meaning, and R will not raise an error.
+Consider the following call to <code>mean</code>:</p>
+<pre><code># this generates a vector of 100 normally distributed samples with mean 0 and standard deviation 1
+my_vals &lt;- rnorm(100,mean=0,sd=1)
+mean(x=my_vals,tirm=0.1)
+[1] -0.05826857</code></pre>
+<p>Did you spot the mistake? The <code>trim</code> argument name has been misspelled as
+<code>tirm</code>, but R did not report an error. Compare the value of mean without the
+typo:</p>
+<pre><code>mean(x=my_vals,trim=0.1)
+[1]-0.02139839</code></pre>
+<p>The value we get is different, because R recognizes <code>trim</code> but not <code>tirm</code> and
+changes its behavior accordingly. Not all functions have the <code>...</code> catchall in
+their signatures, but many do and so you must be diligent when supplying
+arguments to function calls!</p>
 </div>
 <div class="box readmore">
 <ul>
+<li><a href="https://r4ds.had.co.nz/functions.html">R for Data Science</a></li>
 <li><a href="https://rdrr.io/r/">rdrr.io - Base R Function Reference</a></li>
 <li><a href="https://adv-r.hadley.nz/fp.html">Advanced R - Functional Programming</a></li>
 </ul>
 </div>
 </div>
-<div id="dry-dont-repeat-yourself" class="section level3" number="3.4.3">
-<h3><span class="header-section-number">3.4.3</span> DRY: Don’t Repeat Yourself</h3>
+<div id="dry-dont-repeat-yourself" class="section level3" number="3.4.6">
+<h3><span class="header-section-number">3.4.6</span> DRY: Don’t Repeat Yourself</h3>
 </div>
-<div id="unit-testing" class="section level3" number="3.4.4">
-<h3><span class="header-section-number">3.4.4</span> Unit Testing</h3>
+<div id="unit-testing" class="section level3" number="3.4.7">
+<h3><span class="header-section-number">3.4.7</span> Unit Testing</h3>
 </div>
-<div id="troubleshootingdebugging-strategies" class="section level3" number="3.4.5">
-<h3><span class="header-section-number">3.4.5</span> Troubleshooting/Debugging Strategies</h3>
+<div id="troubleshootingdebugging-strategies" class="section level3" number="3.4.8">
+<h3><span class="header-section-number">3.4.8</span> Troubleshooting/Debugging Strategies</h3>
 </div>
-<div id="rmarkdown-knitr" class="section level3" number="3.4.6">
-<h3><span class="header-section-number">3.4.6</span> RMarkdown &amp; knitr</h3>
-<div class="box readmore">
-<ul>
-<li><a href="https://r4ds.had.co.nz/workflow-basics.html">R for Data Science - Workflow basics</a></li>
-</ul>
-</div>
+<div id="rmarkdown-knitr" class="section level3" number="3.4.9">
+<h3><span class="header-section-number">3.4.9</span> RMarkdown &amp; knitr</h3>
 </div>
 </div>
 <div id="prog-struct" class="section level2" number="3.5">
@@ -653,6 +900,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
