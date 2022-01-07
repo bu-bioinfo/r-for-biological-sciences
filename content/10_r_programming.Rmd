@@ -272,13 +272,135 @@ dim(t(A))
 ```
 
 ::: {.box .readmore}
-[Hands-On Programming with R](https://rstudio-education.github.io/hopr/r-objects.html#atomic-vectors)
+[Hands-On Programming with R - Atomic Vectors](https://rstudio-education.github.io/hopr/r-objects.html#atomic-vectors)
 [R for Data Science - Vectors](https://r4ds.had.co.nz/vectors.html)
+[Advanced R - Vectors](https://adv-r.hadley.nz/vectors-chap.html)
 :::
 
 ### Lists and data frames
 
-TODO
+Vectors and matrices have the special property that all items must be of the
+same type, e.g. numbers. Lists and data frames are data structures that do not
+have this requirement. Similar to vectors, lists and data frames are both one
+dimensional sequences of values, but the values can be of mixed types. For
+instance, the first item of a list may be a vector of numbers, while the second
+is a vector of character strings. These are the most flexible data structures in
+R, and are among the most commonly used.
+
+Lists can be created using the `list()` function:
+
+```
+my_list <- list(
+  c(1,2,3),
+  c("A","B","C","D")
+)
+my_list
+[[1]]
+[1] 1 2 3
+
+[[2]]
+[1] "A" "B" "C" "D"
+my_list[[1]] # access the first item of the list
+[1] 1 2 3
+my_list[[2]] # access the second item of the list
+[1] "A" "B" "C" "D"
+```
+
+The arguments passed to `list()` define the values and their order of the list.
+In the above example, the list has two elements: one vector of 3 numbers and one
+vector of 4 character strings. Note you can access individual items of the list
+using the `[[N]]` syntax, where `N` is the 1-based index of the element.
+
+Lists can also be defined and indexed by name:
+
+```
+my_list <- list(
+  numbers=c(1,2,3),
+  categories=c("A","B","C","D")
+)
+my_list
+$numbers
+[1] 1 2 3
+
+$categories
+[1] "A" "B" "C" "D"
+my_list$numbers # access the first item of the list
+[1] 1 2 3
+my_list$categories # access the second item of the list
+[1] "A" "B" "C" "D"
+```
+
+The elements of the list have been assigned the names `numbers` and `categories`
+when creating the list, though any valid R identifier names can be used. When
+elements are associated with names they can be accessed using the `list$name`
+syntax.
+
+Lists and data frames are the same underlying data structure, however differ in
+one important respect: *the elements of a data frame must all have the same
+length, while the elements of a list do not.* You may create a data frame with
+the `data.frame()` function:
+
+```
+my_df <- data.frame( # recall '.' has no special meaning in R
+  numbers=c(1,2,3),
+  categories=c("A","B","C","D")
+)
+Error in data.frame(c(1, 2, 3), c("A", "B", "C", "D")) :
+  arguments imply differing number of rows: 3, 4
+my_df <- data.frame(
+  numbers=c(1,2,3),
+  categories=c("A","B","C")
+)
+my_df
+  numbers categories
+1       1          A
+2       2          B
+3       3          C
+my_df$numbers
+[1] 1 2 3
+my_df[1] # numeric indexing also works, and returns a subset data frame
+  numbers
+1       1
+2       2
+3       3
+my_df[1]$numbers
+[1] 1 2 3
+# this syntax is [<row>,<column>], and if either is omitted return all
+my_df[,1] # return all rows of the first column as a vector
+[1] 1 2 3
+my_df$categories
+[1] "A" "B" "C"
+```
+
+Note the data frame is printed as a matrix with element names as columns and
+automatically numbered rows. You may access specific elements of a data frame in
+a number of ways:
+
+```
+my_df$numbers[1] # extract the first value of the numbers column
+[1] 1
+my_df[1,1] # same as above, recall the [<row>,<column>] syntax
+[1] 1
+my_df$categories[3] # extract the third value of the categories column
+[1] "C"
+```
+
+
+
+::: {.box .note}
+In the examples above, the operation of extracting out different parts of a
+vector, matrix, list, or data frame is called *subsetting.* R provides many
+different ways to subset a data structure and discussing all of them is beyond
+the scope of this book. However, mastering subsetting will help your code be
+more concise and correct. See the Read More link on Subsetting below:
+
+[Advanced R - Subsetting](https://adv-r.hadley.nz/subsetting.html)
+:::
+
+::: {.box .readmore}
+[Advanced R - Data Structures](http://adv-r.had.co.nz/Data-structures.html)
+[Advanced R - Subsetting](https://adv-r.hadley.nz/subsetting.html)
+:::
 
 ## Logical Tests and Comparators
 
@@ -659,9 +781,14 @@ two forms of iteration: vectorized operations, and functional programming with
 ::: {.box .warning}
 Note that R does have `for` and `while` loop support in the language. However,
 these loop structures often have poor performance, and should generally be
-avoided in R in favor of the functional style of iteration described below.
+avoided in favor of the functional style of iteration described below.
 
 [How To Avoid For Loops in R](https://www.r-bloggers.com/2018/09/how-to-avoid-for-loop-in-r/)
+
+If you really, really want to learn how to use for loops in R, read this, but
+don't say I didn't warn you when your code slows to a crawl for unknown reasons:
+
+[R for Data Science - for loops](https://r4ds.had.co.nz/iteration.html#for-loops)
 :::
 
 ### Vectorized operations
@@ -909,12 +1036,116 @@ all(x_zscore_means < 1e-15)
 This functional programming pattern might be counter intuitive at first, but it
 is well worth your while to learn.
 
+::: {.box .readmore}
+[R for Data Science - Iteration](https://r4ds.had.co.nz/iteration.html)
+:::
+
 ## Troubleshooting/Debugging Strategies {#prog-debugging}
 
-TODO
+**Bugs in code are normal.** You are not a bad programmer if your code has bugs
+(thank goodness!). However, some bugs can be very difficult to fix, and some are
+even difficult to find. You will spend a substantial amount of time debugging
+your code in R, especially as you are learning the language and its many quirks.
+You will encounter R error and warning messages routinely during development,
+and not all of them are straightforward to understand. It is important that you
+learn how to seek the answers to the problems R reports on your own; your
+colleagues (and instructors!) will thank you for it.
+
+There is no standard approach to debugging, but here we borrow ideas from
+[Hadley Wickam's excellent section on debugging in his Advanced R
+book](https://adv-r.hadley.nz/debugging.html#debugging-strategy):
+
+1. **Google!** - copy and paste the error into google and see what comes back.
+   Especially when starting out, the errors you receive have been encountered
+   countless times by others before you, and solutions/explanations of them are
+   already out there. If you aren't already familiar with [Stack
+   Overflow](https://stackoverflow.com/), you will be very soon.
+2. **Make it repeatable** - When you encounter an error, don't change anything
+   in your code and try again to make sure you get the same error again. This
+   may require you to isolate the code with the error in a different setting to
+   make it more easy to run. If you do, this means the error is repeatable, or
+   replicable, and you can now try modifying the code in question to see if and
+   how the error changes.
+3. **Find out where the bug is*** - Most bugs involve multiple lines of code,
+   only a subset of which contains the actual error. Sometimes the exact line
+   where the error occurs is obvious, but other times the error is a consequence
+   of a mistake assumption made earlier in the code.
+4. **Fix it and test it** - When you have identified the specific issue causing
+   the bug, modify the code so it produces the correct result and then
+   rigorously test your fix to make sure it is correct. Sometimes making one
+   change to code causes side effects elsewhere in your code in ways that are
+   difficult to predict. Ideally, you have already written [unit
+   tests](#prog-testing) that explicitly test parts of your code, but if not you
+   will need to use other means of convincing yourself that your fix worked.
+
+This debugging process will become second nature as you work more in R.
+
+Practically speaking, the most basic debugging method is to run code that isn't
+working the way it should, print out intermediate results to inspect the state
+of your variables, and make adjustments accordingly. In RStudio, the Environment
+Inspector in the top right of the interface makes inspecting the current values
+of your variables very easy. You can also easily execute lines of code from your
+script in the interpreter at the bottom right using `Cntl-Enter` and test out
+modifications there.
+
+Sometimes you will be working with highly nested data structures like lists of
+lists. These objects can be difficult to inspect due to their size. The `str()`
+function, which stands for `str`ucture, will pretty print an object with its
+values and its structure:
+
+```
+nested_lists <- list(
+  a=list(
+      item1=c(1,2,3),
+      item2=c('A','B','C')
+  ),
+  b=list(
+      var1=1:10,
+      var2=100:110,
+      var3=1000:1010
+  ),  
+  c=c(10,9,8,7,6,5)
+)
+nested_lists
+$a
+$a$item1
+[1] 1 2 3
+
+$a$item2
+[1] "A" "B" "C"
+
+
+$b
+$b$var1
+ [1]  1  2  3  4  5  6  7  8  9 10
+
+$b$var2
+ [1] 100 101 102 103 104 105 106 107 108 109 110
+
+$b$var3
+ [1] 1000 1001 1002 1003 1004 1005 1006 1007 1008 1009 1010
+str(nested_lists)
+List of 3
+ $ a:List of 2
+  ..$ item1: num [1:3] 1 2 3
+  ..$ item2: chr [1:3] "A" "B" "C"
+ $ b:List of 3
+  ..$ var1: int [1:10] 1 2 3 4 5 6 7 8 9 10
+  ..$ var2: int [1:11] 100 101 102 103 104 105 106 107 108 109 ...
+  ..$ var3: int [1:11] 1000 1001 1002 1003 1004 1005 1006 1007 1008 1009 ...
+ $ c: num [1:6] 10 9 8 7 6 5
+```
+
+The output `str` is more concise and descriptive than simply printing out the
+object.
+
+RStudio has many more debugging tools you can use. Check out the section on
+debugging in Hadley Wickam's Advanced R book in the Read More box for
+description of these tools.
 
 ::: {.box .readmore}
-[Hands-On Programming with R -Debugging R Code](https://rstudio-education.github.io/hopr/debug.html)
+[Hands-On Programming with R - Debugging R Code](https://rstudio-education.github.io/hopr/debug.html)
+[Advanced R - Debugging](https://adv-r.hadley.nz/debugging.html)
 :::
 
 ## Coding Style and Conventions {#prog-style}
