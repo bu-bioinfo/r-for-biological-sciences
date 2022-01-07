@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="prog-basics.html"><a href="prog-basics.html#r-syntax-basics"><i class="fa fa-check"></i><b>3.1</b> R Syntax Basics</a></li>
 <li class="chapter" data-level="3.2" data-path="prog-basics.html"><a href="prog-basics.html#prog-types"><i class="fa fa-check"></i><b>3.2</b> Basic Types of Values</a></li>
-<li class="chapter" data-level="3.3" data-path="prog-basics.html"><a href="prog-basics.html#prog-struct"><i class="fa fa-check"></i><b>3.3</b> Data Structures &amp; Iteration</a>
+<li class="chapter" data-level="3.3" data-path="prog-basics.html"><a href="prog-basics.html#prog-struct"><i class="fa fa-check"></i><b>3.3</b> Data Structures</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="prog-basics.html"><a href="prog-basics.html#vectors"><i class="fa fa-check"></i><b>3.3.1</b> Vectors</a></li>
 <li class="chapter" data-level="3.3.2" data-path="prog-basics.html"><a href="prog-basics.html#matrices"><i class="fa fa-check"></i><b>3.3.2</b> Matrices</a></li>
@@ -171,17 +171,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5" data-path="prog-basics.html"><a href="prog-basics.html#functions"><i class="fa fa-check"></i><b>3.5</b> Functions</a>
 <ul>
 <li class="chapter" data-level="3.5.1" data-path="prog-basics.html"><a href="prog-basics.html#prog-dry"><i class="fa fa-check"></i><b>3.5.1</b> DRY: Don’t Repeat Yourself</a></li>
+<li class="chapter" data-level="3.5.2" data-path="prog-basics.html"><a href="prog-basics.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.5.2</b> Writing your own functions</a></li>
+<li class="chapter" data-level="3.5.3" data-path="prog-basics.html"><a href="prog-basics.html#scope"><i class="fa fa-check"></i><b>3.5.3</b> Scope</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="prog-basics.html"><a href="prog-basics.html#prog-style"><i class="fa fa-check"></i><b>3.6</b> Coding Style and Conventions</a>
+<li class="chapter" data-level="3.6" data-path="prog-basics.html"><a href="prog-basics.html#iteration"><i class="fa fa-check"></i><b>3.6</b> Iteration</a>
 <ul>
-<li class="chapter" data-level="3.6.1" data-path="prog-basics.html"><a href="prog-basics.html#is-my-code-correct"><i class="fa fa-check"></i><b>3.6.1</b> Is my code correct?</a></li>
-<li class="chapter" data-level="3.6.2" data-path="prog-basics.html"><a href="prog-basics.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>3.6.2</b> Does my code follow the <span>DRY principle</span>?</a></li>
-<li class="chapter" data-level="3.6.3" data-path="prog-basics.html"><a href="prog-basics.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>3.6.3</b> Did I choose concise but descriptive variable and function names?</a></li>
-<li class="chapter" data-level="3.6.4" data-path="prog-basics.html"><a href="prog-basics.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>3.6.4</b> Did I use indentation and naming conventions consistently throughout my code?</a></li>
-<li class="chapter" data-level="3.6.5" data-path="prog-basics.html"><a href="prog-basics.html#did-i-write-comments-especially-when-what-the-code-is-doing-is-not-obvious"><i class="fa fa-check"></i><b>3.6.5</b> Did I write comments, especially when what the code is doing is not obvious</a></li>
-<li class="chapter" data-level="3.6.6" data-path="prog-basics.html"><a href="prog-basics.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>3.6.6</b> How easy would it be for someone else to understand my code?</a></li>
+<li class="chapter" data-level="3.6.1" data-path="prog-basics.html"><a href="prog-basics.html#vectorized-operations"><i class="fa fa-check"></i><b>3.6.1</b> Vectorized operations</a></li>
+<li class="chapter" data-level="3.6.2" data-path="prog-basics.html"><a href="prog-basics.html#functional-programming"><i class="fa fa-check"></i><b>3.6.2</b> Functional programming</a></li>
+<li class="chapter" data-level="3.6.3" data-path="prog-basics.html"><a href="prog-basics.html#apply-and-friends"><i class="fa fa-check"></i><b>3.6.3</b> <code>apply()</code> and friends</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="prog-basics.html"><a href="prog-basics.html#troubleshootingdebugging-strategies"><i class="fa fa-check"></i><b>3.7</b> Troubleshooting/Debugging Strategies</a></li>
+<li class="chapter" data-level="3.7" data-path="prog-basics.html"><a href="prog-basics.html#prog-debugging"><i class="fa fa-check"></i><b>3.7</b> Troubleshooting/Debugging Strategies</a></li>
+<li class="chapter" data-level="3.8" data-path="prog-basics.html"><a href="prog-basics.html#prog-style"><i class="fa fa-check"></i><b>3.8</b> Coding Style and Conventions</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="prog-basics.html"><a href="prog-basics.html#is-my-code-correct"><i class="fa fa-check"></i><b>3.8.1</b> Is my code correct?</a></li>
+<li class="chapter" data-level="3.8.2" data-path="prog-basics.html"><a href="prog-basics.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>3.8.2</b> Does my code follow the <span>DRY principle</span>?</a></li>
+<li class="chapter" data-level="3.8.3" data-path="prog-basics.html"><a href="prog-basics.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>3.8.3</b> Did I choose concise but descriptive variable and function names?</a></li>
+<li class="chapter" data-level="3.8.4" data-path="prog-basics.html"><a href="prog-basics.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>3.8.4</b> Did I use indentation and naming conventions consistently throughout my code?</a></li>
+<li class="chapter" data-level="3.8.5" data-path="prog-basics.html"><a href="prog-basics.html#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><i class="fa fa-check"></i><b>3.8.5</b> Did I write comments, especially when what the code does is not obvious?</a></li>
+<li class="chapter" data-level="3.8.6" data-path="prog-basics.html"><a href="prog-basics.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>3.8.6</b> How easy would it be for someone else to understand my code?</a></li>
+<li class="chapter" data-level="3.8.7" data-path="prog-basics.html"><a href="prog-basics.html#is-my-code-easy-to-maintainchange"><i class="fa fa-check"></i><b>3.8.7</b> Is my code easy to maintain/change?</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
 <ul>
@@ -281,11 +290,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-12"><i class="fa fa-check"></i><b>7.2.2</b> Learning Objectives</a></li>
 <li class="chapter" data-level="7.2.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-12"><i class="fa fa-check"></i><b>7.2.3</b> Skill List</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="data-visualization.html"><a href="data-visualization.html#ds-network-viz"><i class="fa fa-check"></i><b>7.3</b> Network Viz</a>
+<li class="chapter" data-level="7.3" data-path="data-visualization.html"><a href="data-visualization.html#publication-ready-plots"><i class="fa fa-check"></i><b>7.3</b> Publication Ready Plots</a></li>
+<li class="chapter" data-level="7.4" data-path="data-visualization.html"><a href="data-visualization.html#ds-network-viz"><i class="fa fa-check"></i><b>7.4</b> Network Viz</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-13"><i class="fa fa-check"></i><b>7.3.1</b> Overview</a></li>
-<li class="chapter" data-level="7.3.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-13"><i class="fa fa-check"></i><b>7.3.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="7.3.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-13"><i class="fa fa-check"></i><b>7.3.3</b> Skill List</a></li>
+<li class="chapter" data-level="7.4.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-13"><i class="fa fa-check"></i><b>7.4.1</b> Overview</a></li>
+<li class="chapter" data-level="7.4.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-13"><i class="fa fa-check"></i><b>7.4.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.4.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-13"><i class="fa fa-check"></i><b>7.4.3</b> Skill List</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>8</b> EngineeRing</a>
@@ -309,7 +319,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>11</b> Contribution Guide</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="contribution-guide.html"><a href="contribution-guide.html#custom-blocks"><i class="fa fa-check"></i><b>11.1</b> Custom blocks</a></li>
-<li class="chapter" data-level="11.2" data-path="contribution-guide.html"><a href="contribution-guide.html#section"><i class="fa fa-check"></i><b>11.2</b> —</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i><b>12</b> Assignments</a>
 <ul>
@@ -469,7 +478,7 @@ there are one of these values in your input, and need to be handled explicitly.<
 </div>
 </div>
 <div id="prog-struct" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Data Structures &amp; Iteration</h2>
+<h2><span class="header-section-number">3.3</span> Data Structures</h2>
 <div id="vectors" class="section level3" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Vectors</h3>
 <p>Data structures in R (and other languages) are ways of storing and organizing
@@ -480,7 +489,7 @@ dimensional sequence of values called a
 x &lt;- c(1,2,3)
 [1] 1 2 3</code></pre>
 <p>The vector in R has a special property that all values contained in the vector
-must have the same type, from the list <a href="prog-types">described above</a>. When
+must have the same type, from the list <a href="prog-basics.html#prog-types">described above</a>. When
 constructing a vector, R will <a href="https://rstudio-education.github.io/hopr/r-objects.html#coercion">coerce
 values</a> to the
 most general type if it encounters values of different types:</p>
@@ -567,6 +576,7 @@ dim(t(A))
 </div>
 <div id="lists-and-data-frames" class="section level3" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> Lists and data frames</h3>
+<p>TODO</p>
 </div>
 </div>
 <div id="logical-tests-and-comparators" class="section level2" number="3.4">
@@ -647,12 +657,11 @@ has technical implications on the structure of the language, a more important
 consequence is the style of programming it entails. The functional programming
 style (or <em>paradigm</em>) has many advantages, including generally producing
 programs that are more concise, predictable, provably correct, and performant.
-<a href="https://www.tutorialspoint.com/functional_programming/index.htm">This tutorial</a>
 provides a good starting point for learning about functional programming.</p>
 </div>
 <p>In order to do anything useful, a function must generally be able to accept
-and execute on different inputs; e.g. the <code>sin</code> function wouldn’t be very useful
-if it didn’t accept a value! The terminology used in R and many other
+and execute on different inputs; e.g. the <code>mean</code> function wouldn’t be very
+useful if it didn’t accept a value! The terminology used in R and many other
 programming languages for this is the function must <em>accept</em> or allow you to
 <em>pass it arguments.</em> In R, functions accept arguments using the following
 *pattern:</p>
@@ -716,7 +725,7 @@ what you intend.</p>
 <p><strong>The <code>...</code> argument catchall can be very dangerous.</strong> It allows you to provide
 arguments to a function that have no meaning, and R will not raise an error.
 Consider the following call to <code>mean</code>:</p>
-<pre><code># this generates a vector of 100 normally distributed samples with mean 0 and standard deviation 1
+<pre><code># this generates 100 normally distributed samples with mean 0 and standard deviation 1
 my_vals &lt;- rnorm(100,mean=0,sd=1)
 mean(x=my_vals,tirm=0.1)
 [1] -0.05826857</code></pre>
@@ -734,55 +743,445 @@ arguments to function calls!</p>
 <ul>
 <li><a href="https://r4ds.had.co.nz/functions.html">R for Data Science - Functions</a></li>
 <li><a href="https://rdrr.io/r/">rdrr.io - Base R Function Reference</a></li>
+<li><a href="https://www.tutorialspoint.com/functional_programming/index.htm">This tutorial</a></li>
 <li><a href="https://adv-r.hadley.nz/fp.html">Advanced R - Functional Programming</a></li>
 </ul>
 </div>
 <div id="prog-dry" class="section level3" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> DRY: Don’t Repeat Yourself</h3>
+<p>Sometimes you will find yourself writing the same code more than once to perform
+the same operation on different data. For example, one common data
+transformation is <em>standardization</em> or <em>normalization</em> which entails taking a
+series of numbers, subtracting the mean of all the numbers from them, and
+dividing each by the standard deviation of the numbers:</p>
+<pre><code># 100 normally distributed samples with mean 20 and standard deviation 10
+my_vals &lt;- rnorm(100,mean=20,sd=10)
+my_vals_norm &lt;- (my_vals - mean(my_vals))/sd(my_vals)
+mean(my_vals_norm)
+[1] 0
+sd(my_vals_norm)
+[1] 1</code></pre>
+<p>Later in your code, you may need to standardize a different set of values, so
+you decide to copy and paste your code from above and replace the variable name
+to reflect the new data:</p>
+<pre><code># new samples with mean 40 and standard deviation 5
+my_other_vals &lt;- rnorm(100,mean=40,sd=5)
+my_other_vals_norm &lt;- (my_other_vals - mean(my_other_vals))/sd(my_vals)
+mean(my_other_vals_norm)
+[1] 0
+sd(my_other_vals_norm) # this should be 1!
+[1] 0.52351</code></pre>
+<p>Notice the mistake? We forgot to change the variable name <code>my_vals</code> to
+<code>my_other_vals</code> in our pasted code, which produced an incorrect result. Good
+thing we checked!</p>
+<p>In general, if you are copying and pasting code from one part of your script to
+another, you are repeating yourself and have to do a lot of work to be sure you
+have modified your copy correctly. Copying and pasting code is tempting from an
+efficiency standpoint, but introduces may opportunities for (often undetected!)
+errors.</p>
+<p><a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">Don’t Repeat Yourself</a>
+(DRY) is a principle of software development that emphasizes recognizing and
+avoiding writing the same code over and over by encapsulating code. In R, this
+is most easily done with functions. If you notice yourself copying and pasting
+code, or writing the same pattern of code more than once, this is an excellent
+opportunity to write your own function and avoid repeating yourself!</p>
+</div>
+<div id="writing-your-own-functions" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Writing your own functions</h3>
+<p>R allows you to define your own function using the following syntax:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="prog-basics.html#cb26-1" aria-hidden="true" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg1, arg2, ...) {</span>
+<span id="cb26-2"><a href="prog-basics.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># code that does something with arg1, arg2, etc</span></span>
+<span id="cb26-3"><a href="prog-basics.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(some_result)</span>
+<span id="cb26-4"><a href="prog-basics.html#cb26-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>You define the name of your function, the number of arguments it accepts and
+their names, and the code within the function, which is also called the function
+<em>body</em>. Taking the example above, I would define a function named <code>standardize</code>
+<em>that accepts a vector of numbers, subtracts the mean from all the values, and
+</em>divides them by the standard deviation:</p>
+<pre><code>standardize &lt;- function(x) {
+  res &lt;- (x - mean(x))/sd(x)
+  return(res)
+}
+
+my_vals &lt;- rnorm(100,mean=20,sd=10)
+my_vals_std &lt;- standardize(my_vals)
+mean(my_vals_std)
+[1] 0
+sd(my_vals_std)
+[1] 1
+
+my_other_vals &lt;- rnorm(100,mean=40,sd=5)
+my_other_vals_std &lt;- standardize(my_other_vals)
+mean(my_other_vals_std)
+[1] 0
+sd(my_other_vals_std)
+[1] 1</code></pre>
+<p>Notice above we are assigning the value of the <code>standardize</code> function to new
+variables. In R and other languages, the result of a function is <em>returned</em> when
+the function is called; the value returned is called the <em>return value</em>. The
+<code>return()</code> function makes it clear what the function is returning.</p>
+<div class="box note">
+<p>The <code>return()</code> function is not strictly necessary in R; the result of the last
+line of code in the body of a function is returned by default. However, to again
+to borrow from <a href="https://www.python.org/dev/peps/pep-0020/#id2">the Zen of
+Python</a>, “Explicit is better than
+implicit.” Being explicit about what a function returns by using the <code>return()</code>
+function will make your code less error prone and easier to understand.</p>
 </div>
 </div>
-<div id="prog-style" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Coding Style and Conventions</h2>
+<div id="scope" class="section level3" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Scope</h3>
+<p>In programming, there is a critically important concept called <em>scope</em>. Every
+variable and function you define when you program has a scope, which defines
+where in the rest of your code the variable can be accessed. In R, variables
+defined outside of a function have <em>universal</em> or <em>top level scope</em>, i.e. they
+can be accessed from anywhere in your script. However, variables defined
+<em>inside</em> functions can only be accessed from within that function. For example:</p>
+<pre><code>x &lt;- 3
+multiply_x_by_two &lt;- function() {
+  y &lt;- x*2 # x is not defined as a parameter to the function, but is defined outside the function
+  return(y)
+}
+x
+[1] 3
+multiply_x_by_two()
+[1] 6
+y
+Error: object &#39;y&#39; not found</code></pre>
+<p>Notice that the variable <code>x</code> is accessible within the function
+<code>multiply_x_by_two</code>, but the variable <code>y</code> is <em>not</em> accessible outside that
+function. The reason that <code>x</code> is accessible within the function is that
+<code>multiply_x_by_two</code> <em>inherits the scope where it is defined</em>, which in this case
+is the top level scope of your script, which includes <code>x</code>. The scope of <code>y</code> is
+limited to the body of the function between the <code>{</code> <code>}</code> curly braces defining
+the function.</p>
+<p><strong>Accessing variables within functions from outside the function’s scope is very
+bad practice!</strong> Functions should be as self contained as possible, and any
+values they need should be passed as parameters. A better way to write the
+function above would be as follows:</p>
+<pre><code>x &lt;- 3
+multiply_by_two &lt;- function(x) {
+  y &lt;- x*2 # x here is defined as whatever is passed to the function!
+  y
+}
+x
+[1] 3
+multiply_by_two(6)
+[1] 12
+x # the value of x in the outer scope remains the same, because the function scope does not modify it
+[1] 3</code></pre>
+<p>Every variable and function you define is subject to the same scope rules above.
+Scope is a critical concept to understand when programming, and grasping how it
+works will make your code more predictable and less error prone.</p>
+<div class="box readmore">
+<p><a href="https://www.geeksforgeeks.org/scope-of-variable-in-r/">Scope in R</a></p>
+</div>
+</div>
+</div>
+<div id="iteration" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Iteration</h2>
+<p>In programming, iteration refers to stepping sequentially through a set or
+collection of objects, be it a vector of numbers, the columns of a matrix, etc.
+In non-functional languages like python, C, etc. there are particular <em>control
+structures</em> that implement iteration, commonly called <em>loops</em>. If you have
+worked with these languages, you may be familiar with <em>for</em> and <em>while</em> loops,
+which are some of these iteration control structures. However, R was designed to
+execute iteration in a different way than these other languages, and provides
+two forms of iteration: vectorized operations, and functional programming with
+<code>apply()</code>.</p>
+<div class="box warning">
+<p>Note that R does have <code>for</code> and <code>while</code> loop support in the language. However,
+these loop structures often have poor performance, and should generally be
+avoided in R in favor of the functional style of iteration described below.</p>
+<p><a href="https://www.r-bloggers.com/2018/09/how-to-avoid-for-loop-in-r/">How To Avoid For Loops in R</a></p>
+</div>
+<div id="vectorized-operations" class="section level3" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Vectorized operations</h3>
+<p>The simplest form of iteration in R comes in vectorized computation. This sounds
+fancy, but it just means R intrinsically knows how to perform many operations on
+vectors and matrices as well as individual values. We have already seen examples
+of this above when performing arithmetic operations on vectors:</p>
+<pre><code>x &lt;- c(1,2,3,4,5)
+x + 3 # add 3 to every element of vector x
+[1] 4 5 6 7 8
+x * x # elementwise multiplication, 1*1 2*2 etc
+[1] 1 4 9 16 25
+x_mat &lt;- matrix(c(1,2,3,4,5,6),nrow=2,ncol=3)
+x_mat + 3 # add 3 to every element of matrix x_mat
+[,1] [,2] [,3]
+[1,]    4    6    8
+[2,]    5    7    9
+# the * operator always means element-wise
+x_mat * x_mat
+     [,1] [,2] [,3]
+[1,]    1    9   25
+[2,]    4   16   36</code></pre>
+<p>In addition to simple arithmetic operations, R also has syntax for
+vector-vector, matrix-vector, and matrix-matrix operations, like matrix
+multiplication and dot products:</p>
+<pre><code># the %*% operator stands for matrix multiplication
+x_mat %*% c(1,2,3) # [ 2x3 ] * [ 3 ]
+     [,1]
+[1,]   22
+[2,]   28
+x_mat %*% t(x_mat) # recall t() is the transpose function, making [ 2x3 ] * [ 3x2 ]
+     [,1] [,2]
+[1,]   35   44
+[2,]   44   56</code></pre>
+<p>These forms of implicit iteration are very powerful, and the R program has been
+highly optimized to perform these operations very quickly. If you can cast your
+iteration into a vector or matrix multiplication, it is a good idea to do so.
+For other more complex or custom iteration, we must first talk briefly about
+functional programming.</p>
+</div>
+<div id="functional-programming" class="section level3" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Functional programming</h3>
+<p>R is a functional programming language at its core, which means it is designed
+around the use of functions. In the previous section, we saw that functions are
+defined and assigned to names just like variables. This means that functions can
+be passed to other functions just like variables! Consider the following
+example.</p>
+<p>Let’s consider a general formulation of vector transformation:</p>
+<p><span class="math display">\[
+\bar{\mathbf{x}} = \frac{\mathbf{x} - t_r(\mathbf{x})}{s(\mathbf{x})}
+\]</span></p>
+<p>Here, <span class="math inline">\(\mathbf{x}\)</span> is a vector of real numbers, and <span class="math inline">\(\bar{\mathbf{x}}\)</span> is
+defined as a vector of the same length where each value has had some average
+or central value <span class="math inline">\(t_r(\mathbf{x})\)</span> subtracted from it, and is divided by a scaling
+factor <span class="math inline">\(s(\mathbf{x})\)</span> to control the range of resulting values. Both
+<span class="math inline">\(t_r(\mathbf{x})\)</span> and <span class="math inline">\(s(\mathbf{x})\)</span> are scalars (i.e. individual numbers) and
+dependent upon the values of <span class="math inline">\(\mathbf{x}\)</span>. If <span class="math inline">\(t_r\)</span> is arithmetic mean and <span class="math inline">\(s\)</span> is
+standard deviation, we have defined the standardization transformation mentioned
+in earlier examples:</p>
+<pre><code>x &lt;- rnorm(100, mean=20, sd=10)
+x_zscore &lt;- (x - mean(x))/sd(x)</code></pre>
+<p>However, there are many different ways to define the central value of a set of
+numbers:</p>
+<ul>
+<li>arithmetic mean</li>
+<li><a href="https://en.wikipedia.org/wiki/Geometric_mean">geometric mean</a></li>
+<li>median</li>
+<li>mode</li>
+<li><a href="https://en.wikipedia.org/wiki/Mean#Other_means">and many more</a></li>
+</ul>
+<p>Each of these central value methods accepts a vector of numbers, but their
+behaviors are different, and are appropriate in different situations. Likewise,
+there are many possible scaling strategies we might consider:</p>
+<ul>
+<li>standard deviation</li>
+<li>rescaling factor (e.g. set data range to be between -1 and 1)</li>
+<li>scaling to unit length (all values sum to 1)</li>
+<li><a href="https://en.wikipedia.org/wiki/Feature_scaling">and others</a></li>
+</ul>
+<p>We may wish to explore these different methods without writing entirely new code
+for each combination when trying out different transformation techniques.</p>
+<p>In R and other functional languages, we can easily accomplish this by <em>passing
+functions as arguments to other functions</em>. Consider the following R function:</p>
+<pre><code># note R already has a built in function named &quot;transform&quot;
+my_transform &lt;- function(x, t_r, s) {
+  return((x - t_r(x))/s(x))
+}</code></pre>
+<p>This should look familiar to the equation presented earlier, except now in code
+the arguments <code>t_r</code> and <code>s</code> are passed as arguments. If we wished to transform
+using a <a href="https://en.wikipedia.org/wiki/Standard_score">Z-score normalization</a>,
+we could call <code>my_transform</code> as follows:</p>
+<pre><code>x &lt;- rnorm(100,mean=20,sd=10)
+x_zscore &lt;- my_transform(x, mean, sd)
+mean(x_zscore)
+[1] 0
+sd(x_zscore)
+[1] 1</code></pre>
+<p>In the <code>my_transform</code> function call, the second and third arguments are the
+names of the <code>mean</code> and <code>sd</code> functions, respectively. In the definition of
+<code>my_transform</code> we use the syntax <code>t_r(x)</code> and <code>s(x)</code> to indicate that these
+arguments should be treated as functions. Using this strategy, we could just as
+easily define a transformation using <code>median</code> and <code>sum</code> for <code>t_r</code> and <code>s</code> if we
+wished to:</p>
+<pre><code>x &lt;- rnorm(100,mean=20,sd=10)
+x_transform &lt;- my_transform(x, median, sum)
+median(x_transform)
+[1] 0
+sum(x_transform) # this quantity does not have an a priori known value (or meaning for that matter, it&#39;s just an example)
+[1] 0.013</code></pre>
+<p>We can also write our own functions and pass them to get the <code>my_transform</code>
+function to have desired behavior. The following scales the values of <code>x</code> to
+have a range of <span class="math inline">\([0,1]\)</span>:</p>
+<pre><code>data_range &lt;- function(x) {
+  return(max(x) - min(x))
+}
+# my_transform computes: (x - min(x))/(max(x) - min(x))
+x_rescaled &lt;- my_transform(x, min, data_range)
+min(x_rescaled)
+[1] 0
+max(x_rescaled)
+[1] 1</code></pre>
+<p>The <code>data_range</code> function simply subtracts the minimum value of <code>x</code> from the
+maximum value and returns the result.</p>
+<p>This feature of passing functions as arguments to other functions is a
+fundamental property of functional programming languages. Now we are ready to
+finally talk about how iteration is performed in R.</p>
+<div class="box readmore">
+<ul>
+<li><a href="https://adv-r.hadley.nz/fp.html">Advanced R - Functional Programming</a></li>
+<li><a href="https://www.tutorialspoint.com/functional_programming/index.htm">Functional Programming Tutorial</a></li>
+</ul>
+</div>
+</div>
+<div id="apply-and-friends" class="section level3" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> <code>apply()</code> and friends</h3>
+<p>When working with lists and matrices in R, there are often times when you want
+to perform a computation on every row or every column separately. A common
+example of this in data science mentioned above is feature standardization.
+Earlier we wrote a <a href="https://en.wikipedia.org/wiki/Standard_score">Z-score
+transformation</a> that accepts a
+vector, subtracts the mean from each element, and divides the result by the
+standard deviation of the data. This ensures the data has a mean and standard
+deviation of 0 and 1, respectively. However, this function only operates on a
+single vector of numbers. Large datasets have many <em>features</em>, each of which may
+be individual vectors, that we desire to perform this same Z-score
+transformation on separately. In other words, we have one function that we wish
+to execute on either every row or every column of a matrix and return the
+result. This is a form of iteration that can be implemented in a functional
+style using the <code>apply</code> function.</p>
+<p>This is the signature of the <code>apply</code> function, from the RStudio <code>help(apply)</code>
+page:</p>
+<pre><code>apply(X, MARGIN, FUN, ..., simplify = TRUE)</code></pre>
+<p>Here, <code>X</code> is a matrix (i.e. a rectangle of numbers) that we wish to perform a
+computation on for either each row or each column. <code>MARGIN</code> indicates whether
+the matrix should be traversed by rows (<code>MARGIN=1</code>) or columns (<code>MARGIN=2</code>).
+<code>FUN</code> is the name of a function that accepts a vector and returns either a
+vector or a scalar value that we wish to execute on either the rows or columns.
+<code>apply()</code> then executes <code>FUN</code> on each row or column of <code>X</code> and returns the
+result. For example:</p>
+<pre><code>zscore &lt;- function(x) {
+  return((x-mean(x))/sd(x))
+}
+# construct a matrix of 50 rows by 100 columns with samples drawn from a normal distribution
+x_mat &lt;- matrix(
+  rnorm(100*50, mean=20, sd=5),
+  nrow=50,
+  ncol=100
+)
+# z-transform the rows of x_mat, so that each column has mean,sd of 0,1
+x_mat_zscore  &lt;- apply(x_mat, 2, zscore)
+# we can check that all the columns of x_mat_zscore have mean close to zero with apply too
+x_mat_zscore_means &lt;- apply(x_mat_zscore, 2, mean)
+# note: due to machine precision errors, these results will not be exactly zero, but are very close
+# note: the all() function returns true if all of its arguments are TRUE
+all(x_mat_zscore_means&lt;1e-15)
+[1] TRUE</code></pre>
+<p>The same approach can be used when <code>X</code> is a list or data frame rather than a
+matrix using the <code>lapply()</code> function (hint: the <code>l</code> in <code>lapply</code> stands for
+“list”). Here is the function signature for <code>lapply</code>:</p>
+<pre><code>lapply(X, FUN, ...)</code></pre>
+<p>Recall that lists and data frames can be thought of as vectors where each
+element can be its own vector. Therefore, there is only one axis along which to
+iterate on the elements and there is not <code>MARGIN</code> argument as in <code>apply</code>. This
+function returns a new list of the same dimension as the original list with
+elements returned by <code>FUN</code>:</p>
+<pre><code>x &lt;- list(
+  feature1=rnorm(100,mean=20,sd=10),
+  feature2=rnorm(100,mean=50,sd=5)
+)
+x_zscore &lt;- lapply(x, zscore)
+# check that the means are close to zero
+x_zscore_means &lt;- lapply(x_zscore, mean)
+all(x_zscore_means &lt; 1e-15)
+[1] TRUE</code></pre>
+<p>This functional programming pattern might be counter intuitive at first, but it
+is well worth your while to learn.</p>
+</div>
+</div>
+<div id="prog-debugging" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Troubleshooting/Debugging Strategies</h2>
+<p>TODO</p>
+<div class="box readmore">
+<p><a href="https://rstudio-education.github.io/hopr/debug.html">Hands-On Programming with R -Debugging R Code</a></p>
+</div>
+</div>
+<div id="prog-style" class="section level2" number="3.8">
+<h2><span class="header-section-number">3.8</span> Coding Style and Conventions</h2>
 <p>Some very common worries among new programmers is: “Is my code terrible? How do
 I write good code?” There is no gold standard for what makes code “good”, but
 there are some questions you can ask of your code as a guide:</p>
-<div id="is-my-code-correct" class="section level3" number="3.6.1">
-<h3><span class="header-section-number">3.6.1</span> Is my code correct?</h3>
+<div id="is-my-code-correct" class="section level3" number="3.8.1">
+<h3><span class="header-section-number">3.8.1</span> Is my code correct?</h3>
 <p>Does it produce the desired output? This is pretty obviously important in
-principle, but can be difficult to be sure that your code is correct. This is
+principle, but it can be difficult to be sure that your code is correct. This is
 especially difficult if your codebase is large and complicated as it tends to
-become over time. While simple <a href="prog-debugging">trial and error</a> is an effective
+become over time. While simple <a href="prog-basics.html#prog-debugging">trial and error</a> is an effective
 first approach, a more reliable albeit time- and thought-intensive strategy is
-to write <a href="prog-testing">explicit tests</a> for your code and run them regularly.</p>
+to write <a href="#prog-testing">explicit tests</a> for your code and run them regularly.</p>
 </div>
-<div id="does-my-code-follow-the-dry-principle" class="section level3" number="3.6.2">
-<h3><span class="header-section-number">3.6.2</span> Does my code follow the <a href="prog-dry">DRY principle</a>?</h3>
+<div id="does-my-code-follow-the-dry-principle" class="section level3" number="3.8.2">
+<h3><span class="header-section-number">3.8.2</span> Does my code follow the <a href="prog-basics.html#prog-dry">DRY principle</a>?</h3>
 <p>Don’t Repeat Yourself (DRY) is a powerful and helpful strategy to make your
 code more reliable. This typically involves identifying common patterns in your
 code and moving them to functions or objects.</p>
 </div>
-<div id="did-i-choose-concise-but-descriptive-variable-and-function-names" class="section level3" number="3.6.3">
-<h3><span class="header-section-number">3.6.3</span> Did I choose concise but descriptive variable and function names?</h3>
+<div id="did-i-choose-concise-but-descriptive-variable-and-function-names" class="section level3" number="3.8.3">
+<h3><span class="header-section-number">3.8.3</span> Did I choose concise but descriptive variable and function names?</h3>
+<p>Variable and function names should be descriptive when necessary and not too
+long. Try to put yourself in the shoes of someone who is reading your code for
+the first time and see if you can figure out what it does. Better yet, offer to
+buy a friend a coffee in return for them looking at it!</p>
 </div>
-<div id="did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code" class="section level3" number="3.6.4">
-<h3><span class="header-section-number">3.6.4</span> Did I use indentation and naming conventions consistently throughout my code?</h3>
+<div id="did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code" class="section level3" number="3.8.4">
+<h3><span class="header-section-number">3.8.4</span> Did I use indentation and naming conventions consistently throughout my code?</h3>
+<p>Consistently formatted code is much easier to read (and possibly understand)
+than inconsistent code. Consider the following code example:</p>
+<pre><code>calcVal &lt;- function(x, a, arg=2) { return(sum(x*a)**2)}
+calc_val_2 &lt;- function(x, a, b, arg) {
+res &lt;- sum(b+a*x)**arg
+return(res)}</code></pre>
+<p>This code is inconsistent in several ways:</p>
+<ul>
+<li>naming conventions - <code>calcVal</code> is camel case, <code>calc_val_2</code> is snake case</li>
+<li>new lines and whitespace - <code>calcVal</code> is all on one line, <code>calc_val_2</code> is on
+multiple lines</li>
+<li>unhelpful indentation - <code>calc_val_2</code> has a function body that is not indented,
+and the close curly brace is appended to the last line of the body</li>
+<li>unhelpful function and argument names - the function names describe very
+little about what the functions do, and the argument names <code>x</code>, <code>a</code>, etc are
+not very descriptive about what they represent</li>
+<li>unused function arguments - the <code>arg</code> argument in <code>calcVal</code> isn’t used
+anywhere in the function</li>
+<li>the two functions appear to do something very similar and could be made
+simpler using a default argument</li>
+</ul>
+<p>A more consistent version of this code might look like:</p>
+<pre><code>exponent_product &lt;- function(x, a, offset=0, arg=2) {
+  return(sum(offset+a*x)**arg)
+}</code></pre>
+<p>This code is much cleaner, more consistent, and easier to read.</p>
 </div>
-<div id="did-i-write-comments-especially-when-what-the-code-is-doing-is-not-obvious" class="section level3" number="3.6.5">
-<h3><span class="header-section-number">3.6.5</span> Did I write comments, especially when what the code is doing is not obvious</h3>
-<p>from reading it?</p>
+<div id="did-i-write-comments-especially-when-what-the-code-does-is-not-obvious" class="section level3" number="3.8.5">
+<h3><span class="header-section-number">3.8.5</span> Did I write comments, especially when what the code does is not obvious?</h3>
+<p>Sometimes what a piece of code does is obvious from looking at it:</p>
+<pre><code>x &lt;- x + 1</code></pre>
+<p>Clearly this line of code takes the value of <code>x</code>, whatever it is, and adds 1 to
+it. However, it may not be obvious <em>why</em> a piece of code does what it does. In
+these cases, it may be very helpful to record your thinking about a line of code
+as a comment:</p>
+<pre><code># add 1 as a pseudocount
+x &lt;- x + 1</code></pre>
+<p>Then when you or someone else reads the code, it will be obvious what you were
+thinking when you wrote it. In your career, you <em>will</em> encounter situations
+where you need to figure out what you were thinking when you wrote a piece of
+code. <strong>Endeavor to make future you proud of current you!</strong></p>
 </div>
-<div id="how-easy-would-it-be-for-someone-else-to-understand-my-code" class="section level3" number="3.6.6">
-<h3><span class="header-section-number">3.6.6</span> How easy would it be for someone else to understand my code?</h3>
+<div id="how-easy-would-it-be-for-someone-else-to-understand-my-code" class="section level3" number="3.8.6">
+<h3><span class="header-section-number">3.8.6</span> How easy would it be for someone else to understand my code?</h3>
 <p>If someone else who has never seen my code before is asked to run and understand
 it, how easy would it be for them to do so?</p>
 </div>
-</div>
-<div id="troubleshootingdebugging-strategies" class="section level2" number="3.7">
-<h2><span class="header-section-number">3.7</span> Troubleshooting/Debugging Strategies</h2>
-<div class="box readmore">
-<p><a href="https://rstudio-education.github.io/hopr/debug.html">Hands-On Programming with R -Debugging R Code</a></p>
-</div>
+<div id="is-my-code-easy-to-maintainchange" class="section level3" number="3.8.7">
+<h3><span class="header-section-number">3.8.7</span> Is my code easy to maintain/change?</h3>
+<p>This is related to the previous question, but is distinct in that understanding
+what code does is just the first step in being able to make desired changes to
+it.</p>
 
+</div>
 </div>
 </div>
             </section>
