@@ -278,6 +278,8 @@ dim(t(A))
 
 ### Lists and data frames
 
+TODO
+
 ## Logical Tests and Comparators
 
 As mentioned above, R recognizes logical values as a distinct type. R provides
@@ -369,13 +371,12 @@ has technical implications on the structure of the language, a more important
 consequence is the style of programming it entails. The functional programming
 style (or *paradigm*) has many advantages, including generally producing
 programs that are more concise, predictable, provably correct, and performant.
-[This tutorial](https://www.tutorialspoint.com/functional_programming/index.htm)
 provides a good starting point for learning about functional programming.
 :::
 
 In order to do anything useful, a function must generally be able to accept
-and execute on different inputs; e.g. the `sin` function wouldn't be very useful
-if it didn't accept a value! The terminology used in R and many other
+and execute on different inputs; e.g. the `mean` function wouldn't be very
+useful if it didn't accept a value! The terminology used in R and many other
 programming languages for this is the function must *accept* or allow you to
 *pass it arguments.* In R, functions accept arguments using the following
 *pattern:
@@ -456,7 +457,7 @@ arguments to a function that have no meaning, and R will not raise an error.
 Consider the following call to `mean`:
 
 ```
-# this generates a vector of 100 normally distributed samples with mean 0 and standard deviation 1
+# this generates 100 normally distributed samples with mean 0 and standard deviation 1
 my_vals <- rnorm(100,mean=0,sd=1)
 mean(x=my_vals,tirm=0.1)
 [1] -0.05826857
@@ -480,22 +481,437 @@ arguments to function calls!
 ::: {.box .readmore}
 * [R for Data Science - Functions](https://r4ds.had.co.nz/functions.html)
 * [rdrr.io - Base R Function Reference](https://rdrr.io/r/)
+* [This tutorial](https://www.tutorialspoint.com/functional_programming/index.htm)
 * [Advanced R - Functional Programming](https://adv-r.hadley.nz/fp.html)
 :::
 
-### Writing your own functions
-
-
 ### DRY: Don't Repeat Yourself {#prog-dry}
 
+Sometimes you will find yourself writing the same code more than once to perform
+the same operation on different data. For example, one common data
+transformation is *standardization* or *normalization* which entails taking a
+series of numbers, subtracting the mean of all the numbers from them, and
+dividing each by the standard deviation of the numbers:
+
+```
+# 100 normally distributed samples with mean 20 and standard deviation 10
+my_vals <- rnorm(100,mean=20,sd=10)
+my_vals_norm <- (my_vals - mean(my_vals))/sd(my_vals)
+mean(my_vals_norm)
+[1] 0
+sd(my_vals_norm)
+[1] 1
+```
+
+Later in your code, you may need to standardize a different set of values, so
+you decide to copy and paste your code from above and replace the variable name
+to reflect the new data:
+
+```
+# new samples with mean 40 and standard deviation 5
+my_other_vals <- rnorm(100,mean=40,sd=5)
+my_other_vals_norm <- (my_other_vals - mean(my_other_vals))/sd(my_vals)
+mean(my_other_vals_norm)
+[1] 0
+sd(my_other_vals_norm) # this should be 1!
+[1] 0.52351
+```
+
+Notice the mistake? We forgot to change the variable name `my_vals` to
+`my_other_vals` in our pasted code, which produced an incorrect result. Good
+thing we checked!
+
+In general, if you are copying and pasting code from one part of your script to
+another, you are repeating yourself and have to do a lot of work to be sure you
+have modified your copy correctly. Copying and pasting code is tempting from an
+efficiency standpoint, but introduces may opportunities for (often undetected!)
+errors.
 
 [Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
 (DRY) is a principle of software development that emphasizes recognizing and
-avoiding writing the same code over and over.
+avoiding writing the same code over and over by encapsulating code. In R, this
+is most easily done with functions. If you notice yourself copying and pasting
+code, or writing the same pattern of code more than once, this is an excellent
+opportunity to write your own function and avoid repeating yourself!
+
+### Writing your own functions
+
+R allows you to define your own function using the following syntax:
+
+``` {r}
+function_name <- function(arg1, arg2, ...) {
+  # code that does something with arg1, arg2, etc
+  return(some_result)
+}
+```
+
+You define the name of your function, the number of arguments it accepts and
+their names, and the code within the function, which is also called the function
+*body*. Taking the example above, I would define a function named `standardize`
+*that accepts a vector of numbers, subtracts the mean from all the values, and
+*divides them by the standard deviation:
+
+```
+standardize <- function(x) {
+  res <- (x - mean(x))/sd(x)
+  return(res)
+}
+
+my_vals <- rnorm(100,mean=20,sd=10)
+my_vals_std <- standardize(my_vals)
+mean(my_vals_std)
+[1] 0
+sd(my_vals_std)
+[1] 1
+
+my_other_vals <- rnorm(100,mean=40,sd=5)
+my_other_vals_std <- standardize(my_other_vals)
+mean(my_other_vals_std)
+[1] 0
+sd(my_other_vals_std)
+[1] 1
+```
+
+Notice above we are assigning the value of the `standardize` function to new
+variables. In R and other languages, the result of a function is *returned* when
+the function is called; the value returned is called the *return value*. The
+`return()` function makes it clear what the function is returning.
+
+::: {.box .note}
+The `return()` function is not strictly necessary in R; the result of the last
+line of code in the body of a function is returned by default. However, to again
+to borrow from [the Zen of
+Python](https://www.python.org/dev/peps/pep-0020/#id2), "Explicit is better than
+implicit." Being explicit about what a function returns by using the `return()`
+function will make your code less error prone and easier to understand.
+:::
+
+### Scope
+
+In programming, there is a critically important concept called *scope*. Every
+variable and function you define when you program has a scope, which defines
+where in the rest of your code the variable can be accessed. In R, variables
+defined outside of a function have *universal* or *top level scope*, i.e. they
+can be accessed from anywhere in your script. However, variables defined
+*inside* functions can only be accessed from within that function. For example:
+
+```
+x <- 3
+multiply_x_by_two <- function() {
+  y <- x*2 # x is not defined as a parameter to the function, but is defined outside the function
+  return(y)
+}
+x
+[1] 3
+multiply_x_by_two()
+[1] 6
+y
+Error: object 'y' not found
+```
+
+Notice that the variable `x` is accessible within the function
+`multiply_x_by_two`, but the variable `y` is *not* accessible outside that
+function. The reason that `x` is accessible within the function is that
+`multiply_x_by_two` *inherits the scope where it is defined*, which in this case
+is the top level scope of your script, which includes `x`. The scope of `y` is
+limited to the body of the function between the `{` `}` curly braces defining
+the function.
+
+**Accessing variables within functions from outside the function's scope is very
+bad practice!** Functions should be as self contained as possible, and any
+values they need should be passed as parameters. A better way to write the
+function above would be as follows:
+
+```
+x <- 3
+multiply_by_two <- function(x) {
+  y <- x*2 # x here is defined as whatever is passed to the function!
+  y
+}
+x
+[1] 3
+multiply_by_two(6)
+[1] 12
+x # the value of x in the outer scope remains the same, because the function scope does not modify it
+[1] 3
+```
+
+Every variable and function you define is subject to the same scope rules above.
+Scope is a critical concept to understand when programming, and grasping how it
+works will make your code more predictable and less error prone.
+
+::: {.box .readmore}
+[Scope in R](https://www.geeksforgeeks.org/scope-of-variable-in-r/)
+:::
 
 ##  Iteration
 
+In programming, iteration refers to stepping sequentially through a set or
+collection of objects, be it a vector of numbers, the columns of a matrix, etc.
+In non-functional languages like python, C, etc. there are particular *control
+structures* that implement iteration, commonly called *loops*. If you have
+worked with these languages, you may be familiar with *for* and *while* loops,
+which are some of these iteration control structures. However, R was designed to
+execute iteration in a different way than these other languages, and provides
+two forms of iteration: vectorized operations, and functional programming with
+`apply()`.
+
+::: {.box .warning}
+Note that R does have `for` and `while` loop support in the language. However,
+these loop structures often have poor performance, and should generally be
+avoided in R in favor of the functional style of iteration described below.
+
+[How To Avoid For Loops in R](https://www.r-bloggers.com/2018/09/how-to-avoid-for-loop-in-r/)
+:::
+
+### Vectorized operations
+
+The simplest form of iteration in R comes in vectorized computation. This sounds
+fancy, but it just means R intrinsically knows how to perform many operations on
+vectors and matrices as well as individual values. We have already seen examples
+of this above when performing arithmetic operations on vectors:
+
+```
+x <- c(1,2,3,4,5)
+x + 3 # add 3 to every element of vector x
+[1] 4 5 6 7 8
+x * x # elementwise multiplication, 1*1 2*2 etc
+[1] 1 4 9 16 25
+x_mat <- matrix(c(1,2,3,4,5,6),nrow=2,ncol=3)
+x_mat + 3 # add 3 to every element of matrix x_mat
+[,1] [,2] [,3]
+[1,]    4    6    8
+[2,]    5    7    9
+# the * operator always means element-wise
+x_mat * x_mat
+     [,1] [,2] [,3]
+[1,]    1    9   25
+[2,]    4   16   36
+```
+
+In addition to simple arithmetic operations, R also has syntax for
+vector-vector, matrix-vector, and matrix-matrix operations, like matrix
+multiplication and dot products:
+
+```
+# the %*% operator stands for matrix multiplication
+x_mat %*% c(1,2,3) # [ 2x3 ] * [ 3 ]
+     [,1]
+[1,]   22
+[2,]   28
+x_mat %*% t(x_mat) # recall t() is the transpose function, making [ 2x3 ] * [ 3x2 ]
+     [,1] [,2]
+[1,]   35   44
+[2,]   44   56
+```
+
+These forms of implicit iteration are very powerful, and the R program has been
+highly optimized to perform these operations very quickly. If you can cast your
+iteration into a vector or matrix multiplication, it is a good idea to do so.
+For other more complex or custom iteration, we must first talk briefly about
+functional programming.
+
+### Functional programming
+
+R is a functional programming language at its core, which means it is designed
+around the use of functions. In the previous section, we saw that functions are
+defined and assigned to names just like variables. This means that functions can
+be passed to other functions just like variables! Consider the following
+example.
+
+Let's consider a general formulation of vector transformation:
+
+$$
+\bar{\mathbf{x}} = \frac{\mathbf{x} - t_r(\mathbf{x})}{s(\mathbf{x})}
+$$
+
+Here, $\mathbf{x}$ is a vector of real numbers, and $\bar{\mathbf{x}}$ is
+defined as a vector of the same length where each value has had some average
+or central value $t_r(\mathbf{x})$ subtracted from it, and is divided by a scaling
+factor $s(\mathbf{x})$ to control the range of resulting values. Both
+$t_r(\mathbf{x})$ and $s(\mathbf{x})$ are scalars (i.e. individual numbers) and
+dependent upon the values of $\mathbf{x}$. If $t_r$ is arithmetic mean and $s$ is
+standard deviation, we have defined the standardization transformation mentioned
+in earlier examples:
+
+```
+x <- rnorm(100, mean=20, sd=10)
+x_zscore <- (x - mean(x))/sd(x)
+```
+
+However, there are many different ways to define the central value of a set of
+numbers:
+
+* arithmetic mean
+* [geometric mean](https://en.wikipedia.org/wiki/Geometric_mean)
+* median
+* mode
+* [and many more](https://en.wikipedia.org/wiki/Mean#Other_means)
+
+Each of these central value methods accepts a vector of numbers, but their
+behaviors are different, and are appropriate in different situations. Likewise,
+there are many possible scaling strategies we might consider:
+
+* standard deviation
+* rescaling factor (e.g. set data range to be between -1 and 1)
+* scaling to unit length (all values sum to 1)
+* [and others](https://en.wikipedia.org/wiki/Feature_scaling)
+
+We may wish to explore these different methods without writing entirely new code
+for each combination when trying out different transformation techniques.
+
+In R and other functional languages, we can easily accomplish this by *passing
+functions as arguments to other functions*. Consider the following R function:
+
+```
+# note R already has a built in function named "transform"
+my_transform <- function(x, t_r, s) {
+  return((x - t_r(x))/s(x))
+}
+```
+
+This should look familiar to the equation presented earlier, except now in code
+the arguments `t_r` and `s` are passed as arguments. If we wished to transform
+using a [Z-score normalization](https://en.wikipedia.org/wiki/Standard_score),
+we could call `my_transform` as follows:
+
+```
+x <- rnorm(100,mean=20,sd=10)
+x_zscore <- my_transform(x, mean, sd)
+mean(x_zscore)
+[1] 0
+sd(x_zscore)
+[1] 1
+```
+
+In the `my_transform` function call, the second and third arguments are the
+names of the `mean` and `sd` functions, respectively. In the definition of
+`my_transform` we use the syntax `t_r(x)` and `s(x)` to indicate that these
+arguments should be treated as functions. Using this strategy, we could just as
+easily define a transformation using `median` and `sum` for `t_r` and `s` if we
+wished to:
+
+```
+x <- rnorm(100,mean=20,sd=10)
+x_transform <- my_transform(x, median, sum)
+median(x_transform)
+[1] 0
+sum(x_transform) # this quantity does not have an a priori known value (or meaning for that matter, it's just an example)
+[1] 0.013
+```
+
+We can also write our own functions and pass them to get the `my_transform`
+function to have desired behavior. The following scales the values of `x` to
+have a range of $[0,1]$:
+
+```
+data_range <- function(x) {
+  return(max(x) - min(x))
+}
+# my_transform computes: (x - min(x))/(max(x) - min(x))
+x_rescaled <- my_transform(x, min, data_range)
+min(x_rescaled)
+[1] 0
+max(x_rescaled)
+[1] 1
+```
+
+The `data_range` function simply subtracts the minimum value of `x` from the
+maximum value and returns the result.
+
+This feature of passing functions as arguments to other functions is a
+fundamental property of functional programming languages. Now we are ready to
+finally talk about how iteration is performed in R.
+
+::: {.box .readmore}
+* [Advanced R - Functional Programming](https://adv-r.hadley.nz/fp.html)
+* [Functional Programming Tutorial](https://www.tutorialspoint.com/functional_programming/index.htm)
+:::
+
+### `apply()` and friends
+
+When working with lists and matrices in R, there are often times when you want
+to perform a computation on every row or every column separately. A common
+example of this in data science mentioned above is feature standardization.
+Earlier we wrote a [Z-score
+transformation](https://en.wikipedia.org/wiki/Standard_score) that accepts a
+vector, subtracts the mean from each element, and divides the result by the
+standard deviation of the data. This ensures the data has a mean and standard
+deviation of 0 and 1, respectively. However, this function only operates on a
+single vector of numbers. Large datasets have many *features*, each of which may
+be individual vectors, that we desire to perform this same Z-score
+transformation on separately. In other words, we have one function that we wish
+to execute on either every row or every column of a matrix and return the
+result. This is a form of iteration that can be implemented in a functional
+style using the `apply` function.
+
+This is the signature of the `apply` function, from the RStudio `help(apply)`
+page:
+
+```
+apply(X, MARGIN, FUN, ..., simplify = TRUE)
+```
+
+Here, `X` is a matrix (i.e. a rectangle of numbers) that we wish to perform a
+computation on for either each row or each column. `MARGIN` indicates whether
+the matrix should be traversed by rows (`MARGIN=1`) or columns (`MARGIN=2`).
+`FUN` is the name of a function that accepts a vector and returns either a
+vector or a scalar value that we wish to execute on either the rows or columns.
+`apply()` then executes `FUN` on each row or column of `X` and returns the
+result. For example:
+
+```
+zscore <- function(x) {
+  return((x-mean(x))/sd(x))
+}
+# construct a matrix of 50 rows by 100 columns with samples drawn from a normal distribution
+x_mat <- matrix(
+  rnorm(100*50, mean=20, sd=5),
+  nrow=50,
+  ncol=100
+)
+# z-transform the rows of x_mat, so that each column has mean,sd of 0,1
+x_mat_zscore  <- apply(x_mat, 2, zscore)
+# we can check that all the columns of x_mat_zscore have mean close to zero with apply too
+x_mat_zscore_means <- apply(x_mat_zscore, 2, mean)
+# note: due to machine precision errors, these results will not be exactly zero, but are very close
+# note: the all() function returns true if all of its arguments are TRUE
+all(x_mat_zscore_means<1e-15)
+[1] TRUE
+```
+
+The same approach can be used when `X` is a list or data frame rather than a
+matrix using the `lapply()` function (hint: the `l` in `lapply` stands for
+"list"). Here is the function signature for `lapply`:
+
+```
+lapply(X, FUN, ...)
+```
+
+Recall that lists and data frames can be thought of as vectors where each
+element can be its own vector. Therefore, there is only one axis along which to
+iterate on the elements and there is not `MARGIN` argument as in `apply`. This
+function returns a new list of the same dimension as the original list with
+elements returned by `FUN`:
+
+```
+x <- list(
+  feature1=rnorm(100,mean=20,sd=10),
+  feature2=rnorm(100,mean=50,sd=5)
+)
+x_zscore <- lapply(x, zscore)
+# check that the means are close to zero
+x_zscore_means <- lapply(x_zscore, mean)
+all(x_zscore_means < 1e-15)
+[1] TRUE
+```
+
+This functional programming pattern might be counter intuitive at first, but it
+is well worth your while to learn.
+
 ## Troubleshooting/Debugging Strategies {#prog-debugging}
+
+TODO
 
 ::: {.box .readmore}
 [Hands-On Programming with R -Debugging R Code](https://rstudio-education.github.io/hopr/debug.html)
@@ -524,9 +940,70 @@ code and moving them to functions or objects.
 
 ### Did I choose concise but descriptive variable and function names?
 
+Variable and function names should be descriptive when necessary and not too
+long. Try to put yourself in the shoes of someone who is reading your code for
+the first time and see if you can figure out what it does. Better yet, offer to
+buy a friend a coffee in return for them looking at it!
+
 ### Did I use indentation and naming conventions consistently throughout my code?
 
+Consistently formatted code is much easier to read (and possibly understand)
+than inconsistent code. Consider the following code example:
+
+```
+calcVal <- function(x, a, arg=2) { return(sum(x*a)**2)}
+calc_val_2 <- function(x, a, b, arg) {
+res <- sum(b+a*x)**arg
+return(res)}
+```
+
+This code is inconsistent in several ways:
+
+* naming conventions - `calcVal` is camel case, `calc_val_2` is snake case
+* new lines and whitespace - `calcVal` is all on one line, `calc_val_2` is on
+  multiple lines
+* unhelpful indentation - `calc_val_2` has a function body that is not indented,
+  and the close curly brace is appended to the last line of the body
+* unhelpful function and argument names - the function names describe very
+  little about what the functions do, and the argument names `x`, `a`, etc are
+  not very descriptive about what they represent
+* unused function arguments - the `arg` argument in `calcVal` isn't used
+  anywhere in the function
+* the two functions appear to do something very similar and could be made
+  simpler using a default argument
+
+A more consistent version of this code might look like:
+
+```
+exponent_product <- function(x, a, offset=0, arg=2) {
+  return(sum(offset+a*x)**arg)
+}
+```
+
+This code is much cleaner, more consistent, and easier to read.
+
 ### Did I write comments, especially when what the code does is not obvious?
+
+Sometimes what a piece of code does is obvious from looking at it:
+
+```
+x <- x + 1
+```
+
+Clearly this line of code takes the value of `x`, whatever it is, and adds 1 to
+it. However, it may not be obvious *why* a piece of code does what it does. In
+these cases, it may be very helpful to record your thinking about a line of code
+as a comment:
+
+```
+# add 1 as a pseudocount
+x <- x + 1
+```
+
+Then when you or someone else reads the code, it will be obvious what you were
+thinking when you wrote it. In your career, you *will* encounter situations
+where you need to figure out what you were thinking when you wrote a piece of
+code. **Endeavor to make future you proud of current you!**
 
 ### How easy would it be for someone else to understand my code?
 
