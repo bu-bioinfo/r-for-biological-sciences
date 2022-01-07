@@ -570,13 +570,112 @@ t(A)
 dim(t(A))
 [1] 3 2</code></pre>
 <div class="box readmore">
-<p><a href="https://rstudio-education.github.io/hopr/r-objects.html#atomic-vectors">Hands-On Programming with R</a>
-<a href="https://r4ds.had.co.nz/vectors.html">R for Data Science - Vectors</a></p>
+<p><a href="https://rstudio-education.github.io/hopr/r-objects.html#atomic-vectors">Hands-On Programming with R - Atomic Vectors</a>
+<a href="https://r4ds.had.co.nz/vectors.html">R for Data Science - Vectors</a>
+<a href="https://adv-r.hadley.nz/vectors-chap.html">Advanced R - Vectors</a></p>
 </div>
 </div>
 <div id="lists-and-data-frames" class="section level3" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> Lists and data frames</h3>
-<p>TODO</p>
+<p>Vectors and matrices have the special property that all items must be of the
+same type, e.g. numbers. Lists and data frames are data structures that do not
+have this requirement. Similar to vectors, lists and data frames are both one
+dimensional sequences of values, but the values can be of mixed types. For
+instance, the first item of a list may be a vector of numbers, while the second
+is a vector of character strings. These are the most flexible data structures in
+R, and are among the most commonly used.</p>
+<p>Lists can be created using the <code>list()</code> function:</p>
+<pre><code>my_list &lt;- list(
+  c(1,2,3),
+  c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;)
+)
+my_list
+[[1]]
+[1] 1 2 3
+
+[[2]]
+[1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot;
+my_list[[1]] # access the first item of the list
+[1] 1 2 3
+my_list[[2]] # access the second item of the list
+[1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot;</code></pre>
+<p>The arguments passed to <code>list()</code> define the values and their order of the list.
+In the above example, the list has two elements: one vector of 3 numbers and one
+vector of 4 character strings. Note you can access individual items of the list
+using the <code>[[N]]</code> syntax, where <code>N</code> is the 1-based index of the element.</p>
+<p>Lists can also be defined and indexed by name:</p>
+<pre><code>my_list &lt;- list(
+  numbers=c(1,2,3),
+  categories=c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;)
+)
+my_list
+$numbers
+[1] 1 2 3
+
+$categories
+[1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot;
+my_list$numbers # access the first item of the list
+[1] 1 2 3
+my_list$categories # access the second item of the list
+[1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot;</code></pre>
+<p>The elements of the list have been assigned the names <code>numbers</code> and <code>categories</code>
+when creating the list, though any valid R identifier names can be used. When
+elements are associated with names they can be accessed using the <code>list$name</code>
+syntax.</p>
+<p>Lists and data frames are the same underlying data structure, however differ in
+one important respect: <em>the elements of a data frame must all have the same
+length, while the elements of a list do not.</em> You may create a data frame with
+the <code>data.frame()</code> function:</p>
+<pre><code>my_df &lt;- data.frame( # recall &#39;.&#39; has no special meaning in R
+  numbers=c(1,2,3),
+  categories=c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;)
+)
+Error in data.frame(c(1, 2, 3), c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;)) :
+  arguments imply differing number of rows: 3, 4
+my_df &lt;- data.frame(
+  numbers=c(1,2,3),
+  categories=c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;)
+)
+my_df
+  numbers categories
+1       1          A
+2       2          B
+3       3          C
+my_df$numbers
+[1] 1 2 3
+my_df[1] # numeric indexing also works, and returns a subset data frame
+  numbers
+1       1
+2       2
+3       3
+my_df[1]$numbers
+[1] 1 2 3
+# this syntax is [&lt;row&gt;,&lt;column&gt;], and if either is omitted return all
+my_df[,1] # return all rows of the first column as a vector
+[1] 1 2 3
+my_df$categories
+[1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
+<p>Note the data frame is printed as a matrix with element names as columns and
+automatically numbered rows. You may access specific elements of a data frame in
+a number of ways:</p>
+<pre><code>my_df$numbers[1] # extract the first value of the numbers column
+[1] 1
+my_df[1,1] # same as above, recall the [&lt;row&gt;,&lt;column&gt;] syntax
+[1] 1
+my_df$categories[3] # extract the third value of the categories column
+[1] &quot;C&quot;</code></pre>
+<div class="box note">
+<p>In the examples above, the operation of extracting out different parts of a
+vector, matrix, list, or data frame is called <em>subsetting.</em> R provides many
+different ways to subset a data structure and discussing all of them is beyond
+the scope of this book. However, mastering subsetting will help your code be
+more concise and correct. See the Read More link on Subsetting below:</p>
+<p><a href="https://adv-r.hadley.nz/subsetting.html">Advanced R - Subsetting</a></p>
+</div>
+<div class="box readmore">
+<p><a href="http://adv-r.had.co.nz/Data-structures.html">Advanced R - Data Structures</a>
+<a href="https://adv-r.hadley.nz/subsetting.html">Advanced R - Subsetting</a></p>
+</div>
 </div>
 </div>
 <div id="logical-tests-and-comparators" class="section level2" number="3.4">
@@ -789,10 +888,10 @@ opportunity to write your own function and avoid repeating yourself!</p>
 <div id="writing-your-own-functions" class="section level3" number="3.5.2">
 <h3><span class="header-section-number">3.5.2</span> Writing your own functions</h3>
 <p>R allows you to define your own function using the following syntax:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="prog-basics.html#cb26-1" aria-hidden="true" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg1, arg2, ...) {</span>
-<span id="cb26-2"><a href="prog-basics.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># code that does something with arg1, arg2, etc</span></span>
-<span id="cb26-3"><a href="prog-basics.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(some_result)</span>
-<span id="cb26-4"><a href="prog-basics.html#cb26-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="prog-basics.html#cb30-1" aria-hidden="true" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg1, arg2, ...) {</span>
+<span id="cb30-2"><a href="prog-basics.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># code that does something with arg1, arg2, etc</span></span>
+<span id="cb30-3"><a href="prog-basics.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(some_result)</span>
+<span id="cb30-4"><a href="prog-basics.html#cb30-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>You define the name of your function, the number of arguments it accepts and
 their names, and the code within the function, which is also called the function
 <em>body</em>. Taking the example above, I would define a function named <code>standardize</code>
@@ -892,8 +991,11 @@ two forms of iteration: vectorized operations, and functional programming with
 <div class="box warning">
 <p>Note that R does have <code>for</code> and <code>while</code> loop support in the language. However,
 these loop structures often have poor performance, and should generally be
-avoided in R in favor of the functional style of iteration described below.</p>
+avoided in favor of the functional style of iteration described below.</p>
 <p><a href="https://www.r-bloggers.com/2018/09/how-to-avoid-for-loop-in-r/">How To Avoid For Loops in R</a></p>
+<p>If you really, really want to learn how to use for loops in R, read this, but
+don’t say I didn’t warn you when your code slows to a crawl for unknown reasons:</p>
+<p><a href="https://r4ds.had.co.nz/iteration.html#for-loops">R for Data Science - for loops</a></p>
 </div>
 <div id="vectorized-operations" class="section level3" number="3.6.1">
 <h3><span class="header-section-number">3.6.1</span> Vectorized operations</h3>
@@ -1090,13 +1192,108 @@ all(x_zscore_means &lt; 1e-15)
 [1] TRUE</code></pre>
 <p>This functional programming pattern might be counter intuitive at first, but it
 is well worth your while to learn.</p>
+<div class="box readmore">
+<p><a href="https://r4ds.had.co.nz/iteration.html">R for Data Science - Iteration</a></p>
+</div>
 </div>
 </div>
 <div id="prog-debugging" class="section level2" number="3.7">
 <h2><span class="header-section-number">3.7</span> Troubleshooting/Debugging Strategies</h2>
-<p>TODO</p>
+<p><strong>Bugs in code are normal.</strong> You are not a bad programmer if your code has bugs
+(thank goodness!). However, some bugs can be very difficult to fix, and some are
+even difficult to find. You will spend a substantial amount of time debugging
+your code in R, especially as you are learning the language and its many quirks.
+You will encounter R error and warning messages routinely during development,
+and not all of them are straightforward to understand. It is important that you
+learn how to seek the answers to the problems R reports on your own; your
+colleagues (and instructors!) will thank you for it.</p>
+<p>There is no standard approach to debugging, but here we borrow ideas from
+<a href="https://adv-r.hadley.nz/debugging.html#debugging-strategy">Hadley Wickam’s excellent section on debugging in his Advanced R
+book</a>:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Google!</strong> - copy and paste the error into google and see what comes back.
+Especially when starting out, the errors you receive have been encountered
+countless times by others before you, and solutions/explanations of them are
+already out there. If you aren’t already familiar with <a href="https://stackoverflow.com/">Stack
+Overflow</a>, you will be very soon.</li>
+<li><strong>Make it repeatable</strong> - When you encounter an error, don’t change anything
+in your code and try again to make sure you get the same error again. This
+may require you to isolate the code with the error in a different setting to
+make it more easy to run. If you do, this means the error is repeatable, or
+replicable, and you can now try modifying the code in question to see if and
+how the error changes.</li>
+<li><strong>Find out where the bug is</strong>* - Most bugs involve multiple lines of code,
+only a subset of which contains the actual error. Sometimes the exact line
+where the error occurs is obvious, but other times the error is a consequence
+of a mistake assumption made earlier in the code.</li>
+<li><strong>Fix it and test it</strong> - When you have identified the specific issue causing
+the bug, modify the code so it produces the correct result and then
+rigorously test your fix to make sure it is correct. Sometimes making one
+change to code causes side effects elsewhere in your code in ways that are
+difficult to predict. Ideally, you have already written <a href="#prog-testing">unit
+tests</a> that explicitly test parts of your code, but if not you
+will need to use other means of convincing yourself that your fix worked.</li>
+</ol>
+<p>This debugging process will become second nature as you work more in R.</p>
+<p>Practically speaking, the most basic debugging method is to run code that isn’t
+working the way it should, print out intermediate results to inspect the state
+of your variables, and make adjustments accordingly. In RStudio, the Environment
+Inspector in the top right of the interface makes inspecting the current values
+of your variables very easy. You can also easily execute lines of code from your
+script in the interpreter at the bottom right using <code>Cntl-Enter</code> and test out
+modifications there.</p>
+<p>Sometimes you will be working with highly nested data structures like lists of
+lists. These objects can be difficult to inspect due to their size. The <code>str()</code>
+function, which stands for <code>str</code>ucture, will pretty print an object with its
+values and its structure:</p>
+<pre><code>nested_lists &lt;- list(
+  a=list(
+      item1=c(1,2,3),
+      item2=c(&#39;A&#39;,&#39;B&#39;,&#39;C&#39;)
+  ),
+  b=list(
+      var1=1:10,
+      var2=100:110,
+      var3=1000:1010
+  ),  
+  c=c(10,9,8,7,6,5)
+)
+nested_lists
+$a
+$a$item1
+[1] 1 2 3
+
+$a$item2
+[1] &quot;A&quot; &quot;B&quot; &quot;C&quot;
+
+
+$b
+$b$var1
+ [1]  1  2  3  4  5  6  7  8  9 10
+
+$b$var2
+ [1] 100 101 102 103 104 105 106 107 108 109 110
+
+$b$var3
+ [1] 1000 1001 1002 1003 1004 1005 1006 1007 1008 1009 1010
+str(nested_lists)
+List of 3
+ $ a:List of 2
+  ..$ item1: num [1:3] 1 2 3
+  ..$ item2: chr [1:3] &quot;A&quot; &quot;B&quot; &quot;C&quot;
+ $ b:List of 3
+  ..$ var1: int [1:10] 1 2 3 4 5 6 7 8 9 10
+  ..$ var2: int [1:11] 100 101 102 103 104 105 106 107 108 109 ...
+  ..$ var3: int [1:11] 1000 1001 1002 1003 1004 1005 1006 1007 1008 1009 ...
+ $ c: num [1:6] 10 9 8 7 6 5</code></pre>
+<p>The output <code>str</code> is more concise and descriptive than simply printing out the
+object.</p>
+<p>RStudio has many more debugging tools you can use. Check out the section on
+debugging in Hadley Wickam’s Advanced R book in the Read More box for
+description of these tools.</p>
 <div class="box readmore">
-<p><a href="https://rstudio-education.github.io/hopr/debug.html">Hands-On Programming with R -Debugging R Code</a></p>
+<p><a href="https://rstudio-education.github.io/hopr/debug.html">Hands-On Programming with R - Debugging R Code</a>
+<a href="https://adv-r.hadley.nz/debugging.html">Advanced R - Debugging</a></p>
 </div>
 </div>
 <div id="prog-style" class="section level2" number="3.8">
