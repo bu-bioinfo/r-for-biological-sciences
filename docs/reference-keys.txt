@@ -1,11 +1,13 @@
-introduction-overview
+introduction
 who-this-book-is-for
 a-note-about-reinventing-the-wheel
 sources-and-references
+data-bio
+a-brief-history-of-data-in-molecular-biology
+biology-as-a-mature-data-science
 preliminaries
 prelim-r
 rstudio
-before-you-begin
 prog-the-r-script
 prog-workflow
 git-github
@@ -13,6 +15,8 @@ motivation
 git
 git-hosting-platforms-github
 prog-basics
+before-you-begin
+introduction-1
 r-syntax-basics
 prog-types
 prog-struct
