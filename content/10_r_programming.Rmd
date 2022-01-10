@@ -4,12 +4,21 @@ output: html_document
 
 # R Programming {#prog-basics}
 
+## Before you begin
+
+If you have not done so already, be sure to follow the [R Language](#prelim-r),
+[RStudio](#prelim-rstudio), and [The R Script](#prog-the-r-script), and [The
+Scripting Workflow](#prog-workflow) sections before working through this
+chapter. The guidance in these sections will set you up for success!
+
+## Introduction
+
 As with other subjects covered so far, the basic syntax of R is covered very
 well in other free online materials. Some of those excellent resources are
-linked at the end of this section, but a brief overview of the syntax is covered
-here. The code examples below can be written into a script and evaluated as
-described above or entered on the R Console directly and run by pressing
-`Enter`.
+linked at the end of this section, but a brief overview of the concepts and
+syntax are covered here. The code examples below can be written into a script
+and evaluated as described above or entered on the R Console directly and run by
+pressing `Enter`.
 
 ## R Syntax Basics
 

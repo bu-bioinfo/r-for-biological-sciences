@@ -1,6 +1,7 @@
 rmd_files:
     - "index.Rmd"
     - "00_introduction.Rmd"
+    - "data_in_biology.Rmd"
     - "05_preliminaries.Rmd"
     - "10_r_programming.Rmd"
     - "20_data_wrangling.Rmd"

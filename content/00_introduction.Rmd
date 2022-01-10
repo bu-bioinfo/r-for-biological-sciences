@@ -2,7 +2,7 @@
 output: html_document
 ---
 
-# Introduction & Overview
+# Introduction
 
 Since the publication of the first draft human genome in 2001, data has driven
 biological discovery at an exponential rate. Rapid technological innovations in
@@ -61,12 +61,12 @@ learner to become proficient in most day-to-day biological analysis tasks.
 ## Who This Book Is For
 
 This book was written for the practicing biologist wishing to learn how to use
-R to analyze biological data. A basic working knowledge of basic genetics,
-genomics, molecular biology, and biochemistry is assumed, but we endeavored to
-include enough pertinent background to understand the analysis concepts
-presented in the text. Basic knowledge of statistics is assumed, but again some
-background is provided as necessary to understand the analyses and concepts in
-the text. No further knowledge is assumed.
+R to analyze biological data. A basic working knowledge of genetics, genomics,
+molecular biology, and biochemistry is assumed, but we endeavored to include
+enough pertinent background to understand the analysis concepts presented in the
+text. Basic knowledge of statistics is assumed, but again some background is
+provided as necessary to understand the analyses and concepts in the text. No
+further knowledge is assumed.
 
 ## A Note About Reinventing the Wheel
 
@@ -84,12 +84,18 @@ in case the instructions in this book are too terse or unclear.
 
 The materials of this book were inspired and informed by a large number of
 sources, including books and freely available online materials. The authors
-would like to thank the generosity of the creators and maintainers of these
-resources for making their valuable contributions:
+would like to thank the creators and maintainers of these resources for their
+generosity in making their valuable contributions:
 
+**R Materials**
 * [Hands-On Programming with R](https://rstudio-education.github.io/hopr/), by Garrett Grolemund
 * [R for Data Science](https://r4ds.had.co.nz/), by Hadley Wickam, Garrett Grolemund, et al
+* [Advanced R](https://adv-r.hadley.nz/), by Hadley Wickam
 * [STAT 545 - Data wrangling, exploration, and analysis with R](https://stat545.com/index.html)
 * [What They Forgot to Teach You About R](https://rstats.wtf/index.html)
 * [Reproducible Analysis with R](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/), by State of Alaska's Salmon and People Project, NCEAS
-* [How Charts Lie: Getting Sparter about Visual Information](https://wwnorton.com/books/9781324001560/about-the-book), by Alberto Cairo
+
+**Data visualization**
+* [How Charts Lie: Getting Smarter about Visual Information](https://wwnorton.com/books/9781324001560/about-the-book), by Alberto Cairo
+* [The Functional Art - An Introduction to Information Graphics and Visualization](http://www.thefunctionalart.com/), by Alberto Cairo
+* [The Truthful Art - Data, Charts, and Maps for Communication](http://www.thefunctionalart.com/p/the-truthful-art-book.html), by Alberto Cairo
