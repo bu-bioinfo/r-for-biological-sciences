@@ -37,7 +37,7 @@ servers, etc) are likely more suitable  for other languages and software.
 * [Section on R from R for Data Science](https://r4ds.had.co.nz/introduction.html#r)
 :::
 
-## RStudio
+## RStudio {#prelim-rstudio}
 
 This course assumes the learner is using the [RStudio](https://www.rstudio.com/)
 software platform for all analyses, unless otherwise noted. RStudio is a freely
@@ -51,14 +51,11 @@ saving in RStudio][Rstudio]! Because this is so important, here it is again:
 
 ::: {.box .important}
 By default, RStudio preserves your R environment when you shut it down and
-restores it when you start it again.
+restores it when you start it again. **This is very bad practice!**
 
-**This is very bad practice!**
-
-The state of your R environment, which includes
-the values stored in variables, the R packages loaded, etc. from previously
-executed code is transient and may not reflect the results your code produces
-when run alone.
+The state of your R environment, which includes the values stored in variables,
+the R packages loaded, etc. from previously executed code is transient and may
+not reflect the results your code produces when run alone.
 
 Open the Tools > Global Options... menu and:
 
@@ -191,7 +188,7 @@ slate](https://rstats.wtf/save-source.html#always-start-r-with-a-blank-slate)
   (scroll down the page to find the cheatsheet entitled "RStudio IDE cheatsheet")
 :::
 
-## git + github
+## git + github {#prelim-git}
 
 ### Motivation
 
