@@ -14,6 +14,8 @@ rmd_files:
     - "80_contribution_guide.Rmd"
     - "900_assignments.Rmd"
     - "91_assignment_2.Rmd"
+    - "92_assignment_3.Rmd"
+    - "94_assignment_5.Rmd"
     - "95_assignment_6.Rmd"
     - "appendix.Rmd"
     - "detailed_class_outlines.Rmd"
