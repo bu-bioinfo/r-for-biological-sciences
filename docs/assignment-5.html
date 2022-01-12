@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Class Outlines | Assignment 5 - DESeq2</title>
-  <meta name="description" content="A Class Outlines | Assignment 5 - DESeq2" />
+  <title>Assignment 5 | Assignment 5 - DESeq2</title>
+  <meta name="description" content="Assignment 5 | Assignment 5 - DESeq2" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Class Outlines | Assignment 5 - DESeq2" />
+  <meta property="og:title" content="Assignment 5 | Assignment 5 - DESeq2" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Class Outlines | Assignment 5 - DESeq2" />
+  <meta name="twitter:title" content="Assignment 5 | Assignment 5 - DESeq2" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="assignment-6.html"/>
-
+<link rel="prev" href="assignment-2.html"/>
+<link rel="next" href="assignment-6.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -354,45 +354,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="class-outlines" class="section level1" number="13">
-<h1><span class="header-section-number">A</span> Class Outlines</h1>
-<div id="week-1" class="section level2" number="13.1">
-<h2><span class="header-section-number">A.1</span> Week 1</h2>
+<div id="assignment-5" class="section level1 unnumbered">
+<h1>Assignment 5</h1>
+<p>For this assignment, we will be utilizing DESeq2, which is easily installed through Bioconductor. Once installed, you may install DESeq2 or other applicable packages available through Bioconductor. The following code blocks provide basic instructions for how to install Bioconductor and DESeq2.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="assignment-5.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;tidyverse&#39;</span>)</span>
+<span id="cb76-2"><a href="assignment-5.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DESeq2&#39;</span>)</span></code></pre></div>
+<p>If you do not already have Bioconductor, you may use the next block of code to install Bioconductor.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="assignment-5.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb77-2"><a href="assignment-5.html#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb77-3"><a href="assignment-5.html#cb77-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
+<p>Or if you already have Bioconductor installed, you may use this simple command to install DESeq2 itself.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="assignment-5.html#cb78-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&#39;DESeq2&#39;</span>)</span></code></pre></div>
+<div id="problem-statement-1" class="section level2 unnumbered">
+<h2>Problem Statement</h2>
+<p>One of the main questions asked by high throughput sequencing is whether some variable or condition (e.g. treatment/disease status) induces a measurable, distinguishable change. In the context of mRNAseq, we are interested in whether we can determine if genes or mRNA levels are differentially expressed (upregulated or downregulated) between two or more conditions and if we can relate these changes back to their biological phenotype either directly or indirectly.</p>
+</div>
+<div id="learning-objectives-5" class="section level2 unnumbered">
+<h2>Learning Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Understand the methodology and rationale for how DESeq2 normalizes data, models counts, and performs differential expression</li>
+<li>Perform differential expression analysis using DESeq2 and learn one method to analyze time course data</li>
+<li>Understand how to do basic inspection and evaluation of differential expression (DE) results</li>
+</ol>
+</div>
+<div id="skill-list-5" class="section level2 unnumbered">
+<h2>Skill List</h2>
+<ol style="list-style-type: decimal">
+<li>DESeq2</li>
+<li>Basic diagnostic plots of DE results</li>
+<li>High-quality figures and plots using R and ggplot</li>
+</ol>
+</div>
+<div id="deseq2-background" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> DESeq2 Background</h2>
+<p>DESeq2 is a well validated and highly cited method for differential expression analysis of HTS data. The original paper describing the
+methodology in more detail can be found here:</p>
+<blockquote>
+<p>Love, M.I., Huber, W. &amp; Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol 15, 550 (2014). &gt;<a href="https://doi.org/10.1186/s13059-014-0550-8" class="uri">https://doi.org/10.1186/s13059-014-0550-8</a></p>
+</blockquote>
+<p>We will link back to the original DESeq2 vignette at the head of each applicable section for reference. We strongly encourage you to read the associated documentation as it succinctly summarizes the important concepts and methodology underlying each step of the process. It also provides example code snippets and answers to many common questions regarding the usage of DESeq2 can already be found in this documentation.</p>
+<p>Briefly, at its core, DESeq2 models read counts and tests for differential expression through negative binomial generalized linear models. DESeq2 normalizes count data by scaling by size factors calculated by the median-of-ratios method developed in the original publication for DESeq. For significance testing, DESeq2 performs a Wald test to generate p-values and these are adjusted for multiple testing correction through the Benjamini-Hochberg method.</p>
+</div>
+<div id="generating-a-counts-matrix" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Generating a counts matrix</h2>
+<p>DESeq2 takes as input a counts matrix where genes correspond to rows and samples to columns. For one of the more common use cases of differential expression analysis, mRNAseq experiments, we are interested in counts associated with genes; however, DESeq2 is broadly applicable to many kinds of high-throughout sequencing (HTS) count data.</p>
+<p>Returning to the analysis of mRNAseq specifically, there are three main approaches to map reads:</p>
+<ol style="list-style-type: decimal">
+<li>Alignment to a reference genome by a splice-aware aligner and counting of reads falling into exonic regions using a reference
+annotation file</li>
+<li>Transcript-based assembly approaches (TopHat, Cufflinks) or transcript abundance quantification (Salmon, Kallisto)</li>
+<li>Reference free assembly followed by mapping and counting</li>
+</ol>
+<p>DESeq2 expects the values of the input matrix to be counts (integers) and for the purposes of this assignment, you have been provided with a count matrix of samples generated by the first method. Reads were aligned to the mouse genome (GENCODE GRCm39) with STAR and quantified to gene counts by Verse using the matching GTF file.</p>
+</div>
+<div id="prefiltering-counts-matrix" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> Prefiltering Counts matrix</h2>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#pre-filtering">DESeq2 Vignette - Pre-filtering</a></p>
+<p>Unless your experiment is quite large, filtering your counts matrix prior to DESeq2 is not strictly required. If your experiment incorporates hundreds of samples and a complicated model design with many interaction terms, you may wish to perform a combination of manual filtering and further optimization of DESeq2 settings. Otherwise, for most datasets, default settings in DESeq2 will run in a reasonably short amount of time on relatively modest hardware even without pre-filtering.</p>
+<p>There are many different strategies to filter count datasets and which you choose to employ should be informed by your objective, and your data. Some common filters include removing genes where the mean count across all samples is below some threshold or removing genes based on how many samples have a zero count. In general, extensive pre-filtering is not required and DESeq2 incorporates downstream methods to increase statistical power through independent filtering (described in methods). <strong>For this assignment, we will not be filtering the dataset prior to running DE analysis.</strong></p>
+</div>
+<div id="median-of-ratios-normalization" class="section level2" number="12.5">
+<h2><span class="header-section-number">12.5</span> Median-of-ratios normalization</h2>
+<p>As mentioned earlier, DESeq2 expects a non-transformed, non-normalized matrix of integer “counts” as input. DESeq2 performs its own normalization based on the underlying assumption that not all or a small amount of genes are truly differentially expressed. This is encapsulated in the median-of-ratios method which accounts for library size as well as RNA composition. Although DESeq2 performs this normalization in the background, it can help conceptually to understand the process by which it does so.</p>
+<p>First, a pseudo-reference sample is created and set equal to the geometric mean across all samples for a given gene. Then, ratios are calculated comparing each sample to this pseudo-reference on gene-wise basis. Next, on a sample-wise basis, the median value for all ratios is taken as that sample’s normalization factor and for a given sample, all counts are divided by this factor.</p>
+</div>
+<div id="deseq2-preparation" class="section level2" number="12.6">
+<h2><span class="header-section-number">12.6</span> DESeq2 preparation</h2>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-matrix-input">DESeq2 Vignette - Preparation</a></p>
+<p>The DESeqDataSet is the object that holds the read counts and associated statistical measures generated through the DESeq2 algorithm. Although there are several ways to generate this object, we will focus on the DESeqDataSetFromMatrix method which takes as input counts generated from an external pipeline. This method requires the aforementioned counts matrix, sample data information as a data frame, and the design formula.</p>
+</div>
+<div id="omeara-et-al.-transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration.-circ-res.-feb-2015.-pmid-25477501l" class="section level2" number="12.7">
+<h2><span class="header-section-number">12.7</span> O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l</h2>
+<p>The counts matrix provided was generated by data made available by the listed publication. We have only taken a subset of their samples, focusing specifically on the experiment analyzing mRNAseq during <em>in vivo</em> heart development from 0, 4, 7 days after birth as well as in adult mice.</p>
+<p>To start, we are going to consider the simplest use case for differential expression and subset our data to contain only the samples from postnatal day 0 and adult hearts. In addition to subsetting the counts matrix, we also need to construct the sample data information as a dataframe that lists the samplenames (columns in our counts matrix) as well as their associated information (in our case, timepoint).</p>
+<p>We will use this as a demonstration of one of the simplest use cases for DESeq2, comparing two groups of samples based on a single experimental variable. Using what you’ve learned, <strong>reshape the count matrix to only include the samples vP0 and vAD</strong>.</p>
+<p>Also, while possible to manually create a table of sample data, it can often be helpful in larger experiments and for better reproducibility to generate one from an existing metadata file that stores additional information about sample names, file names, and other categorical data. <strong>Use the provided metadata csv to generate a sample dataframe compatible with DESeq2.</strong></p>
+<div class="box hint">
+<p>Hint #1: You may ignore most of the columns in the metadata csv as they were used in the generation of the matrix itself. Focus on the samplenames and timepoints columns.</p>
+<p>Hint #2: The columns (sample names) in your counts matrix and sample dataframe need to be in the same order</p>
+<p>Hint #3: Your matrix and associated sample dataframe should look something like the below examples:</p>
+</div>
+<pre><code>##                      vP0_1 vP0_2 vAd_1 vAd_2
+## ENSMUSG00000102693.2     0     0     0     0
+## ENSMUSG00000064842.3     0     0     0     0
+## ENSMUSG00000051951.6    19    24     7     5
+## ENSMUSG00000102851.2     0     0     0     0
+## ENSMUSG00000103377.2     1     0     1     0
+## ENSMUSG00000104017.2     0     3     0     0</code></pre>
+<pre><code>##   samplenames conditions
+## 1       vP0_1         p0
+## 2       vP0_2         p0
+## 3       vAd_1         AD
+## 4       vAd_2         AD</code></pre>
+</div>
+<div id="factor-levels" class="section level2" number="12.8">
+<h2><span class="header-section-number">12.8</span> Factor Levels</h2>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#note-on-factor-levels">DESeq2 Vignette - Factor Levels</a></p>
+<p>The factor level in DESeq2 determines which level represents the “control” group you want to compare against. By default, the reference level for factors will be chosen alphabetically. You can either manually change and set the reference factor level or specify a comparison of interest using DESeq2 Contrast() after performing the first steps of the DE analysis.</p>
+</div>
+<div id="performing-de-analysis" class="section level2" number="12.9">
+<h2><span class="header-section-number">12.9</span> Performing DE Analysis</h2>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2 Vignette</a></p>
+<p><strong>Using the counts matrix and sample dataframe, perform a standard DESeq2 analysis comparing the two vAD samples vs the two vP0 samples. Look at the DESeq2 vignette for specific code on how to do this. You should obtain a dataframe that contains your differential expression results sorted by ascending adjusted p-value.</strong></p>
+</div>
+<div id="p-value-distribution-and-multiple-test-correction" class="section level2" number="12.10">
+<h2><span class="header-section-number">12.10</span> P-value distribution and multiple test correction</h2>
+<p>Separate from differential expression analysis, it is always an important diagnostic to plot the unadjusted distribution of p-values obtained from an experiment. Built-in to the definition of a p-value is the idea that under the null distribution and given all other assumptions made are true, p-values follow a uniform distribution. In general you should typically observe a peak of values close to 0 and a roughly uniform distribution as you approach 1. The values closer to 0 will be a mix of situations where the alternative hypothesis is true as well as potential false positives. Significant deviations from this general pattern likely require close examination of your data and the significance test you are employing. <strong>Using your DE results and ggplot, make a histogram of the unadjusted p-values obtained from your DE results. Observe the shape of the distribution.</strong></p>
+</div>
+<div id="choice-of-fdr-cutoff-depends-on-cost" class="section level2" number="12.11">
+<h2><span class="header-section-number">12.11</span> Choice of FDR cutoff depends on cost</h2>
+<p>The choice of a FDR cutoff or any p-value cutoff is always subjective and based on the objectives of your experiment and the cost of false discoveries. For example, if your initial sequencing experiment is exploratory and meant to generate hypotheses to be followed up <em>in vitro</em> or <em>in vivo</em>, it may be more appropriate to set a permissive cutoff (FDR &lt; .20). FDR thresholds are set on an experiment by experiment basis and should not be adjusted simply to increase or decrease the number of DE genes retroactively.</p>
+</div>
+<div id="histogram-of-log-fold-changes" class="section level2" number="12.12">
+<h2><span class="header-section-number">12.12</span> Histogram of Log Fold Changes</h2>
+<p>It is often helpful visualize the log2FoldChanges for your DE genes to gain a sense for how genes are changing on a global level. <strong>Set a FDR cutoff of .10 and plot a histogram of the associated Log2FoldChanges for the significantly DE genes.</strong></p>
+</div>
+<div id="make-a-volcano-plot" class="section level2" number="12.13">
+<h2><span class="header-section-number">12.13</span> Make a volcano plot</h2>
+<p>A volcano plot is a common data plot that is intended to quickly display points of interest by plotting statistical significance against a magnitude of change. In the specific case of mRNAseq differential expression data, this entails plotting the log(p-values / corrected p-values) against the estimated log fold changes reported by most differential expression methods.</p>
+<p>Statistically significant genes with low p-values will appear higher on the y-axis of the plot and they will be separated by the magnitude and directionality of their change (i.e. More highly upregulated genes will be further along to the right on the x-axis, and the converse for downregulated genes). Typically, genes of interest that have additional biological relevance to the experiment will be directly annotated using domain knowledge.</p>
+<p><strong>Using a FDR cutoff of .1, make a volcano plot of Log2FoldChange vs. -Log10(padj) for the results you generated. Label the points by the directionality of their change (sign of Log2FoldChange) and their significance.</strong></p>
+<p><em>Hint #1: Remember the color (colour) argument in geom_point</em></p>
+<p><em>Hint #2: The labels will encompass three groups: 1. Positive log fold change and significant, 2. Negative log fold change and significant, 3. Remaining non-significant genes</em></p>
+</div>
+<div id="a-warning-about-post-hoc-filtering-by-fold-change" class="section level2" number="12.14">
+<h2><span class="header-section-number">12.14</span> A warning about <em>post hoc</em> filtering by fold change</h2>
+<p>After obtaining a list of differential expression results, it is important to remember that the fold change value is an estimate and the associated p-values were calculated testing for whether or not the log2fold change differed significantly from zero. It is therefore not appropriate to simply filter genes above (below) a given fold change value threshold. Instead, if you wish to say with some statistical certainty that a fold change value is above (below) some threshold, you should incorporate it directly into the testing methodology (DESeq2 has a flagged option for this).</p>
+<p>It is important to give careful thought as to whether to set a LfcThreshold in DESEQ2. It is a far more conservative test and will give you far fewer DE genes. One consideration for using a LfcThreshold in your experiment is if the treatment / condition is expected to induce a very large number of DE genes and you wish to return those that respond in magnitude most strongly.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="assignment-5.html#cb81-1" aria-hidden="true" tabindex="-1"></a>res_lfcthreshold <span class="ot">&lt;-</span> <span class="fu">results</span>(your_dds_object_here, <span class="at">contrast=</span><span class="fu">c</span>(<span class="st">&#39;timepoint&#39;</span>, <span class="st">&#39;vAd&#39;</span>, <span class="st">&#39;vP0&#39;</span>), <span class="at">lfcThreshold=</span><span class="fl">0.585</span>, <span class="at">altHypothesis=</span><span class="st">&quot;greaterAbs&quot;</span>)</span></code></pre></div>
+<p>Keep in mind it’s a log2Fold change threshold so the value above would correspond to a test for fold changes above 1.5 (2^.585). This threshold value should be set conservatively as it is a much more stringent statistical test.</p>
+</div>
+<div id="visualize-normalized-counts-for-top-ten-de-genes" class="section level2" number="12.15">
+<h2><span class="header-section-number">12.15</span> Visualize normalized counts for top ten DE genes</h2>
+<p>It can be helpful to visualize the normalized counts for a few differentially expressed genes as a quick check that things are working as intended. You may extract the counts normalized by the calculated size factors using the following code:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="assignment-5.html#cb82-1" aria-hidden="true" tabindex="-1"></a>norm_counts <span class="ot">&lt;-</span> <span class="fu">counts</span>(your_dds_object_here, <span class="at">normalized=</span>T)</span></code></pre></div>
+<p><strong>Using the matrix of DE results you generated in the previous steps, extract out the normalized counts for the top ten DE genes (as ranked by ascending padj) and plot their normalized counts as a scatter plot labeling by sample or timepoint.</strong></p>
+<div class="box hint">
+<p>Hint #1: If you are plotting all of the genes on the same plot, you may find it helpful to take the logarithm of the counts as different genes often have counts that differ by several orders of magnitude.</p>
+<p>Hint #2: You may find it helpful to add a slight horizontal “jitter” to the points to aid in visualization for cases where counts for each replicate are similar.</p>
+</div>
+</div>
+<div id="time-series-with-deseq2-lrt" class="section level2" number="12.16">
+<h2><span class="header-section-number">12.16</span> Time series with DESeq2 LRT</h2>
+<p>There are many ways to analyze time-series data from HTS experiments and for simplicity, we will discuss one such method implemented in DESeq2: the likelihood ratio test (LRT). Conceptually, the LRT implemented within DESeq2 tests whether a full model explains more deviance than a reduced model with terms of interest removed. For our specific data, we will use this to test to determine genes that are changing over time. We will consider our full model to be ~ timepoint versus the reduced model of ~1. Here we will use the full data matrix, so generate a new sample dataframe and DDS object using the full matrix of counts.</p>
+<p>Important to note that the LFC generated by this test are not meaningfully interpretable. As well, the p-values are only applicable to the test of whether or not the gene is changed at any time point. <strong>Use the DESeq2 vignette to perform a LRT analysis to determine genes that are DE at any time point</strong></p>
+</div>
+<div id="plotting-the-normalized-counts-over-time-for-the-top-de-gene-from-the-lrt-analysis" class="section level2" number="12.17">
+<h2><span class="header-section-number">12.17</span> Plotting the normalized counts over time for the top DE gene from the LRT analysis</h2>
+<p>In order to gain a sense for what it means for a gene to be DE at any time point, let us again use the normalized counts to visualize the expression profile over time. <strong>Take the DE gene with the lowest adjusted p-value and extract the normalized counts for each timepoint. Make a scatterplot of the normalized counts for each replicate and each timepoint.</strong>
+::: {.box .hint}
+Hint #1: You may extract out the normalized counts matrix as before or look in the DESeq2 vignette for built-in functions…*
+:::</p>
+<p><strong>Why is this gene considered to be changed over time? What will the expression profile of other genes called DE by the LRT analysis look like?</strong></p>
+</div>
+<div id="extra-exercises" class="section level2" number="12.18">
+<h2><span class="header-section-number">12.18</span> Extra exercises</h2>
 <ul>
-<li>Course Intro &amp; Details</li>
-<li><a href="data-bio.html#data-bio">Data in Biology</a></li>
-<li><a href="preliminaries.html#prelim-rstudio">RStudio</a> on SCC</li>
-<li><a href="preliminaries.html#prog-the-r-script">The R Script</a></li>
-<li><a href="preliminaries.html#prog-workflow">The Scripting Workflow</a></li>
-<li><a href="communicating-with-r.html#rmarkdown-knitr">RMarkdown &amp; knitr</a></li>
-<li><a href="preliminaries.html#prelim-git">Git + github</a></li>
-<li><a href="prog-basics.html#prog-r-syntax">R Syntax Basics</a></li>
-<li><a href="prog-basics.html#functions">Functions</a></li>
-<li><a href="prog-basics.html#prog-debugging">Troubleshooting and Debugging</a></li>
-<li><a href="data-wrangling.html#the-tidyverse">The Tidyverse</a></li>
-<li><a href="data-wrangling.html#dw-basics">Tidyverse Basics</a></li>
-<li><a href="data-wrangling.html#the-tibble">The tibble</a></li>
-<li><a href="data-wrangling.html#importing-data">Importing Data</a></li>
-<li><a href="data-wrangling.html#pipes">pipes</a></li>
-<li><a href="engineering.html#unit-testing">Unit Testing</a></li>
+<li>Extract out specific pairwise comparisons of interest across the time course (i.e. p4 vs p0)</li>
+<li>Use biomaRt to convert the ensembl gene ids to MGI symbols</li>
 </ul>
 </div>
-<div id="week-2" class="section level2" number="13.2">
-<h2><span class="header-section-number">A.2</span> Week 2</h2>
-<ul>
-<li><a href="biology-bioinformatics.html#bio-bioconductor">Bioconductor</a></li>
-<li>Relational Data</li>
-</ul>
+<div id="references" class="section level2 box note" number="12.19">
+<h2><span class="header-section-number">12.19</span> References</h2>
+<p><small>
+<strong>STAR</strong></p>
+<p>Dobin A, Davis CA, Schlesinger F, Drenkow J, Zaleski C, Jha S, Batut P, Chaisson M, Gingeras TR. STAR: ultrafast universal RNA-seq aligner. Bioinformatics. 2013 Jan 1;29(1):15-21. doi: 10.1093/bioinformatics/bts635. Epub 2012 Oct 25. PMID: 23104886; PMCID: PMC3530905.</p>
+<p><strong>VERSE</strong></p>
+<p>Zhu, Q., Fisher, S.A., Shallcross, J., Kim, J. (Preprint). VERSE: a versatile and efficient RNA-Seq read counting tool. bioRxiv 053306.
+doi: <a href="http://dx.doi.org/10.1101/053306" class="uri">http://dx.doi.org/10.1101/053306</a></p>
+<p><strong>GENCODE</strong></p>
+<p><a href="https://www.gencodegenes.org/mouse/" class="uri">https://www.gencodegenes.org/mouse/</a>
+</small></p>
+</div>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="assignment-6.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="assignment-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assignment-6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Assignment 2 | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="Assignment 2 | BF591 - R for Biological Sciences" />
+  <title>Assignment 2 | Assignment 5 - DESeq2</title>
+  <meta name="description" content="Assignment 2 | Assignment 5 - DESeq2" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Assignment 2 | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="Assignment 2 | Assignment 5 - DESeq2" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Assignment 2 | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="Assignment 2 | Assignment 5 - DESeq2" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="assignments.html"/>
-<link rel="next" href="assignment-6.html"/>
+<link rel="prev" href="starting-an-assignment.html"/>
+<link rel="next" href="assignment-5.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -137,193 +137,159 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i>Course Schedule</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-values-and-policies"><i class="fa fa-check"></i>Course Values and Policies</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="introduction-overview.html"><a href="introduction-overview.html"><i class="fa fa-check"></i><b>1</b> Introduction &amp; Overview</a>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="introduction-overview.html"><a href="introduction-overview.html#who-this-book-is-for"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For</a></li>
-<li class="chapter" data-level="1.2" data-path="introduction-overview.html"><a href="introduction-overview.html#a-note-about-reinventing-the-wheel"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction-overview.html"><a href="introduction-overview.html#sources-and-references"><i class="fa fa-check"></i><b>1.3</b> Sources and References</a></li>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#who-this-book-is-for"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#a-note-about-reinventing-the-wheel"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sources-and-references"><i class="fa fa-check"></i><b>1.3</b> Sources and References</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>2</b> Preliminaries</a>
+<li class="chapter" data-level="2" data-path="data-bio.html"><a href="data-bio.html"><i class="fa fa-check"></i><b>2</b> Data in Biology</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="preliminaries.html"><a href="preliminaries.html#prelim-r"><i class="fa fa-check"></i><b>2.1</b> The R Language</a></li>
-<li class="chapter" data-level="2.2" data-path="preliminaries.html"><a href="preliminaries.html#rstudio"><i class="fa fa-check"></i><b>2.2</b> RStudio</a></li>
-<li class="chapter" data-level="2.3" data-path="preliminaries.html"><a href="preliminaries.html#git-github"><i class="fa fa-check"></i><b>2.3</b> git + github</a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="preliminaries.html"><a href="preliminaries.html#motivation"><i class="fa fa-check"></i><b>2.3.1</b> Motivation</a></li>
-<li class="chapter" data-level="2.3.2" data-path="preliminaries.html"><a href="preliminaries.html#git"><i class="fa fa-check"></i><b>2.3.2</b> git</a></li>
-<li class="chapter" data-level="2.3.3" data-path="preliminaries.html"><a href="preliminaries.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>2.3.3</b> Git hosting platforms (GitHub)</a></li>
+<li class="chapter" data-level="2.1" data-path="data-bio.html"><a href="data-bio.html#a-brief-history-of-data-in-molecular-biology"><i class="fa fa-check"></i><b>2.1</b> A Brief History of Data in Molecular Biology</a></li>
+<li class="chapter" data-level="2.2" data-path="data-bio.html"><a href="data-bio.html#biology-as-a-mature-data-science"><i class="fa fa-check"></i><b>2.2</b> Biology as a Mature Data Science</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="r-programming.html"><a href="r-programming.html"><i class="fa fa-check"></i><b>3</b> R Programming</a>
+<li class="chapter" data-level="3" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>3</b> Preliminaries</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="r-programming.html"><a href="r-programming.html#before-you-begin"><i class="fa fa-check"></i><b>3.1</b> Before you begin</a></li>
-<li class="chapter" data-level="3.2" data-path="r-programming.html"><a href="r-programming.html#prog-the-r-script"><i class="fa fa-check"></i><b>3.2</b> The R Script</a></li>
-<li class="chapter" data-level="3.3" data-path="r-programming.html"><a href="r-programming.html#prog-workflow"><i class="fa fa-check"></i><b>3.3</b> The Scripting Workflow</a></li>
-<li class="chapter" data-level="3.4" data-path="r-programming.html"><a href="r-programming.html#prog-basics"><i class="fa fa-check"></i><b>3.4</b> Basics</a>
+<li class="chapter" data-level="3.1" data-path="preliminaries.html"><a href="preliminaries.html#prelim-r"><i class="fa fa-check"></i><b>3.1</b> The R Language</a></li>
+<li class="chapter" data-level="3.2" data-path="preliminaries.html"><a href="preliminaries.html#prelim-rstudio"><i class="fa fa-check"></i><b>3.2</b> RStudio</a></li>
+<li class="chapter" data-level="3.3" data-path="preliminaries.html"><a href="preliminaries.html#prog-the-r-script"><i class="fa fa-check"></i><b>3.3</b> The R Script</a></li>
+<li class="chapter" data-level="3.4" data-path="preliminaries.html"><a href="preliminaries.html#prog-workflow"><i class="fa fa-check"></i><b>3.4</b> The Scripting Workflow</a></li>
+<li class="chapter" data-level="3.5" data-path="preliminaries.html"><a href="preliminaries.html#prelim-git"><i class="fa fa-check"></i><b>3.5</b> git + github</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="r-programming.html"><a href="r-programming.html#r-syntax-basics"><i class="fa fa-check"></i><b>3.4.1</b> R Syntax Basics</a></li>
-<li class="chapter" data-level="3.4.2" data-path="r-programming.html"><a href="r-programming.html#functions"><i class="fa fa-check"></i><b>3.4.2</b> Functions</a></li>
-<li class="chapter" data-level="3.4.3" data-path="r-programming.html"><a href="r-programming.html#dry-dont-repeat-yourself"><i class="fa fa-check"></i><b>3.4.3</b> DRY: Don’t Repeat Yourself</a></li>
-<li class="chapter" data-level="3.4.4" data-path="r-programming.html"><a href="r-programming.html#unit-testing"><i class="fa fa-check"></i><b>3.4.4</b> Unit Testing</a></li>
-<li class="chapter" data-level="3.4.5" data-path="r-programming.html"><a href="r-programming.html#troubleshootingdebugging-strategies"><i class="fa fa-check"></i><b>3.4.5</b> Troubleshooting/Debugging Strategies</a></li>
-<li class="chapter" data-level="3.4.6" data-path="r-programming.html"><a href="r-programming.html#rmarkdown-knitr"><i class="fa fa-check"></i><b>3.4.6</b> RMarkdown &amp; knitr</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="r-programming.html"><a href="r-programming.html#prog-struct"><i class="fa fa-check"></i><b>3.5</b> Data Structures &amp; Iteration</a></li>
-<li class="chapter" data-level="3.6" data-path="r-programming.html"><a href="r-programming.html#prog-style"><i class="fa fa-check"></i><b>3.6</b> Coding Style and Conventions</a></li>
-<li class="chapter" data-level="3.7" data-path="r-programming.html"><a href="r-programming.html#prog-workflows"><i class="fa fa-check"></i><b>3.7</b> Pipelines &amp; Workflows</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#dw-basics"><i class="fa fa-check"></i><b>4.1</b> Basics</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#overview"><i class="fa fa-check"></i><b>4.1.1</b> Overview</a></li>
-<li class="chapter" data-level="4.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#learning-objectives"><i class="fa fa-check"></i><b>4.1.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="4.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#skill-list"><i class="fa fa-check"></i><b>4.1.3</b> Skill List</a></li>
-<li class="chapter" data-level="4.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#the-tidyverse"><i class="fa fa-check"></i><b>4.1.4</b> The Tidyverse</a></li>
-<li class="chapter" data-level="4.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#importing-data"><i class="fa fa-check"></i><b>4.1.5</b> Importing Data</a></li>
-<li class="chapter" data-level="4.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#tidying-data"><i class="fa fa-check"></i><b>4.1.6</b> Tidying Data</a></li>
-<li class="chapter" data-level="4.1.7" data-path="data-wrangling.html"><a href="data-wrangling.html#rectangular-data-in-biology"><i class="fa fa-check"></i><b>4.1.7</b> Rectangular Data in Biology</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dw-arranging"><i class="fa fa-check"></i><b>4.2</b> Arranging Data</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#overview-1"><i class="fa fa-check"></i><b>4.2.1</b> Overview</a></li>
-<li class="chapter" data-level="4.2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.2.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="4.2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#skill-list-1"><i class="fa fa-check"></i><b>4.2.3</b> Skill List</a></li>
+<li class="chapter" data-level="3.5.1" data-path="preliminaries.html"><a href="preliminaries.html#motivation"><i class="fa fa-check"></i><b>3.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="3.5.2" data-path="preliminaries.html"><a href="preliminaries.html#git"><i class="fa fa-check"></i><b>3.5.2</b> git</a></li>
+<li class="chapter" data-level="3.5.3" data-path="preliminaries.html"><a href="preliminaries.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>3.5.3</b> Git hosting platforms (GitHub)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>5</b> Data Science</a>
+<li class="chapter" data-level="4" data-path="prog-basics.html"><a href="prog-basics.html"><i class="fa fa-check"></i><b>4</b> R Programming</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="data-science.html"><a href="data-science.html#ds-dists"><i class="fa fa-check"></i><b>5.1</b> Distributions &amp; Tests</a></li>
-<li class="chapter" data-level="5.2" data-path="data-science.html"><a href="data-science.html#ds-summ"><i class="fa fa-check"></i><b>5.2</b> Data summarization &amp; cleaning</a></li>
-<li class="chapter" data-level="5.3" data-path="data-science.html"><a href="data-science.html#ds-clust"><i class="fa fa-check"></i><b>5.3</b> Clustering</a></li>
-<li class="chapter" data-level="5.4" data-path="data-science.html"><a href="data-science.html#ds-model"><i class="fa fa-check"></i><b>5.4</b> Data Modeling</a></li>
-<li class="chapter" data-level="5.5" data-path="data-science.html"><a href="data-science.html#ds-networks"><i class="fa fa-check"></i><b>5.5</b> Network Analysis</a></li>
+<li class="chapter" data-level="4.1" data-path="prog-basics.html"><a href="prog-basics.html#before-you-begin"><i class="fa fa-check"></i><b>4.1</b> Before you begin</a></li>
+<li class="chapter" data-level="4.2" data-path="prog-basics.html"><a href="prog-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="prog-basics.html"><a href="prog-basics.html#prog-r-syntax"><i class="fa fa-check"></i><b>4.3</b> R Syntax Basics</a></li>
+<li class="chapter" data-level="4.4" data-path="prog-basics.html"><a href="prog-basics.html#prog-types"><i class="fa fa-check"></i><b>4.4</b> Basic Types of Values</a></li>
+<li class="chapter" data-level="4.5" data-path="prog-basics.html"><a href="prog-basics.html#prog-struct"><i class="fa fa-check"></i><b>4.5</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="prog-basics.html"><a href="prog-basics.html#vectors"><i class="fa fa-check"></i><b>4.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="4.5.2" data-path="prog-basics.html"><a href="prog-basics.html#matrices"><i class="fa fa-check"></i><b>4.5.2</b> Matrices</a></li>
+<li class="chapter" data-level="4.5.3" data-path="prog-basics.html"><a href="prog-basics.html#lists-and-data-frames"><i class="fa fa-check"></i><b>4.5.3</b> Lists and data frames</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>6</b> Biology &amp; Bioinformatics</a>
+<li class="chapter" data-level="4.6" data-path="prog-basics.html"><a href="prog-basics.html#logical-tests-and-comparators"><i class="fa fa-check"></i><b>4.6</b> Logical Tests and Comparators</a></li>
+<li class="chapter" data-level="4.7" data-path="prog-basics.html"><a href="prog-basics.html#functions"><i class="fa fa-check"></i><b>4.7</b> Functions</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-r"><i class="fa fa-check"></i><b>6.1</b> R in Biology</a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-2"><i class="fa fa-check"></i><b>6.1.1</b> Overview</a></li>
-<li class="chapter" data-level="6.1.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-2"><i class="fa fa-check"></i><b>6.1.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.1.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-2"><i class="fa fa-check"></i><b>6.1.3</b> Skill List</a></li>
+<li class="chapter" data-level="4.7.1" data-path="prog-basics.html"><a href="prog-basics.html#prog-dry"><i class="fa fa-check"></i><b>4.7.1</b> DRY: Don’t Repeat Yourself</a></li>
+<li class="chapter" data-level="4.7.2" data-path="prog-basics.html"><a href="prog-basics.html#writing-your-own-functions"><i class="fa fa-check"></i><b>4.7.2</b> Writing your own functions</a></li>
+<li class="chapter" data-level="4.7.3" data-path="prog-basics.html"><a href="prog-basics.html#scope"><i class="fa fa-check"></i><b>4.7.3</b> Scope</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-bioconductor"><i class="fa fa-check"></i><b>6.2</b> Bioconductor</a>
+<li class="chapter" data-level="4.8" data-path="prog-basics.html"><a href="prog-basics.html#iteration"><i class="fa fa-check"></i><b>4.8</b> Iteration</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-3"><i class="fa fa-check"></i><b>6.2.1</b> Overview</a></li>
-<li class="chapter" data-level="6.2.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.2.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.2.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-3"><i class="fa fa-check"></i><b>6.2.3</b> Skill List</a></li>
+<li class="chapter" data-level="4.8.1" data-path="prog-basics.html"><a href="prog-basics.html#vectorized-operations"><i class="fa fa-check"></i><b>4.8.1</b> Vectorized operations</a></li>
+<li class="chapter" data-level="4.8.2" data-path="prog-basics.html"><a href="prog-basics.html#functional-programming"><i class="fa fa-check"></i><b>4.8.2</b> Functional programming</a></li>
+<li class="chapter" data-level="4.8.3" data-path="prog-basics.html"><a href="prog-basics.html#apply-and-friends"><i class="fa fa-check"></i><b>4.8.3</b> <code>apply()</code> and friends</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>6.3</b> Gene Expression</a>
+<li class="chapter" data-level="4.9" data-path="prog-basics.html"><a href="prog-basics.html#prog-debugging"><i class="fa fa-check"></i><b>4.9</b> Troubleshooting and Debugging</a></li>
+<li class="chapter" data-level="4.10" data-path="prog-basics.html"><a href="prog-basics.html#prog-style"><i class="fa fa-check"></i><b>4.10</b> Coding Style and Conventions</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-4"><i class="fa fa-check"></i><b>6.3.1</b> Overview</a></li>
-<li class="chapter" data-level="6.3.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-4"><i class="fa fa-check"></i><b>6.3.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.3.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-4"><i class="fa fa-check"></i><b>6.3.3</b> Skill List</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>6.4</b> Differential Expression: Microarrays</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-5"><i class="fa fa-check"></i><b>6.4.1</b> Overview</a></li>
-<li class="chapter" data-level="6.4.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-5"><i class="fa fa-check"></i><b>6.4.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.4.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-5"><i class="fa fa-check"></i><b>6.4.3</b> Skill List</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>6.5</b> Gene Set Enrichment Analysis</a>
-<ul>
-<li class="chapter" data-level="6.5.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-6"><i class="fa fa-check"></i><b>6.5.1</b> Overview</a></li>
-<li class="chapter" data-level="6.5.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-6"><i class="fa fa-check"></i><b>6.5.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.5.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-6"><i class="fa fa-check"></i><b>6.5.3</b> Skill List</a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>6.6</b> High Throughput Sequencing</a>
-<ul>
-<li class="chapter" data-level="6.6.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-7"><i class="fa fa-check"></i><b>6.6.1</b> Overview</a></li>
-<li class="chapter" data-level="6.6.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-7"><i class="fa fa-check"></i><b>6.6.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.6.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-7"><i class="fa fa-check"></i><b>6.6.3</b> Skill List</a></li>
-</ul></li>
-<li class="chapter" data-level="6.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>6.7</b> Differential Expression: RNASeq</a>
-<ul>
-<li class="chapter" data-level="6.7.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-8"><i class="fa fa-check"></i><b>6.7.1</b> Overview</a></li>
-<li class="chapter" data-level="6.7.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-8"><i class="fa fa-check"></i><b>6.7.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.7.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-8"><i class="fa fa-check"></i><b>6.7.3</b> Skill List</a></li>
-</ul></li>
-<li class="chapter" data-level="6.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>6.8</b> Biological Network Analysis</a>
-<ul>
-<li class="chapter" data-level="6.8.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-9"><i class="fa fa-check"></i><b>6.8.1</b> Overview</a></li>
-<li class="chapter" data-level="6.8.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-9"><i class="fa fa-check"></i><b>6.8.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.8.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-9"><i class="fa fa-check"></i><b>6.8.3</b> Skill List</a></li>
-</ul></li>
-<li class="chapter" data-level="6.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>6.9</b> Single Cell Sequencing Analysis</a>
-<ul>
-<li class="chapter" data-level="6.9.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#overview-10"><i class="fa fa-check"></i><b>6.9.1</b> Overview</a></li>
-<li class="chapter" data-level="6.9.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#learning-objectives-10"><i class="fa fa-check"></i><b>6.9.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="6.9.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#skill-list-10"><i class="fa fa-check"></i><b>6.9.3</b> Skill List</a></li>
+<li class="chapter" data-level="4.10.1" data-path="prog-basics.html"><a href="prog-basics.html#is-my-code-correct"><i class="fa fa-check"></i><b>4.10.1</b> Is my code correct?</a></li>
+<li class="chapter" data-level="4.10.2" data-path="prog-basics.html"><a href="prog-basics.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>4.10.2</b> Does my code follow the <span>DRY principle</span>?</a></li>
+<li class="chapter" data-level="4.10.3" data-path="prog-basics.html"><a href="prog-basics.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>4.10.3</b> Did I choose concise but descriptive variable and function names?</a></li>
+<li class="chapter" data-level="4.10.4" data-path="prog-basics.html"><a href="prog-basics.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>4.10.4</b> Did I use indentation and naming conventions consistently throughout my code?</a></li>
+<li class="chapter" data-level="4.10.5" data-path="prog-basics.html"><a href="prog-basics.html#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><i class="fa fa-check"></i><b>4.10.5</b> Did I write comments, especially when what the code does is not obvious?</a></li>
+<li class="chapter" data-level="4.10.6" data-path="prog-basics.html"><a href="prog-basics.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>4.10.6</b> How easy would it be for someone else to understand my code?</a></li>
+<li class="chapter" data-level="4.10.7" data-path="prog-basics.html"><a href="prog-basics.html#is-my-code-easy-to-maintainchange"><i class="fa fa-check"></i><b>4.10.7</b> Is my code easy to maintain/change?</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>7</b> Data Visualization</a>
+<li class="chapter" data-level="5" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="data-visualization.html"><a href="data-visualization.html#dv-gg"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-11"><i class="fa fa-check"></i><b>7.1.1</b> Overview</a></li>
-<li class="chapter" data-level="7.1.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-11"><i class="fa fa-check"></i><b>7.1.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="7.1.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-11"><i class="fa fa-check"></i><b>7.1.3</b> Skill List</a></li>
+<li class="chapter" data-level="5.1" data-path="data-wrangling.html"><a href="data-wrangling.html#the-tidyverse"><i class="fa fa-check"></i><b>5.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="5.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dw-basics"><i class="fa fa-check"></i><b>5.2</b> Tidyverse Basics</a></li>
+<li class="chapter" data-level="5.3" data-path="data-wrangling.html"><a href="data-wrangling.html#the-tibble"><i class="fa fa-check"></i><b>5.3</b> The tibble</a></li>
+<li class="chapter" data-level="5.4" data-path="data-wrangling.html"><a href="data-wrangling.html#importing-data"><i class="fa fa-check"></i><b>5.4</b> Importing Data</a></li>
+<li class="chapter" data-level="5.5" data-path="data-wrangling.html"><a href="data-wrangling.html#pipes"><i class="fa fa-check"></i><b>5.5</b> pipes</a></li>
+<li class="chapter" data-level="5.6" data-path="data-wrangling.html"><a href="data-wrangling.html#tidying-data"><i class="fa fa-check"></i><b>5.6</b> Tidying Data</a></li>
+<li class="chapter" data-level="5.7" data-path="data-wrangling.html"><a href="data-wrangling.html#dw-arranging"><i class="fa fa-check"></i><b>5.7</b> Arranging Data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="data-visualization.html"><a href="data-visualization.html#dv-resp"><i class="fa fa-check"></i><b>7.2</b> Responsible Plotting</a>
+<li class="chapter" data-level="6" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>6</b> Data Science</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-12"><i class="fa fa-check"></i><b>7.2.1</b> Overview</a></li>
-<li class="chapter" data-level="7.2.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-12"><i class="fa fa-check"></i><b>7.2.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="7.2.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-12"><i class="fa fa-check"></i><b>7.2.3</b> Skill List</a></li>
+<li class="chapter" data-level="6.1" data-path="data-science.html"><a href="data-science.html#ds-dists"><i class="fa fa-check"></i><b>6.1</b> Distributions &amp; Tests</a></li>
+<li class="chapter" data-level="6.2" data-path="data-science.html"><a href="data-science.html#ds-summ"><i class="fa fa-check"></i><b>6.2</b> Data summarization &amp; cleaning</a></li>
+<li class="chapter" data-level="6.3" data-path="data-science.html"><a href="data-science.html#ds-clust"><i class="fa fa-check"></i><b>6.3</b> Clustering</a></li>
+<li class="chapter" data-level="6.4" data-path="data-science.html"><a href="data-science.html#ds-model"><i class="fa fa-check"></i><b>6.4</b> Data Modeling</a></li>
+<li class="chapter" data-level="6.5" data-path="data-science.html"><a href="data-science.html#ds-networks"><i class="fa fa-check"></i><b>6.5</b> Network Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="data-visualization.html"><a href="data-visualization.html#ds-network-viz"><i class="fa fa-check"></i><b>7.3</b> Network Viz</a>
+<li class="chapter" data-level="7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>7</b> Biology &amp; Bioinformatics</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-13"><i class="fa fa-check"></i><b>7.3.1</b> Overview</a></li>
-<li class="chapter" data-level="7.3.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-13"><i class="fa fa-check"></i><b>7.3.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="7.3.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-13"><i class="fa fa-check"></i><b>7.3.3</b> Skill List</a></li>
+<li class="chapter" data-level="7.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-r"><i class="fa fa-check"></i><b>7.1</b> R in Biology</a></li>
+<li class="chapter" data-level="7.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#rectangular-data-in-biology"><i class="fa fa-check"></i><b>7.2</b> Rectangular Data in Biology</a></li>
+<li class="chapter" data-level="7.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-bioconductor"><i class="fa fa-check"></i><b>7.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="7.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.4</b> Gene Expression</a></li>
+<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.5</b> Differential Expression: Microarrays</a></li>
+<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.6</b> Gene Set Enrichment Analysis</a></li>
+<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.7</b> High Throughput Sequencing</a></li>
+<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.8</b> Differential Expression: RNASeq</a></li>
+<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.9</b> Biological Network Analysis</a></li>
+<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.10</b> Single Cell Sequencing Analysis</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>8</b> EngineeRing</a>
+<li class="chapter" data-level="8" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>8</b> Data Visualization</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="engineering.html"><a href="engineering.html#toolification"><i class="fa fa-check"></i><b>8.1</b> Toolification</a>
+<li class="chapter" data-level="8.1" data-path="data-visualization.html"><a href="data-visualization.html#dv-gg"><i class="fa fa-check"></i><b>8.1</b> Grammar of Graphics</a>
 <ul>
-<li class="chapter" data-level="8.1.1" data-path="engineering.html"><a href="engineering.html#overview-14"><i class="fa fa-check"></i><b>8.1.1</b> Overview</a></li>
-<li class="chapter" data-level="8.1.2" data-path="engineering.html"><a href="engineering.html#learning-objectives-14"><i class="fa fa-check"></i><b>8.1.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="8.1.3" data-path="engineering.html"><a href="engineering.html#skill-list-14"><i class="fa fa-check"></i><b>8.1.3</b> Skill List</a></li>
+<li class="chapter" data-level="8.1.1" data-path="data-visualization.html"><a href="data-visualization.html#overview"><i class="fa fa-check"></i><b>8.1.1</b> Overview</a></li>
+<li class="chapter" data-level="8.1.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives"><i class="fa fa-check"></i><b>8.1.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="8.1.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list"><i class="fa fa-check"></i><b>8.1.3</b> Skill List</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="engineering.html"><a href="engineering.html#parallel-processing"><i class="fa fa-check"></i><b>8.2</b> Parallel Processing</a>
+<li class="chapter" data-level="8.2" data-path="data-visualization.html"><a href="data-visualization.html#dv-resp"><i class="fa fa-check"></i><b>8.2</b> Responsible Plotting</a>
 <ul>
-<li class="chapter" data-level="8.2.1" data-path="engineering.html"><a href="engineering.html#overview-15"><i class="fa fa-check"></i><b>8.2.1</b> Overview</a></li>
-<li class="chapter" data-level="8.2.2" data-path="engineering.html"><a href="engineering.html#learning-objectives-15"><i class="fa fa-check"></i><b>8.2.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="8.2.3" data-path="engineering.html"><a href="engineering.html#skill-list-15"><i class="fa fa-check"></i><b>8.2.3</b> Skill List</a></li>
+<li class="chapter" data-level="8.2.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-1"><i class="fa fa-check"></i><b>8.2.1</b> Overview</a></li>
+<li class="chapter" data-level="8.2.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-1"><i class="fa fa-check"></i><b>8.2.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="8.2.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-1"><i class="fa fa-check"></i><b>8.2.3</b> Skill List</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="engineering.html"><a href="engineering.html#r-packages"><i class="fa fa-check"></i><b>8.3</b> R Packages</a>
+<li class="chapter" data-level="8.3" data-path="data-visualization.html"><a href="data-visualization.html#publication-ready-plots"><i class="fa fa-check"></i><b>8.3</b> Publication Ready Plots</a></li>
+<li class="chapter" data-level="8.4" data-path="data-visualization.html"><a href="data-visualization.html#ds-network-viz"><i class="fa fa-check"></i><b>8.4</b> Network Viz</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="engineering.html"><a href="engineering.html#overview-16"><i class="fa fa-check"></i><b>8.3.1</b> Overview</a></li>
-<li class="chapter" data-level="8.3.2" data-path="engineering.html"><a href="engineering.html#learning-objectives-16"><i class="fa fa-check"></i><b>8.3.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="8.3.3" data-path="engineering.html"><a href="engineering.html#skill-list-16"><i class="fa fa-check"></i><b>8.3.3</b> Skill List</a></li>
+<li class="chapter" data-level="8.4.1" data-path="data-visualization.html"><a href="data-visualization.html#overview-2"><i class="fa fa-check"></i><b>8.4.1</b> Overview</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-visualization.html"><a href="data-visualization.html#learning-objectives-2"><i class="fa fa-check"></i><b>8.4.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="8.4.3" data-path="data-visualization.html"><a href="data-visualization.html#skill-list-2"><i class="fa fa-check"></i><b>8.4.3</b> Skill List</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="rshiny.html"><a href="rshiny.html"><i class="fa fa-check"></i><b>9</b> RShiny</a>
+<li class="chapter" data-level="9" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>9</b> EngineeRing</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="rshiny.html"><a href="rshiny.html#overview-17"><i class="fa fa-check"></i><b>9.1</b> Overview</a></li>
-<li class="chapter" data-level="9.2" data-path="rshiny.html"><a href="rshiny.html#learning-objectives-17"><i class="fa fa-check"></i><b>9.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="9.3" data-path="rshiny.html"><a href="rshiny.html#skill-list-17"><i class="fa fa-check"></i><b>9.3</b> Skill List</a></li>
+<li class="chapter" data-level="9.1" data-path="engineering.html"><a href="engineering.html#unit-testing"><i class="fa fa-check"></i><b>9.1</b> Unit Testing</a></li>
+<li class="chapter" data-level="9.2" data-path="engineering.html"><a href="engineering.html#toolification"><i class="fa fa-check"></i><b>9.2</b> Toolification</a></li>
+<li class="chapter" data-level="9.3" data-path="engineering.html"><a href="engineering.html#pipelines-workflows"><i class="fa fa-check"></i><b>9.3</b> Pipelines &amp; Workflows</a></li>
+<li class="chapter" data-level="9.4" data-path="engineering.html"><a href="engineering.html#parallel-processing"><i class="fa fa-check"></i><b>9.4</b> Parallel Processing</a></li>
+<li class="chapter" data-level="9.5" data-path="engineering.html"><a href="engineering.html#r-packages"><i class="fa fa-check"></i><b>9.5</b> R Packages</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>10</b> Communicating with R</a>
+<li class="chapter" data-level="10" data-path="rshiny.html"><a href="rshiny.html"><i class="fa fa-check"></i><b>10</b> RShiny</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="communicating-with-r.html"><a href="communicating-with-r.html#overview-18"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
-<li class="chapter" data-level="10.2" data-path="communicating-with-r.html"><a href="communicating-with-r.html#learning-objectives-18"><i class="fa fa-check"></i><b>10.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="10.3" data-path="communicating-with-r.html"><a href="communicating-with-r.html#skill-list-18"><i class="fa fa-check"></i><b>10.3</b> Skill List</a></li>
+<li class="chapter" data-level="10.1" data-path="rshiny.html"><a href="rshiny.html#overview-3"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="rshiny.html"><a href="rshiny.html#learning-objectives-3"><i class="fa fa-check"></i><b>10.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="10.3" data-path="rshiny.html"><a href="rshiny.html#skill-list-3"><i class="fa fa-check"></i><b>10.3</b> Skill List</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>11</b> Contribution Guide</a>
+<li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="contribution-guide.html"><a href="contribution-guide.html#custom-blocks"><i class="fa fa-check"></i><b>11.1</b> Custom blocks</a></li>
-<li class="chapter" data-level="11.2" data-path="contribution-guide.html"><a href="contribution-guide.html#section"><i class="fa fa-check"></i><b>11.2</b> —</a></li>
+<li class="chapter" data-level="11.1" data-path="communicating-with-r.html"><a href="communicating-with-r.html#rmarkdown-knitr"><i class="fa fa-check"></i><b>11.1</b> RMarkdown &amp; knitr</a></li>
+<li class="chapter" data-level="11.2" data-path="communicating-with-r.html"><a href="communicating-with-r.html#bookdown"><i class="fa fa-check"></i><b>11.2</b> bookdown</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i><b>12</b> Assignments</a>
+<li class="chapter" data-level="12" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>12</b> Contribution Guide</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="assignments.html"><a href="assignments.html#overview-19"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
+<li class="chapter" data-level="12.1" data-path="contribution-guide.html"><a href="contribution-guide.html#custom-blocks"><i class="fa fa-check"></i><b>12.1</b> Custom blocks</a></li>
+</ul></li>
+<li class="part"><span><b>I Assignments</b></span></li>
+<li class="chapter" data-level="" data-path="assignment-format.html"><a href="assignment-format.html"><i class="fa fa-check"></i>Assignment Format</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html"><i class="fa fa-check"></i>Starting an Assignment</a>
+<ul>
+<li><a href="starting-an-assignment.html#starting-your-own-git-repository-and-cloning-it">Starting your own <code>git</code> repository and cloning it</a>
+<ul>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#contents"><i class="fa fa-check"></i>Contents</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#uhhh-various-github-classroom-details-idk.-todo-or-whatever."><i class="fa fa-check"></i>Uhhh various github classroom details, idk. TODO: or whatever.</a></li>
+<li class="chapter" data-level="12.1.1" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#committing-and-pushing-with-r-and-without"><i class="fa fa-check"></i><b>12.1.1</b> Committing and Pushing with R (and without)</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html"><i class="fa fa-check"></i>Assignment 2</a>
 <ul>
 <li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#problem-statement"><i class="fa fa-check"></i>Problem Statement</a></li>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#learning-objectives-19"><i class="fa fa-check"></i>Learning Objectives</a></li>
-<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#skill-list-19"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#learning-objectives-4"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#skill-list-4"><i class="fa fa-check"></i>Skill List</a></li>
 <li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#instructions"><i class="fa fa-check"></i>Instructions</a></li>
 <li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#function-details"><i class="fa fa-check"></i>Function Details</a>
 <ul>
@@ -334,11 +300,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="assignment-2.html#reduce_data">5. <code>reduce_data()</code></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html"><i class="fa fa-check"></i>Assignment 5</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#problem-statement-1"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#learning-objectives-5"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#skill-list-5"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="12.2" data-path="assignment-5.html"><a href="assignment-5.html#deseq2-background"><i class="fa fa-check"></i><b>12.2</b> DESeq2 Background</a></li>
+<li class="chapter" data-level="12.3" data-path="assignment-5.html"><a href="assignment-5.html#generating-a-counts-matrix"><i class="fa fa-check"></i><b>12.3</b> Generating a counts matrix</a></li>
+<li class="chapter" data-level="12.4" data-path="assignment-5.html"><a href="assignment-5.html#prefiltering-counts-matrix"><i class="fa fa-check"></i><b>12.4</b> Prefiltering Counts matrix</a></li>
+<li class="chapter" data-level="12.5" data-path="assignment-5.html"><a href="assignment-5.html#median-of-ratios-normalization"><i class="fa fa-check"></i><b>12.5</b> Median-of-ratios normalization</a></li>
+<li class="chapter" data-level="12.6" data-path="assignment-5.html"><a href="assignment-5.html#deseq2-preparation"><i class="fa fa-check"></i><b>12.6</b> DESeq2 preparation</a></li>
+<li class="chapter" data-level="12.7" data-path="assignment-5.html"><a href="assignment-5.html#omeara-et-al.-transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration.-circ-res.-feb-2015.-pmid-25477501l"><i class="fa fa-check"></i><b>12.7</b> O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l</a></li>
+<li class="chapter" data-level="12.8" data-path="assignment-5.html"><a href="assignment-5.html#factor-levels"><i class="fa fa-check"></i><b>12.8</b> Factor Levels</a></li>
+<li class="chapter" data-level="12.9" data-path="assignment-5.html"><a href="assignment-5.html#performing-de-analysis"><i class="fa fa-check"></i><b>12.9</b> Performing DE Analysis</a></li>
+<li class="chapter" data-level="12.10" data-path="assignment-5.html"><a href="assignment-5.html#p-value-distribution-and-multiple-test-correction"><i class="fa fa-check"></i><b>12.10</b> P-value distribution and multiple test correction</a></li>
+<li class="chapter" data-level="12.11" data-path="assignment-5.html"><a href="assignment-5.html#choice-of-fdr-cutoff-depends-on-cost"><i class="fa fa-check"></i><b>12.11</b> Choice of FDR cutoff depends on cost</a></li>
+<li class="chapter" data-level="12.12" data-path="assignment-5.html"><a href="assignment-5.html#histogram-of-log-fold-changes"><i class="fa fa-check"></i><b>12.12</b> Histogram of Log Fold Changes</a></li>
+<li class="chapter" data-level="12.13" data-path="assignment-5.html"><a href="assignment-5.html#make-a-volcano-plot"><i class="fa fa-check"></i><b>12.13</b> Make a volcano plot</a></li>
+<li class="chapter" data-level="12.14" data-path="assignment-5.html"><a href="assignment-5.html#a-warning-about-post-hoc-filtering-by-fold-change"><i class="fa fa-check"></i><b>12.14</b> A warning about <em>post hoc</em> filtering by fold change</a></li>
+<li class="chapter" data-level="12.15" data-path="assignment-5.html"><a href="assignment-5.html#visualize-normalized-counts-for-top-ten-de-genes"><i class="fa fa-check"></i><b>12.15</b> Visualize normalized counts for top ten DE genes</a></li>
+<li class="chapter" data-level="12.16" data-path="assignment-5.html"><a href="assignment-5.html#time-series-with-deseq2-lrt"><i class="fa fa-check"></i><b>12.16</b> Time series with DESeq2 LRT</a></li>
+<li class="chapter" data-level="12.17" data-path="assignment-5.html"><a href="assignment-5.html#plotting-the-normalized-counts-over-time-for-the-top-de-gene-from-the-lrt-analysis"><i class="fa fa-check"></i><b>12.17</b> Plotting the normalized counts over time for the top DE gene from the LRT analysis</a></li>
+<li class="chapter" data-level="12.18" data-path="assignment-5.html"><a href="assignment-5.html#extra-exercises"><i class="fa fa-check"></i><b>12.18</b> Extra exercises</a></li>
+<li class="chapter" data-level="12.19" data-path="assignment-5.html"><a href="assignment-5.html#references"><i class="fa fa-check"></i><b>12.19</b> References</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html"><i class="fa fa-check"></i>Assignment 6</a>
 <ul>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#problem-statement-1"><i class="fa fa-check"></i>Problem Statement</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#learning-objectives-20"><i class="fa fa-check"></i>Learning Objectives</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#skill-list-20"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#problem-statement-2"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#learning-objectives-6"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#skill-list-6"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#instructions-1"><i class="fa fa-check"></i>Instructions</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="class-outlines.html"><a href="class-outlines.html#week-1"><i class="fa fa-check"></i><b>A.1</b> Week 1</a></li>
+<li class="chapter" data-level="A.2" data-path="class-outlines.html"><a href="class-outlines.html#week-2"><i class="fa fa-check"></i><b>A.2</b> Week 2</a></li>
 </ul></li>
 </ul>
 
@@ -349,7 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">BF591 - R for Biological Sciences</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Assignment 5 - DESeq2</a>
           </h1>
         </div>
 
@@ -362,15 +359,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="problem-statement" class="section level2 unnumbered">
 <h2>Problem Statement</h2>
 </div>
-<div id="learning-objectives-19" class="section level2 unnumbered">
+<div id="learning-objectives-4" class="section level2 unnumbered">
 <h2>Learning Objectives</h2>
 </div>
-<div id="skill-list-19" class="section level2 unnumbered">
+<div id="skill-list-4" class="section level2 unnumbered">
 <h2>Skill List</h2>
 </div>
 <div id="instructions" class="section level2 unnumbered">
 <h2>Instructions</h2>
-<p>Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same started CSV of expression data from BF528’s Project 1, available <a href="https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html">here</a>.</p>
+<p>Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same CSV of expression data from BF528’s Project 1, available <a href="https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html">here</a>.</p>
 <p>The project is laid out as such:</p>
 <pre><code>main.R
 test_main.R
@@ -395,15 +392,14 @@ report.Rmd</code></pre>
 <div id="tests" class="section level4 unnumbered">
 <h4>Tests</h4>
 <p>The tests for this function are:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="assignment-2.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;loading csv correctly&quot;</span>, {</span>
-<span id="cb13-2"><a href="assignment-2.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  result_tib <span class="ot">&lt;-</span> <span class="fu">load_expression</span>(<span class="st">&quot;/project/bf528/project_1/data/example_intensity_data.csv&quot;</span>)</span>
-<span id="cb13-3"><a href="assignment-2.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(result_tib), <span class="fu">c</span>(<span class="dv">54675</span>, <span class="dv">36</span>))</span>
-<span id="cb13-4"><a href="assignment-2.html#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">is_tibble</span>(result_tib))</span>
-<span id="cb13-5"><a href="assignment-2.html#cb13-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="assignment-2.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;loading csv correctly&quot;</span>, {</span>
+<span id="cb68-2"><a href="assignment-2.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  result_tib <span class="ot">&lt;-</span> <span class="fu">load_expression</span>(<span class="st">&quot;/project/bf528/project_1/data/example_intensity_data.csv&quot;</span>)</span>
+<span id="cb68-3"><a href="assignment-2.html#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(result_tib), <span class="fu">c</span>(<span class="dv">54675</span>, <span class="dv">36</span>))</span>
+<span id="cb68-4"><a href="assignment-2.html#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">is_tibble</span>(result_tib))</span>
+<span id="cb68-5"><a href="assignment-2.html#cb68-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>This test uses the <code>load_expression()</code> you write to store the returned tibble in <code>result_tib</code>.</p>
-<div style="background: pink; border: 2px solid red; border-radius: 5px;">
-<p><strong>Heads up</strong><br />
-Note that this test is using the same file for data input as you are, but this may not always be the case.</p>
+<div class="box important">
+<p>While this test is using the same file for data input as you are, this may not always be the case.</p>
 </div>
 <p>The test then compares the dimensions of that result, and expects 54,675 rows and 36 columns. These are the dimensions of the input CSV. It also checks to confirm it is a tibble object (because tibbles are better than dataframes).</p>
 </div>
@@ -414,18 +410,18 @@ Note that this test is using the same file for data input as you are, but this m
 <p>This function presents an important concept in R: using built-ins to speed up our code. Built-ins are functions and packages that are optimized to process data in a certain way. Since we’re looking at each row of a table, we could simply use a for loop to iterate one row at a time. This is slow, though, and for this function might take 5-10 seconds to run (a long time for a program like this!). Instead, you could use a function like <code>apply()</code> or <code>lapply()</code> to filter every row at once. This solution takes mere moments.</p>
 <div id="tests-1" class="section level4 unnumbered">
 <h4>Tests</h4>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="assignment-2.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb14-2"><a href="assignment-2.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;the correct rows are filtered out in filter_15()&quot;</span>, {</span>
-<span id="cb14-3"><a href="assignment-2.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  test_tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids=</span><span class="fu">c</span>(<span class="st">&#39;1_s_at&#39;</span>, <span class="st">&#39;2_s_at&#39;</span>, <span class="st">&#39;3_s_at&#39;</span>, <span class="st">&#39;4_s_at&#39;</span>),</span>
-<span id="cb14-4"><a href="assignment-2.html#cb14-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1=</span><span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span>),</span>
-<span id="cb14-5"><a href="assignment-2.html#cb14-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2=</span><span class="fu">rep</span>(<span class="fl">1.6</span>, <span class="dv">4</span>),</span>
-<span id="cb14-6"><a href="assignment-2.html#cb14-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3=</span><span class="fu">rep</span>(<span class="fl">2.5</span>, <span class="dv">4</span>),</span>
-<span id="cb14-7"><a href="assignment-2.html#cb14-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM4=</span><span class="fu">rep</span>(<span class="fl">3.99</span>, <span class="dv">4</span>),</span>
-<span id="cb14-8"><a href="assignment-2.html#cb14-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM5=</span><span class="fu">rep</span>(<span class="fl">3.0</span>, <span class="dv">4</span>),</span>
-<span id="cb14-9"><a href="assignment-2.html#cb14-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM6=</span><span class="fu">rep</span>(<span class="fl">1.0</span>, <span class="dv">4</span>),</span>
-<span id="cb14-10"><a href="assignment-2.html#cb14-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM7=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
-<span id="cb14-11"><a href="assignment-2.html#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">pull</span>(<span class="fu">filter_15</span>(test_tib)), <span class="fu">c</span>(<span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>))</span>
-<span id="cb14-12"><a href="assignment-2.html#cb14-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="assignment-2.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb69-2"><a href="assignment-2.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;the correct rows are filtered out in filter_15()&quot;</span>, {</span>
+<span id="cb69-3"><a href="assignment-2.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  test_tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids=</span><span class="fu">c</span>(<span class="st">&#39;1_s_at&#39;</span>, <span class="st">&#39;2_s_at&#39;</span>, <span class="st">&#39;3_s_at&#39;</span>, <span class="st">&#39;4_s_at&#39;</span>),</span>
+<span id="cb69-4"><a href="assignment-2.html#cb69-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1=</span><span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span>),</span>
+<span id="cb69-5"><a href="assignment-2.html#cb69-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2=</span><span class="fu">rep</span>(<span class="fl">1.6</span>, <span class="dv">4</span>),</span>
+<span id="cb69-6"><a href="assignment-2.html#cb69-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3=</span><span class="fu">rep</span>(<span class="fl">2.5</span>, <span class="dv">4</span>),</span>
+<span id="cb69-7"><a href="assignment-2.html#cb69-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM4=</span><span class="fu">rep</span>(<span class="fl">3.99</span>, <span class="dv">4</span>),</span>
+<span id="cb69-8"><a href="assignment-2.html#cb69-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM5=</span><span class="fu">rep</span>(<span class="fl">3.0</span>, <span class="dv">4</span>),</span>
+<span id="cb69-9"><a href="assignment-2.html#cb69-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM6=</span><span class="fu">rep</span>(<span class="fl">1.0</span>, <span class="dv">4</span>),</span>
+<span id="cb69-10"><a href="assignment-2.html#cb69-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM7=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
+<span id="cb69-11"><a href="assignment-2.html#cb69-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">pull</span>(<span class="fu">filter_15</span>(test_tib)), <span class="fu">c</span>(<span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>))</span>
+<span id="cb69-12"><a href="assignment-2.html#cb69-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>In order to test this function, we create a small sample tibble of expression data containing only seven samples and four IDs. Two of the rows <em>do</em> have more than 15% of their values exceeding <code>log2(15)</code>, the other two do not. This test ensures that <code>filter_15()</code> selects the correct rows. Creating a small sample table like this can be very useful when testing your own code since you don’t need to look at a large amount of data to see if it’s working correctly or not.</p>
 </div>
 </div>
@@ -436,20 +432,19 @@ Note that this test is using the same file for data input as you are, but this m
 <p>This function should return a tibble, but <code>biomaRt</code>’s <code>getBM()</code> will only accept and return a <code>data.frame</code>. You can use <code>dplyr::pull()</code> to turn a tibble into a simple character vector, and <code>dplyr::as_tibble()</code> to go from a data frame to a tibble.</p>
 <div id="tests-2" class="section level4 unnumbered">
 <h4>Tests</h4>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="assignment-2.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;affy ids can be converted to HGNC names properly using affy_to_hgnc()&quot;</span>, {</span>
-<span id="cb15-2"><a href="assignment-2.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
-<span id="cb15-3"><a href="assignment-2.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">affy_to_hgnc</span>(<span class="fu">tibble</span>(<span class="st">&#39;1553551_s_at&#39;</span>)), <span class="cn">TRUE</span>)</span>
-<span id="cb15-4"><a href="assignment-2.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">&quot;Error&quot;</span>, response[<span class="dv">1</span>])) {</span>
-<span id="cb15-5"><a href="assignment-2.html#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_warning</span>(<span class="fu">warning</span>(<span class="st">&quot;Could not connect to ENSEMBL.&quot;</span>))</span>
-<span id="cb15-6"><a href="assignment-2.html#cb15-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-7"><a href="assignment-2.html#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
-<span id="cb15-8"><a href="assignment-2.html#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(response<span class="sc">$</span>hgnc_symbol, <span class="fu">c</span>(<span class="st">&quot;MT-ND1&quot;</span>, <span class="st">&quot;MT-TI&quot;</span>, <span class="st">&quot;MT-TM&quot;</span>, <span class="st">&quot;MT-ND2&quot;</span>))</span>
-<span id="cb15-9"><a href="assignment-2.html#cb15-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-10"><a href="assignment-2.html#cb15-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="assignment-2.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;affy ids can be converted to HGNC names properly using affy_to_hgnc()&quot;</span>, {</span>
+<span id="cb70-2"><a href="assignment-2.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
+<span id="cb70-3"><a href="assignment-2.html#cb70-3" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">affy_to_hgnc</span>(<span class="fu">tibble</span>(<span class="st">&#39;1553551_s_at&#39;</span>)), <span class="cn">TRUE</span>)</span>
+<span id="cb70-4"><a href="assignment-2.html#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">&quot;Error&quot;</span>, response[<span class="dv">1</span>])) {</span>
+<span id="cb70-5"><a href="assignment-2.html#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_warning</span>(<span class="fu">warning</span>(<span class="st">&quot;Could not connect to ENSEMBL.&quot;</span>))</span>
+<span id="cb70-6"><a href="assignment-2.html#cb70-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb70-7"><a href="assignment-2.html#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb70-8"><a href="assignment-2.html#cb70-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(response<span class="sc">$</span>hgnc_symbol, <span class="fu">c</span>(<span class="st">&quot;MT-ND1&quot;</span>, <span class="st">&quot;MT-TI&quot;</span>, <span class="st">&quot;MT-TM&quot;</span>, <span class="st">&quot;MT-ND2&quot;</span>))</span>
+<span id="cb70-9"><a href="assignment-2.html#cb70-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb70-10"><a href="assignment-2.html#cb70-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>As fun as it is to try to get <code>biomaRt</code> function to connect correctly, it is even more fun to test them. Since a failure to connect doesn’t indicate an actual failure in <em>our</em> code we must use a <code>try()</code> block in order to capture if there is a connection error.</p>
-<div style="background: lightgreen; border: 2px solid green; border-radius: 5px;">
-<p><strong>Note</strong><br />
-The <code>try()</code> function is a part of programming called <strong>error-handling</strong> which extends to many other languages. We often expect errors when running our programs (such as right now) but don’t want to shut down our entire operation if it’s an error we can expect. Using <code>try</code>, <code>except</code>, and <code>finally</code> (the latter two not appearing here) we can account for issues outside of our control and adapt our code to change the outcome.</p>
+<div class="box note">
+<p><strong>Note</strong> that the <code>try()</code> function is a part of programming called <strong>error-handling</strong> which extends to many other languages. We often expect errors when running our programs (such as right now) but don’t want to shut down our entire operation if it’s an error we can expect. Using <code>try</code>, <code>except</code>, and <code>finally</code> (the latter two not appearing here) we can account for issues outside of our control and adapt our code to change the outcome.</p>
 <p>Using <code>try except</code> is <strong><em>not</em></strong> a replacement for writing code that doesn’t generate errors. If you can avoid an error in the first place, that is far better than using error-handling.</p>
 </div>
 <p>In this case we <code>try()</code> to use <code>affy_to_hgnc()</code> to connect to Ensembl and store the resulting error in <code>response</code>. We then check: if there is an “Error” then we throw a <code>warning()</code> to our testing output. This doesn’t stop further testing from happening, but it ensures we know that something isn’t quite right. If the <code>response</code> does not contain an error, we simply test that it returned the correct gene symbols for our random affy probe ID of choice.</p>
@@ -459,34 +454,34 @@ The <code>try()</code> function is a part of programming called <strong>error-ha
 <h3>5. <code>reduce_data()</code></h3>
 <p>We have one final step in manipulating our data before we plot it. We have our original data, the probe IDs and their associated HGNC symbols, and a list of good gene names and bad gene names. <code>reduce_data</code> takes these four inputs and returns a tibble that has reduced our expression data to only the genes of interest and has a column describing which set of genes it belongs to (“good” or “bad”). Changing the shape of the data is incredibly useful for <code>ggplot</code>, the tidyverse package we will use for plotting. While there is flexibility when using <code>ggplot</code> to plot data, having data in <a href="https://www.datacamp.com/community/tutorials/long-wide-data-R">long</a> format is typically ideal.</p>
 <p>Once again, there are multiple ways to reorganize data in this way. We used the base function <code>match()</code> to connect our probe IDs to with our HGNC IDs in <code>name_ids</code>. We then used <code>tibble::add_column()</code> to insert the new data in the correct location. Finally, we created two tibbles of good and bad genes using <code>which()</code> and the <code>%in%</code> modifier. Which evaluates true conditions across a range of data, so we can pass the list of genes we want and select the correct ones. For instance:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="assignment-2.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb16-2"><a href="assignment-2.html#cb16-2" aria-hidden="true" tabindex="-1"></a>tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gene =</span> <span class="fu">c</span>(<span class="st">&quot;gene1&quot;</span>, <span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>, <span class="st">&quot;gene4&quot;</span>),</span>
-<span id="cb16-3"><a href="assignment-2.html#cb16-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">affy =</span> <span class="fu">c</span>(<span class="st">&quot;a_s_1&quot;</span>, <span class="st">&quot;a_s_2&quot;</span>, <span class="st">&quot;a_s_3&quot;</span>, <span class="st">&quot;a_s_4&quot;</span>))</span>
-<span id="cb16-4"><a href="assignment-2.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>)) <span class="co"># returns the index of the TRUE rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="assignment-2.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb71-2"><a href="assignment-2.html#cb71-2" aria-hidden="true" tabindex="-1"></a>tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gene =</span> <span class="fu">c</span>(<span class="st">&quot;gene1&quot;</span>, <span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>, <span class="st">&quot;gene4&quot;</span>),</span>
+<span id="cb71-3"><a href="assignment-2.html#cb71-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">affy =</span> <span class="fu">c</span>(<span class="st">&quot;a_s_1&quot;</span>, <span class="st">&quot;a_s_2&quot;</span>, <span class="st">&quot;a_s_3&quot;</span>, <span class="st">&quot;a_s_4&quot;</span>))</span>
+<span id="cb71-4"><a href="assignment-2.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>)) <span class="co"># returns the index of the TRUE rows</span></span></code></pre></div>
 <pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="assignment-2.html#cb18-1" aria-hidden="true" tabindex="-1"></a>tib<span class="sc">$</span>affy[<span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>))] <span class="co"># use [] to get data back</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="assignment-2.html#cb73-1" aria-hidden="true" tabindex="-1"></a>tib<span class="sc">$</span>affy[<span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>))] <span class="co"># use [] to get data back</span></span></code></pre></div>
 <pre><code>## [1] &quot;a_s_2&quot; &quot;a_s_3&quot;</code></pre>
 <p>Once again, there are many ways to reshape this data (some maybe more elegant than this!) and all we need is the data to be correctly shaped when it is returned.</p>
 <div id="tests-3" class="section level4 unnumbered">
 <h4>Tests</h4>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="assignment-2.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;reduce_data() is correctly changing the size and shape of the tibble&quot;</span>, {</span>
-<span id="cb20-2"><a href="assignment-2.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  t_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
-<span id="cb20-3"><a href="assignment-2.html#cb20-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span>),</span>
-<span id="cb20-4"><a href="assignment-2.html#cb20-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span>),</span>
-<span id="cb20-5"><a href="assignment-2.html#cb20-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span>))</span>
-<span id="cb20-6"><a href="assignment-2.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">affy_hg_u133_plus_2 =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
-<span id="cb20-7"><a href="assignment-2.html#cb20-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>, <span class="st">&quot;UTWPU&quot;</span>))</span>
-<span id="cb20-8"><a href="assignment-2.html#cb20-8" aria-hidden="true" tabindex="-1"></a>  good <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>)</span>
-<span id="cb20-9"><a href="assignment-2.html#cb20-9" aria-hidden="true" tabindex="-1"></a>  bad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SONIC&quot;</span>)</span>
-<span id="cb20-10"><a href="assignment-2.html#cb20-10" aria-hidden="true" tabindex="-1"></a>  reduce_test <span class="ot">&lt;-</span> <span class="fu">reduce_data</span>(t_tibble, names, good, bad)</span>
-<span id="cb20-11"><a href="assignment-2.html#cb20-11" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>),</span>
-<span id="cb20-12"><a href="assignment-2.html#cb20-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>),</span>
-<span id="cb20-13"><a href="assignment-2.html#cb20-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">gene_set =</span> <span class="fu">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>),</span>
-<span id="cb20-14"><a href="assignment-2.html#cb20-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>),</span>
-<span id="cb20-15"><a href="assignment-2.html#cb20-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>),</span>
-<span id="cb20-16"><a href="assignment-2.html#cb20-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>))</span>
-<span id="cb20-17"><a href="assignment-2.html#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(reduce_test, result)</span>
-<span id="cb20-18"><a href="assignment-2.html#cb20-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="assignment-2.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;reduce_data() is correctly changing the size and shape of the tibble&quot;</span>, {</span>
+<span id="cb75-2"><a href="assignment-2.html#cb75-2" aria-hidden="true" tabindex="-1"></a>  t_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
+<span id="cb75-3"><a href="assignment-2.html#cb75-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span>),</span>
+<span id="cb75-4"><a href="assignment-2.html#cb75-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span>),</span>
+<span id="cb75-5"><a href="assignment-2.html#cb75-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span>))</span>
+<span id="cb75-6"><a href="assignment-2.html#cb75-6" aria-hidden="true" tabindex="-1"></a>  names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">affy_hg_u133_plus_2 =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
+<span id="cb75-7"><a href="assignment-2.html#cb75-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>, <span class="st">&quot;UTWPU&quot;</span>))</span>
+<span id="cb75-8"><a href="assignment-2.html#cb75-8" aria-hidden="true" tabindex="-1"></a>  good <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>)</span>
+<span id="cb75-9"><a href="assignment-2.html#cb75-9" aria-hidden="true" tabindex="-1"></a>  bad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SONIC&quot;</span>)</span>
+<span id="cb75-10"><a href="assignment-2.html#cb75-10" aria-hidden="true" tabindex="-1"></a>  reduce_test <span class="ot">&lt;-</span> <span class="fu">reduce_data</span>(t_tibble, names, good, bad)</span>
+<span id="cb75-11"><a href="assignment-2.html#cb75-11" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>),</span>
+<span id="cb75-12"><a href="assignment-2.html#cb75-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>),</span>
+<span id="cb75-13"><a href="assignment-2.html#cb75-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">gene_set =</span> <span class="fu">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>),</span>
+<span id="cb75-14"><a href="assignment-2.html#cb75-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>),</span>
+<span id="cb75-15"><a href="assignment-2.html#cb75-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>),</span>
+<span id="cb75-16"><a href="assignment-2.html#cb75-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>))</span>
+<span id="cb75-17"><a href="assignment-2.html#cb75-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(reduce_test, result)</span>
+<span id="cb75-18"><a href="assignment-2.html#cb75-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>In order to test a function that changes a tibble, we need to use a tibble. We only create a test table that is three rows by four columns, but that is enough to get the gist of the function. We simply pass the four parameters to <code>reduce_data()</code> and we expect it to create a tibble like <code>result</code>. <strong>Ensure your output column names are the same here or your tests my fail.</strong> While not crucial to the success of your assingment, maintaining correct column names across multiple data transformations is an important skill.</p>
 
 </div>
@@ -498,8 +493,8 @@ The <code>try()</code> function is a part of programming called <strong>error-ha
           </div>
         </div>
       </div>
-<a href="assignments.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="assignment-6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="starting-an-assignment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assignment-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -553,6 +548,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
