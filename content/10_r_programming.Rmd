@@ -20,7 +20,7 @@ syntax are covered here. The code examples below can be written into a script
 and evaluated as described above or entered on the R Console directly and run by
 pressing `Enter`.
 
-## R Syntax Basics
+## R Syntax Basics {#prog-r-syntax}
 
 At its core, R (like all programming languages) is basically a fancy calculator.
 The syntax of most basic arithmetic operations in R should be familiar to you:
@@ -1049,7 +1049,7 @@ is well worth your while to learn.
 [R for Data Science - Iteration](https://r4ds.had.co.nz/iteration.html)
 :::
 
-## Troubleshooting/Debugging Strategies {#prog-debugging}
+## Troubleshooting and Debugging {#prog-debugging}
 
 **Bugs in code are normal.** You are not a bad programmer if your code has bugs
 (thank goodness!). However, some bugs can be very difficult to fix, and some are
