@@ -4,12 +4,178 @@ output: html_document
 
 # EngineeRing
 
+
+
 ## Unit Testing
+
+Writing code that does what you mean for it to do is often harder than it might
+seem, especially in R. Also, as your code grows in size and complexity, and you
+use good programming practice like [writing functions](#prog-functions),
+changing one part of your code may have unexpected effects on other parts that
+you didn't change. Unless you are using a programming language that has support
+for proof-based [correctness
+guarantees](https://en.wikipedia.org/wiki/Correctness_(computer_science)), it
+may be impossible to determine if your code is *always* correct. As you might
+imagine, so-called "total correctness" is very difficult to attain, and often
+requires more time to implement than is practical (unless you're programming
+something where correctness is very important, e.g. for a self-driving car).
+However, there is a collection of approaches that can give us reasonable
+assurances that our code does what we mean for it to do. These approaches are
+called *software testing frameworks* that explicitly test our code for
+correctness.
+
+There are many different testing frameworks, but they all employ the general
+principle that we test our codes correctness by passing it inputs for which we
+we know what the output should be. For example, consider the following function
+that sums two numbers:
+
+```
+add <- function(x,y) {
+  return(x+y)
+}
+```
+
+We can test this function using a known set of inputs and explicitly comparing
+the result with the expected output:
+
+```
+result <- add(1,2)
+result == 3
+[1] TRUE
+```
+
+Our test instance in this case is input `x=1,y=2` and the expected output is
+`3`. By comparing the result of this input with the expected output, we have
+showed that at least for these specific inputs the function behaves as intended.
+The testing terminology used in this case is *the test passed*. If the result
+had been anything other than 3, the test would have *failed*.
+
+The above is an example of a test, but it is an *informal test*; it is not yet
+integrated into a framework since we have to manually inspect the result as
+passing or failing. In a testing framework, you as the developer of your code
+also write tests for your code and runs those tests frequently as your code
+evolves to make sure it continues to behave as you expect over time.
+
+The R package [testthat](https://testthat.r-lib.org/) provides such a testing
+framework that "tries to make testing as fun as possible, so that you get a
+visceral satisfaction from writing tests." It's true that writing tests for your
+own code may feel tedious and very not fun, but the tradeoff is that tested code
+is more likely to be correct, saving you from potentially embarrassing (or
+worse) errors!
+
+Writing tests using `testthat` is very easy, using the example test written
+above (remember to install the package using `install.packages("testthat")`
+first).
+
+```
+library(testthat)
+test_that("add() correctly adds things", {
+    expect_equal(add(1,2),3)
+    expect_equal(add(5,6),11)
+  }
+)
+Test passed
+```
+
+`Test passed`! How satisfying! The `test_that` function accepts two arguments:
+
+1. a concise, human readable description of the test
+2. one or more tests enclosed by `{}` written using [`expect_X`
+  functions](https://testthat.r-lib.org/reference/index.html) from the testthat
+  package
+
+In the example above, we are explicitly testing that the result of `add(1,2)` is
+equal to `3` and `add(5,6)` is equal to `11`; specifically, we called
+`expect_equal`, which accepts two arguments that it uses to test equality. We
+have written two explicit *test cases* (i.e. 1+2 == 3 and 5+6 == 11) under the
+same test heading.
+
+If we had a mistake in our test such that the expected output was wrong,
+`testthat` would inform us not only of the failure, but more details about what
+happened compared to what we asked it to expect:
+
+```
+test_that("add() correctly adds things", {
+    expect_equal(add(1,2),3)
+    expect_equal(add(5,6),10)
+  }
+)
+-- Failure (Line 3): add() correctly adds things -------------------------------
+add(5, 6) not equal to 10.
+1/1 mismatches
+[1] 11 - 10 == 1
+
+Error: Test failed
+```
+
+In this case, our test case was incorrect, but this would be very helpful
+information to have if we had correctly specified input and expected output and
+the test failed! It means we did something wrong, but now we are aware of it and
+can fix it.
+
+The general testing strategy usually involves writing an R script that only
+contains tests like the example above *and not analysis code*; the tests
+in your test script call the functions you have written in your other scripts
+to check for their correctness exactly like above. Then, whenever you make
+substantial changes to your analysis code, you can simply run your test script
+to check whether everything went ok. Of course, as you add more functions to
+your analysis script you need to add new tests for that code. If we had put our
+test above in a script file called `test_functions.R` we could run them on our
+analysis code like the following:
+
+```
+add <- function(x,y) {
+return(x+y)
+}
+testthat::test_file("test_functions.R")
+
+== Testing test_functions.R =======================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ] Done!
+```
+
+::: {.box .note}
+The ultimate testing strategy is called [*test driven
+development*](https://en.wikipedia.org/wiki/Test-driven_development) where you
+write your tests before developing *any* analysis code, even for functions that
+don't exist yet. Imagine we decide we need a new function that multiplies two
+numbers together and haven't written it yet. `testtthat` can handle the
+situation where you call a function that isn't defined yet:
+
+```
+test_that("mul() correctly multiplies things",{
+expect_equal(mul(1,2),2)
+})
+-- Error (Line 1): new function ------------------------------------------------
+Error in `mul(1, 2)`: could not find function "mul"
+Backtrace:
+ 1. testthat::expect_equal(mul(1, 2), 2)
+ 2. testthat::quasi_label(enquo(object), label, arg = "object")
+ 3. rlang::eval_bare(expr, quo_get_env(quo))
+
+Error: Test failed
+```
+
+In this case, the test failed because `mul()` is not defined yet, but you have
+already done the hard part of writing the test! Now all you have to do is write
+the `mul()` function and keep working on it until the tests pass. Writing tests
+first and analysis code later is a great way to be thoughtful about how your
+code is structured, along with the usual benefit of testing that it means your
+code is more likely to be correct.
+:::
+
+::: {.box .readmore}
+* [Testing - R packages](https://r-pkgs.org/tests.html)
+* [testthat Reference](https://testthat.r-lib.org/reference/index.html)
+:::
 
 ## Toolification
 
-## Pipelines & Workflows {#prog-workflows}
+## Pipelines & Workflows
 
 ## Parallel Processing
 
 ## R Packages
+
+::: {.box .readmore}
+* [R packages](https://r-pkgs.org/index.html) by Hadley Wickam
+:::
