@@ -4,15 +4,15 @@ output:
     css: style.css
 ---
 
-### Assignment 2 {-}
+# Assignment 2 {-}
 
-#### Problem Statement {-}
+## Problem Statement {-}
 
-#### Learning Objectives {-}
+## Learning Objectives {-}
 
-#### Skill List {-}
+## Skill List {-}
 
-#### Instructions {-}
+## Instructions {-}
 Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same CSV of expression data from BF528's Project 1, available [here](https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html).  
 
 The project is laid out as such:  
@@ -28,19 +28,19 @@ A skeleton of the functions you need to complete is in `main.R`. Tests have been
 
 This page will go into detail on how the functions and their associated tests should work.
 
-#### Function Details {-}
+## Function Details {-}
 
-##### 1. Bioconductor {-}
+### 1. Bioconductor {-}
 While many useful R packages can be loaded through [CRAN](https://cran.r-project.org/) using the `install.packages()` syntax, a lot of specifically bioinformatics packages are exclusively released on [Bioconductor](https://bioconductor.org/install/). For this assignment we only need the package called [bioma**R**t](https://bioconductor.org/packages/release/bioc/html/biomaRt.html). R programmers fancy themselves very clever, so **R**s show up a lot.
 
 Naturally, we want to load our packages at the beginning of our script so all of the code we write beneath can access it as it runs. However, if a user or ourselves _already_ has this package installed we don't want to waste their time installing it again. The function `require()` can help us avoid unnecessary installation time and will help us develop faster. The Bioconductor link above has an example of this method.
 
 This section is untested.
 
-##### 2. `load_expression()` {-}
+### 2. `load_expression()` {-}
 Perhaps the most integral part of using the many data wrangling abilities of R is actually entering your data into the R environment. While there are many ways to do this in R, we ultimately want this data to be in a **tibble**, which means the current form of the CSV will make R very angry if you attempt to load it in. This is because tibbles don't support row names very well, and the first column of our data doesn't have a name. Try to use the `load_expression()` data to load data from a `filename` parameter and **return** a tibble of that information. I called my firs column "probeids".
 
-###### Tests {-}
+#### Tests {-}
 The tests for this function are:  
 ``` {r eval=FALSE}
 test_that("loading csv correctly", {
@@ -57,12 +57,12 @@ While this test is using the same file for data input as you are, this may not a
 
 The test then compares the dimensions of that result, and expects 54,675 rows and 36 columns. These are the dimensions of the input CSV. It also checks to confirm it is a tibble object (because tibbles are better than dataframes).
 
-##### 3. `filter_15()` {-}
+### 3. `filter_15()` {-}
 In order to filter the numerous rows we have for this data, we introduce a function that filters the probe IDs in the tibble our data is stored in. We want to capture probes that have a suitably high level of expression, so we are setting `log2(15)` as the cutoff for an expression level. We will keep a row if 15% of the values in that row exceed `log2(15)` (about 3.9). Since we may want to examine the probe IDs we find, the function simple returns the values of the probe IDs (column 1) instead of returning the entire tibble.
 
 This function presents an important concept in R: using built-ins to speed up our code. Built-ins are functions and packages that are optimized to process data in a certain way. Since we're looking at each row of a table, we could simply use a for loop to iterate one row at a time. This is slow, though, and for this function might take 5-10 seconds to run (a long time for a program like this!). Instead, you could use a function like `apply()` or `lapply()` to filter every row at once. This solution takes mere moments.
 
-###### Tests {-}
+#### Tests {-}
 ``` {r eval=FALSE}
 library(tibble)
 test_that("the correct rows are filtered out in filter_15()", {
@@ -79,14 +79,14 @@ test_that("the correct rows are filtered out in filter_15()", {
 ```
 In order to test this function, we create a small sample tibble of expression data containing only seven samples and four IDs. Two of the rows _do_ have more than 15% of their values exceeding `log2(15)`, the other two do not. This test ensures that `filter_15()` selects the correct rows. Creating a small sample table like this can be very useful when testing your own code since you don't need to look at a large amount of data to see if it's working correctly or not.
 
-##### 4. `affy_to_hgnc()` {-}
+### 4. `affy_to_hgnc()` {-}
 This is an important, but sometimes painful, part of using R. There is a great built-in package for connecting to Ensembl (a database of genomic information for many species) called `biomaRt`. We will use `biomaRt` to connect the affymetrix probe IDs to more recognizable HGNC gene IDs. The problem is that `biomaRt` depends on an external API (application program interface) to retrieve data, and this connection sometimes (oftentimes) doesn't work. While their may be more nuanced approaches to an unstable resource like this like automatically retrying failed connections, the best advice for the time being is to try running this function a few times if it doesn't work at first. The errors are clear when it comes to a failed connection, so know that when you get to this stage it likely isn't your code's fault.
 
 To build a `biomaRt` query, read the documentation in section 3 [here](https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/accessing_ensembl.html#how-to-build-a-biomart-query). The `biomart` you should use is `ENSEMBL_MART_ENSEMBL`, the data set `hsapiens_gene_ensembl`, and you want to find the attributes `c("affy_hg_u133_plus_2", "hgnc_symbol")`. The data you filter using `filter_15()` returns a list of `affy_hg_u133_plus_2` probe IDs, and the gene names we're interested in are stored in `hgnc_symbol`.
 
 This function should return a tibble, but `biomaRt`'s `getBM()` will only accept and return a `data.frame`. You can use `dplyr::pull()` to turn a tibble into a simple character vector, and `dplyr::as_tibble()` to go from a data frame to a tibble.
 
-###### Tests {-}
+#### Tests {-}
 ``` {r eval=FALSE}
 test_that("affy ids can be converted to HGNC names properly using affy_to_hgnc()", {
   # biomaRt super buggy so we can try to account for not connecting well
@@ -109,7 +109,7 @@ Using `try except` is **_not_** a replacement for writing code that doesn't gene
 
 In this case we `try()` to use `affy_to_hgnc()` to connect to Ensembl and store the resulting error in `response`. We then check: if there is an "Error" then we throw a `warning()` to our testing output. This doesn't stop further testing from happening, but it ensures we know that something isn't quite right. If the `response` does not contain an error, we simply test that it returned the correct gene symbols for our random affy probe ID of choice.
 
-##### 5. `reduce_data()` {-}
+### 5. `reduce_data()` {-}
 We have one final step in manipulating our data before we plot it. We have our original data, the probe IDs and their associated HGNC symbols, and a list of good gene names and bad gene names. `reduce_data` takes these four inputs and returns a tibble that has reduced our expression data to only the genes of interest and has a column describing which set of genes it belongs to ("good" or "bad"). Changing the shape of the data is incredibly useful for `ggplot`, the tidyverse package we will use for plotting. While there is flexibility when using `ggplot` to plot data, having data in [long](https://www.datacamp.com/community/tutorials/long-wide-data-R) format is typically ideal.  
 
 Once again, there are multiple ways to reorganize data in this way. We used the base function `match()` to connect our probe IDs to with our HGNC IDs in `name_ids`. We then used `tibble::add_column()` to insert the new data in the correct location. Finally, we created two tibbles of good and bad genes using `which()` and the `%in%` modifier. Which evaluates true conditions across a range of data, so we can pass the list of genes we want and select the correct ones. For instance:  
@@ -122,7 +122,7 @@ tib$affy[which(tib$gene %in% c("gene2", "gene3"))] # use [] to get data back
 ```
 Once again, there are many ways to reshape this data (some maybe more elegant than this!) and all we need is the data to be correctly shaped when it is returned.
 
-###### Tests {-}
+#### Tests {-}
 ``` {r eval=FALSE}
 test_that("reduce_data() is correctly changing the size and shape of the tibble", {
   t_tibble <- tibble(probeids = c("1_s_at", "2_s_at", "3_s_at"),

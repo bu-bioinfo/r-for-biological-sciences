@@ -4,27 +4,27 @@ output:
     css: style.css
 ---
 
-### Assignment 6 {-}
+# Assignment 6 {-}
 
-#### Problem Statement {-}
+## Problem Statement {-}
 Plotting data is a useful but oftentimes complicated skill set. While R has many tools to help simplify and create attractive and useful graphs, they can be difficult to utilize and have many pitfalls. This assignment will teach you the most important parts of plotting with R using the package `ggplot`.
 
-#### Learning Objectives {-}
+## Learning Objectives {-}
 1. The basic operations of `ggplot` and "The Grammar of Graphics".
 2. Using differential gene expression analysis packages to generate data for plotting.
 3. Creating simple plots and **not** using the default colors and themes.
 4. Combining multiple plots into one image and exporting them to disk.
 
-#### Skill List {-}
+## Skill List {-}
 - A tempered heart and mind that understands a plot may not ever look _exactly_ how you want it to.
 - An intermediate understanding of R's most popular plotting package, `ggplot`.
 - Further understanding of differential expression analysis and its plotting.
 - A sense of superiority whenever you see a publication use the base R plotting package for figures.
 
-#### Instructions {-}
-Complete `main.R` in a way that satisfies all of the tests in `test_main.R`. Follow the instructions in the function descriptions for `main.R` and read here for details on the tests your code should satisfy. You will use these functions to complete figures in `report.Rmd`. 
+## Instructions {-}
+Complete `main.R` in a way that satisfies all of the tests in `test_main.R`. Follow the instructions in the function descriptions for `main.R` and read here for details on the tests your code should satisfy. You will use these functions to complete figures in `report.Rmd`.
 
-You can use `testthat:test_file('test_main.R')` in your R console to run all tests in `rest_main.R`. Do not modify the tests. 
+You can use `testthat:test_file('test_main.R')` in your R console to run all tests in `rest_main.R`. Do not modify the tests.
 
 The project is laid out as such:  
 ```
@@ -32,4 +32,3 @@ main.R
 report.Rmd
 test_main.R
 ```
-

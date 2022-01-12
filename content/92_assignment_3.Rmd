@@ -5,7 +5,7 @@ title: "Assignment 3"
 
 # BF591 - R for Biological Sciences (Assignment 3) {-}
 
-Here we load required libraries for what we'll need to do. It's good practice to try to do this first and to keep all required libraries/package calls in the same place. This is important for reproducibility and for your reference. 
+Here we load required libraries for what we'll need to do. It's good practice to try to do this first and to keep all required libraries/package calls in the same place. This is important for reproducibility and for your reference.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library('tidyverse')
@@ -25,13 +25,13 @@ read_expr_table <- function(filename, delim) {
 
 tidy_t <- function(.data, melt_col, col_names) {
   t <- .data %>%
-   pivot_longer(-melt_col, names_to=col_names) %>% 
-   pivot_wider(names_from=melt_col, values_from=value) 
+   pivot_longer(-melt_col, names_to=col_names) %>%
+   pivot_wider(names_from=melt_col, values_from=value)
   return(t)
 }
 
 tidy_pca <- function(expr_mat) {
-pca_mat <- expr_mat %>% tidy_t('probeids', 'samples') %>% 
+pca_mat <- expr_mat %>% tidy_t('probeids', 'samples') %>%
   column_to_rownames(var='samples') %>%
   as.matrix() %>%
   scale() %>%
@@ -45,7 +45,7 @@ prop_ve <- function(pca_results) {
   ve <- pca_results$sdev^2
   pve <- ve / sum(ve)
   return(pve)
-  
+
 }
 
 
@@ -79,16 +79,16 @@ pve %>% as_tibble() %>% mutate(pc=1:35) %>% ggplot(mapping=aes(x=pc, y=value)) +
 
 
 ```{r read in metadata and apply classification label to PCA}
-meta <- readr::read_csv('proj_metadata.csv')
+meta <- readr::read_csv('sample_metadata.csv')
 class <- meta %>% select(geo_accession, SixSubtypesClassification)
-rot <- pca_results$rotation %>% as_tibble(rownames='geo_accession') 
+rot <- pca_results$rotation %>% as_tibble(rownames='geo_accession')
 rot %>% left_join(class, by='geo_accession') %>% ggplot() + geom_point(mapping=aes(x=PC1, y=PC2, color=SixSubtypesClassification))
 
 ```
 
 ```{r kmeans on pca}
 
-pc1_2 <- rot %>% select(PC1, PC2) 
+pc1_2 <- rot %>% select(PC1, PC2)
 pc1_2 <- pc1_2 %>% kmeans(centers=3) %>% augment(kclust, data=pc1_2)
 ggplot(data=pc1_2) + geom_point(mapping=aes(x=PC1, y=PC2, color=.cluster))
 
@@ -99,13 +99,13 @@ ggplot(data=pc1_2) + geom_point(mapping=aes(x=PC1, y=PC2, color=.cluster))
 
 
 ```{r multiple k means}
-clusts <- tibble(k=2:7) %>% 
+clusts <- tibble(k=2:7) %>%
   mutate(
     kclusts = map(k, ~kmeans(pc1_2, .x)),
     summary_stats = map(kclusts, glance),
     cluster_labels = map(kclusts, augment, pc1_2),
 
-    
+
   )
 
 ```
@@ -113,7 +113,7 @@ clusts <- tibble(k=2:7) %>%
 
 ```{r facetwrap of kmeans plot for different choices of k}
 
-clusts %>% group_by(k) %>% unnest(cluster_labels) %>% 
+clusts %>% group_by(k) %>% unnest(cluster_labels) %>%
   ggplot + geom_point(mapping = aes(x=PC1, y= PC2, color= .cluster)) + facet_wrap(~k)
 
 

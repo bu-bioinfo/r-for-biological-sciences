@@ -1,11 +1,13 @@
 ---
 title: "Assignment 5 - DESeq2"
-output: 
+output:
   html_document:
     css: style.css
 ---
 
-For this assignment, we will be utilizing DESeq2, which is easily installed through Bioconductor.  Once installed, you may install DESeq2 or other applicable packages available through Bioconductor. The following code blocks provide basic instructions for how to install Bioconductor and DESeq2. 
+# Assignment 5 {-}
+
+For this assignment, we will be utilizing DESeq2, which is easily installed through Bioconductor.  Once installed, you may install DESeq2 or other applicable packages available through Bioconductor. The following code blocks provide basic instructions for how to install Bioconductor and DESeq2.
 
 ```{r load libraries, message=FALSE, warning=FALSE, eval=FALSE}
 
@@ -21,34 +23,34 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install(version = "3.14")
 ```
 
-Or if you already have Bioconductor installed, you may use this simple command to install DESeq2 itself. 
+Or if you already have Bioconductor installed, you may use this simple command to install DESeq2 itself.
 
 ```{r install DESeq2, eval=FALSE}
 BiocManager::install('DESeq2')
 ```
 
-### Problem Statement {-}
-One of the main questions asked by high throughput sequencing is whether some variable or condition (e.g. treatment/disease status) induces a measurable, distinguishable change. In the context of mRNAseq, we are interested in whether we can determine if genes or mRNA levels are differentially expressed (upregulated or downregulated) between two or more conditions and if we can relate these changes back to their biological phenotype either directly or indirectly. 
+## Problem Statement {-}
+One of the main questions asked by high throughput sequencing is whether some variable or condition (e.g. treatment/disease status) induces a measurable, distinguishable change. In the context of mRNAseq, we are interested in whether we can determine if genes or mRNA levels are differentially expressed (upregulated or downregulated) between two or more conditions and if we can relate these changes back to their biological phenotype either directly or indirectly.
 
-### Learning Objectives {-}
+## Learning Objectives {-}
 1. Understand the methodology and rationale for how DESeq2 normalizes data, models counts, and performs differential expression
 2. Perform differential expression analysis using DESeq2 and learn one method to analyze time course data
 3. Understand how to do basic inspection and evaluation of differential expression (DE) results
 
-### Skill List {-}
-1. DESeq2 
+## Skill List {-}
+1. DESeq2
 2. Basic diagnostic plots of DE results
 3. High-quality figures and plots using R and ggplot
 
 ## DESeq2 Background
-DESeq2 is a well validated and highly cited method for differential expression analysis of HTS data. The original paper describing the 
-methodology in more detail can be found here: 
+DESeq2 is a well validated and highly cited method for differential expression analysis of HTS data. The original paper describing the
+methodology in more detail can be found here:
 
 >Love, M.I., Huber, W. & Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol 15, 550 (2014). >https://doi.org/10.1186/s13059-014-0550-8
 
-We will link back to the original DESeq2 vignette at the head of each applicable section for reference. We strongly encourage you to read the associated documentation as it succinctly summarizes the important concepts and methodology underlying each step of the process. It also provides example code snippets and answers to many common questions regarding the usage of DESeq2 can already be found in this documentation. 
+We will link back to the original DESeq2 vignette at the head of each applicable section for reference. We strongly encourage you to read the associated documentation as it succinctly summarizes the important concepts and methodology underlying each step of the process. It also provides example code snippets and answers to many common questions regarding the usage of DESeq2 can already be found in this documentation.
 
-Briefly, at its core, DESeq2 models read counts and tests for differential expression through negative binomial generalized linear models. DESeq2 normalizes count data by scaling by size factors calculated by the median-of-ratios method developed in the original publication for DESeq. For significance testing, DESeq2 performs a Wald test to generate p-values and these are adjusted for multiple testing correction through the Benjamini-Hochberg method. 
+Briefly, at its core, DESeq2 models read counts and tests for differential expression through negative binomial generalized linear models. DESeq2 normalizes count data by scaling by size factors calculated by the median-of-ratios method developed in the original publication for DESeq. For significance testing, DESeq2 performs a Wald test to generate p-values and these are adjusted for multiple testing correction through the Benjamini-Hochberg method.
 
 ## Generating a counts matrix
 DESeq2 takes as input a counts matrix where genes correspond to rows and samples to columns. For one of the more common use cases of differential expression analysis, mRNAseq experiments, we are interested in counts associated with genes; however, DESeq2 is broadly applicable to many kinds of high-throughout sequencing (HTS) count data.
@@ -62,33 +64,33 @@ annotation file
 
 DESeq2 expects the values of the input matrix to be counts (integers) and for the purposes of this assignment, you have been provided with a count matrix of samples generated by the first method. Reads were aligned to the mouse genome (GENCODE GRCm39) with STAR and quantified to gene counts by Verse using the matching GTF file.
 
-## Prefiltering Counts matrix 
+## Prefiltering Counts matrix
 [DESeq2 Vignette - Pre-filtering](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#pre-filtering)
 
-Unless your experiment is quite large, filtering your counts matrix prior to DESeq2 is not strictly required. If your experiment incorporates hundreds of samples and a complicated model design with many interaction terms, you may wish to perform a combination of manual filtering and further optimization of DESeq2 settings. Otherwise, for most datasets, default settings in DESeq2 will run in a reasonably short amount of time on relatively modest hardware even without pre-filtering. 
+Unless your experiment is quite large, filtering your counts matrix prior to DESeq2 is not strictly required. If your experiment incorporates hundreds of samples and a complicated model design with many interaction terms, you may wish to perform a combination of manual filtering and further optimization of DESeq2 settings. Otherwise, for most datasets, default settings in DESeq2 will run in a reasonably short amount of time on relatively modest hardware even without pre-filtering.
 
-There are many different strategies to filter count datasets and which you choose to employ should be informed by your objective, and your data. Some common filters include removing genes where the mean count across all samples is below some threshold or removing genes based on how many samples have a zero count. In general, extensive pre-filtering is not required and DESeq2 incorporates downstream methods to increase statistical power through independent filtering (described in methods). __For this assignment, we will not be filtering the dataset prior to running DE analysis.__ 
+There are many different strategies to filter count datasets and which you choose to employ should be informed by your objective, and your data. Some common filters include removing genes where the mean count across all samples is below some threshold or removing genes based on how many samples have a zero count. In general, extensive pre-filtering is not required and DESeq2 incorporates downstream methods to increase statistical power through independent filtering (described in methods). __For this assignment, we will not be filtering the dataset prior to running DE analysis.__
 
 ## Median-of-ratios normalization
 
-As mentioned earlier, DESeq2 expects a non-transformed, non-normalized matrix of integer "counts" as input. DESeq2 performs its own normalization based on the underlying assumption that not all or a small amount of genes are truly differentially expressed. This is encapsulated in the median-of-ratios method which accounts for library size as well as RNA composition. Although DESeq2 performs this normalization in the background, it can help conceptually to understand the process by which it does so. 
+As mentioned earlier, DESeq2 expects a non-transformed, non-normalized matrix of integer "counts" as input. DESeq2 performs its own normalization based on the underlying assumption that not all or a small amount of genes are truly differentially expressed. This is encapsulated in the median-of-ratios method which accounts for library size as well as RNA composition. Although DESeq2 performs this normalization in the background, it can help conceptually to understand the process by which it does so.
 
-First, a pseudo-reference sample is created and set equal to the geometric mean across all samples for a given gene. Then, ratios are calculated comparing each sample to this pseudo-reference on gene-wise basis. Next, on a sample-wise basis, the median value for all ratios is taken as that sample's normalization factor and for a given sample, all counts are divided by this factor. 
+First, a pseudo-reference sample is created and set equal to the geometric mean across all samples for a given gene. Then, ratios are calculated comparing each sample to this pseudo-reference on gene-wise basis. Next, on a sample-wise basis, the median value for all ratios is taken as that sample's normalization factor and for a given sample, all counts are divided by this factor.
 
 ## DESeq2 preparation
 [DESeq2 Vignette - Preparation](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-matrix-input)
 
-The DESeqDataSet is the object that holds the read counts and associated statistical measures generated through the DESeq2 algorithm. Although there are several ways to generate this object, we will focus on the DESeqDataSetFromMatrix method which takes as input counts generated from an external pipeline. This method requires the aforementioned counts matrix, sample data information as a data frame, and the design formula. 
+The DESeqDataSet is the object that holds the read counts and associated statistical measures generated through the DESeq2 algorithm. Although there are several ways to generate this object, we will focus on the DESeqDataSetFromMatrix method which takes as input counts generated from an external pipeline. This method requires the aforementioned counts matrix, sample data information as a data frame, and the design formula.
 
-### O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l 
+## O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l
 
-The counts matrix provided was generated by data made available by the listed publication. We have only taken a subset of their samples, focusing specifically on the experiment analyzing mRNAseq during *in vivo* heart development from 0, 4, 7 days after birth as well as in adult mice. 
+The counts matrix provided was generated by data made available by the listed publication. We have only taken a subset of their samples, focusing specifically on the experiment analyzing mRNAseq during *in vivo* heart development from 0, 4, 7 days after birth as well as in adult mice.
 
-To start, we are going to consider the simplest use case for differential expression and subset our data to contain only the samples from postnatal day 0 and adult hearts. In addition to subsetting the counts matrix, we also need to construct the sample data information as a dataframe that lists the samplenames (columns in our counts matrix) as well as their associated information (in our case, timepoint). 
+To start, we are going to consider the simplest use case for differential expression and subset our data to contain only the samples from postnatal day 0 and adult hearts. In addition to subsetting the counts matrix, we also need to construct the sample data information as a dataframe that lists the samplenames (columns in our counts matrix) as well as their associated information (in our case, timepoint).
 
-We will use this as a demonstration of one of the simplest use cases for DESeq2, comparing two groups of samples based on a single experimental variable. Using what you've learned, __reshape the count matrix to only include the samples vP0 and vAD__. 
+We will use this as a demonstration of one of the simplest use cases for DESeq2, comparing two groups of samples based on a single experimental variable. Using what you've learned, __reshape the count matrix to only include the samples vP0 and vAD__.
 
-Also, while possible to manually create a table of sample data, it can often be helpful in larger experiments and for better reproducibility to generate one from an existing metadata file that stores additional information about sample names, file names, and other categorical data. __Use the provided metadata csv to generate a sample dataframe compatible with DESeq2.__ 
+Also, while possible to manually create a table of sample data, it can often be helpful in larger experiments and for better reproducibility to generate one from an existing metadata file that stores additional information about sample names, file names, and other categorical data. __Use the provided metadata csv to generate a sample dataframe compatible with DESeq2.__
 
 ::: {.box .hint}
 Hint #1: You may ignore most of the columns in the metadata csv as they were used in the generation of the matrix itself. Focus on the samplenames and timepoints columns.
@@ -150,10 +152,10 @@ write.table(as.data.frame(res_ordered), file='verse_de_ad_d0.tsv', sep='\t', quo
 
 
 ## P-value distribution and multiple test correction
-Separate from differential expression analysis, it is always an important diagnostic to plot the unadjusted distribution of p-values obtained from an experiment. Built-in to the definition of a p-value is the idea that under the null distribution and given all other assumptions made are true, p-values follow a uniform distribution. In general you should typically observe a peak of values close to 0 and a roughly uniform distribution as you approach 1. The values closer to 0 will be a mix of situations where the alternative hypothesis is true as well as potential false positives. Significant deviations from this general pattern likely require close examination of your data and the significance test you are employing. __Using your DE results and ggplot, make a histogram of the unadjusted p-values obtained from your DE results. Observe the shape of the distribution.__ 
+Separate from differential expression analysis, it is always an important diagnostic to plot the unadjusted distribution of p-values obtained from an experiment. Built-in to the definition of a p-value is the idea that under the null distribution and given all other assumptions made are true, p-values follow a uniform distribution. In general you should typically observe a peak of values close to 0 and a roughly uniform distribution as you approach 1. The values closer to 0 will be a mix of situations where the alternative hypothesis is true as well as potential false positives. Significant deviations from this general pattern likely require close examination of your data and the significance test you are employing. __Using your DE results and ggplot, make a histogram of the unadjusted p-values obtained from your DE results. Observe the shape of the distribution.__
 
 ## Choice of FDR cutoff depends on cost
-The choice of a FDR cutoff or any p-value cutoff is always subjective and based on the objectives of your experiment and the cost of false discoveries. For example, if your initial sequencing experiment is exploratory and meant to generate hypotheses to be followed up *in vitro* or *in vivo*, it may be more appropriate to set a permissive cutoff (FDR < .20). FDR thresholds are set on an experiment by experiment basis and should not be adjusted simply to increase or decrease the number of DE genes retroactively. 
+The choice of a FDR cutoff or any p-value cutoff is always subjective and based on the objectives of your experiment and the cost of false discoveries. For example, if your initial sequencing experiment is exploratory and meant to generate hypotheses to be followed up *in vitro* or *in vivo*, it may be more appropriate to set a permissive cutoff (FDR < .20). FDR thresholds are set on an experiment by experiment basis and should not be adjusted simply to increase or decrease the number of DE genes retroactively.
 
 ```{r p-value distribution, echo=FALSE, eval=FALSE}
 res_labeled %>% ggplot(aes(pvalue)) + geom_histogram(bins=50, color='black', fill='lightblue') + theme_linedraw() + ggtitle('Histogram of raw pvalues obtained from DE analysis') + theme(plot.title = element_text(hjust = 0.5))
@@ -179,7 +181,7 @@ res_labeled %>% filter(padj < .1) %>% ggplot(aes(log2FoldChange)) + geom_histogr
 ```
 
 ## Make a volcano plot
-A volcano plot is a common data plot that is intended to quickly display points of interest by plotting statistical significance against a magnitude of change. In the specific case of mRNAseq differential expression data, this entails plotting the log(p-values / corrected p-values) against the estimated log fold changes reported by most differential expression methods. 
+A volcano plot is a common data plot that is intended to quickly display points of interest by plotting statistical significance against a magnitude of change. In the specific case of mRNAseq differential expression data, this entails plotting the log(p-values / corrected p-values) against the estimated log fold changes reported by most differential expression methods.
 
 Statistically significant genes with low p-values will appear higher on the y-axis of the plot and they will be separated by the magnitude and directionality of their change (i.e. More highly upregulated genes will be further along to the right on the x-axis, and the converse for downregulated genes). Typically, genes of interest that have additional biological relevance to the experiment will be directly annotated using domain knowledge.
 
@@ -190,9 +192,9 @@ Statistically significant genes with low p-values will appear higher on the y-ax
 *Hint #2: The labels will encompass three groups: 1. Positive log fold change and significant, 2. Negative log fold change and significant, 3. Remaining non-significant genes*
 
 ```{r label significant up and down regulated genes using case_when, echo=FALSE, eval=FALSE}
-res_labeled <- res_ordered %>% 
-  as.data.frame() %>% 
-  as_tibble(rownames='genes') %>% 
+res_labeled <- res_ordered %>%
+  as.data.frame() %>%
+  as_tibble(rownames='genes') %>%
   mutate(volc_plot_status = case_when(log2FoldChange > 0 & padj < .10 ~ 'Up',
                                       log2FoldChange < 0 & padj < .10 ~ 'Down',
                                       TRUE ~ 'NS'))
@@ -212,7 +214,7 @@ It is important to give careful thought as to whether to set a LfcThreshold in D
 res_lfcthreshold <- results(your_dds_object_here, contrast=c('timepoint', 'vAd', 'vP0'), lfcThreshold=0.585, altHypothesis="greaterAbs")
 ```
 
-Keep in mind it's a log2Fold change threshold so the value above would correspond to a test for fold changes above 1.5 (2^.585). This threshold value should be set conservatively as it is a much more stringent statistical test. 
+Keep in mind it's a log2Fold change threshold so the value above would correspond to a test for fold changes above 1.5 (2^.585). This threshold value should be set conservatively as it is a much more stringent statistical test.
 
 ## Visualize normalized counts for top ten DE genes
 
@@ -304,14 +306,14 @@ summary(res_p4_v_p0_ordered)
 summary(res_p7_v_p0_ordered)
 ```
 
-### Extra exercises
+## Extra exercises
 
 - Extract out specific pairwise comparisons of interest across the time course (i.e. p4 vs p0)
 - Use biomaRt to convert the ensembl gene ids to MGI symbols
 
 
 ::: {.box .note}
-### References
+## References
 
 <small>
 **STAR**
