@@ -15,5 +15,7 @@ rmd_files:
     - "900_assignments.Rmd"
     - "91_assignment_2.Rmd"
     - "95_assignment_6.Rmd"
+    - "appendix.Rmd"
+    - "detailed_class_outlines.Rmd"
 delete_merged_file: true
 output_dir: "../docs"

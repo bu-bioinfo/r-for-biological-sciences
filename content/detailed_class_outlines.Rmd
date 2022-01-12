@@ -1,0 +1,28 @@
+---
+output: html_document
+---
+
+# Class Outlines
+
+## Week 1
+
+* Course Intro & Details
+* [Data in Biology]
+* [RStudio] on SCC
+* [The R Script]
+* [The Scripting Workflow]
+* [RMarkdown & knitr]
+* [Git + github]
+* [R Syntax Basics]
+* [Functions]
+* [Troubleshooting and Debugging]
+* [The Tidyverse]
+* [Tidyverse Basics]
+* [The tibble]
+* [Importing Data]
+* [pipes]
+* [Unit Testing]
+
+## Week 2
+  * [Bioconductor]
+* Relational Data
