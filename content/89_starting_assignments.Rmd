@@ -1,0 +1,47 @@
+---
+output: html_document
+---
+
+# Starting an Assignment {-}
+> :^) good luck
+
+When starting a project there are a small number of steps to get things set up _just_ right in order to have a smooth and seamless experience. While it is absolutely possible to complete these projects on your own machine and your own installation of R and RStudio, it will be easier and faster to do your work on BU's SCC. The experience will be more straightforward and basically identical to doing it on your own.
+
+## Starting your own `git` repository and cloning it {-}
+In our development of these assignments we used git and [github.com](github.com) to manage our updates and allow for easy sharing. We can now pass these repositories (repos) along to you using GitHub classroom so you can follow the steps within. 
+
+### Contents {-}
+Each assignment will have these following files within, roughly:  
+```
+├── finalized_report.pdf 
+├── main.R 
+├── README.md 
+├── report.Rmd 
+└── test_main.R 
+```
+- **finalized_report.pdf** - This is the completed "report" of the assignment. You will be endeavoring to replicate this while completing the assignment, with some room for creative differences in elements like plotting.
+- **main.R** - This is the main R script in the assignment, where you will be doing a lot of your _programming_. This script contains function definitions and descriptions, but with functions that are empty. Complete the functions as described in the script and ensure they pass the tests.
+- **README.md** - Every repository _should_ have a README. Usually it contains useful information about installation, usage, and licensing. In this case, it will have helpful links back to assignment instructions.
+- **report.Rmd** - Another empty file, this markdown script will `source()` your `main.R` script, loading the functions into its environment. There will be empty code blocks throughout this document, use the functions you developed in `main.R` to replicate the figures or match the captions seen in `finalized_report.pdf`.
+- **test_main.R** - This is a completed testing script produced by us to help you quickly determine how will your code is running. This file **sources** your `main.R` file, meaning it runs it to completion and stores any functions and variables in the active environment. It then runs tests to ensure your functions are working in a predictable way. Tests are incredibly valuable tools, and potentially one of the strongest in a programmer's toolkit. 
+
+### Uhhh various github classroom details, idk. TODO: or whatever. {-}
+1. Find your assignment link
+2. Clone your repository or whatever classroom lets you do. Should be in the form `myusername/assignment-X`
+3. Inside this repo, click the big **g r e e n** button and copy the HTTP link to your repository.
+4. Login to [https://scc-ondemand.bu.edu/](SCC interactive). Start an interactive R session (Interactive Apps > RStudio Server), use the default settings but increase the hours to like 12 or something. Or if you like high pressure situations set it to like 20 minutes.
+5. Once your session is loaded and you are login in, select the "New Project" button below the "Edit" button.  ![](img/how_to_1-new_proj.png)
+6. With the prompt open, select `Version Control` > `git`, and paste your repo's url into the first prompt. Feel free to rename the project, but also like don't? That's confusing. You can change where this folder is setup on SCC, but I find `~/Documents` or `~/Documents/BF591` to be a good home for organizing my various projects.   
+![](img/how_to_2-prompt.png)
+7. You will need to login to complete this process, enter your GitHub username and password when prompted.
+8. R will download all of the repository contents, and add an `.RProj` file to the directory. This RProject file is useful for switching between R assignments in RStudio. This context menu is in the top right of the RStudio interface:  
+![](img/how_to_3-switch-proj.png)
+
+### Committing and Pushing with R (and without)
+With the RProject set up, you now have a directory on SCC that has cloned your remote repository in GitHub. At this moment all of the files are the same, since you have made no progress on your assignment (depressing, I know). In a burst of productive energy, you will start to make changes to `main.R` and write your beautiful, buggy functions. Once you're done for a little bit, what next? You could leave it on SCC and it would probably be pretty safe, but what if you want to share this code easily? Or if a cataclysm strikes Western Massachusetts? Your changes are gone and life will have lost all meaning.  
+
+To prevent this cataclysm, you must **add**, **commit**, and **push** your code back to GitHub.
+
+#### Using RStudio
+1. Save the files you want to commit, and select the 
+
