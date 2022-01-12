@@ -13,7 +13,7 @@ output:
 #### Skill List {-}
 
 #### Instructions {-}
-Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same started CSV of expression data from BF528's Project 1, available [here](https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html).  
+Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same CSV of expression data from BF528's Project 1, available [here](https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html).  
 
 The project is laid out as such:  
 ```
@@ -51,10 +51,9 @@ test_that("loading csv correctly", {
 ```
 This test uses the `load_expression()` you write to store the returned tibble in `result_tib`.  
 
-::::{style="background: pink; border: 2px solid red; border-radius: 5px;"}
-**Heads up**  
-Note that this test is using the same file for data input as you are, but this may not always be the case.
-::::
+::: {.box .important}
+While this test is using the same file for data input as you are, this may not always be the case.
+:::
 
 The test then compares the dimensions of that result, and expects 54,675 rows and 36 columns. These are the dimensions of the input CSV. It also checks to confirm it is a tibble object (because tibbles are better than dataframes).
 
@@ -102,12 +101,11 @@ test_that("affy ids can be converted to HGNC names properly using affy_to_hgnc()
 ```
 As fun as it is to try to get `biomaRt` function to connect correctly, it is even more fun to test them. Since a failure to connect doesn't indicate an actual failure in _our_ code we must use a `try()` block in order to capture if there is a connection error.
 
-::::{style="background: lightgreen; border: 2px solid green; border-radius: 5px;"}
-**Note**  
-The `try()` function is a part of programming called **error-handling** which extends to many other languages. We often expect errors when running our programs (such as right now) but don't want to shut down our entire operation if it's an error we can expect. Using `try`, `except`, and `finally` (the latter two not appearing here) we can account for issues outside of our control and adapt our code to change the outcome.  
+::: {.box .note}
+**Note** that the `try()` function is a part of programming called **error-handling** which extends to many other languages. We often expect errors when running our programs (such as right now) but don't want to shut down our entire operation if it's an error we can expect. Using `try`, `except`, and `finally` (the latter two not appearing here) we can account for issues outside of our control and adapt our code to change the outcome.  
 
 Using `try except` is **_not_** a replacement for writing code that doesn't generate errors. If you can avoid an error in the first place, that is far better than using error-handling.
-::::
+:::
 
 In this case we `try()` to use `affy_to_hgnc()` to connect to Ensembl and store the resulting error in `response`. We then check: if there is an "Error" then we throw a `warning()` to our testing output. This doesn't stop further testing from happening, but it ensures we know that something isn't quite right. If the `response` does not contain an error, we simply test that it returned the correct gene symbols for our random affy probe ID of choice.
 
