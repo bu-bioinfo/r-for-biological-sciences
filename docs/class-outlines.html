@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 EngineeRing | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="9 EngineeRing | BF591 - R for Biological Sciences" />
+  <title>A Class Outlines | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="A Class Outlines | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 EngineeRing | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="A Class Outlines | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 EngineeRing | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="A Class Outlines | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-visualization.html"/>
-<link rel="next" href="rshiny.html"/>
+<link rel="prev" href="assignment-format.html"/>
+
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -308,157 +308,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="engineering" class="section level1" number="9">
-<h1><span class="header-section-number">9</span> EngineeRing</h1>
-<div id="unit-testing" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Unit Testing</h2>
-<p>Writing code that does what you mean for it to do is often harder than it might
-seem, especially in R. Also, as your code grows in size and complexity, and you
-use good programming practice like <a href="#prog-functions">writing functions</a>,
-changing one part of your code may have unexpected effects on other parts that
-you didn’t change. Unless you are using a programming language that has support
-for proof-based <a href="https://en.wikipedia.org/wiki/Correctness_(computer_science)">correctness
-guarantees</a>, it
-may be impossible to determine if your code is <em>always</em> correct. As you might
-imagine, so-called “total correctness” is very difficult to attain, and often
-requires more time to implement than is practical (unless you’re programming
-something where correctness is very important, e.g. for a self-driving car).
-However, there is a collection of approaches that can give us reasonable
-assurances that our code does what we mean for it to do. These approaches are
-called <em>software testing frameworks</em> that explicitly test our code for
-correctness.</p>
-<p>There are many different testing frameworks, but they all employ the general
-principle that we test our codes correctness by passing it inputs for which we
-we know what the output should be. For example, consider the following function
-that sums two numbers:</p>
-<pre><code>add &lt;- function(x,y) {
-  return(x+y)
-}</code></pre>
-<p>We can test this function using a known set of inputs and explicitly comparing
-the result with the expected output:</p>
-<pre><code>result &lt;- add(1,2)
-result == 3
-[1] TRUE</code></pre>
-<p>Our test instance in this case is input <code>x=1,y=2</code> and the expected output is
-<code>3</code>. By comparing the result of this input with the expected output, we have
-showed that at least for these specific inputs the function behaves as intended.
-The testing terminology used in this case is <em>the test passed</em>. If the result
-had been anything other than 3, the test would have <em>failed</em>.</p>
-<p>The above is an example of a test, but it is an <em>informal test</em>; it is not yet
-integrated into a framework since we have to manually inspect the result as
-passing or failing. In a testing framework, you as the developer of your code
-also write tests for your code and runs those tests frequently as your code
-evolves to make sure it continues to behave as you expect over time.</p>
-<p>The R package <a href="https://testthat.r-lib.org/">testthat</a> provides such a testing
-framework that “tries to make testing as fun as possible, so that you get a
-visceral satisfaction from writing tests.” It’s true that writing tests for your
-own code may feel tedious and very not fun, but the tradeoff is that tested code
-is more likely to be correct, saving you from potentially embarrassing (or
-worse) errors!</p>
-<p>Writing tests using <code>testthat</code> is very easy, using the example test written
-above (remember to install the package using <code>install.packages("testthat")</code>
-first).</p>
-<pre><code>library(testthat)
-test_that(&quot;add() correctly adds things&quot;, {
-    expect_equal(add(1,2),3)
-    expect_equal(add(5,6),11)
-  }
-)
-Test passed</code></pre>
-<p><code>Test passed</code>! How satisfying! The <code>test_that</code> function accepts two arguments:</p>
-<ol style="list-style-type: decimal">
-<li>a concise, human readable description of the test</li>
-<li>one or more tests enclosed by <code>{}</code> written using <a href="https://testthat.r-lib.org/reference/index.html"><code>expect_X</code>
-functions</a> from the testthat
-package</li>
-</ol>
-<p>In the example above, we are explicitly testing that the result of <code>add(1,2)</code> is
-equal to <code>3</code> and <code>add(5,6)</code> is equal to <code>11</code>; specifically, we called
-<code>expect_equal</code>, which accepts two arguments that it uses to test equality. We
-have written two explicit <em>test cases</em> (i.e. 1+2 == 3 and 5+6 == 11) under the
-same test heading.</p>
-<p>If we had a mistake in our test such that the expected output was wrong,
-<code>testthat</code> would inform us not only of the failure, but more details about what
-happened compared to what we asked it to expect:</p>
-<pre><code>test_that(&quot;add() correctly adds things&quot;, {
-    expect_equal(add(1,2),3)
-    expect_equal(add(5,6),10)
-  }
-)
--- Failure (Line 3): add() correctly adds things -------------------------------
-add(5, 6) not equal to 10.
-1/1 mismatches
-[1] 11 - 10 == 1
-
-Error: Test failed</code></pre>
-<p>In this case, our test case was incorrect, but this would be very helpful
-information to have if we had correctly specified input and expected output and
-the test failed! It means we did something wrong, but now we are aware of it and
-can fix it.</p>
-<p>The general testing strategy usually involves writing an R script that only
-contains tests like the example above <em>and not analysis code</em>; the tests
-in your test script call the functions you have written in your other scripts
-to check for their correctness exactly like above. Then, whenever you make
-substantial changes to your analysis code, you can simply run your test script
-to check whether everything went ok. Of course, as you add more functions to
-your analysis script you need to add new tests for that code. If we had put our
-test above in a script file called <code>test_functions.R</code> we could run them on our
-analysis code like the following:</p>
-<pre><code>add &lt;- function(x,y) {
-return(x+y)
-}
-testthat::test_file(&quot;test_functions.R&quot;)
-
-== Testing test_functions.R =======================================================
-[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ] Done!</code></pre>
-<div class="box note">
-<p>The ultimate testing strategy is called <a href="https://en.wikipedia.org/wiki/Test-driven_development"><em>test driven
-development</em></a> where you
-write your tests before developing <em>any</em> analysis code, even for functions that
-don’t exist yet. Imagine we decide we need a new function that multiplies two
-numbers together and haven’t written it yet. <code>testtthat</code> can handle the
-situation where you call a function that isn’t defined yet:</p>
-<pre><code>test_that(&quot;mul() correctly multiplies things&quot;,{
-expect_equal(mul(1,2),2)
-})
--- Error (Line 1): new function ------------------------------------------------
-Error in `mul(1, 2)`: could not find function &quot;mul&quot;
-Backtrace:
- 1. testthat::expect_equal(mul(1, 2), 2)
- 2. testthat::quasi_label(enquo(object), label, arg = &quot;object&quot;)
- 3. rlang::eval_bare(expr, quo_get_env(quo))
-
-Error: Test failed</code></pre>
-<p>In this case, the test failed because <code>mul()</code> is not defined yet, but you have
-already done the hard part of writing the test! Now all you have to do is write
-the <code>mul()</code> function and keep working on it until the tests pass. Writing tests
-first and analysis code later is a great way to be thoughtful about how your
-code is structured, along with the usual benefit of testing that it means your
-code is more likely to be correct.</p>
-</div>
-<div class="box readmore">
+<div id="class-outlines" class="section level1" number="14">
+<h1><span class="header-section-number">A</span> Class Outlines</h1>
+<div id="week-1" class="section level2" number="14.1">
+<h2><span class="header-section-number">A.1</span> Week 1</h2>
 <ul>
-<li><a href="https://r-pkgs.org/tests.html">Testing - R packages</a></li>
-<li><a href="https://testthat.r-lib.org/reference/index.html">testthat Reference</a></li>
+<li>Course Intro &amp; Details</li>
+<li><a href="data-bio.html#data-bio">Data in Biology</a></li>
+<li><a href="preliminaries.html#prelim-rstudio">RStudio</a> on SCC</li>
+<li><a href="preliminaries.html#prog-the-r-script">The R Script</a></li>
+<li><a href="preliminaries.html#prog-workflow">The Scripting Workflow</a></li>
+<li><a href="communicating-with-r.html#rmarkdown-knitr">RMarkdown &amp; knitr</a></li>
+<li><a href="preliminaries.html#prelim-git">Git + github</a></li>
+<li><a href="prog-basics.html#prog-r-syntax">R Syntax Basics</a></li>
+<li><a href="prog-basics.html#functions">Functions</a></li>
+<li><a href="prog-basics.html#prog-debugging">Troubleshooting and Debugging</a></li>
+<li><a href="data-wrangling.html#the-tidyverse">The Tidyverse</a></li>
+<li><a href="data-wrangling.html#dw-basics">Tidyverse Basics</a></li>
+<li><a href="data-wrangling.html#the-tibble">The tibble</a></li>
+<li><a href="data-wrangling.html#importing-data">Importing Data</a></li>
+<li><a href="data-wrangling.html#pipes">pipes</a></li>
+<li><a href="engineering.html#unit-testing">Unit Testing</a></li>
 </ul>
 </div>
-</div>
-<div id="toolification" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Toolification</h2>
-</div>
-<div id="pipelines-workflows" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> Pipelines &amp; Workflows</h2>
-</div>
-<div id="parallel-processing" class="section level2" number="9.4">
-<h2><span class="header-section-number">9.4</span> Parallel Processing</h2>
-</div>
-<div id="r-packages" class="section level2" number="9.5">
-<h2><span class="header-section-number">9.5</span> R Packages</h2>
-<div class="box readmore">
+<div id="week-2" class="section level2" number="14.2">
+<h2><span class="header-section-number">A.2</span> Week 2</h2>
 <ul>
-<li><a href="https://r-pkgs.org/index.html">R packages</a> by Hadley Wickam</li>
+<li><a href="biology-bioinformatics.html#bio-bioconductor">Bioconductor</a></li>
+<li>Relational Data</li>
 </ul>
-</div>
 
 </div>
 </div>
@@ -467,8 +345,8 @@ code is more likely to be correct.</p>
           </div>
         </div>
       </div>
-<a href="data-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rshiny.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="assignment-format.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
