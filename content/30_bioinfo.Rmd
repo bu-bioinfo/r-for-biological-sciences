@@ -6,72 +6,20 @@ output: html_document
 
 ## R in Biology {#bio-r}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
+## Rectangular Data in Biology
 
 ## Bioconductor {#bio-bioconductor}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
-
 ## Gene Expression {#bio-geneexp}
-
-### Overview
-
-### Learning Objectives
-
-### Skill List
 
 ## Differential Expression: Microarrays {#bio-micro}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
-
 ## Gene Set Enrichment Analysis {#bio-gsea}
-
-### Overview
-
-### Learning Objectives
-
-### Skill List
 
 ## High Throughput Sequencing {#bio-hts}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
-
 ## Differential Expression: RNASeq {#bio-rnaseq}
-
-### Overview
-
-### Learning Objectives
-
-### Skill List
 
 ## Biological Network Analysis {#bio-networks}
 
-### Overview
-
-### Learning Objectives
-
-### Skill List
-
 ## Single Cell Sequencing Analysis {#bio-scseq}
-
-### Overview
-
-### Learning Objectives
-
-### Skill List
