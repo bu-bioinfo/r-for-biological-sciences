@@ -94,6 +94,7 @@ generosity in making their valuable contributions:
 * [STAT 545 - Data wrangling, exploration, and analysis with R](https://stat545.com/index.html)
 * [What They Forgot to Teach You About R](https://rstats.wtf/index.html)
 * [Reproducible Analysis with R](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/), by State of Alaska's Salmon and People Project, NCEAS
+* [Data Science for Psychologists](https://bookdown.org/hneth/ds4psy/), by Hansjörg Neth
 
 **Data visualization**
 * [How Charts Lie: Getting Smarter about Visual Information](https://wwnorton.com/books/9781324001560/about-the-book), by Alberto Cairo
