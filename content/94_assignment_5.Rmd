@@ -1,5 +1,4 @@
 ---
-title: "Assignment 5 - DESeq2"
 output:
   html_document:
     css: style.css
