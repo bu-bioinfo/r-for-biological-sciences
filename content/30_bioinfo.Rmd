@@ -8,6 +8,75 @@ output: html_document
 
 ## Rectangular Data in Biology
 
+The most common, convenient, and flexible data file format in biology and
+bioinformatics is the *character-delimited* or *character-separated text file*.
+These files are plain text files (i.e. not the native file format of any
+specific program, like Excel) that generally contain rectangles of data. When
+formatted correctly, you can think of these files as containing a grid or matrix
+of data values with some number of columns, each of which has the same number of
+values. Each line of these files has some number of data values separated by a
+consistent character, most commonly the comma which are called [comma-separated
+value, or "CSV", files](https://en.wikipedia.org/wiki/Comma-separated_values)
+and filenames typically end with the extension `.csv`. Note that
+other characters, especially the <Tab> character, may be used to create valid
+files in this format, and all the same general principles apply. This is an
+example of a simple CSV file:
+
+```
+id,somevalue,category,genes
+1,2.123,A,APOE
+4,5.123,B,"HOXA1,HOXB1"
+7,8.123,,SNCA
+```
+
+Some properties and principles of CSV files:
+
+* The first line often but not always contains the column names of each column
+* Each value is delimited by the same character, in this case `,`
+* Values can be any value, including numbers and characters
+* When a value contains the delimiting character (e.g. HOXA1,HOXB1 contains a
+  `,`), the value is wrapped in double quotes
+* Values can be missing, indicated by sequential delimiters (i.e. `,,` or one
+  `,` at the end of the line, if the last column value is missing)
+* There is no delimiter at the end of the lines
+* To be well-formatted *every line must have the same number of delimited
+  values*
+
+These same properties and principles apply to all character-separated files,
+regardless of the specific delimiter used. If a file follows these principles,
+they can be loaded very easily into R or any other data analysis setting.
+
+::: {.box .note}
+There are of course many other types of data files common in biology and
+bioinformatics in addition to the humble CSV file. However, most of these forms
+of data tend to be "raw", meaning they require some processing to turn them into
+a form amenable to analysis. The *processed forms* of these data are very often
+stored in CSV files, so very many of your analyses in R will begin with one or
+more CSV files.
+:::
+
+In very general terms, there are two types of data used in biological data
+analysis: *primary data* and *metadata*. Primary data are measurements we have
+collected or processed from some other data type that corresponds to the
+quantities we are interested in. For example, if we were collecting gene
+expression data from post mortem brain tissue of a set of individuals, the
+expression measurements for each gene considered for each individual are the
+primary data.
+
+In most experimental settings, multiple samples have been processed and had the
+same primary data type collected. These samples also have information associated
+with them, which is here termed *metadata*, or "data about data".
+In our gene expression of post mortem brain experiments mentioned above, the
+information about the individuals themselves, including age at death,
+whether the person had a disease, the measurements of tissue quality, etc. is
+the metadata.
+
+Both primary data and metadata are very often stored in a pair of CSV files that
+have an explicit relationship. In particular, the metadata (or *sample
+information* or *sample data*, etc) will have one column indicating the unique
+identifier (ID) of each sample. The primary data will typically have columns
+named for each of the sample IDs.
+
 ## Bioconductor {#bio-bioconductor}
 
 ## Gene Expression {#bio-geneexp}
