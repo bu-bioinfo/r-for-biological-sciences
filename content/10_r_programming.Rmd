@@ -1049,6 +1049,35 @@ is well worth your while to learn.
 [R for Data Science - Iteration](https://r4ds.had.co.nz/iteration.html)
 :::
 
+## Installing Packages
+
+Advanced functionality in R is provided through *packages* written and supported
+by R community members. With the exception of [bioconductor
+packages](#bio-bioconductor), all R packages are hosted on the [Comprehensive R
+Archive Network](https://cran.r-project.org/) (CRAN) web site. At the time of
+writing, there are [more than 18,000
+packages](https://cran.r-project.org/web/packages/index.html) hosted on CRAN
+that you can install. To install a package from CRAN, use the `install.packages`
+function in the R console:
+
+```
+# install one package
+install.packages("tidyverse")
+# install multiple packages
+install.packages(c("readr","dplyr"))
+```
+
+::: {.box .note}
+As mentioned above, many packages used in biological data analysis are not
+hosted on CRAN, but in [Bioconductor](#bio-bioconductor). The Bioconductor
+project's mission is "to develop, support, and disseminate free open source
+software that facilitates rigorous and reproducible analysis of data from
+current and emerging biological assays." Practically, this means Bioconductor
+packages are subject to stricter standards for documentation, coding conventions
+and structure, and standards compliance compared with the relatively more lax
+CRAN package submission process.
+:::
+
 ## Troubleshooting and Debugging {#prog-debugging}
 
 **Bugs in code are normal.** You are not a bad programmer if your code has bugs
