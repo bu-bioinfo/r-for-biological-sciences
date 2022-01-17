@@ -2,7 +2,26 @@ library(tibble)
 library(tidyr)
 library(readr)
 library(stringr)
+library(ggplot2)
 library(DESeq2)
+
+
+#' Filter zero-variance genes from count matrix.
+#'
+#' @param count_data tibble: a (gene x sample) matrix of raw read counts
+#'
+#' @return tibble: a (gene x sample) matrix of raw reads with zero variance
+#' genes removed.
+#' @export
+#'
+#' @examples
+#' `filtered_counts <- filter_zero_var_genes(count_data)`
+filter_zero_var_genes <- function(count_data) {
+  genes <- count_data$gene
+  variance <- apply(count_data[-c(1)], 1, var)
+  return(list(genes=genes[variance > 0], matrix=count_data[variance > 0, -c(1)]))
+}
+
 
 
 #' Extract time point information from sample name
@@ -65,24 +84,6 @@ meta_info_from_labels <- function(sample_names) {
 get_library_size <- function(count_matrix) {
   return (apply(count_matrix, 2, sum))
 }
-
-
-#' Filter zero-variance genes from count matrix.
-#'
-#' @param count_data tibble: a (gene x sample) matrix of raw read counts
-#'
-#' @return tibble: a (gene x sample) matrix of raw reads with zero variance
-#' genes removed.
-#' @export
-#'
-#' @examples
-#' `filtered_counts <- filter_zero_var_genes(count_data)`
-filter_zero_var_genes <- function(count_data) {
-  genes <- count_data$gene
-  variance <- apply(count_matrix[-c(1)], 1, var)
-  return(list(genes=genes[variance > 0], matrix=count_matrix[variance > 0, ]))
-}
-
 
 
 #' Normalize raw count matrix to counts per million.
@@ -164,21 +165,59 @@ plot_pca <- function(count_matrix, meta, title="") {
 #' @param count_matrix tibble: a (gene x sample) count matrix
 #' @param scale_y_axis boolean: whether to scale the `y` axis to log10 values.
 #' Default is FALSE, and y-axis will not be transformed.
+#' @param title string: title to give the chart.
 #'
 #' @return ggplot: boxplot show gene count distributions for each sample
 #' @export
 #'
 #' @examples
-#' `plot_sample_distributions(count_matrix, scale_y_axis=TRUE)`
-plot_sample_distributions <- function(count_matrix, scale_y_axis=FALSE) {
+#' `plot_sample_distributions(count_matrix, scale_y_axis=TRUE, title='Raw Count Distributions')`
+plot_sample_distributions <- function(count_matrix, scale_y_axis=FALSE, title="") {
   long_counts <- tidyr::pivot_longer(count_matrix,
                                      cols=colnames(count_matrix),
                                      names_to='sample',
                                      values_to='counts')
-  dist_plot <- ggplot2::ggplot(long_counts, aes(x=sample, y=counts, col=sample)) +
-    ggplot2::geom_boxplot()
+  dist_plot <- ggplot2::ggplot(long_counts, ggplot2::aes(x=sample, y=counts, col=sample)) +
+    ggplot2::geom_boxplot() + 
+    ggplot2::ggtitle(title)
   if (scale_y_axis) {
     dist_plot <- dist_plot + ggplot2::scale_y_log10()
   }
   return(dist_plot)
+}
+
+
+#' Plot relationship between mean read counts and variability over all genes.
+#'
+#'
+#' @param count_matrix tibble: a (gene x sample) data matrix containing raw or 
+#' normalized count values. 
+#' @param scale_y_axis boolean: whether to scale to y-axis to log10 values. Default
+#' is false, and the y-axis will not be transformed.
+#' @param title string: title to give the chart.
+#'
+#' @return ggplot: A scatter plot where the x-axis is the rank of gene ordered by mean
+#' count over all samples, and the y-axis is the observed variance of the
+#' given gene. Each dot should have their transparency increased. The scatter
+#' plot should also be accompanied by a line representing the average mean and
+#' variance values.
+#' @export
+#'
+#' @examples
+#' `plot_variance_vs_mean(count_matrix, scale_y_axis=TRUE, title='variance vs mean (raw counts)')`
+plot_variance_vs_mean <- function(count_matrix, scale_y_axis=FALSE, title="") {
+  means <- apply(count_matrix, 1, mean)
+  variances <- apply(count_matrix, 1, var)
+  plot_data <- tibble::tibble(mean=means, variance=variances)
+  plot_data$rank <- rank(plot_data$mean)
+  mv_plot <- ggplot2::ggplot(plot_data, aes(x=rank, y=variance)) + 
+    ggplot2::geom_point(alpha=0.5) +
+    ggplot2::geom_smooth() + 
+    ggplot2::xlab("Rank(Mean)") + 
+    ggplot2::ylab("Variance") + 
+    ggplot2::ggtitle(title)
+  if (scale_y_axis) {
+    mv_plot <- mv_plot + ggplot2::scale_y_log10()
+  }
+  return(mv_plot)
 }
