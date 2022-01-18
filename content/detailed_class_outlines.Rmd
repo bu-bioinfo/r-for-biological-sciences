@@ -18,11 +18,18 @@ output: html_document
 * [Troubleshooting and Debugging]
 * [The Tidyverse]
 * [Tidyverse Basics]
-* [The tibble]
 * [Importing Data]
+* [The tibble]
 * [pipes]
-* [Unit Testing]
+* [Arranging Data]
 
 ## Week 2
-  * [Bioconductor]
-* Relational Data
+* [Unit Testing]
+* [Bioconductor]
+* [Relational Data in Biology]
+* [Data Tidying]
+* [Relating Data]
+* [Grammar of Graphics]
+* [Plotting One Dimension]
+* [Plotting More Than One Dimension]
+* [Visualizing Distributions]

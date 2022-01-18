@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Assignment 2 | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="Assignment 2 | BF591 - R for Biological Sciences" />
+  <title>Assignment 5 - DESeq2 | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="Assignment 5 - DESeq2 | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Assignment 2 | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="Assignment 5 - DESeq2 | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Assignment 2 | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="Assignment 5 - DESeq2 | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="starting-an-assignment.html"/>
-<link rel="next" href="assignment-5---deseq2.html"/>
+<link rel="prev" href="assignment-2.html"/>
+<link rel="next" href="assignment-6.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -358,138 +358,228 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="assignment-2" class="section level1 unnumbered">
-<h1>Assignment 2</h1>
-<div id="problem-statement" class="section level2 unnumbered">
+<div id="assignment-5---deseq2" class="section level1 unnumbered">
+<h1>Assignment 5 - DESeq2</h1>
+<p>For this assignment, we will be utilizing DESeq2, which is easily installed through Bioconductor. If you have neither, you should install Bioconductor first and then DESeq2 using the appropriate Bioconductor commands. The following code blocks provide basic instructions for how to install Bioconductor and DESeq2.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="assignment-5---deseq2.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;tidyverse&#39;</span>)</span>
+<span id="cb158-2"><a href="assignment-5---deseq2.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DESeq2&#39;</span>)</span></code></pre></div>
+<p>If you do not already have Bioconductor, you may use the next block of code to install Bioconductor.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="assignment-5---deseq2.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb159-2"><a href="assignment-5---deseq2.html#cb159-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb159-3"><a href="assignment-5---deseq2.html#cb159-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
+<p>Or if you already have Bioconductor installed, you may use this simple command to install DESeq2 itself.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="assignment-5---deseq2.html#cb160-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&#39;DESeq2&#39;</span>)</span></code></pre></div>
+<div id="problem-statement-1" class="section level2 unnumbered">
 <h2>Problem Statement</h2>
+<p>One of the main questions asked by high throughput sequencing is whether some variable or condition (e.g. treatment/disease status) induces a measurable, distinguishable change. In the context of mRNAseq, we are interested in whether we can determine if mRNA levels (what we actually measure) and genes (what we infer) are significantly up- or downregulated between conditions and if we can relate these changes back to a biological phenotype either directly or indirectly.</p>
 </div>
-<div id="learning-objectives-1" class="section level2 unnumbered">
+<div id="learning-objectives-2" class="section level2 unnumbered">
 <h2>Learning Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Understand the methodology and rationale for how DESeq2 normalizes data, models counts, and performs differential expression</li>
+<li>Perform differential expression analysis using DESeq2 and learn one method to analyze time course data</li>
+<li>Understand how to do basic inspection and evaluation of differential expression (DE) results</li>
+</ol>
 </div>
-<div id="skill-list-1" class="section level2 unnumbered">
+<div id="skill-list-2" class="section level2 unnumbered">
 <h2>Skill List</h2>
+<ol style="list-style-type: decimal">
+<li>DESeq2</li>
+<li>Basic diagnostic plots of DE results</li>
+<li>High-quality figures and plots using R and ggplot</li>
+</ol>
 </div>
-<div id="instructions" class="section level2 unnumbered">
-<h2>Instructions</h2>
-<p>Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same CSV of expression data from BF528’s Project 1, available <a href="https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html">here</a>.</p>
-<p>The project is laid out as such:</p>
-<pre><code>main.R
-test_main.R
-report.Rmd</code></pre>
-<p>A skeleton of the functions you need to complete is in <code>main.R</code>. Tests have been pre-written to test your code and help you ensure it is running correctly, these are in <code>test_main.R</code>. Finally, we are also introducing the concept of R Markdown, which for this assignment is <code>report.Rmd</code>. The document itself goes into greater detail, but you will:<br />
-1. Complete the functions in <code>main.R</code> and use <code>testthat:test_file('test_main.R')</code> to ensure they work correctly.<br />
-2. Read the R Markdown file and complete the section called <strong>“Assignment”</strong>. To do this, you can <code>source('main.R')</code> to bring over the functions you wrote in step one.<br />
-3. Finally, annotate the functions you wrote and <strong>Knit</strong> the R Markdown report, complete with your additional comments and code execution.</p>
-<p>This page will go into detail on how the functions and their associated tests should work.</p>
+<div id="deseq2-background" class="section level2 unnumbered">
+<h2>DESeq2 Background</h2>
+<p>DESeq2 is a well validated and highly cited method for differential expression analysis of HTS data. The original paper describing the
+methodology in more detail can be found here:</p>
+<blockquote>
+<p>Love, M.I., Huber, W. &amp; Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol 15, 550 (2014). &gt;<a href="https://doi.org/10.1186/s13059-014-0550-8" class="uri">https://doi.org/10.1186/s13059-014-0550-8</a></p>
+</blockquote>
+<p>We will link back to the original DESeq2 vignette at the head of each applicable section for reference. We strongly encourage you to read the associated documentation as it succinctly summarizes the important concepts and methodology underlying each step of the process. It also provides example code snippets and answers to many common questions regarding the usage of DESeq2 can already be found in this documentation.</p>
+<p>Briefly, at its core, DESeq2 models read counts and tests for differential expression through negative binomial generalized linear models. DESeq2 normalizes count data by scaling by size factors calculated by the median-of-ratios (developed in the original publication for DESeq). For significance testing, DESeq2 performs a Wald test for model coefficients to generate p-values and these are adjusted for multiple testing correction through the Benjamini-Hochberg method.</p>
 </div>
-<div id="function-details" class="section level2 unnumbered">
-<h2>Function Details</h2>
-<div id="bioconductor" class="section level3 unnumbered">
-<h3>1. Bioconductor</h3>
-<p>While many useful R packages can be loaded through <a href="https://cran.r-project.org/">CRAN</a> using the <code>install.packages()</code> syntax, a lot of specifically bioinformatics packages are exclusively released on <a href="https://bioconductor.org/install/">Bioconductor</a>. For this assignment we only need the package called <a href="https://bioconductor.org/packages/release/bioc/html/biomaRt.html">bioma<strong>R</strong>t</a>. R programmers fancy themselves very clever, so <strong>R</strong>s show up a lot.</p>
-<p>Naturally, we want to load our packages at the beginning of our script so all of the code we write beneath can access it as it runs. However, if a user or ourselves <em>already</em> has this package installed we don’t want to waste their time installing it again. The function <code>require()</code> can help us avoid unnecessary installation time and will help us develop faster. The Bioconductor link above has an example of this method.</p>
-<p>This section is untested.</p>
+<div id="generating-a-counts-matrix" class="section level2 unnumbered">
+<h2>Generating a counts matrix</h2>
+<p>DESeq2 takes as input a counts matrix where genes correspond to rows and samples to columns. For one of the more common use cases of differential expression analysis, mRNAseq experiments, we are interested in counts associated with genes; however, DESeq2 is broadly applicable to many kinds of high-throughout sequencing (HTS) count data.</p>
+<p>Returning to the analysis of mRNAseq specifically, there are three main approaches to map reads:</p>
+<ol style="list-style-type: decimal">
+<li>Alignment to a reference genome by a splice-aware aligner and counting of reads falling into exonic regions using a reference
+annotation file</li>
+<li>Transcript-based assembly approaches (TopHat, Cufflinks) or transcript abundance quantification (Salmon, Kallisto)</li>
+<li>Reference free assembly followed by mapping and counting</li>
+</ol>
+<p>DESeq2 expects the values of the input matrix to be counts (integers) and for the purposes of this assignment, you have been provided with a count matrix of samples generated by the first method. Reads were aligned to the mouse genome (GENCODE GRCm39) with STAR and quantified to gene counts by Verse using the matching GTF file.</p>
 </div>
-<div id="load_expression" class="section level3 unnumbered">
-<h3>2. <code>load_expression()</code></h3>
-<p>Perhaps the most integral part of using the many data wrangling abilities of R is actually entering your data into the R environment. While there are many ways to do this in R, we ultimately want this data to be in a <strong>tibble</strong>, which means the current form of the CSV will make R very angry if you attempt to load it in. This is because tibbles don’t support row names very well, and the first column of our data doesn’t have a name. Try to use the <code>load_expression()</code> data to load data from a <code>filename</code> parameter and <strong>return</strong> a tibble of that information. I called my firs column “probeids”.</p>
-<div id="tests" class="section level4 unnumbered">
-<h4>Tests</h4>
-<p>The tests for this function are:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="assignment-2.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;loading csv correctly&quot;</span>, {</span>
-<span id="cb150-2"><a href="assignment-2.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  result_tib <span class="ot">&lt;-</span> <span class="fu">load_expression</span>(<span class="st">&quot;/project/bf528/project_1/data/example_intensity_data.csv&quot;</span>)</span>
-<span id="cb150-3"><a href="assignment-2.html#cb150-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(result_tib), <span class="fu">c</span>(<span class="dv">54675</span>, <span class="dv">36</span>))</span>
-<span id="cb150-4"><a href="assignment-2.html#cb150-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">is_tibble</span>(result_tib))</span>
-<span id="cb150-5"><a href="assignment-2.html#cb150-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<p>This test uses the <code>load_expression()</code> you write to store the returned tibble in <code>result_tib</code>.</p>
+<div id="prefiltering-counts-matrix" class="section level2 unnumbered">
+<h2>Prefiltering Counts matrix</h2>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#pre-filtering">DESeq2 Vignette - Pre-filtering</a></p>
+<p>Unless your experiment is quite large, filtering your counts matrix prior to DESeq2 is not strictly required. If your experiment incorporates hundreds of samples and a complicated model design with many interaction terms, you may wish to perform a combination of manual filtering and further optimization of DESeq2 settings. Otherwise, for most datasets, default settings in DESeq2 will run in a reasonably short amount of time on relatively modest hardware even without pre-filtering.</p>
+<p>There are many different strategies to filter count datasets and which you choose to employ should be informed by your objective, and your data. Some common filters include removing genes where the mean count across all samples is below some threshold or removing genes based on how many samples have a zero count. In general, extensive pre-filtering is not required and DESeq2 incorporates downstream methods to increase statistical power through independent filtering (described in methods). <strong>For this assignment, we will not be filtering the dataset prior to running DE analysis.</strong></p>
+</div>
+<div id="median-of-ratios-normalization" class="section level2 unnumbered">
+<h2>Median-of-ratios normalization</h2>
+<p><a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-10-r106">Original DESeq Publication</a></p>
+<p>As mentioned earlier, DESeq2 expects a non-transformed, non-normalized matrix of integer “counts” as input. DESeq2 performs its own normalization based on the underlying assumption that not all or a small amount of genes are truly differentially expressed. This is encapsulated in the median-of-ratios method which accounts for library size as well as RNA composition. Although DESeq2 performs this normalization in the background, it can help conceptually to understand the process by which it does so.</p>
+<p>First, a pseudo-reference sample is created and set equal to the geometric mean across all samples for a given gene. Then, ratios are calculated comparing each sample to this pseudo-reference on gene-wise basis. Next, on a sample-wise basis, the median value for all ratios is taken as that sample’s normalization factor and for a given sample, all counts are divided by this factor.</p>
+</div>
+<div id="deseq2-preparation" class="section level2 unnumbered">
+<h2>DESeq2 preparation</h2>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-matrix-input">DESeq2 Vignette - Preparation</a></p>
+<p>The DESeqDataSet is the object that holds the read counts and associated statistical measures generated through the DESeq2 algorithm. Although there are several ways to generate this object, we will focus on the DESeqDataSetFromMatrix method which takes as input counts generated from an external pipeline. This method requires the aforementioned counts matrix, sample data information as a data frame, and the design formula.</p>
+</div>
+<div id="omeara-et-al.-transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration.-circ-res.-feb-2015.-pmid-25477501l" class="section level2 unnumbered">
+<h2>O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l</h2>
+<p>The counts matrix provided was generated by data made available by the listed publication. We have only taken a subset of their samples, focusing specifically on the experiment analyzing mRNAseq during <em>in vivo</em> heart development from 0, 4, 7 days after birth as well as in adult mice.</p>
+<p>To start, we are going to consider the simplest use case for differential expression and subset our data to contain only the samples from postnatal day 0 and adult hearts. In addition to subsetting the counts matrix, we also need to construct the sample data information as a dataframe that lists the samplenames (columns in our counts matrix) as well as their associated information (in our case, timepoint).</p>
+<p>We will use this as a demonstration of one of the simplest use cases for DESeq2, comparing two groups of samples based on a single experimental variable. Using what you’ve learned, <strong>reshape the count matrix to only include the samples vP0 and vAD</strong>.</p>
+<p>Also, while possible to manually create a table of sample data, it can often be helpful in larger experiments and for better reproducibility to generate one from an existing metadata file that stores additional information about sample names, file names, and other categorical data. <strong>Use the provided metadata csv to generate a sample dataframe compatible with DESeq2.</strong></p>
+<div class="box hint">
+<p>#1: You may ignore most of the columns in the metadata CSV as they were used in the generation of the matrix itself. Focus on the samplenames and timepoints columns.</p>
+<p>#2: The columns (sample names) in your counts matrix and sample dataframe need to be in the same order</p>
+<p>#3: Your matrix and associated sample dataframe should look something like the below examples:</p>
+</div>
+<pre><code>##                      vP0_1 vP0_2 vAd_1 vAd_2
+## ENSMUSG00000102693.2     0     0     0     0
+## ENSMUSG00000064842.3     0     0     0     0
+## ENSMUSG00000051951.6    19    24     7     5
+## ENSMUSG00000102851.2     0     0     0     0
+## ENSMUSG00000103377.2     1     0     1     0
+## ENSMUSG00000104017.2     0     3     0     0</code></pre>
+<pre><code>##   samplenames conditions
+## 1       vP0_1         p0
+## 2       vP0_2         p0
+## 3       vAd_1         AD
+## 4       vAd_2         AD</code></pre>
 <div class="box important">
-<p>While this test is using the same file for data input as you are, this may not always be the case.</p>
-</div>
-<p>The test then compares the dimensions of that result, and expects 54,675 rows and 36 columns. These are the dimensions of the input CSV. It also checks to confirm it is a tibble object (because tibbles are better than dataframes).</p>
-</div>
-</div>
-<div id="filter_15" class="section level3 unnumbered">
-<h3>3. <code>filter_15()</code></h3>
-<p>In order to filter the numerous rows we have for this data, we introduce a function that filters the probe IDs in the tibble our data is stored in. We want to capture probes that have a suitably high level of expression, so we are setting <code>log2(15)</code> as the cutoff for an expression level. We will keep a row if 15% of the values in that row exceed <code>log2(15)</code> (about 3.9). Since we may want to examine the probe IDs we find, the function simple returns the values of the probe IDs (column 1) instead of returning the entire tibble.</p>
-<p>This function presents an important concept in R: using built-ins to speed up our code. Built-ins are functions and packages that are optimized to process data in a certain way. Since we’re looking at each row of a table, we could simply use a for loop to iterate one row at a time. This is slow, though, and for this function might take 5-10 seconds to run (a long time for a program like this!). Instead, you could use a function like <code>apply()</code> or <code>lapply()</code> to filter every row at once. This solution takes mere moments.</p>
-<div id="tests-1" class="section level4 unnumbered">
-<h4>Tests</h4>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="assignment-2.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb151-2"><a href="assignment-2.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;the correct rows are filtered out in filter_15()&quot;</span>, {</span>
-<span id="cb151-3"><a href="assignment-2.html#cb151-3" aria-hidden="true" tabindex="-1"></a>  test_tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids=</span><span class="fu">c</span>(<span class="st">&#39;1_s_at&#39;</span>, <span class="st">&#39;2_s_at&#39;</span>, <span class="st">&#39;3_s_at&#39;</span>, <span class="st">&#39;4_s_at&#39;</span>),</span>
-<span id="cb151-4"><a href="assignment-2.html#cb151-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1=</span><span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span>),</span>
-<span id="cb151-5"><a href="assignment-2.html#cb151-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2=</span><span class="fu">rep</span>(<span class="fl">1.6</span>, <span class="dv">4</span>),</span>
-<span id="cb151-6"><a href="assignment-2.html#cb151-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3=</span><span class="fu">rep</span>(<span class="fl">2.5</span>, <span class="dv">4</span>),</span>
-<span id="cb151-7"><a href="assignment-2.html#cb151-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM4=</span><span class="fu">rep</span>(<span class="fl">3.99</span>, <span class="dv">4</span>),</span>
-<span id="cb151-8"><a href="assignment-2.html#cb151-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM5=</span><span class="fu">rep</span>(<span class="fl">3.0</span>, <span class="dv">4</span>),</span>
-<span id="cb151-9"><a href="assignment-2.html#cb151-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM6=</span><span class="fu">rep</span>(<span class="fl">1.0</span>, <span class="dv">4</span>),</span>
-<span id="cb151-10"><a href="assignment-2.html#cb151-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM7=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
-<span id="cb151-11"><a href="assignment-2.html#cb151-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">pull</span>(<span class="fu">filter_15</span>(test_tib)), <span class="fu">c</span>(<span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>))</span>
-<span id="cb151-12"><a href="assignment-2.html#cb151-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<p>In order to test this function, we create a small sample tibble of expression data containing only seven samples and four IDs. Two of the rows <em>do</em> have more than 15% of their values exceeding <code>log2(15)</code>, the other two do not. This test ensures that <code>filter_15()</code> selects the correct rows. Creating a small sample table like this can be very useful when testing your own code since you don’t need to look at a large amount of data to see if it’s working correctly or not.</p>
+<p><strong>Deliverables</strong></p>
+<ol style="list-style-type: decimal">
+<li>A reshaped / subsetted count matrix that only includes samples from vP0 and vAD</li>
+<li>The associated “sample data” dataframe that’s required by DESeq2</li>
+</ol>
 </div>
 </div>
-<div id="affy_to_hgnc" class="section level3 unnumbered">
-<h3>4. <code>affy_to_hgnc()</code></h3>
-<p>This is an important, but sometimes painful, part of using R. There is a great built-in package for connecting to Ensembl (a database of genomic information for many species) called <code>biomaRt</code>. We will use <code>biomaRt</code> to connect the affymetrix probe IDs to more recognizable HGNC gene IDs. The problem is that <code>biomaRt</code> depends on an external API (application program interface) to retrieve data, and this connection sometimes (oftentimes) doesn’t work. While their may be more nuanced approaches to an unstable resource like this like automatically retrying failed connections, the best advice for the time being is to try running this function a few times if it doesn’t work at first. The errors are clear when it comes to a failed connection, so know that when you get to this stage it likely isn’t your code’s fault.</p>
-<p>To build a <code>biomaRt</code> query, read the documentation in section 3 <a href="https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/accessing_ensembl.html#how-to-build-a-biomart-query">here</a>. The <code>biomart</code> you should use is <code>ENSEMBL_MART_ENSEMBL</code>, the data set <code>hsapiens_gene_ensembl</code>, and you want to find the attributes <code>c("affy_hg_u133_plus_2", "hgnc_symbol")</code>. The data you filter using <code>filter_15()</code> returns a list of <code>affy_hg_u133_plus_2</code> probe IDs, and the gene names we’re interested in are stored in <code>hgnc_symbol</code>.</p>
-<p>This function should return a tibble, but <code>biomaRt</code>’s <code>getBM()</code> will only accept and return a <code>data.frame</code>. You can use <code>dplyr::pull()</code> to turn a tibble into a simple character vector, and <code>dplyr::as_tibble()</code> to go from a data frame to a tibble.</p>
-<div id="tests-2" class="section level4 unnumbered">
-<h4>Tests</h4>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="assignment-2.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;affy ids can be converted to HGNC names properly using affy_to_hgnc()&quot;</span>, {</span>
-<span id="cb152-2"><a href="assignment-2.html#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
-<span id="cb152-3"><a href="assignment-2.html#cb152-3" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">affy_to_hgnc</span>(<span class="fu">tibble</span>(<span class="st">&#39;1553551_s_at&#39;</span>)), <span class="cn">TRUE</span>)</span>
-<span id="cb152-4"><a href="assignment-2.html#cb152-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">&quot;Error&quot;</span>, response[<span class="dv">1</span>])) {</span>
-<span id="cb152-5"><a href="assignment-2.html#cb152-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_warning</span>(<span class="fu">warning</span>(<span class="st">&quot;Could not connect to ENSEMBL.&quot;</span>))</span>
-<span id="cb152-6"><a href="assignment-2.html#cb152-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb152-7"><a href="assignment-2.html#cb152-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
-<span id="cb152-8"><a href="assignment-2.html#cb152-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(response<span class="sc">$</span>hgnc_symbol, <span class="fu">c</span>(<span class="st">&quot;MT-ND1&quot;</span>, <span class="st">&quot;MT-TI&quot;</span>, <span class="st">&quot;MT-TM&quot;</span>, <span class="st">&quot;MT-ND2&quot;</span>))</span>
-<span id="cb152-9"><a href="assignment-2.html#cb152-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb152-10"><a href="assignment-2.html#cb152-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<p>As fun as it is to try to get <code>biomaRt</code> function to connect correctly, it is even more fun to test them. Since a failure to connect doesn’t indicate an actual failure in <em>our</em> code we must use a <code>try()</code> block in order to capture if there is a connection error.</p>
+<div id="understanding-factor-levels" class="section level2 unnumbered">
+<h2>Understanding Factor Levels</h2>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#note-on-factor-levels">DESeq2 Vignette - Factor Levels</a></p>
+<p>The factor level in DESeq2 determines which level represents the “control” group you want to compare against. By default, the reference level for factors will be chosen alphabetically. You can either manually change and set the reference factor level or specify a comparison of interest using DESeq2 Contrast() after performing the first steps of the DE analysis.</p>
+</div>
+<div id="performing-differential-expression-analysis" class="section level2 unnumbered">
+<h2>Performing Differential Expression Analysis</h2>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2 Vignette</a></p>
+<p><strong>Using the counts matrix and sample dataframe, perform a standard DESeq2 analysis comparing the two vAD samples vs. the two vP0 samples. Look at the DESeq2 vignette for specific code on how to do this. You should obtain a dataframe that contains your differential expression results sorted by ascending adjusted p-value.</strong></p>
+<div class="box important">
+<p><strong>Deliverables</strong></p>
+<ol style="list-style-type: decimal">
+<li>A dataframe containing the output of the differential expression results sorted by ascending adjusted p-value.<br />
+</li>
+</ol>
+</div>
+</div>
+<div id="p-value-distribution-and-multiple-test-correction" class="section level2 unnumbered">
+<h2>P-value distribution and multiple test correction</h2>
+<p>Separate from differential expression analysis, it is always an important diagnostic to plot the unadjusted distribution of p-values obtained from an experiment. Built-in to the definition of a p-value is the idea that under the null distribution and given all other assumptions made are true, p-values follow a uniform distribution. In general you should typically observe a peak of values close to 0 and a roughly uniform distribution as you approach 1. The values closer to 0 will be a mix of situations where the alternative hypothesis is true as well as potential false positives. Significant deviations from this general pattern likely require close examination of your data and the significance test you are employing. <strong>Using your differential expression results and ggplot2, visualize the distribution of raw p-values obtained from your experiment.</strong></p>
+<div class="box important">
+<p><strong>Deliverables</strong></p>
+<p>1.A histogram of the unadjusted p-values obtained from your differential expression results. Observe the shape of the distribution. Label all relevant axes and provide a descriptive caption for the figure.</p>
+</div>
+</div>
+<div id="histogram-of-log-fold-changes" class="section level2 unnumbered">
+<h2>Histogram of Log Fold Changes</h2>
+<p>It is often helpful visualize the log2FoldChanges for your differentially expressed genes to gain a sense for how genes are changing on a global level. <strong>Set an adjusted p-value cutoff of .10 and visualize the distribution of associated Log2FoldChanges for the significantly differentially expressed genes.</strong></p>
+<div class="box important">
+<p><strong>Deliverables</strong></p>
+<ol style="list-style-type: decimal">
+<li>Produce a histogram of the Log2FoldChange values for significantly differentially expressed genes (adjusted p-value &lt; .10). Label all relevant axes and provide a descriptive caption for the figure.</li>
+</ol>
+</div>
+</div>
 <div class="box note">
-<p><strong>Note</strong> that the <code>try()</code> function is a part of programming called <strong>error-handling</strong> which extends to many other languages. We often expect errors when running our programs (such as right now) but don’t want to shut down our entire operation if it’s an error we can expect. Using <code>try</code>, <code>except</code>, and <code>finally</code> (the latter two not appearing here) we can account for issues outside of our control and adapt our code to change the outcome.</p>
-<p>Using <code>try except</code> is <strong><em>not</em></strong> a replacement for writing code that doesn’t generate errors. If you can avoid an error in the first place, that is far better than using error-handling.</p>
+<div id="the-choice-of-fdr-cutoff-depends-on-cost" class="section level2 unnumbered">
+<h2>The choice of FDR cutoff depends on cost</h2>
+<p>The choice of a FDR cutoff or any p-value cutoff is always subjective and based on the objectives of your experiment and the cost of false discoveries. For example, if your initial sequencing experiment is exploratory and meant to generate hypotheses to be followed up <em>in vitro</em> or <em>in vivo</em>, it may be more appropriate to set a permissive cutoff (adjusted p-value &lt; .20). P-value thresholds are set on an experiment by experiment basis and should not be adjusted simply to increase or decrease the number of DE genes retroactively.</p>
 </div>
-<p>In this case we <code>try()</code> to use <code>affy_to_hgnc()</code> to connect to Ensembl and store the resulting error in <code>response</code>. We then check: if there is an “Error” then we throw a <code>warning()</code> to our testing output. This doesn’t stop further testing from happening, but it ensures we know that something isn’t quite right. If the <code>response</code> does not contain an error, we simply test that it returned the correct gene symbols for our random affy probe ID of choice.</p>
+<div id="a-warning-about-post-hoc-filtering-by-fold-change" class="section level2 unnumbered">
+<h2>A warning about <em>post hoc</em> filtering by fold change</h2>
+<p>After obtaining a list of differential expression results, it is important to remember that the fold change value is an estimate and the associated p-values were calculated testing for whether or not the fold change differed significantly from zero. It is therefore not appropriate to simply filter genes by adjusted p-value and then by fold change falling above or below a given threshold. Instead, if you wish to say with some statistical certainty that a fold change value is above some threshold, you should incorporate it directly into the testing methodology (DESeq2 has a built-in option for this).</p>
+<p>It is important to give careful thought as to whether to set a LFCThreshold in DESeq2. It is a far more conservative test and will give you far fewer differentially expressed genes. Discussions of when to employ this test are beyond the scope of this assignment, but some can likely be found in the official vignette or the myriad of public discussions regarding the usage of DESeq2.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="assignment-5---deseq2.html#cb163-1" aria-hidden="true" tabindex="-1"></a>res_lfcthreshold <span class="ot">&lt;-</span> <span class="fu">results</span>(your_dds_object_here, <span class="at">contrast=</span><span class="fu">c</span>(<span class="st">&#39;condition_name&#39;</span>, <span class="st">&#39;condition1&#39;</span>, <span class="st">&#39;condition2&#39;</span>), <span class="at">lfcThreshold=</span><span class="fl">0.585</span>, <span class="at">altHypothesis=</span><span class="st">&quot;greaterAbs&quot;</span>)</span></code></pre></div>
+<p>The above is a sample code snippet for how one could incorporate a Log2FoldChange threshold in DESeq2. Keep in mind that it’s a log2FoldChange threshold so the value above would correspond to a test for fold changes above 1.5 (2^.585). As mentioned earlier, this value should be set conservatively as it is a much more stringent statistical test.</p>
 </div>
 </div>
-<div id="reduce_data" class="section level3 unnumbered">
-<h3>5. <code>reduce_data()</code></h3>
-<p>We have one final step in manipulating our data before we plot it. We have our original data, the probe IDs and their associated HGNC symbols, and a list of good gene names and bad gene names. <code>reduce_data</code> takes these four inputs and returns a tibble that has reduced our expression data to only the genes of interest and has a column describing which set of genes it belongs to (“good” or “bad”). Changing the shape of the data is incredibly useful for <code>ggplot</code>, the tidyverse package we will use for plotting. While there is flexibility when using <code>ggplot</code> to plot data, having data in <a href="https://www.datacamp.com/community/tutorials/long-wide-data-R">long</a> format is typically ideal.</p>
-<p>Once again, there are multiple ways to reorganize data in this way. We used the base function <code>match()</code> to connect our probe IDs to with our HGNC IDs in <code>name_ids</code>. We then used <code>tibble::add_column()</code> to insert the new data in the correct location. Finally, we created two tibbles of good and bad genes using <code>which()</code> and the <code>%in%</code> modifier. Which evaluates true conditions across a range of data, so we can pass the list of genes we want and select the correct ones. For instance:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="assignment-2.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb153-2"><a href="assignment-2.html#cb153-2" aria-hidden="true" tabindex="-1"></a>tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gene =</span> <span class="fu">c</span>(<span class="st">&quot;gene1&quot;</span>, <span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>, <span class="st">&quot;gene4&quot;</span>),</span>
-<span id="cb153-3"><a href="assignment-2.html#cb153-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">affy =</span> <span class="fu">c</span>(<span class="st">&quot;a_s_1&quot;</span>, <span class="st">&quot;a_s_2&quot;</span>, <span class="st">&quot;a_s_3&quot;</span>, <span class="st">&quot;a_s_4&quot;</span>))</span>
-<span id="cb153-4"><a href="assignment-2.html#cb153-4" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>)) <span class="co"># returns the index of the TRUE rows</span></span></code></pre></div>
-<pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="assignment-2.html#cb155-1" aria-hidden="true" tabindex="-1"></a>tib<span class="sc">$</span>affy[<span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>))] <span class="co"># use [] to get data back</span></span></code></pre></div>
-<pre><code>## [1] &quot;a_s_2&quot; &quot;a_s_3&quot;</code></pre>
-<p>Once again, there are many ways to reshape this data (some maybe more elegant than this!) and all we need is the data to be correctly shaped when it is returned.</p>
-<div id="tests-3" class="section level4 unnumbered">
-<h4>Tests</h4>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="assignment-2.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;reduce_data() is correctly changing the size and shape of the tibble&quot;</span>, {</span>
-<span id="cb157-2"><a href="assignment-2.html#cb157-2" aria-hidden="true" tabindex="-1"></a>  t_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
-<span id="cb157-3"><a href="assignment-2.html#cb157-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span>),</span>
-<span id="cb157-4"><a href="assignment-2.html#cb157-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span>),</span>
-<span id="cb157-5"><a href="assignment-2.html#cb157-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span>))</span>
-<span id="cb157-6"><a href="assignment-2.html#cb157-6" aria-hidden="true" tabindex="-1"></a>  names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">affy_hg_u133_plus_2 =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
-<span id="cb157-7"><a href="assignment-2.html#cb157-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>, <span class="st">&quot;UTWPU&quot;</span>))</span>
-<span id="cb157-8"><a href="assignment-2.html#cb157-8" aria-hidden="true" tabindex="-1"></a>  good <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>)</span>
-<span id="cb157-9"><a href="assignment-2.html#cb157-9" aria-hidden="true" tabindex="-1"></a>  bad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SONIC&quot;</span>)</span>
-<span id="cb157-10"><a href="assignment-2.html#cb157-10" aria-hidden="true" tabindex="-1"></a>  reduce_test <span class="ot">&lt;-</span> <span class="fu">reduce_data</span>(t_tibble, names, good, bad)</span>
-<span id="cb157-11"><a href="assignment-2.html#cb157-11" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>),</span>
-<span id="cb157-12"><a href="assignment-2.html#cb157-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>),</span>
-<span id="cb157-13"><a href="assignment-2.html#cb157-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">gene_set =</span> <span class="fu">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>),</span>
-<span id="cb157-14"><a href="assignment-2.html#cb157-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>),</span>
-<span id="cb157-15"><a href="assignment-2.html#cb157-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>),</span>
-<span id="cb157-16"><a href="assignment-2.html#cb157-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>))</span>
-<span id="cb157-17"><a href="assignment-2.html#cb157-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(reduce_test, result)</span>
-<span id="cb157-18"><a href="assignment-2.html#cb157-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<p>In order to test a function that changes a tibble, we need to use a tibble. We only create a test table that is three rows by four columns, but that is enough to get the gist of the function. We simply pass the four parameters to <code>reduce_data()</code> and we expect it to create a tibble like <code>result</code>. <strong>Ensure your output column names are the same here or your tests my fail.</strong> While not crucial to the success of your assingment, maintaining correct column names across multiple data transformations is an important skill.</p>
+<div id="make-a-volcano-plot" class="section level2 unnumbered">
+<h2>Make a volcano plot</h2>
+<p>A volcano plot is a common data plot that is intended to quickly display points of interest by plotting statistical significance against a magnitude of change. In the specific case of mRNAseq data, this entails plotting the log(p-values / adjusted p-values) against the estimated log fold changes reported by most differential expression methods.</p>
+<p>Statistically significant genes with low p-values will appear higher on the y-axis of the plot and they will be separated by the magnitude and directionality of their change (i.e. Upregulated genes with larger fold change estimates will be further along to the right of the origin of the x-axis, and downregulated genes will be farther to the left of the origin on the x-axis). Typically, genes of interest that have additional biological relevance to the experiment will be directly annotated using domain knowledge. <strong>Using your differential expression results, make a volcano plot for all of the genes discovered in the experiment.</strong></p>
+<div class="box hint">
+<p>#1: Remember the color (colour) argument in geom_point</p>
+<p>#2: The labels will encompass three groups: 1. Positive log fold change and significant, 2. Negative log fold change and significant, 3. Remaining non-significant genes</p>
+</div>
+<div class="box important">
+<p><strong>Deliverables</strong></p>
+<ol style="list-style-type: decimal">
+<li>Produce a scatterplot of Log2FoldChange vs. Log10(adjusted p-value) for all discovered genes. Label the upregulated and significant genes, the downregulated and significant genes, and non-significant genes distinctly. Label all relevant axes and provide a descriptive caption for the figure.</li>
+</ol>
+</div>
+</div>
+<div id="visualize-normalized-counts-for-the-ten-differentially-expressed-genes-with-the-lowest-adjusted-p-values" class="section level2 unnumbered">
+<h2>Visualize normalized counts for the ten differentially expressed genes with the lowest adjusted p-values</h2>
+<p>It can be helpful to visualize the normalized counts for a few differentially expressed genes as a quick check that things are working as intended. You may extract the counts normalized by the calculated size factors using the following code:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="assignment-5---deseq2.html#cb164-1" aria-hidden="true" tabindex="-1"></a>norm_counts <span class="ot">&lt;-</span> <span class="fu">counts</span>(your_dds_object_here, <span class="at">normalized=</span>T)</span></code></pre></div>
+<p><strong>Using the matrix of differential expression results you generated in the previous steps, extract out the normalized counts for the top ten genes (as ranked by ascending adjusted p-value) and plot their normalized counts as a scatter plot labeling by sample or timepoint.</strong></p>
+<div class="box hint">
+<p>#1: If you are plotting all of the genes on the same plot, you may find it helpful to take the logarithm of the counts as different genes often have counts that differ by several orders of magnitude.</p>
+<p>#2: You may find it helpful to add a slight horizontal “jitter” to the points to aid in visualization for cases where counts for each replicate are similar.</p>
+</div>
+<div class="box important">
+<p><strong>Deliverables</strong></p>
+<ol style="list-style-type: decimal">
+<li>A scatter/jitter plot of the normalized counts for the top ten differentially expressed genes ranked by ascending adjust p-value. Label by either sample name or timepoint. Label all relevant axes and provide a descriptive caption for the figure.</li>
+</ol>
+</div>
+</div>
+<div id="time-series-with-deseq2-likelihood-ratio-test-lrt" class="section level2 unnumbered">
+<h2>Time series with DESeq2 Likelihood Ratio Test (LRT)</h2>
+<p>There are many ways to analyze time-series data from high-throughput sequencing experiments and for simplicity, we will discuss one such method implemented in DESeq2: the likelihood ratio test. Conceptually, the LRT implemented within DESeq2 tests whether a full model explains more deviance than a reduced model with terms of interest removed. For our specific data, we will use this to test to determine genes that are changing over time. We will consider our full model to be <em>~ timepoint</em> versus the reduced model of <em>~1</em>. <strong>Here we will use the full data matrix, so generate a new sample dataframe and DESeq2 object using the <em>complete</em> matrix of counts. Using the DESeq2 Vignette as a reference, perform a LRT analysis on the <em>complete</em> matrix of samples (vP0, vP4, vP7, vAD) to identify genes changed at any timepoint</strong>.</p>
+<p>It is important to note that the fold change values generated by this test are not meaningfully interpretable. As well, the p-values are only applicable to the test of whether or not the gene is changed at any time point.</p>
+<div class="box important">
+<p><strong>Deliverables</strong>
+1. A dataframe containing the results of the LRT analysis for the <strong>complete</strong> matrix of samples sorted by ascending adjusted p-value.</p>
+</div>
+</div>
+<div id="plotting-the-normalized-counts-over-time-for-the-top-differentially-expressed-gene-from-the-lrt-analysis" class="section level2 unnumbered">
+<h2>Plotting the normalized counts over time for the top differentially expressed gene from the LRT analysis</h2>
+<p>In order to gain a sense for what it means for a gene to be differentially expressed at any time point, let us again use the normalized counts to visualize the expression profile over time. <strong>Extract out the normalized counts for the gene with the lowest adjusted p-value from the LRT analysis. Plot the normalized counts for each sample across all timepoints. Some questions to think about: 1.Why is this gene considered to be changed over time?, 2. What will the expression profile of other genes called DE by the LRT analysis look like?</strong></p>
+<div class="box hint">
+<p>#1: You may extract out the normalized counts matrix as shown before or look in the DESeq2 vignette for built-in functions.</p>
+</div>
+<div class="box important">
+<p><strong>Deliverables</strong></p>
+<ol style="list-style-type: decimal">
+<li>A scatter/jitter plot of normalized counts from each sample across each timepoint for the gene with the lowest adjusted p-value from the LRT results. Label all relevant axes and provide a descriptive caption for the figure.</li>
+</ol>
+</div>
+</div>
+<div id="optional-exercises" class="section level2 unnumbered">
+<h2>Optional exercises</h2>
+<div class="box note">
+<ul>
+<li>Extract out specific pairwise comparisons of interest across the time course (i.e. p4 vs p0)</li>
+<li>Use biomaRt to convert the ensembl gene ids to MGI symbols</li>
+</ul>
+</div>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<p><small>
+Dobin A, Davis CA, Schlesinger F, Drenkow J, Zaleski C, Jha S, Batut P, Chaisson M, Gingeras TR. STAR: ultrafast universal RNA-seq aligner. Bioinformatics. 2013 Jan 1;29(1):15-21. doi: 10.1093/bioinformatics/bts635. Epub 2012 Oct 25. PMID: 23104886; PMCID: PMC3530905.</p>
+<p>Zhu, Q., Fisher, S.A., Shallcross, J., Kim, J. (Preprint). VERSE: a versatile and efficient RNA-Seq read counting tool. bioRxiv 053306.
+doi: <a href="http://dx.doi.org/10.1101/053306" class="uri">http://dx.doi.org/10.1101/053306</a></p>
+<p><a href="https://www.gencodegenes.org/mouse/" class="uri">https://www.gencodegenes.org/mouse/</a></p>
+<p>Anders, S. &amp; Huber, W. Differential expression analysis for sequence count data. Genome Biology 11, 1–12 (2010).</p>
+<p>Love, M. I., Huber, W. &amp; Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biology 15, 550 (2014).
+</small></p>
 
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -497,8 +587,8 @@ report.Rmd</code></pre>
           </div>
         </div>
       </div>
-<a href="starting-an-assignment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="assignment-5---deseq2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="assignment-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assignment-6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

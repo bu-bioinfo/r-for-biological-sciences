@@ -2,6 +2,10 @@
 output: html_document
 ---
 
+``` {r include=FALSE}
+library(tidyverse)
+```
+
 # Data Wrangling
 
 ## The Tidyverse
@@ -119,7 +123,52 @@ it is often a good idea to do so, to ensure you are calling the right function.
 
 :::
 
-## The tibble
+## Importing Data
+
+The first operation we typically must perform when analyzing data is reading our
+data from a file into R. The [readr](https://readr.tidyverse.org/) package in
+the default tidyverse packages contains the [following similar
+functions](https://readr.tidyverse.org/reference/read_delim.html) that import
+data from delimited text files:
+
++--------------+--------------------------------------------------+
+| Function     | Brief description/use                            |
++==============+==================================================+
+| `read_csv`   | Delimiter: `,` - Decimal separator: `.`          |
++--------------+--------------------------------------------------+
+| `read_csv2`  | Delimiter: `;` - Decimal separator: `,`          |
++--------------+--------------------------------------------------+
+| `read_tsv`   | Delimiter: `<tab>` - Decimal separator: `.`      |
++--------------+--------------------------------------------------+
+| `read_delim` | Delimiter: set by user  - Decimal separator: `.` |
++--------------+--------------------------------------------------+
+
+::: {.box .note}
+Some CSV files can be very large and may be
+[compressed](https://computer.howstuffworks.com/file-compression.htm) to save
+space. There are many different file compression algorithms, but the most common
+in data science and biology are [gzip](https://www.gnu.org/software/gzip/) and
+[bzip](http://www.bzip.org/). All the `readr` file reading functions can work
+with compressed files directly, so you do not need to decompress them first.
+:::
+
+Each of these functions returns a special data frame called a
+[`tibble`](#data-tibble), which is explained in the next section.
+
+Note that `readr` also has functions for [writing delimited
+files](https://readr.tidyverse.org/reference/write_delim.html). These functions
+behave similarly to the `read_X` functions but instead of creating a tibble from
+a file, they create a file from a tibble. You will frequently need to export the
+results of your analysis to share with collaborators and also as part of larger
+workflows that use tools other than R.
+
+::: {.box .readmore}
+* [R for Data Science - Data Import](https://r4ds.had.co.nz/data-import.html)
+* [readr - `read_delim` reference](https://readr.tidyverse.org/reference/read_delim.html)
+* [readr - `write_delim` reference](https://readr.tidyverse.org/reference/write_delim.html)
+:::
+
+## The tibble {#data-tibble}
 
 Data in tidyverse is organized primarily in a special data frame object called a
 `tibble`. The `tibble()` function is defined in the [tibble
@@ -150,12 +199,834 @@ tbl
 ```
 
 A `tibble` stores rectangular data, i.e. a grid of data elements with where
-every column has the same number of rows.
+every column has the same number of rows. You can access individual columns in
+the same way as with base R data frames:
 
-## Importing Data
+```
+tbl$x
+[1] 29.572549 12.015877 15.235536 23.071761 32.254703 48.048651 21.905756
+[8] 15.511768 34.872685 21.352433 12.515230 23.608096  6.778630 12.342237
+...
+tbl[1,"x"] # access the first element of x
+# A tibble: 1 x 1
+    x
+  <dbl>
+1  29.6
+tbl$x[1]
+[1] 29.57255
+```
+
+`tibbles` (and regular data frames) typically have names for their columns. In
+the above example, the column names are `x` and `y`, accessed using the
+`colnames` function:
+
+```
+colnames(tbl)
+[1] "x" "y"
+```
+
+Column names may be changed using this same function:
+
+```
+colnames(tbl) <- c("a","b")
+tbl
+# A tibble: 100 x 2
+       a     b
+   <dbl> <dbl>
+ 1 16.5   54.6
+ 2 14.4   54.3
+ 3  7.87  53.7
+ 4  8.06  50.8
+ 5 37.2   57.1
+ 6 16.5   51.9
+ 7 15.8   50.1
+ 8 40.3   44.3
+ 9 12.0   49.8
+10 23.8   50.1
+# ... with 90 more rows
+```
+
+As we will see again later, we can also use `dplyr::rename` to rename columns as
+well:
+
+```
+dplyr::rename(tbl,
+  a = x,
+  b = y
+)
+```
+
+::: {.box .note}
+tibbles and dataframes also have row names as well as column names:
+
+```
+rownames(tbl)
+[1] "1" "2" "3"...
+```
+
+However, the `tibble` support for row names is only included for compatibility
+with base R data frames and should generally be avoided. The reason is that row
+names are basically a character column that has different semantics than every
+other column, and the authors of tidyverse believe row names are better stored
+as a normal column.
+
+[tibble - working with row names](https://tibble.tidyverse.org/reference/rownames.html)
+:::
+
+The tibble package provides a convenient way to construct simple tibbles
+manually with the `tribble()` function, which stands for "`tr`ansposed
+t`ibble`":
+
+``` {r}
+gene_stats <- tribble(
+    ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
+   "apoe", 12.509293,   0.1032,   34.239521,   1.3e-5,
+   "hoxd1",  4.399211,   0.6323,   16.332318,   0.0421,
+   "snca", 45.748431,   4.2e-9,    0.757188,   0.9146,
+)
+gene_stats
+```
+
+This made-up dataset includes statistics and p-values from two different
+statistical tests (again, made up) for three human genes. We will use this
+example below in the [Arranging Data] section.
+
+::: {.box .readmore}
+* [tibble documentation](https://tibble.tidyverse.org/)
+* [R for Data Science - tibbles](https://r4ds.had.co.nz/tibbles.html)
+:::
 
 ## pipes
 
+One of the key `tidyverse` programming patterns is chaining manipulations of
+`tibble`s together using the `%>%` operator. We very often want to perform
+serial operations on a data frame, for example read in a file, rename one of the
+columns, subset the rows based on some criteria, and compute summary statistics
+on the result. We might implement such operations using a variable and
+assignment:
+
+```
+# data_file.csv has two columns: bad_cOlumn_name and numeric_column
+data <- readr::read_csv("data_file.csv")
+data <- dplyr::rename(data, "better_column_name"=bad_cOlumn_name)
+data <- dplyr::filter(data, better_column_name %in% c("condA","condB"))
+data_grouped <- dplyr::group_by(data, better_column_name)
+summarized <- dplyr::summarize(data_grouped, mean(numeric_column))
+```
+
+The repeated use of `data` and the intermediate `data_grouped` variable may
+be unnecessary if you're only interested in the summarized result. The code is
+also not very straightforward to read. Using the `%>%` operator, we can write
+the same sequence of operations in a much more concise manner:
+
+```
+data <- readr::read_csv("data_file.csv") %>%
+      dplyr::rename("better_column_name"=bad_cOlumn_name) %>%
+      dplyr::filter(better_column_name %in% c("condA","condB")) %>%
+      dplyr::group_by(better_column_name) %>%
+      dplyr::summarize(mean(numeric_column))
+```
+
+Note that the function calls in the piped example do not have the `data`
+variable passed in explicitly. This is because the `%>%` operator passes the
+result of the function immediately preceding it as the first argument to the
+next function automatically. This convention allows us to focus on writing only
+the important parts of the code that perform the logic of our analysis, and
+avoid unnecessary and potentially distracting additional characters that make
+the code less readable.
+
+::: {.box .readmore}
+* [R for Data Science - Pipes](https://r4ds.had.co.nz/pipes.html)
+* [`%>%` operator documentation in the magrittr package](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+:::
+
 ## Tidying Data
 
-## Arranging Data {#dw-arranging}
+## Arranging Data
+
+After we have loaded our data from a file into a `tibble`, we often need to
+manipulate it in various ways to make the values amenable to our desired
+analysis. Such manipulations might include renaming poorly named columns,
+filtering out certain records, deriving new columns using the values in others,
+changing the order of rows etc. These operations may collectively be termed
+*arranging* the data and many are provided in the
+*[`dplyr` package](https://dplyr.tidyverse.org/). We will cover some of the most
+common data arranging functions here, but there are many more in the `dplyr`
+package worth knowing.
+
+In the examples below, we will make use of the following made-up tibble that
+contains fake statistics and p-values for three human genes:
+
+``` {r}
+gene_stats
+```
+
+The `gene_stats` tibble above is a simple example of a very common type of
+data we work with in biology; namely instead of raw data, we work with
+statistics that have been computed using raw data that help us interpret the
+results. While these statistics may not be 'data' per se, we can still use all
+the functions and strategies in the tidyverse to work with them.
+
+::: {.box .note}
+The tidyverse is a very big place. RStudio created many helpful
+[cheatsheets](https://github.com/rstudio/cheatsheets) to aid in looking up how
+do to certain operations. The [cheatsheet on
+dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+has lots of useful information on how to use the many functions in the package.
+:::
+
+### `dplyr::mutate()` - Create new columns using other columns
+
+Many biological analysis procedures perform some kind of statistical test on a
+collection of features (e.g. genes) and produce p-values that indicate how
+"surprising" each feature is according to the test. The p-values in our tibble
+are nominal, i.e. they have not been adjusted for [multiple
+hypotheses](#ds-multiple-hypotheses). Briefly, when we run multiple tests like
+we are on each of our three genes, there is a chance that some of the tests will
+have a small p-value simply by chance. [Multiple testing
+correction](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)
+procedures adjust nominal p-values to account for this possibility in a number
+of different ways, but the most common procedure in biological analysis is the
+[Benjamini-Hochberg or False Discovery Rate
+(FDR)](https://en.wikipedia.org/wiki/False_discovery_rate) procedure. In R, the
+`p.adjust` function can perform several of these procedures, including FDR:
+
+``` {r}
+dplyr::mutate(gene_stats,
+  test1_padj=p.adjust(test1_p,method="fdr")
+)
+```
+
+Notice how the adjusted p-values are larger than the nominal ones; this is the
+effect of the multiple testing procedure. Since we have two sets of p-values,
+we must compute the FDR on each of them, which we can do in the same call to
+`mutate()`:
+
+``` {r}
+gene_stats_mutated <- dplyr::mutate(gene_stats,
+  test1_padj=p.adjust(test1_p,method="fdr"),
+  test2_padj=p.adjust(test2_p,method="fdr")
+)
+gene_stats_mutated
+```
+
+Another common operation is to create new columns derived from the values in
+multiple other columns.  We (or our wetlab colleagues) might decide it is
+convenient to have a new column with `TRUE` or `FALSE` based on whether the
+gene was significant in either test. Such a column would make it easy to filter
+genes down to just ones that might be interesting in tools like Excel. We can
+create new columns from multiple columns just as easily using the `mutate()`
+function:
+
+``` {r}
+dplyr::mutate(gene_stats_mutated,
+  signif_either=(test1_padj < 0.05 | test2_padj < 0.05),
+  signif_both=(test1_padj < 0.05 & test2_padj < 0.05)
+)
+```
+
+Recall that the `|` and `&` operators execute 'or' and 'and' logic,
+respectively. The above example required the creation of a new variable
+`gene_stats_mutated` because the columns `test1_padj` and
+`test2_padj` need to be in the tibble before computing the new fields. However,
+in `mutate()`, columns created first in the function call are available to later
+columns. In the following example, note that `test1_padj` is created first and
+then used to create the `signif` columns:
+
+``` {r}
+dplyr::mutate(gene_stats,
+  test1_padj=p.adjust(test1_p,method="fdr"), # test1_padj created
+  test2_padj=p.adjust(test2_p,method="fdr"),
+  signif_either=(test1_padj < 0.05 | test2_padj < 0.05), #test1_padj used
+  signif_both=(test1_padj < 0.05 & test2_padj < 0.05)
+)
+```
+
+The alternative would be to split this into two `mutate()` commands, the first
+creating the adjusted p-value columns and the second creating the significance
+columns. `dplyr` recognizes how common it is to build new variables off of other
+new variables in a `mutate()` command, and therefore provides this convenient
+behavior.
+
+`mutate()` can also be used to modify columns in place. The official convention
+for human gene symbols is that they are upper case, but for some reason our
+tibble contains lower case gene symbols. We can correct this using `mutate()`
+but first we should talk about the [stringr
+package](https://stringr.tidyverse.org/) which makes working with strings much
+easier than with base R functions.
+
+::: {.box .readmore}
+* [R for Data Science - Add new variables with `mutate()`](https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate)
+* [dplyr `mutate()` reference](https://dplyr.tidyverse.org/reference/mutate.html)
+:::
+
+### `stringr` - Working with character values
+
+Base R does not have very convenient functions for working with character
+strings (or just *strings*). This is due to its original intent a statistical
+programming language, where string manipulation is not (in principle) a common
+operation. However, in practice, we must frequently manipulate strings while
+loading, cleaning, and analyzing datasets. The [stringr
+package](https://stringr.tidyverse.org/) aims to make working with strings "as
+easy as possible."
+
+The package includes many useful functions for operating on strings, including
+searching for patterns, mutating strings, lexicographical sorting, combining
+multiple strings together (i.e. concatenation), and performing complex
+search/replace operations. There are far too many useful functions to cover here
+and you should become comfortable reading the [stringr
+documentation](https://stringr.tidyverse.org/reference/index.html) and the very
+helpful [stringr
+cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf).
+
+In the previous section, we noted that the gene symbols in our tibble were lower
+case while official gene symbols are in upper case. We can use the stringr
+function `stringr::str_to_upper()` with the `dplyr::mutate()` function to
+perform this adjustment easily:
+
+``` {r}
+dplyr::mutate(gene_stats,
+  gene=stringr::str_to_upper(gene)
+)
+```
+
+Now are gene symbols have the appropriate case, and our wetlab colleagues won't
+complain about it. :)
+
+::: {.box .readmore}
+* [R for Data Science - Strings](https://r4ds.had.co.nz/strings.html)
+* [stringr
+documentation](https://stringr.tidyverse.org/reference/index.html)
+* [stringr
+cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf)
+:::
+
+### `dplyr::select()` - Subset Columns by Name
+
+Our `mutate()` operations above created a number of new columns in our tibble,
+but we did not specify where in the tibble the new columns should go. Let's
+consider the mutated tibble we created with all four new columns:
+
+``` {r}
+dplyr::mutate(gene_stats,
+  test1_padj=p.adjust(test1_p,method="fdr"),
+  test2_padj=p.adjust(test2_p,method="fdr"),
+  signif_either=(test1_padj < 0.05 | test2_padj < 0.05),
+  signif_both=(test1_padj < 0.05 & test2_padj < 0.05),
+  gene=stringr::str_to_upper(gene)
+)
+```
+
+From a readability standpoint, it might be helpful if all the columns that are
+about each test were grouped together, rather than having to look at the end of
+the tibble to find them.
+
+The [`dplyr::select()`
+function](https://dplyr.tidyverse.org/reference/select.html) allows you to pick
+specific columns out of a larger `tibble` in whatever order you choose:
+
+``` {r}
+stats <- select(gene_stats, test1_stat, test2_stat)
+stats
+```
+
+Here we have explicitly selected the statistics columns. dplyr also has [helper
+functions](https://tidyselect.r-lib.org/reference/starts_with.html) that allow
+for more flexible selection of columns. For example, if all of the columns we
+wished to select ended with `_stat`, we could use the `ends_with()` helper
+function:
+
+``` {r}
+stats <- select(gene_stats, ends_with("_stat"))
+stats
+```
+
+If you so desire, `select()` allows for the renaming of selected columns:
+
+``` {r}
+stats <- select(gene_stats,
+  t=test1_stat,
+  chisq=test2_stat
+)
+stats
+```
+
+If we knew that these test statistics actually corresponded to some kind of
+t-test and a $\chi$-squared test, naming the columns of the tibble appropriately
+may help others (and possibly you) understand your code better.
+
+We can use the `dplyr::select()` function to obtain our desired column order:
+
+``` {r}
+dplyr::mutate(gene_stats,
+  test1_padj=p.adjust(test1_p,method="fdr"),
+  test2_padj=p.adjust(test2_p,method="fdr"),
+  signif_either=(test1_padj < 0.05 | test2_padj < 0.05),
+  signif_both=(test1_padj < 0.05 & test2_padj < 0.05),
+  gene=stringr::str_to_upper(gene)
+) %>%
+dplyr::select(
+    gene,
+    test1_stat, test1_p, test1_padj,
+    test2_stat, test2_p, test2_padj,
+    signif_either,
+    signif_both
+)
+```
+
+Now the order of our columns is clear and convenient. It is not necessary to
+list the columns for each test statistic on the same line, but the author thinks
+this makes the code easier to read and understand.
+
+::: {.box .readmore}
+* [R for Data Science - Select columns with `select()`](https://r4ds.had.co.nz/transform.html#select)
+* [dplyr reference](https://dplyr.tidyverse.org/reference/index.html)
+* [select helper functions](https://tidyselect.r-lib.org/reference/starts_with.html)
+:::
+
+### `dplyr::filter()` - Pick rows out of a data set
+
+Often, the first step in interpreting an analysis is to identify the features
+that are significant at some adjusted p-value threshold.  First we will
+save our mutated tibble to another variable, to aid in demonstration:
+
+``` {r}
+gene_stats_mutated <- dplyr::mutate(gene_stats,
+  test1_padj=p.adjust(test1_p,method="fdr"),
+  test2_padj=p.adjust(test2_p,method="fdr"),
+  signif_either=(test1_padj < 0.05 | test2_padj < 0.05),
+  signif_both=(test1_padj < 0.05 & test2_padj < 0.05),
+  gene=stringr::str_to_upper(gene)
+) %>%
+dplyr::select(
+    gene,
+    test1_stat, test1_p, test1_padj,
+    test2_stat, test2_p, test2_padj,
+    signif_either,
+    signif_both
+)
+```
+
+Now we can use the `dplyr::filter()` function to select rows based on whether
+they are significant in either test this with our above example.
+
+``` {r}
+dplyr::filter(gene_stats_mutated, test1_padj < 0.05)
+```
+
+``` {r}
+dplyr::filter(gene_stats_mutated, test2_padj < 0.05)
+```
+
+Here we are filtering the result so that only genes with nominal p-value less
+than 0.05 remain. Note we filter on the two tests separately, but we can also
+combine these tests using [logical
+operators](https://r4ds.had.co.nz/transform.html#logical-operators) to achieve
+different results:
+
+``` {r}
+# | means "logical or", meaning the row is retained if either condition is true
+dplyr::filter(gene_stats_mutated, test1_padj < 0.05 | test2_padj < 0.05)
+```
+
+Only APOE and SCNA are significant in at least one of the tests.
+
+``` {r}
+# & means "logical and", meaning the row is retained only if both conditions are true
+dplyr::filter(gene_stats_mutated, test1_padj < 0.05 & test2_padj < 0.05)
+```
+
+It looks like we don't have any genes that are significant by both tests.
+Filtering results like this is one of the most common operations we do on the
+results of biological analyses.
+
+::: {.box .readmore}
+* [R for Data Science - Filter rows with `filter()`](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter)
+* [dplyr - `filter()` reference](https://dplyr.tidyverse.org/reference/filter.html)
+:::
+
+### `dplyr::arrange()` - Order rows based on their values
+
+Another common operation when working with biological analysis results is
+ordering them by some meaningful value. Like above, p-values are often used to
+prioritize results by simply sorting them in ascending order. The `arrange()`
+function is how to perform this sorting in tidyverse:
+
+``` {r}
+stats_sorted_by_test1_p <- dplyr::arrange(gene_stats, test1_p)
+stats_sorted_by_test1_p
+```
+
+::: {.box .note}
+Note we are sorting by nominal p-value here, not adjusted p-value. In general,
+sorting by nominal or adjusted p-value results in the same order of results. The
+only exception is when, due to the way the FDR procedure works, some adjusted
+p-values will be identical, making the relative order of those tests with the
+same FDR meaningless. In contrast, it is very rare that nominal p-values will be
+identical, and since they induce the same ordering of results, when sorting
+analysis results there are advantages to using nominal p-value, rather than
+adjusted p-value.
+:::
+
+In general, the larger the magnitude of the statistic, the smaller the p-value
+(for two-tailed tests), so if we so desired we could induce a similar ranking by
+arranging the data by the statistic in descending order:
+
+``` {r}
+# desc() is a helper function that causes the results to be sorted in descending
+# order for the given column
+dplyr::arrange(gene_stats, desc(abs(test1_stat)))
+```
+
+Here we first apply the base R `abs()` function to compute the absolute value of
+the test 1 statistic and then specify that we want to sort largest first. Note
+although we don't have any negative values in our dataset, we should not assume
+that in general, so it is safer for us to be complete and add the absolute value
+call in case later we decide to copy and paste this code into another analysis.
+That's pretty much all there is to `arrange()`.
+
+::: {.box .readmore}
+* [R for Data Science - Arrange rows with `arrange()`](https://r4ds.had.co.nz/transform.html#arrange-rows-with-arrange)
+* [dplyr `arrange()` reference](https://dplyr.tidyverse.org/reference/arrange.html)
+:::
+
+### Putting it all together
+
+In the previous sections, we performed the following operations:
+
+1. Created new columns by computing false discovery rate on the nominal p-values
+   using the `dplyr::mutate()` and `p.adjust` functions
+2. Created new columns that indicate the patterns of significance for each gene
+   using `dplyr::mutate()`
+3. Mutated the gene symbol case using `stringr::str_to_upper` and
+   `dplyr::mutate()`
+4. Reordered the columns to group related variables with `select()`
+5. Filtered genes based on whether they have an adjusted p-value less than 0.05
+   for either and both statistical tests using `dplyr::filter()`
+6. Sorted the results by p-value using `dplyr::arrange()`
+
+For the sake of illustration, these steps were presented separately, but
+together they represent a single unit of data processing and thus might
+profitably be done in the same R command using `%>%`:
+
+``` {r}
+gene_stats <- dplyr::mutate(gene_stats,
+  test1_padj=p.adjust(test1_p,method="fdr"),
+  test2_padj=p.adjust(test2_p,method="fdr"),
+  signif_either=(test1_padj < 0.05 | test2_padj < 0.05),
+  signif_both=(test1_padj < 0.05 & test2_padj < 0.05),
+  gene=stringr::str_to_upper(gene)
+) %>%
+dplyr::select(
+    gene,
+    test1_stat, test1_p, test1_padj,
+    test2_stat, test2_p, test2_padj,
+    signif_either,
+    signif_both
+) %>%
+dplyr::filter(
+  test1_padj < 0.05 | test2_padj < 0.05
+) %>%
+dplyr::arrange(
+  test1_p
+)
+gene_stats
+```
+
+This complete pipeline now contains all of our manipulations and our mutated
+tibble can be passed on to downstream analysis or collaborators.
+
+## Grouping Data
+
+Sometimes we are interested in summarizing subsets of our data defined by some
+grouping variable. Consider the following made-up sample metadata for a set of
+individuals in an Alzheimer's disease (AD) study:
+
+``` {r}
+metadata <- tribble(
+    ~ID, ~condition, ~age_at_death, ~Braak_stage, ~APOE_genotype,
+  "A01",        "AD",            78,            5,       "e4/e4",
+  "A02",        "AD",            81,            6,       "e3/e4",
+  "A03",        "AD",            90,            5,       "e4/e4",
+  "A04",   "Control",            80,            1,       "e3/e4",
+  "A05",   "Control",            79,            0,       "e3/e3",
+  "A06",   "Control",            81,            0,       "e2/e3"
+)
+```
+
+This is a typical setup for metadata in these types of experiments. There is a
+sample ID column which uniquely identifies each subject, a condition variable
+indicating which group each subject is in, and clinical information like age at
+death, Braak stage (a measure of Alzheimer's disease pathology in the brain),
+and diploid APOE genotype (e2 is associated with reduced risk of AD, e3 is
+baseline, and e4 confers increased risk).
+
+An important experimental design consideration is to match sample attributes
+between groups as well as possible to avoid confounding our comparison of
+interest. In this case, age at death is one such variable that we wish to match
+between groups. Although these values look pretty well matched between AD and
+Control groups, it would be better to check explicitly. We can do this using
+`dplyr::group_by()` to group the rows together based on condition and
+`dplyr::summarize()` to compute the mean age at death for each group:
+
+``` {r}
+dplyr::group_by(metadata,
+  condition
+) %>% dplyr::summarize(mean_age_at_death = mean(age_at_death))
+```
+
+The `dplyr::group_by()` accepts a tibble and a column name for
+a column that contains a categorical variable (i.e. a variable with discrete
+values like AD and Control) and separates the rows in the tibble into groups
+according to the distinct values of the column. The `dplyr::summarize()`
+function accepts the grouped tibble and creates a new tibble with contents
+defined as a function of values for columns in for each group.
+
+From the example above, we see that the mean age at death is indeed different
+between the two groups, but not by much. We can go one step further and compute
+the standard deviation age range to further investigate:
+
+``` {r}
+dplyr::group_by(metadata,
+  condition
+) %>% dplyr::summarize(
+  mean_age_at_death = mean(age_at_death),
+  sd_age_at_death = sd(age_at_death),
+  lower_age = mean_age_at_death-sd_age_at_death,
+  upper_age = mean_age_at_death+sd_age_at_death,
+)
+```
+
+Note the use of summarized variables defined first being used in variables
+defined later. Now we can see that the age ranges defined by +/- one standard
+deviation clearly overlap, which gives us more confidence that our average age
+at death for AD and Control are not significantly different.
+
+::: {.box .note}
+We used +/- one standard deviation to define the likely mean age range above and
+below the arithmetic mean for simplicity in the example above. The proper way to
+assess whether these distributions are significantly different is to use an
+appropriate statistical test like a t-test.
+:::
+
+Like other functions in `dplyr`, `dplyr::summarize()` has some helper functions
+that give it additional functionality. One useful helper function is `n()`,
+which is defined as the number of records within each group. We will add one
+more column to our summarized sample metadata from above that reports the number
+of subjects within each condition:
+
+``` {r}
+dplyr::group_by(metadata,
+  condition
+) %>% dplyr::summarize(
+  num_subjects = n(),
+  mean_age_at_death = mean(age_at_death),
+  sd_age_at_death = sd(age_at_death),
+  lower_age = mean_age_at_death-sd_age_at_death,
+  upper_age = mean_age_at_death+sd_age_at_death
+)
+```
+
+We now have a column with the number of subjects in each condition.
+
+::: {.box .note}
+Hadley Wickham is from New Zealand, which uses British, rather than American,
+English. Therefore, in many places, both spellings are supported in the
+tidyverse; e.g. both `summarise()` and `summarize()` are supported.
+:::
+
+::: {.box .readmore}
+* [R for Data Science - Grouped summaries with `summarise()`](https://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise)
+* [dplyr `summarise()` reference](https://dplyr.tidyverse.org/reference/summarise.html)
+:::
+
+## Relational Data
+
+As mentioned in our section on [types of biological data](#bio-data-types), we
+often need to combine different sources of data together to aid in
+interpretation of our results. Below we redefine the tibble of gene statistics
+from above to have properly capitalized gene symbols:
+
+``` {r}
+gene_stats <- tribble(
+    ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
+   "APOE",   12.509293,   0.1032,   34.239521,   1.3e-5,
+  "HOXD1",    4.399211,   0.6323,   16.332318,   0.0421,
+   "SNCA",   45.748431,   4.2e-9,    0.757188,   0.9146,
+)
+gene_stats
+```
+
+Our gene identifiers in this data frame are [gene
+symbols](https://en.wikipedia.org/wiki/Gene_nomenclature#Symbol_and_name) which,
+while convenient for our human brains to remember, can change over time and have
+many aliases (e.g. the APOE gene has also been called AD2, LDLCQ5, APO-E, and
+ApoE4 as listed on its
+[genecard](https://www.genecards.org/cgi-bin/carddisp.pl?gene=APOE)). This can
+make writing code that refers to a specific gene difficult, since there are so
+many possible names to look for. Fortunately, there are alternative gene
+identifier systems that do a better job of maintaining stable, consistent gene
+identifiers, one of the most popular being [Ensembl](https://www.ensembl.org/).
+Ensembl gene IDs always take the form `ENSGNNNNNNNNNNN` where `N`s are digits.
+These IDs are much more stable and predictable than gene symbols, and are
+preferable when working with genes in code.
+
+We wish to add Ensembl IDs for the genes in our `gene_stats` result to the
+tibble as a new column. Now suppose we have obtained another file with cross
+referenced gene identifiers like the following:
+
+``` {r}
+gene_map <- tribble(
+    ~symbol,            ~ENSGID,                    ~gene_name,
+     "APOE",  "ENSG00000130203",            "apolipoprotein E",
+    "BRCA2",  "ENSG00000139618", "BRCA2 DNA repair associated",
+    "HOXD1",  "ENSG00000128645",                 "homeobox D1",
+     "SNCA",  "ENSG00000145335",             "synuclein alpha",
+)
+gene_map
+```
+
+Imagine that this file contains mappings for all ~60,000 genes in the human
+genome. While it might be simple to look up our three genes in this file and
+annotate manually, it is easier to ask `dplyr` to do it for us. We can do this
+using the `dplyr::left_join()` function which accepts two data frames and the
+names of columns in each that share common values:
+
+``` {r}
+dplyr::left_join(
+    x=gene_stats,
+    y=gene_map,
+    by=c("gene" = "symbol")
+)
+```
+
+Notice that the additional columns in `gene_map` that were not involved in the
+join (i.e. `ENSG` and `gene_name`) are appended to the `gene_stats` tibble. If
+we wanted to use pipes, we could implement the same join above as follows:
+
+``` {r}
+gene_stats %>% dplyr::left_join(
+  gene_map,
+  by=c("gene" = "symbol")
+)
+```
+
+Under the hood, the `dplyr::left_join()` function took the values in
+`gene_stats$gene` and looked for the corresponding row in `gene_map` with the
+same value in in the `symbol` column. It then appends all the additional columns
+of `gene_map` for the matching rows and returns the result. We have added the
+identifier mapping we desired with only a few lines of code. And what's more,
+this code will work no matter how many genes we had in `gene_stats` as long as
+`gene_map` contains a mapping value for the values in `gene_stats$gene`.
+
+But what happens if we have genes in `gene_stats` that don't exist in our
+mapping? In the above example, we use a left join because we want to include
+all the rows in `gene_stats` regardless of whether a mapping exists in
+`gene_map`. In this case this was fine because all of our genes in `gene_stats`
+had a corresponding row in the mapping. However, notice that in the mapping
+there is an additional gene, [BRCA2](https://en.wikipedia.org/wiki/BRCA2) that
+is not in our gene statistics tibble. If we reverse the order of the join,
+observe what happens:
+
+``` {r}
+gene_map %>% dplyr::left_join(
+  gene_stats,
+  by=c("symbol" = "gene")
+)
+```
+
+Now the order of the rows is the same as in `gene_map`, and the columns for our
+missing gene BRCA2 are filled with `NA`. This is the left join at work, where
+the record from `gene_map` is included regardless of whether a corresponding
+value was found in `gene_stats`.
+
+There are additional types of joins besides left joins. Right joins are simply
+the opposite of left joins:
+
+
+``` {r}
+gene_stats %>% dplyr::right_join(
+  gene_map,
+  by=c("gene" = "symbol")
+)
+```
+
+The result is the same as the left join on `gene_map` except the order of the
+resulting columns is different.
+
+Inner joins return results for rows that have a match between the two tibbles.
+Recall our left join on `gene_map` included BRCA2 even though it was not found
+in `gene_stats`. An inner join will not include this row, because no match in
+`gene_stats` was found:
+
+``` {r}
+gene_map %>% dplyr::inner_join(
+  gene_stats,
+  by=c("symbol" = "gene")
+)
+```
+
+One last type of join is the
+[`dplyr::full_join()`](https://dplyr.tidyverse.org/reference/mutate-joins.html)
+(also sometimes called an outer join). As you may expect, a full join will
+return all rows from both tibbles whether a match in the other table was found
+or not.
+
+### Dealing with multiple matches
+
+In the example above, there was a one-to-one relationship between the gene
+symbols in both tibbles. This made the joined tibble tidy. However, when a
+one-to-many relationship exists, i.e. one gene symbol in one tibble has multiple
+rows in the other, this can lead to what appears to be duplicate rows in the
+joined result. Due to the relative instability of gene symbols, it is very
+common to have multiple Ensembl genes associated with a single gene symbol. The
+following takes a gene mapping of Ensembl IDs to gene symbols and identifies
+cases where multiple Ensembl IDs map to a single gene symbol:
+
+``` {r}
+readr::read_tsv("mart_export.tsv") %>%
+  dplyr::filter(
+    `HGNC symbol` != "NA" & # many unstudied genes have Ensembl IDs but no official symbol
+    `HGNC symbol` %in% `HGNC symbol`[duplicated(`HGNC symbol`)]) %>%
+  dplyr::arrange(`HGNC symbol`)
+```
+
+There are over 7,000 Ensembl IDs that map to the same gene symbol as another
+Ensembl ID. That is more than 10% of all Ensembl IDs. So now let's create a new
+`gene_stats` tibble with one of these gene symbols and join with the map to
+see what happens:
+
+``` {r}
+gene_map <- readr::read_tsv("mart_export.tsv")
+gene_stats <- tribble(
+    ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
+   "APOE",   12.509293,   0.1032,   34.239521,   1.3e-5,
+  "HOXD1",    4.399211,   0.6323,   16.332318,   0.0421,
+   "SNCA",   45.748431,   4.2e-9,    0.757188,   0.9146,
+  "DEAF1",    0.000000,      1.0,           0,      1.0
+) %>% left_join(gene_map, by=c("gene" = "HGNC symbol"))
+gene_stats
+```
+
+Notice how there are two rows for the DEAF1 gene that have identical values
+except for the `Stable Gene ID` column. This is a very common problem when
+mapping gene symbols to other gene identifiers and there is no general solution
+to picking the "best" mapping, short of manually inspecting all of the
+duplicates and choosing which one is the most appropriate yourself (which
+obviously is a huge amount of work). However, we do desire to remove the
+duplicated rows. In this case, since all the values besides the Ensembl ID are
+the same, effectively it doesn't matter which duplicate rows we eliminate. We
+can do this using the `duplicated()` function, which returns `TRUE` for all but
+the first row of a set of duplicated values:
+
+``` {r}
+filter(gene_stats, !duplicated(gene))
+```
+
+However, in general, you must be careful about identifying these types of
+one-to-many mapping issues and also about how you mitigate them.
+
+::: {.box .readmore}
+* [R for Data Science - Relational Data](https://r4ds.had.co.nz/relational-data.html)
+* [dplyr - mutate joins](https://dplyr.tidyverse.org/reference/mutate-joins.html)
+:::

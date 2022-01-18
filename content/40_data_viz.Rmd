@@ -6,32 +6,65 @@ output: html_document
 
 ## Grammar of Graphics {#dv-gg}
 
-### Overview
 
-### Learning Objectives
+## Plotting One Dimension
 
-### Skill List
+Bar charts
+
+Lollipop plots
+
+Parallel Coordinate plots
+
+Area/Stacked Area charts
+
+## Plotting Two or More Dimensions
+
+Scatter plot
+
+Line plot
+
+Bubble plot
+
+Heatmaps
+
+## Visualizing Distributions
+
+Box plot
+
+Violin plot
+
+Beeswarm plot
+
+Histogram
+
+Density
+
+Ridgeline
+
+## Other Kind of Plots
+
+Chord
+
+Sankey
+
+Dendrogram
+
+## Network Viz {#ds-network-viz}
+
+## Tips and Tricks
+
+Confidence Intervals
+
+Annotations
+
+## Multiple Plots
 
 ## Responsible Plotting {#dv-resp}
 
 "Good plots empower us to ask good questions." - Alberto Cairo, How Charts Lie
-
-### Overview
-
-### Learning Objectives
-
-### Skill List
 
 ## Publication Ready Plots
 
 ::: {.box .readmore}
 * [ggpubr - publication ready plotting with ggplot](https://rpkgs.datanovia.com/ggpubr/)
 :::
-
-## Network Viz {#ds-network-viz}
-
-### Overview
-
-### Learning Objectives
-
-### Skill List
