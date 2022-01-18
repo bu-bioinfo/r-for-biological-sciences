@@ -80,3 +80,63 @@ Less concerning for you all but writing tests for larger data sets and more comp
 
 This test loads the sample data (a data frame of counts) and creates the `coldata` object according to DESeq2 specifications. We wrap the `run_deseq()` in `expect_warning()` because DESeq throws a warning when it performs an expected behavior: converting strings to factors (this is bad programming! this is not what warnings are for, the package is functioning as expected). We then do a similar series of tests: ensure the dimensions are correct, ensure the results object are from DESeq, and ensure that the column names we need are present.
 
+### 3. `run_edger()` {-}
+As mentioned in the previous function, this is the EdgeR implementation of running the differential expression analysis based on our counts file. Again, this function should follow roughly the portion of the documentation mentioned in the function description. EdgeR has a number of additional plotting functions (such as `plotMDS()`) you may like to include. These are optional but pretty fun to see if your data is working out as expected (similar days clustered close together and so on). You will return the _entire_ results object, no filtering necessary yet.
+
+#### Tests {-}
+``` {r eval=FALSE}
+test_that("edger function is returning correct results", {
+  load("mock_counts_df.RData")
+  group <- factor(rep(c(1,2), each=2))
+  edger_res <- run_edger(counts_df, group)
+  expect_equal(names(edger_res), c("logFC", "logCPM", "PValue"))
+  expect_equal(dim(edger_res), c(15026, 3))
+})
+```
+Similar to the DESeq2 tests, we aren't necessarily looking for a carbon copy of the results. While the process _should_ be entirely deterministic, it is better to allow some wiggle room and merely look that the columns we're interested in are present and that the data has the right shape. Note that EdgeR doesn't perform a BH correction (the p-adjusted column is non-existant). It's either an option that's off by default or just not a feature! Not a problem, we have the p-values so we can do it ourselves later on.
+
+### 4. `run_limma()` and `run_voom()` {-}
+Our final in this set of three, we're testing two related functions in the Limma package. While you can create an analysis that _only_ uses Limma, in our case we can apply the **voom** workflow to refine our data a little more. More info on how these work in the cited documentation. A little technique that can be useful for optional workflows like this is including a boolean flag in the parameters of the function. If I am running a function `add_numbers(1, -4, abs=TRUE)`, the parameter `abs` might change the functions operation so that it takes the absolute value of numbers before adding them together. I could create this behavior like so:
+``` {r eval=FALSE}
+add_numbers <- function(x, y, abs=FALSE) {
+  if (abs) { # code enters here if abs is TRUE
+    return(abs(x) + abs(y)) # return means function exits, doesn't go to "else {}"
+  } else { # code enters here if abs was false
+    return(x + y)
+  }
+}
+```
+This is a very useful technique for re-using functions, meaning I don't need to write two functions that do similar things when I can change their behavior with that boolean parameter.
+
+#### Tests {-}
+``` {r eval=FALSE}
+test_that("test limma + voom work + work together", {
+  load("mock_counts_df.RData")
+  group <- factor(rep(c(1,2), each=2))
+  # design
+  design <- data.frame(day4=1, day4vsday7=c(0, 0, 1, 1))
+  row.names(design) <- c("vP4_1", "vP4_2", "vP7_1", "vP7_2")
+  # limma
+  limma_res <- run_limma(counts_df, design, voom=FALSE)
+  expect_equal(dim(limma_res), c(1000, 6))
+  expect_equal(names(limma_res), c("day4", "day4vsday7", "AveExpr", "F", 
+                                   "P.Value", "adj.P.Val"))
+  # voom
+  dge <- DGEList(counts=counts_df, group=group)
+  voom_res <- run_voom(dge, design)
+  expect_equal(dim(voom_res), c(1000, 6))
+  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value", 
+                                  "adj.P.Val", "B"))
+})
+```
+This is a longer series of tests but since we're considering two functions that is to be expected. It ultimately functions similarly to the first two series of tests: load test data, apply the function to it, make sure the results are the right size, shape, and type.  
+
+::: {.box .note}
+Note that Limma uses EdgeR to input data, so your first couple steps will look pretty familiar. 
+:::
+
+We create a design object to use, defining the experimental conditions. These are again using the day 4 and day 7 trials from the heart data. First, we test Limma by checking the dimensions of the results are **1,000** rows long. This differs from the first two examples, because Limma has a built-in method for controlling the number of results it returns. Your function (for both `run_limma` and `run_voom`) should end using `topTable(number=1000, resort.by = "p")`. This will return the top 1,000 rows, sorted by p-value ascending. The same test is done for voom, and the tests expect very similar results.
+
+::: {.box .important}
+`run_voom` should be used in `run_limma`, in the boolean-parameter-if-else structure I discuss above. This means that `run_voom` is _defined_ before or after `run_limma` is. This is okay, because `run_voom` only needs to be defined _when `run_limma`_ is run. 
+:::

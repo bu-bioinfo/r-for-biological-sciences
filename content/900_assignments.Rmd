@@ -7,6 +7,3 @@ output: html_document
 # Assignment Format {-}
 
 GitHub repo templates here
-
-## New Heading
-Assingment 1 is about ...
