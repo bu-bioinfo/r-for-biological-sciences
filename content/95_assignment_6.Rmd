@@ -26,9 +26,57 @@ Complete `main.R` in a way that satisfies all of the tests in `test_main.R`. Fol
 
 You can use `testthat:test_file('test_main.R')` in your R console to run all tests in `rest_main.R`. Do not modify the tests.
 
-The project is laid out as such:  
+## Function Details {-}
+
+### 1. `load_n_trim()` {-}
+Once again we have some data to load into R in order to manipulate. We'll be loading a counts file, which is a matrix of genes (rows) by samples (columns). Each cell is the number of that gene found in that sample. This is a good opportunity to use a data frame or a tibble, but because of package restrictions we will be sticking to data frames for this assignment. We're using a couple different packages to process our data, and they input/output _exclusively_ in data frames, so we will be consistent and save ourselves some trouble with conversions.  
+
+We want to return a data frame that is essentially identical to our input file (always a good idea to use the command line to see what you're working with). Ensure the gene names are stored as `row.names` and _not_ as a separate column, data frames have a distinction between the two. This function should also reduce the columns to just those of interest (P0 and Adult).
+
+::: {.box .hint}
+Row names can be changed using the `row.names()` function. The new row names must be a character vector of exactly the same length.
+``` {r eval=FALSE}
+df <- data.frame(a = c(0, 0, 0), b = c(1, 3, 5))
+row.names(df) <- c("Row1", "Row2", "Row3")
+print(df)
+     a b
+Row1 0 1
+Row2 0 3
+Row3 0 5
 ```
-main.R
-report.Rmd
-test_main.R
+:::
+
+#### Tests {-}
+``` {r eval=FALSE}
+
+test_that("test data is loading correctly and reduced", {
+  test_df <- load_n_trim(csv)
+  expect_equal(names(test_df), c("vP0_1", "vP0_2", "vAd_1", "vAd_2"))
+  expect_equal(dim(test_df), c(55416, 4))
+  expect_equal(class(test_df), "data.frame")
+})
 ```
+The tests for this assignment are relatively straightforward, mostly ensuring that data is loaded and ends up in the right shape and format. The first test ensures the columns were filtered, the second ensures the size is correct, and the final ensures it is a data frame and _not_ a tibble. No tibbles. Tible-less?
+
+### 2. `run_deseq()` {-}
+This is the first of three functions that technically do identical things (but in different ways). One of the most popular Bioconductor packages, DESeq2 has a number of options available for differential expression analysis. We will load in the counts data, select our variables of interest, and use `DESeq()` to process them. Links are included in the function description to DESeq2 documentation, you will find answers to most questions there, especially since those were the documents used to _write_ this assignment. This function will return the results of the analysis.
+
+#### Tests {-}
+``` {r eval=FALSE}
+test_that("deseq2 function is returning correct results", {
+  load("mock_counts_df.RData") # loads the counts_df object into env
+  coldata <- data.frame(condition = rep(c("day4", "day7"), each=2),
+                        type="paired-end")
+  row.names(coldata) <- c("vP4_1", "vP4_2", "vP7_1", "vP7_2")
+  expect_warning(deseq <- run_deseq(counts_df, 
+                                    coldata, 
+                                    10, "condition_day7_vs_day4"))
+  expect_equal(dim(deseq), c(19127, 6))
+  expect_equal(class(deseq)[1], "DESeqResults")
+  expect_equal(c("pvalue", "padj") %in% names(deseq), c(TRUE, TRUE))
+})
+```
+Less concerning for you all but writing tests for larger data sets and more complicated functions like this is...tricky. The problem is it can't be written like a script, we can't use the results from `load_n_trim()` to test _this_ function, because what if one fails independently of the other? So in this case, we create an RData object of correctly loaded data that works _even if_ `load_n_trim()` is absolutely broken. Also, in this case, we are using different sets to test this (days 4 and 7 instead of 0 and adult) so you can't just load the test data and say you wrote the code! That would be disingenuous of you, and being disingenuous is for after you graduate.
+
+This test loads the sample data (a data frame of counts) and creates the `coldata` object according to DESeq2 specifications. We wrap the `run_deseq()` in `expect_warning()` because DESeq throws a warning when it performs an expected behavior: converting strings to factors (this is bad programming! this is not what warnings are for, the package is functioning as expected). We then do a similar series of tests: ensure the dimensions are correct, ensure the results object are from DESeq, and ensure that the column names we need are present.
+

@@ -7,10 +7,18 @@ output:
 # Assignment 2 {-}
 
 ## Problem Statement {-}
+Arranging the structure of our data inputs is vital to using R, as is creating the correct environment for analysis by installing packages. It is also important to share data and results easily using R markdown.
 
 ## Learning Objectives {-}
+- Install various packages needed for analysis
+- Load data, filter that data, and retrieve HGNC ids for the data
+- Create a small plot to display results
+- Utilize R Markdown to create an attractive format for sharing data.
 
 ## Skill List {-}
+- How to utilize R markdown to create a report of data analysis
+- Installing and loading packages in R
+- Utilizing Bioconductor to equate affy ids to HGNC ids (gene names)
 
 ## Instructions {-}
 Our main focus for this assignment are installing packages, manipulating data, and plotting our manipulated data. We will be borrowing from the same CSV of expression data from BF528's Project 1, available [here](https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html).  
@@ -143,4 +151,4 @@ test_that("reduce_data() is correctly changing the size and shape of the tibble"
   expect_equal(reduce_test, result)
 })
 ```
-In order to test a function that changes a tibble, we need to use a tibble. We only create a test table that is three rows by four columns, but that is enough to get the gist of the function. We simply pass the four parameters to `reduce_data()` and we expect it to create a tibble like `result`. **Ensure your output column names are the same here or your tests my fail.** While not crucial to the success of your assingment, maintaining correct column names across multiple data transformations is an important skill.
+In order to test a function that changes a tibble, we need to use a tibble. We only create a test table that is three rows by four columns, but that is enough to get the gist of the function. We simply pass the four parameters to `reduce_data()` and we expect it to create a tibble like `result`. **Ensure your output column names are the same here or your tests my fail.** While not crucial to the success of your assignment, maintaining correct column names across multiple data transformations is an important skill.
