@@ -6,7 +6,7 @@ output: html_document
 
 ## R in Biology {#bio-r}
 
-## Rectangular Data in Biology
+## CSV Files
 
 The most common, convenient, and flexible data file format in biology and
 bioinformatics is the *character-delimited* or *character-separated text file*.
@@ -46,36 +46,59 @@ These same properties and principles apply to all character-separated files,
 regardless of the specific delimiter used. If a file follows these principles,
 they can be loaded very easily into R or any other data analysis setting.
 
-::: {.box .note}
-There are of course many other types of data files common in biology and
-bioinformatics in addition to the humble CSV file. However, most of these forms
-of data tend to be "raw", meaning they require some processing to turn them into
-a form amenable to analysis. The *processed forms* of these data are very often
-stored in CSV files, so very many of your analyses in R will begin with one or
-more CSV files.
-:::
+## Types of Biological Data {#bio-data-types}
 
-In very general terms, there are two types of data used in biological data
-analysis: *primary data* and *metadata*. Primary data are measurements we have
-collected or processed from some other data type that corresponds to the
-quantities we are interested in. For example, if we were collecting gene
-expression data from post mortem brain tissue of a set of individuals, the
-expression measurements for each gene considered for each individual are the
-primary data.
+In very general terms, there are five types of data used in biological data
+analysis: raw/primary data, processed data, analysis results, metadata, and
+annotation data.
 
-In most experimental settings, multiple samples have been processed and had the
-same primary data type collected. These samples also have information associated
-with them, which is here termed *metadata*, or "data about data".
-In our gene expression of post mortem brain experiments mentioned above, the
-information about the individuals themselves, including age at death,
+**Raw/primary data.** These data are the primary observations made by whatever
+instruments/techniques we are using for our experiment. These may include
+high-throughput sequencing data, mass/charge ratio data from mass spectrometry,
+16S rRNA sequencing data from metagenomic studies, SNPs from genotyping assays,
+etc. These data can be very large and are often not efficiently processed using
+R. Instead, specialized tools built outside of R are used to first process the
+primary data into a form that is amenable to analysis.
+
+**Processed data.** Processed data is the result of any analysis or
+transformation of primary data into an intermediate, more interpretable form.
+For example, when performing gene expression analysis with RNASeq, short reads
+that form the primary data are typically aligned against a genome and then
+counted against annotated genes, resulting in a count for each gene in the
+genome. Typically, these counts are then combined for many samples into a single
+matrix and subject to downstream analyses like differential expression.
+
+**Analysis results.** Analysis results aren't data *per se*, but are the results
+of analysis of primary data or processed results. For example, in gene
+expression studies, a first analysis is often differential expression, where
+each gene in the genome is tested for expression associated with some outcome
+of interest across many samples. Each gene then has a number of statistics and
+related values, like log2 fold change, nominal and adjusted p-value, etc. These
+forms of data are usually what we use to form interpretations of our datasets
+and therefore we must manipulate them in much the same way as any other dataset.
+
+**Metadata.** In most experimental settings, multiple samples have been
+processed and had the same primary data type collected. These samples also have
+information associated with them, which is here termed *metadata*, or "data
+about data". In our gene expression of post mortem brain experiments mentioned
+above, the information about the individuals themselves, including age at death,
 whether the person had a disease, the measurements of tissue quality, etc. is
-the metadata.
+the metadata. The primary and processed data and metadata are usually stored in
+different files, where the metadata (or *sample information* or *sample data*,
+etc) will have one column indicating the unique identifier (ID) of each sample.
+The processed data will typically have columns named for each of the sample IDs.
 
-Both primary data and metadata are very often stored in a pair of CSV files that
-have an explicit relationship. In particular, the metadata (or *sample
-information* or *sample data*, etc) will have one column indicating the unique
-identifier (ID) of each sample. The primary data will typically have columns
-named for each of the sample IDs.
+**Annotation data.** A tremendous amount of knowledge has been generated about
+biological entities, e.g. genes, especially since the publication of the human
+genome. Annotation data is publicly available information about the features we
+measure in our experiments. This may come in the form of the coordinates in a
+genome where genes exist, any known functions of those genes, the domains found
+in proteins and their relative sequence, gene identifier cross references across
+different gene naming systems (e.g. symbol vs Ensembl ID), single nucleotide
+polymorphism genomic locations and associations with traits or diseases, etc.
+This is information that we use to aid in interpretation of our experimental
+data but generally do not generate ourselves. Annotation data comes in many
+forms, some of which are in CSV format.
 
 ## Bioconductor {#bio-bioconductor}
 
