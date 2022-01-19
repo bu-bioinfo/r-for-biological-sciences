@@ -80,6 +80,7 @@ bio-scseq
 data-visualization
 dv-gg
 plotting-one-dimension
+bar-chart
 plotting-two-or-more-dimensions
 visualizing-distributions
 other-kind-of-plots
