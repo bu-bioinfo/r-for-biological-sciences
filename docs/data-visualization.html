@@ -247,7 +247,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>8</b> Data Visualization</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-visualization.html"><a href="data-visualization.html#dv-gg"><i class="fa fa-check"></i><b>8.1</b> Grammar of Graphics</a></li>
-<li class="chapter" data-level="8.2" data-path="data-visualization.html"><a href="data-visualization.html#plotting-one-dimension"><i class="fa fa-check"></i><b>8.2</b> Plotting One Dimension</a></li>
+<li class="chapter" data-level="8.2" data-path="data-visualization.html"><a href="data-visualization.html#plotting-one-dimension"><i class="fa fa-check"></i><b>8.2</b> Plotting One Dimension</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="data-visualization.html"><a href="data-visualization.html#bar-chart"><i class="fa fa-check"></i><b>8.2.1</b> Bar chart</a></li>
+</ul></li>
 <li class="chapter" data-level="8.3" data-path="data-visualization.html"><a href="data-visualization.html#plotting-two-or-more-dimensions"><i class="fa fa-check"></i><b>8.3</b> Plotting Two or More Dimensions</a></li>
 <li class="chapter" data-level="8.4" data-path="data-visualization.html"><a href="data-visualization.html#visualizing-distributions"><i class="fa fa-check"></i><b>8.4</b> Visualizing Distributions</a></li>
 <li class="chapter" data-level="8.5" data-path="data-visualization.html"><a href="data-visualization.html#other-kind-of-plots"><i class="fa fa-check"></i><b>8.5</b> Other Kind of Plots</a></li>
@@ -360,15 +363,224 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-visualization" class="section level1" number="8">
 <h1><span class="header-section-number">8</span> Data Visualization</h1>
+<p>Data visualization is a core component of both exploring data and communicating
+results to others. The goal of data visualization is to present data in a
+graphical way that shows the reader patterns that would not otherwise be
+visible. Despite its ubiquity and importance, effective data visualization is
+challenging, and while many tools and approaches exist there is no “gold
+standard” to follow in any meaningful sense. Rather, an effective visualization
+has the following properties:</p>
+<ol style="list-style-type: decimal">
+<li>Depicts accurate data</li>
+<li>Depicts data accurately</li>
+<li>Shows enough, but not too much, of the data for the viewer to gain insight</li>
+<li>Is self contained - no additional information (except a caption) is required
+to understand the contents of the figure</li>
+</ol>
+<p>Beyond these, a <em>great</em> visualization has some additional properties:</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Exposes patterns in the data not easily observable by other methods</li>
+<li>Invites the viewer to ask more questions about the data</li>
+</ol>
 <div id="dv-gg" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Grammar of Graphics</h2>
+<p>The grammar of graphics is a system of rules that describes how data and
+graphical aesthetics (e.g. color, size, shape, etc) are combined to form
+graphics and plots. First popularized in the book <a href="https://www.google.com/books/edition/_/ZiwLCAAAQBAJ?hl=en">The Grammar of
+Graphics</a> by Leland
+Wilkinson and co-authors in 1999, this grammar is a major contribution to the
+structural theory of statistical graphics. In 2005, Hadley Wickam wrote an
+implementation of the grammar of graphics in R called
+<a href="https://ggplot2.tidyverse.org/">ggplot2</a> (gg stands for grammar of graphics).</p>
+<p>Under the grammar of graphics, every plot is the combination of three types of
+information: <strong>data</strong>, <strong>geometry</strong>, and <strong>aesthetics</strong>. Data is the data we
+wish to plot. Geometry is the type of geometry we wish to use to depict the data
+(e.g. circles, squares, lines, etc). Aesthetics connect the data to the geometry
+and defines how the data controls the way the selected geometry looks.</p>
+<p>A simple example will help to explain. Consider the following made up sample
+metadata tibble for a study of subjects who died with Alzheimer’s Disease (AD)
+and neuropathologically normal controls:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="data-visualization.html#cb136-1" aria-hidden="true" tabindex="-1"></a>ad_metadata</span></code></pre></div>
+<pre><code>## # A tibble: 20 x 8
+##    ID    age_at_death condition    tau  abeta   iba1   gfap braak_stage
+##    &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;
+##  1 A1              73 AD         96548 176324 157501  78139           4
+##  2 A2              82 AD         95251      0 147637  79348           4
+##  3 A3              82 AD         40287  45365  17655 127131           2
+##  4 A4              81 AD         82833 181513 225558 122615           4
+##  5 A5              84 AD         73807  69332  47247  46968           3
+##  6 A6              81 AD         69108 139420  57814  24885           3
+##  7 A7              91 AD        138135 209045 101545  32704           6
+##  8 A8              88 AD         63485 104154  80123  31620           3
+##  9 A9              74 AD         59485 148125  27375  50549           3
+## 10 A10             69 AD         48357  27260  47024  78507           2
+## 11 C1              80 Control    62684  93739 131595 124075           3
+## 12 C2              77 Control    63598  69838   7189  35597           3
+## 13 C3              72 Control    52951  19444  54673  17221           2
+## 14 C4              75 Control    12415   7451  16481  38510           0
+## 15 C5              77 Control    62805      0  40419 108479           3
+## 16 C6              77 Control     1615   3921   2439  35430           0
+## 17 C7              73 Control    62233  77113  81887  96024           3
+## 18 C8              77 Control    59123  94715  72350  76833           3
+## 19 C9              80 Control    21705   3046  26768 113093           1
+## 20 C10             73 Control    15781  16592  10271 100858           1</code></pre>
+<p>For context, <a href="https://en.wikipedia.org/wiki/Tau_protein">tau protein</a> and
+<a href="https://en.wikipedia.org/wiki/Amyloid_beta">amyloid beta peptides from the amyloid precursor
+protein</a>
+aggregate into neurofibrillary tangles and A-beta plaques, respectively, the
+brains of people with AD. Generally, the amount of both of these pathologies is
+associated with more severe disease. <a href="https://en.wikipedia.org/wiki/Braak_staging">Braak
+stage</a> is a neuropathological
+assessment of the amount of pathology in a brain that is associated with the
+severity of disease, where 0 indicates absence of pathology and 6 with
+widespread involvement in multiple brain regions. Aggregation of tau is also a
+<a href="https://pubmed.ncbi.nlm.nih.gov/8866683/">consequence of normal aging</a>, so must
+accompany neurological symptoms such as dementia to indicate an AD diagnosis
+post mortem. Note we have control samples as well as AD.</p>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Tauopathy_in_Alzheimer%27s_disease.jpg" alt="" />
+<p class="caption">Tauopathy: tau protein accumulates in the cell bodies of affected neurons -
+Wikipedia</p>
+</div>
+<p>The histology measures <code>tau</code>, <code>abeta</code>, <code>iba1</code>, and <code>gfap</code> have been quantified
+using digital microscopy, where brain sections are stained with
+immunohistochemistry to identify the location and degree of pathology; the
+measures in the table are the number of pixels of a 400 x 400 pixel image of a
+piece of brain tissue that fluoresce when stained with the corresponding
+antibody. Tau and A-beta antibodies are specialized to the types of aggregated
+proteins mentioned above and provide a quantification of the level of overall
+AD pathology. Ionized calcium binding adaptor molecule 1 (IBA1) is a marker of
+activated <a href="https://en.wikipedia.org/wiki/Microglia">microglia</a>, the resident
+macrophages of the brain, which is an
+indication of neuroinflammation. Glial fibrillary acidic protein (GFAP) is a
+marker for activated <a href="https://en.wikipedia.org/wiki/Astrocyte">astrocytes</a>,
+specialized cells that derive from the neuron lineage, are critical for
+maintaining the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4292164/">blood brain
+barrier</a>, and are also
+involved in the neuroinflammatory response.</p>
+<p>Let’s say we wished to visualize the relationship between age at death and the
+amount of tau pathology. A scatter plot where each marker is a subject with <span class="math inline">\(x\)</span>
+and <span class="math inline">\(y\)</span> position corresponding to <code>age_at_death</code> and <code>tau</code> respectively. The
+following R code creates such a plot with ggplot2:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="data-visualization.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age_at_death, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
+<span id="cb138-2"><a href="data-visualization.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>All ggplot2 plots begin with the <code>ggplot()</code> function call, which is passed a
+tibble with the <strong>data</strong> to be plotted. We then define the <strong>aesthetics</strong> are
+defined by mapping the x coordinate to the <code>age_at_death</code> column and the y
+coordinate to the <code>tau</code> column with <code>aes(x = age_at_death, y=tau)</code>. Finally, the
+<strong>geometry</strong> as ‘point’ with <code>geom_point()</code>, meaning marks will be made at pairs
+of x,y coordinates. The plot shows what we expect given our knowledge of the
+relationship between age and amount of tau; the two look to be positively
+correlated.</p>
+<p>However, we are not capturing the whole story: we know that there are both AD
+and Control subjects in this dataset. How does <code>condition</code> relate to this
+relationship we see? We can layer on an additional aesthetic of color to add
+this information to the plot:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="data-visualization.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age_at_death, <span class="at">y=</span>tau, <span class="at">color=</span>condition)) <span class="sc">+</span></span>
+<span id="cb139-2"><a href="data-visualization.html#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>This looks a little clearer, showing that Control subjects generally have both
+an earlier age at death and a lower amount of tau pathology. This might be a
+problem, however, since if the age distributions of AD and Control groups are
+different that might pose a problem with
+<a href="https://en.wikipedia.org/wiki/Confounding">confounding</a>. We should investigate
+this.</p>
+<p>Instead of plotting age at death and tau against each other, we will examine the
+distributions of each of these variables for AD and Control samples separately.
+We will use the <a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">box and whisker
+geometry</a> with
+<code>geom_boxplot()</code> to look at the distributions of <code>age_at_death</code>:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="data-visualization.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>age_at_death)) <span class="sc">+</span></span>
+<span id="cb140-2"><a href="data-visualization.html#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>We can see immediately that there are big differences between the age
+distributions of the two groups. This is not ideal, but perhaps we can adjust
+for these effects in downstream analyses. We’d like to look at the tau
+distributions as well, but it would be nice to have these two plots side by side
+in the same plot. To do that, we will use another library called
+<a href="https://patchwork.data-imaginist.com/">patchwork</a>, which allows independent
+ggplot2 plots to be arranged together with a simple expressive syntax:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="data-visualization.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb141-2"><a href="data-visualization.html#cb141-2" aria-hidden="true" tabindex="-1"></a>age_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>age_at_death)) <span class="sc">+</span></span>
+<span id="cb141-3"><a href="data-visualization.html#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb141-4"><a href="data-visualization.html#cb141-4" aria-hidden="true" tabindex="-1"></a>tau_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
+<span id="cb141-5"><a href="data-visualization.html#cb141-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb141-6"><a href="data-visualization.html#cb141-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-7"><a href="data-visualization.html#cb141-7" aria-hidden="true" tabindex="-1"></a>age_boxplot <span class="sc">|</span> tau_boxplot <span class="co"># this puts the plots side by side</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>This confirms our suspicion, and also reveals a serious problem with our
+samples: we have strong confounding of tau and age at death between AD and
+Control samples. This means that if we look for differences between AD and
+Control, we won’t know if the difference is due to the amount of tau pathology
+or due to age of the subjects. With this sample set, we simply cannot
+confidently answer that question. Just a few simple plots alerted us to this
+problem; hopefully more expensive datasets have not already been generated for
+these samples, so that hopefully different subjects are available that could
+avoid this confounding.</p>
+<p>This has been a biological data analysis oriented tutorial on plotting meant to
+illustrate the principles of the grammar of graphics. Namely, every plot has
+<strong>data</strong>, <strong>geometry</strong>, and <strong>aesthetics</strong> that can be independently controlled
+to produce many types of plots. Many of these plots have names, like scatter
+plots and boxplots, but as you compose different types of geometries and
+aesthetics together you may find yourself generating plots that aren’t so easily
+named.</p>
+<p>The next sections of this chapter are a kind of “cook book” of different kinds
+plots you can generate with data of different shapes. It is not intended to be
+comprehensive, but a helpful guide when you are trying to decide how to
+visualize your own datasets.</p>
+<div class="box note">
+<p>If you want to go directly to the comprehensive documentation of the many types
+of ggplot2 plots, peruse the <a href="https://www.r-graph-gallery.com/">R Graph Gallery</a>
+site.</p>
+</div>
+<div class="box readmore">
+<ul>
+<li><a href="https://ggplot2-book.org/index.html">ggplot2 - Elegant Graphics for Data Analysis</a>, by Hadley Wickam</li>
+<li><a href="https://r4ds.had.co.nz/data-visualisation.html">R for Data Science - Data Vizualization</a></li>
+<li><a href="https://patchwork.data-imaginist.com/">patchwork package</a></li>
+</ul>
+</div>
 </div>
 <div id="plotting-one-dimension" class="section level2" number="8.2">
 <h2><span class="header-section-number">8.2</span> Plotting One Dimension</h2>
-<p>Bar charts</p>
+<p>The simplest plots involve plotting a single vector of numbers, or several such
+vectors (e.g. for different samples). Each value in the vector typically
+corresponds to a category or fixed value, for example the <code>tau</code> column from the
+example above has pairs of <em>(ID, tau value)</em>. The order of these numbers can be
+changed, but the vector remains one dimensional.</p>
+<div id="bar-chart" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Bar chart</h3>
+<p>Bar charts map length (i.e. the height or width of a box) to the scalar value of
+a number. The difference in visual length can help the viewer notice consistent
+patterns in groups of bars, depending on how they are arranged:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="data-visualization.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau)) <span class="sc">+</span></span>
+<span id="cb142-2"><a href="data-visualization.html#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>Note the <code>stat="identity"</code> argument is required because by default <code>geom_bar</code>
+counts the number of values for each value of x, which in our case is only ever
+one. This plot is not particularly helpful, so let’s change the fill color of
+the bars based on condition:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="data-visualization.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau,<span class="at">fill=</span>condition)) <span class="sc">+</span></span>
+<span id="cb143-2"><a href="data-visualization.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p>Slightly better, but maybe we can see even more clearly if we sort our tibble
+by tau first:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="data-visualization.html#cb144-1" aria-hidden="true" tabindex="-1"></a>ad_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb144-2"><a href="data-visualization.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(tau) <span class="sc">%&gt;%</span></span>
+<span id="cb144-3"><a href="data-visualization.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau,<span class="at">fill=</span>condition)) <span class="sc">+</span></span>
+<span id="cb144-4"><a href="data-visualization.html#cb144-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>But wait, our bars are in the same order as in the previous plot. Sorting our
+data prior to plotting did not have the desired effect. The reason is that
+although the <code>ID</code> column is a character string in our original tibble, ggplot
+converts it into a <a href="#prog-factor">factor</a> prior to plotting. Recall that a
+factor is a numeric type composed of sequential integers, each of which having a
+character label associated with it.</p>
 <p>Lollipop plots</p>
 <p>Parallel Coordinate plots</p>
 <p>Area/Stacked Area charts</p>
+</div>
 </div>
 <div id="plotting-two-or-more-dimensions" class="section level2" number="8.3">
 <h2><span class="header-section-number">8.3</span> Plotting Two or More Dimensions</h2>
