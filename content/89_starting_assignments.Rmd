@@ -37,12 +37,12 @@ Each assignment will have these following files within, roughly:
 8. R will download all of the repository contents, and add an `.RProj` file to the directory. This RProject file is useful for switching between R assignments in RStudio. This context menu is in the top right of the RStudio interface:  
 ![](img/how_to_3-switch-proj.png)
 
-### Committing and Pushing with R (and without)
+### Committing and Pushing with R (and without) {-}
 With the RProject set up, you now have a directory on SCC that has cloned your remote repository in GitHub. At this moment all of the files are the same, since you have made no progress on your assignment (depressing, I know). In a burst of productive energy, you will start to make changes to `main.R` and write your beautiful, buggy functions. Once you're done for a little bit, what next? You could leave it on SCC and it would probably be pretty safe, but what if you want to share this code easily? Or if a cataclysm strikes Western Massachusetts? Your changes are gone and life will have lost all meaning.  
 
 To prevent this cataclysm, you must **add**, **commit**, and **push** your code back to GitHub.
 
-#### Using RStudio
+#### Using RStudio {-}
 1. Save the files you want to commit, and select the Git tab in the top right viewer (by default).  
 ![](img/how_to_4-git_tab.png)
 2. You'll notice the files you changed are listed here, along with varying symbols. A question mark **?** means the file is untracked, an **M** means a tracked file has been modified. A **D** means a tracked file has been deleted. If I select a file I want to add back to GitHub, I can tick the checkbox and it will switch to the left column. This is called **staging** a file.  
