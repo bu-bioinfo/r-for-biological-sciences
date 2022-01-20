@@ -5,6 +5,7 @@ output:
 ---
 
 # Assignment 6 {-}
+> I don't think the "gg" in "ggplot" stands for "good game"...
 
 ## Problem Statement {-}
 Plotting data is a useful but oftentimes complicated skill set. While R has many tools to help simplify and create attractive and useful graphs, they can be difficult to utilize and have many pitfalls. This assignment will teach you the most important parts of plotting with R using the package `ggplot`.
@@ -135,8 +136,75 @@ This is a longer series of tests but since we're considering two functions that 
 Note that Limma uses EdgeR to input data, so your first couple steps will look pretty familiar. 
 :::
 
-We create a design object to use, defining the experimental conditions. These are again using the day 4 and day 7 trials from the heart data. First, we test Limma by checking the dimensions of the results are **1,000** rows long. This differs from the first two examples, because Limma has a built-in method for controlling the number of results it returns. Your function (for both `run_limma` and `run_voom`) should end using `topTable(number=1000, resort.by = "p")`. This will return the top 1,000 rows, sorted by p-value ascending. The same test is done for voom, and the tests expect very similar results.
+We create a design object to use, defining the experimental conditions. These are again using the day 4 and day 7 trials from the heart data. First, we test Limma by checking the dimensions of the results are **1,000** rows long. This differs from the first two examples, because Limma has a built-in method for controlling the number of results it returns. Your function (for both `run_limma()` and `run_voom()`) should end using `topTable(number=1000, resort.by = "p")`. This will return the top 1,000 rows, sorted by p-value ascending. The same test is done for voom, and the tests expect very similar results.
 
 ::: {.box .important}
-`run_voom` should be used in `run_limma`, in the boolean-parameter-if-else structure I discuss above. This means that `run_voom` is _defined_ before or after `run_limma` is. This is okay, because `run_voom` only needs to be defined _when `run_limma`_ is run. 
+`run_voom()` should be used in `run_limma()`, in the boolean-parameter-if-else structure I discuss above. This means that `run_voom()` is _defined_ before or after `run_limma()` is. This is okay, because `run_voom()` only needs to be defined _when `run_limma`_ is run. 
 :::
+
+### 5. `combine_pval()` {-}
+The final three functions concern modifying our differential expression results and creating plots of these combined results. While it would be trivial to make three plots using the same code or function, have R generate one consistent plot after changes in your data or method is extremely useful. 
+
+We use `combine_pval()` to coerce our data into long format, which is more applicable for facet wrapping. `facet_wrap()` is a `ggplot2` function that uses a property of the data to create separate plots in one image. In our case we will use the `package` property (DESeq2, edgeR, or Limma) to differentiate our data. There are a couple ways to reorganize data in this way, but I would suggest using `tidyr::gather()`. Our `key` will be the package and the `value` will be the p-value.
+
+#### Tests {-}
+These tests are organized into one larger testing function because they use the same, randomly generated input data (a bunch of data frames with uniform distributions but with ranges that approximate actual data). If you would like to test only parts of this testing function, use an octothorpe (`#`) to comment out tests you haven't reached yet.
+```{r eval=FALSE}
+test_that("ggplot and data formatting works", {
+  deseq <- data.frame(pvalue = runif(1000, 1e-100, 1e-5), 
+                      log2FoldChange = runif(1000, -9, 9),
+                      padj = runif(1000, 1e-300, 1e-15))
+  edger <- data.frame(PValue = runif(1000, 1e-100, 1e-5),
+                      logFC = runif(1000, -9, 9),
+                      padj = runif(1000, 1e-100, 1e-14))
+  limma <- data.frame(P.Value = runif(1000, 1e-100, 1e-5),
+                      logFC = runif(1000, -9, 9),
+                      adj.P.Val = runif(1000, 1e-6, 1e-4))
+  # combine_pval
+  res <- combine_pval(deseq, edger, limma) 
+  expect_equal(dim(res), c(3000, 2))
+  expect_true(mean(res$pval) < 5e-5 && mean(res$pval) > 5e-7)
+  expect_equal(table(res$package)[[1]], 1000)
+  ...
+```
+The first nine lines establish the test data frames. While random, they will let us test if functions are working correctly. 
+
+::: {.box .important}
+The test data frames do not mimic the normal results exactly. The rows we are interested in have the same name, but have different numbers of columns. For that reason, I suggest your function uses `$`-notation when referencing columns, instead of position. `deseq$pvalue` will work more better than `deseq[,1]` for this test data.
+:::
+
+We test that we only have 2 columns and 3,000 rows, and that the fake p-values are within the expected range. Finally, we use the `table()` function to test that there is only 1,000 of any one package in this data frame.
+
+### 6. `create_facets()` {-}
+Now that we have examined the p-values, we can look at the adjusted p-values. We'll be constructing volcano plots, which compare the log<sub>2</sub> fold-change and the adjusted p-value, so the `create_facets()` function will be somewhat more complicated. Rather than use `gather()` again, it may be easier to create three tibbles or data frames of the variables of interest and combine them with `rbind()`. 
+
+#### Tests {-}
+```{r eval=FALSE}
+  ...
+  # create_facets
+  facets <- create_facets(deseq, edger, limma)
+  expect_equal(dim(facets), c(3000, 3))
+  expect_equal(table(facets$package)[[2]], 1000)
+  ...
+```
+Another simple set of tests, this time we want to ensure there are 3,000 rows and _3_ columns. We also want to ensure there aren't more than 1,000 rows of any package type. 
+
+### 7. `theme_plot()` {-}
+Finally, we have all of our data in the right shape and we can do some plotting. There is a lot to learn about ggplot, and I mention a few resources in the function description, but don't be afraid to experiment! Try different colors, themes, and styles. The easiest part is getting your data on the plot, the hard part is making it look attractive.
+
+#### Tests {-}
+```{r eval=FALSE}
+  ...
+  # theme_plot
+  tibble(logFC = runif(3000, -9, 9),
+         padj = runif(3000, 1e-300, 1e-5),
+         package = rep(c("DESeq2", "edgeR", "Limma"), each=1000)) %>%
+  theme_plot() -> volc_plot
+  expect_equal(dim(volc_plot$data), c(3000, 3))
+  expect_equal(class(volc_plot$layers[[1]]$geom)[1], "GeomPoint")
+  expect_equal(class(volc_plot$facet$params), "list")
+})
+```
+We create a little more fake data, and then pipe it into our `theme_plot()` function, and save that ggplot object. Our tests simply look inside the ggplot object to confirm the data is the right shape, that you're plotting using `geom_point()`, and that facets are present.
+
+Once your tests are passing, take a look at the report and see how everything can work together!
