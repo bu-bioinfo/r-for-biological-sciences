@@ -97,7 +97,8 @@ knowing the complete sequence of a genome also provides information on the
 number of genes it contains, how repetitive the sequence is, and when combined
 with genetic sequences of other individuals or organisms, how closely related
 genes or even organisms as a whole are. Thanks to [the central
-dogma](https://en.wikipedia.org/wiki/Central_dogma_of_molecular_biology), the
+dogma of molecular
+biology](https://en.wikipedia.org/wiki/Central_dogma_of_molecular_biology), the
 gene sequences also give us information about the intermediate RNA molecule and
 resultant proteins encoded by a genome, creating opportunities for new, ideas,
 hypotheses, experiments, and even new data-generating assays and approaches.
@@ -105,9 +106,5 @@ These advances are causing exponential growth of different types of biological
 data and its volume, necessitating ever more powerful and sophisticated
 computational resources and analytical methods with no signs of slowing.
 
-The biochemical instruments used to produce these data
-
-* precision
-* accuracy
-* throughput
-* cost
+The biochemical instruments used to produce these data are continually improving
+the precision, accuracy, throughput, and cost of their output and operations.
