@@ -6,6 +6,31 @@ output: html_document
 
 ## R in Biology {#bio-r}
 
+R became popular in biological data analysis in the early to mid 2000s, when
+[microarray
+technology](https://www.genome.gov/genetics-glossary/Microarray-Technology) came
+into widespread use enabling researchers to look for statistical differences in
+gene expression for thousands of genes across large numbers of samples. As a
+result of this popularity, a community of biological researchers and data
+analysts created a collection of software packages called
+[Bioconductor](https://www.bioconductor.org/), which made a vast array of
+cutting edge statistical and bioinformatic methodologies widely available.
+
+Due to its ease of use, widespread community support, rich ecosystem of
+biological data analysis packages, and to it being free, R remains one of the
+primary languages of biological data analysis. The language's early focus on
+statistical analysis, and later transition to data science in general, made it
+very useful and accessible to perform the kinds of analyses the new data science
+of biology required. It was also a bridge between biologists without a
+computational background and statisticians and bioinformaticians, who could
+invent methods and implement them into R packages that are easily accessible by
+all. The language and the package ecosystems and communities it supports
+continue to be a major source of biological discovery and innovation.
+
+As a data science, biology benefits from the main strengths of R and [the
+tidyverse](#dw-tidyverse), namely to manipulate, visualize, analyze, and
+communicate biological data .
+
 ## CSV Files
 
 The most common, convenient, and flexible data file format in biology and

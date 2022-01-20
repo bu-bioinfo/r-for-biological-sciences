@@ -25,15 +25,7 @@ edge analysis with a conceptual understanding of the topics.
 
 One such tool is the [R programming language](https://www.r-project.org), a
 statistical programming language and environment specifically designed to run
-statistical analyses and visualize data. R became popular in biological data
-analysis in the early to mid 2000s, when [microarray
-technology](https://www.genome.gov/genetics-glossary/Microarray-Technology) came
-into widespread use enabling researchers to look for statistical differences in
-gene expression for thousands of genes across large numbers of samples. As a
-result of this popularity, a community of biological researchers and data
-analysts created a collection of software packages called
-[Bioconductor](https://www.bioconductor.org/), which made a vast array of
-cutting edge statistical and bioinformatic methodologies widely available. Today
+statistical analyses and visualize data. Today
 R is one of the two most popular programming languages in biological data
 analysis and bioinformatics (the other being [python](https://python.org)).
 
