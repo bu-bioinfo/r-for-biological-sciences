@@ -52,54 +52,54 @@ but the materials also stand alone as an independent class.
 
 **NB: Subject to change**
 
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| Week | Dates             | Topics                                                   | Assignment                |
-+======+===================+==========================================================+===========================+
-| 1    | 1/24 & 1/26       | - [Preliminaries]                                        |                           |
-|      |                   | - [R Programming: Basics](#prog-basics)                  | [Assignment 1]            |
-|      |                   | - [Data Wrangling: Basics](#dw-basics)                   |                           |
-|      |                   | - [Bio: R in Biology](#bio-r)                            |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 2    | 1/31 & 2/2        | - [Data Wrangling: Arranging](#dw-arranging)             |                           |
-|      |                   | - [Data Viz: Grammar of Graphics](#dv-gg)                | [Assignment 2]            |
-|      |                   | - [Bio: Bioconductor Basics](#bio-bioconductor)          |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 3    | 2/7  & 2/9        | - [Data Sci: Data Modeling](#ds-model)                   |                           |
-|      |                   | - [Bio: Gene Expression](#bio-geneexp)                   | [Assignment 3]            |
-|      |                   | - [Bio: Differential Expression: Microarrays](#bio-micro)|                           |
-|      |                   | - [Data Sci: Clustering](#ds-clust)                      |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 3    | 2/14 & 2/16       | - [Data Sci: Distributions & Tests](#ds-dists)           |                           |
-|      |                   | - [R Programming: Structures & Iteration](#prog-struct)  | [Assignment 4]            |
-|      |                   | - [Data Sci: Summarization & Cleaning](#ds-summ)         |                           |
-|      |                   | - [Bio: Gene Set Enrichment Analysis](#bio-gsea)         |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 5    | 2/22 & 2/23       | - [Bio: High Throughput Sequencing](#bio-hts)            |                           |
-|      |                   | - [Bio: Differential Expression: RNASeq](#bio-rnaseq)    | [Assignment 5]            |
-|      |                   | - [Bio: Gene Set Enrichment Analysis](#bio-gsea)         |                           |
-|      |                   | - [R Programming: Style & Conventions](#prog-style)      |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 6    | 2/28 & 3/2        | - [Data Viz: Responsible Plotting](#dv-resp)             | [Assignment 6]            |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 7    | 3/14 & 3/16       | - [Bio: Single Cell Sequencing](#bio-scseq)              | [Assignment 7]            |
-|      |                   | - [R Programming: Pipelines & Workflows](#prog-workflows)|                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 8    | 3/21 & 3/23       | - [RShiny]                                               | [Assignment 8]            |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 9    | 3/28 & 3/30       | - [Bio: Biological Networks](#bio-networks)              |                           |
-|      |                   | - [Data Sci: Network Analysis](#ds-networks)             | [Project]                 |
-|      |                   | - [Data Viz: Network Viz](#ds-network-viz)               |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 10   | 4/4  & ~~4/6~~    | - [Toolification]                                        |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 11   | 4/11 & ~~4/13~~   | - [EngineeRing]                                          |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 12   | 4/20              | - [Communicating with R]                                 |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 13   | 4/25 & ~~4/27~~   | - No class - Project work                                |                           |
-+------+-------------------+----------------------------------------------------------+---------------------------+
-| 14   | 5/2  & ~~5/4~~    | - No class - Project work                                | Project due               |
-+------+-------------------+----------------------------------------------------------+---------------------------+
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| Week     | Dates             | Topics                                                   | Assignment                |
++==========+===================+==========================================================+===========================+
+| [Week 1] | 1/24 & 1/26       | - [Preliminaries]                                        |                           |
+|          |                   | - [R Programming: Basics](#prog-basics)                  | [Assignment 1]            |
+|          |                   | - [Data Wrangling: Basics](#dw-basics)                   |                           |
+|          |                   | - [Bio: R in Biology](#bio-r)                            |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 2] | 1/31 & 2/2        | - [Data Wrangling: Arranging](#dw-arranging)             |                           |
+|          |                   | - [Data Viz: Grammar of Graphics](#dv-gg)                | [Assignment 2]            |
+|          |                   | - [Bio: Bioconductor Basics](#bio-bioconductor)          |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 3] | 2/7  & 2/9        | - [Data Sci: Data Modeling](#ds-model)                   |                           |
+|          |                   | - [Bio: Gene Expression](#bio-geneexp)                   | [Assignment 3]            |
+|          |                   | - [Bio: Differential Expression: Microarrays](#bio-micro)|                           |
+|          |                   | - [Data Sci: Clustering](#ds-clust)                      |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 4] | 2/14 & 2/16       | - [Data Sci: Distributions & Tests](#ds-dists)           |                           |
+|          |                   | - [R Programming: Structures & Iteration](#prog-struct)  | [Assignment 4]            |
+|          |                   | - [Data Sci: Summarization & Cleaning](#ds-summ)         |                           |
+|          |                   | - [Bio: Gene Set Enrichment Analysis](#bio-gsea)         |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 5] | 2/22 & 2/23       | - [Bio: High Throughput Sequencing](#bio-hts)            |                           |
+|          |                   | - [Bio: Differential Expression: RNASeq](#bio-rnaseq)    | [Assignment 5]            |
+|          |                   | - [Bio: Gene Set Enrichment Analysis](#bio-gsea)         |                           |
+|          |                   | - [R Programming: Style & Conventions](#prog-style)      |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 6] | 2/28 & 3/2        | - [Data Viz: Responsible Plotting](#dv-resp)             | [Assignment 6]            |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 7] | 3/14 & 3/16       | - [Bio: Single Cell Sequencing](#bio-scseq)              | [Assignment 7]            |
+|          |                   | - [R Programming: Pipelines & Workflows](#prog-workflows)|                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 8] | 3/21 & 3/23       | - [RShiny]                                               | [Assignment 8]            |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 9] | 3/28 & 3/30       | - [Bio: Biological Networks](#bio-networks)              |                           |
+|          |                   | - [Data Sci: Network Analysis](#ds-networks)             | [Project]                 |
+|          |                   | - [Data Viz: Network Viz](#ds-network-viz)               |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 10]| 4/4  & ~~4/6~~    | - [Toolification]                                        |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 11]| 4/11 & ~~4/13~~   | - [EngineeRing]                                          |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| [Week 12]| 4/20              | - [Communicating with R]                                 |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| Week 13  | 4/25 & ~~4/27~~   | - No class - Project work                                |                           |
++----------+-------------------+----------------------------------------------------------+---------------------------+
+| Week 14  | 5/2  & ~~5/4~~    | - No class - Project work                                | Project due               |
++----------+-------------------+----------------------------------------------------------+---------------------------+
 
 **NB:** ~~struckout~~ - class not held, reserved for project work
 

@@ -7,29 +7,108 @@ output: html_document
 ## Week 1
 
 * Course Intro & Details
-* [Data in Biology]
-* [RStudio] on SCC
-* [The R Script]
-* [The Scripting Workflow]
-* [RMarkdown & knitr]
-* [Git + github]
-* [R Syntax Basics]
-* [Functions]
-* [Troubleshooting and Debugging]
-* [The Tidyverse]
-* [Tidyverse Basics]
-* [Importing Data]
-* [The tibble]
-* [pipes]
-* [Arranging Data]
+* Intro: [Data in Biology]
+* Prelim: [RStudio] on SCC
+* Prelim: [The R Script]
+* Prelim: [The Scripting Workflow]
+* Comm: [RMarkdown & knitr]
+* Prelim: [Git + github]
+* R Prog: [R Syntax Basics]
+* R Prog: [Functions]
+* R Prog: [Troubleshooting and Debugging]
+* Data Wrangle: [The Tidyverse]
+* Data Wrangle: [Tidyverse Basics]
+* Data Wrangle: [Importing Data]
+* Data Wrangle: [The tibble]
+* Data Wrangle: [pipes]
+* Data Wrangle: [Arranging Data]
 
 ## Week 2
-* [Unit Testing]
-* [Bioconductor]
-* [Relational Data in Biology]
-* [Data Tidying]
-* [Relating Data]
-* [Grammar of Graphics]
-* [Plotting One Dimension]
-* [Plotting More Than One Dimension]
-* [Visualizing Distributions]
+* R Prog: [Unit Testing]
+* Bioinfo: [R in Biology]
+* Bioinfo: [Bioconductor]
+* Bioinfo: [Types of Biological Data]
+* Data Wrangle: [Relational Data]
+* Data Viz: [Grammar of Graphics]
+* Data Viz: [Plotting One Dimension]
+* Data Viz: [Visualizing Distributions]
+
+## Week 3
+* Data Sci: [Data Modeling Basics]
+* Data Sci: [Linear Regression]
+* Data Sci: [Statistical Model Flavors]
+* Bioinfo: [Gene Expression]
+* Bioinfo: [Microarrays]
+* Bioinfo: [Differential Expression]
+* Bioinfo: [limma]
+* Data Sci: [Data summarization]
+* Data Sci: [Data cleaning]
+* Data Sci: [Clustering]
+* Data Viz: [Heatmaps and Dendrograms]
+
+## Week 4
+* Data Sci: [Statistical Distributions]
+* Data Sci: [p-values]
+* Data Sci: [Simple statistical tests]
+* Data Sci: [Statistical power]
+* R Prog: [Data structures]
+* R Prog: [Factors]
+* R Prog: [Iteration]
+* Bioinfo: [Interval/coordinate data]
+* Bioinfo: [Gene Set Enrichment Analysis]
+* Data Sci: [Hypergeometric test]
+* Bioinfo: [The GeneSet Class]
+* Bioinfo: [fgsea]
+
+## Week 5
+* Bioinfo: [High Throughput Sequencing]
+* Bioinfo: [RNASeq]
+* Bioinfo: [Count Data & The Negative Binomial Distribution]
+* Bioinfo: [DEseq2/EdgeR]
+* Bioinfo: [limma/voom]
+* R Prog: [Coding Style and Conventions]
+
+## Week 6
+* Data Viz: [Responsible Plotting]
+* Data Viz: [Grammar of Graphics - Going Deeper]
+* Data Viz: [Plotting Two or More Dimension]
+* Data Viz: [Other Kinds of Plots]
+* Data Viz: [Tips and Tricks]
+* Data Viz: [Multiple Plots]
+* Data Viz: [Facet wrapping]
+* Data Viz: [Publication Ready Plots]
+
+## Week 7
+* Bioinfo: [Single Cell Sequencing]
+* Bioinfo: [Single Cell Clustering Methods]
+* Bioinfo: [tSNE & UMAP]
+* Bioinfo: [Seurat]
+* EngineeRing: [Workflow Managers]
+
+## Week 8
+* Rshiny: [Rshiny]
+
+## Week 9
+* Bioinfo: [Biological Pathways]
+* Bioinfo: [Gene Regulatory Networks]
+* Bioinfo: [Protein-Protein Networks]
+* Bioinfo: [WGCNA]
+* Data Sci: [Network Analysis]
+* Data Viz: [Network visualization]
+
+## Week 10
+* EngineeRing: [Toolification]
+* EngineeRing: [Parallel Processing]
+
+## Week 11
+* EngineeRing: [Object Orientated Programming in R]
+* EngineeRing: [Building R Packages]
+
+## Week 12
+* Comm: [Sharing and Documenting Project Code]
+* Comm: [Reproducible Analysis in R]
+* Comm: [Data Documentation and Publishing]
+
+## Week 13 - no class for project work
+
+## Week 14 - no class for project work
