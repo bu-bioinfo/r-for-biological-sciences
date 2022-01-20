@@ -1,0 +1,52 @@
+---
+output:
+  html_document:
+    css: style.css
+---
+
+# Assignment 1 {-}
+
+## Problem Statement {-}
+This assignment will focus on basic functions of R with an emphasis on
+`tidyverse` implementations. `tidyverse` is a collection of packages, pioneered
+by Hadley Wickham and RStudio, that looks to standardize procedures,
+functionality, and syntax in R.
+
+To gain familiarity with R, we will be working with a microarray dataset that
+contains gene probe expression data for various samples collected from cancer
+patients. In bioinformatics, it is common to have multiple datasets for your
+different modes of data (i.e. microarray expression data is kept separate
+from clinical data detailing the samples). You will get an opportunity to work
+with both of these datasets, and be required to cross reference between the two.
+
+## Learning Objectives and Skill List {-}
+- Install various packages needed for analysis
+- Load Data
+- Gain familiarity with common `tidyverse` operations such as `groupby()`,
+`mutate`, and `summarize`.
+- Create a small plot to display results
+- Utilize R Markdown to create an attractive format for sharing data.
+
+## Instructions {-}
+Our main focus for this assignment are installing packages, manipulating data,
+and summarizing important statistics across both samples and features (genes). An
+empty project repo can be found here (**link to project repo**)
+
+
+The project is laid out as such:  
+```
+main.R
+report.Rmd
+reference_report.html
+```
+
+Each step of the assignment is explained in the R markdown file, `report.Rmd`.
+There you will find a list of tasks to explicity implement functions in your 
+empty `main.R` script. The `main.R` script contains skeletons of each function
+you'll need to implement, explaining what each function should do, the parameters
+it expects to receive, and what type of output is expected to be returned. A
+reference report, `reference_report.html` is also provided. Assuming you successfully 
+implement all the functions in `main.R`, your generated report should look
+identical to the information displayed in `reference_report.html`. In this way,
+you can use `reference_report.html` as a guide to determine if you are correctly
+implementing your functions.
