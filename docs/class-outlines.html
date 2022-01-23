@@ -118,6 +118,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -135,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i>Course Schedule</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>0.1</b> Instructors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-values-and-policies"><i class="fa fa-check"></i>Course Values and Policies</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
@@ -236,13 +259,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#csv-files"><i class="fa fa-check"></i><b>7.2</b> CSV Files</a></li>
 <li class="chapter" data-level="7.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-data-types"><i class="fa fa-check"></i><b>7.3</b> Types of Biological Data</a></li>
 <li class="chapter" data-level="7.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-bioconductor"><i class="fa fa-check"></i><b>7.4</b> Bioconductor</a></li>
-<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.5</b> Gene Expression</a></li>
-<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.6</b> Differential Expression: Microarrays</a></li>
-<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.7</b> Gene Set Enrichment Analysis</a></li>
-<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.8</b> High Throughput Sequencing</a></li>
-<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.9</b> Differential Expression: RNASeq</a></li>
-<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.10</b> Biological Network Analysis</a></li>
-<li class="chapter" data-level="7.11" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.11</b> Single Cell Sequencing Analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#gene-identifiers"><i class="fa fa-check"></i><b>7.5</b> Gene Identifiers</a></li>
+<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#biomart"><i class="fa fa-check"></i><b>7.6</b> BiomaRt</a></li>
+<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.7</b> Gene Expression</a></li>
+<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.8</b> Differential Expression: Microarrays</a></li>
+<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.9</b> Gene Set Enrichment Analysis</a></li>
+<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.10</b> High Throughput Sequencing</a></li>
+<li class="chapter" data-level="7.11" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.11</b> Differential Expression: RNASeq</a></li>
+<li class="chapter" data-level="7.12" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.12</b> Biological Network Analysis</a></li>
+<li class="chapter" data-level="7.13" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.13</b> Single Cell Sequencing Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>8</b> Data Visualization</a>
 <ul>
@@ -362,6 +387,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="assignment-6.html#run_deseq">2. <code>run_deseq()</code></a></li>
 <li><a href="assignment-6.html#run_edger">3. <code>run_edger()</code></a></li>
 <li><a href="assignment-6.html#run_limma-and-run_voom">4. <code>run_limma()</code> and <code>run_voom()</code></a></li>
+<li><a href="assignment-6.html#combine_pval">5. <code>combine_pval()</code></a></li>
+<li><a href="assignment-6.html#create_facets">6. <code>create_facets()</code></a></li>
+<li><a href="assignment-6.html#theme_plot">7. <code>theme_plot()</code></a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -425,14 +453,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="week-2" class="section level2" number="13.2">
 <h2><span class="header-section-number">A.2</span> Week 2</h2>
 <ul>
-<li>R Prog: <a href="engineering.html#unit-testing">Unit Testing</a></li>
 <li>Bioinfo: <a href="biology-bioinformatics.html#bio-r">R in Biology</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-bioconductor">Bioconductor</a></li>
+<li>Bioinfo: <a href="biology-bioinformatics.html#csv-files">CSV Files</a></li>
 <li>Bioinfo: <a href="biology-bioinformatics.html#bio-data-types">Types of Biological Data</a></li>
+<li>Bioinfo: <a href="biology-bioinformatics.html#bio-bioconductor">Bioconductor</a></li>
+<li>Bioinfo: <a href="biology-bioinformatics.html#gene-identifiers">Gene Identifiers</a></li>
+<li>Bioinfo: <a href="biology-bioinformatics.html#biomart">BiomaRt</a></li>
 <li>Data Wrangle: <a href="data-wrangling.html#relational-data">Relational Data</a></li>
 <li>Data Viz: <a href="data-visualization.html#dv-gg">Grammar of Graphics</a></li>
 <li>Data Viz: <a href="data-visualization.html#plotting-one-dimension">Plotting One Dimension</a></li>
 <li>Data Viz: <a href="data-visualization.html#visualizing-distributions">Visualizing Distributions</a></li>
+<li>R Prog: <a href="engineering.html#unit-testing">Unit Testing</a></li>
 </ul>
 </div>
 <div id="week-3" class="section level2" number="13.3">
@@ -547,6 +578,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="week-14---no-class-for-project-work" class="section level2" number="13.14">
 <h2><span class="header-section-number">A.14</span> Week 14 - no class for project work</h2>
 
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Bruford, Elspeth A, Bryony Braschi, Paul Denny, Tamsin E M Jones, Ruth L Seal, and Susan Tweedie. 2020. <span>“Guidelines for Human Gene Nomenclature.”</span> <em>Nat. Genet.</em> 52 (8): 754–58.
+</div>
+<div class="csl-entry">
+Holley, R W, J Apgar, G A Everett, J T Madison, M Marquisee, S H Merrill, J R Penswick, and A Zamir. 1965. <span>“<span>STRUCTURE</span> <span>OF</span> a <span>RIBONUCLEIC</span> <span>ACID</span>.”</span> <em>Science</em> 147 (3664): 1462–65.
+</div>
+<div class="csl-entry">
+Shows, T B, C A Alper, D Bootsma, M Dorf, T Douglas, T Huisman, S Kit, et al. 1979. <span>“International System for Human Gene Nomenclature (1979) <span>ISGN</span> (1979).”</span> <em>Cytogenet. Cell Genet.</em> 25 (1-4): 96–116.
+</div>
+</div>
 </div>
 </div>
             </section>

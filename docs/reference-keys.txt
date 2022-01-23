@@ -1,3 +1,4 @@
+instructors
 introduction
 who-this-book-is-for
 a-note-about-reinventing-the-wheel
@@ -70,6 +71,8 @@ bio-r
 csv-files
 bio-data-types
 bio-bioconductor
+gene-identifiers
+biomart
 bio-geneexp
 bio-micro
 bio-gsea

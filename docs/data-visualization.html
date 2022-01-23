@@ -118,6 +118,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -135,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i>Course Schedule</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>0.1</b> Instructors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-values-and-policies"><i class="fa fa-check"></i>Course Values and Policies</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
@@ -236,13 +259,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#csv-files"><i class="fa fa-check"></i><b>7.2</b> CSV Files</a></li>
 <li class="chapter" data-level="7.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-data-types"><i class="fa fa-check"></i><b>7.3</b> Types of Biological Data</a></li>
 <li class="chapter" data-level="7.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-bioconductor"><i class="fa fa-check"></i><b>7.4</b> Bioconductor</a></li>
-<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.5</b> Gene Expression</a></li>
-<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.6</b> Differential Expression: Microarrays</a></li>
-<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.7</b> Gene Set Enrichment Analysis</a></li>
-<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.8</b> High Throughput Sequencing</a></li>
-<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.9</b> Differential Expression: RNASeq</a></li>
-<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.10</b> Biological Network Analysis</a></li>
-<li class="chapter" data-level="7.11" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.11</b> Single Cell Sequencing Analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#gene-identifiers"><i class="fa fa-check"></i><b>7.5</b> Gene Identifiers</a></li>
+<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#biomart"><i class="fa fa-check"></i><b>7.6</b> BiomaRt</a></li>
+<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.7</b> Gene Expression</a></li>
+<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.8</b> Differential Expression: Microarrays</a></li>
+<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.9</b> Gene Set Enrichment Analysis</a></li>
+<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.10</b> High Throughput Sequencing</a></li>
+<li class="chapter" data-level="7.11" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.11</b> Differential Expression: RNASeq</a></li>
+<li class="chapter" data-level="7.12" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.12</b> Biological Network Analysis</a></li>
+<li class="chapter" data-level="7.13" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.13</b> Single Cell Sequencing Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>8</b> Data Visualization</a>
 <ul>
@@ -362,6 +387,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="assignment-6.html#run_deseq">2. <code>run_deseq()</code></a></li>
 <li><a href="assignment-6.html#run_edger">3. <code>run_edger()</code></a></li>
 <li><a href="assignment-6.html#run_limma-and-run_voom">4. <code>run_limma()</code> and <code>run_voom()</code></a></li>
+<li><a href="assignment-6.html#combine_pval">5. <code>combine_pval()</code></a></li>
+<li><a href="assignment-6.html#create_facets">6. <code>create_facets()</code></a></li>
+<li><a href="assignment-6.html#theme_plot">7. <code>theme_plot()</code></a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -438,7 +466,7 @@ and defines how the data controls the way the selected geometry looks.</p>
 <p>A simple example will help to explain. Consider the following made up sample
 metadata tibble for a study of subjects who died with Alzheimer’s Disease (AD)
 and neuropathologically normal controls:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="data-visualization.html#cb136-1" aria-hidden="true" tabindex="-1"></a>ad_metadata</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="data-visualization.html#cb138-1" aria-hidden="true" tabindex="-1"></a>ad_metadata</span></code></pre></div>
 <pre><code>## # A tibble: 20 x 8
 ##    ID    age_at_death condition    tau  abeta   iba1   gfap braak_stage
 ##    &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;
@@ -500,9 +528,9 @@ involved in the neuroinflammatory response.</p>
 amount of tau pathology. A scatter plot where each marker is a subject with <span class="math inline">\(x\)</span>
 and <span class="math inline">\(y\)</span> position corresponding to <code>age_at_death</code> and <code>tau</code> respectively. The
 following R code creates such a plot with ggplot2:</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="data-visualization.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age_at_death, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
-<span id="cb138-2"><a href="data-visualization.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="data-visualization.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age_at_death, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
+<span id="cb140-2"><a href="data-visualization.html#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>All ggplot2 plots begin with the <code>ggplot()</code> function call, which is passed a
 tibble with the <strong>data</strong> to be plotted. We then define the <strong>aesthetics</strong> are
 defined by mapping the x coordinate to the <code>age_at_death</code> column and the y
@@ -515,9 +543,9 @@ correlated.</p>
 and Control subjects in this dataset. How does <code>condition</code> relate to this
 relationship we see? We can layer on an additional aesthetic of color to add
 this information to the plot:</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="data-visualization.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age_at_death, <span class="at">y=</span>tau, <span class="at">color=</span>condition)) <span class="sc">+</span></span>
-<span id="cb139-2"><a href="data-visualization.html#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="data-visualization.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age_at_death, <span class="at">y=</span>tau, <span class="at">color=</span>condition)) <span class="sc">+</span></span>
+<span id="cb141-2"><a href="data-visualization.html#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>This looks a little clearer, showing that Control subjects generally have both
 an earlier age at death and a lower amount of tau pathology. This might be a
 problem, however, since if the age distributions of AD and Control groups are
@@ -529,9 +557,9 @@ distributions of each of these variables for AD and Control samples separately.
 We will use the <a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">violin
 geometry</a> with
 <code>geom_violin()</code> to look at the distributions of <code>age_at_death</code>:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="data-visualization.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>age_at_death)) <span class="sc">+</span></span>
-<span id="cb140-2"><a href="data-visualization.html#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="data-visualization.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>age_at_death)) <span class="sc">+</span></span>
+<span id="cb142-2"><a href="data-visualization.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>We can see immediately that there are big differences between the age
 distributions of the two groups. This is not ideal, but perhaps we can adjust
 for these effects in downstream analyses. We’d like to look at the tau
@@ -539,14 +567,14 @@ distributions as well, but it would be nice to have these two plots side by side
 in the same plot. To do that, we will use another library called
 <a href="https://patchwork.data-imaginist.com/">patchwork</a>, which allows independent
 ggplot2 plots to be arranged together with a simple expressive syntax:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="data-visualization.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb141-2"><a href="data-visualization.html#cb141-2" aria-hidden="true" tabindex="-1"></a>age_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>age_at_death)) <span class="sc">+</span></span>
-<span id="cb141-3"><a href="data-visualization.html#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb141-4"><a href="data-visualization.html#cb141-4" aria-hidden="true" tabindex="-1"></a>tau_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
-<span id="cb141-5"><a href="data-visualization.html#cb141-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb141-6"><a href="data-visualization.html#cb141-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb141-7"><a href="data-visualization.html#cb141-7" aria-hidden="true" tabindex="-1"></a>age_boxplot <span class="sc">|</span> tau_boxplot <span class="co"># this puts the plots side by side</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="data-visualization.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb143-2"><a href="data-visualization.html#cb143-2" aria-hidden="true" tabindex="-1"></a>age_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>age_at_death)) <span class="sc">+</span></span>
+<span id="cb143-3"><a href="data-visualization.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb143-4"><a href="data-visualization.html#cb143-4" aria-hidden="true" tabindex="-1"></a>tau_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ad_metadata, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
+<span id="cb143-5"><a href="data-visualization.html#cb143-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb143-6"><a href="data-visualization.html#cb143-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-7"><a href="data-visualization.html#cb143-7" aria-hidden="true" tabindex="-1"></a>age_boxplot <span class="sc">|</span> tau_boxplot <span class="co"># this puts the plots side by side</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>This confirms our suspicion, and also reveals a serious problem with our
 samples: we have strong confounding of tau and age at death between AD and
 Control samples. This means that if we look for differences between AD and
@@ -593,25 +621,25 @@ changed, but the vector remains one dimensional or 1-D.</p>
 <p>Bar charts map length (i.e. the height or width of a box) to the scalar value of
 a number. The difference in visual length can help the viewer notice consistent
 patterns in groups of bars, depending on how they are arranged:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="data-visualization.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau)) <span class="sc">+</span></span>
-<span id="cb142-2"><a href="data-visualization.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="data-visualization.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau)) <span class="sc">+</span></span>
+<span id="cb144-2"><a href="data-visualization.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p>Note the <code>stat="identity"</code> argument is required because by default <code>geom_bar</code>
 counts the number of values for each value of x, which in our case is only ever
 one. This plot is not particularly helpful, so let’s change the fill color of
 the bars based on condition:</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="data-visualization.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau,<span class="at">fill=</span>condition)) <span class="sc">+</span></span>
-<span id="cb143-2"><a href="data-visualization.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="data-visualization.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau,<span class="at">fill=</span>condition)) <span class="sc">+</span></span>
+<span id="cb145-2"><a href="data-visualization.html#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>Slightly better, but maybe we can see even more clearly if we sort our tibble
 by tau first. Sorting elements in these 1-D charts is somewhat complicated, and
 is explained in the [Reordering 1-D Data Elements] section below.</p>
 <p>Bar charts can also plot negative numbers. In the following example, we center
 the tau measurements by subtracting the mean from each value before plotting:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="data-visualization.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(ad_metadata, <span class="at">tau_centered=</span>(tau <span class="sc">-</span> <span class="fu">mean</span>(tau))) <span class="sc">%&gt;%</span></span>
-<span id="cb144-2"><a href="data-visualization.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID, <span class="at">y=</span>tau_centered, <span class="at">fill=</span>condition)) <span class="sc">+</span></span>
-<span id="cb144-3"><a href="data-visualization.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="data-visualization.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(ad_metadata, <span class="at">tau_centered=</span>(tau <span class="sc">-</span> <span class="fu">mean</span>(tau))) <span class="sc">%&gt;%</span></span>
+<span id="cb146-2"><a href="data-visualization.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID, <span class="at">y=</span>tau_centered, <span class="at">fill=</span>condition)) <span class="sc">+</span></span>
+<span id="cb146-3"><a href="data-visualization.html#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 </div>
 <div id="lollipop-plots" class="section level3" number="8.2.2">
 <h3><span class="header-section-number">8.2.2</span> Lollipop plots</h3>
@@ -619,10 +647,10 @@ the tau measurements by subtracting the mean from each value before plotting:</p
 with a line segment and a circle. The length of the line segment is proportional
 to the magnitude of the number, and the point marks the length of the segment as
 a height on the y or length on the x axis, depending on orientation.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="data-visualization.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb145-2"><a href="data-visualization.html#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>ID, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
-<span id="cb145-3"><a href="data-visualization.html#cb145-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>ID, <span class="at">xend=</span>ID, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>tau))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="data-visualization.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb147-2"><a href="data-visualization.html#cb147-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>ID, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
+<span id="cb147-3"><a href="data-visualization.html#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>ID, <span class="at">xend=</span>ID, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>tau))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>Note that <code>aes()</code> mappings can be made on the <code>ggplot()</code> object or on each
 individual geometry function call, to specify different mappings based on
 geometry.</p>
@@ -654,37 +682,37 @@ depicting the distribution of a set of numbers.</p>
 the range of a dataset from minimum to maximum into bins usually of the same
 width and tabulates the number of values that fall within each bin. Below is a
 histogram of our <code>age_at_death</code> measurement for all samples:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="data-visualization.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb146-2"><a href="data-visualization.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death))</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="data-visualization.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb148-2"><a href="data-visualization.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death))</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>Note that the histogram does not look very complete, because there are only 20
 values in our data. We can mitigate this somewhat by increasing the number of
 bins the data range is divided into:</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="data-visualization.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb148-2"><a href="data-visualization.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">bins=</span><span class="dv">10</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="data-visualization.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb150-2"><a href="data-visualization.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">bins=</span><span class="dv">10</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p>This is a little bit better, but there are still some bins (76-79, 84-87) that
 have no values. Compare this to the following synthetic dataset of 1000
 normally distributed values:</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="data-visualization.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb149-2"><a href="data-visualization.html#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb149-3"><a href="data-visualization.html#cb149-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb149-4"><a href="data-visualization.html#cb149-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb149-5"><a href="data-visualization.html#cb149-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>x))</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="data-visualization.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb151-2"><a href="data-visualization.html#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb151-3"><a href="data-visualization.html#cb151-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb151-4"><a href="data-visualization.html#cb151-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb151-5"><a href="data-visualization.html#cb151-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>x))</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p>For distributions with a small number of samples, histograms might not be the
 best visualization. We will continue with synthetic normally distributed dataset
 for the remaining examples.</p>
 <p>ggplot allows you to easily plot multiple distributions on the same plot:</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="data-visualization.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb151-2"><a href="data-visualization.html#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="at">mean=</span><span class="dv">4</span>)),</span>
-<span id="cb151-3"><a href="data-visualization.html#cb151-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
-<span id="cb151-4"><a href="data-visualization.html#cb151-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb151-5"><a href="data-visualization.html#cb151-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
-<span id="cb151-6"><a href="data-visualization.html#cb151-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>, <span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">position=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="data-visualization.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb153-2"><a href="data-visualization.html#cb153-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="at">mean=</span><span class="dv">4</span>)),</span>
+<span id="cb153-3"><a href="data-visualization.html#cb153-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
+<span id="cb153-4"><a href="data-visualization.html#cb153-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb153-5"><a href="data-visualization.html#cb153-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
+<span id="cb153-6"><a href="data-visualization.html#cb153-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>, <span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">position=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <p>The <code>alpha=0.6, position="identity"</code> arguments makes the bars partially
 transparent so you can see the overlap more clearly.</p>
 <div class="box readmore">
@@ -707,40 +735,40 @@ the counts in each bin are divided by the total number of data points, a
 proportion.</p>
 <p>Compare the histogram and density plots
 of the <code>age_at_death</code> variable from our example tibble:</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="data-visualization.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb152-2"><a href="data-visualization.html#cb152-2" aria-hidden="true" tabindex="-1"></a>hist_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb152-3"><a href="data-visualization.html#cb152-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">bins=</span><span class="dv">30</span>)</span>
-<span id="cb152-4"><a href="data-visualization.html#cb152-4" aria-hidden="true" tabindex="-1"></a>density_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb152-5"><a href="data-visualization.html#cb152-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">fill=</span><span class="st">&quot;#c9a13daa&quot;</span>)</span>
-<span id="cb152-6"><a href="data-visualization.html#cb152-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-7"><a href="data-visualization.html#cb152-7" aria-hidden="true" tabindex="-1"></a>hist_g <span class="sc">|</span> density_g</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="data-visualization.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb154-2"><a href="data-visualization.html#cb154-2" aria-hidden="true" tabindex="-1"></a>hist_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb154-3"><a href="data-visualization.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">bins=</span><span class="dv">30</span>)</span>
+<span id="cb154-4"><a href="data-visualization.html#cb154-4" aria-hidden="true" tabindex="-1"></a>density_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb154-5"><a href="data-visualization.html#cb154-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">fill=</span><span class="st">&quot;#c9a13daa&quot;</span>)</span>
+<span id="cb154-6"><a href="data-visualization.html#cb154-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-7"><a href="data-visualization.html#cb154-7" aria-hidden="true" tabindex="-1"></a>hist_g <span class="sc">|</span> density_g</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <p>Notice the overall shape of the two distributions is similar, with the highest
 values in both around age 77. The density plot is a smoother representation of
 a histogram, but its accuracy is still highly sensitive to the number of
 measurements used to construct it. Compare the histogram and density plots of
 two sets of 1000 normally distributed samples with different means:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="data-visualization.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb153-2"><a href="data-visualization.html#cb153-2" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb153-3"><a href="data-visualization.html#cb153-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="at">mean=</span><span class="dv">4</span>)),</span>
-<span id="cb153-4"><a href="data-visualization.html#cb153-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
-<span id="cb153-5"><a href="data-visualization.html#cb153-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb153-6"><a href="data-visualization.html#cb153-6" aria-hidden="true" tabindex="-1"></a>hist_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples) <span class="sc">+</span></span>
-<span id="cb153-7"><a href="data-visualization.html#cb153-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
-<span id="cb153-8"><a href="data-visualization.html#cb153-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type),</span>
-<span id="cb153-9"><a href="data-visualization.html#cb153-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.6</span>,</span>
-<span id="cb153-10"><a href="data-visualization.html#cb153-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">position=</span><span class="st">&quot;identity&quot;</span>,</span>
-<span id="cb153-11"><a href="data-visualization.html#cb153-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins=</span><span class="dv">30</span></span>
-<span id="cb153-12"><a href="data-visualization.html#cb153-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb153-13"><a href="data-visualization.html#cb153-13" aria-hidden="true" tabindex="-1"></a>density_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples) <span class="sc">+</span></span>
-<span id="cb153-14"><a href="data-visualization.html#cb153-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(</span>
-<span id="cb153-15"><a href="data-visualization.html#cb153-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type),</span>
-<span id="cb153-16"><a href="data-visualization.html#cb153-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.6</span>,</span>
-<span id="cb153-17"><a href="data-visualization.html#cb153-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">position=</span><span class="st">&quot;identity&quot;</span></span>
-<span id="cb153-18"><a href="data-visualization.html#cb153-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb153-19"><a href="data-visualization.html#cb153-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb153-20"><a href="data-visualization.html#cb153-20" aria-hidden="true" tabindex="-1"></a>hist_g <span class="sc">|</span> density_g</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="data-visualization.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb155-2"><a href="data-visualization.html#cb155-2" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb155-3"><a href="data-visualization.html#cb155-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="at">mean=</span><span class="dv">4</span>)),</span>
+<span id="cb155-4"><a href="data-visualization.html#cb155-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
+<span id="cb155-5"><a href="data-visualization.html#cb155-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb155-6"><a href="data-visualization.html#cb155-6" aria-hidden="true" tabindex="-1"></a>hist_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples) <span class="sc">+</span></span>
+<span id="cb155-7"><a href="data-visualization.html#cb155-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb155-8"><a href="data-visualization.html#cb155-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type),</span>
+<span id="cb155-9"><a href="data-visualization.html#cb155-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.6</span>,</span>
+<span id="cb155-10"><a href="data-visualization.html#cb155-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">position=</span><span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb155-11"><a href="data-visualization.html#cb155-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins=</span><span class="dv">30</span></span>
+<span id="cb155-12"><a href="data-visualization.html#cb155-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb155-13"><a href="data-visualization.html#cb155-13" aria-hidden="true" tabindex="-1"></a>density_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples) <span class="sc">+</span></span>
+<span id="cb155-14"><a href="data-visualization.html#cb155-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(</span>
+<span id="cb155-15"><a href="data-visualization.html#cb155-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type),</span>
+<span id="cb155-16"><a href="data-visualization.html#cb155-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.6</span>,</span>
+<span id="cb155-17"><a href="data-visualization.html#cb155-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">position=</span><span class="st">&quot;identity&quot;</span></span>
+<span id="cb155-18"><a href="data-visualization.html#cb155-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb155-19"><a href="data-visualization.html#cb155-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-20"><a href="data-visualization.html#cb155-20" aria-hidden="true" tabindex="-1"></a>hist_g <span class="sc">|</span> density_g</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 <p>Again the two types of plots depict similar distributions, although they are
 different enough to possibly suggest different interpretations. In general,
 density plots might be preferable over histograms if the data are noisy or
@@ -757,9 +785,9 @@ accuracy when the number of samples is low.</p>
 <h3><span class="header-section-number">8.3.3</span> Boxplot</h3>
 <p>Box plots, or box and whisker plots, are extremely common when used to describe
 distributions. Below is a boxplot of age at death divided by condition:</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="data-visualization.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb154-2"><a href="data-visualization.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>age_at_death))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="data-visualization.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb156-2"><a href="data-visualization.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>age_at_death))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 <p>Boxplots are drawn assuming the data are
 <a href="https://en.wikipedia.org/wiki/Unimodality">unimodal</a> (i.e. shaped like a hill,
 possibly slanted to one side or the other), where the extents of the box
@@ -769,7 +797,7 @@ Sometimes individual values more extreme than the whiskers are drawn
 individually to identify them as outliers.</p>
 <div class="figure">
 <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Boxplot_vs_PDF.svg" alt="" />
-<p class="caption">Boxplot anatomy. IQR stands for “inner quartile range”, the distance between
+<p class="caption">Boxplot anatomy. IQR stands for “inner quartile range,” the distance between
 the 1st and 3rd quartile - Wikipedia</p>
 </div>
 <p>However, boxplots have some significant shortcomings. Primarily, the rectangle
@@ -778,17 +806,17 @@ samples within it. Although the median can give a sense of skewness, if the
 data are not unimodal this may be misleading. Consider the following
 distributions plotted as boxplots or as violin plots (described in the next
 section):</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="data-visualization.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb155-2"><a href="data-visualization.html#cb155-2" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb155-3"><a href="data-visualization.html#cb155-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb155-4"><a href="data-visualization.html#cb155-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">2000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
-<span id="cb155-5"><a href="data-visualization.html#cb155-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb155-6"><a href="data-visualization.html#cb155-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">fill=</span>type))</span>
-<span id="cb155-7"><a href="data-visualization.html#cb155-7" aria-hidden="true" tabindex="-1"></a>boxplot_g <span class="ot">&lt;-</span> g <span class="sc">+</span>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb155-8"><a href="data-visualization.html#cb155-8" aria-hidden="true" tabindex="-1"></a>violin_g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_violin</span>()</span>
-<span id="cb155-9"><a href="data-visualization.html#cb155-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb155-10"><a href="data-visualization.html#cb155-10" aria-hidden="true" tabindex="-1"></a>boxplot_g <span class="sc">|</span> violin_g</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="data-visualization.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb157-2"><a href="data-visualization.html#cb157-2" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb157-3"><a href="data-visualization.html#cb157-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
+<span id="cb157-4"><a href="data-visualization.html#cb157-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">2000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
+<span id="cb157-5"><a href="data-visualization.html#cb157-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb157-6"><a href="data-visualization.html#cb157-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">fill=</span>type))</span>
+<span id="cb157-7"><a href="data-visualization.html#cb157-7" aria-hidden="true" tabindex="-1"></a>boxplot_g <span class="ot">&lt;-</span> g <span class="sc">+</span>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb157-8"><a href="data-visualization.html#cb157-8" aria-hidden="true" tabindex="-1"></a>violin_g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_violin</span>()</span>
+<span id="cb157-9"><a href="data-visualization.html#cb157-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-10"><a href="data-visualization.html#cb157-10" aria-hidden="true" tabindex="-1"></a>boxplot_g <span class="sc">|</span> violin_g</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p>The two distributions look almost identical in the boxplot figure; however they
 are dramatically different when visualized using a method like a violin plot
 where the contours of the entire distribution are depicted. Unless you are
@@ -812,9 +840,9 @@ similar in principle to a histogram or a density plot, in that it describes the
 contour of all the data in the distribution, not just the quantiles and extents,
 as in a box plot. Below is a violin plot of the <code>tau</code> measures from our example
 tibble:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="data-visualization.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb156-2"><a href="data-visualization.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>tau,<span class="at">fill=</span>condition))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="data-visualization.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb158-2"><a href="data-visualization.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>tau,<span class="at">fill=</span>condition))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>The violin plot is both more and less descriptive than a boxplot; it does depict
 the entire distribution of the data, but also doesn’t include features like
 median by default.</p>
@@ -833,10 +861,10 @@ data itself as points like in a scatter plot. The individual values of the
 distribution are organized vertically and spaced such that the points don’t
 overlap. In this plot, the distribution of age at death is plotted for each kind
 of sample and the markers are colored by the amount of tau:</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="data-visualization.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbeeswarm)</span>
-<span id="cb157-2"><a href="data-visualization.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb157-3"><a href="data-visualization.html#cb157-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>age_at_death,<span class="at">color=</span>condition),<span class="at">cex=</span><span class="dv">2</span>,<span class="at">size=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="data-visualization.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbeeswarm)</span>
+<span id="cb159-2"><a href="data-visualization.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb159-3"><a href="data-visualization.html#cb159-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>age_at_death,<span class="at">color=</span>condition),<span class="at">cex=</span><span class="dv">2</span>,<span class="at">size=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <p>We may not have noticed before that our AD samples have a big gap in ages
 between 74 and 81; since the beeswarm plot displays all the data, we can see it
 easily here.</p>
@@ -844,13 +872,13 @@ easily here.</p>
 range; not too many and not too few. The example above is close to having too
 few values per group for this plot to be useful, but consider the following with
 too many samples:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="data-visualization.html#cb158-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb158-2"><a href="data-visualization.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb158-3"><a href="data-visualization.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">2000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
-<span id="cb158-4"><a href="data-visualization.html#cb158-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb158-5"><a href="data-visualization.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">color=</span>type)) <span class="sc">+</span></span>
-<span id="cb158-6"><a href="data-visualization.html#cb158-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="data-visualization.html#cb160-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb160-2"><a href="data-visualization.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
+<span id="cb160-3"><a href="data-visualization.html#cb160-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">2000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
+<span id="cb160-4"><a href="data-visualization.html#cb160-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb160-5"><a href="data-visualization.html#cb160-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">color=</span>type)) <span class="sc">+</span></span>
+<span id="cb160-6"><a href="data-visualization.html#cb160-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <p>This plot likely has too many samples to be the right choice (it’s also ugly),
 but it does give an idea of the distribution of the data.</p>
 <p>In the previous examples the markers for each group also determined the color of
@@ -858,14 +886,14 @@ the group. This makes the chart a bit easier to read and more pleasing to the
 eye, but is technically redundant. You can use however profitably however to
 color markers by some other value that might be of interest. Consider this final
 example where markers are colored by another randomly generated variable:</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="data-visualization.html#cb159-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb159-2"><a href="data-visualization.html#cb159-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb159-3"><a href="data-visualization.html#cb159-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">200</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">100</span>)),</span>
-<span id="cb159-4"><a href="data-visualization.html#cb159-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">category=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&#39;healthy&#39;</span>,<span class="st">&#39;disease&#39;</span>),<span class="dv">300</span>,<span class="at">replace=</span><span class="cn">TRUE</span>)</span>
-<span id="cb159-5"><a href="data-visualization.html#cb159-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb159-6"><a href="data-visualization.html#cb159-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">color=</span>category)) <span class="sc">+</span></span>
-<span id="cb159-7"><a href="data-visualization.html#cb159-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="data-visualization.html#cb161-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb161-2"><a href="data-visualization.html#cb161-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
+<span id="cb161-3"><a href="data-visualization.html#cb161-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">200</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">100</span>)),</span>
+<span id="cb161-4"><a href="data-visualization.html#cb161-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">category=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&#39;healthy&#39;</span>,<span class="st">&#39;disease&#39;</span>),<span class="dv">300</span>,<span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb161-5"><a href="data-visualization.html#cb161-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-6"><a href="data-visualization.html#cb161-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">color=</span>category)) <span class="sc">+</span></span>
+<span id="cb161-7"><a href="data-visualization.html#cb161-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 <p>We are now effectively visualizing three dimensions which may provide insight
 into the data.</p>
 <div class="box readmore">
@@ -882,25 +910,25 @@ chart</a>. The
 ridgeline plot is simply multiple density plots drawn for different variables
 within the same plot. Like the beeswarm plot, ridgeline plots are provided by
 another package outside ggplot2.</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="data-visualization.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
-<span id="cb160-2"><a href="data-visualization.html#cb160-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-3"><a href="data-visualization.html#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb160-4"><a href="data-visualization.html#cb160-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb160-5"><a href="data-visualization.html#cb160-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">200</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">100</span>)),</span>
-<span id="cb160-6"><a href="data-visualization.html#cb160-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb160-7"><a href="data-visualization.html#cb160-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>type,<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
-<span id="cb160-8"><a href="data-visualization.html#cb160-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="data-visualization.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb162-2"><a href="data-visualization.html#cb162-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-3"><a href="data-visualization.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb162-4"><a href="data-visualization.html#cb162-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
+<span id="cb162-5"><a href="data-visualization.html#cb162-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">200</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">100</span>)),</span>
+<span id="cb162-6"><a href="data-visualization.html#cb162-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb162-7"><a href="data-visualization.html#cb162-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>type,<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
+<span id="cb162-8"><a href="data-visualization.html#cb162-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>()</span></code></pre></div>
 <pre><code>## Picking joint bandwidth of 0.825</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 <p>Many distributions may be plotted:</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="data-visualization.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb162-2"><a href="data-visualization.html#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">10000</span>,<span class="at">mean=</span><span class="fu">runif</span>(<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">10</span>),<span class="at">sd=</span><span class="fu">runif</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>)),</span>
-<span id="cb162-3"><a href="data-visualization.html#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;E&quot;</span>,<span class="st">&quot;F&quot;</span>,<span class="st">&quot;G&quot;</span>,<span class="st">&quot;H&quot;</span>,<span class="st">&quot;I&quot;</span>,<span class="st">&quot;J&quot;</span>),<span class="dv">1000</span>)</span>
-<span id="cb162-4"><a href="data-visualization.html#cb162-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb162-5"><a href="data-visualization.html#cb162-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>type,<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
-<span id="cb162-6"><a href="data-visualization.html#cb162-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha=</span><span class="fl">0.6</span>,<span class="at">position=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="data-visualization.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb164-2"><a href="data-visualization.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">10000</span>,<span class="at">mean=</span><span class="fu">runif</span>(<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">10</span>),<span class="at">sd=</span><span class="fu">runif</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>)),</span>
+<span id="cb164-3"><a href="data-visualization.html#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;E&quot;</span>,<span class="st">&quot;F&quot;</span>,<span class="st">&quot;G&quot;</span>,<span class="st">&quot;H&quot;</span>,<span class="st">&quot;I&quot;</span>,<span class="st">&quot;J&quot;</span>),<span class="dv">1000</span>)</span>
+<span id="cb164-4"><a href="data-visualization.html#cb164-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb164-5"><a href="data-visualization.html#cb164-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>type,<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
+<span id="cb164-6"><a href="data-visualization.html#cb164-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha=</span><span class="fl">0.6</span>,<span class="at">position=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <pre><code>## Picking joint bandwidth of 0.438</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <div class="box readmore">
 <ul>
 <li><a href="https://www.r-graph-gallery.com/294-basic-ridgeline-plot.html">R Graph Gallery - ridgeline plots</a></li>
@@ -917,11 +945,11 @@ another package outside ggplot2.</p>
 </div>
 <div id="line-plot" class="section level3" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> Line plot</h3>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="data-visualization.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>ID, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
-<span id="cb164-2"><a href="data-visualization.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="data-visualization.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>ID, <span class="at">y=</span>tau)) <span class="sc">+</span></span>
+<span id="cb166-2"><a href="data-visualization.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
 <pre><code>## geom_path: Each group consists of only one observation. Do you need to adjust
 ## the group aesthetic?</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 </div>
 <div id="bubble-plot" class="section level3" number="8.4.3">
 <h3><span class="header-section-number">8.4.3</span> Bubble plot</h3>
@@ -942,11 +970,11 @@ another package outside ggplot2.</p>
 <div id="tips-and-tricks" class="section level2" number="8.7">
 <h2><span class="header-section-number">8.7</span> Tips and Tricks</h2>
 <p>Reordering 1-D Data Elements</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="data-visualization.html#cb166-1" aria-hidden="true" tabindex="-1"></a>ad_metadata <span class="sc">%&gt;%</span></span>
-<span id="cb166-2"><a href="data-visualization.html#cb166-2" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(tau) <span class="sc">%&gt;%</span></span>
-<span id="cb166-3"><a href="data-visualization.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau,<span class="at">fill=</span>condition)) <span class="sc">+</span></span>
-<span id="cb166-4"><a href="data-visualization.html#cb166-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="data-visualization.html#cb168-1" aria-hidden="true" tabindex="-1"></a>ad_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb168-2"><a href="data-visualization.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(tau) <span class="sc">%&gt;%</span></span>
+<span id="cb168-3"><a href="data-visualization.html#cb168-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau,<span class="at">fill=</span>condition)) <span class="sc">+</span></span>
+<span id="cb168-4"><a href="data-visualization.html#cb168-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <p>But wait, our bars are in the same order as in the previous plot. Sorting our
 data prior to plotting did not have the desired effect. The reason is that
 although the <code>ID</code> column is a character string in our original tibble, ggplot

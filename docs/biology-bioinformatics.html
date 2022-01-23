@@ -118,6 +118,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -135,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i>Course Schedule</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>0.1</b> Instructors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-values-and-policies"><i class="fa fa-check"></i>Course Values and Policies</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
@@ -236,13 +259,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#csv-files"><i class="fa fa-check"></i><b>7.2</b> CSV Files</a></li>
 <li class="chapter" data-level="7.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-data-types"><i class="fa fa-check"></i><b>7.3</b> Types of Biological Data</a></li>
 <li class="chapter" data-level="7.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-bioconductor"><i class="fa fa-check"></i><b>7.4</b> Bioconductor</a></li>
-<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.5</b> Gene Expression</a></li>
-<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.6</b> Differential Expression: Microarrays</a></li>
-<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.7</b> Gene Set Enrichment Analysis</a></li>
-<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.8</b> High Throughput Sequencing</a></li>
-<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.9</b> Differential Expression: RNASeq</a></li>
-<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.10</b> Biological Network Analysis</a></li>
-<li class="chapter" data-level="7.11" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.11</b> Single Cell Sequencing Analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#gene-identifiers"><i class="fa fa-check"></i><b>7.5</b> Gene Identifiers</a></li>
+<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#biomart"><i class="fa fa-check"></i><b>7.6</b> BiomaRt</a></li>
+<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.7</b> Gene Expression</a></li>
+<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.8</b> Differential Expression: Microarrays</a></li>
+<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.9</b> Gene Set Enrichment Analysis</a></li>
+<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.10</b> High Throughput Sequencing</a></li>
+<li class="chapter" data-level="7.11" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.11</b> Differential Expression: RNASeq</a></li>
+<li class="chapter" data-level="7.12" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.12</b> Biological Network Analysis</a></li>
+<li class="chapter" data-level="7.13" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.13</b> Single Cell Sequencing Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>8</b> Data Visualization</a>
 <ul>
@@ -362,6 +387,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="assignment-6.html#run_deseq">2. <code>run_deseq()</code></a></li>
 <li><a href="assignment-6.html#run_edger">3. <code>run_edger()</code></a></li>
 <li><a href="assignment-6.html#run_limma-and-run_voom">4. <code>run_limma()</code> and <code>run_voom()</code></a></li>
+<li><a href="assignment-6.html#combine_pval">5. <code>combine_pval()</code></a></li>
+<li><a href="assignment-6.html#create_facets">6. <code>create_facets()</code></a></li>
+<li><a href="assignment-6.html#theme_plot">7. <code>theme_plot()</code></a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -415,16 +443,17 @@ cutting edge statistical and bioinformatic methodologies widely available.</p>
 <p>Due to its ease of use, widespread community support, rich ecosystem of
 biological data analysis packages, and to it being free, R remains one of the
 primary languages of biological data analysis. The language’s early focus on
-statistical analysis, and later transition to data science in general, made it
+statistical analysis, and later transition to data science in general, makes it
 very useful and accessible to perform the kinds of analyses the new data science
-of biology required. It was also a bridge between biologists without a
-computational background and statisticians and bioinformaticians, who could
-invent methods and implement them into R packages that are easily accessible by
-all. The language and the package ecosystems and communities it supports
-continue to be a major source of biological discovery and innovation.</p>
+of biology required. It is also a bridge between biologists without a
+computational background and statisticians and bioinformaticians, who invent and
+implement methods into R packages that are easily accessible by all. The
+language and the package ecosystems and communities it supports continue to be a
+major source of biological discovery and innovation.</p>
 <p>As a data science, biology benefits from the main strengths of R and <a href="#dw-tidyverse">the
-tidyverse</a>, namely to manipulate, visualize, analyze, and
-communicate biological data .</p>
+tidyverse</a> when combined with the powerful analytical techniques
+available in Bioconductor packages, namely to manipulate, visualize, analyze,
+and communicate biological data.</p>
 </div>
 <div id="csv-files" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> CSV Files</h2>
@@ -436,7 +465,7 @@ formatted correctly, you can think of these files as containing a grid or matrix
 of data values with some number of columns, each of which has the same number of
 values. Each line of these files has some number of data values separated by a
 consistent character, most commonly the comma which are called <a href="https://en.wikipedia.org/wiki/Comma-separated_values">comma-separated
-value, or “CSV”, files</a>
+value, or “CSV,” files</a>
 and filenames typically end with the extension <code>.csv</code>. Note that
 other characters, especially the <Tab> character, may be used to create valid
 files in this format, and all the same general principles apply. This is an
@@ -492,7 +521,7 @@ and therefore we must manipulate them in much the same way as any other dataset.
 <p><strong>Metadata.</strong> In most experimental settings, multiple samples have been
 processed and had the same primary data type collected. These samples also have
 information associated with them, which is here termed <em>metadata</em>, or “data
-about data”. In our gene expression of post mortem brain experiments mentioned
+about data.” In our gene expression of post mortem brain experiments mentioned
 above, the information about the individuals themselves, including age at death,
 whether the person had a disease, the measurements of tissue quality, etc. is
 the metadata. The primary and processed data and metadata are usually stored in
@@ -510,31 +539,165 @@ polymorphism genomic locations and associations with traits or diseases, etc.
 This is information that we use to aid in interpretation of our experimental
 data but generally do not generate ourselves. Annotation data comes in many
 forms, some of which are in CSV format.</p>
+<p>The figure below contains a simple diagram of how these different types of data
+work together for a typical biological data analysis.</p>
+<div class="figure">
+<img src="information_flow.png" alt="" />
+<p class="caption">Information flow in biological data analysis</p>
+</div>
 </div>
 <div id="bio-bioconductor" class="section level2" number="7.4">
 <h2><span class="header-section-number">7.4</span> Bioconductor</h2>
+<p><a href="https://www.bioconductor.org/">Bioconductor</a> is an organized collection of
+strictly biological analysis methods packages for R. These packages are hosted
+and maintained outside of <a href="https://cran.r-project.org/">CRAN</a> because the
+maintainers enforce <a href="https://bioconductor.org/developers/package-guidelines/">a more rigorous set of coding quality, testing, and
+documentation
+standards</a> than is
+required by normal R packages. These stricter requirements arose from a
+recognition that software packages are generally only as usable as their
+documentation allows them to be, and also that many if not most of the users of
+these packages are not statisticians or experienced computer programmers.
+Rather, they are people like us: biological analysis practitioners who may or
+may not have substantial coding experience but must analyze our data
+nonetheless. The excellent documentation and community support of the
+bioconductor ecosystem is a primary reason why R is such a popular language in
+biological analysis.</p>
+<p>Bioconductor is divided into roughly two sets of packages: <em>core maintainer</em>
+packages and user contributed packages. The core maintainer packages are among
+the most critical, because they define a set of common objects and classes (e.g.
+the <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf">ExpressionSet class</a>
+in the <a href="https://bioconductor.org/packages/release/bioc/html/Biobase.html">Biobase package</a>)
+that all Bioconductor packages know how to work with. This common base provides
+consistency among all Bioconductor packages thereby streamlining the learning
+process. User contributed and maintained packages provide specialized
+functionality for specific types of analysis.</p>
+<p>Bioconductor itself must be installed prior to installing other Bioconductor
+packages. To [install bioconductor], you can run the following:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="biology-bioinformatics.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb136-2"><a href="biology-bioinformatics.html#cb136-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb136-3"><a href="biology-bioinformatics.html#cb136-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
+<div class="box warning">
+<p>Bioconductor undergoes regular releases indicated by a version, e.g. <code>version = "3.14"</code> at the time of writing. Every bioconductor package also has a version,
+and each of those versions may or may not be compatible with a specific version
+of Bioconductor. To make matters worse, Bioconductor versions are only
+compatible with certain versions of R. Bioconductor version 3.14 requires R
+version 4.1.0, and will not work with older R versions. These versions can cause
+major version compatibility issues when you are forced to use older versions of
+R, as may sometimes be the case on managed compute clusters. There is not a good
+general solution for ensuring all your packages work together, but the general
+best rule of thumb is to use the most current version of R and all packages at
+the time when you write your code.</p>
 </div>
-<div id="bio-geneexp" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> Gene Expression</h2>
+<p>The <code>BiocManager</code> package is the only Bioconductor package installable using
+<code>install.packages()</code>. After installing the BiocManager package, you may then
+install bioconductor packages:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="biology-bioinformatics.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># installs the affy bioconductor package for microarray analysis</span></span>
+<span id="cb137-2"><a href="biology-bioinformatics.html#cb137-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;affy&quot;</span>)</span></code></pre></div>
+<p>One key aspect of Bioconductor packages is consistent and helpful documentation;
+every package page on the Bioconductor.org site lists a block of code that will
+install the package, e.g. for the <a href="https://www.bioconductor.org/packages/release/bioc/html/affy.html">affy
+package</a>. In
+addition, Biconductor provides three types of documentation:</p>
+<ul>
+<li><a href="https://bioconductor.org/packages/release/workflows/">Workflow tutorials</a> on
+how to perform specific analysis use cases</li>
+<li><a href="https://bioconductor.org/help/package-vignettes/">Package vignettes</a> for
+every package, which provide a worked example of how to use the package that
+can be adapted by the user to their specific case</li>
+<li>Detailed, consistently formatted reference documentation that gives precise
+information on functionality and use of each package</li>
+</ul>
+<p>The thorough and useful documentation of packages in Bioconductor is one of the
+reasons why the package ecosystem, and R, is so widely used in biology and
+bioinformatics.</p>
+<p>The base Bioconductor packages define convenient data structures for storing and
+analyzing many types of data. Recall earlier in the <a href="biology-bioinformatics.html#bio-data-types">Types of Biological Data</a>
+section, we described five types of biological data: primary, processed,
+analysis, metadata, and annotation data. Bioconductor provides a convenient
+class for storing many of these different data types together in one place,
+specifically the SummarizedExperiment class in the <a href="https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">package of the same
+name</a>
+package. An illustration of what a SummarizedExperiment object stores is below,
+from the Bioconductor maintainer’s paper in Nature:</p>
+<div class="figure">
+<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp" alt="" />
+<p class="caption">SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21.</p>
 </div>
-<div id="bio-micro" class="section level2" number="7.6">
-<h2><span class="header-section-number">7.6</span> Differential Expression: Microarrays</h2>
+<p>As you can see from the figure, this class stores processed data (<code>assays</code>),
+metadata (<code>colData</code> and <code>exptData</code>), and annotation data (<code>rowData</code>). The
+SummarizedExperiment class is used ubiquitously throughout the Bioconductor
+package ecosystem, as are other core classes some of which we will cover later
+in this chapter.</p>
 </div>
-<div id="bio-gsea" class="section level2" number="7.7">
-<h2><span class="header-section-number">7.7</span> Gene Set Enrichment Analysis</h2>
+<div id="gene-identifiers" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Gene Identifiers</h2>
+<p>Since the first genetic sequence for a gene was determined in 1965 - <a href="https://pubmed.ncbi.nlm.nih.gov/14263761/">an alanine
+tRNA in yeast</a><span class="citation">(<a href="#ref-Holley1965-tu" role="doc-biblioref">Holley et al. 1965</a>)</span> -
+scientists have been trying to give them names. In 1979, <a href="https://pubmed.ncbi.nlm.nih.gov/295268/">formal guidelines for
+the nomenclature used for human genes was
+proposed</a><span class="citation">(<a href="#ref-Shows1979-iw" role="doc-biblioref">Shows et al. 1979</a>)</span> along with the
+founding of the Human Gene Nomenclature Committee <span class="citation">(<a href="#ref-Bruford2020-zs" role="doc-biblioref">Bruford et al. 2020</a>)</span>, so that
+researchers would have a common vocabulary to refer to genes in a consistent
+way. In 1989, this committee was placed under the auspices of the Human Genome
+Organisation (HUGO), becoming the HUGO Gene Nomenclature Committee (HGNC). The
+HGNC has been the official body providing guidelines and gene naming authority
+since, and as such HGNC gene names are often called <em>gene symbols</em>.</p>
+<div class="box note">
+<p>As per <span class="citation"><a href="#ref-Bruford2020-zs" role="doc-biblioref">Bruford et al.</a> (<a href="#ref-Bruford2020-zs" role="doc-biblioref">2020</a>)</span>, the official human gene symbol guidelines are as
+follows:</p>
+<ol style="list-style-type: decimal">
+<li>Each gene is assigned a unique symbol, HGNC ID and descriptive name.</li>
+<li>Symbols contain only uppercase Latin letters and Arabic numerals.</li>
+<li>Symbols should not be the same as commonly used abbreviations</li>
+<li>Nomenclature should not contain reference to any species or “G” for gene.</li>
+<li>Nomenclature should not be offensive or pejorative.</li>
+</ol>
 </div>
-<div id="bio-hts" class="section level2" number="7.8">
-<h2><span class="header-section-number">7.8</span> High Throughput Sequencing</h2>
+<p>Gene symbols are the most human-readable system for naming genes. The gene
+symbols <em>BRCA2</em>, <em>APOE</em>, and <em>ACE2</em> may be familiar to you as they are involved
+in common diseases, namely breast cancer, Alzheimer’s Disease risk, and
+SARS-COV-2, respectively. Typically, the gene symbol is an acronym that roughly
+represents a label of what the gene does (or was originally found to do), e.g.
+<em>APOE</em> represents the gene <a href="https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=ENSG00000130203;r=19:44905791-44909393">apolipoprotein E</a>. This convention is
+convenient for humans when reading and identifying genes. However,</p>
 </div>
-<div id="bio-rnaseq" class="section level2" number="7.9">
-<h2><span class="header-section-number">7.9</span> Differential Expression: RNASeq</h2>
+<div id="biomart" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> BiomaRt</h2>
 </div>
-<div id="bio-networks" class="section level2" number="7.10">
-<h2><span class="header-section-number">7.10</span> Biological Network Analysis</h2>
+<div id="bio-geneexp" class="section level2" number="7.7">
+<h2><span class="header-section-number">7.7</span> Gene Expression</h2>
 </div>
-<div id="bio-scseq" class="section level2" number="7.11">
-<h2><span class="header-section-number">7.11</span> Single Cell Sequencing Analysis</h2>
+<div id="bio-micro" class="section level2" number="7.8">
+<h2><span class="header-section-number">7.8</span> Differential Expression: Microarrays</h2>
+</div>
+<div id="bio-gsea" class="section level2" number="7.9">
+<h2><span class="header-section-number">7.9</span> Gene Set Enrichment Analysis</h2>
+</div>
+<div id="bio-hts" class="section level2" number="7.10">
+<h2><span class="header-section-number">7.10</span> High Throughput Sequencing</h2>
+</div>
+<div id="bio-rnaseq" class="section level2" number="7.11">
+<h2><span class="header-section-number">7.11</span> Differential Expression: RNASeq</h2>
+</div>
+<div id="bio-networks" class="section level2" number="7.12">
+<h2><span class="header-section-number">7.12</span> Biological Network Analysis</h2>
+</div>
+<div id="bio-scseq" class="section level2" number="7.13">
+<h2><span class="header-section-number">7.13</span> Single Cell Sequencing Analysis</h2>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Bruford2020-zs" class="csl-entry">
+Bruford, Elspeth A, Bryony Braschi, Paul Denny, Tamsin E M Jones, Ruth L Seal, and Susan Tweedie. 2020. <span>“Guidelines for Human Gene Nomenclature.”</span> <em>Nat. Genet.</em> 52 (8): 754–58.
+</div>
+<div id="ref-Holley1965-tu" class="csl-entry">
+Holley, R W, J Apgar, G A Everett, J T Madison, M Marquisee, S H Merrill, J R Penswick, and A Zamir. 1965. <span>“<span>STRUCTURE</span> <span>OF</span> a <span>RIBONUCLEIC</span> <span>ACID</span>.”</span> <em>Science</em> 147 (3664): 1462–65.
+</div>
+<div id="ref-Shows1979-iw" class="csl-entry">
+Shows, T B, C A Alper, D Bootsma, M Dorf, T Douglas, T Huisman, S Kit, et al. 1979. <span>“International System for Human Gene Nomenclature (1979) <span>ISGN</span> (1979).”</span> <em>Cytogenet. Cell Genet.</em> 25 (1-4): 96–116.
 </div>
 </div>
             </section>

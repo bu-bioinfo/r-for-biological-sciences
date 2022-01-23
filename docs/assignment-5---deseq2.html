@@ -118,6 +118,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -135,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i>Course Schedule</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>0.1</b> Instructors</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-values-and-policies"><i class="fa fa-check"></i>Course Values and Policies</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
@@ -236,13 +259,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#csv-files"><i class="fa fa-check"></i><b>7.2</b> CSV Files</a></li>
 <li class="chapter" data-level="7.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-data-types"><i class="fa fa-check"></i><b>7.3</b> Types of Biological Data</a></li>
 <li class="chapter" data-level="7.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-bioconductor"><i class="fa fa-check"></i><b>7.4</b> Bioconductor</a></li>
-<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.5</b> Gene Expression</a></li>
-<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.6</b> Differential Expression: Microarrays</a></li>
-<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.7</b> Gene Set Enrichment Analysis</a></li>
-<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.8</b> High Throughput Sequencing</a></li>
-<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.9</b> Differential Expression: RNASeq</a></li>
-<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.10</b> Biological Network Analysis</a></li>
-<li class="chapter" data-level="7.11" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.11</b> Single Cell Sequencing Analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#gene-identifiers"><i class="fa fa-check"></i><b>7.5</b> Gene Identifiers</a></li>
+<li class="chapter" data-level="7.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#biomart"><i class="fa fa-check"></i><b>7.6</b> BiomaRt</a></li>
+<li class="chapter" data-level="7.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-geneexp"><i class="fa fa-check"></i><b>7.7</b> Gene Expression</a></li>
+<li class="chapter" data-level="7.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-micro"><i class="fa fa-check"></i><b>7.8</b> Differential Expression: Microarrays</a></li>
+<li class="chapter" data-level="7.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-gsea"><i class="fa fa-check"></i><b>7.9</b> Gene Set Enrichment Analysis</a></li>
+<li class="chapter" data-level="7.10" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-hts"><i class="fa fa-check"></i><b>7.10</b> High Throughput Sequencing</a></li>
+<li class="chapter" data-level="7.11" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-rnaseq"><i class="fa fa-check"></i><b>7.11</b> Differential Expression: RNASeq</a></li>
+<li class="chapter" data-level="7.12" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-networks"><i class="fa fa-check"></i><b>7.12</b> Biological Network Analysis</a></li>
+<li class="chapter" data-level="7.13" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#bio-scseq"><i class="fa fa-check"></i><b>7.13</b> Single Cell Sequencing Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>8</b> Data Visualization</a>
 <ul>
@@ -362,6 +387,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="assignment-6.html#run_deseq">2. <code>run_deseq()</code></a></li>
 <li><a href="assignment-6.html#run_edger">3. <code>run_edger()</code></a></li>
 <li><a href="assignment-6.html#run_limma-and-run_voom">4. <code>run_limma()</code> and <code>run_voom()</code></a></li>
+<li><a href="assignment-6.html#combine_pval">5. <code>combine_pval()</code></a></li>
+<li><a href="assignment-6.html#create_facets">6. <code>create_facets()</code></a></li>
+<li><a href="assignment-6.html#theme_plot">7. <code>theme_plot()</code></a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -402,14 +430,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="assignment-5---deseq2" class="section level1 unnumbered">
 <h1>Assignment 5 - DESeq2</h1>
 <p>For this assignment, we will be utilizing DESeq2, which is easily installed through Bioconductor. If you have neither, you should install Bioconductor first and then DESeq2 using the appropriate Bioconductor commands. The following code blocks provide basic instructions for how to install Bioconductor and DESeq2.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="assignment-5---deseq2.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;tidyverse&#39;</span>)</span>
-<span id="cb189-2"><a href="assignment-5---deseq2.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DESeq2&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="assignment-5---deseq2.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;tidyverse&#39;</span>)</span>
+<span id="cb191-2"><a href="assignment-5---deseq2.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DESeq2&#39;</span>)</span></code></pre></div>
 <p>If you do not already have Bioconductor, you may use the next block of code to install Bioconductor.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="assignment-5---deseq2.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb190-2"><a href="assignment-5---deseq2.html#cb190-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
-<span id="cb190-3"><a href="assignment-5---deseq2.html#cb190-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="assignment-5---deseq2.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb192-2"><a href="assignment-5---deseq2.html#cb192-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb192-3"><a href="assignment-5---deseq2.html#cb192-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
 <p>Or if you already have Bioconductor installed, you may use this simple command to install DESeq2 itself.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="assignment-5---deseq2.html#cb191-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&#39;DESeq2&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="assignment-5---deseq2.html#cb193-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&#39;DESeq2&#39;</span>)</span></code></pre></div>
 <div id="problem-statement-1" class="section level2 unnumbered">
 <h2>Problem Statement</h2>
 <p>One of the main questions asked by high throughput sequencing is whether some variable or condition (e.g. treatment/disease status) induces a measurable, distinguishable change. In the context of mRNAseq, we are interested in whether we can determine if mRNA levels (what we actually measure) and genes (what we infer) are significantly up- or downregulated between conditions and if we can relate these changes back to a biological phenotype either directly or indirectly.</p>
@@ -544,7 +572,7 @@ annotation file</li>
 <h2>A warning about <em>post hoc</em> filtering by fold change</h2>
 <p>After obtaining a list of differential expression results, it is important to remember that the fold change value is an estimate and the associated p-values were calculated testing for whether or not the fold change differed significantly from zero. It is therefore not appropriate to simply filter genes by adjusted p-value and then by fold change falling above or below a given threshold. Instead, if you wish to say with some statistical certainty that a fold change value is above some threshold, you should incorporate it directly into the testing methodology (DESeq2 has a built-in option for this).</p>
 <p>It is important to give careful thought as to whether to set a LFCThreshold in DESeq2. It is a far more conservative test and will give you far fewer differentially expressed genes. Discussions of when to employ this test are beyond the scope of this assignment, but some can likely be found in the official vignette or the myriad of public discussions regarding the usage of DESeq2.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="assignment-5---deseq2.html#cb194-1" aria-hidden="true" tabindex="-1"></a>res_lfcthreshold <span class="ot">&lt;-</span> <span class="fu">results</span>(your_dds_object_here, <span class="at">contrast=</span><span class="fu">c</span>(<span class="st">&#39;condition_name&#39;</span>, <span class="st">&#39;condition1&#39;</span>, <span class="st">&#39;condition2&#39;</span>), <span class="at">lfcThreshold=</span><span class="fl">0.585</span>, <span class="at">altHypothesis=</span><span class="st">&quot;greaterAbs&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="assignment-5---deseq2.html#cb196-1" aria-hidden="true" tabindex="-1"></a>res_lfcthreshold <span class="ot">&lt;-</span> <span class="fu">results</span>(your_dds_object_here, <span class="at">contrast=</span><span class="fu">c</span>(<span class="st">&#39;condition_name&#39;</span>, <span class="st">&#39;condition1&#39;</span>, <span class="st">&#39;condition2&#39;</span>), <span class="at">lfcThreshold=</span><span class="fl">0.585</span>, <span class="at">altHypothesis=</span><span class="st">&quot;greaterAbs&quot;</span>)</span></code></pre></div>
 <p>The above is a sample code snippet for how one could incorporate a Log2FoldChange threshold in DESeq2. Keep in mind that it’s a log2FoldChange threshold so the value above would correspond to a test for fold changes above 1.5 (2^.585). As mentioned earlier, this value should be set conservatively as it is a much more stringent statistical test.</p>
 </div>
 </div>
@@ -566,7 +594,7 @@ annotation file</li>
 <div id="visualize-normalized-counts-for-the-ten-differentially-expressed-genes-with-the-lowest-adjusted-p-values" class="section level2 unnumbered">
 <h2>Visualize normalized counts for the ten differentially expressed genes with the lowest adjusted p-values</h2>
 <p>It can be helpful to visualize the normalized counts for a few differentially expressed genes as a quick check that things are working as intended. You may extract the counts normalized by the calculated size factors using the following code:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="assignment-5---deseq2.html#cb195-1" aria-hidden="true" tabindex="-1"></a>norm_counts <span class="ot">&lt;-</span> <span class="fu">counts</span>(your_dds_object_here, <span class="at">normalized=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="assignment-5---deseq2.html#cb197-1" aria-hidden="true" tabindex="-1"></a>norm_counts <span class="ot">&lt;-</span> <span class="fu">counts</span>(your_dds_object_here, <span class="at">normalized=</span>T)</span></code></pre></div>
 <p><strong>Using the matrix of differential expression results you generated in the previous steps, extract out the normalized counts for the top ten genes (as ranked by ascending adjusted p-value) and plot their normalized counts as a scatter plot labeling by sample or timepoint.</strong></p>
 <div class="box hint">
 <p>#1: If you are plotting all of the genes on the same plot, you may find it helpful to take the logarithm of the counts as different genes often have counts that differ by several orders of magnitude.</p>
