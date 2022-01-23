@@ -24,14 +24,17 @@ output: html_document
 * Data Wrangle: [Arranging Data]
 
 ## Week 2
-* R Prog: [Unit Testing]
 * Bioinfo: [R in Biology]
-* Bioinfo: [Bioconductor]
+* Bioinfo: [CSV Files]
 * Bioinfo: [Types of Biological Data]
+* Bioinfo: [Bioconductor]
+* Bioinfo: [Gene Identifiers]
+* Bioinfo: [BiomaRt]
 * Data Wrangle: [Relational Data]
 * Data Viz: [Grammar of Graphics]
 * Data Viz: [Plotting One Dimension]
 * Data Viz: [Visualizing Distributions]
+* R Prog: [Unit Testing]
 
 ## Week 3
 * Data Sci: [Data Modeling Basics]
