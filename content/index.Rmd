@@ -1,12 +1,14 @@
 ---
 title: "BF591 - R for Biological Sciences"
+bibliography: references.bib
+link-citations: true
 ---
 
 # Syllabus {-}
 
 **Semester: Spring 2022**
 
-**Location: TBD**
+**Location: EPC 209 and zoom**
 
 **Time: M/W 8:00AM - 9:45AM**
 
@@ -16,9 +18,10 @@ Contents:
 - [Instructors]
 - [Course Values and Policies]
 
-This course introduces the R programming language through the lens of practitioners
-in the biological sciences, particularly biology and bioinformatics. Key concepts
-and patterns of the language are covered, including:
+This course introduces the R programming language through the lens of
+practitioners in the biological sciences, particularly biology and
+bioinformatics. Key concepts and patterns of the language are covered,
+including:
 
    * RStudio
    * Data wrangling with tidyverse
@@ -32,17 +35,17 @@ and patterns of the language are covered, including:
    * Buidling R packages and unit testing strategies
    * Building interactive tools with RShiny
 
-About 1/3 of the materials are inspired by the online textbook [R for Data Science](
-https://r4ds.had.co.nz), while the rest has been developed by practicing
-bioinformaticians based on their experiences.
+About 1/3 of the materials are inspired by the online textbook [R for Data
+Science](https://r4ds.had.co.nz), while the rest has been developed by
+practicing bioinformaticians based on their experiences.
 
-Weekly programming assignments will help students apply these techniques to realistic
-problems involving analysis and visualization of biological data. Students will be
-introduced to a unit testing paradigm that will help them write correct code and
-deposit all their code into github for evaluation. Students will implement an
-end-to-end project that begins with one of a set of provided datasets, implements a
-set of data summarization and exploration operations on it, and allows interaction
-with an RShiny app.
+Weekly programming assignments will help students apply these techniques to
+realistic problems involving analysis and visualization of biological data.
+Students will be introduced to a unit testing paradigm that will help them write
+correct code and deposit all their code into github for evaluation. Students
+will implement an end-to-end project that begins with one of a set of provided
+datasets, implements a set of data summarization and exploration operations on
+it, and allows interaction with an RShiny app.
 
 The course materials are aligned with [BF528 Applications in Translational
 Bioinformatics](https://bf528.rtfd.io) and are intended to be taken in tandem,
@@ -103,6 +106,23 @@ but the materials also stand alone as an independent class.
 
 **NB:** ~~struckout~~ - class not held, reserved for project work
 
+## Instructors
+
+Primary instructor: Adam Labadorf (labadorf AT bu DOT edu)
+
+We have three staff members helping with the course, in no particular order (ok,
+I guess it's alphabetical):
+
+* **Mae Rose Gott** (BU BF MS Alumna '21) is a new Research Staff member working
+  with me on a number of different projects across many different areas. She
+  will be helping organize the course materials as we go forward.
+* **Taylor Falk** (BU BF MS Alumnus '21) is a Bioinformatics Developer working
+  with me and the VA PTSD Brain Bank, developing infrastructure to support data
+  generated out of our brains. He is championing the assignment strategy and
+  will be available to help with issues.
+* **Vanessa Li** (BU BF PhD Candidate) is a PhD candidate in Dr. Stefano Monti's
+  lab in Computational Biomedicine. She will primarily be helping with grading
+  of your assignments.
 
 ## Course Values and Policies {-}
 
