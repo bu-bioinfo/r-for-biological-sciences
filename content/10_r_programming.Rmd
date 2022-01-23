@@ -25,7 +25,7 @@ pressing `Enter`.
 At its core, R (like all programming languages) is basically a fancy calculator.
 The syntax of most basic arithmetic operations in R should be familiar to you:
 
-```
+```r
 1 + 2 # addition
 [1] 3
 3 - 2 # subtraction
@@ -45,6 +45,7 @@ The syntax of most basic arithmetic operations in R should be familiar to you:
 9**(1/3) # cube root
 [1] 3
 ```
+
 The `[1]` lines above are the output given by R when the preceding expression
 is executed. Any portion of a line starting with a `#` is a comment and ignored
 by R.
@@ -53,14 +54,14 @@ R also supports storing values into symbolic placeholders called *variables*, or
 *objects*. An expression like those above can be assigned into a variable with a
 name using the `<-` operator:
 
-```{r, results='hide'}
+```r
 new_var <- 1 + 2
 ```
 
 Variables that have been assigned a value can be placed in subsequent
 expressions anywhere where their value is evaluated:
 
-```
+```r
 new_var - 2
 [1] 1
 another_var <- new_var * 4
@@ -71,7 +72,7 @@ The correct way to assign a value to a variable in R is with the `<-` syntax,
 unlike many other programming languages which use `=`. However, although the `=`
 assignment syntax does work in R:
 
-```{r}
+```r
 new_var = 2 # works, but is not common convention!
 ```
 this is considered bad practice and may cause confusion later. You should always
@@ -133,7 +134,7 @@ Each of these values have an 'infectious' quality to them, where if they are
 mixed in with other values, the result of the computation reverts to the first
 of these values encountered:
 
-```
+```r
 # this how to create a vector of 4 values in R
 x <- c(1,2,3,NA)
 mean(x) # compute the mean of values that includes NA
@@ -166,18 +167,19 @@ more than one value together. The most basic data structure in R is a one
 dimensional sequence of values called a
 [vector](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/vector):
 
-```
+```r
 # the c() function creates a vector
 x <- c(1,2,3)
 [1] 1 2 3
 ```
+
 The vector in R has a special property that all values contained in the vector
 must have the same type, from the list [described above](#prog-types). When
 constructing a vector, R will [coerce
 values](https://rstudio-education.github.io/hopr/r-objects.html#coercion) to the
 most general type if it encounters values of different types:
 
-```
+```r
 c(1,2,"3")
 [1] "1" "2" "3"
 c(1,2,TRUE,FALSE)
@@ -191,7 +193,7 @@ c("1",2,NA,NaN) # NA stays, NaN is cast to a character type
 In addition to having a single type, vectors also have a length, which is
 defined as the number of elements in the vector:
 
-```
+```r
 x <- c(1,2,3)
 length(x)
 [1] 3
@@ -201,7 +203,7 @@ Internally, R is much more efficient at operating on vectors than individual
 elements separately. With numeric vectors, you can perform arithmetic operations
 on vectors of compatible size just as easily as individual values:
 
-```
+```r
 c(1,2) + c(3,4)
 [1] 4 6
 c(1,2) * c(3,4)
@@ -217,7 +219,7 @@ In c(1, 2) * c(3, 4, 5) :
 In the example above, we multiplied a vector of length 2 with a vector of length
 3:
 
-```
+```r
 c(1,2) * c(3,4,5) # operating on vectors of different lengths raises warning, but still works
 [1] 3 8 5
 Warning message:
@@ -231,7 +233,7 @@ should be 5? Because R cycles through each vector and multiplies the values
 element-wise until the longest vector has had an operation performed on all its
 values:
 
-```
+```r
 c(1,2) * c(3,4,5) # yields: 1*3 2*4 1*5
 [1] 3 8 5
 Warning message:
@@ -253,7 +255,7 @@ logical, etc. A matrix may be constructed using the vector notation described
 above and specifying the number of rows and columns the matrix should have, and
 Instead of having a length like a vector, it has $m \times n$ dimensions:
 
-```
+```r
 # create a matrix with two rows and three columns containing integers
 A <- matrix(c(1,2,3,4,5,6)
        nrow = 2, ncol = 3, byrow=1
@@ -269,7 +271,7 @@ dim(A) # the dim function prints out the dimensions of the matrix, rows first
 Because a matrix is 2 dimensional, it can be transposed from $m \times n$ to be
 $n \times m$ using the `t()` function:
 
-```
+```r
 # A defined above as a 2 x 3 matrix
 t(A)
 [,1] [,2]
@@ -298,7 +300,7 @@ R, and are among the most commonly used.
 
 Lists can be created using the `list()` function:
 
-```
+```r
 my_list <- list(
   c(1,2,3),
   c("A","B","C","D")
@@ -322,7 +324,7 @@ using the `[[N]]` syntax, where `N` is the 1-based index of the element.
 
 Lists can also be defined and indexed by name:
 
-```
+```r
 my_list <- list(
   numbers=c(1,2,3),
   categories=c("A","B","C","D")
@@ -349,7 +351,7 @@ one important respect: *the elements of a data frame must all have the same
 length, while the elements of a list do not.* You may create a data frame with
 the `data.frame()` function:
 
-```
+```r
 my_df <- data.frame( # recall '.' has no special meaning in R
   numbers=c(1,2,3),
   categories=c("A","B","C","D")
@@ -385,7 +387,7 @@ Note the data frame is printed as a matrix with element names as columns and
 automatically numbered rows. You may access specific elements of a data frame in
 a number of ways:
 
-```
+```r
 my_df$numbers[1] # extract the first value of the numbers column
 [1] 1
 my_df[1,1] # same as above, recall the [<row>,<column>] syntax
@@ -416,7 +418,7 @@ more concise and correct. See the Read More link on Subsetting below:
 As mentioned above, R recognizes logical values as a distinct type. R provides
 all the conventional infix logical operators:
 
-```
+```r
 1 == 1 # equality
 [1] TRUE
 1 != 1 # inequality
@@ -433,7 +435,7 @@ all the conventional infix logical operators:
 These operators also work on vectors, albeit with the same caveats about vector
 length as noted earlier:
 
-```
+```r
 x <- c(1,2,3)
 x == 2
 [1] FALSE TRUE FALSE
@@ -455,7 +457,7 @@ In c(1, 2, 3) == c(1, 2) :
 R also provides many functions of the form `is.X` where `X` is some type or
 condition (recall that `.` is not a special character in R):
 
-```
+```r
 is.numeric(1) # is the argument numeric?
 [1] TRUE
 is.character(1) # is the argument a string?
@@ -512,7 +514,7 @@ programming languages for this is the function must *accept* or allow you to
 *pass it arguments.* In R, functions accept arguments using the following
 *pattern:
 
-```
+```r
 # a basic function signature
 function_name(arg1, arg2) # function accepts exactly 2 arguments
 ```
@@ -527,7 +529,7 @@ In the above example, `arg1` and `arg2` are *required* arguments. This means
 that the function will not execute without exactly two arguments provided and
 will raise an error if you try otherwise:
 
-```
+```r
 mean() # compute the arithmetic mean, but of what?
 Error in mean.default() : argument "x" is missing, with no default
 ```
@@ -566,7 +568,7 @@ All function arguments can be specified by name, regardless of whether there is
 a default value or not. For instance, the following two `mean` calls are
 equivalent:
 
-```
+```r
 # this generates 100 normally distributed samples with mean 0 and standard deviation 1
 my_vals <- rnorm(100,mean=0,sd=1)
 mean(my_vals)
@@ -587,7 +589,7 @@ what you intend.
 arguments to a function that have no meaning, and R will not raise an error.
 Consider the following call to `mean`:
 
-```
+```r
 # this generates 100 normally distributed samples with mean 0 and standard deviation 1
 my_vals <- rnorm(100,mean=0,sd=1)
 mean(x=my_vals,tirm=0.1)
@@ -598,7 +600,7 @@ Did you spot the mistake? The `trim` argument name has been misspelled as
 `tirm`, but R did not report an error. Compare the value of mean without the
 typo:
 
-```
+```r
 mean(x=my_vals,trim=0.1)
 [1]-0.02139839
 ```
@@ -624,7 +626,7 @@ transformation is *standardization* or *normalization* which entails taking a
 series of numbers, subtracting the mean of all the numbers from them, and
 dividing each by the standard deviation of the numbers:
 
-```
+```r
 # 100 normally distributed samples with mean 20 and standard deviation 10
 my_vals <- rnorm(100,mean=20,sd=10)
 my_vals_norm <- (my_vals - mean(my_vals))/sd(my_vals)
@@ -638,7 +640,7 @@ Later in your code, you may need to standardize a different set of values, so
 you decide to copy and paste your code from above and replace the variable name
 to reflect the new data:
 
-```
+```r
 # new samples with mean 40 and standard deviation 5
 my_other_vals <- rnorm(100,mean=40,sd=5)
 my_other_vals_norm <- (my_other_vals - mean(my_other_vals))/sd(my_vals)
@@ -669,7 +671,7 @@ opportunity to write your own function and avoid repeating yourself!
 
 R allows you to define your own function using the following syntax:
 
-``` {r}
+```r
 function_name <- function(arg1, arg2, ...) {
   # code that does something with arg1, arg2, etc
   return(some_result)
@@ -682,7 +684,7 @@ their names, and the code within the function, which is also called the function
 *that accepts a vector of numbers, subtracts the mean from all the values, and
 *divides them by the standard deviation:
 
-```
+```r
 standardize <- function(x) {
   res <- (x - mean(x))/sd(x)
   return(res)
@@ -726,7 +728,7 @@ defined outside of a function have *universal* or *top level scope*, i.e. they
 can be accessed from anywhere in your script. However, variables defined
 *inside* functions can only be accessed from within that function. For example:
 
-```
+```r
 x <- 3
 multiply_x_by_two <- function() {
   y <- x*2 # x is not defined as a parameter to the function, but is defined outside the function
@@ -753,7 +755,7 @@ bad practice!** Functions should be as self contained as possible, and any
 values they need should be passed as parameters. A better way to write the
 function above would be as follows:
 
-```
+```r
 x <- 3
 multiply_by_two <- function(x) {
   y <- x*2 # x here is defined as whatever is passed to the function!
@@ -807,7 +809,7 @@ fancy, but it just means R intrinsically knows how to perform many operations on
 vectors and matrices as well as individual values. We have already seen examples
 of this above when performing arithmetic operations on vectors:
 
-```
+```r
 x <- c(1,2,3,4,5)
 x + 3 # add 3 to every element of vector x
 [1] 4 5 6 7 8
@@ -829,7 +831,7 @@ In addition to simple arithmetic operations, R also has syntax for
 vector-vector, matrix-vector, and matrix-matrix operations, like matrix
 multiplication and dot products:
 
-```
+```r
 # the %*% operator stands for matrix multiplication
 x_mat %*% c(1,2,3) # [ 2x3 ] * [ 3 ]
      [,1]
@@ -870,7 +872,7 @@ dependent upon the values of $\mathbf{x}$. If $t_r$ is arithmetic mean and $s$ i
 standard deviation, we have defined the standardization transformation mentioned
 in earlier examples:
 
-```
+```r
 x <- rnorm(100, mean=20, sd=10)
 x_zscore <- (x - mean(x))/sd(x)
 ```
@@ -899,7 +901,7 @@ for each combination when trying out different transformation techniques.
 In R and other functional languages, we can easily accomplish this by *passing
 functions as arguments to other functions*. Consider the following R function:
 
-```
+```r
 # note R already has a built in function named "transform"
 my_transform <- function(x, t_r, s) {
   return((x - t_r(x))/s(x))
@@ -911,7 +913,7 @@ the arguments `t_r` and `s` are passed as arguments. If we wished to transform
 using a [Z-score normalization](https://en.wikipedia.org/wiki/Standard_score),
 we could call `my_transform` as follows:
 
-```
+```r
 x <- rnorm(100,mean=20,sd=10)
 x_zscore <- my_transform(x, mean, sd)
 mean(x_zscore)
@@ -927,7 +929,7 @@ arguments should be treated as functions. Using this strategy, we could just as
 easily define a transformation using `median` and `sum` for `t_r` and `s` if we
 wished to:
 
-```
+```r
 x <- rnorm(100,mean=20,sd=10)
 x_transform <- my_transform(x, median, sum)
 median(x_transform)
@@ -940,7 +942,7 @@ We can also write our own functions and pass them to get the `my_transform`
 function to have desired behavior. The following scales the values of `x` to
 have a range of $[0,1]$:
 
-```
+```r
 data_range <- function(x) {
   return(max(x) - min(x))
 }
@@ -984,7 +986,7 @@ style using the `apply` function.
 This is the signature of the `apply` function, from the RStudio `help(apply)`
 page:
 
-```
+```r
 apply(X, MARGIN, FUN, ..., simplify = TRUE)
 ```
 
@@ -996,7 +998,7 @@ vector or a scalar value that we wish to execute on either the rows or columns.
 `apply()` then executes `FUN` on each row or column of `X` and returns the
 result. For example:
 
-```
+```r
 zscore <- function(x) {
   return((x-mean(x))/sd(x))
 }
@@ -1020,7 +1022,7 @@ The same approach can be used when `X` is a list or data frame rather than a
 matrix using the `lapply()` function (hint: the `l` in `lapply` stands for
 "list"). Here is the function signature for `lapply`:
 
-```
+```r
 lapply(X, FUN, ...)
 ```
 
@@ -1030,7 +1032,7 @@ iterate on the elements and there is not `MARGIN` argument as in `apply`. This
 function returns a new list of the same dimension as the original list with
 elements returned by `FUN`:
 
-```
+```r
 x <- list(
   feature1=rnorm(100,mean=20,sd=10),
   feature2=rnorm(100,mean=50,sd=5)
@@ -1060,7 +1062,7 @@ packages](https://cran.r-project.org/web/packages/index.html) hosted on CRAN
 that you can install. To install a package from CRAN, use the `install.packages`
 function in the R console:
 
-```
+```r
 # install one package
 install.packages("tidyverse")
 # install multiple packages
@@ -1131,7 +1133,7 @@ lists. These objects can be difficult to inspect due to their size. The `str()`
 function, which stands for `str`ucture, will pretty print an object with its
 values and its structure:
 
-```
+```r
 nested_lists <- list(
   a=list(
       item1=c(1,2,3),
@@ -1219,7 +1221,7 @@ buy a friend a coffee in return for them looking at it!
 Consistently formatted code is much easier to read (and possibly understand)
 than inconsistent code. Consider the following code example:
 
-```
+```r
 calcVal <- function(x, a, arg=2) { return(sum(x*a)**2)}
 calc_val_2 <- function(x, a, b, arg) {
 res <- sum(b+a*x)**arg
@@ -1243,7 +1245,7 @@ This code is inconsistent in several ways:
 
 A more consistent version of this code might look like:
 
-```
+```r
 exponent_product <- function(x, a, offset=0, arg=2) {
   return(sum(offset+a*x)**arg)
 }
@@ -1255,7 +1257,7 @@ This code is much cleaner, more consistent, and easier to read.
 
 Sometimes what a piece of code does is obvious from looking at it:
 
-```
+```r
 x <- x + 1
 ```
 
@@ -1264,7 +1266,7 @@ it. However, it may not be obvious *why* a piece of code does what it does. In
 these cases, it may be very helpful to record your thinking about a line of code
 as a comment:
 
-```
+```r
 # add 1 as a pseudocount
 x <- x + 1
 ```
