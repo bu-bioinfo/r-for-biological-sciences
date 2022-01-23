@@ -19,17 +19,18 @@ cutting edge statistical and bioinformatic methodologies widely available.
 Due to its ease of use, widespread community support, rich ecosystem of
 biological data analysis packages, and to it being free, R remains one of the
 primary languages of biological data analysis. The language's early focus on
-statistical analysis, and later transition to data science in general, made it
+statistical analysis, and later transition to data science in general, makes it
 very useful and accessible to perform the kinds of analyses the new data science
-of biology required. It was also a bridge between biologists without a
-computational background and statisticians and bioinformaticians, who could
-invent methods and implement them into R packages that are easily accessible by
-all. The language and the package ecosystems and communities it supports
-continue to be a major source of biological discovery and innovation.
+of biology required. It is also a bridge between biologists without a
+computational background and statisticians and bioinformaticians, who invent and
+implement methods into R packages that are easily accessible by all. The
+language and the package ecosystems and communities it supports continue to be a
+major source of biological discovery and innovation.
 
 As a data science, biology benefits from the main strengths of R and [the
-tidyverse](#dw-tidyverse), namely to manipulate, visualize, analyze, and
-communicate biological data .
+tidyverse](#dw-tidyverse) when combined with the powerful analytical techniques
+available in Bioconductor packages, namely to manipulate, visualize, analyze,
+and communicate biological data.
 
 ## CSV Files
 
@@ -125,7 +126,144 @@ This is information that we use to aid in interpretation of our experimental
 data but generally do not generate ourselves. Annotation data comes in many
 forms, some of which are in CSV format.
 
+The figure below contains a simple diagram of how these different types of data
+work together for a typical biological data analysis.
+
+![Information flow in biological data analysis](information_flow.png)
+
 ## Bioconductor {#bio-bioconductor}
+
+[Bioconductor](https://www.bioconductor.org/) is an organized collection of
+strictly biological analysis methods packages for R. These packages are hosted
+and maintained outside of [CRAN](https://cran.r-project.org/) because the
+maintainers enforce [a more rigorous set of coding quality, testing, and
+documentation
+standards](https://bioconductor.org/developers/package-guidelines/) than is
+required by normal R packages. These stricter requirements arose from a
+recognition that software packages are generally only as usable as their
+documentation allows them to be, and also that many if not most of the users of
+these packages are not statisticians or experienced computer programmers.
+Rather, they are people like us: biological analysis practitioners who may or
+may not have substantial coding experience but must analyze our data
+nonetheless. The excellent documentation and community support of the
+bioconductor ecosystem is a primary reason why R is such a popular language in
+biological analysis.
+
+Bioconductor is divided into roughly two sets of packages: *core maintainer*
+packages and user contributed packages. The core maintainer packages are among
+the most critical, because they define a set of common objects and classes (e.g.
+the [ExpressionSet class](https://www.bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf)
+in the [Biobase package](https://bioconductor.org/packages/release/bioc/html/Biobase.html))
+that all Bioconductor packages know how to work with. This common base provides
+consistency among all Bioconductor packages thereby streamlining the learning
+process. User contributed and maintained packages provide specialized
+functionality for specific types of analysis.
+
+Bioconductor itself must be installed prior to installing other Bioconductor
+packages. To [install bioconductor], you can run the following:
+
+```r
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(version = "3.14")
+```
+
+::: {.box .warning}
+Bioconductor undergoes regular releases indicated by a version, e.g. `version =
+"3.14"` at the time of writing. Every bioconductor package also has a version,
+and each of those versions may or may not be compatible with a specific version
+of Bioconductor. To make matters worse, Bioconductor versions are only
+compatible with certain versions of R. Bioconductor version 3.14 requires R
+version 4.1.0, and will not work with older R versions. These versions can cause
+major version compatibility issues when you are forced to use older versions of
+R, as may sometimes be the case on managed compute clusters. There is not a good
+general solution for ensuring all your packages work together, but the general
+best rule of thumb is to use the most current version of R and all packages at
+the time when you write your code.
+:::
+
+The `BiocManager` package is the only Bioconductor package installable using
+`install.packages()`. After installing the BiocManager package, you may then
+install bioconductor packages:
+
+```r
+# installs the affy bioconductor package for microarray analysis
+BiocManager::install("affy")
+```
+
+One key aspect of Bioconductor packages is consistent and helpful documentation;
+every package page on the Bioconductor.org site lists a block of code that will
+install the package, e.g. for the [affy
+package](https://www.bioconductor.org/packages/release/bioc/html/affy.html). In
+addition, Biconductor provides three types of documentation:
+
+* [Workflow tutorials](https://bioconductor.org/packages/release/workflows/) on
+  how to perform specific analysis use cases
+* [Package vignettes](https://bioconductor.org/help/package-vignettes/) for
+  every package, which provide a worked example of how to use the package that
+  can be adapted by the user to their specific case
+* Detailed, consistently formatted reference documentation that gives precise
+  information on functionality and use of each package
+
+The thorough and useful documentation of packages in Bioconductor is one of the
+reasons why the package ecosystem, and R, is so widely used in biology and
+bioinformatics.
+
+The base Bioconductor packages define convenient data structures for storing and
+analyzing many types of data. Recall earlier in the [Types of Biological Data]
+section, we described five types of biological data: primary, processed,
+analysis, metadata, and annotation data. Bioconductor provides a convenient
+class for storing many of these different data types together in one place,
+specifically the SummarizedExperiment class in the [package of the same
+name](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
+package. An illustration of what a SummarizedExperiment object stores is below,
+from the Bioconductor maintainer's paper in Nature:
+
+![SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21.](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp)
+
+As you can see from the figure, this class stores processed data (`assays`),
+metadata (`colData` and `exptData`), and annotation data (`rowData`). The
+SummarizedExperiment class is used ubiquitously throughout the Bioconductor
+package ecosystem, as are other core classes some of which we will cover later
+in this chapter.
+
+## Gene Identifiers
+
+Since the first genetic sequence for a gene was determined in 1965 - [an alanine
+tRNA in yeast](https://pubmed.ncbi.nlm.nih.gov/14263761/)[@Holley1965-tu] -
+scientists have been trying to give them names. In 1979, [formal guidelines for
+the nomenclature used for human genes was
+proposed](https://pubmed.ncbi.nlm.nih.gov/295268/)[@Shows1979-iw] along with the
+founding of the Human Gene Nomenclature Committee [@Bruford2020-zs], so that
+researchers would have a common vocabulary to refer to genes in a consistent
+way. In 1989, this committee was placed under the auspices of the Human Genome
+Organisation (HUGO), becoming the HUGO Gene Nomenclature Committee (HGNC). The
+HGNC has been the official body providing guidelines and gene naming authority
+since, and as such HGNC gene names are often called *gene symbols*.
+
+::: {.box .note}
+As per @Bruford2020-zs, the official human gene symbol guidelines are as
+follows:
+
+1. Each gene is assigned a unique symbol, HGNC ID and descriptive name.
+2. Symbols contain only uppercase Latin letters and Arabic numerals.
+3. Symbols should not be the same as commonly used abbreviations
+4. Nomenclature should not contain reference to any species or “G” for gene.
+5. Nomenclature should not be offensive or pejorative.
+
+:::
+
+Gene symbols are the most human-readable system for naming genes. The gene
+symbols *BRCA2*, *APOE*, and *ACE2* may be familiar to you as they are involved
+in common diseases, namely breast cancer, Alzheimer's Disease risk, and
+SARS-COV-2, respectively. Typically, the gene symbol is an acronym that roughly
+represents a label of what the gene does (or was originally found to do), e.g.
+*APOE* represents the gene [apolipoprotein E](https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=ENSG00000130203;r=19:44905791-44909393). This convention is
+convenient for humans when reading and identifying genes. However,
+
+
+
+## BiomaRt
 
 ## Gene Expression {#bio-geneexp}
 
