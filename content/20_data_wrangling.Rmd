@@ -47,7 +47,7 @@ load multiple packages at the same time. The tidyverse authors recognize this,
 and defined a set of reasonable packages to load at once when loading the
 metapackage (i.e. a package that contains multiple packages):
 
-```
+```r
 library(tidyverse)
 -- Attaching packages --------------------------------------------- tidyverse 1.3.1 --
 v ggplot2 3.3.5     v purrr   0.3.4
@@ -95,7 +95,7 @@ However, when `dplyr` is loaded, it also has a `filter` function which overrides
 the definition from the `stats` package. This is why the tidyverse package
 reports this as a conflict when loaded:
 
-```
+```r
 -- Conflicts ------------------------------------------------ tidyverse_conflicts() --
 x dplyr::filter() masks stats::filter()
 ```
@@ -108,7 +108,7 @@ you may still access it using the `::` namespace operator. This operator lets
 you "look inside" a loaded package, for example `dplyr`, and access a function
 within the namespace of that package:
 
-```
+```r
 library(dplyr)
 # the filter() function definition is now from the dplyr package, and not from the stats package
 # the following two lines of code execute the same function
@@ -121,6 +121,47 @@ stats::filter(df)
 Most functions defined by a package can be accessed using the `::` operator, and
 it is often a good idea to do so, to ensure you are calling the right function.
 
+:::
+
+## Tidy Data
+
+The tidyverse packages are designed to operate with so-called "tidy data". From
+the [tidy data section](https://r4ds.had.co.nz/tidy-data.html) of the R for Data
+Science book, the following rules make data tidy:
+
+1. Each variable must have its own column.
+2. Each observation must have its own row.
+3. Each value must have its own cell.
+
+Here, a variable is a quantity or property that every observation in our dataset
+has, and each observation is a separate instance of those variable (e.g. a
+different sample, subject, etc). The R for Data Science book depicts these rules
+in the following illustration:
+
+![Tidy data - from R for Data Science](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+
+These rules are pretty generic, and in general a dataset might require some work
+to manipulate it into tidy form. Fortunately for those of us working in biology
+and bioinformatics, very many of our datasets are already provided in a format
+that is very close to being tidy, or the tools we use to process biological data
+do so for us. For this reason, details about the tidying operations that might
+be needed for data in the general case are left for reading in the [tidy data
+section](https://r4ds.had.co.nz/tidy-data.html) of R for Data Science book.
+
+::: {.box .important}
+There is one very big and common exception to the claim above that biological
+data is usually already tidy that. Briefly, from the illustration above, tidy
+data has observations as rows and variables as columns. However, the datasets
+that we often use, e.g. gene expression matrices, are organized to have
+variables (e.g. genes) as *rows* and observations (e.g. samples) as *columns*.
+This means some operations to summarize variables across observations, which are
+very common to compute, are not easily done with the tidyverse functions like
+`mutate()`. We describe how to work around this difference in the section
+[Biological data is NOT Tidy!].
+:::
+
+::: {.box .readmore}
+[Tidy data - R for Data Science](https://r4ds.had.co.nz/tidy-data.html)
 :::
 
 ## Importing Data
@@ -879,7 +920,7 @@ referenced gene identifiers like the following:
 gene_map <- tribble(
     ~symbol,            ~ENSGID,                    ~gene_name,
      "APOE",  "ENSG00000130203",            "apolipoprotein E",
-    "BRCA2",  "ENSG00000139618", "BRCA2 DNA repair associated",
+     "BRCA1",  "ENSG00000012048", "BRCA1 DNA repair associated",
     "HOXD1",  "ENSG00000128645",                 "homeobox D1",
      "SNCA",  "ENSG00000145335",             "synuclein alpha",
 )
@@ -924,7 +965,7 @@ mapping? In the above example, we use a left join because we want to include
 all the rows in `gene_stats` regardless of whether a mapping exists in
 `gene_map`. In this case this was fine because all of our genes in `gene_stats`
 had a corresponding row in the mapping. However, notice that in the mapping
-there is an additional gene, [BRCA2](https://en.wikipedia.org/wiki/BRCA2) that
+there is an additional gene, [BRCA1](https://en.wikipedia.org/wiki/BRCA1) that
 is not in our gene statistics tibble. If we reverse the order of the join,
 observe what happens:
 
@@ -936,7 +977,7 @@ gene_map %>% dplyr::left_join(
 ```
 
 Now the order of the rows is the same as in `gene_map`, and the columns for our
-missing gene BRCA2 are filled with `NA`. This is the left join at work, where
+missing gene BRCA1 are filled with `NA`. This is the left join at work, where
 the record from `gene_map` is included regardless of whether a corresponding
 value was found in `gene_stats`.
 
@@ -955,7 +996,7 @@ The result is the same as the left join on `gene_map` except the order of the
 resulting columns is different.
 
 Inner joins return results for rows that have a match between the two tibbles.
-Recall our left join on `gene_map` included BRCA2 even though it was not found
+Recall our left join on `gene_map` included BRCA1 even though it was not found
 in `gene_stats`. An inner join will not include this row, because no match in
 `gene_stats` was found:
 
