@@ -1080,6 +1080,76 @@ and structure, and standards compliance compared with the relatively more lax
 CRAN package submission process.
 :::
 
+## Saving and Loading R Data
+
+While it is always a good idea to save results in tabular form in [CSV Files],
+sometimes it is convenient to save complicated R objects and data structures
+like lists to a file that can be read back into R easily. This can be done with
+the [`saveRDS()` and `readRDS()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/readRDS.html)
+functions:
+
+```r
+a_complicated_list <- list(
+    categories = c("A","B","C"),
+    data_matrix = matrix(c(1,2,3,4,5,6),nrows=2,ncols=3),
+    nested_list = list(
+      a = c(1,2,3),
+      b = c(4,5,6)
+    )
+)
+saveRDS(a_complicated_list, "a_complicated_list.rda")
+
+# later, possibly in a different script
+a_complicated_list <- readRDS("a_complicated_list.rda")
+```
+
+These functions are very convenient for saving results of complicated analyses
+and reading them back in later, especially if those analyses were time
+consuming.
+
+::: {.box .note}
+R also has the functions
+[`save()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/save.html)
+and [`load()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/load.html).
+These functions are similar to `saveRDS` and `readRDS`, except they do not allow
+loading individual objects into new variables. Instead, `save` accepts one or
+more variable names that are in the global namespace and saves them all to a
+file:
+
+```r
+var_a <- "a string"
+var_b <- 1.234
+
+save(var_a, var_b, file="saved_variables.rda")
+```
+
+Then later when the file `saved_variables.rda` is `load()`ed, the all the
+variables saved into the file are loaded into the namespace with their saved
+values:
+
+```r
+# assume var_a and var_b are not defined yet
+load("saved_variables.rda")
+var_a
+[1] "a string"
+var_b
+[1] 1.234
+```
+
+This requires the programmer to remember the names of the variables that were
+saved into the file. Also, if there are variables that already exist in the
+current environment that are also saved in the file, those variable values will
+be overridden possibly without the programmers knowledge or intent. There is no
+way to change the variable names of variable saved in this way. For these
+reasons, `saveRDS` and `loadRDS` are generally safer to use as you can be more
+explicit about what you are saving and loading.
+:::
+
+::: {.box .readmore}
+* [`saveRDS()` and `readRDS()` R manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/readRDS.html)
+* [`readRDS()` and `saveRDS()` official documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/readRDS)
+:::
+
 ## Troubleshooting and Debugging {#prog-debugging}
 
 **Bugs in code are normal.** You are not a bad programmer if your code has bugs
