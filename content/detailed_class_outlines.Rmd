@@ -22,6 +22,8 @@ output: html_document
 * Data Wrangle: [The tibble]
 * Data Wrangle: [pipes]
 * Data Wrangle: [Arranging Data]
+* Data Wrangle: [Rearranging Data]
+* [Assignment 1]
 
 ## Week 2
 * Bioinfo: [R in Biology]
@@ -29,12 +31,14 @@ output: html_document
 * Bioinfo: [Types of Biological Data]
 * Bioinfo: [Bioconductor]
 * Bioinfo: [Gene Identifiers]
-* Bioinfo: [BiomaRt]
+* Bioinfo: [Mapping Between Identifier Systems]
+* Bioinfo: [Mapping Orthologs]
 * Data Wrangle: [Relational Data]
 * Data Viz: [Grammar of Graphics]
 * Data Viz: [Plotting One Dimension]
 * Data Viz: [Visualizing Distributions]
 * R Prog: [Unit Testing]
+* [Assignment 2]
 
 ## Week 3
 * Data Sci: [Data Modeling Basics]
