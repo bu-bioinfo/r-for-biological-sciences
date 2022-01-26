@@ -123,47 +123,6 @@ it is often a good idea to do so, to ensure you are calling the right function.
 
 :::
 
-## Tidy Data
-
-The tidyverse packages are designed to operate with so-called "tidy data". From
-the [tidy data section](https://r4ds.had.co.nz/tidy-data.html) of the R for Data
-Science book, the following rules make data tidy:
-
-1. Each variable must have its own column.
-2. Each observation must have its own row.
-3. Each value must have its own cell.
-
-Here, a variable is a quantity or property that every observation in our dataset
-has, and each observation is a separate instance of those variable (e.g. a
-different sample, subject, etc). The R for Data Science book depicts these rules
-in the following illustration:
-
-![Tidy data - from R for Data Science](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
-
-These rules are pretty generic, and in general a dataset might require some work
-to manipulate it into tidy form. Fortunately for those of us working in biology
-and bioinformatics, very many of our datasets are already provided in a format
-that is very close to being tidy, or the tools we use to process biological data
-do so for us. For this reason, details about the tidying operations that might
-be needed for data in the general case are left for reading in the [tidy data
-section](https://r4ds.had.co.nz/tidy-data.html) of R for Data Science book.
-
-::: {.box .important}
-There is one very big and common exception to the claim above that biological
-data is usually already tidy that. Briefly, from the illustration above, tidy
-data has observations as rows and variables as columns. However, the datasets
-that we often use, e.g. gene expression matrices, are organized to have
-variables (e.g. genes) as *rows* and observations (e.g. samples) as *columns*.
-This means some operations to summarize variables across observations, which are
-very common to compute, are not easily done with the tidyverse functions like
-`mutate()`. We describe how to work around this difference in the section
-[Biological data is NOT Tidy!].
-:::
-
-::: {.box .readmore}
-[Tidy data - R for Data Science](https://r4ds.had.co.nz/tidy-data.html)
-:::
-
 ## Importing Data
 
 The first operation we typically must perform when analyzing data is reading our
@@ -337,6 +296,60 @@ example below in the [Arranging Data] section.
 * [R for Data Science - tibbles](https://r4ds.had.co.nz/tibbles.html)
 :::
 
+## Tidy Data
+
+The tidyverse packages are designed to operate with so-called "tidy data". From
+the [tidy data section](https://r4ds.had.co.nz/tidy-data.html) of the R for Data
+Science book, the following rules make data tidy:
+
+1. Each variable must have its own column.
+2. Each observation must have its own row.
+3. Each value must have its own cell.
+
+Here, a variable is a quantity or property that every observation in our dataset
+has, and each observation is a separate instance of those variable (e.g. a
+different sample, subject, etc). In our `gene_stats` example tibble above, the
+columns referring to different test statistics are the variables, and each gene
+in each row is an "observation", and each cell has a value; we can therefore say
+that the dataset is tidy:
+
+```{r}
+gene_stats
+```
+
+Each row being an "observation" is somewhat abstract in this case; we could say
+that we "observed" the same test for all the genes in the tibble. Depending on
+what dataset we are working with, we sometimes have to be flexible in our
+conceptualization of what constitutes variables and observations.
+
+The R for Data Science book depicts these rules in the following illustration:
+
+![Tidy data - from R for Data Science](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+
+These rules are pretty generic, and in general a dataset might require some work
+to manipulate it into tidy form. Fortunately for those of us working in biology
+and bioinformatics, very many of our datasets are already provided in a format
+that is very close to being tidy, or the tools we use to process biological data
+do so for us. For this reason, details about the tidying operations that might
+be needed for data in the general case are left for reading in the [tidy data
+section](https://r4ds.had.co.nz/tidy-data.html) of R for Data Science book.
+
+::: {.box .important}
+There is one very big and common exception to the claim above that biological
+data is usually already tidy that. Briefly, from the illustration above, tidy
+data has observations as rows and variables as columns. However, the datasets
+that we often use, e.g. gene expression matrices, are organized to have
+variables (e.g. genes) as *rows* and observations (e.g. samples) as *columns*.
+This means some operations to summarize variables across observations, which are
+very common to compute, are not easily done with the tidyverse functions like
+`mutate()`. We describe how to work around this difference in the section
+[Biological data is NOT Tidy!].
+:::
+
+::: {.box .readmore}
+[Tidy data - R for Data Science](https://r4ds.had.co.nz/tidy-data.html)
+:::
+
 ## pipes
 
 One of the key `tidyverse` programming patterns is chaining manipulations of
@@ -380,8 +393,6 @@ the code less readable.
 * [R for Data Science - Pipes](https://r4ds.had.co.nz/pipes.html)
 * [`%>%` operator documentation in the magrittr package](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
 :::
-
-## Tidying Data
 
 ## Arranging Data
 
@@ -879,6 +890,83 @@ tidyverse; e.g. both `summarise()` and `summarize()` are supported.
 ::: {.box .readmore}
 * [R for Data Science - Grouped summaries with `summarise()`](https://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise)
 * [dplyr `summarise()` reference](https://dplyr.tidyverse.org/reference/summarise.html)
+:::
+
+## Rearranging Data
+
+Sometimes the shape and format of our data is not the most convenient for
+performing certain operations on it, even if it is [tidy](#tidy-data). Let's say
+we are considering the range of statistics that were computed for all of our
+genes in the `gene_stats` tibble, and wanted to compute the average statistic
+over all genes for both tests. Recall our tibble has separate columns for each
+test:
+
+```{r}
+gene_stats <- tribble(
+    ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
+   "APOE",   12.509293,   0.1032,   34.239521,   1.3e-5,
+  "HOXD1",    4.399211,   0.6323,   16.332318,   0.0421,
+   "SNCA",   45.748431,   4.2e-9,    0.757188,   0.9146,
+)
+gene_stats
+```
+
+For convenience, we desire our output to be in table form, with one row per test
+and the statistics for each test as columns. We could do this manually like so:
+
+```{r}
+tribble(
+   ~test_name, ~min, ~mean, ~max,
+   "test1_stat", min(gene_stats$test1_stat), mean(gene_stats$test1_stat), max(gene_stats$test1_stat),
+   "test2_stat",  min(gene_stats$test2_stat), mean(gene_stats$test2_stat), max(gene_stats$test2_stat),
+)
+```
+
+This gets the job done, but is clearly very ugly, error prone, and would require
+significant work if we later added more statistics columns.
+
+Instead of typing out the values we desire manually, we can *pivot* our tibble
+using the `tidyr::pivot_longer()` function, so that the column values are placed
+in a new column and the corresponding values are placed in yet another column.
+This process is illustrated in the following figure:
+
+![Pivot longer moves columns and values to two new columns](pivot_longer.png)
+
+In the figure, the original tibble has genes along rows and samples as columns.
+When the sample columns are pivoted, the value of each column name is placed in
+a new column named "Sample" and repeated for as many rows there are in the
+tibble. A second new column "Value" is populated with the corresponding values
+that were in each column. The gene associated with each value is preserved and
+repeated vertically until all the table columns and values have been pivoted.
+This process of pivoting transforms the tibble into so called "long" form.
+
+Returning to our `gene_stats` example, we can apply some operations to the
+tibble to easily perform the summarization we did above in a much more
+expressive manner:
+
+```{r}
+gene_stats %>%
+  tidyr::pivot_longer(ends_with("_stat"), names_to="test", values_to="stat") %>%
+  dplyr::group_by(test) %>%
+  dplyr::summarize(min = min(stat), mean = mean(stat), max = max(stat))
+```
+
+You may verify that the numbers are identical in this pivoted tibble as the one
+we manually created earlier. This pivoting method will produce the desired
+output regardless of the number of tests we include the table, so long as the
+column names end in `"_test"`.
+
+::: {.box .note}
+The inverse of `pivot_longer()` is
+[`pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html). If
+you have variables gathered in single columns like that produced by
+`pivot_longer()` you can reverse the process with this function to create a
+tibble with those variables as columns.
+:::
+
+::: {.box .readmore}
+* [Pivoting - R for Data Science](https://r4ds.had.co.nz/tidy-data.html#pivoting)
+* [`pivot_longer()` reference](https://tidyr.tidyverse.org/reference/pivot_longer.html)
 :::
 
 ## Relational Data
