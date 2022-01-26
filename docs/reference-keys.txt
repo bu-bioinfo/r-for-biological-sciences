@@ -127,7 +127,6 @@ rmarkdown-knitr
 bookdown
 contribution-guide
 custom-blocks
-using-the-command-line
 class-outlines
 week-1
 week-2

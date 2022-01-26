@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Class Outlines | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="A Class Outlines | BF591 - R for Biological Sciences" />
+  <title>Assignment 1 | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="Assignment 1 | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Class Outlines | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="Assignment 1 | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Class Outlines | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="Assignment 1 | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="assignment-1.html"/>
-
+<link rel="prev" href="starting-an-assignment.html"/>
+<link rel="next" href="class-outlines.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -391,181 +391,66 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="class-outlines" class="section level1" number="13">
-<h1><span class="header-section-number">A</span> Class Outlines</h1>
-<div id="week-1" class="section level2" number="13.1">
-<h2><span class="header-section-number">A.1</span> Week 1</h2>
+<div id="assignment-1" class="section level1 unnumbered">
+<h1>Assignment 1</h1>
+<div id="problem-statement" class="section level2 unnumbered">
+<h2>Problem Statement</h2>
+<p>This assignment will focus on basic functions of R with an emphasis on
+<code>tidyverse</code> implementations. <code>tidyverse</code> is a collection of packages, pioneered
+by Hadley Wickham and RStudio, that looks to standardize procedures,
+functionality, and syntax in R.</p>
+<p>To gain familiarity with R, we will be working with a microarray dataset that
+contains gene probe expression data for various samples collected from cancer
+patients. In bioinformatics, it is common to have multiple datasets for your
+different modes of data (i.e. microarray expression data is kept separate
+from clinical data detailing the samples). You will get an opportunity to work
+with both of these datasets, and be required to cross reference between the two.</p>
+</div>
+<div id="learning-objectives-and-skill-list" class="section level2 unnumbered">
+<h2>Learning Objectives and Skill List</h2>
 <ul>
-<li>Course Intro &amp; Details</li>
-<li>Intro: <a href="data-bio.html#data-bio">Data in Biology</a></li>
-<li>Prelim: <a href="preliminaries.html#prelim-rstudio">RStudio</a> on SCC</li>
-<li>Prelim: <a href="preliminaries.html#prog-the-r-script">The R Script</a></li>
-<li>Prelim: <a href="preliminaries.html#prog-workflow">The Scripting Workflow</a></li>
-<li>Comm: <a href="communicating-with-r.html#rmarkdown-knitr">RMarkdown &amp; knitr</a></li>
-<li>Prelim: <a href="preliminaries.html#prelim-git">Git + github</a></li>
-<li>R Prog: <a href="prog-basics.html#prog-r-syntax">R Syntax Basics</a></li>
-<li>R Prog: <a href="prog-basics.html#functions">Functions</a></li>
-<li>R Prog: <a href="prog-basics.html#prog-debugging">Troubleshooting and Debugging</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#the-tidyverse">The Tidyverse</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#dw-basics">Tidyverse Basics</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#importing-data">Importing Data</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#data-tibble">The tibble</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#pipes">pipes</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#arranging-data">Arranging Data</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#rearranging-data">Rearranging Data</a></li>
-<li><a href="assignment-1.html#assignment-1">Assignment 1</a></li>
+<li>Install various packages needed for analysis</li>
+<li>Load Data</li>
+<li>Gain familiarity with common <code>tidyverse</code> operations such as <code>groupby()</code>,
+<code>mutate</code>, and <code>summarize</code>.</li>
+<li>Create a small plot to display results</li>
+<li>Utilize R Markdown to create an attractive format for sharing data.</li>
 </ul>
 </div>
-<div id="week-2" class="section level2" number="13.2">
-<h2><span class="header-section-number">A.2</span> Week 2</h2>
-<ul>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-r">R in Biology</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#csv-files">CSV Files</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-data-types">Types of Biological Data</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-bioconductor">Bioconductor</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#gene-identifiers">Gene Identifiers</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#mapping-between-identifier-systems">Mapping Between Identifier Systems</a></li>
-<li>Bioinfo: [Mapping Orthologs]</li>
-<li>Data Wrangle: <a href="data-wrangling.html#relational-data">Relational Data</a></li>
-<li>Data Viz: <a href="data-visualization.html#dv-gg">Grammar of Graphics</a></li>
-<li>Data Viz: <a href="data-visualization.html#plotting-one-dimension">Plotting One Dimension</a></li>
-<li>Data Viz: <a href="data-visualization.html#visualizing-distributions">Visualizing Distributions</a></li>
-<li>R Prog: <a href="engineering.html#unit-testing">Unit Testing</a></li>
-<li>[Assignment 2]</li>
-</ul>
-</div>
-<div id="week-3" class="section level2" number="13.3">
-<h2><span class="header-section-number">A.3</span> Week 3</h2>
-<ul>
-<li>Data Sci: [Data Modeling Basics]</li>
-<li>Data Sci: [Linear Regression]</li>
-<li>Data Sci: [Statistical Model Flavors]</li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-geneexp">Gene Expression</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#microarrays">Microarrays</a></li>
-<li>Bioinfo: [Differential Expression]</li>
-<li>Bioinfo: [limma]</li>
-<li>Data Sci: [Data summarization]</li>
-<li>Data Sci: [Data cleaning]</li>
-<li>Data Sci: <a href="data-science.html#ds-clust">Clustering</a></li>
-<li>Data Viz: [Heatmaps and Dendrograms]</li>
-</ul>
-</div>
-<div id="week-4" class="section level2" number="13.4">
-<h2><span class="header-section-number">A.4</span> Week 4</h2>
-<ul>
-<li>Data Sci: [Statistical Distributions]</li>
-<li>Data Sci: [p-values]</li>
-<li>Data Sci: [Simple statistical tests]</li>
-<li>Data Sci: [Statistical power]</li>
-<li>R Prog: <a href="prog-basics.html#prog-struct">Data structures</a></li>
-<li>R Prog: [Factors]</li>
-<li>R Prog: <a href="prog-basics.html#iteration">Iteration</a></li>
-<li>Bioinfo: [Interval/coordinate data]</li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-gsea">Gene Set Enrichment Analysis</a></li>
-<li>Data Sci: [Hypergeometric test]</li>
-<li>Bioinfo: [The GeneSet Class]</li>
-<li>Bioinfo: [fgsea]</li>
-</ul>
-</div>
-<div id="week-5" class="section level2" number="13.5">
-<h2><span class="header-section-number">A.5</span> Week 5</h2>
-<ul>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-hts">High Throughput Sequencing</a></li>
-<li>Bioinfo: [RNASeq]</li>
-<li>Bioinfo: [Count Data &amp; The Negative Binomial Distribution]</li>
-<li>Bioinfo: [DEseq2/EdgeR]</li>
-<li>Bioinfo: [limma/voom]</li>
-<li>R Prog: <a href="prog-basics.html#prog-style">Coding Style and Conventions</a></li>
-</ul>
-</div>
-<div id="week-6" class="section level2" number="13.6">
-<h2><span class="header-section-number">A.6</span> Week 6</h2>
-<ul>
-<li>Data Viz: <a href="data-visualization.html#dv-resp">Responsible Plotting</a></li>
-<li>Data Viz: [Grammar of Graphics - Going Deeper]</li>
-<li>Data Viz: [Plotting Two or More Dimension]</li>
-<li>Data Viz: [Other Kinds of Plots]</li>
-<li>Data Viz: <a href="data-visualization.html#tips-and-tricks">Tips and Tricks</a></li>
-<li>Data Viz: <a href="data-visualization.html#multiple-plots">Multiple Plots</a></li>
-<li>Data Viz: <a href="data-visualization.html#facet-wrapping">Facet wrapping</a></li>
-<li>Data Viz: <a href="data-visualization.html#publication-ready-plots">Publication Ready Plots</a></li>
-</ul>
-</div>
-<div id="week-7" class="section level2" number="13.7">
-<h2><span class="header-section-number">A.7</span> Week 7</h2>
-<ul>
-<li>Bioinfo: [Single Cell Sequencing]</li>
-<li>Bioinfo: [Single Cell Clustering Methods]</li>
-<li>Bioinfo: [tSNE &amp; UMAP]</li>
-<li>Bioinfo: [Seurat]</li>
-<li>EngineeRing: [Workflow Managers]</li>
-</ul>
-</div>
-<div id="week-8" class="section level2" number="13.8">
-<h2><span class="header-section-number">A.8</span> Week 8</h2>
-<ul>
-<li>Rshiny: <a href="rshiny.html#rshiny">Rshiny</a></li>
-</ul>
-</div>
-<div id="week-9" class="section level2" number="13.9">
-<h2><span class="header-section-number">A.9</span> Week 9</h2>
-<ul>
-<li>Bioinfo: [Biological Pathways]</li>
-<li>Bioinfo: [Gene Regulatory Networks]</li>
-<li>Bioinfo: [Protein-Protein Networks]</li>
-<li>Bioinfo: [WGCNA]</li>
-<li>Data Sci: <a href="data-science.html#ds-networks">Network Analysis</a></li>
-<li>Data Viz: [Network visualization]</li>
-</ul>
-</div>
-<div id="week-10" class="section level2" number="13.10">
-<h2><span class="header-section-number">A.10</span> Week 10</h2>
-<ul>
-<li>EngineeRing: <a href="engineering.html#toolification">Toolification</a></li>
-<li>EngineeRing: <a href="engineering.html#parallel-processing">Parallel Processing</a></li>
-</ul>
-</div>
-<div id="week-11" class="section level2" number="13.11">
-<h2><span class="header-section-number">A.11</span> Week 11</h2>
-<ul>
-<li>EngineeRing: [Object Orientated Programming in R]</li>
-<li>EngineeRing: [Building R Packages]</li>
-</ul>
-</div>
-<div id="week-12" class="section level2" number="13.12">
-<h2><span class="header-section-number">A.12</span> Week 12</h2>
-<ul>
-<li>Comm: [Sharing and Documenting Project Code]</li>
-<li>Comm: [Reproducible Analysis in R]</li>
-<li>Comm: [Data Documentation and Publishing]</li>
-</ul>
-</div>
-<div id="week-13---no-class-for-project-work" class="section level2" number="13.13">
-<h2><span class="header-section-number">A.13</span> Week 13 - no class for project work</h2>
-</div>
-<div id="week-14---no-class-for-project-work" class="section level2" number="13.14">
-<h2><span class="header-section-number">A.14</span> Week 14 - no class for project work</h2>
+<div id="instructions" class="section level2 unnumbered">
+<h2>Instructions</h2>
+<p>Our main focus for this assignment are installing packages, manipulating data,
+and summarizing important statistics across both samples and features (genes). An
+empty project repo can be found here:</p>
+<p><a href="https://github.com/bu-bioinfo/bf591-assignment-1">https://github.com/bu-bioinfo/bf591-assignment-1</a></p>
+<p>The project is laid out as such:</p>
+<pre><code>main.R
+report.Rmd
+reference_report.html</code></pre>
+<p>Each step of the assignment is explained in the R markdown file, <code>report.Rmd</code>.
+There you will find a list of tasks to explicity implement functions in your
+empty <code>main.R</code> script. The <code>main.R</code> script contains skeletons of each function
+you’ll need to implement, explaining what each function should do, the parameters
+it expects to receive, and what type of output is expected to be returned. A
+reference report, <code>reference_report.html</code> is also provided. Assuming you successfully
+implement all the functions in <code>main.R</code>, your generated report should look
+identical to the information displayed in <code>reference_report.html</code>. In this way,
+you can use <code>reference_report.html</code> as a guide to determine if you are correctly
+implementing your functions.</p>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Bruford, Elspeth A, Bryony Braschi, Paul Denny, Tamsin E M Jones, Ruth L Seal, and Susan Tweedie. 2020. <span>“Guidelines for Human Gene Nomenclature.”</span> <em>Nat. Genet.</em> 52 (8): 754–58.
-</div>
-<div class="csl-entry">
-Holley, R W, J Apgar, G A Everett, J T Madison, M Marquisee, S H Merrill, J R Penswick, and A Zamir. 1965. <span>“<span>STRUCTURE</span> <span>OF</span> a <span>RIBONUCLEIC</span> <span>ACID</span>.”</span> <em>Science</em> 147 (3664): 1462–65.
-</div>
-<div class="csl-entry">
-Shows, T B, C A Alper, D Bootsma, M Dorf, T Douglas, T Huisman, S Kit, et al. 1979. <span>“International System for Human Gene Nomenclature (1979) <span>ISGN</span> (1979).”</span> <em>Cytogenet. Cell Genet.</em> 25 (1-4): 96–116.
 </div>
 </div>
-</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="assignment-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="starting-an-assignment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="class-outlines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
