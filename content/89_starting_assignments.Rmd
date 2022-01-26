@@ -13,22 +13,26 @@ In our development of these assignments we used git and [github.com](github.com)
 ### Contents {-}
 Each assignment will have these following files within, roughly:  
 ```
-├── finalized_report.pdf 
+├── reference_report.html 
 ├── main.R 
 ├── README.md 
 ├── report.Rmd 
 └── test_main.R 
 ```
-- **finalized_report.pdf** - This is the completed "report" of the assignment. You will be endeavoring to replicate this while completing the assignment, with some room for creative differences in elements like plotting.
+- **reference_report.html** - This is the completed "report" of the assignment. You will be endeavoring to replicate this while completing the assignment, with some room for creative differences in elements like plotting.
 - **main.R** - This is the main R script in the assignment, where you will be doing a lot of your _programming_. This script contains function definitions and descriptions, but with functions that are empty. Complete the functions as described in the script and ensure they pass the tests.
 - **README.md** - Every repository _should_ have a README. Usually it contains useful information about installation, usage, and licensing. In this case, it will have helpful links back to assignment instructions.
 - **report.Rmd** - Another empty file, this markdown script will `source()` your `main.R` script, loading the functions into its environment. There will be empty code blocks throughout this document, use the functions you developed in `main.R` to replicate the figures or match the captions seen in `finalized_report.pdf`.
 - **test_main.R** - This is a completed testing script produced by us to help you quickly determine how will your code is running. This file **sources** your `main.R` file, meaning it runs it to completion and stores any functions and variables in the active environment. It then runs tests to ensure your functions are working in a predictable way. Tests are incredibly valuable tools, and potentially one of the strongest in a programmer's toolkit. 
 
-### Uhhh various github classroom details, idk. TODO: or whatever. {-}
+::: {.box .important}
+Most assignments beyond assignment 1 have a complementary guide hosted on the website page. These go into more background about how functions and tests work so use them if you're feeling stuck or would like more context. [https://bu-bioinfo.github.io/r_for_biological_sciences/assignment-format.html](Assignment Format)
+:::
+
+### GitHub tutorial {-}
 1. Find your assignment link
-2. Clone your repository or whatever classroom lets you do. Should be in the form `myusername/assignment-X`
-3. Inside this repo, click the big **g r e e n** button and copy the HTTP link to your repository.
+2. Clone your repository, you will see a new repo in the form: `myusername/assignment-X`
+3. Inside this repo, click the big <font color="green">**g r e e n**</font> button and copy the HTTP link to your repository.
 4. Login to [https://scc-ondemand.bu.edu/](SCC interactive). Start an interactive R session (Interactive Apps > RStudio Server), use the default settings but increase the hours to like 12 or something. Or if you like high pressure situations set it to like 20 minutes.
 5. Once your session is loaded and you are login in, select the "New Project" button below the "Edit" button.  ![](img/how_to_1-new_proj.png)
 6. With the prompt open, select `Version Control` > `git`, and paste your repo's url into the first prompt. Feel free to rename the project, but also like don't? That's confusing. You can change where this folder is setup on SCC, but I find `~/Documents` or `~/Documents/BF591` to be a good home for organizing my various projects.   
@@ -53,7 +57,7 @@ To prevent this cataclysm, you must **add**, **commit**, and **push** your code 
 ![](img/how_to_7-push.png)
 5. In the same vein, the **pull** button is useful if your GitHub has been updated more recently than your current SCC directory. This can happen if you're editing these files from another computer or on [GitHub.com](GitHub.com) directly.
 
-#### Using the command line
+#### Using the command line {-}
 That was kind of a lot of clicking and funny little menus, and my doctor says I am at high risk for a repetitive stress injury, so can't I just use my keyboard instead? Yes, of course. We'll use the terminal, which is also built-in to RStudio but really just emulates the standard bash terminal that you would use to interact with SCC normally.
 
 1. Click on the terminal tab at the bottom of your layout (default).  
