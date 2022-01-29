@@ -545,12 +545,169 @@ dplyr::mutate(gene_stats,
 Now are gene symbols have the appropriate case, and our wetlab colleagues won't
 complain about it. :)
 
+#### Regular expressions
+
+Many of the string operations in the `stringr` package use [regular
+expression](https://en.wikipedia.org/wiki/Regular_expression) syntax. A regular
+expression is a sequence of characters that describes patterns in text. Regular
+expressions are written in a sort of mini programming language where certain
+characters have special meaning that help in defining *search patterns* that
+identifies the location of sequences of characters in text that follow a
+particular pattern specified by the regular expression. This is similar to the
+"Find" functionality in many word processors, but is more powerful due to the
+flexibility of the patterns that can be found.
+
+A simple example will be helpful. Let's say we have a tibble containing the
+result of a (made-up) statistical test for all the genes in a genome:
+
+```{r regex setup, include=FALSE}
+library(tidyverse)
+library(biomaRt)
+ensembl <- useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
+de_genes <- as_tibble(
+  getBM(
+    attributes=c("hgnc_symbol"),
+    mart=ensembl
+  )
+)
+set.seed(1337)
+n <- nrow(de_genes)
+s <-  runif(n,1,1000)
+pr <- runif(n)
+de_genes <- mutate(
+  de_genes,
+  mean = rnbinom(n, s, pr),
+  p = dnbinom(mean, s, pr),
+  padj = p.adjust(p,method="fdr")
+)
+```
+
+```{r}
+de_genes
+```
+
+Now let's say we're interested in examining the results for the BRCA family of
+genes, BRCA1 and BRCA2. We can use `filter()` on the data frame to look for them
+individually:
+
+```{r}
+de_genes %>% filter(hgnc_symbol == "BRCA1" | hgnc_symbol == "BRCA2")
+```
+
+This isn't so bad, but we can do the same thing with
+[`stringr::str_detect()`](https://stringr.tidyverse.org/reference/str_detect.html)
+, which returns `TRUE` if the provided pattern matches the input and `FALSE`
+otherwise, a regular expression, and the [`dplyr::filter()` function], which is
+described in greater detail in a later section:
+
+```{r regex_filter}
+dplyr::filter(de_genes, str_detect(hgnc_symbol,"^BRCA[12]$"))
+```
+
+The argument `"^BRCA[12]$"` is a regular expression that searches for the
+following:
+
+* Search for genes that start with the characters `BRCA` - the `^` at the
+beginning of the pattern stands for the start of the string
+* For genes that start with `BRCA`, then look for genes where the next character
+is either `1` or `2` with `[12]` - the characters between the `[]` are searched
+for explicitly, and any character encountered that is not listed between them
+results in a non-match
+* For genes that start with `BRCA` followed with either a `1` or a `2`, match
+successfully if the number is at the end of the name - the `$` at the end of the
+pattern stands for the end of the string
+
+We can use these principles to find genes with more complex naming conventions.
+The [Homeobox (HOX) genes](https://www.nature.com/articles/pr19972506) encode
+DNA binding proteins that regulate gene expression of genes involved in
+morphgenesis and cell differentiation in vertebrates. In humans, HOX genes are
+organized into 4 clusters of paralogs that were the result of [three DNA
+duplication events in the distant evolutionary
+past](https://pubmed.ncbi.nlm.nih.gov/26481129/), where each cluster encodes a
+subset of 13 distinct HOX genes placed next to each other. Each of these
+clusters has been assigned a letter identifier A-D (e.g. HOXA, HOXB, HOXC, and
+HOXD) and each paralogous gene within each cluster is assigned the same number
+(e.g. HOXA4, HOXB4, HOXC4, and HOXD4 are paralogs). There are 13 HOX genes in
+total, though not all genes remain in all clusters (e.g. HOXA1, HOXB1, and HOXD1
+exist but HOXC1 was lost over time). The following figure depicts the human HOX
+gene clusters:
+
+![Human HOX gene clusters - Veraksa, A.; Del Campo, M.; McGinnis, W. Developmental Patterning Genes and their Conserved Functions: From Model Organisms to Humans. Mol. Genet. Metab. 2000, 69 (2), 85–100.](human_hox.jpg)
+
+Let's say we want to extract out all the HOX genes from our gene statistics. We
+can write a regular expression that matches the pattern described above:
+
+```{r regex_hox}
+dplyr::filter(de_genes, str_detect(hgnc_symbol,"^HOX[A-D][0-9]+$")) %>%
+  dplyr::arrange(hgnc_symbol)
+```
+
+In this query we used two new regular expression features:
+
+* within the `[]` we specified a range of characters `A-D` and `0-9` which will
+match any of the characters between A and D (i.e. A, B, C, or D) and 0 and 9
+respectively
+* the `+` character means "match one or more of the preceding expression", which
+in our case is the `[0-9]`. This allows us to match genes with only a single
+number (e.g. `HOXA1`) as well as double digit numbers (e.g. `HOXA10`).
+
+Since we know the cluster identifier part of the HOX gene names (i.e. the
+`[A-D]` part) is exactly one character long, we could alternatively write the
+regular expression as follows, using the special `.` character:
+
+```{r regex_hox_dot}
+dplyr::filter(de_genes, str_detect(hgnc_symbol,"^HOX.[0-9]+$")) %>%
+  dplyr::arrange(hgnc_symbol)
+```
+
+Here, the `.` character is interpreted by the regex to match *any single
+character*, regardless of what it is, between the `HOX` part and the number
+part. This also requires that there exist exactly one character between the two
+parts; a gene symbol `HOX1` would *not* be matched, because the `1` would match
+to the `.`, but no number remains to match to the `[0-9]+` part.
+
+::: {.box .note}
+Sometimes you want to search text for characters that are considered special in
+the regular expression language. For example, if you had a list of filenames:
+
+```{r regex box filenames}
+filenames <- tribble(
+  ~name,
+  "annotation.csv",
+  "file1.txt",
+  "file2.txt",
+  "results.csv"
+)
+```
+
+and wanted to limit to just those with the `.txt` extension, you need to match
+using a literal `.` character:
+
+```{r regex box filter}
+filter(filenames, stringr::str_detect(name,"[.]txt$"))
+```
+
+Inside a `[]`, characters do not have their usual regular expression meaning,
+and therefore `[.]` will match a literal `.` character. Instead of using the
+`[]` syntax, you may also escape these literal characters using two back
+slashes:
+
+```{r regex box filter escape}
+filter(filenames, stringr::str_detect(name,"\\.txt$"))
+```
+:::
+
+Regular expressions are very powerful, and can do much more than what is
+described here. See the regular expression tutorial linked in the readmore box
+to learn more details.
+
 ::: {.box .readmore}
 * [R for Data Science - Strings](https://r4ds.had.co.nz/strings.html)
 * [stringr
 documentation](https://stringr.tidyverse.org/reference/index.html)
 * [stringr
 cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf)
+* [RegexOne - regular expression tutorial](https://regexone.com/)
 :::
 
 ### `dplyr::select()` - Subset Columns by Name
@@ -559,7 +716,7 @@ Our `mutate()` operations above created a number of new columns in our tibble,
 but we did not specify where in the tibble the new columns should go. Let's
 consider the mutated tibble we created with all four new columns:
 
-``` {r}
+``` {r select mutate}
 dplyr::mutate(gene_stats,
   test1_padj=p.adjust(test1_p,method="fdr"),
   test2_padj=p.adjust(test2_p,method="fdr"),
@@ -577,8 +734,8 @@ The [`dplyr::select()`
 function](https://dplyr.tidyverse.org/reference/select.html) allows you to pick
 specific columns out of a larger `tibble` in whatever order you choose:
 
-``` {r}
-stats <- select(gene_stats, test1_stat, test2_stat)
+``` {r select stats}
+stats <- dplyr::select(gene_stats, test1_stat, test2_stat)
 stats
 ```
 
@@ -589,14 +746,14 @@ wished to select ended with `_stat`, we could use the `ends_with()` helper
 function:
 
 ``` {r}
-stats <- select(gene_stats, ends_with("_stat"))
+stats <- dplyr::select(gene_stats, ends_with("_stat"))
 stats
 ```
 
 If you so desire, `select()` allows for the renaming of selected columns:
 
 ``` {r}
-stats <- select(gene_stats,
+stats <- dplyr::select(gene_stats,
   t=test1_stat,
   chisq=test2_stat
 )
@@ -738,7 +895,7 @@ call in case later we decide to copy and paste this code into another analysis.
 That's pretty much all there is to `arrange()`.
 
 ::: {.box .readmore}
-* [R for Data Science - Arrange rows with `arrange()`](https://r4ds.had.co.nz/transform.html#arrange-rows-with-arrange)
+* [R for Data Science - Arrange rows with`arrange()`](https://r4ds.had.co.nz/transform.html#arrange-rows-with-arrange)
 * [dplyr `arrange()` reference](https://dplyr.tidyverse.org/reference/arrange.html)
 :::
 
