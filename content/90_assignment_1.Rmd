@@ -51,3 +51,37 @@ implement all the functions in `main.R`, your generated report should look
 identical to the information displayed in `reference_report.html`. In this way,
 you can use `reference_report.html` as a guide to determine if you are correctly
 implementing your functions.
+
+Here is the suggested workflow for developing and checking your code in this
+assignment:
+
+1. `main.R` contains function definitions, including signature descriptions, for
+  a number of functions, but the bodies of those functions are currently blank
+2. `report.Rmd` has code chunks that call functions defined in `main.R` - you do
+  not need to write anything in the Rmd file (but you may)
+3. Your task is to read the function descriptions and the text in the Rmarkdown
+  document and fill in the function bodies to produce the desired behavior in
+  main.R
+4. You can test your work by executing individual code chunks in report.Rmd and
+  comparing your output to the example compiled report in the repo
+5. In the workflow, you will go back and forth between developing code in main.R
+  and running code chunks in report.Rmd
+6. When you have developed function bodies for all the functions and executed
+  all the code chunks in the report successfully, you should be able to knit the
+  entire report
+
+## Hints {-}
+
+* When developing the `period_to_underscore()` function, you might find the
+[`stringr::str_replace_all()`](https://stringr.tidyverse.org/reference/str_replace.html)
+function helpful. The `pattern` argument to these functions is interpreted as
+a [regular expression](#regular-expressions) or "regex" for short. A regular
+expression is a sequence of characters (i.e. a string) written in a language
+that describes patterns in text, similar to "Find and Replace" operations in
+word processing software, but is more powerful and flexible in the kinds of
+patterns it can detect. Some characters have special meaning in regular
+expressions, one of which is the `.` character. In order to identify the literal
+period character like we are trying to do, we must instruct the regular
+expression to do so by either escaping the character with `\\.` or place it in a
+range with `[.]`. Either of these two methods will work to replace a literal `.`
+with `_`. See the section on [Regular expressions] for more information.
