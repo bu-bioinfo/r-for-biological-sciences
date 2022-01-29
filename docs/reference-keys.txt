@@ -53,6 +53,7 @@ pipes
 arranging-data
 dplyrmutate---create-new-columns-using-other-columns
 stringr---working-with-character-values
+regular-expressions
 dplyrselect---subset-columns-by-name
 dplyrfilter---pick-rows-out-of-a-data-set
 dplyrarrange---order-rows-based-on-their-values

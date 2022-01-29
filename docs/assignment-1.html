@@ -355,6 +355,7 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#problem-statement"><i class="fa fa-check"></i>Problem Statement</a></li>
 <li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#learning-objectives-and-skill-list"><i class="fa fa-check"></i>Learning Objectives and Skill List</a></li>
 <li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#instructions"><i class="fa fa-check"></i>Instructions</a></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#hints"><i class="fa fa-check"></i>Hints</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines</a>
@@ -437,6 +438,42 @@ implement all the functions in <code>main.R</code>, your generated report should
 identical to the information displayed in <code>reference_report.html</code>. In this way,
 you can use <code>reference_report.html</code> as a guide to determine if you are correctly
 implementing your functions.</p>
+<p>Here is the suggested workflow for developing and checking your code in this
+assignment:</p>
+<ol style="list-style-type: decimal">
+<li><code>main.R</code> contains function definitions, including signature descriptions, for
+a number of functions, but the bodies of those functions are currently blank</li>
+<li><code>report.Rmd</code> has code chunks that call functions defined in <code>main.R</code> - you do
+not need to write anything in the Rmd file (but you may)</li>
+<li>Your task is to read the function descriptions and the text in the Rmarkdown
+document and fill in the function bodies to produce the desired behavior in
+main.R</li>
+<li>You can test your work by executing individual code chunks in report.Rmd and
+comparing your output to the example compiled report in the repo</li>
+<li>In the workflow, you will go back and forth between developing code in main.R
+and running code chunks in report.Rmd</li>
+<li>When you have developed function bodies for all the functions and executed
+all the code chunks in the report successfully, you should be able to knit the
+entire report</li>
+</ol>
+</div>
+<div id="hints" class="section level2 unnumbered">
+<h2>Hints</h2>
+<ul>
+<li>When developing the <code>period_to_underscore()</code> function, you might find the
+<a href="https://stringr.tidyverse.org/reference/str_replace.html"><code>stringr::str_replace_all()</code></a>
+function helpful. The <code>pattern</code> argument to these functions is interpreted as
+a <a href="data-wrangling.html#regular-expressions">regular expression</a> or “regex” for short. A regular
+expression is a sequence of characters (i.e. a string) written in a language
+that describes patterns in text, similar to “Find and Replace” operations in
+word processing software, but is more powerful and flexible in the kinds of
+patterns it can detect. Some characters have special meaning in regular
+expressions, one of which is the <code>.</code> character. In order to identify the literal
+period character like we are trying to do, we must instruct the regular
+expression to do so by either escaping the character with <code>\\.</code> or place it in a
+range with <code>[.]</code>. Either of these two methods will work to replace a literal <code>.</code>
+with <code>_</code>. See the section on <a href="data-wrangling.html#regular-expressions">Regular expressions</a> for more information.</li>
+</ul>
 
 </div>
 </div>
