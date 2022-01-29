@@ -2,6 +2,10 @@
 output: html_document
 ---
 
+```{r data viz setup, include=FALSE}
+library(tidyverse)
+```
+
 # Data Visualization
 
 Data visualization is a core component of both exploring data and communicating
@@ -56,7 +60,7 @@ tau=c(round(runif(10,0.2,0.9)*imgsize),round(runif(10,0.0,0.4)*imgsize)),
   gfap=c(round(runif(10,0.1,0.9)*imgsize),round(runif(10,0.1,0.9)*imgsize)),
   braak_stage=round((tau - min(tau))/(max(tau)-min(tau))*6),
   age_at_death=round(rnorm(20,mean=75,sd=5))+round((tau - min(tau))/(max(tau)-min(tau))*10)-2
-) %>% select(
+) %>% dplyr::select(
     ID,
     age_at_death,
     condition,
