@@ -19,6 +19,7 @@ output: html_document
 * Data Wrangle: [The Tidyverse]
 * Data Wrangle: [Tidyverse Basics]
 * Data Wrangle: [Importing Data]
+* Bioinfo: [CSV Files]
 * Data Wrangle: [The tibble]
 * Data Wrangle: [pipes]
 * Data Wrangle: [Arranging Data]
@@ -26,13 +27,14 @@ output: html_document
 * [Assignment 1]
 
 ## Week 2
+* [Assignment 1]
+* Data Wrangle: [Regular expressions]
 * Bioinfo: [R in Biology]
-* Bioinfo: [CSV Files]
 * Bioinfo: [Types of Biological Data]
 * Bioinfo: [Bioconductor]
 * Bioinfo: [Gene Identifiers]
 * Bioinfo: [Mapping Between Identifier Systems]
-* Bioinfo: [Mapping Orthologs]
+* Bioinfo: [Mapping Homologs]
 * Data Wrangle: [Relational Data]
 * Data Viz: [Grammar of Graphics]
 * Data Viz: [Plotting One Dimension]
@@ -56,6 +58,7 @@ output: html_document
 ## Week 4
 * Data Sci: [Statistical Distributions]
 * Data Sci: [p-values]
+* Data Sci: [Multiple Hypothesis Testing]
 * Data Sci: [Simple statistical tests]
 * Data Sci: [Statistical power]
 * R Prog: [Data structures]
