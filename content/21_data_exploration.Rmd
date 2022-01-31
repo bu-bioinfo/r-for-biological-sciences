@@ -2,15 +2,168 @@
 output: html_document
 ---
 
+```{r data sci setup, include=FALSE}
+library(tidyverse)
+```
+
 # Data Science
 
+[Data science](https://en.wikipedia.org/wiki/Data_science) is an enormous and
+rapidly growing field that incorporates elements of statistics, computer
+science, software engineering, high performance and cloud computing, and big
+data management, as well as syntheses with knowledge from other social and
+physical science fields to model and predict phenomena captured by data
+collected from the "real world". Many books have and will be written on this
+subject, and this one does not pretend to even attempt to give this area an
+adequate treatment. Like the rest of this book, the topics covered here are
+opinionated and presented through the lens of a biological analyst practitioner
+with enough high level conceptual details and a few general principles to
+hopefully be useful in that context.
+
 ## Data Modeling {#ds-model}
+
+The goal of data modeling is to describe a dataset using a relatively small
+number of mathematical relationships. Said differently, a model uses some parts
+of a dataset to try to accurately predict other parts of the dataset in a way
+that is useful to us.
+
+Models are human inventions; they reflect our beliefs about the way the universe
+works. The successful model identifies patterns within a dataset that are the
+result of causal relationships in the universe that led to the phenomena that
+were measured while accounting for noise in the data. However, *the model itself
+does not identify or even accurately reflect those causal effects*. In the
+made-up Parkinson's Disease example above, we don't have any idea whether Gene 3
+is increased due to having disease, or if Parkinson's Disease is more common in
+individuals with high gene expression of Gene 3. The model merely detects
+patterns and we as scientists are left to interpret those patterns and design
+follow up experiments to investigate the nature of those causal relationships
+using our prior knowledge of the world.
+
+There are several principles to keep in mind when modeling data:
+
+1. **Data are never wrong.** All data are collected using processes and
+devices designed and implemented by humans, who have always have biases and
+assumptions. All data measure something about the universe, and so are "true" in
+some sense of the world. If what we intended to measure and what we actually
+measured were not the same thing, that is due to our errors in collection or
+interpretation, not due to the data being wrong. If we approach our dataset with
+a particular set of hypotheses and the data don't support those hypotheses, it
+is our beliefs of the world that are wrong, not the data.
+
+2. **Not all data are useful.** Just because data isn't wrong, it doesn't mean
+it is useful. There may have been systematic errors in the collection of the
+data that makes interpreting them difficult. Data collected for one purpose may
+not be useful for any other purposes. And sometimes, a dataset collected for a
+particular purpose may simply not have the information needed to answer our
+questions; if what we measure has no relationship to what we wish to predict,
+the data itself is not useful - though the knowledge that what we measured has
+no detectable effect on the thing we wish to predict may be very useful!
+
+3. **"All models are wrong, but some are useful."** George Box, the renowned
+British statistician, famously asserted this in a 1976 paper to the Journal of
+the American Statistical Association. [@Box1976-rd]. By this he meant that every
+model we create is a simplification of the system we are seeking to model, which
+is by definition not identical to that system. To perfectly model a system, our
+model would need to be precisely the system we are modeling, which is no longer
+a model but the system itself. Fortunately, even though we know our models are
+always wrong to some degree, they may nonetheless be useful because they are not
+**too** wrong. Some models may indeed be too wrong, though.
+
+4. **Data do not contain causal information.** "Correlation does not mean
+causation." Data are measurements of the results of a process in the universe
+that we wish to predict; the data are possibly reflective of that process, but
+do not contain any information about the process itself. We cannot infer causal
+relationships from a dataset alone. We must construct possible causal models
+using our knowledge of the world first, then compare our model to the data and
+other models to assess their plausibility.
+
+5. **All data have noise.** The usefulness of a model to describe a dataset is
+related to the relative strength of the patterns and noise in the dataset when
+viewed through the lens of the model; conceptually, the so-called "signal to
+noise ratio" of the data. The fundamental concern of statistics is quantifying
+uncertainty (i.e. noise), and separating it from real signal, though different
+statistical approaches (e.g. frequentist vs Bayesian) reason about uncertainty
+in different ways.
+
+::: {.box .important}
+This section pertains primarily to models specified explicitly by humans. There
+is another class of models, namely those created by certain machine learning
+algorithms like neural networks and deep learning, that *discover models from
+data*. These models are fundamentally different than those designed by human
+minds, in that they are often accurate and therefore useful, but it can be very
+difficult if not impossible to understand how they work. While these are
+important types of models that fall under the umbrella of data science, we limit
+the content of this chapter to human designed statistical models.
+:::
+
+### A Worked Modeling Example
+
+As an example, let's consider a scenario where we wish to assess whether any of
+three genes can help us distinguish between patients who have Parkinson's
+Disease and those who don't by measuring the relative activity of those genes in
+blood samples. We have the following made-up dataset:
+
+```{r data modeling pd, echo=FALSE}
+set.seed(1337)
+gene_exp <- tibble(
+  sample_name = c(str_c("P",1:100), str_c("C",1:100)),
+  `Disease Status` = c(rep("Parkinson's",100),rep("Control",100)),
+  `Gene 1` = c(rnorm(100,250,10), rnorm(100,255,10)),
+  `Gene 2` = c(rnorm(100,520,100), rnorm(100,600,60)),
+  `Gene 3` = c(rnorm(100,500,40), rnorm(100,330,40))
+)
+```
+
+```{r}
+gene_exp
+```
+
+Our imaginary dataset has 100 Parkinson's and 100 control subjects. For each of
+our samples, we have a sample ID, Disease Status of `Parkinson's` or `Control`,
+and numeric measurements of each of three genes. Below are [violin
+plots](#violin-plot) of our (made-up) data set for these three genes:
+
+```{r data modeling violin, echo=FALSE}
+pivot_longer(
+  gene_exp,
+  c(`Gene 1`, `Gene 2`, `Gene 3`),
+  names_to="Gene",
+  values_to="Expression"
+) %>% ggplot(
+    aes(x=`Disease Status`,y=Expression,fill=`Disease Status`)
+  ) +
+  facet_wrap(vars(Gene)) +
+  geom_violin()
+```
+
+By inspection, it appears that Gene 1 has no relationship with disease; we may
+safely eliminate this gene from further consideration. Gene 2 appears to have a
+different profile depending on disease status, where control individuals have
+a higher average expression and a lower variance. Unfortunately, despite this
+qualitative difference, this gene may not be useful for telling whether someone
+has disease or not - the ranges completely overlap. Gene 3 appears to
+discriminate between disease and control. There is some overlap in the two
+expression distributions, but above a certain expression value these data
+suggest a high degree of predictive accuracy may be obtained with this gene.
+Measuring this gene may therefore be useful, if the results from this dataset
+generalize to all people with Parkinson's Disease.
+
+So far, we have not done any modeling, but instead relied on plotting and our
+eyes. A more quantitative question might be: how much higher is Gene 3
+expression in Parkinson's Disease than control? Another way of posing this
+question is: if I know a patient has Parkinson's Disease, what Gene 3 expression
+value do I expect them to have? Written this way, we have turned our question
+into a prediction problem: if we only had information that a patient had
+Parkinson's Disease, what is the predicted expression value of their Gene 3?
+
+### Data Summarization {#ds-summ}
+
+### Linear Models
 
 ## Distributions & Tests {#ds-dists}
 
 ## Multiple Hypothesis Testing
 
-## Data summarization & cleaning {#ds-summ}
 
 ## Clustering {#ds-clust}
 
