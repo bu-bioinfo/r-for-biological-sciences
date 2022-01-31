@@ -621,16 +621,15 @@ We can use these principles to find genes with more complex naming conventions.
 The [Homeobox (HOX) genes](https://www.nature.com/articles/pr19972506) encode
 DNA binding proteins that regulate gene expression of genes involved in
 morphgenesis and cell differentiation in vertebrates. In humans, HOX genes are
-organized into 4 clusters of paralogs that were the result of [three DNA
-duplication events in the distant evolutionary
-past](https://pubmed.ncbi.nlm.nih.gov/26481129/), where each cluster encodes a
-subset of 13 distinct HOX genes placed next to each other. Each of these
-clusters has been assigned a letter identifier A-D (e.g. HOXA, HOXB, HOXC, and
-HOXD) and each paralogous gene within each cluster is assigned the same number
-(e.g. HOXA4, HOXB4, HOXC4, and HOXD4 are paralogs). There are 13 HOX genes in
-total, though not all genes remain in all clusters (e.g. HOXA1, HOXB1, and HOXD1
-exist but HOXC1 was lost over time). The following figure depicts the human HOX
-gene clusters:
+organized into 4 clusters of paralogs that were the result of three DNA
+duplication events in the distant evolutionary past[@Abbasi2015-rn], where each
+cluster encodes a subset of 13 distinct HOX genes placed next to each other.
+Each of these clusters has been assigned a letter identifier A-D (e.g. HOXA,
+HOXB, HOXC, and HOXD) and each paralogous gene within each cluster is assigned
+the same number (e.g. HOXA4, HOXB4, HOXC4, and HOXD4 are paralogs). There are 13
+HOX genes in total, though not all genes remain in all clusters (e.g. HOXA1,
+HOXB1, and HOXD1 exist but HOXC1 was lost over time). The following figure
+depicts the human HOX gene clusters:
 
 ![Human HOX gene clusters - Veraksa, A.; Del Campo, M.; McGinnis, W. Developmental Patterning Genes and their Conserved Functions: From Model Organisms to Humans. Mol. Genet. Metab. 2000, 69 (2), 85–100.](human_hox.jpg)
 
