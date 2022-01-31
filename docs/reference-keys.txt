@@ -64,9 +64,10 @@ relational-data
 dealing-with-multiple-matches
 data-science
 ds-model
+ds-summ
+linear-models
 ds-dists
 multiple-hypothesis-testing
-ds-summ
 ds-clust
 ds-networks
 biology-bioinformatics

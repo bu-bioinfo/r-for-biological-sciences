@@ -249,12 +249,15 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>6</b> Data Science</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="data-science.html"><a href="data-science.html#ds-model"><i class="fa fa-check"></i><b>6.1</b> Data Modeling</a></li>
+<li class="chapter" data-level="6.1" data-path="data-science.html"><a href="data-science.html#ds-model"><i class="fa fa-check"></i><b>6.1</b> Data Modeling</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-science.html"><a href="data-science.html#ds-summ"><i class="fa fa-check"></i><b>6.1.1</b> Data Summarization</a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-science.html"><a href="data-science.html#linear-models"><i class="fa fa-check"></i><b>6.1.2</b> Linear Models</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="data-science.html"><a href="data-science.html#ds-dists"><i class="fa fa-check"></i><b>6.2</b> Distributions &amp; Tests</a></li>
 <li class="chapter" data-level="6.3" data-path="data-science.html"><a href="data-science.html#multiple-hypothesis-testing"><i class="fa fa-check"></i><b>6.3</b> Multiple Hypothesis Testing</a></li>
-<li class="chapter" data-level="6.4" data-path="data-science.html"><a href="data-science.html#ds-summ"><i class="fa fa-check"></i><b>6.4</b> Data summarization &amp; cleaning</a></li>
-<li class="chapter" data-level="6.5" data-path="data-science.html"><a href="data-science.html#ds-clust"><i class="fa fa-check"></i><b>6.5</b> Clustering</a></li>
-<li class="chapter" data-level="6.6" data-path="data-science.html"><a href="data-science.html#ds-networks"><i class="fa fa-check"></i><b>6.6</b> Network Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="data-science.html"><a href="data-science.html#ds-clust"><i class="fa fa-check"></i><b>6.4</b> Clustering</a></li>
+<li class="chapter" data-level="6.5" data-path="data-science.html"><a href="data-science.html#ds-networks"><i class="fa fa-check"></i><b>6.5</b> Network Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>7</b> Biology &amp; Bioinformatics</a>
 <ul>
@@ -394,8 +397,134 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="data-science" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Data Science</h1>
+<p><a href="https://en.wikipedia.org/wiki/Data_science">Data science</a> is an enormous and
+rapidly growing field that incorporates elements of statistics, computer
+science, software engineering, high performance and cloud computing, and big
+data management, as well as syntheses with knowledge from other social and
+physical science fields to model and predict phenomena captured by data
+collected from the “real world.” Many books have and will be written on this
+subject, and this one does not pretend to even attempt to give this area an
+adequate treatment. Like the rest of this book, the topics covered here are
+opinionated and presented through the lens of a biological analyst practitioner
+with enough high level conceptual details and a few general principles to
+hopefully be useful in that context.</p>
 <div id="ds-model" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Data Modeling</h2>
+<p>The goal of data modeling is to describe a dataset using a relatively small
+number of mathematical relationships. Said differently, a model uses some parts
+of a dataset to try to accurately predict other parts of the dataset in a way
+that is useful to us.</p>
+<p>As an example, let’s consider a scenario where we wish to assess whether any of
+three genes can help us distinguish between patients who have Parkinson’s
+Disease and those who don’t by measuring the relative activity of those genes in
+blood samples. We have the following made-up dataset:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="data-science.html#cb161-1" aria-hidden="true" tabindex="-1"></a>gene_exp</span></code></pre></div>
+<pre><code>## # A tibble: 200 x 5
+##    sample_name `Disease Status` `Gene 1` `Gene 2` `Gene 3`
+##    &lt;chr&gt;       &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 P1          Parkinson&#39;s          252.     636.     504.
+##  2 P2          Parkinson&#39;s          236.     556.     484.
+##  3 P3          Parkinson&#39;s          247.     426.     476.
+##  4 P4          Parkinson&#39;s          266.     405.     458.
+##  5 P5          Parkinson&#39;s          243.     482.     520.
+##  6 P6          Parkinson&#39;s          270.     521.     460.
+##  7 P7          Parkinson&#39;s          259.     415.     568.
+##  8 P8          Parkinson&#39;s          271.     450.     495.
+##  9 P9          Parkinson&#39;s          269.     490.     496.
+## 10 P10         Parkinson&#39;s          246.     584.     573.
+## # ... with 190 more rows</code></pre>
+<p>Our imaginary dataset has 100 Parkinson’s and 100 control subjects. For each of
+our samples, we have a sample ID, Disease Status of <code>Parkinson's</code> or <code>Control</code>,
+and numeric measurements of each of three genes. Below are <a href="data-visualization.html#violin-plot">violin
+plots</a> of our (made-up) data set for these three genes:</p>
+<p><img src="_main_files/figure-html/data%20modeling%20violin-1.png" width="672" /></p>
+<p>By inspection, it appears that Gene 1 has no relationship with disease; we may
+safely eliminate this gene from further consideration. Gene 2 appears to have a
+different profile depending on disease status, where control individuals have
+a higher average expression and a lower variance. Unfortunately, despite this
+qualitative difference, this gene may not be useful for telling whether someone
+has disease or not - the ranges completely overlap. Gene 3 appears to
+discriminate between disease and control. There is some overlap in the two
+expression distributions, but above a certain expression value these data
+suggest a high degree of predictive accuracy may be obtained with this gene.
+Measuring this gene may therefore be useful, if the results from this dataset
+generalize to all people with Parkinson’s Disease.</p>
+<p>So far, we have not done any modeling, but instead relied on plotting and our
+eyes. A more quantitative question might be: how much higher is Gene 3
+expression in Parkinson’s Disease than control? Another way of posing this
+question is: if I know a patient has Parkinson’s Disease, what Gene 3 expression
+value do I expect them to have? Written this way, we have turned our question
+into a prediction problem: if we only had information that a patient had
+Parkinson’s Disease, what is the predicted expression value of their Gene 3?</p>
+<p>Models are human inventions; they reflect our beliefs about the way the universe
+works. The successful model identifies patterns within a dataset that are the
+result of causal relationships in the universe that led to the phenomena that
+were measured while accounting for noise in the data. However, <em>the model itself
+does not identify or even accurately reflect those causal effects</em>. In the
+made-up Parkinson’s Disease example above, we don’t have any idea whether Gene 3
+is increased due to having disease, or if Parkinson’s Disease is more common in
+individuals with high gene expression of Gene 3. The model merely detects
+patterns and we as scientists are left to interpret those patterns and design
+follow up experiments to investigate the nature of those causal relationships
+using our prior knowledge of the world.</p>
+<p>There are several principles to keep in mind when modeling data:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Data are never wrong.</strong> All data are collected using processes and
+devices designed and implemented by humans, who have always have biases and
+assumptions. All data measure something about the universe, and so are “true” in
+some sense of the world. If what we intended to measure and what we actually
+measured were not the same thing, that is due to our errors in collection or
+interpretation, not due to the data being wrong. If we approach our dataset with
+a particular set of hypotheses and the data don’t support those hypotheses, it
+is our beliefs of the world that are wrong, not the data.</p></li>
+<li><p><strong>Not all data are useful.</strong> Just because data isn’t wrong, it doesn’t mean
+it is useful. There may have been systematic errors in the collection of the
+data that makes interpreting them difficult. Data collected for one purpose may
+not be useful for any other purposes. And sometimes, a dataset collected for a
+particular purpose may simply not have the information needed to answer our
+questions; if what we measure has no relationship to what we wish to predict,
+the data itself is not useful - though the knowledge that what we measured has
+no detectable effect on the thing we wish to predict may be very useful!</p></li>
+<li><p><strong>“All models are wrong, but some are useful.”</strong> George Box, the renowned
+British statistician, famously asserted this in a 1976 paper to the Journal of
+the American Statistical Association. <span class="citation">(<a href="#ref-Box1976-rd" role="doc-biblioref">Box 1976</a>)</span>. By this he meant that every
+model we create is a simplification of the system we are seeking to model, which
+is by definition not identical to that system. To perfectly model a system, our
+model would need to be precisely the system we are modeling, which is no longer
+a model but the system itself. Fortunately, even though we know our models are
+always wrong to some degree, they may nonetheless be useful because they are not
+<strong>too</strong> wrong. Some models may indeed be too wrong, though.</p></li>
+<li><p><strong>Data do not contain causal information.</strong> “Correlation does not mean
+causation.” Data are measurements of the results of a process in the universe
+that we wish to predict; the data are possibly reflective of that process, but
+do not contain any information about the process itself. We cannot infer causal
+relationships from a dataset alone. We must construct possible causal models
+using our knowledge of the world first, then compare our model to the data and
+other models to assess their plausibility.</p></li>
+<li><p><strong>All data have noise.</strong> The usefulness of a model to describe a dataset is
+related to the relative strength of the patterns and noise in the dataset when
+viewed through the lens of the model; conceptually, the so-called “signal to
+noise ratio” of the data. The fundamental concern of statistics is quantifying
+uncertainty (i.e. noise), and separating it from real signal, though different
+statistical approaches (e.g. frequentist vs Bayesian) reason about uncertainty
+in different ways.</p></li>
+</ol>
+<div class="box important">
+<p>This section pertains primarily to models specified explicitly by humans. There
+is another class of models, namely those created by certain machine learning
+algorithms like neural networks and deep learning, that <em>discover models from
+data</em>. These models are fundamentally different than those designed by human
+minds, in that they are often accurate and therefore useful, but it can be very
+difficult if not impossible to understand how they work. While these are
+important types of models that fall under the umbrella of data science, we limit
+the content of this chapter to human designed statistical models.</p>
+</div>
+<div id="ds-summ" class="section level3" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Data Summarization</h3>
+</div>
+<div id="linear-models" class="section level3" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Linear Models</h3>
+</div>
 </div>
 <div id="ds-dists" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Distributions &amp; Tests</h2>
@@ -403,15 +532,18 @@ div.csl-indent {
 <div id="multiple-hypothesis-testing" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Multiple Hypothesis Testing</h2>
 </div>
-<div id="ds-summ" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Data summarization &amp; cleaning</h2>
+<div id="ds-clust" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Clustering</h2>
 </div>
-<div id="ds-clust" class="section level2" number="6.5">
-<h2><span class="header-section-number">6.5</span> Clustering</h2>
-</div>
-<div id="ds-networks" class="section level2" number="6.6">
-<h2><span class="header-section-number">6.6</span> Network Analysis</h2>
+<div id="ds-networks" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Network Analysis</h2>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Box1976-rd" class="csl-entry">
+Box, George E P. 1976. <span>“Science and Statistics.”</span> <em>J. Am. Stat. Assoc.</em> 71 (356): 791–99.
 </div>
 </div>
             </section>
