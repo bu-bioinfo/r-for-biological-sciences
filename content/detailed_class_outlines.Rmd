@@ -43,15 +43,15 @@ output: html_document
 * [Assignment 2]
 
 ## Week 3
-* Data Sci: [Data Modeling Basics]
-* Data Sci: [Linear Regression]
+* Data Sci: [Data Modeling]
+* Data Scie: [A Worked Modeling Example]
+* Data Sci: [Data Summarization]
+* Data Sci: [Linear Models]
 * Data Sci: [Statistical Model Flavors]
 * Bioinfo: [Gene Expression]
 * Bioinfo: [Microarrays]
 * Bioinfo: [Differential Expression]
 * Bioinfo: [limma]
-* Data Sci: [Data summarization]
-* Data Sci: [Data cleaning]
 * Data Sci: [Clustering]
 * Data Viz: [Heatmaps and Dendrograms]
 
