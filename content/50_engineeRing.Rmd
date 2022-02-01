@@ -168,13 +168,13 @@ code is more likely to be correct.
 * [testthat Reference](https://testthat.r-lib.org/reference/index.html)
 :::
 
-## Toolification
+## Toolification .
 
-## Pipelines & Workflows
+## Pipelines & Workflows .
 
-## Parallel Processing
+## Parallel Processing .
 
-## R Packages
+## R Packages .
 
 ::: {.box .readmore}
 * [R packages](https://r-pkgs.org/index.html) by Hadley Wickam

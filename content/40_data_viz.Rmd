@@ -588,36 +588,36 @@ tibble(
 * [ggridges package index on CRAN](https://cran.r-project.org/web/packages/ggridges/index.html)
 :::
 
-## Plotting Two or More Dimensions
+## Plotting Two or More Dimensions .
 
-### Scatter plot
+### Scatter plot .
 
-### Line plot
+### Line plot .
 
 ``` {r}
 ggplot(ad_metadata,mapping=aes(x=ID, y=tau)) +
   geom_line()
 ```
 
-### Bubble plot
+### Bubble plot .
 
-### Heatmaps
+### Heatmaps .
 
-## Other Kind of Plots
+## Other Kind of Plots .
 
-### Chord
+### Chord .
 
-### Sankey
+### Sankey .
 
-### Dendrogram
+### Dendrogram .
 
-## Network visualization
+## Network visualization .
 
 How do we visualize networks?
 
-## Tips and Tricks
+## Tips and Tricks .
 
-### Reordering 1-D Data Elements
+### Reordering 1-D Data Elements .
 
 How do we enforce an order on elements in a plot? Why might we want to do that?
 
@@ -635,35 +635,35 @@ converts it into a [factor](#prog-factor) prior to plotting. Recall that a
 factor is a numeric type composed of sequential integers, each of which having a
 character label associated with it.
 
-### Confidence Intervals
+### Confidence Intervals .
 
 What are some ways to depict uncertainty in a plot?
 
-### Annotations
+### Annotations .
 
 How do we add text annotations to plots? Manually vs data-driven.
 
-## Multiple Plots
+## Multiple Plots .
 
 How do we add multiple datasets to plots?
 
-### Secondary Axes
+### Secondary Axes .
 
 How and when do we add series with different scales to the same plot?
 
-### Facet wrapping
+### Facet wrapping .
 
 What is facet wrapping and in which contexts is it useful (i.e. group_by)?
 
-### Multipanel Figures
+### Multipanel Figures .
 
 How do we add multiple, unrelated subplots to the same larger plot?
 
-## Responsible Plotting {#dv-resp}
+## Responsible Plotting .
 
 "Good plots empower us to ask good questions." - Alberto Cairo, How Charts Lie
 
-## Publication Ready Plots
+## Publication Ready Plots .
 
 ::: {.box .readmore}
 * [ggpubr - publication ready plotting with ggplot](https://rpkgs.datanovia.com/ggpubr/)

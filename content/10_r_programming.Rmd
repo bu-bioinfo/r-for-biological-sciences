@@ -158,7 +158,7 @@ there are one of these values in your input, and need to be handled explicitly.
 * [Complex numbers in R](https://stat.ethz.ch/R-manual/R-devel/library/base/html/complex.html)
 :::
 
-### Factors
+### Factors .
 
 What is a factor in R? Why and how are they used? What is the difference between
 a character vector and a factor vector? Why and how do we manipulate factors
@@ -1363,4 +1363,4 @@ This is related to the previous question, but is distinct in that understanding
 what code does is just the first step in being able to make desired changes to
 it.
 
-### The `styler` package
+### The `styler` package .

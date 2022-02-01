@@ -156,47 +156,47 @@ value do I expect them to have? Written this way, we have turned our question
 into a prediction problem: if we only had information that a patient had
 Parkinson's Disease, what is the predicted expression value of their Gene 3?
 
-### Data Summarization {#ds-summ}
+### Data Summarization .
 
 What is a data summary? What are some of the different ways to summarize data?
 Point estimates (mean, median), dispersion (i.e. variance), distribution.
 
-### Linear Models
+### Linear Models .
 
 What is a linear model? Conceptually, how do they work? How do you interpret the
 results of a linear model? How do you implement a linear model in R?
 
-## Statistical Distributions & Tests {#ds-dists}
+## Statistical Distributions & Tests .
 
-### Statistical Distributions
+### Statistical Distributions .
 
 What is a distribution? Why are they important? In brief terms, how are
 distributions defined mathematically? What are some common distributions, and
 when are they used? What do different distributions look like when plotted? How
 do we work with distributions in R (e.g. dnorm, pnorm, qnorm, rnorm)?
 
-### Statistical Tests
+### Statistical Tests .
 
 What is a statistical test, and when is it appropriate to run one? How do we
 know which tests are appropriate in a given situation? What is the difference
 between a parametric and non-parametric test? What are some common tests (e.g.
 t-test, Chi-sq, hypergeometric, etc), and how do we run them in R?
 
-### p-values
+### p-values .
 
 What is a p-value? What is the relationship between a p-value and a distribution?
 What does a p-value look like when plotted with a distribution? How do we
 interpret p-values? How do we compute a p-value using a distribution and a
 statistic using R? (Should we mention critical values?)
 
-### Multiple Hypothesis Testing
+### Multiple Hypothesis Testing .
 
 What is multiply hypothesis testing adjustment? Why is it important? What are
 some common adjustment methods (Bonferroni (FWER) and Benjamini-Hochberg (FDR))?
 How do we interpret adjusted p-values (depends on the adjustment method)? How
 do we compute adjusted p-values in R?
 
-### Statistical power
+### Statistical power .
 
 Conceptually, what is statistical power, and what does it mean? Why is it
 important? What is the relationship between a dataset, an analysis, and power?
@@ -204,14 +204,14 @@ What aspects of an analysis influence the statistical power of a test? (I don't
 think it's reasonable to ask students to perform power calculations, just to be
 aware that power is a thing and generally what it is).
 
-## Clustering {#ds-clust}
+## Clustering .
 
 What is clustering? What is the goal of clustering? How does clustering relate
 to data modeling (e.g. clustering is usually hypothesis-free)? How is clustering
 useful (i.e. what can we do with different clusters)? What are some common
 clustering methods, and how do we implement and visualize the results in R?
 
-## Network Analysis {#ds-networks}
+## Network Analysis .
 
 What is a network? What is network analysis? What are some example network
 analysis applications in biology and bioinformatics (there is a full ksection on

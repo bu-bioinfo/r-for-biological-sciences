@@ -586,93 +586,93 @@ The `mgi_symbol` field refers to the gene symbol assigned in the [Mouse Genome
 Informatics database](https://www.jax.org/research-and-faculty/resources/mouse-genome-informatics)
 maintained by [The Jackson Laboratory](https://www.jax.org/).
 
-## Gene Expression
+## Gene Expression .
 
 What is gene expression? Conceptually, what does gene expression represent? Why
 are we interested in it? What are the ways we measure gene expression? What
 are some sorts of questions we might ask of a gene expression dataset? How do we
 represent and manipulate a gene expression dataset in R+bioconductor?
 
-### Microarrays
+### Microarrays .
 
 What is a microarray? What is being measured, directly (light intensity) and
 indirectly (cDNA copy number)? How are the data generated, and what does that
 mean about how we interpret them (light intensity has both a ceiling and a
 floor)? How do we load a microarray dataset into R?
 
-### Differential Expression: Microarrays (limma)
+### Differential Expression: Microarrays (limma) .
 
 What is limma? What types of analysis can limma perform? How is limma different
 from normal linear models? How do we run a microarray analysis with limma?
 
-### High Throughput Sequencing
+### High Throughput Sequencing .
 
 What is high throughput sequencing (HTS)? What does HTS data look like? What
 does HTS measure, and what kinds of questions can we answer with it? How is HTS
 data analyzed? (How) do we analyze it in R?
 
-### Count Data
+### Count Data .
 
 What is count data? Where does it come from? What are the statistical properties
 of counts and how do those properties influence our choice of analysis methods (
 i.e. Poisson/negative binomial distribution, regularized log transformation to
 normality, etc)?
 
-### Differential Expression: RNASeq
+### Differential Expression: RNASeq .
 
 What is RNASeq? What does RNASeq measure (steady state RNA copy number)? How do
 we analyze RNASeq data (i.e. differential expression) in R? What are
 DESeq2/EdgeR, why are they different than other differential expression methods?
 How do we interpret DE results?
 
-## Genomic Intervals
+## Genomic Intervals .
 
 What are genomic intervals? What do they mean and how do we use them? How do we
 load intervals into R and use them in our analyses?
 
-## Gene Set Enrichment Analysis
+## Gene Set Enrichment Analysis .
 
 What is gene set enrichment analysis? What problem does this analysis attempt to
 solve? What are some common gene set enrichment analysis methods (hypergeometric
 and GSEA)? When might we use one method over another? How do we conduct gene set
 enrichment analysis in R (limit to hypergeometric test and fgsea example)?
 
-### Gene Sets
+### Gene Sets .
 
 What are gene sets, why do they exist, and how are they useful to us? What are
 some sources of gene set information (e.g. MSigDB) and how do we get them? How
 do we load and use gene sets in R+bioconductor?
 
-### Over-representation Analysis
+### Over-representation Analysis .
 
 What is over-representation analysis in the context of gene set enrichment
 analysis? What is the goal of this analysis? What are the limitations of
 over-representation analysis? How do we conduct hypergeometric
 tests in R (a worked example would be helpful)?
 
-### Rank-based Analysis (GSEA)
+### Rank-based Analysis .
 
 What is GSEA and how does it work? How is it different than over-representation
 analysis, both as a method and with respect to the input it accepts? How do we
 implement GSEA in R (use the fgsea package)?
 
-## Biological Networks
+## Biological Networks .
 
 What are biological networks? What do they represent (networks encode
 relationships between entities)? Why are biological networks useful and what can
 we learn from them?
 
-### Biological Pathways
+### Biological Pathways .
 
 What is a biological pathway? Why are they important, and how are they useful?
 
-### Gene Regulatory Networks
+### Gene Regulatory Networks .
 
 What are gene regulatory networks? Why are they important? How do we identify
 them (data driven correlation, wetlab experiments, others?)? How are they
 useful?
 
-### Protein-Protein Interaction Network
+### Protein-Protein Interaction Network .
 
 What are protein-protein interaction (PPI) networks? What information do they
 represent (direct association, functional association, etc)? Where does PPI
@@ -680,34 +680,34 @@ information come from (datasets, databases, etc)? What are some ways we can use
 PPI information when interpreting other biological data (like differential
 expression? not sure)?
 
-### WGCNA
+### WGCNA .
 
 What is WGCNA? What problem does WGCNA attempt to solve, and how is it different
 than other classes of analysis methods (e.g. differential expression)? What data
 are appropriate for use in WGCNA? How do we run an interpret a WGCNA analysis in
 R?
 
-## Single Cell Sequencing Analysis
+## Single Cell Sequencing Analysis .
 
-### Single Cell Sequencing
+### Single Cell Sequencing .
 
 What is the goal of single cell sequencing? How is it generated, and what does
 it measure? What questions can we ask of single cell data that we cannot ask of
 other types of sequencing data? How is single cell data loaded into R?
 
-### Single Cell Analysis
+### Single Cell Analysis .
 
 What is the general analytical workflow for single cell analysis? Why do we
 perform each step along the analysis path? What are key parameters that we must
 choose that influence the results? How do we perform single cell analysis in R
 (Seurat)?
 
-### Single Cell Clustering
+### Single Cell Clustering .
 
-### Dimensionality Reduction & Projection
+### Dimensionality Reduction & Projection .
 
 PCA, tSNE, UMAP
 
-### Single Cell Data Visualization
+### Single Cell Data Visualization .
 
-### Single Cell Marker Analysis
+### Single Cell Marker Analysis .
