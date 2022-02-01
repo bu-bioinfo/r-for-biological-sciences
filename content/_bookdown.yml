@@ -15,6 +15,7 @@ rmd_files:
     - "900_assignments.Rmd"
     - "89_starting_assignments.Rmd"
     - "90_assignment_1.Rmd"
+    - "91_assignment_2.Rmd"
     - "appendix.Rmd"
     - "detailed_class_outlines.Rmd"
 delete_merged_file: true
