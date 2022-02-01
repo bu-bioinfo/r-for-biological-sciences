@@ -605,17 +605,21 @@ ggplot(ad_metadata,mapping=aes(x=ID, y=tau)) +
 
 ## Other Kind of Plots
 
-Chord
+### Chord
 
-Sankey
+### Sankey
 
-Dendrogram
+### Dendrogram
 
-## Network Viz {#ds-network-viz}
+## Network visualization
+
+How do we visualize networks?
 
 ## Tips and Tricks
 
-Reordering 1-D Data Elements
+### Reordering 1-D Data Elements
+
+How do we enforce an order on elements in a plot? Why might we want to do that?
 
 ``` {r}
 ad_metadata %>%
@@ -631,14 +635,29 @@ converts it into a [factor](#prog-factor) prior to plotting. Recall that a
 factor is a numeric type composed of sequential integers, each of which having a
 character label associated with it.
 
+### Confidence Intervals
 
-Confidence Intervals
+What are some ways to depict uncertainty in a plot?
 
-Annotations
+### Annotations
+
+How do we add text annotations to plots? Manually vs data-driven.
 
 ## Multiple Plots
 
+How do we add multiple datasets to plots?
+
+### Secondary Axes
+
+How and when do we add series with different scales to the same plot?
+
 ### Facet wrapping
+
+What is facet wrapping and in which contexts is it useful (i.e. group_by)?
+
+### Multipanel Figures
+
+How do we add multiple, unrelated subplots to the same larger plot?
 
 ## Responsible Plotting {#dv-resp}
 
