@@ -113,7 +113,7 @@ missing.
 rather than a value, is missing. Vectors will be described in the [next section
 on data strutures](prog-struct).
 * **factors** - Factors are a complex type used in statistical models and are
-covered in [greater detail later](ds-model)
+covered in [greater detail later](#factors)
 * **infinity** - `Inf` and `-Inf`. These values encode what R understands to be
 positive or negative infinity, or any number divided by `0`.
 * **impossible values** - `NaN`. This value corresponds to the mathematically
@@ -157,6 +157,12 @@ there are one of these values in your input, and need to be handled explicitly.
 * [Dates and times in R](https://www.stat.berkeley.edu/~s133/dates.html)
 * [Complex numbers in R](https://stat.ethz.ch/R-manual/R-devel/library/base/html/complex.html)
 :::
+
+### Factors
+
+What is a factor in R? Why and how are they used? What is the difference between
+a character vector and a factor vector? Why and how do we manipulate factors
+(e.g. relevel)?
 
 ## Data Structures {#prog-struct}
 
@@ -1356,3 +1362,5 @@ it, how easy would it be for them to do so?
 This is related to the previous question, but is distinct in that understanding
 what code does is just the first step in being able to make desired changes to
 it.
+
+### The `styler` package
