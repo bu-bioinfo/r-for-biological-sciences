@@ -1,3 +1,4 @@
+office-hours
 introduction
 who-this-book-is-for
 a-note-about-reinventing-the-wheel
@@ -65,7 +66,7 @@ rearranging-data
 relational-data
 dealing-with-multiple-matches
 data-science
-ds-model
+data-modeling
 a-worked-modeling-example
 data-summarization-.
 linear-models-.
