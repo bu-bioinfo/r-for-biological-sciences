@@ -132,7 +132,7 @@ I guess it's alphabetical):
 * **Joey Orofino** (BU BF MS Alumnus '18) is a Research Scientist working on
   identifying small RNA based biomarkers of Parkinson's Disease
 
-## Office Hours
+## Office Hours {-}
 
 We hold the following office hours via Zoom:
 
