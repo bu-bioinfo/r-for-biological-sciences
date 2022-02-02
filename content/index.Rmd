@@ -119,13 +119,13 @@ Primary instructor: Adam Labadorf (labadorf AT bu DOT edu)
 We have three staff members helping with the course, in no particular order (ok,
 I guess it's alphabetical):
 
-* **Mae Rose Gott** (BU BF MS Alumna '21) is a Research Staff member working
-  on a number of different projects across many different areas. She will be
-  helping organize the course materials as we go forward.
 * **Taylor Falk** (BU BF MS Alumnus '21) is a Bioinformatics Developer working
   with the VA PTSD Brain Bank, developing infrastructure to support data
   generated out of our brains. He is championing the assignment strategy and
   will be available to help with issues.
+* **Mae Rose Gott** (BU BF MS Alumna '21) is a Research Staff member working
+  on a number of different projects across many different areas. She will be
+  helping organize the course materials as we go forward.
 * **Vanessa Li** (BU BF PhD Candidate) is a PhD candidate in Dr. Stefano Monti's
   lab in Computational Biomedicine. She will primarily be helping with grading
   of your assignments.
