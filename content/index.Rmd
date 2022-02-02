@@ -4,6 +4,11 @@ bibliography: references.bib
 link-citations: true
 ---
 
+```{r include=FALSE}
+# github pages doesn't host files/directories that start with "_", change it for the whole book
+knitr::opts_chunk$set(fig.path = 'main_files/')
+```
+
 # Syllabus {-}
 
 **Semester: Spring 2022**
