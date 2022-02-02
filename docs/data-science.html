@@ -564,7 +564,7 @@ blood samples. We have the following made-up dataset:</p>
 our samples, we have a sample ID, Disease Status of <code>Parkinson's</code> or <code>Control</code>,
 and numeric measurements of each of three genes. Below are <a href="data-visualization.html#violin-plot">violin
 plots</a> of our (made-up) data set for these three genes:</p>
-<p><img src="_main_files/figure-html/data%20modeling%20violin-1.png" width="672" /></p>
+<p><img src="main_files/data%20modeling%20violin-1.png" width="672" /></p>
 <p>By inspection, it appears that Gene 1 has no relationship with disease; we may
 safely eliminate this gene from further consideration. Gene 2 appears to have a
 different profile depending on disease status, where control individuals have
@@ -605,14 +605,14 @@ Gene 1 for all individuals in our example above, plotted as a distribution with
 a <a href="data-visualization.html#density">density plot</a>:</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="data-science.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)) <span class="sc">+</span></span>
 <span id="cb163-2"><a href="data-science.html#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>,<span class="at">fill=</span><span class="st">&quot;#a93c13&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/data%20sci%20summ%20hist-1.png" width="672" /></p>
+<p><img src="main_files/data%20sci%20summ%20hist-1.png" width="672" /></p>
 <p>The data are concentrated around the value 252, and become less frequent for
 larger and smaller values. We can be more precise in identifying the most common
 value (i.e. the <em>mode</em>) in this case by computing the median:</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="data-science.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>,<span class="at">fill=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
 <span id="cb164-2"><a href="data-science.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">100</span>) <span class="sc">+</span></span>
 <span id="cb164-3"><a href="data-science.html#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span><span class="fu">median</span>(gene_exp<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/data%20sci%20summ%20hist2-1.png" width="672" />
+<p><img src="main_files/data%20sci%20summ%20hist2-1.png" width="672" />
 It turns out that the most frequent value according to the</p>
 <p>What is a data summary? What are some of the different ways to summarize data?
 Point estimates (mean, median), dispersion (i.e. variance), distribution.</p>
