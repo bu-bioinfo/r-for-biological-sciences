@@ -67,7 +67,12 @@ dealing-with-multiple-matches
 data-science
 data-modeling
 a-worked-modeling-example
-data-summarization-.
+data-summarization
+point-estimates
+dispersion
+distributions
+final-modeling-thoughts
+assessing-model-accuracy
 linear-models-.
 statistical-distributions-tests-.
 statistical-distributions-.
@@ -88,7 +93,8 @@ gene-identifiers
 gene-identifier-systems
 mapping-between-identifier-systems
 mapping-homologs
-gene-expression-.
+gene-expression
+gene-expression-data-in-bioconductor
 microarrays-.
 differential-expression-microarrays-limma-.
 high-throughput-sequencing-.
