@@ -194,6 +194,8 @@ ggplot(gene_exp, aes(x=`Gene 1`)) +
   geom_histogram(bins=30,fill="#a93c13")
 ```
 
+#### Point Estimates
+
 The data are concentrated around the value 250, and become less common for
 larger and smaller values. Since the extents to the left and right of the middle
 of the distribution appear to be equally distant, perhaps the arithmetic mean
@@ -207,12 +209,52 @@ ggplot(gene_exp, aes(x=`Gene 1`)) +
 
 By eye, the mean does seem to correspond well to the value that is among the
 most frequent, and successfully captures an important aspect of the data: its
-*central tendency*. But this is only one aspect of the data; we have yet to
+*central tendency*. Summaries that compute a single number are called *point
+estimates*. Point estimates collapse the data into one singular point, one
+value. The arithmetic mean is just one of these measures of central tendency,
+computed by taking the sum of all the values and dividing by the number of
+values. The mean may be a good point estimate of the central tendency of a
+dataset, but it is sensitive to outlier samples. Consider the following
+examples:
+
+```{r fig.align="center"}
+data <- tibble(data = rnorm(1000))
+ggplot(data, aes(x = data)) +
+  geom_histogram(fill = "#56CBF9", color = "grey", bins = 30) +
+  geom_vline(xintercept = mean(data$data)) +
+  theme_bw() + ggtitle("Mean example, no outliers") + xlab("") + ylab("")
+```
+
+
+```{r fig.align="center"}
+data <- tibble(data = c(rnorm(800), rep(5, 200))) # oops I add some outliers :^)
+ggplot(data, aes(x = data)) +
+  geom_histogram(fill = "#7FBEEB", color = "grey", bins = 30) +
+  geom_vline(xintercept = mean(data$data)) +
+  theme_bw() + ggtitle("Mean example, big outliers") + xlab("") + ylab("")
+```
+
+The median is another measure of central tendency, which is found by identifying
+the value that divides the samples into equal halves when sorted from smallest
+to largest. The median is more robust in the presence of outliers.
+
+```{r fig.align="center"}
+data <- tibble(data = c(rnorm(1000)))
+ggplot(data, aes(x = data)) +
+  geom_histogram(fill = "#AFBED1", color = "white", bins = 30) +
+  geom_vline(xintercept = median(data$data)) +
+  theme_bw() + ggtitle("Median example") + xlab("") + ylab("")
+```
+
+#### Dispersion {-}
+
+But this is only one aspect of the data; we have yet to
 describe what the data do for values outside this point estimate of central
 tendency; in other words, we have not expressed the spread, or *variance* of the
 data.
 
-We decide that perhaps computing the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) of the data may
+We decide that perhaps computing the [standard
+deviation](https://en.wikipedia.org/wiki/Standard_deviation) of the data may
 characterize the spread well, since it appears to be symmetric around the mean.
 We can layer this information on the plot as well to inspect it:
 
@@ -230,6 +272,36 @@ deviation around the mean, and has been placed arbitrarily on the y axis at `y =
 10` to show how this range covers the data in the histogram. The +/- 1 standard
 deviation around the mean visually describes the spread of the data reasonably
 well.
+
+Measures the spread of the data, typically around its perceived center (a mean).
+Often related to the distribution of the data.
+
+**Standard deviation**: A measure of how close values are to the mean. Bigger
+standard deviations mean data is more spread out.
+
+```{r fig.align="center"}
+data <- tibble(data = c(rnorm(1000, sd=1.75)))
+ggplot(data, aes(x = data)) +
+  geom_histogram(fill = "#EAC5D8", color = "white", bins = 30) +
+  geom_vline(xintercept = c(-2, -1, 0, 1, 2) * sd(data$data)) +
+  theme_bw() + xlab("") + ylab("") + xlim(c(-6, 6)) +
+  ggtitle("Standard deviations aplenty", paste("SD:", sd(data$data)))
+```
+
+**Variance**:
+Similar to SD (it's the square of SD), variance measures how far a random value
+is from the mean.
+```{r fig.align="center"}
+data <- tibble(data = c(rnorm(1000, sd=0.5)))
+ggplot(data, aes(x = data)) +
+  geom_histogram(fill = "#DBD8F0", color = "white", bins = 30) +
+  geom_vline(xintercept = mean(data$data)) +
+  theme_bw() + xlab("") + ylab("") + xlim(c(-6, 6)) +
+  ggtitle("Same mean as SD plot, but different variance",
+          paste("Variance:", sd(data$data)))
+```
+
+#### Distributions {-}
 
 With these two pieces of knowledge - the mean accurately describes the center of
 the data and the standard deviation describes the spread - we now recognize that
@@ -255,10 +327,38 @@ Note the histogram bars are scaled to the density of values in each bin to make
 all the bar heights sum to 1 so that the y scale matches that of a normal
 distribution.
 
+Finally, distributions are fun names for shapes of data. Some models can use
+distributions to predict values, while others change based on what distribution
+the data falls under. R has a number of built-in functions to create and test
+these distributions:
+
+```{r fig.align="center"}
+ggplot(tibble(data = rnorm(5000)), aes(x = data)) +
+  geom_histogram(fill = "#D0FCB3", bins = 50, color = "gray") + theme_bw() +
+  ggtitle("Normal distribution", "rnorm(n = 1000)") + xlab("") + ylab("")
+```
+```{r fig.align="center"}
+ggplot(tibble(data = runif(5000)), aes(x = data)) +
+  geom_histogram(fill = "#271F30", bins = 50, color = "white") + theme_bw() +
+  ggtitle("Uniform distribution", "runif(n = 1000)") + xlab("") + ylab("")
+```
+```{r fig.align="center"}
+ggplot(tibble(data = rlogis(5000)), aes(x = data)) +
+  geom_histogram(fill = "#9BC59D", bins = 50, color = "black") + theme_bw() +
+  ggtitle("Logistic distribution", "rlogis(n = 1000)") +
+  xlab("") + ylab("")
+```
+```{r fig.align="center"}
+ggplot(tibble(data = rexp(5000, rate = 1)), aes(x = data)) +
+  geom_histogram(fill = "#6C5A49", bins = 50, color = "white") + theme_bw() +
+  ggtitle("Exponential distribution", "rexp(n = 1000, rate = 1)") +
+  xlab("") + ylab("")
+```
+
 We have now created our first model: we chose to express the dataset as a normal
 distribution parameterized by the mean and standard deviation and standard
 deviation of the data. Using the values of `r round(g1_mean)` and `r round(g1_sd)`
-as our mean and standard deviation, respectively, we can express our model mathematically as follows: 
+as our mean and standard deviation, respectively, we can express our model mathematically as follows:
 
 $$
 Gene\;1 \sim \mathcal{N}(254, 11)
@@ -292,8 +392,6 @@ model describes the data, or compared it to alternative models to see which is
 better. This will be discussed briefly in the next section.
 
 ### Assessing Model Accuracy
-
-
 
 ### Linear Models .
 
