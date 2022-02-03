@@ -32,7 +32,7 @@ works. The successful model identifies patterns within a dataset that are the
 result of causal relationships in the universe that led to the phenomena that
 were measured while accounting for noise in the data. However, *the model itself
 does not identify or even accurately reflect those causal effects*. In the
-made-up Parkinson's Disease example above, we don't have any idea whether Gene 3
+made-up Parkinson's Disease example below, we don't have any idea whether Gene 3
 is increased due to having disease, or if Parkinson's Disease is more common in
 individuals with high gene expression of Gene 3. The model merely detects
 patterns and we as scientists are left to interpret those patterns and design
@@ -158,8 +158,114 @@ Parkinson's Disease, what is the predicted expression value of their Gene 3?
 
 ### Data Summarization .
 
-What is a data summary? What are some of the different ways to summarize data?
-Point estimates (mean, median), dispersion (i.e. variance), distribution.
+Data summarization is similar to modeling in that we are looking to reduce the 
+dimensionality of our data. While we are all familiar with the idea of a mean or 
+average of a set of numbers, calculating this summarizing value is in effect 
+taking many points of data and reducing them to one. The same kind of 
+dimensional reduction applies to other measures like median or variance. This 
+type of thinking can elevate the idea of a mean or median beyond just a middle 
+school math hanger-on.
+
+While summarizing is useful for understanding a large swath of data at a glance, 
+this "dimensional reduction" can be useful as we wade through mountains of data. 
+A large grid of expression values, tens of columns and thousands of rows, can be 
+summarized into a vector of means, one for each row. I can then filter out rows 
+that don't meet my criteria. I've effectively reduced a large _two_ dimensional 
+problem to a _one_ dimensional problem, a vector of means: one mean per row.  
+
+We don't have the time or need to delve deeply into the number of statistical 
+measures of center and variance, but know that there a few fundamental summary 
+statistics you'll see every day:
+
+#### Point estimates {-}
+Point estimates collapse the data into one singular point, one value. Our two 
+favorites will be mean and median.
+
+**Mean**: The arithmetic mean, sum the samples and divide by how many there are. 
+Doesn't get better than that. Vulnerable to skewing by outliers.  
+```{r}
+data <- tibble(data = rnorm(1000))
+ggplot(data, aes(x = data)) + 
+  geom_histogram(fill = "#56CBF9", color = "grey", bins = 30) +
+  geom_vline(xintercept = mean(data$data)) +
+  theme_bw() + ggtitle("Mean example, no outliers") + xlab("") + ylab("")
+```
+```{r}
+data <- tibble(data = c(rnorm(800), rep(5, 200))) # oops I add some outliers :^)
+ggplot(data, aes(x = data)) + 
+  geom_histogram(fill = "#7FBEEB", color = "grey", bins = 30) +
+  geom_vline(xintercept = mean(data$data)) +
+  theme_bw() + ggtitle("Mean example, big outliers") + xlab("") + ylab("")
+```
+
+**Median**: Put the data in order, take the value that's right in the middle. 
+More resistant to outliers.
+```{r}
+data <- tibble(data = c(rnorm(1000)))
+ggplot(data, aes(x = data)) + 
+  geom_histogram(fill = "#AFBED1", color = "white", bins = 30) +
+  geom_vline(xintercept = median(data$data)) +
+  theme_bw() + ggtitle("Median example") + xlab("") + ylab("")
+```
+
+#### Dispersion {-}
+Measures the spread of the data, typically around its perceived center (a mean). 
+Often related to the distribution of the data.
+
+**Standard deviation**: A measure of how close values are to the mean. Bigger 
+standard deviations mean data is more spread out.
+
+```{r}
+data <- tibble(data = c(rnorm(1000, sd=1.75)))
+ggplot(data, aes(x = data)) + 
+  geom_histogram(fill = "#EAC5D8", color = "white", bins = 30) +
+  geom_vline(xintercept = c(-2, -1, 0, 1, 2) * sd(data$data)) +
+  theme_bw() + xlab("") + ylab("") + xlim(c(-6, 6)) +
+  ggtitle("Standard deviations aplenty", paste("SD:", sd(data$data))) 
+```
+
+**Variance**: 
+Similar to SD (it's the square of SD), variance measures how far a random value 
+is from the mean.
+```{r}
+data <- tibble(data = c(rnorm(1000, sd=0.5)))
+ggplot(data, aes(x = data)) + 
+  geom_histogram(fill = "#DBD8F0", color = "white", bins = 30) +
+  geom_vline(xintercept = mean(data$data)) +
+  theme_bw() + xlab("") + ylab("") + xlim(c(-6, 6)) +
+  ggtitle("Same mean as SD plot, but different variance", 
+          paste("Variance:", sd(data$data))) 
+```
+
+
+#### Distributions {-}
+Finally, distributions are fun names for shapes of data. Some models can use 
+distributions to predict values, while others change based on what distribution 
+the data falls under. R has a number of built-in functions to create and test 
+these distributions:
+```{r}
+ggplot(tibble(data = rnorm(5000)), aes(x = data)) + 
+  geom_histogram(fill = "#D0FCB3", bins = 50, color = "gray") + theme_bw() +
+  ggtitle("Normal distribution", "rnorm(n = 1000)") + xlab("") + ylab("")
+```
+```{r}
+ggplot(tibble(data = runif(5000)), aes(x = data)) + 
+  geom_histogram(fill = "#271F30", bins = 50, color = "white") + theme_bw() +
+  ggtitle("Uniform distribution", "runif(n = 1000)") + xlab("") + ylab("")
+```
+```{r}
+ggplot(tibble(data = rlogis(5000)), aes(x = data)) + 
+  geom_histogram(fill = "#9BC59D", bins = 50, color = "black") + theme_bw() +
+  ggtitle("Logistic distribution", "rlogis(n = 1000)") + 
+  xlab("") + ylab("")
+```
+```{r}
+ggplot(tibble(data = rexp(5000, rate = 1)), aes(x = data)) + 
+  geom_histogram(fill = "#6C5A49", bins = 50, color = "white") + theme_bw() +
+  ggtitle("Exponential distribution", "rexp(n = 1000, rate = 1)") + 
+  xlab("") + ylab("")
+```
+```
 
 ### Linear Models .
 

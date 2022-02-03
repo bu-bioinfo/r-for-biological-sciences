@@ -602,8 +602,72 @@ floor)? How do we load a microarray dataset into R?
 
 ### Differential Expression: Microarrays (limma) .
 
-What is limma? What types of analysis can limma perform? How is limma different
-from normal linear models? How do we run a microarray analysis with limma?
+Limma, or _limma_, is a core component of the BioConductor series of R software 
+packages. Limma is utilized for analyzing microarray gene expression data, with 
+a focus on analyses using linear models to integrate _all_ of the data from an 
+experiment. Limma was previously developed exclusively for microarray data but 
+within the last few years has been updated to natively support RNA-seq data and 
+quantitative PCR. 
+
+Limma excels at analyzing these types of data as it can support complicated 
+experimental designs while maintaining strong statistical power. An experiment 
+with a large number of conditions or predictors can still be analyzed even if 
+there is not a significantly large number of cells or samples. 
+
+This brief example is from the Limma User Guide chapter 15, and covers loading 
+and processing data from an RNA-seq experiment. We go into more depth while 
+working with Limma in assignment 6.
+
+Without going into too much detail, the `design` variable is how we inform limma 
+of our experimental conditions, and where limma draws from to construct its 
+linear models correctly. This design is relatively simple, just four samples 
+belonging to two different conditions (the `swirls` here refer to the swirl of 
+zebra fish, you can just see them as a phenotypic difference)
+```r
+design <- data.frame(swirl = c("swirl.1", "swirl.2", "swirl.3", "swirl.4"),
+                     condition = c(1, -1, 1, -1))
+dge <- DGEList(counts=counts)
+keep <- filterByExpr(dge, design)
+dge <- dge[keep,,keep.lib.sizes=FALSE]
+```
+`DGEList()` is a function from edgeR, of which limma borrows some loading and 
+filtering functions. This experiment filters by expression level, and uses 
+square bracket notation (`[]`) to reduce the number of rows.
+
+Finally, the expression data is transformed into CPM, counts per million, and 
+a linear model is applied to the data with `lmFit()`. `topTable()` is used to view the most 
+differentially expressed data.
+```r
+# limma trend
+logCPM <- cpm(dge, log=TRUE, prior.count=3)
+fit <- lmFit(logCPM, design)
+fit <- eBayes(fit, trend=TRUE)
+topTable(fit, coef=ncol(design))
+```
+
+- What is limma? 
+  - One of many packages utilized for analyzing microarray gene expression data, with a 
+  focus on linear models 
+  - Can compare RNA targets in an arbitrarily complex way
+  - Designed for complex experiments with a variety of condtions
+- What types of analysis can limma perform? 
+  - "applicable to data from any quantitative gene expression technology including 
+  microoarrays, RNA-seq and quantitative PCR"
+  - 
+- How is limma different from normal linear models? 
+  - "The hallmark of the limma approach is the use of linear models to analyse 
+  entire experiments as an integrated whole rather than making piece-meal 
+  comparisons between pairs of treatments."
+  - 
+- How do we run a microarray analysis with limma?
+  - We do an in-depth analysis of _multiple_ microarray analysis packages in 
+  assignment 6, but for now...
+
+::: {.box .readmore}
+[Homepage](https://bioinf.wehi.edu.au/limma/)
+[BioConductor](https://bioconductor.org/packages/release/bioc/html/limma.html)
+[Publication](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4402510/)  
+:::
 
 ### High Throughput Sequencing .
 
