@@ -20,7 +20,7 @@ opinionated and presented through the lens of a biological analyst practitioner
 with enough high level conceptual details and a few general principles to
 hopefully be useful in that context.
 
-## Data Modeling {#ds-model}
+## Data Modeling
 
 The goal of data modeling is to describe a dataset using a relatively small
 number of mathematical relationships. Said differently, a model uses some parts
@@ -31,24 +31,22 @@ Models are human inventions; they reflect our beliefs about the way the universe
 works. The successful model identifies patterns within a dataset that are the
 result of causal relationships in the universe that led to the phenomena that
 were measured while accounting for noise in the data. However, *the model itself
-does not identify or even accurately reflect those causal effects*. In the
-made-up Parkinson's Disease example above, we don't have any idea whether Gene 3
-is increased due to having disease, or if Parkinson's Disease is more common in
-individuals with high gene expression of Gene 3. The model merely detects
-patterns and we as scientists are left to interpret those patterns and design
-follow up experiments to investigate the nature of those causal relationships
-using our prior knowledge of the world.
+does not identify or even accurately reflect those causal effects*. The model
+merely summarizes patterns and we as scientists are left to interpret those
+patterns and design follow up experiments to investigate the nature of those
+causal relationships using our prior knowledge of the world.
 
 There are several principles to keep in mind when modeling data:
 
 1. **Data are never wrong.** All data are collected using processes and
-devices designed and implemented by humans, who have always have biases and
+devices designed and implemented by humans, who always have biases and make
 assumptions. All data measure something about the universe, and so are "true" in
-some sense of the world. If what we intended to measure and what we actually
+some sense of the word. If what we intended to measure and what we actually
 measured were not the same thing, that is due to our errors in collection or
 interpretation, not due to the data being wrong. If we approach our dataset with
 a particular set of hypotheses and the data don't support those hypotheses, it
-is our beliefs of the world that are wrong, not the data.
+is our beliefs of the world and our understanding of the dataset that are wrong,
+not the data itself.
 
 2. **Not all data are useful.** Just because data isn't wrong, it doesn't mean
 it is useful. There may have been systematic errors in the collection of the
@@ -71,11 +69,11 @@ always wrong to some degree, they may nonetheless be useful because they are not
 
 4. **Data do not contain causal information.** "Correlation does not mean
 causation." Data are measurements of the results of a process in the universe
-that we wish to predict; the data are possibly reflective of that process, but
-do not contain any information about the process itself. We cannot infer causal
-relationships from a dataset alone. We must construct possible causal models
-using our knowledge of the world first, then compare our model to the data and
-other models to assess their plausibility.
+that we wish to understand; the data are possibly reflective of that process,
+but do not contain any information about the process itself. We cannot infer
+causal relationships from a dataset alone. We must construct possible causal
+models using our knowledge of the world first, then apply our data to our model
+and other alternative models to compare their relative plausibility.
 
 5. **All data have noise.** The usefulness of a model to describe a dataset is
 related to the relative strength of the patterns and noise in the dataset when
@@ -84,6 +82,18 @@ noise ratio" of the data. The fundamental concern of statistics is quantifying
 uncertainty (i.e. noise), and separating it from real signal, though different
 statistical approaches (e.g. frequentist vs Bayesian) reason about uncertainty
 in different ways.
+
+Modeling begins (or should begin) with posing one or more **scientific models**
+of the process or phenomenon we wish to understand. The scientific model is
+conceptual; it reflects our belief of the universe and proposes a causal
+explanation for the phenomenon. We then decide how to map that scientific model
+onto a **statistical model**, which is a mechanical procedure that quantifies
+how well our scientific model explains a dataset. *The scientific model and
+statistical model are related but independent choices we make.* There may be
+many valid statistical models that represent a given scientific model. However,
+sometimes in practice we lack sufficient knowledge about the process to propose
+scientific models first, requiring data exploration and summarization first to
+suggest reasonable starting points.
 
 ::: {.box .important}
 This section pertains primarily to models specified explicitly by humans. There
@@ -108,7 +118,7 @@ set.seed(1337)
 gene_exp <- tibble(
   sample_name = c(str_c("P",1:100), str_c("C",1:100)),
   `Disease Status` = c(rep("Parkinson's",100),rep("Control",100)),
-  `Gene 1` = c(rnorm(100,250,10), rnorm(100,255,10)),
+  `Gene 1` = c(rnorm(100,255,10), rnorm(100,250,10)),
   `Gene 2` = c(rnorm(100,520,100), rnorm(100,600,60)),
   `Gene 3` = c(rnorm(100,500,40), rnorm(100,330,40))
 )
@@ -156,10 +166,134 @@ value do I expect them to have? Written this way, we have turned our question
 into a prediction problem: if we only had information that a patient had
 Parkinson's Disease, what is the predicted expression value of their Gene 3?
 
-### Data Summarization .
+Another way to pose this prediction question is in the opposite (and arguably
+more useful) direction: if all we knew about a person was their Gene 3 gene
+expression, how likely is it that the person has Parkinson's Disease? If this
+gene expression is predictive enough of a person's disease status, it may be a
+viable [biomarker](https://en.wikipedia.org/wiki/Biomarker) of disease and thus
+might be useful in a clinical setting, for example when identifying
+presymptomatic individuals or assessing the efficacy of a pharmacological
+treatment.
 
-What is a data summary? What are some of the different ways to summarize data?
-Point estimates (mean, median), dispersion (i.e. variance), distribution.
+Although it may seems obvious, before beginning to model a dataset, we must
+start by posing the **scientific question** as concisely as possible, as we have
+done above. These questions will help us identify which modeling techniques are
+appropriate and help us ensure we interpret our results correctly.
+
+### Data Summarization
+
+Broadly speaking, *data summarization* is the process of finding a
+lower-dimensional representation of a larger dataset. There are many ways to
+summarize a set of data; each approach will emphasize different aspects of the
+dataset, and have varying degrees of accuracy. Consider the gene expression of
+Gene 1 for all individuals in our example above, plotted as a distribution with
+a [histogram](#histogram):
+
+```{r data sci summ hist}
+ggplot(gene_exp, aes(x=`Gene 1`)) +
+  geom_histogram(bins=30,fill="#a93c13")
+```
+
+The data are concentrated around the value 250, and become less common for
+larger and smaller values. Since the extents to the left and right of the middle
+of the distribution appear to be equally distant, perhaps the arithmetic mean
+is a good way to identify the middle of the distribution:
+
+```{r data sci summ hist2}
+ggplot(gene_exp, aes(x=`Gene 1`)) +
+  geom_histogram(bins=30,fill="#a93c13") +
+  geom_vline(xintercept=mean(gene_exp$`Gene 1`))
+```
+
+By eye, the mean does seem to correspond well to the value that is among the
+most frequent, and successfully captures an important aspect of the data: its
+*central tendency*. But this is only one aspect of the data; we have yet to
+describe what the data do for values outside this point estimate of central
+tendency; in other words, we have not expressed the spread, or *variance* of the
+data.
+
+We decide that perhaps computing the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) of the data may
+characterize the spread well, since it appears to be symmetric around the mean.
+We can layer this information on the plot as well to inspect it:
+
+```{r data sci summ sd}
+g1_mean <- mean(gene_exp$`Gene 1`)
+g1_sd <- sd(gene_exp$`Gene 1`)
+ggplot(gene_exp, aes(x=`Gene 1`)) +
+  geom_histogram(bins=30,fill="#a93c13") +
+  geom_vline(xintercept=g1_mean) +
+  geom_segment(x=g1_mean-g1_sd, y=10, xend=g1_mean+g1_sd, yend=10)
+```
+
+The width of the horizontal line is proportional to the mean +/- one standard
+deviation around the mean, and has been placed arbitrarily on the y axis at `y =
+10` to show how this range covers the data in the histogram. The +/- 1 standard
+deviation around the mean visually describes the spread of the data reasonably
+well.
+
+With these two pieces of knowledge - the mean accurately describes the center of
+the data and the standard deviation describes the spread - we now recognize that
+these data may be [normally distributed](https://en.wikipedia.org/wiki/Normal_distribution), and therefore
+we can potentially describe the dataset mathematically. We decide to visually
+inspect this possibility by layering a normal distribution on top of our data
+using
+[`stat_function`](https://ggplot2.tidyverse.org/reference/geom_function.html):
+
+```{r}
+g1_mean <- mean(gene_exp$`Gene 1`)
+g1_sd <- sd(gene_exp$`Gene 1`)
+ggplot(gene_exp, aes(x=`Gene 1`)) +
+  geom_histogram(
+    aes(y=after_stat(density)),
+    bins=30,
+    fill="#a93c13"
+  ) +
+  stat_function(fun=dnorm, args = list(mean=g1_mean, sd=g1_sd), size=2)
+```
+
+Note the histogram bars are scaled to the density of values in each bin to make
+all the bar heights sum to 1 so that the y scale matches that of a normal
+distribution.
+
+We have now created our first model: we chose to express the dataset as a normal
+distribution parameterized by the mean and standard deviation and standard
+deviation of the data. Using the values of `r round(g1_mean)` and `r round(g1_sd)`
+as our mean and standard deviation, respectively, we can express our model mathematically as follows: 
+
+$$
+Gene\;1 \sim \mathcal{N}(254, 11)
+$$
+
+Here the $\sim$ symbol means "distributed as" and the $\mathcal{N}(\mu,\sigma)$
+represents a normal distribution with mean of $\mu$ and standard deviation of
+$\sigma$. This is mathematical formulation means the same thing as saying we are
+modeling Gene 1 expression as a normal distribution with mean of 254 and
+standard deviation of 11. Without any additional information about a new sample,
+we would expect the expression of that gene to be 254, although it may vary from
+this value.
+
+A few notes:
+
+1. **Our model choice was totally subjective.** We looked at the data and
+decided that a normal distribution was a reasonable choice. There were many
+other choices we could have made, and all of them would be equally valid, though
+they may not all describe the data well.
+
+2. **We can't know if this is the "correct" model for the data.** By eye, it
+appears to be a reasonably accurate summary. However, there is no such thing as
+a correct model; some models are simply better at describing the data than
+others. Recall that all models are wrong, and some models are useful. Our model
+may be useful, but it is definitely wrong to some extent.
+
+3. **We don't know how well our model describes the data yet.** So far we've
+only used our eyes to choose our model which might be a good starting point
+considering our data are so simple, but we have not yet quantified how well our
+model describes the data, or compared it to alternative models to see which is
+better. This will be discussed briefly in the next section.
+
+### Assessing Model Accuracy
+
+
 
 ### Linear Models .
 
