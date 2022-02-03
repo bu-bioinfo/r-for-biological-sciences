@@ -156,7 +156,7 @@ value do I expect them to have? Written this way, we have turned our question
 into a prediction problem: if we only had information that a patient had
 Parkinson's Disease, what is the predicted expression value of their Gene 3?
 
-### Data Summarization .
+### Data Summarization
 
 Data summarization is similar to modeling in that we are looking to reduce the 
 dimensionality of our data. While we are all familiar with the idea of a mean or 
