@@ -560,7 +560,7 @@ flexibility of the patterns that can be found.
 A simple example will be helpful. Let's say we have a tibble containing the
 result of a (made-up) statistical test for all the genes in a genome:
 
-```{r regex setup, include=FALSE}
+```{r regex setup, include=FALSE, cache=TRUE}
 library(tidyverse)
 library(biomaRt)
 ensembl <- useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")

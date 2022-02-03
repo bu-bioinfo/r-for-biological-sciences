@@ -2,4 +2,5 @@ _site
 Gemfile.lock
 .Rproj.user
 .Rhistory
-content/_main_files/figure-html/*
+content/main_files/*
+content/_main_cache/

@@ -4,6 +4,11 @@ bibliography: references.bib
 link-citations: true
 ---
 
+```{r include=FALSE}
+# github pages doesn't host files/directories that start with "_", change it for the whole book
+knitr::opts_chunk$set(fig.path = 'main_files/')
+```
+
 # Syllabus {-}
 
 **Semester: Spring 2022**
@@ -16,6 +21,7 @@ Contents:
 
 - [Course Schedule]
 - [Instructors]
+- [Office Hours]
 - [Course Values and Policies]
 
 This course introduces the R programming language through the lens of
@@ -113,16 +119,29 @@ Primary instructor: Adam Labadorf (labadorf AT bu DOT edu)
 We have three staff members helping with the course, in no particular order (ok,
 I guess it's alphabetical):
 
-* **Mae Rose Gott** (BU BF MS Alumna '21) is a new Research Staff member working
-  with me on a number of different projects across many different areas. She
-  will be helping organize the course materials as we go forward.
 * **Taylor Falk** (BU BF MS Alumnus '21) is a Bioinformatics Developer working
-  with me and the VA PTSD Brain Bank, developing infrastructure to support data
+  with the VA PTSD Brain Bank, developing infrastructure to support data
   generated out of our brains. He is championing the assignment strategy and
   will be available to help with issues.
+* **Mae Rose Gott** (BU BF MS Alumna '21) is a Research Staff member working
+  on a number of different projects across many different areas. She will be
+  helping organize the course materials as we go forward.
 * **Vanessa Li** (BU BF PhD Candidate) is a PhD candidate in Dr. Stefano Monti's
   lab in Computational Biomedicine. She will primarily be helping with grading
   of your assignments.
+* **Joey Orofino** (BU BF MS Alumnus '18) is a Research Scientist working on
+  identifying small RNA based biomarkers of Parkinson's Disease
+
+## Office Hours {-}
+
+We hold the following office hours via Zoom:
+
+* Joey - Mondays 2:30-3:30
+* Vanessa - Tuesdays 10-11AM
+* Mae Rose - Wednesdays 8-9PM
+* Taylor - Fridays 2-3PM
+
+The zoom link is pinned in the #announcements channel in slack.
 
 ## Course Values and Policies {-}
 

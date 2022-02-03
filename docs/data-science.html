@@ -158,6 +158,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i>Course Schedule</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i>Instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#office-hours"><i class="fa fa-check"></i>Office Hours</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-values-and-policies"><i class="fa fa-check"></i>Course Values and Policies</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
@@ -253,7 +254,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>6</b> Data Science</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="data-science.html"><a href="data-science.html#ds-model"><i class="fa fa-check"></i><b>6.1</b> Data Modeling</a>
+<li class="chapter" data-level="6.1" data-path="data-science.html"><a href="data-science.html#data-modeling"><i class="fa fa-check"></i><b>6.1</b> Data Modeling</a>
 <ul>
 <li class="chapter" data-level="6.1.1" data-path="data-science.html"><a href="data-science.html#a-worked-modeling-example"><i class="fa fa-check"></i><b>6.1.1</b> A Worked Modeling Example</a></li>
 <li class="chapter" data-level="6.1.2" data-path="data-science.html"><a href="data-science.html#data-summarization-."><i class="fa fa-check"></i><b>6.1.2</b> Data Summarization .</a></li>
@@ -469,7 +470,7 @@ adequate treatment. Like the rest of this book, the topics covered here are
 opinionated and presented through the lens of a biological analyst practitioner
 with enough high level conceptual details and a few general principles to
 hopefully be useful in that context.</p>
-<div id="ds-model" class="section level2" number="6.1">
+<div id="data-modeling" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Data Modeling</h2>
 <p>The goal of data modeling is to describe a dataset using a relatively small
 number of mathematical relationships. Said differently, a model uses some parts
@@ -548,22 +549,22 @@ blood samples. We have the following made-up dataset:</p>
 <pre><code>## # A tibble: 200 x 5
 ##    sample_name `Disease Status` `Gene 1` `Gene 2` `Gene 3`
 ##    &lt;chr&gt;       &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-##  1 P1          Parkinson&#39;s          252.     636.     504.
-##  2 P2          Parkinson&#39;s          236.     556.     484.
-##  3 P3          Parkinson&#39;s          247.     426.     476.
-##  4 P4          Parkinson&#39;s          266.     405.     458.
-##  5 P5          Parkinson&#39;s          243.     482.     520.
-##  6 P6          Parkinson&#39;s          270.     521.     460.
-##  7 P7          Parkinson&#39;s          259.     415.     568.
-##  8 P8          Parkinson&#39;s          271.     450.     495.
-##  9 P9          Parkinson&#39;s          269.     490.     496.
-## 10 P10         Parkinson&#39;s          246.     584.     573.
+##  1 P1          Parkinson&#39;s          254.     636.     504.
+##  2 P2          Parkinson&#39;s          238.     556.     484.
+##  3 P3          Parkinson&#39;s          249.     426.     476.
+##  4 P4          Parkinson&#39;s          268.     405.     458.
+##  5 P5          Parkinson&#39;s          245.     482.     520.
+##  6 P6          Parkinson&#39;s          272.     521.     460.
+##  7 P7          Parkinson&#39;s          261.     415.     568.
+##  8 P8          Parkinson&#39;s          273.     450.     495.
+##  9 P9          Parkinson&#39;s          271.     490.     496.
+## 10 P10         Parkinson&#39;s          248.     584.     573.
 ## # ... with 190 more rows</code></pre>
 <p>Our imaginary dataset has 100 Parkinson’s and 100 control subjects. For each of
 our samples, we have a sample ID, Disease Status of <code>Parkinson's</code> or <code>Control</code>,
 and numeric measurements of each of three genes. Below are <a href="data-visualization.html#violin-plot">violin
 plots</a> of our (made-up) data set for these three genes:</p>
-<p><img src="_main_files/figure-html/data%20modeling%20violin-1.png" width="672" /></p>
+<p><img src="main_files/data%20modeling%20violin-1.png" width="672" /></p>
 <p>By inspection, it appears that Gene 1 has no relationship with disease; we may
 safely eliminate this gene from further consideration. Gene 2 appears to have a
 different profile depending on disease status, where control individuals have
@@ -582,9 +583,37 @@ question is: if I know a patient has Parkinson’s Disease, what Gene 3 expressi
 value do I expect them to have? Written this way, we have turned our question
 into a prediction problem: if we only had information that a patient had
 Parkinson’s Disease, what is the predicted expression value of their Gene 3?</p>
+<p>Another way to pose this prediction question is in the opposite (and arguably
+more useful) direction: if all we knew about a person was their Gene 3 gene
+expression, how likely is it that the person has Parkinson’s Disease? If this
+gene expression is predictive enough of a person’s disease status, it may be a
+viable <a href="https://en.wikipedia.org/wiki/Biomarker">biomarker</a> of disease and thus
+might be useful in a clinical setting, for example when assessing the efficacy
+of a pharmacological treatment.</p>
+<p>Although it may seems obvious, before beginning to model a dataset, we must
+start by posing the <strong>scientific question</strong> as concisely as possible, as we have
+done above. These questions will help us identify which modelling techniques are
+viable and help us ensure we interpret our results appropriately.</p>
 </div>
 <div id="data-summarization-." class="section level3" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> Data Summarization .</h3>
+<p>Broadly speaking, <em>data summarization</em> is the process of finding a
+lower-dimensional representation of a larger dataset. There are many ways to
+summarize a set of data; each approach will emphasize different aspects of the
+dataset, and have varying degrees of accuracy. Consider the gene expression of
+Gene 1 for all individuals in our example above, plotted as a distribution with
+a <a href="data-visualization.html#density">density plot</a>:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="data-science.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb163-2"><a href="data-science.html#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>,<span class="at">fill=</span><span class="st">&quot;#a93c13&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/data%20sci%20summ%20hist-1.png" width="672" /></p>
+<p>The data are concentrated around the value 252, and become less frequent for
+larger and smaller values. We can be more precise in identifying the most common
+value (i.e. the <em>mode</em>) in this case by computing the median:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="data-science.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>,<span class="at">fill=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb164-2"><a href="data-science.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb164-3"><a href="data-science.html#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span><span class="fu">median</span>(gene_exp<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="main_files/data%20sci%20summ%20hist2-1.png" width="672" />
+It turns out that the most frequent value according to the</p>
 <p>What is a data summary? What are some of the different ways to summarize data?
 Point estimates (mean, median), dispersion (i.e. variance), distribution.</p>
 </div>
