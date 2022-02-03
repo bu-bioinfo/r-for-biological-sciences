@@ -737,26 +737,26 @@ floor)? How do we load a microarray dataset into R?
 
 ### Differential Expression: Microarrays (limma) .
 
-Limma, or _limma_, is a core component of the BioConductor series of R software 
-packages. Limma is utilized for analyzing microarray gene expression data, with 
-a focus on analyses using linear models to integrate _all_ of the data from an 
-experiment. Limma was previously developed exclusively for microarray data but 
-within the last few years has been updated to natively support RNA-seq data and 
-quantitative PCR. 
+Limma, or _limma_, is a core component of the BioConductor series of R software
+packages. Limma is utilized for analyzing microarray gene expression data, with
+a focus on analyses using linear models to integrate _all_ of the data from an
+experiment. Limma was previously developed exclusively for microarray data but
+within the last few years has been updated to natively support RNA-seq data and
+quantitative PCR.
 
-Limma excels at analyzing these types of data as it can support complicated 
-experimental designs while maintaining strong statistical power. An experiment 
-with a large number of conditions or predictors can still be analyzed even if 
-there is not a significantly large number of cells or samples. 
+Limma excels at analyzing these types of data as it can support complicated
+experimental designs while maintaining strong statistical power. An experiment
+with a large number of conditions or predictors can still be analyzed even if
+there is not a significantly large number of cells or samples.
 
-This brief example is from the Limma User Guide chapter 15, and covers loading 
-and processing data from an RNA-seq experiment. We go into more depth while 
+This brief example is from the Limma User Guide chapter 15, and covers loading
+and processing data from an RNA-seq experiment. We go into more depth while
 working with Limma in assignment 6.
 
-Without going into too much detail, the `design` variable is how we inform limma 
-of our experimental conditions, and where limma draws from to construct its 
-linear models correctly. This design is relatively simple, just four samples 
-belonging to two different conditions (the `swirls` here refer to the swirl of 
+Without going into too much detail, the `design` variable is how we inform limma
+of our experimental conditions, and where limma draws from to construct its
+linear models correctly. This design is relatively simple, just four samples
+belonging to two different conditions (the `swirls` here refer to the swirl of
 zebra fish, you can just see them as a phenotypic difference)
 ```r
 design <- data.frame(swirl = c("swirl.1", "swirl.2", "swirl.3", "swirl.4"),
@@ -765,12 +765,12 @@ dge <- DGEList(counts=counts)
 keep <- filterByExpr(dge, design)
 dge <- dge[keep,,keep.lib.sizes=FALSE]
 ```
-`DGEList()` is a function from edgeR, of which limma borrows some loading and 
-filtering functions. This experiment filters by expression level, and uses 
+`DGEList()` is a function from edgeR, of which limma borrows some loading and
+filtering functions. This experiment filters by expression level, and uses
 square bracket notation (`[]`) to reduce the number of rows.
 
-Finally, the expression data is transformed into CPM, counts per million, and 
-a linear model is applied to the data with `lmFit()`. `topTable()` is used to view the most 
+Finally, the expression data is transformed into CPM, counts per million, and
+a linear model is applied to the data with `lmFit()`. `topTable()` is used to view the most
 differentially expressed data.
 ```r
 # limma trend
@@ -780,22 +780,22 @@ fit <- eBayes(fit, trend=TRUE)
 topTable(fit, coef=ncol(design))
 ```
 
-- What is limma? 
-  - One of many packages utilized for analyzing microarray gene expression data, with a 
-  focus on linear models 
+- What is limma?
+  - One of many packages utilized for analyzing microarray gene expression data, with a
+  focus on linear models
   - Can compare RNA targets in an arbitrarily complex way
   - Designed for complex experiments with a variety of condtions
-- What types of analysis can limma perform? 
-  - "applicable to data from any quantitative gene expression technology including 
+- What types of analysis can limma perform?
+  - "applicable to data from any quantitative gene expression technology including
   microoarrays, RNA-seq and quantitative PCR"
-  - 
-- How is limma different from normal linear models? 
-  - "The hallmark of the limma approach is the use of linear models to analyse 
-  entire experiments as an integrated whole rather than making piece-meal 
+  -
+- How is limma different from normal linear models?
+  - "The hallmark of the limma approach is the use of linear models to analyse
+  entire experiments as an integrated whole rather than making piece-meal
   comparisons between pairs of treatments."
-  - 
+  -
 - How do we run a microarray analysis with limma?
-  - We do an in-depth analysis of _multiple_ microarray analysis packages in 
+  - We do an in-depth analysis of _multiple_ microarray analysis packages in
   assignment 6, but for now...
 
 ::: {.box .readmore}
@@ -829,25 +829,168 @@ How do we interpret DE results?
 What are genomic intervals? What do they mean and how do we use them? How do we
 load intervals into R and use them in our analyses?
 
-## Gene Set Enrichment Analysis .
+### Gene Set Enrichment Analysis
 
-What is gene set enrichment analysis? What problem does this analysis attempt to
-solve? What are some common gene set enrichment analysis methods (hypergeometric
-and GSEA)? When might we use one method over another? How do we conduct gene set
-enrichment analysis in R (limit to hypergeometric test and fgsea example)?
+With the constant evolution of high-throughput sequencing (HTS) technologies, the size and dimensionality of data generated has been ever increasing. The question of interest has shifted from how do we generate the data to how do we make meaningful biological interpretations on a genome-wide level. The simplest and most common output of HTS experiments is a list of "interesting" genes. In the specific case of differential gene expression analysis, it is possible and quite common to obtain hundreds or even thousands of differentially expressed genes in a single experiment that may be directly or indirectly related to the phenotype of interest.
 
-### Gene Sets .
+While it can be helpful and fruitful to research these genes individually, this form of personal inspection is limited by one's domain knowledge and by the size of the results. On a biological level, it is complicated by the fact that most processes are often coordinated by the actions of many genes/gene products working in concert. Cellular signaling pathways, phenotypic differences or responses to various stimuli are typically associated with changes in the expression pattern of many genes that share common biological functions or regulation.
 
-What are gene sets, why do they exist, and how are they useful to us? What are
-some sources of gene set information (e.g. MSigDB) and how do we get them? How
-do we load and use gene sets in R+bioconductor?
+Gene set enrichment analysis is an umbrella term for methods designed to analyze expression data and capture changes in higher-level biological processes and pathways by organizing genes into biologically relevant groups or gene sets. We will discuss the background of two common gene set enrichment analyses (over-representation analysis and rank-based Gene Set Enrichment Analysis), their advantages and disadvantages, and walk-through an example of how they can each be implemented in R. Before this, we will briefly touch upon the definition of a gene set and describe how to construct or obtain gene sets.
 
-### Over-representation Analysis .
+### Gene Sets
 
-What is over-representation analysis in the context of gene set enrichment
-analysis? What is the goal of this analysis? What are the limitations of
-over-representation analysis? How do we conduct hypergeometric
-tests in R (a worked example would be helpful)?
+Gene sets are curated lists of genes that are grouped together by some logical association or pre-existing domain knowledge. Their primary use is to facilitate the biological interpretation of expression data by capturing high-level interactions between biologically relevant groups of genes. These sets are highly flexible and may be constructed based on any *a priori* knowledge or classification. For example, one could define a gene set that includes all genes that are members of the same biochemical pathway or a gene set that consists of all genes that are induced upon treatment with a particular pharmacological agent. While it is perfectly valid to construct new gene sets, there are many existing and curated collections of gene sets that are maintained and contributed to by communities of scientists throughout the world. Below, we will highlight some of the major collections that are commonly used and cited in published work:
+
+__[KEGG Pathways](https://www.genome.jp/kegg/pathway.html)__
+
+The Kyoto Encyclopedia of Genes and Genomes (KEGG) is a repository for biological pathway information that the authors describe as a means to "computerize functional interpretations as part of the pathway reconstruction process based on the hierarchically structured knowledge about the genomic, chemical, and network spaces". The KEGG Pathways database consists of maps displaying the functional and regulatory relationships of genes within various metabolic and cell signaling pathways. The KEGG offers a web service that allows for the extraction of the genes and other information belonging to specific pathways.
+
+__[GO Annotations](http://geneontology.org/docs/go-annotations/)__
+
+The Gene Ontology provides a network representation of biological systems from the molecular-level to the organismal level by defining a graph based representation of connected terms using a controlled vocabulary. At a high level, GO annotations consist of three broad ontologies termed molecular function, cellular component, and biological process. The molecular function is the specific activity a gene product performs on a molecular level (i.e. a protein kinase would be annotated with *protein kinase activity*). The biological process defines the higher-level programs and pathways that's accomplished by the activities of the gene product (i.e. if we take our previous example of a protein kinase, it's biological process might be assigned as *signal transduction*). The cellular component refers to the localization of the gene product within the cell (i.e. the cellular component of a protein kinase might be *cytosol*). A gene product can be annotated with zero or more terms from each ontology, and these annotations are based on multiple levels of evidence from published work. The GO annotations may be accessed or downloaded directly from their own website, and there exist a number of web services that use GO annotations in the background ([DAVID](https://david.ncifcrf.gov), [enrichR](https://maayanlab.cloud/Enrichr/), etc.)
+
+__[Molecular Signatures Database](http://www.gsea-msigdb.org/gsea/msigdb/)__
+
+The Molecular Signatures Database (MSigDB) is a collection of gene sets curated, maintained and provided by the Broad Institute and UC San Diego. Although intended and designed for specific use with the Gene Set Enrichment Analysis Methodology, they are freely available and only require proper attribution for other uses. The MSigDB consists of 9 major collections of gene sets: H (hallmark gene sets), C1 (positional gene sets), C2 (curated gene sets), c3 (regulatory target gene sets), c4 (computational gene sets), c5 (ontology gene sets), c6 (oncogenic signature gene sets), c7 (immunologic signature gene sets), c8 (cell type signature gene sets). They are available in formats ready for use in the GSEA methodology and other formats that are easily imported into various settings for custom use. The gene sets as well as the GSEA methodology are available directly from their website. There are a number of R-specific packages that have been developed for working directly with these gene sets such as [GSEABase](https://bioconductor.org/packages/release/bioc/html/GSEABase.html) or [fgsea](http://bioconductor.org/packages/release/bioc/html/fgsea.html), which we will discuss later.
+
+### Working with gene sets in R
+We will walk through two quick examples of how to read in an example collection of gene sets. We will utilize the Hallmarks gene set collection, downloaded directly from the MSigDB website, which consists of 50 gene sets representing well-defined biological processes and generated by aggregating together many pre-existing gene sets. The MSigDB provides these gene set collections in the GMT format. These files are tab-delimited and each row in the format represents one gene set with the first column being the name of the gene set, and the second column a short description. The remaining columns each represent a gene and unequal lengths of columns per row is allowed. As is, the GMT format is designed to work specifically with the GSEA methodology developed and provided by the Broad Institute. However, we will also show two ways to manually parse these gene collections for exploration and further use in R.
+
+The first way to parse these gene sets would be to use various tidyverse functions that you should be familiar with already to construct a tibble. Essentially, we read the file, rename the first two columns for convenience, and use a combination of `pivot_longer()` and `group_by()` to quickly access genes by pathway. Below, we have the results of these operations and used them to display a summary of the number of genes in all the pathways contained with the hallmark pathways gene collection.
+
+```{r read in GMT file using tidyverse, warning=FALSE, message=FALSE}
+read_delim('h.all.v7.5.1.symbols.gmt', delim='\t', col_names=FALSE) %>%
+  dplyr::rename(Pathway = X1, Desc=X2) %>%
+  dplyr::select(-Desc) %>%
+  pivot_longer(!Pathway, values_to='genes', values_drop_na=TRUE, names_to = NULL) %>%
+  group_by(Pathway) %>%
+  summarise(n=n())
+```
+We can see that there are 50 total pathways in the hallmarks gene collection that contain varying numbers of genes. We discarded the description column and if we were to save the results after using `pivot_longer()` instead of piping them to `group_by` and `summarise()`, we would have a tibble in the "long" format with each row representing a single pathway and single gene.
+
+However, there do exist various packages that have been developed to specifically handle gene set data in R such as the previously mentioned GSEABase. This is a collection of functions and class-based objects that facilitate working with gene sets. The foundation of the GSEABase package is the GeneSet and GeneSetCollection classes which store gene sets and metadata or a collection of GeneSet objects, respectively. We will use the GSEABase package to read in the collection of gene sets we previously downloaded.
+
+```{r GSEABase read and access GMT data, warning=FALSE, message=FALSE}
+library('GSEABase')
+hallmarks_gmt <- getGmt(con='h.all.v7.5.1.symbols.gmt')
+hallmarks_gmt
+```
+If we simply access the hallmarks_gmt variable, we can see that it is a GeneSetCollection object containing `r length(names(hallmarks_gmt))` total gene sets which encompass 4383 unique identifiers or HGNC symbols. Although this package supports a range of functions, we will focus on the basics. For a more thorough description of the classes and methods, please read their extended documentation available [here](https://bioconductor.org/packages/release/bioc/manuals/GSEABase/man/GSEABase.pdf).
+
+The geneIds method will return a list with each pathway as a named vector of associated gene ids:
+```{r GeneSetCollection method geneIds}
+head(geneIds(hallmarks_gmt), 2)
+```
+
+The names method will return all of the gene set names contained within a specific collection:
+```{r GeneSetCollection method names}
+head(names(hallmarks_gmt),2)
+
+```
+
+We can access a specific gene set contained within this collection by referring to its name and using the following notation:
+
+```{r access the Adipogenesis gene set}
+hallmarks_gmt[['HALLMARK_ANGIOGENESIS']]
+```
+Simply accessing the object will provide a high-level summary of the information contained within. To access a specific value of this GeneSet object, we would call one of the slots (a core concept in object-oriented programming). In our particular case, we could extract the gene names contained assigned to this GeneSet by calling the `geneIds` slot as shown below to return a vector of the gene names. We can see the first five below and also the length of the returned vector by using the base R `length()` function:
+
+```{r sample geneIds slot}
+head(hallmarks_gmt[['HALLMARK_ANGIOGENESIS']]@geneIds)
+```
+```{r sample geneIds length}
+length(hallmarks_gmt[['HALLMARK_ANGIOGENESIS']]@geneIds)
+```
+GSEABase includes a number of built-in functions for reading gene sets in from various sources and performing common operations such as set intersections, set differences, and ID conversions. We will demonstrate the usage of some of these in the next section covering Over-representation analysis.
+
+## Over-representation Analysis .
+
+One of the most common ways to utilize gene sets to evaluate gene expression results is to perform Over-representation Analysis (ORA). Let us assume that we have obtained a list of differentially expressed genes from an experiment. We are curious to know if within this list of differentially expressed genes, do we see an *over-representation* or *enrichment* of genes belonging to gene sets of interest? In more general terms, the goal of ORA is to determine how likely it is that there is a non-random association between a gene being differentially expressed and having membership in a chosen (and ideally relevant) gene set. In R, we can do a simple ORA by utilizing a Fisher's exact test and a contingency table.
+
+For a purely hypothetical example, let us assume that we have performed differential gene expression analysis between two different cell lines. We obtain a list of 10,000 total genes (our background) discovered in the experiment and find that at our chosen statistical threshold, 1,000 of these are differentially expressed. To keep things simple, we will perform a single ORA test against the Hallmarks Angiogenesis gene set using a sample list of 1000 differentially expressed genes selected from data generated by [Marisa et al. 2013](https://pubmed.ncbi.nlm.nih.gov/23700391/). The Hallmarks Angiogenesis gene set consists of 36 genes and we find that 13 of these are also present in our list of differentially expressed genes.
+
+:::{.box .warning}
+Please note that we are removing this list of genes from its original meaning and context found in the publication and simply using it to demonstrate the basic steps occurring during ORA. All of these numbers and lists were arbitrarily chosen and this experimental setup is purely hypothetical.
+
+Another issue to note is that typically the "background" list should represent the entire pool of genes from which any differentially expressed genes could have been selected. For expression experiments, it is typical to choose all of the detected genes (regardless of significance) as the background. The number of genes in the organism's genome could potentially also be an appropriate "background"   
+
+Also, it is important to keep in mind that in reality, ORA is nearly always performed on a larger scale against a variety of different gene sets. This allows for the unbiased discovery of potentially novel and unexpected enrichment in other biological areas of interest. It also necessitates the need for multiple-testing correction, which we have discussed in [multiple hypothesis testing](#multiple-hypothesis-testing).
+:::
+
+To begin, we would want to prepare a contingency table which describes the various overlaps between our sets of interest. For a 2x2 contingency table, these four values will be:
+
+1. Genes present in our list of differentially expressed genes and present in our gene set
+2. Genes present in our list of differentially expressed genes and not present in our gene set
+3. Genes not present in our list of differentially expressed genes and present in our gene set
+4. Genes not present in our list of differentially expressed genes and not present in our gene set
+
+To demonstrate what this would look like, we have manually constructed a contingency table with labels and totals added below. If you look at the margins of the table and recall the previously given values above, you can reconstruct the logic used to generate each of the values in all the cells.
+
+```{r example contingency table, echo=FALSE}
+Total <- sum
+row_names = c('In Gene Set', 'Not in Gene Set')
+col_names = c('Differentially Expressed', 'Not Differentially Expressed')
+
+knitr::kable(addmargins(matrix(c(13, 987, 23, 8977), nrow=2, dimnames=list(row_names, col_names)), FUN=Total, quiet=TRUE))
+```
+
+For the purposes of this example, we are reading in our differentially expressed genes from an external file, but this vector could be generated in any number of ways depending upon where and how your results are stored. Following good coding practices, we will write a small function that takes this list of DE genes and a GeneSet object to programmatically generate a contingency table:
+
+:::{.box .note}
+There are many ways to construct a contingency table. This is just one way that was chosen to make calculations of the values contained within the table  transparent and easy to understand.
+:::
+
+```{r mock function to make contingency table}
+#load and read our list of DE genes contained within a newline delimited txt file
+de_genes <- scan('example_de_list.txt', what=character(), sep='\n')
+
+#define a function that takes a list of DE genes, and a specific GeneSet from a GeneSetCollection to generate a contingency table
+#using set operations in GSEABase
+make_contingency <- function(de_list, GeneSetobj) {
+
+
+  #make our de list into a simple GeneSet object using GSEABase
+  de_geneset <- GeneSet(de_list, setName='1000 DE genes')
+
+  #If we had the full results, we could determine this value without manually setting it
+  background_len <- 10000
+
+  #Calculate the values inside the contingency table using set operations
+  de_in <- length((de_geneset & GeneSetobj)@geneIds)
+  de_notin <- length(setdiff(de_geneset, GeneSetobj)@geneIds)
+  set_notde <- length(setdiff(GeneSetobj, de_geneset)@geneIds)
+  notin_notde <- background_len - (de_in + de_notin + set_notde)
+
+
+  #return a matrix of the contingency values
+  return(matrix(c(de_in, de_notin, set_notde, notin_notde), nrow=2))
+
+
+}
+
+contingency_table <- make_contingency(de_genes, hallmarks_gmt[['HALLMARK_ANGIOGENESIS']])
+contingency_table
+
+```
+
+We perform the Fisher's Exact test using the built-in R function `fisher.test()` and view the summarized output by simply calling the variable where we stored the test results:
+
+```{r fisher test}
+fisher_results <- fisher.test(contingency_table, alternative='greater')
+fisher_results
+```
+
+:::{.box .note}
+Specific values of the results can be accessed by the \$notation (i.e. fisher_results$p.value). The full list of returned values may be found in the R documentation for `fisher.test()`
+:::
+
+Back to our hypothetical example and focusing on the p-value returned of `r fisher_results$p.value`, we can interpret this as the probability of randomly obtaining results as or more extreme than what we observed assuming the null hypothesis that there is no association between differential expression and gene set membership is true. Based on these results and if this p-value was below our pre-determined statistical threshold, we could make the conclusion that there is an *enrichment* or *over-representation* of our differentially expressed genes from this experiment in the Hallmark Angiogenesis gene set. Relating this back to the experiment, we might hypothesize that the differences between our two cell lines might be driving gene expression changes that result in alterations in genes involved in angiogenesis. This *might* motivate potential further *in vitro* experiments on these cell lines, including migration and proliferation assays, that could reveal if this enrichment of angiogenesis genes is reflected at a phenotypic or functional level.
+
+ORA is a quick and useful way to generate further hypotheses to investigate specific mechanisms of action or regulation. For example, after identifying a gene set as being *enriched* or *over-represented*, one could further test the specific genes in the set by examining their directionality of change or asking if dependent pathways/networks are also perturbed.
+
+One major limitation of ORA is that it relies on the choice of arbitrary statistical thresholds to define "interesting" or "differentially expressed" genes. To reiterate again, p-value thresholds hold no inherent biological meaning and are subjectively determined. Changing the p-value threshold may result in dramatic differences in the outcome of ORA. Additionally, expression datasets may measure tens of thousands of genes in a single experiment, and filtering by a p-value threshold may discard potentially useful information.
+
+ORA (though often modified with slightly different statistical methodologies) is implemented in a number of different R packages such as [topGO](https://bioconductor.org/packages/release/bioc/html/topGO.html) or various web services including [DAVID](https://david.ncifcrf.gov) and [enrichR](https://maayanlab.cloud/Enrichr/)
 
 ### Rank-based Analysis .
 
