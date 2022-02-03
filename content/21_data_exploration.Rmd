@@ -183,14 +183,14 @@ favorites will be mean and median.
 
 **Mean**: The arithmetic mean, sum the samples and divide by how many there are. 
 Doesn't get better than that. Vulnerable to skewing by outliers.  
-```{r}
+```{r fig.align="center"}
 data <- tibble(data = rnorm(1000))
 ggplot(data, aes(x = data)) + 
   geom_histogram(fill = "#56CBF9", color = "grey", bins = 30) +
   geom_vline(xintercept = mean(data$data)) +
   theme_bw() + ggtitle("Mean example, no outliers") + xlab("") + ylab("")
 ```
-```{r}
+```{r fig.align="center"}
 data <- tibble(data = c(rnorm(800), rep(5, 200))) # oops I add some outliers :^)
 ggplot(data, aes(x = data)) + 
   geom_histogram(fill = "#7FBEEB", color = "grey", bins = 30) +
@@ -200,7 +200,7 @@ ggplot(data, aes(x = data)) +
 
 **Median**: Put the data in order, take the value that's right in the middle. 
 More resistant to outliers.
-```{r}
+```{r fig.align="center"}
 data <- tibble(data = c(rnorm(1000)))
 ggplot(data, aes(x = data)) + 
   geom_histogram(fill = "#AFBED1", color = "white", bins = 30) +
@@ -215,7 +215,7 @@ Often related to the distribution of the data.
 **Standard deviation**: A measure of how close values are to the mean. Bigger 
 standard deviations mean data is more spread out.
 
-```{r}
+```{r fig.align="center"}
 data <- tibble(data = c(rnorm(1000, sd=1.75)))
 ggplot(data, aes(x = data)) + 
   geom_histogram(fill = "#EAC5D8", color = "white", bins = 30) +
@@ -227,7 +227,7 @@ ggplot(data, aes(x = data)) +
 **Variance**: 
 Similar to SD (it's the square of SD), variance measures how far a random value 
 is from the mean.
-```{r}
+```{r fig.align="center"}
 data <- tibble(data = c(rnorm(1000, sd=0.5)))
 ggplot(data, aes(x = data)) + 
   geom_histogram(fill = "#DBD8F0", color = "white", bins = 30) +
@@ -243,28 +243,27 @@ Finally, distributions are fun names for shapes of data. Some models can use
 distributions to predict values, while others change based on what distribution 
 the data falls under. R has a number of built-in functions to create and test 
 these distributions:
-```{r}
+```{r fig.align="center"}
 ggplot(tibble(data = rnorm(5000)), aes(x = data)) + 
   geom_histogram(fill = "#D0FCB3", bins = 50, color = "gray") + theme_bw() +
   ggtitle("Normal distribution", "rnorm(n = 1000)") + xlab("") + ylab("")
 ```
-```{r}
+```{r fig.align="center"}
 ggplot(tibble(data = runif(5000)), aes(x = data)) + 
   geom_histogram(fill = "#271F30", bins = 50, color = "white") + theme_bw() +
   ggtitle("Uniform distribution", "runif(n = 1000)") + xlab("") + ylab("")
 ```
-```{r}
+```{r fig.align="center"}
 ggplot(tibble(data = rlogis(5000)), aes(x = data)) + 
   geom_histogram(fill = "#9BC59D", bins = 50, color = "black") + theme_bw() +
   ggtitle("Logistic distribution", "rlogis(n = 1000)") + 
   xlab("") + ylab("")
 ```
-```{r}
+```{r fig.align="center"}
 ggplot(tibble(data = rexp(5000, rate = 1)), aes(x = data)) + 
   geom_histogram(fill = "#6C5A49", bins = 50, color = "white") + theme_bw() +
   ggtitle("Exponential distribution", "rexp(n = 1000, rate = 1)") + 
   xlab("") + ylab("")
-```
 ```
 
 ### Linear Models .
