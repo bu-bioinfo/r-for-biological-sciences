@@ -3,6 +3,10 @@ output: html_document
 ---
 
 ```{r bioinfo setup, include=FALSE}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("SummarizedExperiment")
 library(tidyverse)
 ```
 
@@ -586,12 +590,143 @@ The `mgi_symbol` field refers to the gene symbol assigned in the [Mouse Genome
 Informatics database](https://www.jax.org/research-and-faculty/resources/mouse-genome-informatics)
 maintained by [The Jackson Laboratory](https://www.jax.org/).
 
-## Gene Expression .
+## Gene Expression
 
-What is gene expression? Conceptually, what does gene expression represent? Why
-are we interested in it? What are the ways we measure gene expression? What
-are some sorts of questions we might ask of a gene expression dataset? How do we
-represent and manipulate a gene expression dataset in R+bioconductor?
+Gene expression is the process by which information from a gene is used in the
+synthesis of functional gene products that affect a phenotype. While gene
+expression studies are often focused on protein coding genes, there are many
+other functional molecules, e.g. [transfer
+RNAs](https://www.genome.gov/genetics-glossary/Transfer-RNA),
+[lncRNAs](https://en.wikipedia.org/wiki/Long_non-coding_RNA), etc, that are
+produced by this process. The gene expression process has many steps and
+intermediate products, as depicted in the following figure:
+
+![The Gene Expression Process - An overview of the flow of information from DNA
+to protein in a eukaryote](gene_expression_nature.jpg)
+
+The specific parts of the genome that code for genes are copied, or
+*transcribed* into RNA molecules called *transcripts*. In lower organisms like
+bacteria, these RNA molecules are passed on directly to ribosomes, which
+translate them into proteins. In most higher organisms like eukaryotes, these
+initial transcripts, called *pre-messenger RNA (pre-mRNA) transcripts* are
+further processed such that certain parts of the transcript, called *introns*,
+are spliced out and the flanking sequences, called *exons*, are concatenated
+together. After this splicing process is complete, the pre-mRNA transcripts
+become mature *messenger RNA (mRNA) transcripts* which go on to be exported from
+the nucleus and loaded into ribosomes in the cytoplasm to undergo translation
+into proteins.
+
+In gene expression studies, the relative abundance, or number of copies, of RNA
+or mRNA transcripts in a sample is measured. The measurements are non-negative
+numbers that are proportional to the relative abundance of a transcript with
+respect to some reference, either another gene, or in the case of high
+throughput assays like microarrays or high throughput sequencing, relative to
+measurements of all distinct transcripts examined in the experiment.
+Conceptually, the larger the magnitude of a transcript abundance measurement,
+the more copies of that transcript were in the original sample.
+
+There are many ways to measure the abundance of RNA transcripts; the following
+are some of the common methods at the time of writing:
+
+* Light absorbance - RNA absorbs ultraviolet light with wavelength 260 nm, which
+can be used to determine RNA concentration in a sample using specialized equipment
+* [Northern blot](https://www.genome.gov/genetics-glossary/Northern-Blot) -
+measures relative abundance of an RNA with a specific sequence
+* [quantitative polymerase chain reaction
+(qPCR)](https://www.thermofisher.com/blog/ask-a-scientist/what-is-qpcr/) -
+measures relative abundance of an RNA with a specific sequence using [PCR
+amplification](https://en.wikipedia.org/wiki/Polymerase_chain_reaction)
+* [Oligonucleotide and microarrays](#microarrays) - measures relative abundance
+of thousands of genes simultaneously using known DNA probe sequences and
+fluorescently tagged RNA molecules
+* [High throughput RNA sequencing (RNASeq)](#rnaseq) - measures thousands to
+millions of RNA fragments simultaneously in proportion to their relative
+abundance
+
+While any of the measurement methods above may be analyzed in R, the high
+throughput methods (i.e. microarray, high throughput sequencing) are the primary
+concern of this chapter. These methods generate measurements for thousands of
+transcripts or genes simultaneously, requiring the power and flexibility of
+programmatic analysis to process in a practical amount of time. The remainder of
+this chapter is devoted to understanding the specific technologies, data types,
+and analytical strategies involved in working with these data.
+
+::: {.box .important}
+Gene expression measurements are almost always inherently relative, either due
+to limitations of the measurement methods (e.g. microarrays, described below) or
+because measuring all molecules in a sample will almost always be prohibitively
+expensive, have diminishing returns, and it is very difficult if not impossible
+to determine if all the molecules have been measured. This means we cannot in
+general associate the numbers associated with the measurements with an absolute
+molecular copy number. An important implication of the inherent relativity of
+these measurements is: **absence of evidence is not evidence of absence**. In
+other words, if a transcript has an abundance measurement of zero, this does
+*not necessarily imply that the gene is not expressed*. It may be that the gene
+is indeed expressed, but the copy number is sufficiently small that it was not
+detected by the assay.
+:::
+
+### Gene Expression Data in Bioconductor
+
+The [SummarizedExperiment
+container](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
+is the standard way to load and work with gene expression data in Bioconductor.
+This container requires the following information:
+
+* `assays` - one or more measurement assays (e.g. gene expression) in the form of a feature by sample matrix
+* `colData` - metadata associated with the samples (i.e. columns) of the assays
+* `rowData` - metadata associated with the features (i.e. rows) of the assays
+* `exptData` - additional metadata about the experiment itself, like protocol, project name, etc
+
+The figure below illustrates how the SummarizedExperiment container is
+structured and how the different data elements are accessed:
+
+![SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21.](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp)
+
+Many Bioconductor packages for specific types of data, e.g.
+[limma](#differential-expression--microarrays-limma) create these
+SummarizedExperiment objects for you, but you may also create your own by
+assembling each of these data into data frames manually:
+
+```{r}
+library(SummarizedExperiment)
+
+# microarray expression dataset intensities
+intensities <- read_delim("example_intensity_data.csv",delim=" ")
+
+# the first column of intensities tibble is the probesetId, extract to pass as rowData
+rowData <- intensities["probeset_id"]
+
+# remove probeset IDs from assay and turn into a base R dataframe so that we can assign rownames, since tibbles don't support row names
+intensities <- as.data.frame(
+  select(intensities, -probeset_id)
+)
+rownames(intensities) <- rowData$probeset_id
+
+# these column data are made up, but you would have a sample metadata file to use
+colData <- tibble(
+  sample_name=colnames(intensities),
+  condition=sample(c("case","control"),ncol(intensities),replace=TRUE)
+)
+
+se <- SummarizedExperiment(
+   assays=list(intensities=intensities),
+   colData=colData,
+   rowData=rowData
+)
+se
+```
+
+Detailed documentation of how to create and use the SummarizedExperiment is available in the [SummarizedExperiment vignette](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html#constructing-a-summarizedexperiment).
+
+::: {.box .note}
+SummarizedExperiment is the successor to the older
+[ExpressionSet](https://www.bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf)
+container. Both are still used by Bioconductor packages, but
+SummarizedExperiment is more modern and flexible, so it is suggested for use
+whenever possible.
+:::
+
 
 ### Microarrays .
 

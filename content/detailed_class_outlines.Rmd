@@ -49,6 +49,7 @@ output: html_document
 * Data Sci: [Linear Models]
 * Data Sci: [Statistical Model Flavors]
 * Bioinfo: [Gene Expression]
+* Bioinfo: [Gene Expression Data in Bioconductor]
 * Bioinfo: [Microarrays]
 * Bioinfo: [Differential Expression: Microarrays (limma)]
 * Data Sci: [Clustering]
