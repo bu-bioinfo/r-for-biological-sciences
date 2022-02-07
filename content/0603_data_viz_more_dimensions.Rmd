@@ -1,0 +1,23 @@
+---
+output: html_document
+---
+
+## Plotting Two or More Dimensions .
+
+### Scatter plot .
+
+### Line plot .
+
+``` {r}
+ggplot(ad_metadata,mapping=aes(x=ID, y=tau)) +
+  geom_line()
+```
+
+### Bubble plot .
+
+### Heatmaps .
+
+Heatmaps visualize values associated with a grid of points $(x,y,z)$, where $x$
+and $y$ are coordinates and $z$ is a continuous value. Typically $x$ and $y$ are
+evenly spaced between minima and maxima on each axis, but this is not
+necessarily the case, where unequal spacing is sometimes used.

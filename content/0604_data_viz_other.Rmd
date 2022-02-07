@@ -1,0 +1,12 @@
+---
+output: html_document
+---
+
+
+## Other Kind of Plots .
+
+### Chord .
+
+### Sankey .
+
+### Dendrogram .

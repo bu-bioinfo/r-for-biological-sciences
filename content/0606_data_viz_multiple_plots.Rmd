@@ -1,0 +1,20 @@
+---
+output: html_document
+---
+
+
+## Multiple Plots .
+
+How do we add multiple datasets to plots?
+
+### Secondary Axes .
+
+How and when do we add series with different scales to the same plot?
+
+### Facet wrapping .
+
+What is facet wrapping and in which contexts is it useful (i.e. group_by)?
+
+### Multipanel Figures .
+
+How do we add multiple, unrelated subplots to the same larger plot?

@@ -1,0 +1,315 @@
+---
+output: html_document
+---
+
+## Visualizing Distributions
+
+The distribution is one of the most important properties of a set of numbers.
+A distribution describes the general "shape" of the numbers, i.e. what is the
+relative frequency of the values, or ranges of values, within the data.
+Understanding the distribution of a data set is critical when choosing methods
+to apply, since many methods are only appropriate when data is distributed in
+certain ways, e.g. [linear
+regression](https://en.wikipedia.org/wiki/Linear_regression) assumes the
+response variable is [normally
+distributed](https://en.wikipedia.org/wiki/Normal_distribution), otherwise the
+result of the model cannot be interpreted properly. Often, we don't know how our
+data are distributed when we obtain it and so we must examine the distribution
+empirically. The visualizations in this section are all used for the purpose of
+depicting the distribution of a set of numbers.
+
+### Histogram
+
+The most common way to plot the distribution of a 1-D set of data is the
+[histogram](https://en.wikipedia.org/wiki/Histogram). The histogram divides up
+the range of a dataset from minimum to maximum into bins usually of the same
+width and tabulates the number of values that fall within each bin. Below is a
+histogram of our `age_at_death` measurement for all samples:
+
+``` {r}
+ggplot(ad_metadata) +
+  geom_histogram(mapping=aes(x=age_at_death))
+```
+
+Note that the histogram does not look very complete, because there are only 20
+values in our data. We can mitigate this somewhat by increasing the number of
+bins the data range is divided into:
+
+``` {r}
+ggplot(ad_metadata) +
+  geom_histogram(mapping=aes(x=age_at_death),bins=10)
+```
+
+This is a little bit better, but there are still some bins (76-79, 84-87) that
+have no values. Compare this to the following synthetic dataset of 1000
+normally distributed values:
+
+``` {r}
+tibble(
+  x=rnorm(1000)
+) %>%
+  ggplot() +
+  geom_histogram(aes(x=x))
+```
+
+For distributions with a small number of samples, histograms might not be the
+best visualization. We will continue with synthetic normally distributed dataset
+for the remaining examples.
+
+ggplot allows you to easily plot multiple distributions on the same plot:
+
+``` {r}
+tibble(
+  x=c(rnorm(1000),rnorm(1000,mean=4)),
+  type=c(rep('A',1000),rep('B',1000))
+) %>%
+  ggplot(aes(x=x,fill=type)) +
+  geom_histogram(bins=30, alpha=0.6, position="identity")
+```
+
+The `alpha=0.6, position="identity"` arguments makes the bars partially
+transparent so you can see the overlap more clearly.
+
+::: {.box .readmore}
+* [ggplot2 geom_histogram reference](https://ggplot2.tidyverse.org/reference/geom_histogram.html?q=histogram)
+* [R Graph Gallery - histograms](https://www.r-graph-gallery.com/histogram.html)
+:::
+
+### Density
+
+Another way to describe a distribution is with a [density
+plot](https://www.r-graph-gallery.com/density-plot.html). Instead of binning the
+values into intervals and drawing bars with height proportional to the number of
+values in each bin, a density plot draws a smoothly interpolated line that
+approximates the distribution instead. A key difference between a histogram and
+a density plot is the density plot is always normalized so the integral under
+the curve is approximately 1, whereas a histogram may be either counts or, if
+the counts in each bin are divided by the total number of data points, a
+proportion.
+
+Compare the histogram and density plots
+of the  `age_at_death` variable from our example tibble:
+
+``` {r}
+library(patchwork)
+hist_g <- ggplot(ad_metadata) +
+  geom_histogram(mapping=aes(x=age_at_death),bins=30)
+density_g <- ggplot(ad_metadata) +
+  geom_density(mapping=aes(x=age_at_death),fill="#c9a13daa")
+
+hist_g | density_g
+```
+
+Notice the overall shape of the two distributions is similar, with the highest
+values in both around age 77. The density plot is a smoother representation of
+a histogram, but its accuracy is still highly sensitive to the number of
+measurements used to construct it. Compare the histogram and density plots of
+two sets of 1000 normally distributed samples with different means:
+
+``` {r}
+library(patchwork)
+normal_samples <- tibble(
+  x=c(rnorm(1000),rnorm(1000,mean=4)),
+  type=c(rep('A',1000),rep('B',1000))
+)
+hist_g <- ggplot(normal_samples) +
+  geom_histogram(
+    mapping=aes(x=x,fill=type),
+    alpha=0.6,
+    position="identity",
+    bins=30
+)
+density_g <- ggplot(normal_samples) +
+  geom_density(
+    mapping=aes(x=x,fill=type),
+    alpha=0.6,
+    position="identity"
+  )
+
+hist_g | density_g
+```
+
+Again the two types of plots depict similar distributions, although they are
+different enough to possibly suggest different interpretations. In general,
+density plots might be preferable over histograms if the data are noisy or
+sparse in that they produce cleaner plots, but potentially at the expense of
+accuracy when the number of samples is low.
+
+::: {.box .readmore}
+* [ggplot2 geom_density reference](https://ggplot2.tidyverse.org/reference/geom_density.html?q=density)
+* [R Graph Gallery - density plots](https://www.r-graph-gallery.com/density-plot.html)
+:::
+
+### Boxplot
+
+Box plots, or box and whisker plots, are extremely common when used to describe
+distributions. Below is a boxplot of age at death divided by condition:
+
+``` {r}
+ggplot(ad_metadata) +
+  geom_boxplot(mapping=aes(x=condition,y=age_at_death))
+```
+
+Boxplots are drawn assuming the data are
+[unimodal](https://en.wikipedia.org/wiki/Unimodality) (i.e. shaped like a hill,
+possibly slanted to one side or the other), where the extents of the box
+represent the 1st and 3rd quartile of the data, the central line is the median,
+the whiskers are drawn as 1.5 times the value outside the 1st and 3rd quartiles.
+Sometimes individual values more extreme than the whiskers are drawn
+individually to identify them as outliers.
+
+![Boxplot anatomy. IQR stands for "inner quartile range", the distance between
+the 1st and 3rd quartile - Wikipedia](https://upload.wikimedia.org/wikipedia/commons/1/1a/Boxplot_vs_PDF.svg)
+
+However, boxplots have some significant shortcomings. Primarily, the rectangle
+of the inner quartile range does not describe the actual distribution of the
+samples within it. Although the median can give a sense of skewness, if the
+data are not unimodal this may be misleading. Consider the following
+distributions plotted as boxplots or as violin plots (described in the next
+section):
+
+``` {r}
+library(patchwork)
+normal_samples <- tibble(
+  x=c(rnorm(1000),rnorm(1000,4),rnorm(1000,2,3)),
+  type=c(rep('A',2000),rep('B',1000))
+)
+g <- ggplot(normal_samples, aes(x=type,y=x,fill=type))
+boxplot_g <- g +  geom_boxplot()
+violin_g <- g + geom_violin()
+
+boxplot_g | violin_g
+```
+
+The two distributions look almost identical in the boxplot figure; however they
+are dramatically different when visualized using a method like a violin plot
+where the contours of the entire distribution are depicted. Unless you are
+certain that your data are unimodal, one of the other distribution visualization
+methods in this section will likely more accurately depict your data than a
+boxplot.
+
+::: {.box .readmore}
+* [ggplot2 geom_boxplot reference](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)
+* [R Graph Gallery - boxplots](https://www.r-graph-gallery.com/boxplot.html)
+:::
+
+### Violin plot
+
+As seen in the last section, a [violin
+plot](https://ggplot2.tidyverse.org/reference/geom_violin.html) is another way
+to depict a distribution by producing a shape where the width is proportional to
+the value along the x or y axis, depending on orientation. The "violin" shape is
+similar in principle to a histogram or a density plot, in that it describes the
+contour of all the data in the distribution, not just the quantiles and extents,
+as in a box plot. Below is a violin plot of the `tau` measures from our example
+tibble:
+
+``` {r}
+ggplot(ad_metadata) +
+  geom_violin(aes(x=condition,y=tau,fill=condition))
+```
+
+The violin plot is both more and less descriptive than a boxplot; it does depict
+the entire distribution of the data, but also doesn't include features like
+median by default.
+
+::: {.box .readmore}
+* [ggplot2 geom_violin reference](https://ggplot2.tidyverse.org/reference/geom_violin.html)
+* [R Graph Gallery - violin plots](https://www.r-graph-gallery.com/violin.html)
+:::
+
+### Beeswarm plot
+
+The [beeswarm plot](https://r-charts.com/distribution/ggbeeswarm/) is similar to
+a violin plot, but instead of plotting the contours of the data, it plots the
+data itself as points like in a scatter plot. The individual values of the
+distribution are organized vertically and spaced such that the points don't
+overlap. In this plot, the distribution of age at death is plotted for each kind
+of sample and the markers are colored by the amount of tau:
+
+``` {r}
+library(ggbeeswarm)
+ggplot(ad_metadata) +
+  geom_beeswarm(aes(x=condition,y=age_at_death,color=condition),cex=2,size=2)
+```
+
+We may not have noticed before that our AD samples have a big gap in ages
+between 74 and 81; since the beeswarm plot displays all the data, we can see it
+easily here.
+
+Beeswarm plots are typically only useful when the number of values is within a
+range; not too many and not too few. The example above is close to having too
+few values per group for this plot to be useful, but consider the following with
+too many samples:
+
+``` {r}
+normal_samples <- tibble(
+  x=c(rnorm(1000),rnorm(1000,4),rnorm(1000,2,3)),
+  type=c(rep('A',2000),rep('B',1000))
+)
+ggplot(normal_samples, aes(x=type,y=x,color=type)) +
+  geom_beeswarm()
+```
+
+This plot likely has too many samples to be the right choice (it's also ugly),
+but it does give an idea of the distribution of the data.
+
+In the previous examples the markers for each group also determined the color of
+the group. This makes the chart a bit easier to read and more pleasing to the
+eye, but is technically redundant. You can use however profitably however to
+color markers by some other value that might be of interest. Consider this final
+example where markers are colored by another randomly generated variable:
+
+``` {r}
+normal_samples <- tibble(
+  x=c(rnorm(100),rnorm(100,4),rnorm(100,2,3)),
+  type=c(rep('A',200),rep('B',100)),
+  category=sample(c('healthy','disease'),300,replace=TRUE)
+)
+ggplot(normal_samples, aes(x=type,y=x,color=category)) +
+  geom_beeswarm()
+```
+
+We are now effectively visualizing three dimensions which may provide insight
+into the data.
+
+::: {.box .readmore}
+* [beeswarm package reference](https://r-charts.com/distribution/ggbeeswarm/)
+:::
+
+### Ridgeline
+
+If you have many non-trivial distributions that you would like the user to
+compare, a good option is a [ridgeline
+chart](https://www.r-graph-gallery.com/294-basic-ridgeline-plot.html). The
+ridgeline plot is simply multiple density plots drawn for different variables
+within the same plot. Like the beeswarm plot, ridgeline plots are provided by
+another package outside ggplot2.
+
+``` {r}
+library(ggridges)
+
+tibble(
+  x=c(rnorm(100),rnorm(100,4),rnorm(100,2,3)),
+  type=c(rep('A',200),rep('B',100)),
+) %>%
+  ggplot(aes(y=type,x=x,fill=type)) +
+  geom_density_ridges()
+```
+
+Many distributions may be plotted:
+
+``` {r}
+tibble(
+  x=rnorm(10000,mean=runif(10,1,10),sd=runif(2,1,4)),
+  type=rep(c("A","B","C","D","E","F","G","H","I","J"),1000)
+) %>%
+  ggplot(aes(y=type,x=x,fill=type)) +
+  geom_density_ridges(alpha=0.6,position="identity")
+```
+
+::: {.box .readmore}
+* [R Graph Gallery - ridgeline plots](https://www.r-graph-gallery.com/294-basic-ridgeline-plot.html)
+* [ggridges package vignette](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html)
+* [ggridges package index on CRAN](https://cran.r-project.org/web/packages/ggridges/index.html)
+:::

@@ -1,0 +1,31 @@
+---
+output: html_document
+---
+
+## Tips and Tricks .
+
+### Reordering 1-D Data Elements .
+
+How do we enforce an order on elements in a plot? Why might we want to do that?
+
+``` {r}
+ad_metadata %>%
+arrange(tau) %>%
+ggplot(mapping = aes(x=ID,y=tau,fill=condition)) +
+  geom_bar(stat="identity")
+```
+
+But wait, our bars are in the same order as in the previous plot. Sorting our
+data prior to plotting did not have the desired effect. The reason is that
+although the `ID` column is a character string in our original tibble, ggplot
+converts it into a [factor](#prog-factor) prior to plotting. Recall that a
+factor is a numeric type composed of sequential integers, each of which having a
+character label associated with it.
+
+### Confidence Intervals .
+
+What are some ways to depict uncertainty in a plot?
+
+### Annotations .
+
+How do we add text annotations to plots? Manually vs data-driven.

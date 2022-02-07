@@ -1,0 +1,7 @@
+---
+output: html_document
+---
+
+## Responsible Plotting .
+
+"Good plots empower us to ask good questions." - Alberto Cairo, How Charts Lie
