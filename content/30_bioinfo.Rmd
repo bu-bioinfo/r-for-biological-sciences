@@ -1230,7 +1230,7 @@ various sources and performing common operations such as set intersections, set
 differences, and ID conversions. We will demonstrate the usage of some of these
 in the next section covering Over-representation analysis.
 
-## Over-representation Analysis .
+## Over-representation Analysis
 
 One of the most common ways to utilize gene sets to evaluate gene expression
 results is to perform Over-representation Analysis (ORA). Let us assume that we
