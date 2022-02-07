@@ -40,17 +40,19 @@ output: html_document
 * Data Viz: [Plotting One Dimension]
 * Data Viz: [Visualizing Distributions]
 * R Prog: [Unit Testing]
-* [Assignment 2]
 
 ## Week 3
+* [Assignment 2]
+* [Assignment 1] Review
 * Data Sci: [Data Modeling]
 * Data Sci: [A Worked Modeling Example]
 * Data Sci: [Data Summarization]
 * Data Sci: [Linear Models]
-* Data Sci: [Statistical Model Flavors]
+* Data Sci: [Flavors of Linear Models]
 * Bioinfo: [Gene Expression]
 * Bioinfo: [Gene Expression Data in Bioconductor]
 * Bioinfo: [Microarrays]
+* Bioinfo: [Microarray Data in Bioconductor]
 * Bioinfo: [Differential Expression: Microarrays (limma)]
 * Data Sci: [Clustering]
 * Data Viz: [Heatmaps]
