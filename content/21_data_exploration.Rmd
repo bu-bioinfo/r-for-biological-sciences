@@ -669,12 +669,251 @@ method that is most suitable.
 
 ## Statistical Distributions & Tests .
 
-### Statistical Distributions .
+### Statistical Distributions
 
-What is a distribution? Why are they important? In brief terms, how are
-distributions defined mathematically? What are some common distributions, and
-when are they used? What do different distributions look like when plotted? How
-do we work with distributions in R (e.g. dnorm, pnorm, qnorm, rnorm)?
+By definition, a distribution is a function that shows 
+**the possible values for a variable and how often they occur**. 
+Generally, they are divided into two categories: discrete distributions and 
+continuous distributions.  
+
+#### Discrete distributions
+
+#### Bernoulli random trail and more  
+One of the examples for discrete random variable distribution is the **Bernoulli** 
+function. A Bernoulli trail has only 2 outcomes with probability $p$ and $(1-p)$. 
+Consider flipping a fair coin, and the random variable X can take value 0 or 1 
+indicating you get a head or a tail. If it's a fair coin, we would expect the 
+Pr{ X = 0 } = Pr{ X = 1 } = 0.5. Or, if we throw a die and we record X = 1 when
+we get a six, and X = 0 otherwise, then Pr{ X = 0 } = 5/6 and Pr{ X = 1 } = 1/6.  
+
+Now consider a slightly complicated situation: what if we are throwing the die 
+$n$ times and we would like to analyze the total number of six, say $x$, we get 
+during those $n$ throws? Now, this leads us to the **binomial distribution**. 
+If it's a fair die, we would say our proportion parameter p = 1/6, which means 
+the probability we are getting a six is 1/6 for each throw.  
+
+$$\begin{equation}
+f(x) = \frac {n!} {x!(n-x)!}p^x (1-p) ^{(n-x)}
+\end{equation}$$
+
+The **geometric** random variable, similar to the binomial, is also from a 
+sequence of random Bernoulli trials with a constant probability parameter p. 
+But this time, we define the random variable X as the number of consecutive 
+failures before the first success. In this case, the probability of x 
+consecutive failures followed by success on trial x+1 is:  
+
+$$\begin{equation}
+f(x) = p * (1-p)^x
+\end{equation}$$
+
+The **negative binomial** distribution goes one step forward. This time, we are 
+still performing a sequence of independent Bernoulli random trials with a 
+constant probability of success equal to p. But now we would like to record the 
+random variable Z to be the total number of failures before we finally get to 
+the $r^{th}$ success. In other words, when we get to the $r^{th}$ success, we 
+had x+r Bernoulli random trails, in which x times failed and r times succeeded.  
+
+$$\begin{equation}
+f(x) = \frac {x+r-1} {r-1} p^r {(1-p)}^x
+\end{equation}$$
+
+#### Poisson  
+The Poisson distribution is used to express the probability of a given number 
+of events occurring in a fixed interval of time or space, and these events 
+occur with a known constant mean rate and independently of the time since 
+the last event. ~~But no one understands this definition.~~  
+
+The formula for Poisson distribution is:  
+$$\begin{equation}
+f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!} 
+\end{equation}$$
+
+- lambda is the expected value of the random variable X  
+- k is the number of occurrences  
+- e is Euler's number (e=2.71828)  
+~~okay, the formula makes it even more confusing.~~  
+
+Imagine you are working at a mail reception center, and your responsibility 
+is to receive incoming letters. Assume the number of incoming letters is not 
+affected by the day of the week or season of the year. You are expected to get 
+20 letters on average in a day. But, the actual number of letters you receive 
+each day will not be perfectly 20.  
+You recorded the number of letters you receive each day in a month (30 days). 
+In the following plot, each dot represents a day. The x-axis is calender day, 
+and y-axis is the number of letters you receive on that day. Although on average 
+you are receiving 20 letters each day, the actual number of letters each day vary a lot. 
+
+```{r}
+set.seed(2)
+my_letter <- rpois(n = 30, lambda = 20)
+plot(my_letter,
+  main = "Letters received each day",
+  xlab = "day of the month", ylab = "number of letters",
+  pch = 19, col = "royalblue"
+)
+abline(a = 20, b = 0, lwd = 2, lty = 3, col = "salmon")
+```
+
+Now, let's plot the density plot of our data. The x-axis is the number of 
+letters on a single day, and the y-axis is the probability.  
+```{r}
+plot(density(my_letter),
+  lwd = 2, col = "royalblue",
+  main = "Probability of number of letters each day",
+  xlab = "number of letters"
+)
+```
+
+Since we only have 30 data points, it doesn't look like a good curve. But, 
+after we worked at the mail reception for 5000 days, it becomes much closer 
+to the theoretical Poisson distribution with lambda = 20.  
+
+```{r}
+set.seed(3)
+plot(density(rpois(n = 5000, lambda = 20)),
+  lwd = 2, col = "royalblue",
+  main = "Probability of number of letters each day",
+  xlab = "number of letters"
+)
+```
+
+Here is the theoretical Poisson distribution with lambda = 20.  
+```{r}
+plot(dpois(c(1:40), lambda = 20),
+  lwd = 2, type = "l", col = "royalblue",
+  ylab = "probability", main = "Poisson lambda=20"
+)
+```
+
+If we want to know what's the probability to receive, for example, 18 letters,  
+we can use `dpois()` function. 
+```{r}
+dpois(x = 18, lambda = 20)
+```
+
+If we want to know the probability of receiving 18 or less letters, 
+use `ppois()` function. 
+```{r}
+ppois(q = 18, lambda = 20, lower.tail = T)
+```
+ 
+It is the cumulative area colored in the following plot:  
+```{r}
+plot(dpois(c(1:40), lambda = 20),
+  lwd = 2, type = "l", col = "royalblue",
+  ylab = "probability", main = "Poisson lambda=20"
+)
+polygon(
+  x = c(1:18, 18),
+  y = c(dpois(c(1:18), lambda = 20), 0),
+  border = "royalblue", col = "lightblue1"
+)
+segments(x0 = 18, y0 = 0, y1 = 0.08439355, lwd = 2, lty = 2, col = "salmon")
+```
+
+`qpois()` is like the "reverse" of `ppois()`.  
+```{r}
+qpois(p = 0.3814219, lambda = 20)
+```
+
+
+Let's review the definition of Poisson distribution.  
+- "these events occur in a fixed interval of time or space", which is a day;  
+- "these events occur with a known constant mean rate", which is 20 letters;  
+- "independently of the time since the last event", which means the number of 
+letters you receive today is independent of the letter you receive tomorrow. 
+~~more work today don't guarantee less work tomorrow, just like in real life~~  
+
+Now let's re-visit the formula.  
+$$\begin{equation}
+f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!} 
+\end{equation}$$
+
+- lambda is the expected value of X, which is 20 letters in this example.  
+- k is the number of occurrences, which is the number of letters you get on a specific day.  
+- e is Euler's number (e=2.71828)  
+
+
+#### Continuous distributions
+There are a number of different continuous distributions. Here we will focus 
+on the **Normal distribution (Gaussian distribution)**. A lot of variables in 
+real life are normally distributed, common examples include people's height, 
+blood pressure, and students' exam score.  
+
+This is what a normal distribution with mean = 0 and standard deviation = 1 looks like:  
+```{r}
+set.seed(2)
+norm <- rnorm(n = 50000, mean = 0, sd = 1)
+plot(density(norm),
+  main = "A Normal distribution", xlab = "x",
+  lwd = 2, col = "royalblue"
+)
+```
+
+
+Similar as the Poisson distribution above, there are several functions to work 
+with normal distribution, including `rnorm()`, `dnorm()`, `pnorm()`, and `qnorm()`.  
+
+`rnorm()` is used to draw random data points from a normal distribution with 
+a given mean and standard deviation. 
+```{r}
+set.seed(2)
+rnorm(
+  n = 6, # number of data points to draw
+  mean = 0, # mean
+  sd = 1
+) # standard deviation
+```
+
+`dnorm()` is the density at a given quantile. For instance, in the normal 
+distribution (mean=0, sd=1) above, the probability density at 0.5 is roughly 0.35. 
+```{r}
+dnorm(x = 0.5, mean = 0, sd = 1)
+```
+
+```{r}
+plot(density(norm),
+  main = "A Normal distribution", xlab = "x",
+  lwd = 2, col = "royalblue"
+)
+segments(x0 = 0.5, y0 = 0, y1 = 0.3520653, lwd = 2, lty = 3, col = "salmon")
+segments(x0 = -5, y0 = 0.3520653, x1 = 0.5, lwd = 2, lty = 3, col = "salmon")
+points(x = 0.5, y = 0.3520653, cex = 1.5, lwd = 2, col = "red")
+text(x = 1.1, y = 0.36, labels = "0.3521", col = "red2")
+```
+
+
+`pnorm()` gives the distribution function. Or, you can think of it as the 
+cumulative of the left side of the density function until a given value, 
+which is the area colored in light blue in the following plot.  
+
+```{r}
+pnorm(q = 0.5, mean = 0, sd = 1)
+```
+
+```{r}
+plot(density(norm),
+  main = "A Normal distribution", xlab = "x",
+  lwd = 2, col = "royalblue"
+)
+polygon(
+  x = c(density(norm)$x[density(norm)$x <= 0.5], 0.5),
+  y = c(density(norm)$y[density(norm)$x <= 0.5], 0),
+  border = "royalblue", col = "lightblue1"
+)
+segments(x0 = 0.5, y0 = 0, y1 = 0.3520653, lwd = 2, lty = 2, col = "salmon")
+```
+
+`qnorm()` gives the quantile function. 
+You can think of it as the "reverse" of `pnorm()`. For instance:  
+```{r}
+pnorm(q = 0.5, mean = 0, sd = 1)
+qnorm(p = 0.6914625, mean = 0, sd = 1)
+```
+
+Similarly, other distributions such as chi-square distribution, they all have 
+the same set of functions: `rchisq()`, `dchisq()`, `pchisq()` and `qchisq()` etc.  
+
 
 ### Statistical Tests .
 
