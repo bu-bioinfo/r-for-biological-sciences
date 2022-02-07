@@ -117,7 +117,7 @@ blood samples. We have the following made-up dataset:
 set.seed(1337)
 gene_exp <- tibble(
   sample_name = c(str_c("P",1:100), str_c("C",1:100)),
-  `Disease Status` = c(rep("Parkinson's",100),rep("Control",100)),
+  `Disease Status` = factor(c(rep("Parkinson's",100),rep("Control",100))),
   `Gene 1` = c(rnorm(100,255,10), rnorm(100,250,10)),
   `Gene 2` = c(rnorm(100,520,100), rnorm(100,600,60)),
   `Gene 3` = c(rnorm(100,500,40), rnorm(100,330,40))
@@ -180,6 +180,9 @@ start by posing the **scientific question** as concisely as possible, as we have
 done above. These questions will help us identify which modeling techniques are
 appropriate and help us ensure we interpret our results correctly.
 
+We will use this example dataset throughout this chapter to illustrate some key
+concepts.
+
 ### Data Summarization
 
 Broadly speaking, *data summarization* is the process of finding a
@@ -211,13 +214,15 @@ By eye, the mean does seem to correspond well to the value that is among the
 most frequent, and successfully captures an important aspect of the data: its
 *central tendency*. Summaries that compute a single number are called *point
 estimates*. Point estimates collapse the data into one singular point, one
-value. The arithmetic mean is just one of these measures of central tendency,
-computed by taking the sum of all the values and dividing by the number of
-values. The mean may be a good point estimate of the central tendency of a
-dataset, but it is sensitive to outlier samples. Consider the following
-examples:
+value.
 
-```{r fig.align="center"}
+::: {.box}
+The arithmetic mean is just one measure of central tendency, computed by taking
+the sum of all the values and dividing by the number of values. The mean may be
+a good point estimate of the central tendency of a dataset, but it is sensitive
+to outlier samples. Consider the following examples:
+
+```{r fig.align="center", fig.height=4}
 library(patchwork)
 well_behaved_data <- tibble(data = rnorm(1000))
 data_w_outliers <- tibble(data = c(rnorm(800), rep(5, 200))) # oops I add some outliers :^)
@@ -239,19 +244,20 @@ The median is another measure of central tendency, which is found by identifying
 the value that divides the samples into equal halves when sorted from smallest
 to largest. The median is more robust in the presence of outliers.
 
-```{r fig.align="center"}
+```{r fig.align="center", fig.height=4}
 g_no_outlier <- ggplot(well_behaved_data, aes(x = data)) +
-  geom_histogram(fill = "#AFBED1", color = "white", bins = 30) +
+  geom_histogram(fill = "#AFBED1", color = "grey", bins = 30) +
   geom_vline(xintercept = median(well_behaved_data$data)) +
-  theme_bw() + ggtitle("Median example") + xlab("") + ylab("")
+  ggtitle("Median example")
 
 g_outlier <- ggplot(data_w_outliers, aes(x = data)) +
   geom_histogram(fill = "#7FBEEB", color = "grey", bins = 30) +
   geom_vline(xintercept = median(data_w_outliers$data)) +
-  theme_bw() + ggtitle("Median example, big outliers") + xlab("") + ylab("")
+  ggtitle("Median example, big outliers")
 
 g_no_outlier | g_outlier
 ```
+:::
 
 #### Dispersion
 
@@ -279,6 +285,7 @@ deviation around the mean, and has been placed arbitrarily on the y axis at `y =
 deviation around the mean visually describes the spread of the data reasonably
 well.
 
+::: {.box}
 Measures the spread of the data, typically around its perceived center (a mean).
 Often related to the distribution of the data.
 
@@ -290,7 +297,7 @@ data <- tibble(data = c(rnorm(1000, sd=1.75)))
 ggplot(data, aes(x = data)) +
   geom_histogram(fill = "#EAC5D8", color = "white", bins = 30) +
   geom_vline(xintercept = c(-2, -1, 0, 1, 2) * sd(data$data)) +
-  theme_bw() + xlab("") + ylab("") + xlim(c(-6, 6)) +
+  xlim(c(-6, 6)) +
   ggtitle("Standard deviations aplenty", paste("SD:", sd(data$data)))
 ```
 
@@ -302,10 +309,11 @@ data <- tibble(data = c(rnorm(1000, sd=0.5)))
 ggplot(data, aes(x = data)) +
   geom_histogram(fill = "#DBD8F0", color = "white", bins = 30) +
   geom_vline(xintercept = mean(data$data)) +
-  theme_bw() + xlab("") + ylab("") + xlim(c(-6, 6)) +
+  xlim(c(-6, 6)) +
   ggtitle("Same mean as SD plot, but different variance",
           paste("Variance:", sd(data$data)))
 ```
+:::
 
 #### Distributions
 
@@ -329,14 +337,16 @@ ggplot(gene_exp, aes(x=`Gene 1`)) +
   stat_function(fun=dnorm, args = list(mean=g1_mean, sd=g1_sd), size=2)
 ```
 
-Note the histogram bars are scaled to the density of values in each bin to make
-all the bar heights sum to 1 so that the y scale matches that of a normal
-distribution.
+Note the histogram bars are scaled with
+`aes(y=[after_stat](https://ggplot2.tidyverse.org/reference/aes_eval.html)(density))`
+to the density of values in each bin to make all the bar heights sum to 1 so
+that the y scale matches that of a normal distribution.
 
 We have now created our first model: we chose to express the dataset as a normal
 distribution parameterized by the mean and standard deviation and standard
 deviation of the data. Using the values of `r round(g1_mean)` and `r round(g1_sd)`
-as our mean and standard deviation, respectively, we can express our model mathematically as follows:
+as our mean and standard deviation, respectively, we can express our model
+mathematically as follows:
 
 $$
 Gene\;1 \sim \mathcal{N}(254, 11)
@@ -350,6 +360,7 @@ standard deviation of 11. Without any additional information about a new sample,
 we would expect the expression of that gene to be 254, although it may vary from
 this value.
 
+::: {.box}
 The normal distribution is the most common distribution observed in nature, but
 it is hardly the only one. We could have proposed other distributions to instead
 summarize our data:
@@ -382,16 +393,14 @@ similar to the normal distribution but has heavier "tails", and an [exponential
 distribution](https://en.wikipedia.org/wiki/Exponential_distribution).
 There are many more distributions than these, and many of them were discovered
 to arise in nature and encode different types of processes and relationships.
+:::
 
-#### Final Modeling Thoughts
-
-A few notes on our data modeling example before we move on to modeling
-biological data:
+A few notes on our data modeling example before we move on:
 
 1. **Our model choice was totally subjective.** We looked at the data and
 decided that a normal distribution was a reasonable choice. There were many
 other choices we could have made, and all of them would be equally valid, though
-they may not all describe the data well.
+they may not all describe the data equally well.
 
 2. **We can't know if this is the "correct" model for the data.** By eye, it
 appears to be a reasonably accurate summary. However, there is no such thing as
@@ -403,14 +412,260 @@ may be useful, but it is definitely wrong to some extent.
 only used our eyes to choose our model which might be a good starting point
 considering our data are so simple, but we have not yet quantified how well our
 model describes the data, or compared it to alternative models to see which is
-better. This will be discussed briefly in the next section.
+better. This will be discussed briefly in a later section.
 
-### Assessing Model Accuracy
+### Linear Models
 
-### Linear Models .
+Our choice of a normal distribution to model our Gene 1 gene expression was only
+*descriptive*; it was a low-dimensional summary of our dataset. However, it was
+not very *informative*; it doesn't tell us anything useful about Gene 1
+expression with respect to our scientific question of distinguishing between
+Parkinson's Disease and Control individuals. To do that, we will need to find a
+model that can make *predictions* that we may find useful if we receive new
+data. To do that, we will introduce a new type of model: the linear model.
 
-What is a linear model? Conceptually, how do they work? How do you interpret the
-results of a linear model? How do you implement a linear model in R?
+A linear model is any statistical model that relates one outcome variable as a
+linear combination (i.e. sum) of one or more explanatory variables. This may be
+expressed mathematically as follows:
+
+$$
+Y_i = \beta_0 + \beta_1 \phi_1 ( X_{i1} ) + \beta_2 \phi_2 ( X_{i2} ) + \ldots + \beta_p \phi_p ( X_{ip} ) + \epsilon_i
+$$
+
+Above, $Y_i$ is some outcome or response variable we wish to model, $X_{ij}$ is
+our explanatory or predictor variable $j$ for observatoin $i$, and $\beta_j$ are
+coefficients estimated to minimize the difference between the predicted outcome
+$\hat{Y_i}$ and the observed $Y_i$ over all observations. $\phi_j$ is a possibly
+non-linear transformation of the explanatory variable $X_ij$; note these
+functions may be non-linear so long as the predicted outcome is modeled as a
+linear combination of the transformed variables. The rest of this section is
+dedicated to a worked example of a linear model for gene expression data.
+
+Let us begin with a [beeswarm plot](#beeswarm-plot) plot of Gene 3:
+
+```{r lin model gene 3 violin}
+library(ggbeeswarm)
+ggplot(gene_exp, aes(x=`Disease Status`, y=`Gene 3`, color=`Disease Status`)) +
+  geom_beeswarm()
+```
+
+The expression values within each disease status look like they might be
+normally distributed just like Gene 1, so let's summarize each group with the
+arithmetic mean and standard deviation as before, and instead plot both
+distributions as histograms:
+
+```{r}
+exp_summ <- pivot_longer(
+  gene_exp,
+  c(`Gene 3`)
+) %>%
+  group_by(`Disease Status`) %>%
+  summarize(mean=mean(value),sd=sd(value))
+
+pd_mean <- filter(exp_summ, `Disease Status` == "Parkinson's")$mean
+c_mean <- filter(exp_summ, `Disease Status` == "Control")$mean
+
+ggplot(gene_exp, aes(x=`Gene 3`, fill=`Disease Status`)) +
+  geom_histogram(bins=20, alpha=0.6,position="identity") +
+  annotate("segment", x=c_mean, xend=pd_mean, y=20, yend=20, arrow=arrow(ends="both", angle=90)) +
+  annotate("text", x=mean(c(c_mean,pd_mean)), y=21, hjust=0.5, label="How different?")
+```
+
+We can make a point estimate of this difference by simply subtracting the means:
+
+```{r lin model point diff}
+pd_mean - c_mean
+```
+
+In other words, this point estimate suggests that on average Parkinson's
+patients have `r round(pd_mean-c_mean,1)` greater expression than Controls. We can
+plot this relationship relatively simply:
+
+```{r lin model gene 3 fit}
+ggplot(gene_exp, aes(x=`Disease Status`, y=`Gene 3`, color=`Disease Status`)) +
+  geom_beeswarm() +
+  annotate("segment", x=0, xend=3, y=2*c_mean-pd_mean, yend=2*pd_mean-c_mean)
+```
+
+However, this point estimate tells us nothing about how confident we are about
+the difference. We can do this by using an [linear
+regression](https://en.wikipedia.org/wiki/Least_squares) by modeling Gene 3 as a
+function of disease status:
+
+```{r lin model lm}
+fit <- lm(`Gene 3` ~ `Disease Status`, data=gene_exp)
+fit
+```
+
+The coefficient associated with having the disease status of Parkinson's disease
+is almost exactly equal to our difference in means. We also note that the
+coefficient labeled `(Intercept)` is nearly equal to the mean of our control
+samples (`r round(c_mean,1)`). Under the hood, this simple linear model did the
+same calculation we did by subtracting the means of each group but estimated the
+means using all the data at once, instead of point estimates. Another advantage
+of using `lm()` over the point estimate method is the model can estimate how
+confident the model was that the difference in mean between Parkinson's and
+controls subjects. Let's print some more information about the model than
+before:
+
+```{r lin model summary}
+summary(fit)
+```
+
+We again see our coefficient estimates for the intercept (i.e. mean control
+expression) and our increase in Parkinson's, but also a number of other terms,
+in particular `Pr(>|t|)` and `Multiple R-squared`. The former is the
+[p-value](#p-values) associated with each of the coefficient estimates, both of
+which are very small, indicating to us that the model was very confident of the
+estimated values. The latter, multiple R-squared or $R^2$, describes how much of
+the variance in the data was explained by the model it found as a fraction
+between 0 and 1. This model explains 77.7% of the variance of the data, which is
+substantial. The $R^2$ value also has an associated p-value, which is also very
+small. Overall, these statistics suggest this model fits the data very well.
+
+We can plot the results of a linear model for each of our genes relatively
+easily:
+
+```{r lin model 3 genes}
+pd_mean <- mean(filter(gene_exp,`Disease Status`=="Parkinson's")$`Gene 1`)
+c_mean <- mean(filter(gene_exp,`Disease Status`=="Control")$`Gene 1`)
+g1 <- ggplot(gene_exp, aes(x=`Disease Status`, y=`Gene 1`, color=`Disease Status`)) +
+  geom_beeswarm() +
+  annotate("segment", x=0, xend=3, y=2*c_mean-pd_mean, yend=2*pd_mean-c_mean) +
+  theme(legend.position="none")
+
+pd_mean <- mean(filter(gene_exp,`Disease Status`=="Parkinson's")$`Gene 2`)
+c_mean <- mean(filter(gene_exp,`Disease Status`=="Control")$`Gene 2`)
+g2 <- ggplot(gene_exp, aes(x=`Disease Status`, y=`Gene 2`, color=`Disease Status`)) +
+  geom_beeswarm() +
+  annotate("segment", x=0, xend=3, y=2*c_mean-pd_mean, yend=2*pd_mean-c_mean) +
+  theme(legend.position="none")
+
+pd_mean <- mean(filter(gene_exp,`Disease Status`=="Parkinson's")$`Gene 3`)
+c_mean <- mean(filter(gene_exp,`Disease Status`=="Control")$`Gene 3`)
+g3 <- ggplot(gene_exp, aes(x=`Disease Status`, y=`Gene 3`, color=`Disease Status`)) +
+  geom_beeswarm() +
+  annotate("segment", x=0, xend=3, y=2*c_mean-pd_mean, yend=2*pd_mean-c_mean) +
+  theme(legend.position="none")
+g1 | g2 | g3
+```
+
+We can also compute the corresponding linear model fits, and confirm that the
+coefficients agree with the directions observed in the plot, as well as that all
+the associations are significant FDR < 0.05:
+
+
+
+```{r lin mod all fits, include=FALSE, cache=TRUE}
+fit1 <- lm(`Gene 1` ~ `Disease Status`, data=gene_exp)
+fit2 <- lm(`Gene 2` ~ `Disease Status`, data=gene_exp)
+fit3 <- lm(`Gene 3` ~ `Disease Status`, data=gene_exp)
+
+gene_stats <- bind_rows(
+  c("Gene 1",coefficients(fit1),summary(fit1)$coefficients[2,4]),
+  c("Gene 2",coefficients(fit2),summary(fit2)$coefficients[2,4]),
+  c("Gene 3",coefficients(fit3),summary(fit3)$coefficients[2,4])
+)
+colnames(gene_stats) <- c("Gene","Intercept","Parkinson's","pvalue")
+gene_stats$padj <- p.adjust(gene_stats$pvalue,method="fdr")
+gene_stats
+```
+
+```r
+fit1 <- lm(`Gene 1` ~ `Disease Status`, data=gene_exp)
+fit2 <- lm(`Gene 2` ~ `Disease Status`, data=gene_exp)
+fit3 <- lm(`Gene 3` ~ `Disease Status`, data=gene_exp)
+
+gene_stats <- bind_rows(
+  c("Gene 1",coefficients(fit1),summary(fit1)$coefficients[2,4]),
+  c("Gene 2",coefficients(fit2),summary(fit2)$coefficients[2,4]),
+  c("Gene 3",coefficients(fit3),summary(fit3)$coefficients[2,4])
+)
+colnames(gene_stats) <- c("Gene","Intercept","Parkinson's","pvalue")
+gene_stats$padj <- p.adjust(gene_stats$pvalue,method="fdr")
+gene_stats
+```
+
+```
+## # A tibble: 3 x 5
+##   Gene   Intercept        `Parkinson's`     pvalue                   padj
+##   <chr>  <chr>            <chr>             <chr>                   <dbl>
+## 1 Gene 1 250.410735540151 6.95982194659045  3.92131170913765e-06 3.92e- 6
+## 2 Gene 2 597.763814010886 -93.6291659250254 2.37368730897756e-13 3.56e-13
+## 3 Gene 3 334.57788193953  164.094204856583  1.72774902843408e-66 5.18e-66
+```
+
+We have just performed our first elementary differential expression analysis
+using a linear model. Specifically, we examined each of our genes for a
+statistical relationship with having Parkinson's disease. The mechanics of this
+analysis are beyond the scope of this book, but later when we consider
+differential expression analysis packages in [chapter
+7](#biology-bioinformatics) this pattern should be familiar after this example.
+
+::: {.box .note}
+If you are familiar with [logistic
+regression](https://en.wikipedia.org/wiki/Logistic_regression), you might have
+wondered why we didn't model disease status, which is a binary variable, as a
+function of gene expression like `Disease Status ~ Gene 3`. There are several
+reasons for this, [complete
+separation](https://en.wikipedia.org/wiki/Separation_(statistics)) principally
+among them. In logistic regression, complete separation occurs when all the
+predictor values (e.g. gene expression) for one outcome group are greater or
+smaller than the other; i.e. there is no overlap in the values between groups.
+This causes logistic regression to fail to converge, leaving these genes with no
+statistics even though these genes are potentially the most interesting! There
+are methods (e.g. [Firth's Logistic
+Regression](https://cran.r-project.org/web/packages/logistf/index.html)) that
+overcome this problem, but methods that model gene expression as a function of
+other outcome variables were developed first and remain the most popular.
+:::
+
+::: {.box .readmore}
+[Modeling Basics - R for Data Science](https://r4ds.had.co.nz/model-basics.html)
+[Least squares regression](https://en.wikipedia.org/wiki/Least_squares)
+:::
+
+### Flavors of Linear Models
+
+The linear model implemented above is termed [linear
+regression](https://en.wikipedia.org/wiki/Linear_regression) due to the way it
+models the relationship between the predictor variables and the outcome.
+Specifically, linear regression makes some strong assumptions about that
+relationship that may not always hold for all datasets. To address this
+limitation, a more flexible class of linear models called [generalized linear
+models](https://en.wikipedia.org/wiki/Generalized_linear_model) that allow these
+assumptions to be relaxed by changing the mathematical relationship between the
+predictors and outcome using a [link
+function](https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function),
+and/or by mathematically transforming the predictors themselves. Some of the
+more common generalized linear models are listed below:
+
+* **Logistic regression** - models a binary outcome (e.g. disease vs control) as
+a linear combination of predictor variables by using the [logistic
+function](https://en.wikipedia.org/wiki/Logistic_function) as the link function.
+* **Multinomial regression** - models a multinomial (i.e. categorical variable
+with more than two categories) using a [multinomial logit function](https://en.wikipedia.org/wiki/Multinomial_logistic_regression) link
+function
+* **Poisson regression** - models an outcome variable that are count data as
+a linear combination of predictors using the logarithm as the link function;
+this model is commonly used when modeling certain types of high throughput
+sequencing data
+* **Negative binomial regression** - also models an outcome variable that are
+count data but relaxes some of the assumptions of Poisson regression, namely the
+mean-variance equality constraint; negative binomial regression is commonly used
+to model gene expression estimated from RNASeq data.
+
+Generalized linear models are very flexible, and there are many other types of
+these models used in biology and data science. It is important to be aware of
+the characteristics of the outcome you wish to model and choose the modeling
+method that is most suitable.
+
+::: {.box .readmore}
+[Generalized linear models](https://en.wikipedia.org/wiki/Generalized_linear_model)
+:::
+
+### Assessing Model Accuracy .
+
 
 ## Statistical Distributions & Tests .
 
