@@ -104,11 +104,13 @@ plotting-two-or-more-dimensions-.
 scatter-plot-.
 line-plot-.
 bubble-plot-.
-heatmaps-.
+heatmaps
+specifying-heatmap-colors
+how-to-use-heatmaps-resonsibly-.
 other-kind-of-plots-.
 chord-.
 sankey-.
-dendrogram-.
+dendrograms
 tips-and-tricks-.
 reordering-1-d-data-elements-.
 confidence-intervals-.
@@ -122,6 +124,7 @@ publication-ready-plots-.
 network-visualization-.
 biology-bioinformatics
 bio-r
+biological-data-overview
 csv-files
 bio-data-types
 common-biological-data-matrices
@@ -140,12 +143,12 @@ high-throughput-sequencing-.
 count-data-.
 rnaseq-.
 differential-expression-rnaseq-.
-genomic-intervals-.
 gene-set-enrichment-analysis
 gene-sets
 working-with-gene-sets-in-r
 over-representation-analysis
 rank-based-analysis-.
+genomic-intervals-.
 biological-networks-.
 biological-pathways-.
 gene-regulatory-networks-.
