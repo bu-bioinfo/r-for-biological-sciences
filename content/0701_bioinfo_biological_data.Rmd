@@ -44,7 +44,7 @@ These same properties and principles apply to all character-separated files,
 regardless of the specific delimiter used. If a file follows these principles,
 they can be loaded very easily into R or any other data analysis setting.
 
-## Types of Biological Data {#bio-data-types}
+### Types of Biological Data {#bio-data-types}
 
 In very general terms, there are five types of data used in biological data
 analysis: raw/primary data, processed data, analysis results, metadata, and
@@ -103,7 +103,7 @@ work together for a typical biological data analysis.
 
 ![Information flow in biological data analysis](information_flow.png)
 
-## Common Biological Data Matrices
+### Common Biological Data Matrices
 
 Typically the first data set you will work with in R is *processed data* as
 described in the previous section. This data has been transformed from primary
