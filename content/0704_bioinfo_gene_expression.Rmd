@@ -1,0 +1,440 @@
+---
+output: html_document
+---
+
+```{r, include=FALSE}
+source("0700_bioinfo.R")
+```
+
+## Gene Expression
+
+Gene expression is the process by which information from a gene is used in the
+synthesis of functional gene products that affect a phenotype. While gene
+expression studies are often focused on protein coding genes, there are many
+other functional molecules, e.g. [transfer
+RNAs](https://www.genome.gov/genetics-glossary/Transfer-RNA),
+[lncRNAs](https://en.wikipedia.org/wiki/Long_non-coding_RNA), etc, that are
+produced by this process. The gene expression process has many steps and
+intermediate products, as depicted in the following figure:
+
+![The Gene Expression Process - An overview of the flow of information from DNA
+to protein in a eukaryote](gene_expression_nature.jpg)
+
+The specific parts of the genome that code for genes are copied, or
+*transcribed* into RNA molecules called *transcripts*. In lower organisms like
+bacteria, these RNA molecules are passed on directly to ribosomes, which
+translate them into proteins. In most higher organisms like eukaryotes, these
+initial transcripts, called *pre-messenger RNA (pre-mRNA) transcripts* are
+further processed such that certain parts of the transcript, called *introns*,
+are spliced out and the flanking sequences, called *exons*, are concatenated
+together. After this splicing process is complete, the pre-mRNA transcripts
+become mature *messenger RNA (mRNA) transcripts* which go on to be exported from
+the nucleus and loaded into ribosomes in the cytoplasm to undergo translation
+into proteins.
+
+In gene expression studies, the relative abundance, or number of copies, of RNA
+or mRNA transcripts in a sample is measured. The measurements are non-negative
+numbers that are proportional to the relative abundance of a transcript with
+respect to some reference, either another gene, or in the case of high
+throughput assays like microarrays or high throughput sequencing, relative to
+measurements of all distinct transcripts examined in the experiment.
+Conceptually, the larger the magnitude of a transcript abundance measurement,
+the more copies of that transcript were in the original sample.
+
+There are many ways to measure the abundance of RNA transcripts; the following
+are some of the common methods at the time of writing:
+
+* Light absorbance - RNA absorbs ultraviolet light with wavelength 260 nm, which
+can be used to determine RNA concentration in a sample using specialized equipment
+* [Northern blot](https://www.genome.gov/genetics-glossary/Northern-Blot) -
+measures relative abundance of an RNA with a specific sequence
+* [quantitative polymerase chain reaction
+(qPCR)](https://www.thermofisher.com/blog/ask-a-scientist/what-is-qpcr/) -
+measures relative abundance of an RNA with a specific sequence using [PCR
+amplification](https://en.wikipedia.org/wiki/Polymerase_chain_reaction)
+* [Oligonucleotide and microarrays](#microarrays) - measures relative abundance
+of thousands of genes simultaneously using known DNA probe sequences and
+fluorescently tagged RNA molecules
+* [High throughput RNA sequencing (RNASeq)](#rnaseq) - measures thousands to
+millions of RNA fragments simultaneously in proportion to their relative
+abundance
+
+While any of the measurement methods above may be analyzed in R, the high
+throughput methods (i.e. microarray, high throughput sequencing) are the primary
+concern of this chapter. These methods generate measurements for thousands of
+transcripts or genes simultaneously, requiring the power and flexibility of
+programmatic analysis to process in a practical amount of time. The remainder of
+this chapter is devoted to understanding the specific technologies, data types,
+and analytical strategies involved in working with these data.
+
+::: {.box .important}
+Gene expression measurements are almost always inherently relative, either due
+to limitations of the measurement methods (e.g. microarrays, described below) or
+because measuring all molecules in a sample will almost always be prohibitively
+expensive, have diminishing returns, and it is very difficult if not impossible
+to determine if all the molecules have been measured. This means we cannot in
+general associate the numbers associated with the measurements with an absolute
+molecular copy number. An important implication of the inherent relativity of
+these measurements is: **absence of evidence is not evidence of absence**. In
+other words, if a transcript has an abundance measurement of zero, this does
+*not necessarily imply that the gene is not expressed*. It may be that the gene
+is indeed expressed, but the copy number is sufficiently small that it was not
+detected by the assay.
+:::
+
+### Gene Expression Data in Bioconductor
+
+The [SummarizedExperiment
+container](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
+is the standard way to load and work with gene expression data in Bioconductor.
+This container requires the following information:
+
+* `assays` - one or more measurement assays (e.g. gene expression) in the form of a feature by sample matrix
+* `colData` - metadata associated with the samples (i.e. columns) of the assays
+* `rowData` - metadata associated with the features (i.e. rows) of the assays
+* `exptData` - additional metadata about the experiment itself, like protocol, project name, etc
+
+The figure below illustrates how the SummarizedExperiment container is
+structured and how the different data elements are accessed:
+
+![SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21.](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp)
+
+Many Bioconductor packages for specific types of data, e.g.
+[limma](#differential-expression--microarrays-limma) create these
+SummarizedExperiment objects for you, but you may also create your own by
+assembling each of these data into data frames manually:
+
+```{r load summarizedexperiment, include=FALSE}
+library(SummarizedExperiment)
+intensities <- readr::read_delim("example_intensity_data.csv",delim=" ")
+rowData <- intensities["probeset_id"]
+intensities <- as.data.frame(
+  dplyr::select(intensities, -probeset_id)
+)
+rownames(intensities) <- rowData$probeset_id
+colData <- tibble(
+  sample_name=colnames(intensities),
+  condition=sample(c("case","control"),ncol(intensities),replace=TRUE)
+)
+se <- SummarizedExperiment(
+   assays=list(intensities=intensities),
+   colData=colData,
+   rowData=rowData
+)
+```
+
+
+```r
+# microarray expression dataset intensities
+intensities <- readr::read_delim("example_intensity_data.csv",delim=" ")
+
+# the first column of intensities tibble is the probesetId, extract to pass as rowData
+rowData <- intensities["probeset_id"]
+
+# remove probeset IDs from assay and turn into a base R dataframe so that we can assign rownames, since tibbles don't support row names
+intensities <- as.data.frame(
+  select(intensities, -probeset_id)
+)
+rownames(intensities) <- rowData$probeset_id
+
+# these column data are made up, but you would have a sample metadata file to use
+colData <- tibble(
+  sample_name=colnames(intensities),
+  condition=sample(c("case","control"),ncol(intensities),replace=TRUE)
+)
+
+se <- SummarizedExperiment(
+   assays=list(intensities=intensities),
+   colData=colData,
+   rowData=rowData
+)
+se
+```
+
+```
+## class: SummarizedExperiment
+## dim: 54675 35
+## metadata(0):
+## assays(1): intensities
+## rownames(54675): 1007_s_at 1053_at ... AFFX-TrpnX-5_at AFFX-TrpnX-M_at
+## rowData names(1): probeset_id
+## colnames(35): GSM972389 GSM972390 ... GSM972512 GSM972521
+## colData names(2): sample_name condition
+```
+
+Detailed documentation of how to create and use the SummarizedExperiment is available in the [SummarizedExperiment vignette](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html#constructing-a-summarizedexperiment).
+
+::: {.box .note}
+SummarizedExperiment is the successor to the older
+[ExpressionSet](https://www.bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf)
+container. Both are still used by Bioconductor packages, but
+SummarizedExperiment is more modern and flexible, so it is suggested for use
+whenever possible.
+:::
+
+### Microarrays
+
+![A Microarray Device - Thermo Fisher Scientific](microarray_chip.png)
+
+Microarrays are devices that measure the relative abundance of thousands of
+distinct DNA sequences simultaneously. Short (~25 nucleotide) single-stranded
+DNA molecules called *probes* are deposited on a small glass slide in a grid of
+spots, where each spot contains many copies of a probe with identical sequence.
+The probe sequences are selected *a priori* based on the purpose of the array.
+For example, gene expression microarrays have probes that correspond to the
+coding regions of the genome for a species of interest, while genotyping
+microarrays use sequences with known variants found in a population of genomes,
+most often the human population. Microarrays of the same type (e.g. human gene
+expression) all have the same set of probes. The choice of DNA sequence probes
+therefore determines what the microarray measures and how to interpret the data.
+The design of a microarray is illustrated in the following figure.
+
+![Illustration of Microarray Design](microarray_design.png)
+
+A microarray device generates data by applying a specially prepared DNA sample
+to it; the sample usually corresponds to a single biological specimen, e.g. an
+individual patient. The preparation method for the sample depends on what is
+being measured:
+
+* When measuring DNA directly, e.g. genetic variants, the DNA itself is
+  biochemically extracted
+* When measuring gene expression via RNA abundance, RNA is first extracted and
+  then reverse transcribed to complementary DNA (cDNA)
+
+In either case, the molecules that will be applied to the microarray are DNA
+molecules. After extraction and preparation, the DNA molecules are then randomly
+cut up into shorter molecules (i.e. *sheared*) and each molecule has a molecular
+tag biochemically ligated to it that will emit fluorescence when excited by a
+specific wavelength of light. This tagged DNA sample is then washed over the
+microarray chip, where DNA molecules that share sequence complementarity with
+the probes on the array pair together. After this treatment, the microarray is
+washed to remove DNA molecules that did not have a match on the array, leaving
+only those molecules with a sequence match that remain bound to probes.
+
+The microarray chip is then loaded into a scanning device, where a laser with a
+specific wavelength of light is then shone onto the array, causing the spots
+with tagged DNA molecules associated with probes to fluoresce, and other spots
+remain dark. A high resolution image is taken of the fluorescent array, and the
+image is analyzed to map the intensity of the light on each spot to a numeric
+value proportional to its intensity. The reason for this is that, since each
+spot has many individual probe molecules contained within it, the more copies of
+the corresponding DNA molecule were in the sample, the more light the spot
+emits. In this way, the relative abundance of all probes on the array are
+measured simultaneously. The process of generating microarray data from a sample
+is illustrated in the following figure.
+
+![Illustration of Microarray Data Generation Process](microarray_data_gen.png)
+
+After the microarray has been scanned, the relative copy number of the DNA in
+the sample matching the probes on the microarray are expressed as the intensity
+of fluorescence of each probe. The raw intensity data from the scan has been
+processed and analyzed by the scanner software to account for technical biases
+and artefacts of the scanning instrument and data generation process. The data
+from a single scan is processed and stored in a file in [CEL
+format](https://www.affymetrix.com/support/developer/powertools/changelog/gcos-agcc/cel.html),
+a proprietary data format that stores the raw probe intensity data that can be
+loaded for downstream analysis.
+
+On a high level, there are three steps involved in analyzing gene expression
+microarray data:
+
+1. **Summarization of probes to probesets.** Each gene is represented by
+multiple probes with different sequences. Summarization is a statistical
+procedure that computes a single value for each probeset from its corresponding
+probes.
+2. **Normalization.** This includes removing background signal from individual
+arrays as well as adjusting probeset intensities so that they are comparable
+across multiple sample arrays.
+3. **Quality control.** Compare all normalized samples within a sample set to
+identify, mitigate, or eliminate potential outlier samples.
+4. **Analysis.** Using the quality controlled expression data, Implement
+statistical analysis to answer research questions.
+
+The full details of microarray analysis are beyond the scope of this book.
+However in the following sections we cover some of the basic entry points to
+performing these steps in R and Bioconductor.
+
+### Microarray Data in Bioconductor
+
+The CEL data files from a set of microarrays can be loaded into R for analysis
+using the [`affy` Bioconductor
+package](https://www.bioconductor.org/packages/release/bioc/html/affy.html).
+This package provides all the functions necessary for loading the data and
+performing key preprocessing operations. Typically, two or more samples were
+processed in this way, resulting in a set of CEL files that should be processed
+together. These CEL files will typically be all stored in the same directory,
+and may be loaded using the `affy::ReadAffy` function:
+
+```r
+# read all CEL files in a single directory
+affy_batch <- affy::ReadAffy(celfile.path="directory/of/CELfiles")
+
+# or individual files in different directories
+cel_filenames <- c(
+  list.files( path="CELfile_dir1", full.names=TRUE, pattern=".CEL$" ),
+  list.files( path="CELfile_dir2", full.names=TRUE, pattern=".CEL$" )
+)
+affy_batch <- affy::ReadAffy(filenames=cel_filenames)
+```
+
+The `affy_batch` variable is a `AffyBatch` container, which stores information
+on the probe definitions based on the type of microarray, probe-level intensity
+for each sample, and other information about the experiment contained within the
+CEL files.
+
+The `affy` package provides functions to perform probe summarization and
+normalization. The most popular method to accomplish this at the time of writing
+is called Robust Multi-array Average or RMA [@Irizarry2003-hn], which performs
+summarization and normalization of multiple arrays simultaneously. Below, the
+RMA algorithm is used to normalize an example dataset provided by the
+[`affydata`](https://bioconductor.org/packages/release/data/experiment/html/affydata.html)
+Bioconductor package.
+
+::: {.box .note}
+Certain Bioconductor packages provide example datasets for use with companion
+analysis packages. For example, the `affydata` package provides the `Dilution`
+dataset, which was generated using two concentrations of cDNA from human liver
+tissue and a central nervous system cell line. To load a data package into R,
+first run `library(<data package>)` and then `data(<dataset name>)`.
+:::
+
+```{r microarray norm, cache=TRUE}
+library(affy)
+library(affydata)
+data(Dilution)
+
+# normalize the Dilution microarray expression values
+# note Dilution is an AffyBatch object
+eset_rma <- affy::rma(Dilution,verbose=FALSE)
+
+# plot distribution of non-normalized probes
+# note rma normalization takes the log2 of the expression values,
+# so we must do so on the raw data to compare
+raw_intensity <- as_tibble(exprs(Dilution)) %>%
+  mutate(probeset_id=rownames(exprs(Dilution))) %>%
+  pivot_longer(-probeset_id, names_to="Sample", values_to = "Intensity") %>%
+  mutate(
+    `log2 Intensity`=log2(Intensity),
+    Category="Before Normalization"
+  )
+
+# plot distribution of normalized probes
+rma_intensity <- as_tibble(exprs(eset_rma)) %>%
+  mutate(probesetid=featureNames(eset_rma)) %>%
+  pivot_longer(-probesetid, names_to="Sample", values_to = "log2 Intensity") %>%
+  mutate(Category="After RMA Normalization")
+
+dplyr::bind_rows(raw_intensity, rma_intensity) %>%
+  ggplot(aes(x=Sample, y=`log2 Intensity`)) +
+  geom_boxplot() +
+  facet_wrap(vars(Category))
+```
+
+Above, we first apply RMA to the `Dilution` microarray dataset using the
+`affy::rma()` function. Then we plot the log 2 intensities of the probes in each
+array, first using the raw intensities and then after RMA normalization. The
+effect of normalization is clearly visible, where the quartiles of the probe
+intensity distributions have been adjusted to be consistent across arrays and
+the dynamic range of probe values has been controlled.
+
+::: {.box .readmore}
+[`affy` Bioconductor package](https://www.bioconductor.org/packages/release/bioc/html/affy.html)
+[`affydata` Bioconductor package](https://bioconductor.org/packages/release/data/experiment/html/affydata.html)
+[Microarray probes and probe sets](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3902802/)
+[Irizarry et al. - RMA Algorithm Details](https://bioconductor.org/packages/release/data/experiment/html/affydata.html)
+:::
+
+### Differential Expression: Microarrays (limma) .
+
+[limma](https://bioconductor.org/packages/release/bioc/html/limma.html), which
+is short for `li`near `m`odels of `mi`croarrays, is one of the [top most
+downloaded](https://bioconductor.org/packages/stats/) Bioconductor packages.
+limma is utilized for analyzing microarray gene expression data, with a focus on
+analyses using linear models to integrate _all_ of the data from an experiment.
+limma was developed for microarray analysis prior to the development of
+sequencing based gene expression methods (i.e. [RNASeq]) but has since added
+functionality to analyze other types of gene expression data.
+
+limma excels at analyzing these types of data as it can support arbitrarily
+complex experimental designs while maintaining strong statistical power. An
+experiment with a large number of conditions or predictors can still be analyzed
+even with small sample sizes.
+
+his brief example is from the limma User Guide chapter 15, and covers loading
+and processing data from an RNA-seq experiment. We go into more depth while
+working with limma in assignment 6.
+
+Without going into too much detail, the `design` variable is how we inform limma
+of our experimental conditions, and where limma draws from to construct its
+linear models correctly. This design is relatively simple, just four samples
+belonging to two different conditions (the `swirls` here refer to the swirl of
+zebra fish, you can just see them as a phenotypic difference)
+
+```r
+design <- data.frame(swirl = c("swirl.1", "swirl.2", "swirl.3", "swirl.4"),
+                     condition = c(1, -1, 1, -1))
+dge <- DGEList(counts=counts)
+keep <- filterByExpr(dge, design)
+dge <- dge[keep,,keep.lib.sizes=FALSE]
+```
+`DGEList()` is a function from edgeR, of which limma borrows some loading and
+filtering functions. This experiment filters by expression level, and uses
+square bracket notation (`[]`) to reduce the number of rows.
+
+Finally, the expression data is transformed into CPM, counts per million, and
+a linear model is applied to the data with `lmFit()`. `topTable()` is used to view the most
+differentially expressed data.
+```r
+# limma trend
+logCPM <- cpm(dge, log=TRUE, prior.count=3)
+fit <- lmFit(logCPM, design)
+fit <- eBayes(fit, trend=TRUE)
+topTable(fit, coef=ncol(design))
+```
+
+- What is limma?
+  - One of many packages utilized for analyzing microarray gene expression data, with a
+  focus on linear models
+  - Can compare RNA targets in an arbitrarily complex way
+  - Designed for complex experiments with a variety of condtions
+- What types of analysis can limma perform?
+  - "applicable to data from any quantitative gene expression technology including
+  microoarrays, RNA-seq and quantitative PCR"
+  -
+- How is limma different from normal linear models?
+  - "The hallmark of the limma approach is the use of linear models to analyse
+  entire experiments as an integrated whole rather than making piece-meal
+  comparisons between pairs of treatments."
+  -
+- How do we run a microarray analysis with limma?
+  - We do an in-depth analysis of _multiple_ microarray analysis packages in
+  assignment 6, but for now...
+
+::: {.box .readmore}
+[Homepage](https://bioinf.wehi.edu.au/limma/)
+[BioConductor](https://bioconductor.org/packages/release/bioc/html/limma.html)
+[Publication](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4402510/)  
+:::
+
+### High Throughput Sequencing .
+
+What is high throughput sequencing (HTS)? What does HTS data look like? What
+does HTS measure, and what kinds of questions can we answer with it? How is HTS
+data analyzed? (How) do we analyze it in R?
+
+### Count Data .
+
+What is count data? Where does it come from? What are the statistical properties
+of counts and how do those properties influence our choice of analysis methods (
+i.e. Poisson/negative binomial distribution, regularized log transformation to
+normality, etc)?
+
+### RNASeq .
+
+What is RNASeq? What does RNASeq measure (steady state RNA copy number)?
+
+### Differential Expression: RNASeq .
+
+How do we analyze RNASeq data (i.e. differential expression) in R? What are
+DESeq2/EdgeR, why are they different than other differential expression methods?
+How do we interpret DE results?

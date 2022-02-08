@@ -7,6 +7,10 @@ link-citations: true
 ```{r include=FALSE}
 # github pages doesn't host files/directories that start with "_", change it for the whole book
 knitr::opts_chunk$set(fig.path = 'main_files/')
+# always turn off warnings and messages
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+# cache by default
+knitr::opts_chunk$set(cache = TRUE)
 ```
 
 # Syllabus {-}

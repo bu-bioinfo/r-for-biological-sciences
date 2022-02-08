@@ -1,0 +1,262 @@
+---
+output: html_document
+---
+
+```{r, include=FALSE}
+source("0700_bioinfo.R")
+```
+
+## Gene Identifiers
+
+### Gene Identifier Systems
+
+Since the first genetic sequence for a gene was determined in 1965 - [an alanine
+tRNA in yeast](https://pubmed.ncbi.nlm.nih.gov/14263761/)[@Holley1965-tu] -
+scientists have been trying to give them names. In 1979, [formal guidelines for
+the nomenclature used for human genes was
+proposed](https://pubmed.ncbi.nlm.nih.gov/295268/)[@Shows1979-iw] along with the
+founding of the Human Gene Nomenclature Committee [@Bruford2020-zs], so that
+researchers would have a common vocabulary to refer to genes in a consistent
+way. In 1989, this committee was placed under the auspices of the Human Genome
+Organisation (HUGO), becoming the HUGO Gene Nomenclature Committee (HGNC). The
+HGNC has been the official body providing guidelines and gene naming authority
+since, and as such HGNC gene names are often called *gene symbols*.
+
+::: {.box .note}
+As per @Bruford2020-zs, the official human gene symbol guidelines are as
+follows:
+
+1. Each gene is assigned a unique symbol, HGNC ID and descriptive name.
+2. Symbols contain only uppercase Latin letters and Arabic numerals.
+3. Symbols should not be the same as commonly used abbreviations
+4. Nomenclature should not contain reference to any species or “G” for gene.
+5. Nomenclature should not be offensive or pejorative.
+
+:::
+
+Gene symbols are the most human-readable system for naming genes. The gene
+symbols *BRCA1*, *APOE*, and *ACE2* may be familiar to you as they are involved
+in common diseases, namely breast cancer, Alzheimer's Disease risk, and
+SARS-COV-2, respectively. Typically, the gene symbol is an acronym that roughly
+represents a label of what the gene is or does (or was originally found to be or
+do, as many genes are subsequently discovered to be involved in entirely
+separate processes as well), e.g. *APOE* represents the gene [apolipoprotein
+E](https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=ENSG00000130203;r=19:44905791-44909393).
+This convention is convenient for humans when reading and identifying genes.
+However, standardized though the symbol conventions may be, they are not always
+easy for computers to work with, and ambiguities can cause mapping problems.
+
+Other gene identifier systems developed along with other gene information
+databases. In 2000, the [Ensembl](https://www.ensembl.org/) genome browser was
+launched by the [Wellcome Trust](https://wellcome.org/), a charitable foundation
+based in the United Kingdom, with the goal of providing automated annotation of
+the human genome. The Ensembl Project, which supports the genome browser,
+recognized even before the publication of the human genome that manual
+annotation and curation of genes is a slow and labor intensive process that
+would not provide researchers around the world timely access to information. The
+project therefore created a set of automated tools and pipelines to collect,
+process, and publish rapid and consistent annotation of genes in the human
+genome. Since its initial release, Ensembl now supports over 50,000 different
+genomes.
+
+Ensembl assigns a automatic, systematic ID called the Ensembl Gene ID to every
+gene in its database. Human Ensembl Gene IDs take the form `ENSG` plus an 11
+digit number, optionally followed by a period delimited version number. For
+example, at the time of writing the BRCA1 gene has an Ensembl Gene ID of
+`ENSG00000012048.23`. The stable ID portion (i.e. `ENSGNNNNNNNNNNN`) will remain
+associated with the gene forever (unless the gene annotation [changes
+"dramatically" in which case it is
+retired](http://useast.ensembl.org/Help/View?id=181)). The `.23` is the version
+number of the gene annotation, meaning this gene has been updated 22 times (plus
+its initial version) since addition to the database. The additional version
+information is very important for reproducibility of biological analysis, since
+conclusions drawn by results of these analyses are usually based on the most
+current information about a gene which are continually updated over time.
+
+::: {.box .note}
+Ensembl maintains annotations for many different organisms, and the gene
+identifiers for each genome contain codes that indicate which organism the gene
+is for. Here are the codes for genes in several different species:
+
++----------------+-------------------------+----------------------+
+| Gene ID Prefix | Organism                |  Example             |
++================+=========================+======================+
+| `ENSG`         | Homo sapiens            | [ENSG00000139618](https://useast.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=ENSG00000139618;r=13:32315086-32400268)    |
++----------------+-------------------------+----------------------+
+| `ENSMUSG`      | Mus musculus (mouse)    | [ENSMUSG00000017167](https://useast.ensembl.org/Mus_musculus/Gene/Summary?db=core;g=ENSMUSG00000017167;r=11:101061349-101081550) |
++----------------+-------------------------+----------------------+
+| `ENSDARG`      | Danio rerio (zebrafish) | [ENSDARG00000024771](https://useast.ensembl.org/Danio_rerio/Gene/Summary?db=core;g=ENSDARG00000024771;r=18:5213338-5227420;t=ENSDART00000033574) |
++----------------+-------------------------+----------------------+
+| `ENSMMUG`      | Macaca mulata (Macaque) | [ENSMMUG00000020312](https://useast.ensembl.org/Macaca_mulatta/Gene/Summary?db=core;g=ENSMMUG00000020312;r=5:65376507-65505566) |
++----------------+-------------------------+----------------------+
+| `ENSVPAG`      | Vicugna pacos (Alpaca)  | [ENSVPAG00000001990](https://useast.ensembl.org/Vicugna_pacos/Gene/Summary?db=core;g=ENSVPAG00000001990;r=GeneScaffold_2392:178775-179671;t=ENSVPAT00000001989) |
++----------------+-------------------------+----------------------+
+:::
+
+Ensembl Gene IDs and gene symbols are the most commonly used gene identifiers.
+The [GENCODE project](https://www.gencodegenes.org/) which provides consistent
+and stable genome annotation releases for human and mouse genomes, uses these
+two types of identifiers with its official annotations.
+
+::: {.box .note}
+Ensembl provides stable identifiers for transcripts as well as genes. Transcript
+identifiers correspond to distinct patterns of exons/introns that have been
+identified for a gene, and each gene has one or more distinct transcripts.
+Ensembl Transcript IDs have the form `ENSTNNNNNNNNNNN.NN` similar to Gene IDs.
+:::
+
+::: {.box .note}
+Ensembl is not the only gene identifier system besides gene symbol. Several
+other databases have devised and maintain their own identifiers, most notably
+[Entrez Gene IDs]([UCSC Gene IDs]() used by the [NCBI Gene
+database](https://www.ncbi.nlm.nih.gov/gene) which assigns a unique integer to
+each gene in each organism, and the [Online Mendelian Inheritance in Man
+(OMIM)](https://www.omim.org/) database, which has identifiers that look like
+`OMIM:NNNNN`, where each OMIM ID refers to a unique gene or human phenotype.
+However, the primary identifiers used in modern human biological research remain
+Ensembl IDs and official HGNC gene symbols.
+:::
+
+### Mapping Between Identifier Systems
+
+A very common operation in biological analysis is to map between gene identifier
+systems, e.g. you are given Ensembl Gene ID and want to map to the more
+human-recognizable gene symbols. Ensembl provides a service called
+[BioMart](https://www.ensembl.org/biomart/martview) that allows you to download
+annotation information for genes, transcripts, and other information maintained
+in their databases. It also provides limited access to external sources of
+information on their genes, including cross references to HGNC gene symbols and
+some other gene identifier systems. The Ensembl website has [helpful
+documentation](https://useast.ensembl.org/info/data/biomart/index.html) on how
+to use BioMart to download annotation data using the web interface.
+
+In addition to downloading annotations as a CSV file from the web interface,
+Ensembl also provides [the biomaRt Bioconductor
+package](https://useast.ensembl.org/info/data/biomart/biomart_r_package.html) to
+allow programmatic access to the same information directly from R. There is [much
+more information in the Ensembl
+databases](https://useast.ensembl.org/info/genome/index.html) than gene
+annotation data that can be accessed via BioMart, but we will provide a brief
+example of how to extract gene information here:
+
+```r
+# this assumes biomaRt is already installed through bioconductor
+library(biomaRt)
+
+# the human biomaRt database is named "hsapiens_gene_ensembl"
+ensembl <- useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
+
+# listAttributes() returns a data frame, turn into a tibble to help with formatting
+as_tibble(listAttributes(ensembl))
+# A tibble: 3,143 x 3
+   name                          description                  page        
+   <chr>                         <chr>                        <chr>       
+ 1 ensembl_gene_id               Gene stable ID               feature_page
+ 2 ensembl_gene_id_version       Gene stable ID version       feature_page
+ 3 ensembl_transcript_id         Transcript stable ID         feature_page
+ 4 ensembl_transcript_id_version Transcript stable ID version feature_page
+ 5 ensembl_peptide_id            Protein stable ID            feature_page
+ 6 ensembl_peptide_id_version    Protein stable ID version    feature_page
+ 7 ensembl_exon_id               Exon stable ID               feature_page
+ 8 description                   Gene description             feature_page
+ 9 chromosome_name               Chromosome/scaffold name     feature_page
+10 start_position                Gene start (bp)              feature_page
+# ... with 3,133 more rows
+```
+
+The `name` column provides the programmatic name associated with the attribute
+that can be used to retrieve that annotation information using the `getBM()`
+function:
+
+```r
+# create a tibble with ensembl gene ID, HGNC gene symbol, and gene description
+gene_map <- as_tibble(
+  getBM(
+    attributes=c("ensembl_gene_id", "hgnc_gene_symbol", "description"),
+    mart=ensembl
+  )
+)
+gene_map
+# A tibble: 68,012 x 3
+   ensembl_gene_id hgnc_symbol description                                                               
+   <chr>           <chr>       <chr>                                                                     
+ 1 ENSG00000210049 MT-TF       mitochondrially encoded tRNA-Phe (UUU/C) [Source:HGNC Symbol;Acc:HGNC:748~
+ 2 ENSG00000211459 MT-RNR1     mitochondrially encoded 12S rRNA [Source:HGNC Symbol;Acc:HGNC:7470]       
+ 3 ENSG00000210077 MT-TV       mitochondrially encoded tRNA-Val (GUN) [Source:HGNC Symbol;Acc:HGNC:7500]
+ 4 ENSG00000210082 MT-RNR2     mitochondrially encoded 16S rRNA [Source:HGNC Symbol;Acc:HGNC:7471]       
+ 5 ENSG00000209082 MT-TL1      mitochondrially encoded tRNA-Leu (UUA/G) 1 [Source:HGNC Symbol;Acc:HGNC:7~
+ 6 ENSG00000198888 MT-ND1      mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 1 [So~
+ 7 ENSG00000210100 MT-TI       mitochondrially encoded tRNA-Ile (AUU/C) [Source:HGNC Symbol;Acc:HGNC:748~
+ 8 ENSG00000210107 MT-TQ       mitochondrially encoded tRNA-Gln (CAA/G) [Source:HGNC Symbol;Acc:HGNC:749~
+ 9 ENSG00000210112 MT-TM       mitochondrially encoded tRNA-Met (AUA/G) [Source:HGNC Symbol;Acc:HGNC:749~
+10 ENSG00000198763 MT-ND2      mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 2 [So~
+# ... with 68,002 more rows
+```
+
+With this Ensembl Gene ID to HGNC symbol mapping in hand, you can combine the
+tibble above with other tibbles containing gene information by [joining them
+together](#relational-data).
+
+::: {.box .note}
+BioMart/biomaRt is not the only ways to map different gene identifiers. The
+Bioconductor package
+[AnnotateDbi](https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html)
+also provides this functionality in a flexible format independent of the Ensembl
+databases. This package includes not only gene identifier mapping and
+information, but also identifiers from technology platforms, e.g. probe set IDs
+from [microarrays](#microarrays), that can help when working with these types of
+data. The package also allows comprehensive and flexible [homolog
+mapping](#mapping-homologs). As with all Bioconductor packages, the
+AnnotationDbi documentation is well written and comprehensive, though knowledge
+of [relational databases](https://en.wikipedia.org/wiki/Relational_database) is
+helpful in understanding how the packages work.
+:::
+
+::: {.box .readmore}
+* [Ensembl BioMart portal](https://www.ensembl.org/biomart/martview)
+* [Ensembl BioMart web portal documentation](https://useast.ensembl.org/info/data/biomart/index.html)
+* [biomaRt Bioconductor documentation](http://www.bioconductor.org/packages/release/bioc/html/biomaRt.html)
+:::
+
+### Mapping Homologs
+
+Sometimes it is necessary to link datasets from different organisms together by
+orthology. For example, in an experiment performed in mice, we might be
+interested in comparing gene expression patterns observed in the mouse samples
+to a publicly available human dataset. In these contexts, we must link gene
+identifiers from one organism to their corresponding homologs in the other.
+BioMart enables us to extract these linked identifiers by explicitly [connecting
+different biomaRt
+databases](https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/accessing_ensembl.html#given-the-human-gene-tp53-retrieve-the-human-chromosomal-location-of-this-gene-and-also-retrieve-the-chromosomal-location-and-refseq-id-of-its-homolog-in-mouse.)
+with the `getLDS()` function:
+
+```r
+human_db <- useEnsembl("ensembl", dataset = "hsapiens_gene_ensembl")
+mouse_db <- useEnsembl("ensembl", dataset = "mmusculus_gene_ensembl")
+orth_map <- as_tibble(
+  getLDS(attributes = c("ensembl_gene_id", "hgnc_symbol"),
+       mart = human_db,
+       attributesL = c("ensembl_gene_id", "mgi_symbol"),
+       martL = mouse_db
+  )
+)
+orth_map
+# A tibble: 26,390 x 4
+   Gene.stable.ID  HGNC.symbol Gene.stable.ID.1   MGI.symbol
+   <chr>           <chr>       <chr>              <chr>     
+ 1 ENSG00000198695 MT-ND6      ENSMUSG00000064368 "mt-Nd6"  
+ 2 ENSG00000212907 MT-ND4L     ENSMUSG00000065947 "mt-Nd4l"
+ 3 ENSG00000279169 PRAMEF13    ENSMUSG00000094303 ""        
+ 4 ENSG00000279169 PRAMEF13    ENSMUSG00000094722 ""        
+ 5 ENSG00000279169 PRAMEF13    ENSMUSG00000095666 ""        
+ 6 ENSG00000279169 PRAMEF13    ENSMUSG00000094741 ""        
+ 7 ENSG00000279169 PRAMEF13    ENSMUSG00000094836 ""        
+ 8 ENSG00000279169 PRAMEF13    ENSMUSG00000074720 ""        
+ 9 ENSG00000279169 PRAMEF13    ENSMUSG00000096236 ""        
+10 ENSG00000198763 MT-ND2      ENSMUSG00000064345 "mt-Nd2"  
+# ... with 26,380 more rows
+```
+
+The `mgi_symbol` field refers to the gene symbol assigned in the [Mouse Genome
+Informatics database](https://www.jax.org/research-and-faculty/resources/mouse-genome-informatics)
+maintained by [The Jackson Laboratory](https://www.jax.org/).

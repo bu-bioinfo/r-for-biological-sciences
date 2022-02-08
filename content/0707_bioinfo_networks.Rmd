@@ -1,0 +1,38 @@
+---
+output: html_document
+---
+
+```{r, include=FALSE}
+source("0700_bioinfo.R")
+```
+
+## Biological Networks .
+
+What are biological networks? What do they represent (networks encode
+relationships between entities)? Why are biological networks useful and what can
+we learn from them?
+
+### Biological Pathways .
+
+What is a biological pathway? Why are they important, and how are they useful?
+
+### Gene Regulatory Networks .
+
+What are gene regulatory networks? Why are they important? How do we identify
+them (data driven correlation, wetlab experiments, others?)? How are they
+useful?
+
+### Protein-Protein Interaction Network .
+
+What are protein-protein interaction (PPI) networks? What information do they
+represent (direct association, functional association, etc)? Where does PPI
+information come from (datasets, databases, etc)? What are some ways we can use
+PPI information when interpreting other biological data (like differential
+expression? not sure)?
+
+### WGCNA .
+
+What is WGCNA? What problem does WGCNA attempt to solve, and how is it different
+than other classes of analysis methods (e.g. differential expression)? What data
+are appropriate for use in WGCNA? How do we run an interpret a WGCNA analysis in
+R?

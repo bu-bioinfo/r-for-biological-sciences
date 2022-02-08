@@ -43,7 +43,6 @@ output: html_document
 
 ## Week 3
 * [Assignment 2]
-* [Assignment 1] Review
 * Data Sci: [Data Modeling]
 * Data Sci: [A Worked Modeling Example]
 * Data Sci: [Data Summarization]
@@ -51,11 +50,13 @@ output: html_document
 * Data Sci: [Flavors of Linear Models]
 * Bioinfo: [Gene Expression]
 * Bioinfo: [Gene Expression Data in Bioconductor]
+* [Assignment 1] Review
 * Bioinfo: [Microarrays]
 * Bioinfo: [Microarray Data in Bioconductor]
 * Bioinfo: [Differential Expression: Microarrays (limma)]
 * Data Sci: [Clustering]
 * Data Viz: [Heatmaps]
+* Data Viz: [Specifying Heatmap Colors]
 * Data Viz: [Dendrograms]
 
 ## Week 4
@@ -91,6 +92,7 @@ output: html_document
 * Data Viz: [Plotting Two or More Dimension]
 * Data Viz: [Other Kinds of Plots]
 * Data Viz: [Tips and Tricks]
+* Data Viz: [How To Use Heatmaps Responsibly]
 * Data Viz: [Multiple Plots]
 * Data Viz: [Facet wrapping]
 * Data Viz: [Publication Ready Plots]

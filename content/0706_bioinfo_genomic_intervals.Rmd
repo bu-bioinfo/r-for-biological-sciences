@@ -1,0 +1,12 @@
+---
+output: html_document
+---
+
+```{r, include=FALSE}
+source("0700_bioinfo.R")
+```
+
+## Genomic Intervals .
+
+What are genomic intervals? What do they mean and how do we use them? How do we
+load intervals into R and use them in our analyses?

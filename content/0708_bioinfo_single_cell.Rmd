@@ -1,0 +1,32 @@
+---
+output: html_document
+---
+
+```{r, include=FALSE}
+source("0700_bioinfo.R")
+```
+
+## Single Cell Sequencing Analysis .
+
+### Single Cell Sequencing .
+
+What is the goal of single cell sequencing? How is it generated, and what does
+it measure? What questions can we ask of single cell data that we cannot ask of
+other types of sequencing data? How is single cell data loaded into R?
+
+### Single Cell Analysis .
+
+What is the general analytical workflow for single cell analysis? Why do we
+perform each step along the analysis path? What are key parameters that we must
+choose that influence the results? How do we perform single cell analysis in R
+(Seurat)?
+
+### Single Cell Clustering .
+
+### Dimensionality Reduction & Projection .
+
+PCA, tSNE, UMAP
+
+### Single Cell Data Visualization .
+
+### Single Cell Marker Analysis .
