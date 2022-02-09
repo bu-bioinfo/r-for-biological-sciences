@@ -85,3 +85,9 @@ period character like we are trying to do, we must instruct the regular
 expression to do so by either escaping the character with `\\.` or place it in a
 range with `[.]`. Either of these two methods will work to replace a literal `.`
 with `_`. See the section on [Regular expressions] for more information.
+* If you are getting **type conversion** errors when loading in your expression
+CSV file, check to make sure you aren't supplying your own column names. The
+CSV file has column headers already, and supplying your own will cause the first
+line to be read in as data. Since the first row are character values in this
+case, all of the other values in the columns will be coerced to characters as
+well, instead of reading them in as numbers.
