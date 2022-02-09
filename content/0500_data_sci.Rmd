@@ -944,12 +944,70 @@ What aspects of an analysis influence the statistical power of a test? (I don't
 think it's reasonable to ask students to perform power calculations, just to be
 aware that power is a thing and generally what it is).
 
-## Clustering .
+## Cluster Analysis
 
-What is clustering? What is the goal of clustering? How does clustering relate
-to data modeling (e.g. clustering is usually hypothesis-free)? How is clustering
-useful (i.e. what can we do with different clusters)? What are some common
-clustering methods, and how do we implement and visualize the results in R?
+Cluster analysis or simple clustering is the task of grouping objects together
+such that objects within the same group, or *cluster*, are more similar to each
+other than to objects in other clusters. It is a type of [exploratory data
+analysis](https://en.wikipedia.org/wiki/Exploratory_data_analysis) that seeks to
+identify structure or organization in a dataset without making strong
+assumptions about the data or testing a specific hypothesis. Many different
+[clustering algorithms](https://en.wikipedia.org/wiki/Category:Cluster_analysis_algorithms)
+have been developed that employ different computational strategies and are
+designed for data with different types and properties. The choice of algorithm
+is often dependent upon not only the type of data being clustered but also the
+comparative performance of different clustering algorithms applied to the same
+data. Different algorithms may identify different types of patterns, and so no
+one clustering method is better than any other in general.
+
+The goal of clustering may be easily illustrated with the following plot:
+
+```{r include=FALSE}
+# data drawn from three bivariate normal distributions
+set.seed(1337)
+n <- 100
+well_clustered_data <- tibble(
+  ID=c(stringr::str_c("A",1:n),stringr::str_c("B",1:n),stringr::str_c("C",1:n)),
+  cluster=c(rep("A",n),rep("B",n),rep("C",n)),
+  f1=c(rnorm(n,0,1),rnorm(n,5,1),rnorm(n,0,1)),
+  f2=c(rnorm(n,0,1),rnorm(n,5,1),rnorm(n,8,1))
+)
+```
+
+```{r clustering goal}
+unclustered <- ggplot(well_clustered_data, aes(x=f1,y=f2)) +
+  geom_point() +
+  labs(title="Unclustered")
+clustered <- ggplot(well_clustered_data, aes(x=f1,y=f2,color=cluster,shape=cluster)) +
+  geom_point() +
+  labs(title="Clustered")
+unclustered | clustered
+```
+
+That is, the goal of clustering is to take unlabeled data that has some
+structure like on the left and label data points that are similar to one another
+to be in the same cluster. A full treatment of cluster analysis is beyond the
+scope of this book, but below we discuss a few of the most common and general
+clustering algorithms used in biology and bioinformatics.
+
+### Hierarchical Clustering .
+
+Hierarchical clustering is a form of clustering that clusters data points
+together in nested, or *hierarchical*, groups based on their dissimilarity from
+one another. There are two broad strategies to accomplish this:
+
+* **Agglomerative**: all data points start in their own groups, and groups are
+iteratively merged hierarchically into larger groups until all data points have
+been added to a group
+* **Divisive**: all data points start in the same group, and are recursively
+split into smaller groups based on their dissimilarity
+
+
+
+
+### k-means .
+
+### Others
 
 ## Network Analysis .
 
