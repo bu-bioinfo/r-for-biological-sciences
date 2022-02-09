@@ -1100,9 +1100,23 @@ Returning to our `gene_stats` example, we can apply some operations to the
 tibble to easily perform the summarization we did above in a much more
 expressive manner:
 
+```{r pivot gene stats}
+long_gene_stats <- tidyr::pivot_longer(
+  gene_stats,
+  ends_with("_stat"),
+  names_to="test",
+  values_to="stat"
+)
+long_gene_stats
+```
+
+We see that now instead of having `X_stat` columns, the column names and their
+values have been put into the `test` and `stat` columns, respectively. Now to
+summarize the statistics for each test, we simply do a `group_by()` on the
+`test` column and compute summaries on the `stat` column:
+
 ```{r}
-gene_stats %>%
-  tidyr::pivot_longer(ends_with("_stat"), names_to="test", values_to="stat") %>%
+long_gene_stats %>%
   dplyr::group_by(test) %>%
   dplyr::summarize(min = min(stat), mean = mean(stat), max = max(stat))
 ```
