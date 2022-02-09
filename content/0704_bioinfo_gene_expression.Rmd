@@ -4,6 +4,7 @@ output: html_document
 
 ```{r, include=FALSE}
 source("0700_bioinfo.R")
+source("setup_example_data.R")
 ```
 
 ## Gene Expression
@@ -131,7 +132,8 @@ intensities <- readr::read_delim("example_intensity_data.csv",delim=" ")
 # the first column of intensities tibble is the probesetId, extract to pass as rowData
 rowData <- intensities["probeset_id"]
 
-# remove probeset IDs from assay and turn into a base R dataframe so that we can assign rownames, since tibbles don't support row names
+# remove probeset IDs from tibble and turn into a R dataframe so that we can assign rownames
+# since tibbles don't support row names
 intensities <- as.data.frame(
   select(intensities, -probeset_id)
 )
@@ -322,7 +324,7 @@ raw_intensity <- as_tibble(exprs(Dilution)) %>%
 rma_intensity <- as_tibble(exprs(eset_rma)) %>%
   mutate(probesetid=featureNames(eset_rma)) %>%
   pivot_longer(-probesetid, names_to="Sample", values_to = "log2 Intensity") %>%
-  mutate(Category="After RMA Normalization")
+  mutate(Category="RMA Normalized")
 
 dplyr::bind_rows(raw_intensity, rma_intensity) %>%
   ggplot(aes(x=Sample, y=`log2 Intensity`)) +
@@ -332,19 +334,95 @@ dplyr::bind_rows(raw_intensity, rma_intensity) %>%
 
 Above, we first apply RMA to the `Dilution` microarray dataset using the
 `affy::rma()` function. Then we plot the log 2 intensities of the probes in each
-array, first using the raw intensities and then after RMA normalization. The
-effect of normalization is clearly visible, where the quartiles of the probe
-intensity distributions have been adjusted to be consistent across arrays and
-the dynamic range of probe values has been controlled.
+array, first using the raw intensities and then afysis seeking to
+identify how associated gene expression is with one or more variables of
+interest. For example, 
 
-::: {.box .readmore}
-[`affy` Bioconductor package](https://www.bioconductor.org/packages/release/bioc/html/affy.html)
-[`affydata` Bioconductor package](https://bioconductor.org/packages/release/data/experiment/html/affydata.html)
-[Microarray probes and probe sets](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3902802/)
-[Irizarry et al. - RMA Algorithm Details](https://bioconductor.org/packages/release/data/experiment/html/affydata.html)
-:::
+### Differential Expression Analysis
 
-### Differential Expression: Microarrays (limma) .
+Differential expression analysis seeks to identify to what extent gene
+expression is associated with one or more variables of interest. For example,
+we might be interested in genes that have higher expression in subjects with a
+disease, or which genes change in response to a treatment. 
+
+Typically, gene expression analysis requires two types of data to run: an
+expression matrix and a *design matrix*. The expression matrix will generally
+have features (e.g. genes) as rows and samples as columns. The design matrix is
+a numeric matrix that contains the variables we wish to model and any covariates
+or confounders we wish to adjust for. The variables in the design matrix then
+must be encoded in a way that statistical procedures can understand. The full
+details of how design matrices are constructed is beyond the scope of this book.
+Fortunately, R makes it very easy to construct these matrices from a tibble with
+the [`model.matrix()`
+function](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/model.matrix).
+Consider for the following imaginary sample information tibble that has 10 AD
+and 10 Control subjects with different clinical and protein histology
+measurements assayed on their brain tissue:
+
+```{r}
+ad_metadata
+```
+
+We might be interested in identifying genes that are increased or decreased in
+people with AD compared with Controls. We can create a model matrix for this as
+follows:
+
+```{r model matrix}
+model.matrix(~ condition, data=ad_metadata)
+```
+
+The `~ condition` argument is an an R
+[forumla](https://rviews.rstudio.com/2017/02/01/the-r-formula-method-the-good-parts/),
+which is a concise description of how variable should be included in the model.
+The general format of a formula is as follows:
+
+```
+# portions in [] are optional
+[<outcome variable>] ~ <predictor variable 1> [+ <predictor variable 2>]...
+
+# examples
+
+# model Gene 3 expression as a function of disease status
+`Gene 3` ~ condition
+
+# model the amount of tau pathology as a function of abeta pathology,
+# adjusting for age at death
+tau ~ age_at_death + abeta
+
+# create a model without an outcome variable that can be used to create the
+# model matrix to test for differences with disease status adjusting for age at death
+~ age_at_death + condition
+```
+
+For most models, the design matrix will have an intercept term of all ones and
+additional colums for the other variables in the model. We might wish to adjust
+out the effect of age by including `age_at_death` as a covariate in the model:
+
+```{r model matrix cov}
+model.matrix(~ age_at_death + condition, data=ad_metadata)
+```
+
+The model matrix now includes a column for age at death as well. This model
+model matrix is now suitable to pass to differential expression software
+packages to look for genes associated with disease status.
+
+As mentioned above, modern gene expression assays measure thousands of genes
+simultaneously. This means each gene must be tested for differential expression
+individually. In general, each gene is tested using the same statistical model,
+so a differential expression analysis package will perform something equivalent
+to the following:
+
+```
+Gene 1 ~ age_at_death + condition
+Gene 2 ~ age_at_death + condition
+Gene 3 ~ age_at_death + condition
+...
+Gene N ~ age_at_death + condition
+```
+Each gene model will have its own statistics associated with it that we must
+process and interpret after the analysis is complete.
+
+### Differential Expression: Microarrays (limma)
 
 [limma](https://bioconductor.org/packages/release/bioc/html/limma.html), which
 is short for `li`near `m`odels of `mi`croarrays, is one of the [top most
@@ -357,8 +435,100 @@ functionality to analyze other types of gene expression data.
 
 limma excels at analyzing these types of data as it can support arbitrarily
 complex experimental designs while maintaining strong statistical power. An
-experiment with a large number of conditions or predictors can still be analyzed
-even with small sample sizes.
+experiment with a large number of conditions or predictors can still be analyze
+even with small sample sizes. The method accomplishes this by using an
+[empirical Bayes](https://en.wikipedia.org/wiki/Empirical_Bayes_method) approach
+that borrows information across all the genes in the dataset to better control
+error in individual gene models. See @Ritchie2015-bj for more details on how
+limma works.
+
+limma requres an expression matrix like that stored in an ExpressionSet or
+SummarizedExperiment container and a design matrix:
+
+```r
+# intensities is an example gene expression matrix that corresponds to our
+# AD sample metadata of 10 AD and 10 Control individuals
+ad_se  <- SummarizedExperiment(
+  assays=list(intensities=intensities),
+  colData=ad_metadata,
+  rowData=rownames(intensities)
+)
+
+# define our design matrix for AD vs control, adjusting for age at death
+ad_vs_control_model <- model.matrix(~ age_at_death + condition, data=ad_metadata)
+
+# now run limma
+# first fit all genes with the model
+fit <- limma::lmFit(
+  assays(se)$intensities,
+  ad_vs_control_model
+)
+
+# now better control fit errors with the empirical Bayes method
+fit <- limma::eBayes(fit)
+```
+
+```{r limma fit, include=FALSE}
+ad_vs_control_model <- model.matrix(~ age_at_death + condition, data=ad_metadata)
+
+# now run limma
+# first fit all genes with the model
+fit <- limma::lmFit(
+  assays(ad_se)$intensities,
+  ad_vs_control_model
+)
+
+# now better control fit errors with the empirical Bayes method
+fit <- limma::eBayes(fit)
+```
+
+We have now conducted a differential expression analysis with limma. We can
+extract out the results for our question of interest - which genes are
+associated with AD - using the `limma::topTable()` function:
+
+```{r}
+# the coefficient name conditionAD is the column name in the design matrix
+# adjust="BH" means perform Benjamini-Hochberg multiple testing adjustment
+# on the nominal p-values from each gene test
+# topTable only returns the top 10 results sorted by ascending p-value by default
+topTable(fit, coef="conditionAD", adjust="BH")
+```
+
+From the table, none of the probesets in this experiment are significant at FDR
+< 0.05.
+
+::: {.box .readmore}
+* [Homepage](https://bioinf.wehi.edu.au/limma/)
+* [BioConductor](https://bioconductor.org/packages/release/bioc/html/limma.html)
+* [Publication](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4402510/)  
+:::
+
+### High Throughput Sequencing .
+
+What is high throughput sequencing (HTS)? What does HTS data look like? What
+does HTS measure, and what kinds of questions can we answer with it? How is HTS
+data analyzed? (How) do we analyze it in R?
+
+### Count Data .
+
+What is count data? Where does it come from? What are the statistical properties
+of counts and how do those properties influence our choice of analysis methods (
+i.e. Poisson/negative binomial distribution, regularized log transformation to
+normality, etc)?
+
+### RNASeq .
+
+What is RNASeq? What does RNASeq measure (steady state RNA copy number)?
+
+### Differential Expression: RNASeq .
+
+How do we analyze RNASeq data (i.e. differential expression) in R? What are
+DESeq2/EdgeR, why are they different than other differential expression methods?
+How do we interpret DE results?
+
+#### DESeq2/EdgeR .
+
+#### limma/voom .
 
 his brief example is from the limma User Guide chapter 15, and covers loading
 and processing data from an RNA-seq experiment. We go into more depth while
@@ -391,50 +561,3 @@ fit <- lmFit(logCPM, design)
 fit <- eBayes(fit, trend=TRUE)
 topTable(fit, coef=ncol(design))
 ```
-
-- What is limma?
-  - One of many packages utilized for analyzing microarray gene expression data, with a
-  focus on linear models
-  - Can compare RNA targets in an arbitrarily complex way
-  - Designed for complex experiments with a variety of condtions
-- What types of analysis can limma perform?
-  - "applicable to data from any quantitative gene expression technology including
-  microoarrays, RNA-seq and quantitative PCR"
-  -
-- How is limma different from normal linear models?
-  - "The hallmark of the limma approach is the use of linear models to analyse
-  entire experiments as an integrated whole rather than making piece-meal
-  comparisons between pairs of treatments."
-  -
-- How do we run a microarray analysis with limma?
-  - We do an in-depth analysis of _multiple_ microarray analysis packages in
-  assignment 6, but for now...
-
-::: {.box .readmore}
-[Homepage](https://bioinf.wehi.edu.au/limma/)
-[BioConductor](https://bioconductor.org/packages/release/bioc/html/limma.html)
-[Publication](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4402510/)  
-:::
-
-### High Throughput Sequencing .
-
-What is high throughput sequencing (HTS)? What does HTS data look like? What
-does HTS measure, and what kinds of questions can we answer with it? How is HTS
-data analyzed? (How) do we analyze it in R?
-
-### Count Data .
-
-What is count data? Where does it come from? What are the statistical properties
-of counts and how do those properties influence our choice of analysis methods (
-i.e. Poisson/negative binomial distribution, regularized log transformation to
-normality, etc)?
-
-### RNASeq .
-
-What is RNASeq? What does RNASeq measure (steady state RNA copy number)?
-
-### Differential Expression: RNASeq .
-
-How do we analyze RNASeq data (i.e. differential expression) in R? What are
-DESeq2/EdgeR, why are they different than other differential expression methods?
-How do we interpret DE results?
