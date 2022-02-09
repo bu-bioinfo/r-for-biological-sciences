@@ -54,18 +54,14 @@ output: html_document
 * Bioinfo: [Microarrays]
 * Bioinfo: [Microarray Data in Bioconductor]
 * Bioinfo: [Differential Expression: Microarrays (limma)]
-* Data Sci: [Clustering]
 * Data Viz: [Heatmaps]
 * Data Viz: [Specifying Heatmap Colors]
 * Data Viz: [Dendrograms]
 
 ## Week 4
-* Data Sci: [Statistical Distributions & Tests]
-* Data Sci: [Statistical Distributions]
-* Data Sci: [Statistical Tests]
-* Data Sci: [p-values]
-* Data Sci: [Multiple Hypothesis Testing]
-* Data Sci: [Statistical power]
+* [Assignment 2] Review
+* Data Sci: [Cluster Analysis]
+* Data Sci: [Hierarchical Clustering]
 * R Prog: [Data structures]
 * R Prog: [Factors]
 * R Prog: [Iteration]
@@ -77,6 +73,12 @@ output: html_document
 * Bioinfo: [fgsea]
 
 ## Week 5
+* Data Sci: [Statistical Distributions & Tests]
+* Data Sci: [Statistical Distributions]
+* Data Sci: [Statistical Tests]
+* Data Sci: [p-values]
+* Data Sci: [Multiple Hypothesis Testing]
+* Data Sci: [Statistical power]
 * Bioinfo: [High Throughput Sequencing]
 * Bioinfo: [RNASeq]
 * Bioinfo: [Count Data]
