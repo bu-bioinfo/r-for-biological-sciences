@@ -270,7 +270,12 @@ div.csl-indent {
 <li class="chapter" data-level="6.2.4" data-path="data-science.html"><a href="data-science.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.2.4</b> Multiple Hypothesis Testing .</a></li>
 <li class="chapter" data-level="6.2.5" data-path="data-science.html"><a href="data-science.html#statistical-power-."><i class="fa fa-check"></i><b>6.2.5</b> Statistical power .</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="data-science.html"><a href="data-science.html#clustering-."><i class="fa fa-check"></i><b>6.3</b> Clustering .</a></li>
+<li class="chapter" data-level="6.3" data-path="data-science.html"><a href="data-science.html#cluster-analysis"><i class="fa fa-check"></i><b>6.3</b> Cluster Analysis</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-science.html"><a href="data-science.html#hierarchical-clustering-."><i class="fa fa-check"></i><b>6.3.1</b> Hierarchical Clustering .</a></li>
+<li class="chapter" data-level="6.3.2" data-path="data-science.html"><a href="data-science.html#k-means-."><i class="fa fa-check"></i><b>6.3.2</b> k-means .</a></li>
+<li class="chapter" data-level="6.3.3" data-path="data-science.html"><a href="data-science.html#others"><i class="fa fa-check"></i><b>6.3.3</b> Others</a></li>
+</ul></li>
 <li class="chapter" data-level="6.4" data-path="data-science.html"><a href="data-science.html#network-analysis-."><i class="fa fa-check"></i><b>6.4</b> Network Analysis .</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>7</b> Data Visualization</a>
@@ -343,11 +348,12 @@ div.csl-indent {
 <li class="chapter" data-level="8.5.1" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#gene-expression-data-in-bioconductor"><i class="fa fa-check"></i><b>8.5.1</b> Gene Expression Data in Bioconductor</a></li>
 <li class="chapter" data-level="8.5.2" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#microarrays"><i class="fa fa-check"></i><b>8.5.2</b> Microarrays</a></li>
 <li class="chapter" data-level="8.5.3" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#microarray-data-in-bioconductor"><i class="fa fa-check"></i><b>8.5.3</b> Microarray Data in Bioconductor</a></li>
-<li class="chapter" data-level="8.5.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#differential-expression-microarrays-limma-."><i class="fa fa-check"></i><b>8.5.4</b> Differential Expression: Microarrays (limma) .</a></li>
-<li class="chapter" data-level="8.5.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#high-throughput-sequencing-."><i class="fa fa-check"></i><b>8.5.5</b> High Throughput Sequencing .</a></li>
-<li class="chapter" data-level="8.5.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#count-data-."><i class="fa fa-check"></i><b>8.5.6</b> Count Data .</a></li>
-<li class="chapter" data-level="8.5.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#rnaseq-."><i class="fa fa-check"></i><b>8.5.7</b> RNASeq .</a></li>
-<li class="chapter" data-level="8.5.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#differential-expression-rnaseq-."><i class="fa fa-check"></i><b>8.5.8</b> Differential Expression: RNASeq .</a></li>
+<li class="chapter" data-level="8.5.4" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#differential-expression-analysis"><i class="fa fa-check"></i><b>8.5.4</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="8.5.5" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#differential-expression-microarrays-limma"><i class="fa fa-check"></i><b>8.5.5</b> Differential Expression: Microarrays (limma)</a></li>
+<li class="chapter" data-level="8.5.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#high-throughput-sequencing-."><i class="fa fa-check"></i><b>8.5.6</b> High Throughput Sequencing .</a></li>
+<li class="chapter" data-level="8.5.7" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#count-data-."><i class="fa fa-check"></i><b>8.5.7</b> Count Data .</a></li>
+<li class="chapter" data-level="8.5.8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#rnaseq-."><i class="fa fa-check"></i><b>8.5.8</b> RNASeq .</a></li>
+<li class="chapter" data-level="8.5.9" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#differential-expression-rnaseq-."><i class="fa fa-check"></i><b>8.5.9</b> Differential Expression: RNASeq .</a></li>
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html#gene-set-enrichment-analysis"><i class="fa fa-check"></i><b>8.6</b> Gene Set Enrichment Analysis</a>
 <ul>
@@ -546,6 +552,12 @@ period character like we are trying to do, we must instruct the regular
 expression to do so by either escaping the character with <code>\\.</code> or place it in a
 range with <code>[.]</code>. Either of these two methods will work to replace a literal <code>.</code>
 with <code>_</code>. See the section on <a href="data-wrangling.html#regular-expressions">Regular expressions</a> for more information.</li>
+<li>If you are getting <strong>type conversion</strong> errors when loading in your expression
+CSV file, check to make sure you aren’t supplying your own column names. The
+CSV file has column headers already, and supplying your own will cause the first
+line to be read in as data. Since the first row are character values in this
+case, all of the other values in the columns will be coerced to characters as
+well, instead of reading them in as numbers.</li>
 </ul>
 
 </div>

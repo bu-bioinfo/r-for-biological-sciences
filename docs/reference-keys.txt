@@ -84,7 +84,10 @@ statistical-tests-.
 p-values-.
 multiple-hypothesis-testing-.
 statistical-power-.
-clustering-.
+cluster-analysis
+hierarchical-clustering-.
+k-means-.
+others
 network-analysis-.
 data-visualization
 dv-gg
@@ -138,11 +141,14 @@ gene-expression
 gene-expression-data-in-bioconductor
 microarrays
 microarray-data-in-bioconductor
-differential-expression-microarrays-limma-.
+differential-expression-analysis
+differential-expression-microarrays-limma
 high-throughput-sequencing-.
 count-data-.
 rnaseq-.
 differential-expression-rnaseq-.
+deseq2edger-.
+limmavoom-.
 gene-set-enrichment-analysis
 gene-sets
 working-with-gene-sets-in-r
