@@ -678,7 +678,7 @@ continuous distributions.
 
 #### Discrete distributions
 
-#### Bernoulli random trail and more  
+##### Bernoulli random trail and more  
 One of the examples for discrete random variable distribution is the **Bernoulli** 
 function. A Bernoulli trail has only 2 outcomes with probability $p$ and $(1-p)$. 
 Consider flipping a fair coin, and the random variable X can take value 0 or 1 
@@ -717,7 +717,7 @@ $$\begin{equation}
 f(x) = \frac {x+r-1} {r-1} p^r {(1-p)}^x
 \end{equation}$$
 
-#### Poisson  
+##### Poisson  
 The Poisson distribution is used to express the probability of a given number 
 of events occurring in a fixed interval of time or space, and these events 
 occur with a known constant mean rate and independently of the time since 
