@@ -67,7 +67,6 @@ output: html_document
 * R Prog: [Data structures]
 * R Prog: [Factors]
 * R Prog: [Iteration]
-* Bioinfo: [Genomic Intervals]
 * Bioinfo: [Gene Set Enrichment Analysis]
 * Bioinfo: [Gene Sets]
 * Bioinfo: [Over-representation Analysis]
