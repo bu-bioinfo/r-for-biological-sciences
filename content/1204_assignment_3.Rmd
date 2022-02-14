@@ -216,7 +216,7 @@ __Deliverables__
 1. A list of the significant probes from the differential_expression_results.csv.
 2. A matrix of the example_intensity_data.csv filtered to only contain probes
 contained within the list of significant probes.
-1. A heatmap of the normalized intensity values for the differentially expressed probes (adjusted p-value < .01).
+3. A heatmap of the normalized intensity values for the differentially expressed probes (adjusted p-value < .01).
 :::
 
 ## References {-}
