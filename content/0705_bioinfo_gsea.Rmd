@@ -370,6 +370,104 @@ various web services including [DAVID](https://david.ncifcrf.gov) and
 
 ### Rank-based Analysis .
 
-What is GSEA and how does it work? How is it different than over-representation
-analysis, both as a method and with respect to the input it accepts? How do we
-implement GSEA in R (use the fgsea package)?
+We will refer to the specific method developed by the Broad Institute and UC San
+Diego as Gene Set Enrichment Analysis (note the capitalization). This specific
+methodology should not be confused with gene set enrichment analysis, which we
+use as an umbrella term covering the many statistical methodologies used to 
+analyze gene sets. 
+
+[Gene Set Enrichment Analysis] (https://www.gsea-msigdb.org/gsea/index.jsp) was
+a method developed to facilitate the biological analysis of genome-wide
+expression experiments. It is a rank-based method which utilizes all of the
+information from an expression dataset instead of relying on pre-determined
+statistical thresholds. In the simplest case, GSEA organizes expression data
+into two classes, and ranks all discovered genes by a chosen metric correlating
+their expression to these classes. Then, for a pre-defined set of genes, GSEA
+tests whether the members of this particular gene set occur more frequently at
+the top or bottom of the ranked list or are randomly distributed throughout.
+This ranking can be done by a number of different measures, but common ones 
+include signal-to-noise ratio, signed log p-value or log fold change estimates. 
+These pre-defined gene sets are flexible and may be manually constructed or 
+drawn from the many curated databases of gene sets. 
+
+Behind the scenes, GSEA functions by descending through the ranked list and
+increasing a cumulative score when a gene is encountered that's contained within
+the chosen gene set and decreasing that score when it encounters a gene that is
+not within that gene set. This incrementing is weighted to put more emphasis on
+genes that are found at the extremes of the ranked list and the final score
+taken as the enrichment score (ES) is the maximum of the deviation from zero.
+From this score, a p-value is determined by permuting the phenotype labels to
+generate a null distribution to compare against. To account for multiple
+hypothesis correction, the ES is normalized by the size of the gene set to
+create a normalized enrichment score (NES) and the p-values are subjected to
+Benjamini-Hochberg correction to generate FDR values for each NES.
+
+To make this explanation more transparent, let us assume that we have performed
+a RNAseq experiment to determine which genes are changed when we knock out our
+gene of interest in a model cell line.  We have obtained our results, which
+consists of a list of all genes discovered in the experiment and associated
+statistical measures such as p-value and log fold change estimates. To perform a
+basic GSEA, we would sort this list of genes, without respect to significance,
+by descending fold change to generate a ranked list where genes that are
+upregulated (positive fold change) are at the "top" of our list and genes that
+are downregulated (negative fold change) are at the "bottom" of our list. We
+would use this ranked list and any number or combination of gene sets to perform
+GSEA using one of the available means.
+
+GSEA is available as a java application with a graphical user interface as well
+as a command-line utility for use in HPC cluster environments. There also exist
+several packages in R that also implement the core GSEA algorithm along with
+various changes and refinements to the underlying statistical methodology. In
+the following section, we will refer to the usage of one such package, fgsea.
+Under most circumstances, GSEA can be run with default parameters but please see
+the official documentation for a list of customizable parameters and situations
+in which to adjust them.
+
+GSEA will return a list of results for gene sets tested consisting of their
+associated enrichment scores, and various statistical measures for a given
+ranked input With GSEA results, it is typical to set a permissive FDR threshold
+to consider which gene sets are significant. Further inspection of individual
+gene sets may be performed by analyzing the leading edge subset for each gene
+set. This is the group of genes that occur before and contribute to the maximum
+deviation from zero score for a given gene set during the analysis. These genes
+are typically interpreted as being the more relevant subset of genes that likely
+contribute the most to the enrichment signal, and are typically used in further
+investigations comparing leading edge subsets from other gene sets or applying
+domain knowledge to predict their regulatory effects and functions with respect
+to their annotated biological pathway or gene set. 
+
+GSEA is a highly flexible method that incorporates information from all of the
+data generated in HTS experiments. The choice of ranking methods and gene sets
+can all be tailored to the specific experiment or question at hand, and it is a
+simple yet fast method that can detect more subtle changes in gene networks than
+ORA.
+
+:::{.box .warning} 
+The interpretation of a GSEA result needs to be made with care. Let's assume
+that we have performed GSEA using fold Change as our ranking metric and we find
+that the "KEGG Glycolysis" pathway is found to be enriched with a positive
+normalized enrichment score and is statistically significant. Alone, this does
+not necessarily imply that glycolysis is more active between the conditions of
+interest. It simply allows for the conclusion that there is an enrichment of
+genes belonging to this gene set among the genes with a positive log fold change
+in the experiment. This *might* imply that your experimental conditions are
+affecting some underlying transcriptional regulation that results in these genes
+being up-regulated. However, it could also be explained by feedback mechanisms,
+direct or indirect, from related biological pathways or gene networks. It *does
+not* allow you to directly conclude that the glycolysis pathway itself is more
+active at a functional level. To make that assertion, you would need to perform
+further *in vitro* or *in vivo* functional assays that directly measure the
+activity and outputs of glycolysis given your experimental conditions.
+
+It is important to remember that unless specified, gene sets will often contain
+a mix of genes with different regulatory activities including both activators
+and inhibitors of that pathway. In addition, for many biological pathways, there
+are other factors that influence its regulation that may not be apparent at
+a gene expression level. In the specific example of metabolic pathways, it is
+common for the enzymatic products of subsequent reactions to feedback and
+regulate the activity and flux through the pathway or connected pathways. This
+regulation is not easily discerned at the gene expression level alone. All of
+this is to say that the results from GSEA must be interpreted with care and
+integrated with other analyses and knowledge to gain a holistic understanding
+of its meaning.
+:::
