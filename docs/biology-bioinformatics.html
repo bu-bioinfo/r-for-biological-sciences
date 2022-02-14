@@ -1366,26 +1366,26 @@ measurements assayed on their brain tissue:</p>
 <pre><code>## # A tibble: 20 x 8
 ##    ID    age_at_death condition    tau  abeta   iba1   gfap braak_stage
 ##    &lt;chr&gt;        &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;      
-##  1 A1              81 AD         98543 166078  77299  75277 4          
-##  2 A2              80 AD         32711  56919  49571 117441 1          
-##  3 A3              91 AD        134427 295407 106724  67719 6          
-##  4 A4              90 AD         81515 221801 171212  56346 4          
-##  5 A5              80 AD         42442  97918   8321 109406 2          
-##  6 A6              81 AD         54802  49358  82374  42797 2          
-##  7 A7              77 AD        127166   8417  62675  85377 6          
-##  8 A8              74 AD        103015  28478 131168 133892 5          
-##  9 A9              82 AD        114270 188208 194818  61935 5          
-## 10 A10             83 AD         90785  46279 121555 131853 4          
-## 11 C1              79 Control      991    237   1062  64752 0          
-## 12 C2              76 Control     2804   4423   3441  23384 0          
-## 13 C3              73 Control     3120   7073   1402 135049 0          
-## 14 C4              73 Control     7167    798   8365  18961 0          
-## 15 C5              69 Control     6591   2590   4885  65094 0          
-## 16 C6              77 Control    38697 103664  33430  23136 2          
-## 17 C7              73 Control    58381  72071  16864  17295 3          
-## 18 C8              75 Control     5102  10533   5321  89479 0          
-## 19 C9              76 Control    59906  47967  19103 124651 3          
-## 20 C10             81 Control    46553  49670  90763  52684 2</code></pre>
+##  1 A1              84 AD         82842 201660  74050  80975 3          
+##  2 A2              73 AD         32120  26826  22787  31475 1          
+##  3 A3              81 AD        122322  61716 113234  47267 5          
+##  4 A4              73 AD         40692  45151  51048  77199 1          
+##  5 A5              79 AD        131094  43377 176620  58647 6          
+##  6 A6              82 AD         62103 175160  35083  79298 2          
+##  7 A7              75 AD         44407      0  32183  72913 2          
+##  8 A8              73 AD         44499      0  75624  45501 2          
+##  9 A9              76 AD        120507 194559 163350  94551 5          
+## 10 A10             74 AD        139947 104900  83515  71687 6          
+## 11 C1              81 Control    48502      0  54974 103067 2          
+## 12 C2              75 Control    46169  51224  57996  42763 2          
+## 13 C3              77 Control     8616  10296  14518  73483 0          
+## 14 C4              66 Control    26570  25836  39074  54500 1          
+## 15 C5              86 Control    41769  53788  52363  61899 2          
+## 16 C6              74 Control    23494      0  15962  71819 1          
+## 17 C7              81 Control    53367  65316  27371  65394 2          
+## 18 C8              78 Control    54880      0  58767  68472 2          
+## 19 C9              78 Control    35738  41789  68830  62758 1          
+## 20 C10             80 Control    59217  35418  47919  91367 2</code></pre>
 <p>We might be interested in identifying genes that are increased or decreased in
 people with AD compared with Controls. We can create a model matrix for this as
 follows:</p>
@@ -1440,26 +1440,26 @@ additional colums for the other variables in the model. We might wish to adjust
 out the effect of age by including <code>age_at_death</code> as a covariate in the model:</p>
 <div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="biology-bioinformatics.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(<span class="sc">~</span> age_at_death <span class="sc">+</span> condition, <span class="at">data=</span>ad_metadata)</span></code></pre></div>
 <pre><code>##    (Intercept) age_at_death conditionAD
-## 1            1           81           1
-## 2            1           80           1
-## 3            1           91           1
-## 4            1           90           1
-## 5            1           80           1
-## 6            1           81           1
-## 7            1           77           1
-## 8            1           74           1
-## 9            1           82           1
-## 10           1           83           1
-## 11           1           79           0
-## 12           1           76           0
-## 13           1           73           0
-## 14           1           73           0
-## 15           1           69           0
-## 16           1           77           0
-## 17           1           73           0
-## 18           1           75           0
-## 19           1           76           0
-## 20           1           81           0
+## 1            1           84           1
+## 2            1           73           1
+## 3            1           81           1
+## 4            1           73           1
+## 5            1           79           1
+## 6            1           82           1
+## 7            1           75           1
+## 8            1           73           1
+## 9            1           76           1
+## 10           1           74           1
+## 11           1           81           0
+## 12           1           75           0
+## 13           1           77           0
+## 14           1           66           0
+## 15           1           86           0
+## 16           1           74           0
+## 17           1           81           0
+## 18           1           78           0
+## 19           1           78           0
+## 20           1           80           0
 ## attr(,&quot;assign&quot;)
 ## [1] 0 1 2
 ## attr(,&quot;contrasts&quot;)
@@ -1529,17 +1529,17 @@ associated with AD - using the <code>limma::topTable()</code> function:</p>
 <span id="cb283-3"><a href="biology-bioinformatics.html#cb283-3" aria-hidden="true" tabindex="-1"></a><span class="co"># on the nominal p-values from each gene test</span></span>
 <span id="cb283-4"><a href="biology-bioinformatics.html#cb283-4" aria-hidden="true" tabindex="-1"></a><span class="co"># topTable only returns the top 10 results sorted by ascending p-value by default</span></span>
 <span id="cb283-5"><a href="biology-bioinformatics.html#cb283-5" aria-hidden="true" tabindex="-1"></a><span class="fu">topTable</span>(fit, <span class="at">coef=</span><span class="st">&quot;conditionAD&quot;</span>, <span class="at">adjust=</span><span class="st">&quot;BH&quot;</span>)</span></code></pre></div>
-<pre><code>##                   logFC  AveExpr         t      P.Value adj.P.Val         B
-## 234942_s_at   1.1231942 8.397425  4.890779 9.613196e-05  0.770605 -2.987573
-## 202423_at    -0.7499088 8.646687 -4.785281 1.221646e-04  0.770605 -3.025525
-## 1557538_at   -0.8057310 4.348859 -4.697520 1.492072e-04  0.770605 -3.057737
-## 1558290_a_at -0.8580750 7.278878 -4.658725 1.630238e-04  0.770605 -3.072162
-## 234596_at     0.4925167 3.038448  4.564888 2.020432e-04  0.770605 -3.107523
-## 225986_x_at  -0.6030385 6.958092 -4.502976 2.328354e-04  0.770605 -3.131216
-## 203124_s_at  -1.2857166 8.565022 -4.488589 2.406451e-04  0.770605 -3.136763
-## 209346_s_at   0.6578475 6.010219  4.421869 2.804637e-04  0.770605 -3.162688
-## 224825_at     1.0266849 8.147104  4.421597 2.806391e-04  0.770605 -3.162795
-## 205647_at    -0.8569475 4.399029 -4.399700 2.951151e-04  0.770605 -3.171376</code></pre>
+<pre><code>##                  logFC  AveExpr         t      P.Value adj.P.Val         B
+## 234942_s_at  1.0714038 8.397425  6.066250 7.119324e-06 0.3892490 -1.499155
+## 223703_at    0.8300248 6.154392  5.637253 1.806511e-05 0.4938549 -1.704197
+## 243618_s_at -0.6542899 7.148455 -5.058018 6.561508e-05 0.7705039 -2.012407
+## 210904_s_at  0.8692140 7.634896  4.960312 8.182368e-05 0.7705039 -2.068044
+## 244391_at   -0.4934336 5.532712 -4.848327 1.054840e-04 0.7705039 -2.133113
+## 224825_at    0.8804187 8.147104  4.835246 1.086673e-04 0.7705039 -2.140805
+## 221742_at   -0.5004680 6.888584 -4.787050 1.212615e-04 0.7705039 -2.169306
+## 204977_at   -0.5120227 7.810720 -4.653498 1.644583e-04 0.7705039 -2.249614
+## 237269_at   -1.3083585 6.027691 -4.586007 1.919188e-04 0.7705039 -2.290938
+## 231815_at   -0.7294327 6.675803 -4.541278 2.126297e-04 0.7705039 -2.318596</code></pre>
 <p>From the table, none of the probesets in this experiment are significant at FDR
 &lt; 0.05.</p>
 <div class="box readmore">
@@ -1758,7 +1758,7 @@ read in the collection of gene sets we previously downloaded.</p>
 ##     geneIdType: NullIdentifier (1 total)
 ##     collectionType: NullCollection (1 total)</code></pre>
 <p>If we simply access the hallmarks_gmt variable, we can see that it is a
-GeneSetCollection object containing 0 total gene
+GeneSetCollection object containing 50 total gene
 sets which encompass 4383 unique identifiers or HGNC symbols. Although this
 package supports a range of functions, we will focus on the basics. For a more
 thorough description of the classes and methods, please read their extended

@@ -499,6 +499,7 @@ adequate treatment. Like the rest of this book, the topics covered here are
 opinionated and presented through the lens of a biological analyst practitioner
 with enough high level conceptual details and a few general principles to
 hopefully be useful in that context.</p>
+
 <div id="data-modeling" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Data Modeling</h2>
 <p>The goal of data modeling is to describe a dataset using a relatively small
@@ -1056,6 +1057,7 @@ method that is most suitable.</p>
 </div>
 <div id="assessing-model-accuracy-." class="section level3" number="6.1.5">
 <h3><span class="header-section-number">6.1.5</span> Assessing Model Accuracy .</h3>
+
 </div>
 </div>
 <div id="statistical-distributions-tests-." class="section level2" number="6.2">
@@ -1085,7 +1087,7 @@ the probability we are getting a six is 1/6 for each throw.</p>
 f(x) = \frac {n!} {x!(n-x)!}p^x (1-p) ^{(n-x)}
 \end{equation}\]</span></p>
 <p>The <strong>geometric</strong> random variable, similar to the binomial, is also from a
-sequence of random Bernoulli trials with a constant probability parameter p. 
+sequence of random Bernoulli trials with a constant probability parameter p.
 But this time, we define the random variable X as the number of consecutive
 failures before the first success. In this case, the probability of x
 consecutive failures followed by success on trial x+1 is:</p>
@@ -1110,7 +1112,7 @@ occur with a known constant mean rate and independently of the time since
 the last event. <del>But no one understands this definition.</del></p>
 <p>The formula for Poisson distribution is:<br />
 <span class="math display">\[\begin{equation}
-f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!} 
+f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!}
 \end{equation}\]</span></p>
 <ul>
 <li>lambda is the expected value of the random variable X<br />
@@ -1193,7 +1195,7 @@ letters you receive today is independent of the letter you receive tomorrow.
 <del>more work today don’t guarantee less work tomorrow, just like in real life</del></p>
 <p>Now let’s re-visit the formula.<br />
 <span class="math display">\[\begin{equation}
-f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!} 
+f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!}
 \end{equation}\]</span></p>
 <ul>
 <li>lambda is the expected value of X, which is 20 letters in this example.<br />
@@ -1296,6 +1298,7 @@ important? What is the relationship between a dataset, an analysis, and power?
 What aspects of an analysis influence the statistical power of a test? (I don’t
 think it’s reasonable to ask students to perform power calculations, just to be
 aware that power is a thing and generally what it is).</p>
+
 </div>
 </div>
 <div id="exploratory-analysis" class="section level2" number="6.3">
@@ -1410,14 +1413,14 @@ by the sum:</p>
 <span id="cb205-7"><a href="data-science.html#cb205-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb205-8"><a href="data-science.html#cb205-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb205-9"><a href="data-science.html#cb205-9" aria-hidden="true" tabindex="-1"></a>exp_g <span class="ot">&lt;-</span> pca_var <span class="sc">%&gt;%</span></span>
-<span id="cb205-10"><a href="data-science.html#cb205-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb205-11"><a href="data-science.html#cb205-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb205-10"><a href="data-science.html#cb205-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb205-11"><a href="data-science.html#cb205-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb205-12"><a href="data-science.html#cb205-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb205-13"><a href="data-science.html#cb205-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>)) <span class="co"># make x labels rotate 90 degrees</span></span>
 <span id="cb205-14"><a href="data-science.html#cb205-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb205-15"><a href="data-science.html#cb205-15" aria-hidden="true" tabindex="-1"></a>cum_g <span class="ot">&lt;-</span> pca_var <span class="sc">%&gt;%</span></span>
-<span id="cb205-16"><a href="data-science.html#cb205-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">Cumulative % Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb205-17"><a href="data-science.html#cb205-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb205-16"><a href="data-science.html#cb205-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">Cumulative % Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb205-17"><a href="data-science.html#cb205-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb205-18"><a href="data-science.html#cb205-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb205-19"><a href="data-science.html#cb205-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">100</span>) <span class="sc">+</span> <span class="co"># set y limits to [0,100]</span></span>
 <span id="cb205-20"><a href="data-science.html#cb205-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span>
@@ -1650,6 +1653,7 @@ cluster by construction. Real data are seldom so well behaved.</p>
 </div>
 <div id="others" class="section level3" number="6.3.4">
 <h3><span class="header-section-number">6.3.4</span> Others</h3>
+
 </div>
 </div>
 <div id="network-analysis-." class="section level2" number="6.4">
