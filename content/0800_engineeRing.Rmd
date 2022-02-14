@@ -168,6 +168,8 @@ code is more likely to be correct.
 * [testthat Reference](https://testthat.r-lib.org/reference/index.html)
 :::
 
+## Object Orientation in R .
+
 ## Toolification .
 
 ## Pipelines & Workflows .
