@@ -107,7 +107,7 @@ __Using what you've learned in the course and prior assignments, read in the
 
 :::{.box .important}
 __Deliverables__
-1. The scaled data matrix for example_intensity_data.csv
+1. The example_intensity_data.csv read in as a *dataframe*.
 :::
 
 ## Proportion of variance explained {-}
@@ -128,7 +128,10 @@ each principal component.__
 
 ::: {.box .important}
 __Deliverables__
-1. A barchart of the proportion of individual variance explained by each
+1. A vector with the variance explained for each PC.
+2. A tibble with the labels for each PC, the variance explained and the
+cumulative variance explained.
+3. A barchart of the proportion of individual variance explained by each
 principal component overlayed with a scatter plot of the cumulative sum of the
 variance explained for each successive principal component. Label all relevant
 axes and provide a descriptive caption for the figure.
@@ -149,7 +152,7 @@ principal components may be found in the pca results object accessed by $x.
 ::: {.box .warning}
 When plotting individual PCs against one another, remember that different
 principal components explain different amounts of variance and so it will often
-be the case that the scale of "importance" across the different axes will be
+be the case that the scale of "importance" across the axes will be
 different.
 :::
 
@@ -210,6 +213,9 @@ display.brewer.all(colorblindFriendly=TRUE) to view these curated palettes.
 
 ::: {.box .important}
 __Deliverables__
+1. A list of the significant probes from the differential_expression_results.csv.
+2. A matrix of the example_intensity_data.csv filtered to only contain probes
+contained within the list of significant probes.
 1. A heatmap of the normalized intensity values for the differentially expressed probes (adjusted p-value < .01).
 :::
 
