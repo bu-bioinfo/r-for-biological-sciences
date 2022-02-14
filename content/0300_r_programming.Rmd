@@ -158,11 +158,86 @@ there are one of these values in your input, and need to be handled explicitly.
 * [Complex numbers in R](https://stat.ethz.ch/R-manual/R-devel/library/base/html/complex.html)
 :::
 
-### Factors .
+### Factors
 
-What is a factor in R? Why and how are they used? What is the difference between
-a character vector and a factor vector? Why and how do we manipulate factors
-(e.g. relevel)?
+Factors are objects that R uses to handle categorical variables, i.e. variables
+that can take one of a distinct set of values for each sample. For example,
+a variable indicating whether a subject had a disease or was a control could be
+encoded using a factor with values `Disease` or `Control`. Consider an example
+dataset with six subjects where three are disease and three are control, and
+we create a factor from a corresponding variable of character strings using the
+`factor()` function:
+
+```r
+case_status <- factor(c('Disease','Disease','Disease','Control','Control','Control'))
+case_status
+[1] Disease Disease Disease Control Control Control
+Levels: Control Disease
+```
+
+The factor `case_status` prints as a vector of labels, either `Disease` or
+`Control`. The distinct values in the factor are called *levels*, and this
+factor has two: `Control` and `Disease`. Internally, a factor is stored as a
+vector of integers where each level has the same value:
+
+```r
+as.numeric(case_status)
+[1] 2 2 2 1 1 1
+str(case_status)
+ Factor w/ 2 levels "Control","Disease": 2 2 2 1 1 1
+```
+
+By default, R assigns integers to levels in alphanumeric order; since "Control"
+comes lexicographically before "Disease", the `Control` level is assigned the
+integer `1` and `Disease` is assigned `2`. Each value of the factor corresponds
+to these integers, and since `Disease` came before `Control`, the numeric values
+of the factor are (2, 2, 2, 1, 1, 1). The integer values assigned to each level
+allow the factor to be sorted:
+
+```r
+sort(case_status)
+[1] Control Control Control Disease Disease Disease
+Levels: Control Disease
+```
+
+Note the order of the factor levels has changed so that controls, which have a
+value of 1, precede disease, which have a value of 2. The integers assigned to
+each level can be specified explicitly when creating the factor:
+
+```r
+case_status <- factor(
+  c('Disease','Disease','Disease','Control','Control','Control'),
+  levels=c('Disease','Control')
+)
+case_status
+[1] Disease Disease Disease Control Control Control
+Levels: Control Disease
+str(case_status)
+ Factor w/ 2 levels "Disease","Control": 1 1 1 2 2 2
+```
+The base R functions for reading in [CSV Files] load columns with character
+values as factors by default (you may turn this off with
+`stringsAsFactors=FALSE` to `read.csv()`), and in other situations you may have
+factors created by other functions that need to have their integer values
+changed. This process is called *releveling* the factor, and may be accomplished
+by passing a factor into the `factor()` function and specifying new levels:
+
+```r
+str(case_status)
+ Factor w/ 2 levels "Disease","Control": 1 1 1 2 2 2
+factor(case_status, levels=c("Control","Disease"))
+ Factor w/ 2 levels "Control","Disease": 2 2 2 1 1 1
+```
+
+Controlling the order of levels in a factor is important in a number of
+situations. One is when specifying the reference category for categorical
+variables when constructing model matrices to pass to statistical models, the
+details of which are beyond the scope of this book. A second is when the order
+of categorical variables when passed to ggplot, which is
+covered in greater detail in [Reordering 1-D Data Elements] in the
+[Grammar of Graphics] chapter. The [forcats](https://forcats.tidyverse.org/)
+tidyverse package provides more powerful functions for working with categorical
+variables stored in factors.
 
 ## Data Structures {#prog-struct}
 
