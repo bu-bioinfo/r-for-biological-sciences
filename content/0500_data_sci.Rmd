@@ -1184,13 +1184,14 @@ The goal of clustering may be easily illustrated with the following plot:
 ```{r include=FALSE}
 # data drawn from three bivariate normal distributions))
 set.seed(1337)
-n <- 100
+n <- 20
 well_clustered_data <- tibble(
   ID=c(stringr::str_c("A",1:n),stringr::str_c("B",1:n),stringr::str_c("C",1:n)),
   cluster=c(rep("A",n),rep("B",n),rep("C",n)),
   f1=c(rnorm(n,0,1),rnorm(n,5,1),rnorm(n,0,1)),
   f2=c(rnorm(n,0,1),rnorm(n,5,1),rnorm(n,8,1))
 )
+
 ```
 
 ```{r clustering goal}
@@ -1200,6 +1201,7 @@ unclustered <- ggplot(well_clustered_data, aes(x=f1,y=f2)) +
 clustered <- ggplot(well_clustered_data, aes(x=f1,y=f2,color=cluster,shape=cluster)) +
   geom_point() +
   labs(title="Clustered")
+
 unclustered | clustered
 ```
 
@@ -1209,20 +1211,128 @@ to be in the same cluster. A full treatment of cluster analysis is beyond the
 scope of this book, but below we discuss a few of the most common and general
 clustering algorithms used in biology and bioinformatics.
 
-#### Hierarchical Clustering .
+#### Hierarchical Clustering
 
 Hierarchical clustering is a form of clustering that clusters data points
 together in nested, or *hierarchical*, groups based on their dissimilarity from
 one another. There are two broad strategies to accomplish this:
 
 * **Agglomerative**: all data points start in their own groups, and groups are
-iteratively merged hierarchically into larger groups until all data points have
-been added to a group
+iteratively merged hierarchically into larger groups based on their similarity
+until all data points have been added to a group
 * **Divisive**: all data points start in the same group, and are recursively
 split into smaller groups based on their dissimilarity
 
+Whichever approach is used, the critical step in clustering is choosing the
+[distance function](https://en.wikipedia.org/wiki/Metric_(mathematics)) that
+quantifies how dissimilar two data points are. Distance functions, or *metrics*
+are non-negative real numbers whose magnitude is proportional to some notion of
+distance between a pair of points. There are [many different distance
+functions](https://en.wikipedia.org/wiki/Metric_(mathematics)#Generalized_metrics)
+to choose from, and the choice is made based on the type of data being
+clustered. For numeric data, [euclidean
+distance](https://en.wikipedia.org/wiki/Euclidean_distance), which corresponds
+to the length of a line segment drawn between two points in any $n$-dimensional
+[Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space) is often a
+reasonable choice.
+
+Because the divisive strategy is conceptually the inverse of
+agglomerative clustering, we will limit our description to agglomerative
+clustering. Once the distance function has been chosen, distances between all
+pairs of points are computed and the two nearest points are merged into a group.
+The new group of points is used for computing distances to all other points as a
+set using a *linkage function*
+which defines how the group is summarized into a single point for the purposes
+of distance calculation. The linkage function is what distinguishes different
+clustering algorithms, which include:
+
+* [Single-linkage](https://en.wikipedia.org/wiki/Single-linkage_clustering) - distance between two groups is computed as the distance between the two nearest members of the groups
+* [Complete-linkage](https://en.wikipedia.org/wiki/Complete-linkage_clustering) - distance between two groups is computed as the distance between the two farthest members of the groups
+* [Unweighted Pair Group Method with Arithmetic mean (UPGMA)](https://en.wikipedia.org/wiki/UPGMA) - distance between two groups is the average distance of all pairs of points between groups 
+* [Weighted Pair Group Method with Arithmetic mean (WPGMA)](https://en.wikipedia.org/wiki/WPGMA) - similar to UPGMA, but weights distances from pairs of groups evenly when merging
+
+The choice of linkage function (and therefore clustering algorithm) should be
+determined based on knowledge of the dataset and assessment of clustering
+performance. In general, there is no one linkage function that will always
+perform well.
+
+The following figure illustrates a simple example of clustering a 1 dimensional
+set of points using WPGMA:
+
+![Conceptual illustration of agglomerative hierarchical clustering](hierarchical_clustering.png)
+
+Below we will cluster the synthetic dataset introduced above in R:
+
+```{r hclust data}
+ggplot(well_clustered_data, aes(x=f1,y=f2)) +
+  geom_point() +
+  labs(title="Unclustered")
+```
 
 
+This synthetic dataset has two distinct groups of samples drawn from
+multivariate normal samples. To hierarchically cluster these samples, we use the
+[`dist()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist)
+and [`hclust()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust)
+functions:
+
+```{r hclust dist}
+# compute all pairwise distances using euclidean distance as the distance metric
+euc_dist <- dist(dplyr::select(well_clustered_data,-ID))
+
+# produce a clustering of the data using the hclust for hierarchical clustering
+hc <- hclust(euc_dist, method="ave")
+
+# add ID as labels to the clustering object
+hc$labels <- well_clustered_data$ID
+
+
+str(hc)
+```
+
+The `hclust()` return object describes the clustering as a tree that can be
+visualized using a [dendrogram](#dendrograms):
+
+```{r hclust dendro}
+library(ggdendro)
+ggdendrogram(hc)
+
+```
+Our data do indeed cluster well, where all samples from the same group cluster
+together perfectly. See the [dendrogram](#dendrograms) section in the [data
+vizualization chapter](#data-viz) for more detail on how to plot clustering
+results.
+
+It is sometimes desirable to use split hierarchical clustering into groups based
+on their pattern. In the above clustering, three discrete clusters corresponding
+sample groups are clearly visible. If we wished to separate these three groups,
+we can use the
+[`cutree`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cutree)
+to divide the tree into three groups using `k=3`:
+
+```{r hclust cuttree}
+labels <- cutree(hc,k=3)
+labels
+```
+
+We can then use these samples and labels to color our original plot as desired:
+
+```{r hclust cutree color}
+# we turn our labels into a tibble so we can join them with the original tibble
+well_clustered_data %>%
+  left_join(
+    tibble(
+      ID=names(labels),
+      label=as.factor(labels)
+    )
+  ) %>%
+  ggplot(aes(x=f1,y=f2,color=label)) +
+  geom_point() +
+  labs(title="Clustered")
+```
+
+We were able to recover the correct clustering because this dataset was easy to
+cluster by construction. Real data are seldom so well behaved.
 
 ### k-means .
 
