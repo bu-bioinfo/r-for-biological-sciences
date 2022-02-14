@@ -166,10 +166,14 @@ a variable indicating whether a subject had a disease or was a control could be
 encoded using a factor with values `Disease` or `Control`. Consider an example
 dataset with six subjects where three are disease and three are control, and
 we create a factor from a corresponding variable of character strings using the
-`factor()` function:
+[`factor()` function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/factor):
 
 ```r
-case_status <- factor(c('Disease','Disease','Disease','Control','Control','Control'))
+case_status <- factor(
+  c('Disease','Disease','Disease',
+    'Control','Control','Control'
+  )
+)
 case_status
 [1] Disease Disease Disease Control Control Control
 Levels: Control Disease
