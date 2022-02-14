@@ -667,6 +667,7 @@ method that is most suitable.
 ### Assessing Model Accuracy .
 
 
+
 ## Statistical Distributions & Tests .
 
 ### Statistical Distributions
@@ -944,7 +945,225 @@ What aspects of an analysis influence the statistical power of a test? (I don't
 think it's reasonable to ask students to perform power calculations, just to be
 aware that power is a thing and generally what it is).
 
-## Cluster Analysis
+## Exploratory Analysis
+
+So far, we have discussed methods where we chose an explicit model to summarize
+our data. However, sometimes we don't have enough information about our data to
+propose reasonable models, as we did earlier when exploring the distribution of
+our imaginary gene expression dataset. There may be patterns in the data that
+emerge when we compute different summaries and ask whether there is a non-random
+structure to how the individual samples or features compare with one another.
+The types of methods we use to take a dataset and examine it for structure
+without a prefigured hypothesis is called *exploratory analysis* and is a key
+approach to working with biological data.
+
+### Principal Component Analysis
+
+A very common method of exploratory analysis is [principal component
+analysis](https://en.wikipedia.org/wiki/Principal_component_analysis) or PCA.
+PCA is a statistical procedure that identifies so called *directions of
+orthogonal variance* that capture covariance between different dimensions in a
+dataset. Because the approach captures this covariance between features of
+arbitrary dimension, it is often used for so-called [dimensionality
+reduction](https://en.wikipedia.org/wiki/Dimensionality_reduction), where a
+large amount of variance in a dataset with a potentially large number of
+dimensions may be expressed in terms of a set of [basis
+vectors](https://en.wikipedia.org/wiki/Change_of_basis) of smaller dimension.
+The mathematical details of this approach are beyond the scope of this book, but
+below we explain in general terms the intuition behind what PCA does, and
+present an example of how it is used in a biological context.
+
+PCA decomposes a dataset into a set of [orthonormal basis
+vectors](https://en.wikipedia.org/wiki/Orthonormal_basis) that collectively
+capture all the variance in the dataset, where the first basis vector, called
+the *first principal component* explains the largest fraction of the variance,
+the second principal component explains the second largest fraction, and so on.
+There are always an equal number of principal components as there are dimensions
+in the dataset or the number of samples, whichever is smaller. Typically only a
+small number of these components are needed to explain most of the variance.
+
+Each principal component is a $p$-dimensional [unit
+vector](https://en.wikipedia.org/wiki/Unit_vector) (i.e. a vector of magnitude
+1), where $p$ is the number of features in the dataset, and the values are
+weights that describe the component's direction of variance. By multiplying this
+component with the values in each sample, we obtain the *projection* of each
+sample with respect to the basis of the component. The projections of each
+sample made with each principal component produces a rotation of the dataset in
+$p$ dimensional space. The figure below presents a geometric intuition of PCA.
+
+![Principal Component Analysis - Geometric Intuition Illustration](PCA.png)
+
+Many biological datasets, especially those that make genome-wide measurements
+like with gene expression assays, have many thousands of features (e.g. genes)
+and comparatively few samples. Since PCA can only determine a maximum number of
+principal components as the smaller of the number of features or samples, we
+will almost always only have as many components as samples. To demonstrate this,
+we perform PCA using the
+[`stats::prcomp()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp)
+function on an example microarray gene expression intensity dataset:
+
+```{r pca setup, include=FALSE}
+source("setup_example_data.R")
+```
+
+```{r pca}
+# intensities contains microarray expression data for ~54k probesets x 20 samples
+
+# transpose expression values so samples are rows
+expr_mat <- intensities %>%
+  pivot_longer(-c(probeset_id),names_to="sample") %>%
+  pivot_wider(names_from=probeset_id)
+
+# PCA expects all features (i.e. probesets) to be mean-centered,
+# convert to dataframe so we can use rownames
+expr_mat_centered <-  as.data.frame(
+  lapply(dplyr::select(expr_mat,-c(sample)),function(x) x-mean(x))
+)
+rownames(expr_mat_centered) <- expr_mat$sample
+
+# prcomp performs PCA
+pca <- prcomp(
+  expr_mat_centered,
+  center=FALSE, # prcomp centers features to have mean zero by default, but we already did it
+  scale=TRUE # prcomp scales each feature to have unit variance
+)
+
+# the str() function prints the structure of its argument
+str(pca)
+```
+
+The result of `prcomp()` is a list with five members:
+
+* `sdev` - the standard deviation (i.e. the square root of the variance) for each component
+* `rotation` - a matrix where the principal components are in columns
+* `x` - the projections of the original data, aka the rotated data matrix
+* `center` - if `center=TRUE` was passed, a vector of feature means
+* `scale` - if `scale=TRUE` was passed, a vector of the feature variances
+
+Recall that each principal component explains a fraction of the overall variance
+in the dataset. The `sdev` variable returned by `prcomp()` may be used to first
+calculate the variance explained by each component by squaring it, then dividing
+by the sum:
+
+```{r pca var}
+library(patchwork)
+pca_var <- tibble(
+  PC=factor(str_c("PC",1:20),str_c("PC",1:20)),
+  Variance=pca$sdev**2,
+  `% Explained Variance`=Variance/sum(Variance)*100,
+  `Cumulative % Explained Variance`=cumsum(`% Explained Variance`)
+)
+
+exp_g <- pca_var %>%
+  ggplot(aes(x=PC,y=`% Explained Variance`,group=1)) + 
+  geom_point() + 
+  geom_line() +
+  theme(axis.text.x=element_text(angle=90,hjust=0,vjust=0.5)) # make x labels rotate 90 degrees
+
+cum_g <- pca_var %>%
+  ggplot(aes(x=PC,y=`Cumulative % Explained Variance`,group=1)) + 
+  geom_point() + 
+  geom_line() +
+  ylim(0,100) + # set y limits to [0,100]
+  theme(axis.text.x=element_text(angle=90,hjust=0,vjust=0.5))
+
+exp_g | cum_g
+```
+
+The first component explains nearly 20% of all variance in the dataset, followed
+by the second component with about 12%, the third component 9%, and so on. The
+cumulative variance plot on the right shows that the top 15 components are
+required to capture 90% of the variance in the dataset. This suggests that each
+sample contributes a significant amount of variance to the overall dataset, but
+that there are still some features that covary among them.
+
+An important use of PCA results is the identification of outlier samples. This
+is accomplished by plotting the projections of each sample and examining the
+result by eye to identify samples that are "far away" from the other samples.
+This is usually done by inspection and outlier samples chosen subjectively;
+there are no general rules to decide when a sample is an outlier by this method.
+Below the projections for components 1 and 2 are plotted against each other as a
+scatter plot:
+
+```{r pca pairwise}
+as_tibble(pca$x) %>%
+  ggplot(aes(x=PC1,y=PC2)) +
+  geom_point()
+```
+
+By eye, no samples appear to be obvious outliers. However, this plot is just one
+of many pairs of projections. We could plot all pairs of the first six
+components using the [`ggpairs()
+function`](https://ggobi.github.io/ggally/reference/ggpairs.html) in the
+[GGally](https://ggobi.github.io/ggally/) package:
+
+```{r pca pairs}
+library(GGally)
+as_tibble(pca$x) %>%
+  dplyr::select(PC1:PC6) %>%
+  ggpairs()
+```
+
+This is already nearly unintelligible and mostly uninformative. While it is very
+common for projections for pairs of components to be plotted, an alternative way
+to visualize projections across all samples is by plotting the distribution of
+projections for each component using a [beeswarm plot](#beeswarm-plots):
+
+```{r pca proj beeswarm}
+as_tibble(pca$x) %>%
+  pivot_longer(everything(),names_to="PC",values_to="projection") %>%
+  mutate(PC=fct_relevel(PC,str_c("PC",1:20))) %>%
+  ggplot(aes(x=PC,y=projection)) +
+  geom_beeswarm() + labs(title="PCA Projection Plot") +
+  theme(axis.text.x=element_text(angle=90,hjust=0,vjust=0.5))
+```
+
+Now we can see all the projections for all components in the same plot, although
+we cannot see how they relate to one another.
+
+These projection plots may become more useful if we layer on additional
+information about our samples. There are two types of samples in our dataset (
+labelled `A` and `C`. We can color our pairwise scatter plot by type like so:
+
+```{r pca color scatter}
+as_tibble(pca$x) %>%
+  mutate(type=stringr::str_sub(rownames(pca$x),1,1)) %>%
+  ggplot(aes(x=PC1,y=PC2,color=type)) +
+  geom_point()
+```
+
+Little pattern is obvious from the plot, but we can plot pairs of components as
+before but now with type information:
+
+```{r pca pairs type}
+library(GGally)
+as_tibble(pca$x) %>%
+  mutate(type=stringr::str_sub(rownames(pca$x),1,1)) %>%
+  dplyr::select(c(type,PC1:PC6)) %>%
+  ggpairs(columns=1:6,mapping=aes(fill=type))
+```
+
+Examining PC3 and PC4, we now observe that there may indeed be some genes that
+distinguish between types based on the separation of projection scores for the
+two types. Finally, we can also color our beeswarm plot by type:
+
+```{r pca proj beeswarm type}
+as_tibble(pca$x) %>%
+  mutate(
+    sample=rownames(pca$x),
+    type=stringr::str_sub(sample,1,1)
+  ) %>%
+  pivot_longer(PC1:PC20,names_to="PC",values_to="projection") %>%
+  mutate(PC=fct_relevel(PC,str_c("PC",1:20))) %>%
+  ggplot(aes(x=PC,y=projection,color=type)) +
+  geom_beeswarm() + labs(title="PCA Projection Plot") +
+  theme(axis.text.x=element_text(angle=90,hjust=0,vjust=0.5))
+```
+
+These approaches to plotting the results of a PCA are complementary, and all
+may be useful in understanding the structure of a dataset.
+
+### Cluster Analysis
 
 Cluster analysis or simple clustering is the task of grouping objects together
 such that objects within the same group, or *cluster*, are more similar to each
@@ -963,7 +1182,7 @@ one clustering method is better than any other in general.
 The goal of clustering may be easily illustrated with the following plot:
 
 ```{r include=FALSE}
-# data drawn from three bivariate normal distributions
+# data drawn from three bivariate normal distributions))
 set.seed(1337)
 n <- 100
 well_clustered_data <- tibble(
@@ -990,7 +1209,7 @@ to be in the same cluster. A full treatment of cluster analysis is beyond the
 scope of this book, but below we discuss a few of the most common and general
 clustering algorithms used in biology and bioinformatics.
 
-### Hierarchical Clustering .
+#### Hierarchical Clustering .
 
 Hierarchical clustering is a form of clustering that clusters data points
 together in nested, or *hierarchical*, groups based on their dissimilarity from
