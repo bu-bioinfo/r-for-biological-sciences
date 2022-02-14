@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Class Outlines | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="A Class Outlines | BF591 - R for Biological Sciences" />
+  <title>Assignment 3 | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="Assignment 3 | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Class Outlines | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="Assignment 3 | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Class Outlines | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="Assignment 3 | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="assignment-3.html"/>
-
+<link rel="prev" href="assignment-2.html"/>
+<link rel="next" href="class-outlines.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -486,208 +486,223 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="class-outlines" class="section level1" number="13">
-<h1><span class="header-section-number">A</span> Class Outlines</h1>
-<div id="week-1" class="section level2" number="13.1">
-<h2><span class="header-section-number">A.1</span> Week 1</h2>
-<ul>
-<li>Course Intro &amp; Details</li>
-<li>Intro: <a href="data-bio.html#data-bio">Data in Biology</a></li>
-<li>Prelim: <a href="preliminaries.html#prelim-rstudio">RStudio</a> on SCC</li>
-<li>Prelim: <a href="preliminaries.html#prog-the-r-script">The R Script</a></li>
-<li>Prelim: <a href="preliminaries.html#prog-workflow">The Scripting Workflow</a></li>
-<li>Comm: <a href="communicating-with-r.html#rmarkdown-knitr">RMarkdown &amp; knitr</a></li>
-<li>Prelim: <a href="preliminaries.html#prelim-git">Git + github</a></li>
-<li>R Prog: <a href="prog-basics.html#prog-r-syntax">R Syntax Basics</a></li>
-<li>R Prog: <a href="prog-basics.html#functions">Functions</a></li>
-<li>R Prog: <a href="prog-basics.html#prog-debugging">Troubleshooting and Debugging</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#the-tidyverse">The Tidyverse</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#dw-basics">Tidyverse Basics</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#importing-data">Importing Data</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#csv-files">CSV Files</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#data-tibble">The tibble</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#pipes">pipes</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#arranging-data">Arranging Data</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#rearranging-data">Rearranging Data</a></li>
-<li><a href="assignment-1.html#assignment-1">Assignment 1</a></li>
-</ul>
+<div id="assignment-3" class="section level1 unnumbered">
+<h1>Assignment 3</h1>
+<div id="problem-statement-2" class="section level2 unnumbered">
+<h2>Problem Statement</h2>
+<p>High dimensional data is typically time and resource-intensive to analyze,
+interpret and visualize. Gene expression data (including microarray data) often
+consists of measurements for tens of thousands of known genes for every sample.
+Learning methods to inspect, reduce and display high dimensional data is
+necessary for many machine learning and bioinformatics problems.</p>
 </div>
-<div id="week-2" class="section level2" number="13.2">
-<h2><span class="header-section-number">A.2</span> Week 2</h2>
-<ul>
-<li><a href="assignment-1.html#assignment-1">Assignment 1</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#regular-expressions">Regular expressions</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-r">R in Biology</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-data-types">Types of Biological Data</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#bio-bioconductor">Bioconductor</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#gene-identifiers">Gene Identifiers</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#mapping-between-identifier-systems">Mapping Between Identifier Systems</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#mapping-homologs">Mapping Homologs</a></li>
-<li>Data Wrangle: <a href="data-wrangling.html#relational-data">Relational Data</a></li>
-<li>Data Viz: <a href="data-visualization.html#dv-gg">Grammar of Graphics</a></li>
-<li>Data Viz: <a href="data-visualization.html#plotting-one-dimension">Plotting One Dimension</a></li>
-<li>Data Viz: <a href="data-visualization.html#visualizing-distributions">Visualizing Distributions</a></li>
-<li>R Prog: <a href="engineering.html#unit-testing">Unit Testing</a></li>
-</ul>
+<div id="learning-objectives-2" class="section level2 unnumbered">
+<h2>Learning Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Understand the basic principles of Principal Component Analysis (PCA) and hierarchical clustering / heatmaps</li>
+<li>Perform PCA in R and evaluate the basic outputs of PCA</li>
+<li>Generate basic clustered heatmaps</li>
+</ol>
 </div>
-<div id="week-3" class="section level2" number="13.3">
-<h2><span class="header-section-number">A.3</span> Week 3</h2>
-<ul>
-<li><a href="assignment-1.html#assignment-1">Assignment 1</a> Review</li>
-<li><a href="assignment-2.html#assignment-2">Assignment 2</a></li>
-<li>Data Sci: <a href="data-science.html#data-modeling">Data Modeling</a></li>
-<li>Data Sci: <a href="data-science.html#a-worked-modeling-example">A Worked Modeling Example</a></li>
-<li>Data Sci: <a href="data-science.html#data-summarization">Data Summarization</a></li>
-<li>Data Sci: <a href="data-science.html#linear-models">Linear Models</a></li>
-<li>Data Sci: <a href="data-science.html#flavors-of-linear-models">Flavors of Linear Models</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#gene-expression">Gene Expression</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#gene-expression-data-in-bioconductor">Gene Expression Data in Bioconductor</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#microarrays">Microarrays</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#microarray-data-in-bioconductor">Microarray Data in Bioconductor</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#differential-expression-microarrays-limma">Differential Expression: Microarrays (limma)</a></li>
-</ul>
+<div id="skill-list-2" class="section level2 unnumbered">
+<h2>Skill List</h2>
+<ol style="list-style-type: decimal">
+<li>R: <code>scale()</code>, transpose <code>t()</code>, <code>prcomp()</code>, <code>heatmap()</code>, ggplot2</li>
+</ol>
 </div>
-<div id="week-4" class="section level2" number="13.4">
-<h2><span class="header-section-number">A.4</span> Week 4</h2>
-<ul>
-<li><a href="assignment-2.html#assignment-2">Assignment 2</a> Review</li>
-<li><a href="assignment-3.html#assignment-3">Assignment 3</a></li>
-<li>Data Sci: <a href="data-science.html#principal-component-analysis">Principal Component Analysis</a></li>
-<li>Data Sci: <a href="data-science.html#cluster-analysis">Cluster Analysis</a></li>
-<li>Data Sci: <a href="data-science.html#hierarchical-clustering">Hierarchical Clustering</a></li>
-<li>Data Viz: <a href="data-visualization.html#heatmaps">Heatmaps</a></li>
-<li>Data Viz: <a href="data-visualization.html#specifying-heatmap-colors">Specifying Heatmap Colors</a></li>
-<li>Data Viz: <a href="data-visualization.html#dendrograms">Dendrograms</a></li>
-<li>R Prog: <a href="prog-basics.html#prog-struct">Data structures</a></li>
-<li>R Prog: [Factors]</li>
-<li>R Prog: <a href="prog-basics.html#iteration">Iteration</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#gene-set-enrichment-analysis">Gene Set Enrichment Analysis</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#gene-sets">Gene Sets</a></li>
-<li>Bioinfo: <a href="biology-bioinformatics.html#over-representation-analysis">Over-representation Analysis</a></li>
-<li>Bioinfo: [Rank-based Analysis]</li>
-<li>Bioinfo: [fgsea]</li>
-</ul>
+<div id="background-on-microarrays" class="section level2 unnumbered">
+<h2>Background on Microarrays</h2>
+<p>A <a href="biology-bioinformatics.html#microarrays">microarray</a> consists of thousands of specifically
+designed single stranded DNA sequences affixed or bound to a solid surface
+(glass, nylon, etc.). Extracted RNA or DNA from samples of interest are labeled
+with fluorescent dyes, and hybridized with the bound probes by flowing across
+the surface. Non-hybridized molecules are washed away and b a laser will excite
+the attached dye to produce light to be detected by a scanner and converted to a
+digital image. Finally, image processing will transform each spot (bound probe)
+to a numerical measurement that can be used to infer expression levels for
+genes.</p>
 </div>
-<div id="week-5" class="section level2" number="13.5">
-<h2><span class="header-section-number">A.5</span> Week 5</h2>
-<ul>
-<li>Data Sci: [Statistical Distributions &amp; Tests]</li>
-<li>Data Sci: <a href="data-science.html#statistical-distributions">Statistical Distributions</a></li>
-<li>Data Sci: [Statistical Tests]</li>
-<li>Data Sci: [p-values]</li>
-<li>Data Sci: [Multiple Hypothesis Testing]</li>
-<li>Data Sci: [Statistical power]</li>
-<li>Bioinfo: [High Throughput Sequencing]</li>
-<li>Bioinfo: [RNASeq]</li>
-<li>Bioinfo: [Count Data]</li>
-<li>Bioinfo: [Differential Expression: RNASeq]</li>
-<li>Bioinfo: [DESeq2/EdgeR]</li>
-<li>Bioinfo: [limma/voom]</li>
-<li>R Prog: <a href="prog-basics.html#prog-style">Coding Style and Conventions</a></li>
-<li>R Prog: [The <code>styler</code> package]</li>
-</ul>
+<div id="background-on-principal-component-analysis" class="section level2 unnumbered">
+<h2>Background on Principal Component Analysis</h2>
+<p><a href="data-science.html#principal-component-analysis">Principal component analysis</a> is an exploratory
+data analysis technique commonly used to reduce the dimensionality of data while
+trying to simultaneously minimize information loss. To understand the inner
+workings of PCA will require an in-depth review of linear algebra and is beyond
+the scope of this specific assignment. We will provide several links and
+references if you wish to do so on your own. At its core, PCA creates new
+uncorrelated linear combinations of the original variables that successively
+maximize variance. Thus, the first principle component (PC) represents the
+direction of the data that explains a maximal amount of variance. The second PC
+represents the direction that captures the second most variance and so on and so
+forth. As you can infer, if a small number of PCs capture a majority of variance
+contained within a dataset, they can be used as a lower dimensional
+representation of the data.</p>
 </div>
-<div id="week-6" class="section level2" number="13.6">
-<h2><span class="header-section-number">A.6</span> Week 6</h2>
-<ul>
-<li>Data Viz: [Responsible Plotting]</li>
-<li>Data Viz: [Grammar of Graphics - Going Deeper]</li>
-<li>Data Viz: [Plotting Two or More Dimension]</li>
-<li>Data Viz: [Other Kinds of Plots]</li>
-<li>Data Viz: [Tips and Tricks]</li>
-<li>Data Viz: [How To Use Heatmaps Responsibly]</li>
-<li>Data Viz: [Multiple Plots]</li>
-<li>Data Viz: [Facet wrapping]</li>
-<li>Data Viz: [Publication Ready Plots]</li>
-</ul>
+<div id="marisa-et-al.-gene-expression-classification-of-colon-cancer-into-molecular-subtypes-characterization-validation-and-prognostic-value.-plos-medicine-may-2013.-pmid-23700391" class="section level2 unnumbered">
+<h2>Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391</h2>
+<p>The example intensity data was taken from the listed publication. In it, the
+authors proposed the use of gene expression profiling (through microarray
+technology) to generate a robust and reproducible classifier to identify
+subtypes of colorectal cancer samples. They identified six subtypes that they
+demonstrated to be significantly associated with distinct molecular pathways and
+clinical pathologies. We have provided you a sample expression matrix that was
+normalized and subjected to batch correction. We will use the
+<code>example_intensity_data.csv</code> as our data matrix going forward.</p>
 </div>
-<div id="week-7" class="section level2" number="13.7">
-<h2><span class="header-section-number">A.7</span> Week 7</h2>
-<ul>
-<li>Bioinfo: [Single Cell Sequencing]</li>
-<li>Bioinfo: [Single Cell Clustering Methods]</li>
-<li>Bioinfo: [tSNE &amp; UMAP]</li>
-<li>Bioinfo: [Seurat]</li>
-<li>EngineeRing: [Workflow Managers]</li>
-</ul>
+<div id="scaling-data-using-r-scale" class="section level2 unnumbered">
+<h2>Scaling data using R <code>scale()</code></h2>
+<p>Oftentimes, it is necessary to analyze or plot data that contains variables that
+differ by multiple orders of magnitude. In bioinformatics, this is an extremely
+common situation as different genes may be expressed at wildly different levels.
+For instance, in typical HTS experiments and as you will see later on in the
+course, you may detect genes with counts ranging from the single digits to those
+with counts in the tens of thousands. Heatmaps of gene expression data are
+commonly transformed by standard scaling in order to improve the visualization
+while retaining the underlying pattern of expression between samples.</p>
+<p>One such way to standardize data is the <code>scale()</code> function in R. Scale
+essentially takes a vector of values and determines the mean and standard
+deviation of the entire vector. Scale() will then subtract the mean from each
+element in the vector and divide each by the standard deviation. Z-scores thus
+correspond to the number of standard deviations by which a data point is above
+or below the mean of all the observations (i.e. a Z-score of 0 represents a
+value equal to the mean and a Z-score of 1 represents a value one standard
+deviation greater than the mean value). This has the effect of representing all
+of your data points on the same “scale” while preserving the pattern or profile
+of differences inherent between values across different observations.</p>
+<p>The <a href="https://bu-bioinfo.github.io/r_for_biological_sciences/prog-basics.html#matrices">transpose function <code>t()</code></a>
+is a function covered in the textbook for this course. As covered earlier, it
+converts a <span class="math inline">\(m \times n\)</span> matrix to <span class="math inline">\(n \times m\)</span>. The built-in R function
+<code>scale()</code> operates on a column-wise basis. Transpose the matrix such that
+scaling occurs within genes rather than samples. You may also use the tidyverse
+<a href="data-wrangling.html#rearranging-data">pivot functions</a> to perform this transpose operation if you
+prefer.</p>
+<p><strong>Using what you’ve learned in the course and prior assignments, read in the
+<code>example_intensity_data.csv</code> to a proper format. Return the scaled matrix.</strong></p>
+<div class="box hint">
+<p>#1: We want to both center and scale our matrix.</p>
 </div>
-<div id="week-8" class="section level2" number="13.8">
-<h2><span class="header-section-number">A.8</span> Week 8</h2>
-<ul>
-<li>Rshiny: <a href="rshiny.html#rshiny">Rshiny</a></li>
-</ul>
+<div class="box important">
+<p><strong>Deliverables</strong>
+1. The scaled data matrix for example_intensity_data.csv</p>
 </div>
-<div id="week-9" class="section level2" number="13.9">
-<h2><span class="header-section-number">A.9</span> Week 9</h2>
-<ul>
-<li>Bioinfo: [Biological Pathways]</li>
-<li>Bioinfo: [Gene Regulatory Networks]</li>
-<li>Bioinfo: [Protein-Protein Networks]</li>
-<li>Bioinfo: [WGCNA]</li>
-<li>Data Sci: [Network Analysis]</li>
-<li>Data Viz: [Network visualization]</li>
-</ul>
 </div>
-<div id="week-10" class="section level2" number="13.10">
-<h2><span class="header-section-number">A.10</span> Week 10</h2>
-<ul>
-<li>EngineeRing: [Toolification]</li>
-<li>EngineeRing: [Parallel Processing]</li>
-</ul>
+<div id="proportion-of-variance-explained" class="section level2 unnumbered">
+<h2>Proportion of variance explained</h2>
+<p>As mentioned earlier, principal components represent a successively maximal
+amount of variance in your dataset. It is often helpful to visualize the
+percentage of total variance explained by each principal component. <strong>Write a
+function to determine the proportion of variance explained by each principal
+component. Use the results generated by this function to create a bar chart
+displaying the variance explained by successive PCs. On this same plot, make a
+scatter and line plot showing the cumulative proportion of variance explained by
+each principal component.</strong></p>
+<div class="box hint">
+<p>#1: The summary() function in R provides top-level information about model fitting and statistical objects.
+#2: You may access the standard deviation of the PCA results object by $sdev</p>
 </div>
-<div id="week-11" class="section level2" number="13.11">
-<h2><span class="header-section-number">A.11</span> Week 11</h2>
-<ul>
-<li>EngineeRing: [Object Orientated Programming in R]</li>
-<li>EngineeRing: [Building R Packages]</li>
-</ul>
+<div class="box important">
+<p><strong>Deliverables</strong>
+1. A barchart of the proportion of individual variance explained by each
+principal component overlayed with a scatter plot of the cumulative sum of the
+variance explained for each successive principal component. Label all relevant
+axes and provide a descriptive caption for the figure.</p>
 </div>
-<div id="week-12" class="section level2" number="13.12">
-<h2><span class="header-section-number">A.12</span> Week 12</h2>
-<ul>
-<li>Comm: [Sharing and Documenting Project Code]</li>
-<li>Comm: [Reproducible Analysis in R]</li>
-<li>Comm: [Data Documentation and Publishing]</li>
-</ul>
 </div>
-<div id="week-13---no-class-for-project-work" class="section level2" number="13.13">
-<h2><span class="header-section-number">A.13</span> Week 13 - no class for project work</h2>
+<div id="plotting-and-visualization-of-pca" class="section level2 unnumbered">
+<h2>Plotting and visualization of PCA</h2>
+<p>In typical HTS experiments, PCA is a common tool used to analyze the similarity
+between samples and determine if the experimental variable of interest
+(genotype, knockout, etc.) represents a large source of variance. One of the
+most common visualization is to plot the first two principal components (which
+may not always represent a majority of variance in your dataset) against each
+other. Typically, one will examine the pattern of clustering in this plot to see
+if samples are grouped together in any meaningful pattern according to important
+experimental variables. The value or score of each sample in terms of its
+principal components may be found in the pca results object accessed by $x.</p>
+<div class="box warning">
+<p>When plotting individual PCs against one another, remember that different
+principal components explain different amounts of variance and so it will often
+be the case that the scale of “importance” across the different axes will be
+different.</p>
 </div>
-<div id="week-14---no-class-for-project-work" class="section level2" number="13.14">
-<h2><span class="header-section-number">A.14</span> Week 14 - no class for project work</h2>
+<div class="box important">
+<p><strong>Deliverables</strong>
+1. A scatterplot of PC1 vs PC2 from the pca_results$x values. Read in the
+metadata CSV and use it to annotate each sample with its corresponding
+assignment to the SixSubtypesClassification made in the original publication
+(samples belong to either c3 or c4). Label the points in the plot by color for
+their corresponding Six Subtypes Classification.</p>
+</div>
+</div>
+<div id="hierarchical-clustering-and-heatmaps" class="section level2 unnumbered">
+<h2>Hierarchical Clustering and Heatmaps</h2>
+<p>Now that we’ve discussed the basics of PCA, we will move on to discuss the use
+of hierarchical clustering and heatmaps. Heatmaps are a common plot used to
+quickly visualize the expression and pattern of many relevant observations
+across samples. For HTS data, they essentially depict the expression of genes
+(rows) for each sample (columns) as colors that denote the magnitude of
+expression to enable quick identification of patterns and changes between
+samples/experimental groups. Prior to constructing a heatmap, it is common to
+use some form of clustering algorithm to learn potential groups and patterns in
+the expression data.</p>
+<p>One such method is known as hierarchical clustering (specifically focusing on
+agglomerative clustering), a method which attempts to cluster data into
+hierarchies where single observations begin as separate points and are
+successively merged into larger clusters until all points have been grouped.
+Typically, agglomerative clustering will begin with a dissimilarity matrix that
+defines how “close” all observations are by calculating some “distance” metric
+for every pair of observations. There are multiple “distance” metrics that can
+be chosen, and one of the most commonly used is simple euclidean distance. A
+linkage function will then use these distance metrics to define how clusters are
+formed based on these distance values. For example, complete linkage will define
+clusters by the maximum value of all pairwise distances between two different
+clusters.</p>
+<p>We will be using the base R function <a href="data-visualization.html#heatmaps"><code>heatmap()</code></a> which by default
+uses euclidean distance and the <code>hclust()`` function to produce a clustered heatmap. The</code>heatmap()` function will also scale your data row-wise to aid in
+visualization.</p>
+<p>To begin, we have provided you with a representative output of differentially
+expressed probes (<code>differential_expression_results.csv</code>) between the C3 and C4
+subtypes. <strong>Filter this table to return probes with an adjusted p-value of &lt;
+.01. Use what you’ve learned to extract out the normalized intensity values for
+this subset of DE probes. Use the <code>heatmap()</code> function in R to create a heatmap
+of the normalized intensity values for these DE genes.</strong></p>
+<div class="box hint">
+<p>#1: It is important to remember that commonly used color combinations in biology
+(red-green) are quite difficult to discern for those with color blindness. To
+simplify this design decision, we are going to use RColorBrewer, which both
+generates appropriate color palettes and has a number of built-in color blind
+friendly palettes. You may use the command
+display.brewer.all(colorblindFriendly=TRUE) to view these curated palettes.</p>
+</div>
+<div class="box important">
+<p><strong>Deliverables</strong>
+1. A heatmap of the normalized intensity values for the differentially expressed probes (adjusted p-value &lt; .01).</p>
+</div>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<p><small>
+<a href="https://www.genome.gov/about-genomics/fact-sheets/DNA-Microarray-Technology" class="uri">https://www.genome.gov/about-genomics/fact-sheets/DNA-Microarray-Technology</a></p>
+<p>Govindarajan, R., Duraiyan, J., Kaliyappan, K. &amp; Palanisamy, M. Microarray and its applications. Journal of Pharmacy &amp; Bioallied Sciences 4, S310 (2012).</p>
+<p>Trevino, V., Falciani, F. &amp; Barrera-Saldaña, H. A. DNA microarrays: A powerful genomic tool for biomedical and clinical research. Molecular Medicine 13, 527–541 (2007).</p>
+<p>Shlens, J. A Tutorial on Principal Component Analysis.(<a href="https://arxiv.org/abs/1404.1100" class="uri">https://arxiv.org/abs/1404.1100</a>)</p>
+<p>Lever, J., Krzywinski, M. &amp; Altman, N. Points of Significance: Principal component analysis. Nature Methods 14, 641–642 (2017).</p>
+<p>Hastie, T., Hastie, T., Tibshirani, R., &amp; Friedman, J. H. (2001). The elements of statistical learning: Data mining, inference, and prediction. New York: Springer.https://hastie.su.domains/ElemStatLearn/printings/ESLII_print12_toc.pdf</p>
+<p></small></p>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Abbasi, Amir Ali. 2015. <span>“Diversification of Four Human <span>HOX</span> Gene Clusters by Step-Wise Evolution Rather Than Ancient Whole-Genome Duplications.”</span> <em>Dev. Genes Evol.</em> 225 (6): 353–57.
-</div>
-<div class="csl-entry">
-Box, George E P. 1976. <span>“Science and Statistics.”</span> <em>J. Am. Stat. Assoc.</em> 71 (356): 791–99.
-</div>
-<div class="csl-entry">
-Bruford, Elspeth A, Bryony Braschi, Paul Denny, Tamsin E M Jones, Ruth L Seal, and Susan Tweedie. 2020. <span>“Guidelines for Human Gene Nomenclature.”</span> <em>Nat. Genet.</em> 52 (8): 754–58.
-</div>
-<div class="csl-entry">
-Holley, R W, J Apgar, G A Everett, J T Madison, M Marquisee, S H Merrill, J R Penswick, and A Zamir. 1965. <span>“<span>STRUCTURE</span> <span>OF</span> a <span>RIBONUCLEIC</span> <span>ACID</span>.”</span> <em>Science</em> 147 (3664): 1462–65.
-</div>
-<div class="csl-entry">
-Irizarry, Rafael A, Bridget Hobbs, Francois Collin, Yasmin D Beazer-Barclay, Kristen J Antonellis, Uwe Scherf, and Terence P Speed. 2003. <span>“Exploration, Normalization, and Summaries of High Density Oligonucleotide Array Probe Level Data.”</span> <em>Biostatistics</em> 4 (2): 249–64.
-</div>
-<div class="csl-entry">
-Ritchie, Matthew E, Belinda Phipson, Di Wu, Yifang Hu, Charity W Law, Wei Shi, and Gordon K Smyth. 2015. <span>“Limma Powers Differential Expression Analyses for <span class="nocase">RNA-sequencing</span> and Microarray Studies.”</span> <em>Nucleic Acids Res.</em>, January, gkv007.
-</div>
-<div class="csl-entry">
-Shows, T B, C A Alper, D Bootsma, M Dorf, T Douglas, T Huisman, S Kit, et al. 1979. <span>“International System for Human Gene Nomenclature (1979) <span>ISGN</span> (1979).”</span> <em>Cytogenet. Cell Genet.</em> 25 (1-4): 96–116.
 </div>
 </div>
-</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="assignment-3.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="assignment-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="class-outlines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

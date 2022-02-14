@@ -84,8 +84,10 @@ statistical-tests-.
 p-values-.
 multiple-hypothesis-testing-.
 statistical-power-.
+exploratory-analysis
+principal-component-analysis
 cluster-analysis
-hierarchical-clustering-.
+hierarchical-clustering
 k-means-.
 others
 network-analysis-.

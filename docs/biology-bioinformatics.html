@@ -270,11 +270,12 @@ div.csl-indent {
 <li class="chapter" data-level="6.2.4" data-path="data-science.html"><a href="data-science.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.2.4</b> Multiple Hypothesis Testing .</a></li>
 <li class="chapter" data-level="6.2.5" data-path="data-science.html"><a href="data-science.html#statistical-power-."><i class="fa fa-check"></i><b>6.2.5</b> Statistical power .</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="data-science.html"><a href="data-science.html#cluster-analysis"><i class="fa fa-check"></i><b>6.3</b> Cluster Analysis</a>
+<li class="chapter" data-level="6.3" data-path="data-science.html"><a href="data-science.html#exploratory-analysis"><i class="fa fa-check"></i><b>6.3</b> Exploratory Analysis</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="data-science.html"><a href="data-science.html#hierarchical-clustering-."><i class="fa fa-check"></i><b>6.3.1</b> Hierarchical Clustering .</a></li>
-<li class="chapter" data-level="6.3.2" data-path="data-science.html"><a href="data-science.html#k-means-."><i class="fa fa-check"></i><b>6.3.2</b> k-means .</a></li>
-<li class="chapter" data-level="6.3.3" data-path="data-science.html"><a href="data-science.html#others"><i class="fa fa-check"></i><b>6.3.3</b> Others</a></li>
+<li class="chapter" data-level="6.3.1" data-path="data-science.html"><a href="data-science.html#principal-component-analysis"><i class="fa fa-check"></i><b>6.3.1</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="6.3.2" data-path="data-science.html"><a href="data-science.html#cluster-analysis"><i class="fa fa-check"></i><b>6.3.2</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="6.3.3" data-path="data-science.html"><a href="data-science.html#k-means-."><i class="fa fa-check"></i><b>6.3.3</b> k-means .</a></li>
+<li class="chapter" data-level="6.3.4" data-path="data-science.html"><a href="data-science.html#others"><i class="fa fa-check"></i><b>6.3.4</b> Others</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="data-science.html"><a href="data-science.html#network-analysis-."><i class="fa fa-check"></i><b>6.4</b> Network Analysis .</a></li>
 </ul></li>
@@ -435,6 +436,20 @@ div.csl-indent {
 <li><a href="assignment-2.html#affy_to_hgnc">4. <code>affy_to_hgnc()</code></a></li>
 <li><a href="assignment-2.html#reduce_data">5. <code>reduce_data()</code></a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html"><i class="fa fa-check"></i>Assignment 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#problem-statement-2"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#learning-objectives-2"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#skill-list-2"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#background-on-microarrays"><i class="fa fa-check"></i>Background on Microarrays</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#background-on-principal-component-analysis"><i class="fa fa-check"></i>Background on Principal Component Analysis</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#marisa-et-al.-gene-expression-classification-of-colon-cancer-into-molecular-subtypes-characterization-validation-and-prognostic-value.-plos-medicine-may-2013.-pmid-23700391"><i class="fa fa-check"></i>Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391</a></li>
+<li><a href="assignment-3.html#scaling-data-using-r-scale">Scaling data using R <code>scale()</code></a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#proportion-of-variance-explained"><i class="fa fa-check"></i>Proportion of variance explained</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#plotting-and-visualization-of-pca"><i class="fa fa-check"></i>Plotting and visualization of PCA</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#hierarchical-clustering-and-heatmaps"><i class="fa fa-check"></i>Hierarchical Clustering and Heatmaps</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines</a>
@@ -603,27 +618,27 @@ a feature identifier, e.g. gene identifier, genomic locus, probe set ID, etc an
 the remaining columns have numerical values, one per sample. The first row is
 usually column names for all the columns in the file. Below is an example of one
 of these files from a microarray gene expression dataset loaded into R:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="biology-bioinformatics.html#cb245-1" aria-hidden="true" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;example_intensity_data.csv&quot;</span>)</span>
-<span id="cb245-2"><a href="biology-bioinformatics.html#cb245-2" aria-hidden="true" tabindex="-1"></a>intensities</span>
-<span id="cb245-3"><a href="biology-bioinformatics.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 54,675 x 36</span></span>
-<span id="cb245-4"><a href="biology-bioinformatics.html#cb245-4" aria-hidden="true" tabindex="-1"></a>   probe     GSM972389 GSM972390 GSM972396 GSM972401 GSM972409 GSM972412 GSM972413 GSM972422 GSM972429</span>
-<span id="cb245-5"><a href="biology-bioinformatics.html#cb245-5" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb245-6"><a href="biology-bioinformatics.html#cb245-6" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> 1007_s_at      <span class="fl">9.54</span>     <span class="fl">10.2</span>       <span class="fl">9.72</span>      <span class="fl">9.68</span>      <span class="fl">9.35</span>      <span class="fl">9.89</span>      <span class="fl">9.70</span>      <span class="fl">9.67</span>      <span class="fl">9.87</span></span>
-<span id="cb245-7"><a href="biology-bioinformatics.html#cb245-7" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> 1053_at        <span class="fl">7.62</span>      <span class="fl">7.92</span>      <span class="fl">7.17</span>      <span class="fl">7.24</span>      <span class="fl">8.20</span>      <span class="fl">6.87</span>      <span class="fl">6.62</span>      <span class="fl">7.23</span>      <span class="fl">7.45</span></span>
-<span id="cb245-8"><a href="biology-bioinformatics.html#cb245-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> 117_at         <span class="fl">5.50</span>      <span class="fl">5.56</span>      <span class="fl">5.06</span>      <span class="fl">7.44</span>      <span class="fl">5.19</span>      <span class="fl">5.72</span>      <span class="fl">5.87</span>      <span class="fl">6.15</span>      <span class="fl">5.46</span></span>
-<span id="cb245-9"><a href="biology-bioinformatics.html#cb245-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> 121_at         <span class="fl">7.27</span>      <span class="fl">7.96</span>      <span class="fl">7.42</span>      <span class="fl">7.34</span>      <span class="fl">7.49</span>      <span class="fl">7.76</span>      <span class="fl">7.44</span>      <span class="fl">7.66</span>      <span class="fl">8.02</span></span>
-<span id="cb245-10"><a href="biology-bioinformatics.html#cb245-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> 1255_g_at      <span class="fl">2.79</span>      <span class="fl">3.10</span>      <span class="fl">2.78</span>      <span class="fl">2.91</span>      <span class="fl">3.02</span>      <span class="fl">2.73</span>      <span class="fl">2.78</span>      <span class="fl">3.56</span>      <span class="fl">2.83</span></span>
-<span id="cb245-11"><a href="biology-bioinformatics.html#cb245-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> 1294_at        <span class="fl">7.51</span>      <span class="fl">7.28</span>      <span class="fl">7.00</span>      <span class="fl">7.18</span>      <span class="fl">7.38</span>      <span class="fl">6.98</span>      <span class="fl">6.90</span>      <span class="fl">7.54</span>      <span class="fl">7.66</span></span>
-<span id="cb245-12"><a href="biology-bioinformatics.html#cb245-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> 1316_at        <span class="fl">3.89</span>      <span class="fl">4.36</span>      <span class="fl">4.24</span>      <span class="fl">3.94</span>      <span class="fl">4.20</span>      <span class="fl">4.34</span>      <span class="fl">4.06</span>      <span class="fl">4.24</span>      <span class="fl">4.11</span></span>
-<span id="cb245-13"><a href="biology-bioinformatics.html#cb245-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> 1320_at        <span class="fl">4.65</span>      <span class="fl">4.91</span>      <span class="fl">4.70</span>      <span class="fl">4.78</span>      <span class="fl">5.06</span>      <span class="fl">4.71</span>      <span class="fl">4.55</span>      <span class="fl">4.58</span>      <span class="fl">5.10</span></span>
-<span id="cb245-14"><a href="biology-bioinformatics.html#cb245-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> 1405_i_at      <span class="fl">8.03</span>      <span class="fl">7.47</span>      <span class="fl">5.42</span>      <span class="fl">7.21</span>      <span class="fl">9.48</span>      <span class="fl">6.79</span>      <span class="fl">6.57</span>      <span class="fl">8.50</span>      <span class="fl">6.36</span></span>
-<span id="cb245-15"><a href="biology-bioinformatics.html#cb245-15" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> 1431_at        <span class="fl">3.09</span>      <span class="fl">3.78</span>      <span class="fl">3.33</span>      <span class="fl">3.12</span>      <span class="fl">3.21</span>      <span class="fl">3.27</span>      <span class="fl">3.37</span>      <span class="fl">3.84</span>      <span class="fl">3.32</span></span>
-<span id="cb245-16"><a href="biology-bioinformatics.html#cb245-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 54,665 more rows, and 26 more variables: GSM972433 &lt;dbl&gt;, GSM972438 &lt;dbl&gt;, GSM972440 &lt;dbl&gt;,</span></span>
-<span id="cb245-17"><a href="biology-bioinformatics.html#cb245-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972443 &lt;dbl&gt;, GSM972444 &lt;dbl&gt;, GSM972446 &lt;dbl&gt;, GSM972453 &lt;dbl&gt;, GSM972457 &lt;dbl&gt;,</span></span>
-<span id="cb245-18"><a href="biology-bioinformatics.html#cb245-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972459 &lt;dbl&gt;, GSM972463 &lt;dbl&gt;, GSM972467 &lt;dbl&gt;, GSM972472 &lt;dbl&gt;, GSM972473 &lt;dbl&gt;,</span></span>
-<span id="cb245-19"><a href="biology-bioinformatics.html#cb245-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972475 &lt;dbl&gt;, GSM972476 &lt;dbl&gt;, GSM972477 &lt;dbl&gt;, GSM972479 &lt;dbl&gt;, GSM972480 &lt;dbl&gt;,</span></span>
-<span id="cb245-20"><a href="biology-bioinformatics.html#cb245-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972487 &lt;dbl&gt;, GSM972488 &lt;dbl&gt;, GSM972489 &lt;dbl&gt;, GSM972496 &lt;dbl&gt;, GSM972502 &lt;dbl&gt;,</span></span>
-<span id="cb245-21"><a href="biology-bioinformatics.html#cb245-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972510 &lt;dbl&gt;, GSM972512 &lt;dbl&gt;, GSM972521 &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="biology-bioinformatics.html#cb261-1" aria-hidden="true" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;example_intensity_data.csv&quot;</span>)</span>
+<span id="cb261-2"><a href="biology-bioinformatics.html#cb261-2" aria-hidden="true" tabindex="-1"></a>intensities</span>
+<span id="cb261-3"><a href="biology-bioinformatics.html#cb261-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 54,675 x 36</span></span>
+<span id="cb261-4"><a href="biology-bioinformatics.html#cb261-4" aria-hidden="true" tabindex="-1"></a>   probe     GSM972389 GSM972390 GSM972396 GSM972401 GSM972409 GSM972412 GSM972413 GSM972422 GSM972429</span>
+<span id="cb261-5"><a href="biology-bioinformatics.html#cb261-5" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb261-6"><a href="biology-bioinformatics.html#cb261-6" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> 1007_s_at      <span class="fl">9.54</span>     <span class="fl">10.2</span>       <span class="fl">9.72</span>      <span class="fl">9.68</span>      <span class="fl">9.35</span>      <span class="fl">9.89</span>      <span class="fl">9.70</span>      <span class="fl">9.67</span>      <span class="fl">9.87</span></span>
+<span id="cb261-7"><a href="biology-bioinformatics.html#cb261-7" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> 1053_at        <span class="fl">7.62</span>      <span class="fl">7.92</span>      <span class="fl">7.17</span>      <span class="fl">7.24</span>      <span class="fl">8.20</span>      <span class="fl">6.87</span>      <span class="fl">6.62</span>      <span class="fl">7.23</span>      <span class="fl">7.45</span></span>
+<span id="cb261-8"><a href="biology-bioinformatics.html#cb261-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> 117_at         <span class="fl">5.50</span>      <span class="fl">5.56</span>      <span class="fl">5.06</span>      <span class="fl">7.44</span>      <span class="fl">5.19</span>      <span class="fl">5.72</span>      <span class="fl">5.87</span>      <span class="fl">6.15</span>      <span class="fl">5.46</span></span>
+<span id="cb261-9"><a href="biology-bioinformatics.html#cb261-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> 121_at         <span class="fl">7.27</span>      <span class="fl">7.96</span>      <span class="fl">7.42</span>      <span class="fl">7.34</span>      <span class="fl">7.49</span>      <span class="fl">7.76</span>      <span class="fl">7.44</span>      <span class="fl">7.66</span>      <span class="fl">8.02</span></span>
+<span id="cb261-10"><a href="biology-bioinformatics.html#cb261-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> 1255_g_at      <span class="fl">2.79</span>      <span class="fl">3.10</span>      <span class="fl">2.78</span>      <span class="fl">2.91</span>      <span class="fl">3.02</span>      <span class="fl">2.73</span>      <span class="fl">2.78</span>      <span class="fl">3.56</span>      <span class="fl">2.83</span></span>
+<span id="cb261-11"><a href="biology-bioinformatics.html#cb261-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> 1294_at        <span class="fl">7.51</span>      <span class="fl">7.28</span>      <span class="fl">7.00</span>      <span class="fl">7.18</span>      <span class="fl">7.38</span>      <span class="fl">6.98</span>      <span class="fl">6.90</span>      <span class="fl">7.54</span>      <span class="fl">7.66</span></span>
+<span id="cb261-12"><a href="biology-bioinformatics.html#cb261-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> 1316_at        <span class="fl">3.89</span>      <span class="fl">4.36</span>      <span class="fl">4.24</span>      <span class="fl">3.94</span>      <span class="fl">4.20</span>      <span class="fl">4.34</span>      <span class="fl">4.06</span>      <span class="fl">4.24</span>      <span class="fl">4.11</span></span>
+<span id="cb261-13"><a href="biology-bioinformatics.html#cb261-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> 1320_at        <span class="fl">4.65</span>      <span class="fl">4.91</span>      <span class="fl">4.70</span>      <span class="fl">4.78</span>      <span class="fl">5.06</span>      <span class="fl">4.71</span>      <span class="fl">4.55</span>      <span class="fl">4.58</span>      <span class="fl">5.10</span></span>
+<span id="cb261-14"><a href="biology-bioinformatics.html#cb261-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> 1405_i_at      <span class="fl">8.03</span>      <span class="fl">7.47</span>      <span class="fl">5.42</span>      <span class="fl">7.21</span>      <span class="fl">9.48</span>      <span class="fl">6.79</span>      <span class="fl">6.57</span>      <span class="fl">8.50</span>      <span class="fl">6.36</span></span>
+<span id="cb261-15"><a href="biology-bioinformatics.html#cb261-15" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> 1431_at        <span class="fl">3.09</span>      <span class="fl">3.78</span>      <span class="fl">3.33</span>      <span class="fl">3.12</span>      <span class="fl">3.21</span>      <span class="fl">3.27</span>      <span class="fl">3.37</span>      <span class="fl">3.84</span>      <span class="fl">3.32</span></span>
+<span id="cb261-16"><a href="biology-bioinformatics.html#cb261-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 54,665 more rows, and 26 more variables: GSM972433 &lt;dbl&gt;, GSM972438 &lt;dbl&gt;, GSM972440 &lt;dbl&gt;,</span></span>
+<span id="cb261-17"><a href="biology-bioinformatics.html#cb261-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972443 &lt;dbl&gt;, GSM972444 &lt;dbl&gt;, GSM972446 &lt;dbl&gt;, GSM972453 &lt;dbl&gt;, GSM972457 &lt;dbl&gt;,</span></span>
+<span id="cb261-18"><a href="biology-bioinformatics.html#cb261-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972459 &lt;dbl&gt;, GSM972463 &lt;dbl&gt;, GSM972467 &lt;dbl&gt;, GSM972472 &lt;dbl&gt;, GSM972473 &lt;dbl&gt;,</span></span>
+<span id="cb261-19"><a href="biology-bioinformatics.html#cb261-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972475 &lt;dbl&gt;, GSM972476 &lt;dbl&gt;, GSM972477 &lt;dbl&gt;, GSM972479 &lt;dbl&gt;, GSM972480 &lt;dbl&gt;,</span></span>
+<span id="cb261-20"><a href="biology-bioinformatics.html#cb261-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972487 &lt;dbl&gt;, GSM972488 &lt;dbl&gt;, GSM972489 &lt;dbl&gt;, GSM972496 &lt;dbl&gt;, GSM972502 &lt;dbl&gt;,</span></span>
+<span id="cb261-21"><a href="biology-bioinformatics.html#cb261-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972510 &lt;dbl&gt;, GSM972512 &lt;dbl&gt;, GSM972521 &lt;dbl&gt;</span></span></code></pre></div>
 <p>The file has 54,676 rows, consisting of one header row which R loads in as the
 column names, and the remaining are probe sets, one per row. There are 36
 columns, where the first contains the probe set ID (e.g. <code>1007_s_at</code>) and the
@@ -676,8 +691,8 @@ functional style using the <code>apply()</code> function. The <a href="prog-basi
 provided function is to be applied to the columns or rows, respectively. This
 method can be used to compute a summary statistic on each row of a tibble and
 the result saved back into the tibble using the column set operator:</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="biology-bioinformatics.html#cb246-1" aria-hidden="true" tabindex="-1"></a>intensity_variance <span class="ot">&lt;-</span> <span class="fu">apply</span>(intensities, <span class="dv">2</span>, var)</span>
-<span id="cb246-2"><a href="biology-bioinformatics.html#cb246-2" aria-hidden="true" tabindex="-1"></a>intensities<span class="sc">$</span>variance <span class="ot">&lt;-</span> intensity_variance</span></code></pre></div></li>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="biology-bioinformatics.html#cb262-1" aria-hidden="true" tabindex="-1"></a>intensity_variance <span class="ot">&lt;-</span> <span class="fu">apply</span>(intensities, <span class="dv">2</span>, var)</span>
+<span id="cb262-2"><a href="biology-bioinformatics.html#cb262-2" aria-hidden="true" tabindex="-1"></a>intensities<span class="sc">$</span>variance <span class="ot">&lt;-</span> intensity_variance</span></code></pre></div></li>
 </ul>
 
 </div>
@@ -710,9 +725,9 @@ process. User contributed and maintained packages provide specialized
 functionality for specific types of analysis.</p>
 <p>Bioconductor itself must be installed prior to installing other Bioconductor
 packages. To [install bioconductor], you can run the following:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="biology-bioinformatics.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb247-2"><a href="biology-bioinformatics.html#cb247-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
-<span id="cb247-3"><a href="biology-bioinformatics.html#cb247-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="biology-bioinformatics.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb263-2"><a href="biology-bioinformatics.html#cb263-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb263-3"><a href="biology-bioinformatics.html#cb263-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
 <div class="box warning">
 <p>Bioconductor undergoes regular releases indicated by a version, e.g. <code>version = "3.14"</code> at the time of writing. Every bioconductor package also has a version,
 and each of those versions may or may not be compatible with a specific version
@@ -728,8 +743,8 @@ the time when you write your code.</p>
 <p>The <code>BiocManager</code> package is the only Bioconductor package installable using
 <code>install.packages()</code>. After installing the BiocManager package, you may then
 install bioconductor packages:</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="biology-bioinformatics.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="co"># installs the affy bioconductor package for microarray analysis</span></span>
-<span id="cb248-2"><a href="biology-bioinformatics.html#cb248-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;affy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="biology-bioinformatics.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="co"># installs the affy bioconductor package for microarray analysis</span></span>
+<span id="cb264-2"><a href="biology-bioinformatics.html#cb264-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;affy&quot;</span>)</span></code></pre></div>
 <p>One key aspect of Bioconductor packages is consistent and helpful documentation;
 every package page on the Bioconductor.org site lists a block of code that will
 install the package, e.g. for the <a href="https://www.bioconductor.org/packages/release/bioc/html/affy.html">affy
@@ -917,53 +932,53 @@ more information in the Ensembl
 databases</a> than gene
 annotation data that can be accessed via BioMart, but we will provide a brief
 example of how to extract gene information here:</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="biology-bioinformatics.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this assumes biomaRt is already installed through bioconductor</span></span>
-<span id="cb249-2"><a href="biology-bioinformatics.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
-<span id="cb249-3"><a href="biology-bioinformatics.html#cb249-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-4"><a href="biology-bioinformatics.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the human biomaRt database is named &quot;hsapiens_gene_ensembl&quot;</span></span>
-<span id="cb249-5"><a href="biology-bioinformatics.html#cb249-5" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="at">biomart=</span><span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset=</span><span class="st">&quot;hsapiens_gene_ensembl&quot;</span>)</span>
-<span id="cb249-6"><a href="biology-bioinformatics.html#cb249-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-7"><a href="biology-bioinformatics.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="co"># listAttributes() returns a data frame, turn into a tibble to help with formatting</span></span>
-<span id="cb249-8"><a href="biology-bioinformatics.html#cb249-8" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(<span class="fu">listAttributes</span>(ensembl))</span>
-<span id="cb249-9"><a href="biology-bioinformatics.html#cb249-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3,143 x 3</span></span>
-<span id="cb249-10"><a href="biology-bioinformatics.html#cb249-10" aria-hidden="true" tabindex="-1"></a>   name                          description                  page        </span>
-<span id="cb249-11"><a href="biology-bioinformatics.html#cb249-11" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                         <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                        <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       </span>
-<span id="cb249-12"><a href="biology-bioinformatics.html#cb249-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ensembl_gene_id               Gene stable ID               feature_page</span>
-<span id="cb249-13"><a href="biology-bioinformatics.html#cb249-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ensembl_gene_id_version       Gene stable ID version       feature_page</span>
-<span id="cb249-14"><a href="biology-bioinformatics.html#cb249-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ensembl_transcript_id         Transcript stable ID         feature_page</span>
-<span id="cb249-15"><a href="biology-bioinformatics.html#cb249-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ensembl_transcript_id_version Transcript stable ID version feature_page</span>
-<span id="cb249-16"><a href="biology-bioinformatics.html#cb249-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ensembl_peptide_id            Protein stable ID            feature_page</span>
-<span id="cb249-17"><a href="biology-bioinformatics.html#cb249-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ensembl_peptide_id_version    Protein stable ID version    feature_page</span>
-<span id="cb249-18"><a href="biology-bioinformatics.html#cb249-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ensembl_exon_id               Exon stable ID               feature_page</span>
-<span id="cb249-19"><a href="biology-bioinformatics.html#cb249-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> description                   Gene description             feature_page</span>
-<span id="cb249-20"><a href="biology-bioinformatics.html#cb249-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> chromosome_name               Chromosome<span class="sc">/</span>scaffold name     feature_page</span>
-<span id="cb249-21"><a href="biology-bioinformatics.html#cb249-21" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> start_position                Gene <span class="fu">start</span> (bp)              feature_page</span>
-<span id="cb249-22"><a href="biology-bioinformatics.html#cb249-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 3,133 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="biology-bioinformatics.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this assumes biomaRt is already installed through bioconductor</span></span>
+<span id="cb265-2"><a href="biology-bioinformatics.html#cb265-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb265-3"><a href="biology-bioinformatics.html#cb265-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb265-4"><a href="biology-bioinformatics.html#cb265-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the human biomaRt database is named &quot;hsapiens_gene_ensembl&quot;</span></span>
+<span id="cb265-5"><a href="biology-bioinformatics.html#cb265-5" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="at">biomart=</span><span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset=</span><span class="st">&quot;hsapiens_gene_ensembl&quot;</span>)</span>
+<span id="cb265-6"><a href="biology-bioinformatics.html#cb265-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb265-7"><a href="biology-bioinformatics.html#cb265-7" aria-hidden="true" tabindex="-1"></a><span class="co"># listAttributes() returns a data frame, turn into a tibble to help with formatting</span></span>
+<span id="cb265-8"><a href="biology-bioinformatics.html#cb265-8" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(<span class="fu">listAttributes</span>(ensembl))</span>
+<span id="cb265-9"><a href="biology-bioinformatics.html#cb265-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3,143 x 3</span></span>
+<span id="cb265-10"><a href="biology-bioinformatics.html#cb265-10" aria-hidden="true" tabindex="-1"></a>   name                          description                  page        </span>
+<span id="cb265-11"><a href="biology-bioinformatics.html#cb265-11" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                         <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                        <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       </span>
+<span id="cb265-12"><a href="biology-bioinformatics.html#cb265-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ensembl_gene_id               Gene stable ID               feature_page</span>
+<span id="cb265-13"><a href="biology-bioinformatics.html#cb265-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ensembl_gene_id_version       Gene stable ID version       feature_page</span>
+<span id="cb265-14"><a href="biology-bioinformatics.html#cb265-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ensembl_transcript_id         Transcript stable ID         feature_page</span>
+<span id="cb265-15"><a href="biology-bioinformatics.html#cb265-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ensembl_transcript_id_version Transcript stable ID version feature_page</span>
+<span id="cb265-16"><a href="biology-bioinformatics.html#cb265-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ensembl_peptide_id            Protein stable ID            feature_page</span>
+<span id="cb265-17"><a href="biology-bioinformatics.html#cb265-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ensembl_peptide_id_version    Protein stable ID version    feature_page</span>
+<span id="cb265-18"><a href="biology-bioinformatics.html#cb265-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ensembl_exon_id               Exon stable ID               feature_page</span>
+<span id="cb265-19"><a href="biology-bioinformatics.html#cb265-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> description                   Gene description             feature_page</span>
+<span id="cb265-20"><a href="biology-bioinformatics.html#cb265-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> chromosome_name               Chromosome<span class="sc">/</span>scaffold name     feature_page</span>
+<span id="cb265-21"><a href="biology-bioinformatics.html#cb265-21" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> start_position                Gene <span class="fu">start</span> (bp)              feature_page</span>
+<span id="cb265-22"><a href="biology-bioinformatics.html#cb265-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 3,133 more rows</span></span></code></pre></div>
 <p>The <code>name</code> column provides the programmatic name associated with the attribute
 that can be used to retrieve that annotation information using the <code>getBM()</code>
 function:</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="biology-bioinformatics.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a tibble with ensembl gene ID, HGNC gene symbol, and gene description</span></span>
-<span id="cb250-2"><a href="biology-bioinformatics.html#cb250-2" aria-hidden="true" tabindex="-1"></a>gene_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
-<span id="cb250-3"><a href="biology-bioinformatics.html#cb250-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getBM</span>(</span>
-<span id="cb250-4"><a href="biology-bioinformatics.html#cb250-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">attributes=</span><span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;hgnc_gene_symbol&quot;</span>, <span class="st">&quot;description&quot;</span>),</span>
-<span id="cb250-5"><a href="biology-bioinformatics.html#cb250-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mart=</span>ensembl</span>
-<span id="cb250-6"><a href="biology-bioinformatics.html#cb250-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb250-7"><a href="biology-bioinformatics.html#cb250-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb250-8"><a href="biology-bioinformatics.html#cb250-8" aria-hidden="true" tabindex="-1"></a>gene_map</span>
-<span id="cb250-9"><a href="biology-bioinformatics.html#cb250-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 68,012 x 3</span></span>
-<span id="cb250-10"><a href="biology-bioinformatics.html#cb250-10" aria-hidden="true" tabindex="-1"></a>   ensembl_gene_id hgnc_symbol description                                                               </span>
-<span id="cb250-11"><a href="biology-bioinformatics.html#cb250-11" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                                                                     </span>
-<span id="cb250-12"><a href="biology-bioinformatics.html#cb250-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ENSG00000210049 MT<span class="sc">-</span>TF       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Phe</span> (UUU<span class="sc">/</span>C) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">748</span><span class="sc">~</span></span>
-<span id="cb250-13"><a href="biology-bioinformatics.html#cb250-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ENSG00000211459 MT<span class="sc">-</span>RNR1     mitochondrially encoded 12S rRNA [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7470</span>]       </span>
-<span id="cb250-14"><a href="biology-bioinformatics.html#cb250-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ENSG00000210077 MT<span class="sc">-</span>TV       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Val</span> (GUN) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7500</span>]</span>
-<span id="cb250-15"><a href="biology-bioinformatics.html#cb250-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ENSG00000210082 MT<span class="sc">-</span>RNR2     mitochondrially encoded 16S rRNA [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7471</span>]       </span>
-<span id="cb250-16"><a href="biology-bioinformatics.html#cb250-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ENSG00000209082 MT<span class="sc">-</span>TL1      mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Leu</span> (UUA<span class="sc">/</span>G) <span class="dv">1</span> [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7</span><span class="sc">~</span></span>
-<span id="cb250-17"><a href="biology-bioinformatics.html#cb250-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ENSG00000198888 MT<span class="sc">-</span>ND1      mitochondrially encoded NADH<span class="sc">:</span>ubiquinone oxidoreductase core subunit <span class="dv">1</span> [So<span class="sc">~</span></span>
-<span id="cb250-18"><a href="biology-bioinformatics.html#cb250-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ENSG00000210100 MT<span class="sc">-</span>TI       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Ile</span> (AUU<span class="sc">/</span>C) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">748</span><span class="sc">~</span></span>
-<span id="cb250-19"><a href="biology-bioinformatics.html#cb250-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> ENSG00000210107 MT<span class="sc">-</span>TQ       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Gln</span> (CAA<span class="sc">/</span>G) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">749</span><span class="sc">~</span></span>
-<span id="cb250-20"><a href="biology-bioinformatics.html#cb250-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> ENSG00000210112 MT<span class="sc">-</span>TM       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Met</span> (AUA<span class="sc">/</span>G) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">749</span><span class="sc">~</span></span>
-<span id="cb250-21"><a href="biology-bioinformatics.html#cb250-21" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> ENSG00000198763 MT<span class="sc">-</span>ND2      mitochondrially encoded NADH<span class="sc">:</span>ubiquinone oxidoreductase core subunit <span class="dv">2</span> [So<span class="sc">~</span></span>
-<span id="cb250-22"><a href="biology-bioinformatics.html#cb250-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 68,002 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="biology-bioinformatics.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a tibble with ensembl gene ID, HGNC gene symbol, and gene description</span></span>
+<span id="cb266-2"><a href="biology-bioinformatics.html#cb266-2" aria-hidden="true" tabindex="-1"></a>gene_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
+<span id="cb266-3"><a href="biology-bioinformatics.html#cb266-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getBM</span>(</span>
+<span id="cb266-4"><a href="biology-bioinformatics.html#cb266-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">attributes=</span><span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;hgnc_gene_symbol&quot;</span>, <span class="st">&quot;description&quot;</span>),</span>
+<span id="cb266-5"><a href="biology-bioinformatics.html#cb266-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mart=</span>ensembl</span>
+<span id="cb266-6"><a href="biology-bioinformatics.html#cb266-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb266-7"><a href="biology-bioinformatics.html#cb266-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb266-8"><a href="biology-bioinformatics.html#cb266-8" aria-hidden="true" tabindex="-1"></a>gene_map</span>
+<span id="cb266-9"><a href="biology-bioinformatics.html#cb266-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 68,012 x 3</span></span>
+<span id="cb266-10"><a href="biology-bioinformatics.html#cb266-10" aria-hidden="true" tabindex="-1"></a>   ensembl_gene_id hgnc_symbol description                                                               </span>
+<span id="cb266-11"><a href="biology-bioinformatics.html#cb266-11" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                                                                     </span>
+<span id="cb266-12"><a href="biology-bioinformatics.html#cb266-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ENSG00000210049 MT<span class="sc">-</span>TF       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Phe</span> (UUU<span class="sc">/</span>C) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">748</span><span class="sc">~</span></span>
+<span id="cb266-13"><a href="biology-bioinformatics.html#cb266-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ENSG00000211459 MT<span class="sc">-</span>RNR1     mitochondrially encoded 12S rRNA [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7470</span>]       </span>
+<span id="cb266-14"><a href="biology-bioinformatics.html#cb266-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ENSG00000210077 MT<span class="sc">-</span>TV       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Val</span> (GUN) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7500</span>]</span>
+<span id="cb266-15"><a href="biology-bioinformatics.html#cb266-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ENSG00000210082 MT<span class="sc">-</span>RNR2     mitochondrially encoded 16S rRNA [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7471</span>]       </span>
+<span id="cb266-16"><a href="biology-bioinformatics.html#cb266-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ENSG00000209082 MT<span class="sc">-</span>TL1      mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Leu</span> (UUA<span class="sc">/</span>G) <span class="dv">1</span> [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7</span><span class="sc">~</span></span>
+<span id="cb266-17"><a href="biology-bioinformatics.html#cb266-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ENSG00000198888 MT<span class="sc">-</span>ND1      mitochondrially encoded NADH<span class="sc">:</span>ubiquinone oxidoreductase core subunit <span class="dv">1</span> [So<span class="sc">~</span></span>
+<span id="cb266-18"><a href="biology-bioinformatics.html#cb266-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ENSG00000210100 MT<span class="sc">-</span>TI       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Ile</span> (AUU<span class="sc">/</span>C) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">748</span><span class="sc">~</span></span>
+<span id="cb266-19"><a href="biology-bioinformatics.html#cb266-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> ENSG00000210107 MT<span class="sc">-</span>TQ       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Gln</span> (CAA<span class="sc">/</span>G) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">749</span><span class="sc">~</span></span>
+<span id="cb266-20"><a href="biology-bioinformatics.html#cb266-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> ENSG00000210112 MT<span class="sc">-</span>TM       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Met</span> (AUA<span class="sc">/</span>G) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">749</span><span class="sc">~</span></span>
+<span id="cb266-21"><a href="biology-bioinformatics.html#cb266-21" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> ENSG00000198763 MT<span class="sc">-</span>ND2      mitochondrially encoded NADH<span class="sc">:</span>ubiquinone oxidoreductase core subunit <span class="dv">2</span> [So<span class="sc">~</span></span>
+<span id="cb266-22"><a href="biology-bioinformatics.html#cb266-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 68,002 more rows</span></span></code></pre></div>
 <p>With this Ensembl Gene ID to HGNC symbol mapping in hand, you can combine the
 tibble above with other tibbles containing gene information by <a href="data-wrangling.html#relational-data">joining them
 together</a>.</p>
@@ -1000,30 +1015,30 @@ BioMart enables us to extract these linked identifiers by explicitly <a href="ht
 different biomaRt
 databases</a>
 with the <code>getLDS()</code> function:</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="biology-bioinformatics.html#cb251-1" aria-hidden="true" tabindex="-1"></a>human_db <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;hsapiens_gene_ensembl&quot;</span>)</span>
-<span id="cb251-2"><a href="biology-bioinformatics.html#cb251-2" aria-hidden="true" tabindex="-1"></a>mouse_db <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;mmusculus_gene_ensembl&quot;</span>)</span>
-<span id="cb251-3"><a href="biology-bioinformatics.html#cb251-3" aria-hidden="true" tabindex="-1"></a>orth_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
-<span id="cb251-4"><a href="biology-bioinformatics.html#cb251-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getLDS</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;hgnc_symbol&quot;</span>),</span>
-<span id="cb251-5"><a href="biology-bioinformatics.html#cb251-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mart =</span> human_db,</span>
-<span id="cb251-6"><a href="biology-bioinformatics.html#cb251-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">attributesL =</span> <span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;mgi_symbol&quot;</span>),</span>
-<span id="cb251-7"><a href="biology-bioinformatics.html#cb251-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">martL =</span> mouse_db</span>
-<span id="cb251-8"><a href="biology-bioinformatics.html#cb251-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb251-9"><a href="biology-bioinformatics.html#cb251-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb251-10"><a href="biology-bioinformatics.html#cb251-10" aria-hidden="true" tabindex="-1"></a>orth_map</span>
-<span id="cb251-11"><a href="biology-bioinformatics.html#cb251-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 26,390 x 4</span></span>
-<span id="cb251-12"><a href="biology-bioinformatics.html#cb251-12" aria-hidden="true" tabindex="-1"></a>   Gene.stable.ID  HGNC.symbol Gene.stable.ID<span class="fl">.1</span>   MGI.symbol</span>
-<span id="cb251-13"><a href="biology-bioinformatics.html#cb251-13" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
-<span id="cb251-14"><a href="biology-bioinformatics.html#cb251-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ENSG00000198695 MT<span class="sc">-</span>ND6      ENSMUSG00000064368 <span class="st">&quot;mt-Nd6&quot;</span>  </span>
-<span id="cb251-15"><a href="biology-bioinformatics.html#cb251-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ENSG00000212907 MT<span class="sc">-</span>ND4L     ENSMUSG00000065947 <span class="st">&quot;mt-Nd4l&quot;</span></span>
-<span id="cb251-16"><a href="biology-bioinformatics.html#cb251-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094303 <span class="st">&quot;&quot;</span>        </span>
-<span id="cb251-17"><a href="biology-bioinformatics.html#cb251-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094722 <span class="st">&quot;&quot;</span>        </span>
-<span id="cb251-18"><a href="biology-bioinformatics.html#cb251-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ENSG00000279169 PRAMEF13    ENSMUSG00000095666 <span class="st">&quot;&quot;</span>        </span>
-<span id="cb251-19"><a href="biology-bioinformatics.html#cb251-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094741 <span class="st">&quot;&quot;</span>        </span>
-<span id="cb251-20"><a href="biology-bioinformatics.html#cb251-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094836 <span class="st">&quot;&quot;</span>        </span>
-<span id="cb251-21"><a href="biology-bioinformatics.html#cb251-21" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> ENSG00000279169 PRAMEF13    ENSMUSG00000074720 <span class="st">&quot;&quot;</span>        </span>
-<span id="cb251-22"><a href="biology-bioinformatics.html#cb251-22" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> ENSG00000279169 PRAMEF13    ENSMUSG00000096236 <span class="st">&quot;&quot;</span>        </span>
-<span id="cb251-23"><a href="biology-bioinformatics.html#cb251-23" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> ENSG00000198763 MT<span class="sc">-</span>ND2      ENSMUSG00000064345 <span class="st">&quot;mt-Nd2&quot;</span>  </span>
-<span id="cb251-24"><a href="biology-bioinformatics.html#cb251-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 26,380 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="biology-bioinformatics.html#cb267-1" aria-hidden="true" tabindex="-1"></a>human_db <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;hsapiens_gene_ensembl&quot;</span>)</span>
+<span id="cb267-2"><a href="biology-bioinformatics.html#cb267-2" aria-hidden="true" tabindex="-1"></a>mouse_db <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;mmusculus_gene_ensembl&quot;</span>)</span>
+<span id="cb267-3"><a href="biology-bioinformatics.html#cb267-3" aria-hidden="true" tabindex="-1"></a>orth_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
+<span id="cb267-4"><a href="biology-bioinformatics.html#cb267-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getLDS</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;hgnc_symbol&quot;</span>),</span>
+<span id="cb267-5"><a href="biology-bioinformatics.html#cb267-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mart =</span> human_db,</span>
+<span id="cb267-6"><a href="biology-bioinformatics.html#cb267-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">attributesL =</span> <span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;mgi_symbol&quot;</span>),</span>
+<span id="cb267-7"><a href="biology-bioinformatics.html#cb267-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">martL =</span> mouse_db</span>
+<span id="cb267-8"><a href="biology-bioinformatics.html#cb267-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb267-9"><a href="biology-bioinformatics.html#cb267-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb267-10"><a href="biology-bioinformatics.html#cb267-10" aria-hidden="true" tabindex="-1"></a>orth_map</span>
+<span id="cb267-11"><a href="biology-bioinformatics.html#cb267-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 26,390 x 4</span></span>
+<span id="cb267-12"><a href="biology-bioinformatics.html#cb267-12" aria-hidden="true" tabindex="-1"></a>   Gene.stable.ID  HGNC.symbol Gene.stable.ID<span class="fl">.1</span>   MGI.symbol</span>
+<span id="cb267-13"><a href="biology-bioinformatics.html#cb267-13" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
+<span id="cb267-14"><a href="biology-bioinformatics.html#cb267-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ENSG00000198695 MT<span class="sc">-</span>ND6      ENSMUSG00000064368 <span class="st">&quot;mt-Nd6&quot;</span>  </span>
+<span id="cb267-15"><a href="biology-bioinformatics.html#cb267-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ENSG00000212907 MT<span class="sc">-</span>ND4L     ENSMUSG00000065947 <span class="st">&quot;mt-Nd4l&quot;</span></span>
+<span id="cb267-16"><a href="biology-bioinformatics.html#cb267-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094303 <span class="st">&quot;&quot;</span>        </span>
+<span id="cb267-17"><a href="biology-bioinformatics.html#cb267-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094722 <span class="st">&quot;&quot;</span>        </span>
+<span id="cb267-18"><a href="biology-bioinformatics.html#cb267-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ENSG00000279169 PRAMEF13    ENSMUSG00000095666 <span class="st">&quot;&quot;</span>        </span>
+<span id="cb267-19"><a href="biology-bioinformatics.html#cb267-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094741 <span class="st">&quot;&quot;</span>        </span>
+<span id="cb267-20"><a href="biology-bioinformatics.html#cb267-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094836 <span class="st">&quot;&quot;</span>        </span>
+<span id="cb267-21"><a href="biology-bioinformatics.html#cb267-21" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> ENSG00000279169 PRAMEF13    ENSMUSG00000074720 <span class="st">&quot;&quot;</span>        </span>
+<span id="cb267-22"><a href="biology-bioinformatics.html#cb267-22" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> ENSG00000279169 PRAMEF13    ENSMUSG00000096236 <span class="st">&quot;&quot;</span>        </span>
+<span id="cb267-23"><a href="biology-bioinformatics.html#cb267-23" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> ENSG00000198763 MT<span class="sc">-</span>ND2      ENSMUSG00000064345 <span class="st">&quot;mt-Nd2&quot;</span>  </span>
+<span id="cb267-24"><a href="biology-bioinformatics.html#cb267-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 26,380 more rows</span></span></code></pre></div>
 <p>The <code>mgi_symbol</code> field refers to the gene symbol assigned in the <a href="https://www.jax.org/research-and-faculty/resources/mouse-genome-informatics">Mouse Genome
 Informatics database</a>
 maintained by <a href="https://www.jax.org/">The Jackson Laboratory</a>.</p>
@@ -1125,31 +1140,31 @@ structured and how the different data elements are accessed:</p>
 <a href="#differential-expression--microarrays-limma">limma</a> create these
 SummarizedExperiment objects for you, but you may also create your own by
 assembling each of these data into data frames manually:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="biology-bioinformatics.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># microarray expression dataset intensities</span></span>
-<span id="cb252-2"><a href="biology-bioinformatics.html#cb252-2" aria-hidden="true" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="st">&quot;example_intensity_data.csv&quot;</span>,<span class="at">delim=</span><span class="st">&quot; &quot;</span>)</span>
-<span id="cb252-3"><a href="biology-bioinformatics.html#cb252-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-4"><a href="biology-bioinformatics.html#cb252-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the first column of intensities tibble is the probesetId, extract to pass as rowData</span></span>
-<span id="cb252-5"><a href="biology-bioinformatics.html#cb252-5" aria-hidden="true" tabindex="-1"></a>rowData <span class="ot">&lt;-</span> intensities[<span class="st">&quot;probeset_id&quot;</span>]</span>
-<span id="cb252-6"><a href="biology-bioinformatics.html#cb252-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-7"><a href="biology-bioinformatics.html#cb252-7" aria-hidden="true" tabindex="-1"></a><span class="co"># remove probeset IDs from tibble and turn into a R dataframe so that we can assign rownames</span></span>
-<span id="cb252-8"><a href="biology-bioinformatics.html#cb252-8" aria-hidden="true" tabindex="-1"></a><span class="co"># since tibbles don&#39;t support row names</span></span>
-<span id="cb252-9"><a href="biology-bioinformatics.html#cb252-9" aria-hidden="true" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
-<span id="cb252-10"><a href="biology-bioinformatics.html#cb252-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(intensities, <span class="sc">-</span>probeset_id)</span>
-<span id="cb252-11"><a href="biology-bioinformatics.html#cb252-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb252-12"><a href="biology-bioinformatics.html#cb252-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(intensities) <span class="ot">&lt;-</span> rowData<span class="sc">$</span>probeset_id</span>
-<span id="cb252-13"><a href="biology-bioinformatics.html#cb252-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-14"><a href="biology-bioinformatics.html#cb252-14" aria-hidden="true" tabindex="-1"></a><span class="co"># these column data are made up, but you would have a sample metadata file to use</span></span>
-<span id="cb252-15"><a href="biology-bioinformatics.html#cb252-15" aria-hidden="true" tabindex="-1"></a>colData <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb252-16"><a href="biology-bioinformatics.html#cb252-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_name=</span><span class="fu">colnames</span>(intensities),</span>
-<span id="cb252-17"><a href="biology-bioinformatics.html#cb252-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">condition=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;case&quot;</span>,<span class="st">&quot;control&quot;</span>),<span class="fu">ncol</span>(intensities),<span class="at">replace=</span><span class="cn">TRUE</span>)</span>
-<span id="cb252-18"><a href="biology-bioinformatics.html#cb252-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb252-19"><a href="biology-bioinformatics.html#cb252-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-20"><a href="biology-bioinformatics.html#cb252-20" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">SummarizedExperiment</span>(</span>
-<span id="cb252-21"><a href="biology-bioinformatics.html#cb252-21" aria-hidden="true" tabindex="-1"></a>   <span class="at">assays=</span><span class="fu">list</span>(<span class="at">intensities=</span>intensities),</span>
-<span id="cb252-22"><a href="biology-bioinformatics.html#cb252-22" aria-hidden="true" tabindex="-1"></a>   <span class="at">colData=</span>colData,</span>
-<span id="cb252-23"><a href="biology-bioinformatics.html#cb252-23" aria-hidden="true" tabindex="-1"></a>   <span class="at">rowData=</span>rowData</span>
-<span id="cb252-24"><a href="biology-bioinformatics.html#cb252-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb252-25"><a href="biology-bioinformatics.html#cb252-25" aria-hidden="true" tabindex="-1"></a>se</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="biology-bioinformatics.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="co"># microarray expression dataset intensities</span></span>
+<span id="cb268-2"><a href="biology-bioinformatics.html#cb268-2" aria-hidden="true" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="st">&quot;example_intensity_data.csv&quot;</span>,<span class="at">delim=</span><span class="st">&quot; &quot;</span>)</span>
+<span id="cb268-3"><a href="biology-bioinformatics.html#cb268-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb268-4"><a href="biology-bioinformatics.html#cb268-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the first column of intensities tibble is the probesetId, extract to pass as rowData</span></span>
+<span id="cb268-5"><a href="biology-bioinformatics.html#cb268-5" aria-hidden="true" tabindex="-1"></a>rowData <span class="ot">&lt;-</span> intensities[<span class="st">&quot;probeset_id&quot;</span>]</span>
+<span id="cb268-6"><a href="biology-bioinformatics.html#cb268-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb268-7"><a href="biology-bioinformatics.html#cb268-7" aria-hidden="true" tabindex="-1"></a><span class="co"># remove probeset IDs from tibble and turn into a R dataframe so that we can assign rownames</span></span>
+<span id="cb268-8"><a href="biology-bioinformatics.html#cb268-8" aria-hidden="true" tabindex="-1"></a><span class="co"># since tibbles don&#39;t support row names</span></span>
+<span id="cb268-9"><a href="biology-bioinformatics.html#cb268-9" aria-hidden="true" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb268-10"><a href="biology-bioinformatics.html#cb268-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(intensities, <span class="sc">-</span>probeset_id)</span>
+<span id="cb268-11"><a href="biology-bioinformatics.html#cb268-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb268-12"><a href="biology-bioinformatics.html#cb268-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(intensities) <span class="ot">&lt;-</span> rowData<span class="sc">$</span>probeset_id</span>
+<span id="cb268-13"><a href="biology-bioinformatics.html#cb268-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb268-14"><a href="biology-bioinformatics.html#cb268-14" aria-hidden="true" tabindex="-1"></a><span class="co"># these column data are made up, but you would have a sample metadata file to use</span></span>
+<span id="cb268-15"><a href="biology-bioinformatics.html#cb268-15" aria-hidden="true" tabindex="-1"></a>colData <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb268-16"><a href="biology-bioinformatics.html#cb268-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_name=</span><span class="fu">colnames</span>(intensities),</span>
+<span id="cb268-17"><a href="biology-bioinformatics.html#cb268-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">condition=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;case&quot;</span>,<span class="st">&quot;control&quot;</span>),<span class="fu">ncol</span>(intensities),<span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb268-18"><a href="biology-bioinformatics.html#cb268-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb268-19"><a href="biology-bioinformatics.html#cb268-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb268-20"><a href="biology-bioinformatics.html#cb268-20" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">SummarizedExperiment</span>(</span>
+<span id="cb268-21"><a href="biology-bioinformatics.html#cb268-21" aria-hidden="true" tabindex="-1"></a>   <span class="at">assays=</span><span class="fu">list</span>(<span class="at">intensities=</span>intensities),</span>
+<span id="cb268-22"><a href="biology-bioinformatics.html#cb268-22" aria-hidden="true" tabindex="-1"></a>   <span class="at">colData=</span>colData,</span>
+<span id="cb268-23"><a href="biology-bioinformatics.html#cb268-23" aria-hidden="true" tabindex="-1"></a>   <span class="at">rowData=</span>rowData</span>
+<span id="cb268-24"><a href="biology-bioinformatics.html#cb268-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb268-25"><a href="biology-bioinformatics.html#cb268-25" aria-hidden="true" tabindex="-1"></a>se</span></code></pre></div>
 <pre><code>## class: SummarizedExperiment
 ## dim: 54675 35
 ## metadata(0):
@@ -1261,15 +1276,15 @@ performing key preprocessing operations. Typically, two or more samples were
 processed in this way, resulting in a set of CEL files that should be processed
 together. These CEL files will typically be all stored in the same directory,
 and may be loaded using the <code>affy::ReadAffy</code> function:</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="biology-bioinformatics.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read all CEL files in a single directory</span></span>
-<span id="cb254-2"><a href="biology-bioinformatics.html#cb254-2" aria-hidden="true" tabindex="-1"></a>affy_batch <span class="ot">&lt;-</span> affy<span class="sc">::</span><span class="fu">ReadAffy</span>(<span class="at">celfile.path=</span><span class="st">&quot;directory/of/CELfiles&quot;</span>)</span>
-<span id="cb254-3"><a href="biology-bioinformatics.html#cb254-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb254-4"><a href="biology-bioinformatics.html#cb254-4" aria-hidden="true" tabindex="-1"></a><span class="co"># or individual files in different directories</span></span>
-<span id="cb254-5"><a href="biology-bioinformatics.html#cb254-5" aria-hidden="true" tabindex="-1"></a>cel_filenames <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb254-6"><a href="biology-bioinformatics.html#cb254-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list.files</span>( <span class="at">path=</span><span class="st">&quot;CELfile_dir1&quot;</span>, <span class="at">full.names=</span><span class="cn">TRUE</span>, <span class="at">pattern=</span><span class="st">&quot;.CEL$&quot;</span> ),</span>
-<span id="cb254-7"><a href="biology-bioinformatics.html#cb254-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list.files</span>( <span class="at">path=</span><span class="st">&quot;CELfile_dir2&quot;</span>, <span class="at">full.names=</span><span class="cn">TRUE</span>, <span class="at">pattern=</span><span class="st">&quot;.CEL$&quot;</span> )</span>
-<span id="cb254-8"><a href="biology-bioinformatics.html#cb254-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb254-9"><a href="biology-bioinformatics.html#cb254-9" aria-hidden="true" tabindex="-1"></a>affy_batch <span class="ot">&lt;-</span> affy<span class="sc">::</span><span class="fu">ReadAffy</span>(<span class="at">filenames=</span>cel_filenames)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="biology-bioinformatics.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read all CEL files in a single directory</span></span>
+<span id="cb270-2"><a href="biology-bioinformatics.html#cb270-2" aria-hidden="true" tabindex="-1"></a>affy_batch <span class="ot">&lt;-</span> affy<span class="sc">::</span><span class="fu">ReadAffy</span>(<span class="at">celfile.path=</span><span class="st">&quot;directory/of/CELfiles&quot;</span>)</span>
+<span id="cb270-3"><a href="biology-bioinformatics.html#cb270-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-4"><a href="biology-bioinformatics.html#cb270-4" aria-hidden="true" tabindex="-1"></a><span class="co"># or individual files in different directories</span></span>
+<span id="cb270-5"><a href="biology-bioinformatics.html#cb270-5" aria-hidden="true" tabindex="-1"></a>cel_filenames <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb270-6"><a href="biology-bioinformatics.html#cb270-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list.files</span>( <span class="at">path=</span><span class="st">&quot;CELfile_dir1&quot;</span>, <span class="at">full.names=</span><span class="cn">TRUE</span>, <span class="at">pattern=</span><span class="st">&quot;.CEL$&quot;</span> ),</span>
+<span id="cb270-7"><a href="biology-bioinformatics.html#cb270-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list.files</span>( <span class="at">path=</span><span class="st">&quot;CELfile_dir2&quot;</span>, <span class="at">full.names=</span><span class="cn">TRUE</span>, <span class="at">pattern=</span><span class="st">&quot;.CEL$&quot;</span> )</span>
+<span id="cb270-8"><a href="biology-bioinformatics.html#cb270-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb270-9"><a href="biology-bioinformatics.html#cb270-9" aria-hidden="true" tabindex="-1"></a>affy_batch <span class="ot">&lt;-</span> affy<span class="sc">::</span><span class="fu">ReadAffy</span>(<span class="at">filenames=</span>cel_filenames)</span></code></pre></div>
 <p>The <code>affy_batch</code> variable is a <code>AffyBatch</code> container, which stores information
 on the probe definitions based on the type of microarray, probe-level intensity
 for each sample, and other information about the experiment contained within the
@@ -1288,39 +1303,39 @@ dataset, which was generated using two concentrations of cDNA from human liver
 tissue and a central nervous system cell line. To load a data package into R,
 first run <code>library(&lt;data package&gt;)</code> and then <code>data(&lt;dataset name&gt;)</code>.</p>
 </div>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="biology-bioinformatics.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(affy)</span>
-<span id="cb255-2"><a href="biology-bioinformatics.html#cb255-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(affydata)</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="biology-bioinformatics.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(affy)</span>
+<span id="cb271-2"><a href="biology-bioinformatics.html#cb271-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(affydata)</span></code></pre></div>
 <pre><code>##      Package    LibPath                                     Item      
 ## [1,] &quot;affydata&quot; &quot;C:/Users/Adam/Documents/R/win-library/4.1&quot; &quot;Dilution&quot;
 ##      Title                        
 ## [1,] &quot;AffyBatch instance Dilution&quot;</code></pre>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="biology-bioinformatics.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Dilution)</span>
-<span id="cb257-2"><a href="biology-bioinformatics.html#cb257-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb257-3"><a href="biology-bioinformatics.html#cb257-3" aria-hidden="true" tabindex="-1"></a><span class="co"># normalize the Dilution microarray expression values</span></span>
-<span id="cb257-4"><a href="biology-bioinformatics.html#cb257-4" aria-hidden="true" tabindex="-1"></a><span class="co"># note Dilution is an AffyBatch object</span></span>
-<span id="cb257-5"><a href="biology-bioinformatics.html#cb257-5" aria-hidden="true" tabindex="-1"></a>eset_rma <span class="ot">&lt;-</span> affy<span class="sc">::</span><span class="fu">rma</span>(Dilution,<span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
-<span id="cb257-6"><a href="biology-bioinformatics.html#cb257-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb257-7"><a href="biology-bioinformatics.html#cb257-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution of non-normalized probes</span></span>
-<span id="cb257-8"><a href="biology-bioinformatics.html#cb257-8" aria-hidden="true" tabindex="-1"></a><span class="co"># note rma normalization takes the log2 of the expression values,</span></span>
-<span id="cb257-9"><a href="biology-bioinformatics.html#cb257-9" aria-hidden="true" tabindex="-1"></a><span class="co"># so we must do so on the raw data to compare</span></span>
-<span id="cb257-10"><a href="biology-bioinformatics.html#cb257-10" aria-hidden="true" tabindex="-1"></a>raw_intensity <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">exprs</span>(Dilution)) <span class="sc">%&gt;%</span></span>
-<span id="cb257-11"><a href="biology-bioinformatics.html#cb257-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">probeset_id=</span><span class="fu">rownames</span>(<span class="fu">exprs</span>(Dilution))) <span class="sc">%&gt;%</span></span>
-<span id="cb257-12"><a href="biology-bioinformatics.html#cb257-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>probeset_id, <span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Intensity&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb257-13"><a href="biology-bioinformatics.html#cb257-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb257-14"><a href="biology-bioinformatics.html#cb257-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">log2 Intensity</span><span class="st">`</span><span class="ot">=</span><span class="fu">log2</span>(Intensity),</span>
-<span id="cb257-15"><a href="biology-bioinformatics.html#cb257-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Category=</span><span class="st">&quot;Before Normalization&quot;</span></span>
-<span id="cb257-16"><a href="biology-bioinformatics.html#cb257-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb257-17"><a href="biology-bioinformatics.html#cb257-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb257-18"><a href="biology-bioinformatics.html#cb257-18" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution of normalized probes</span></span>
-<span id="cb257-19"><a href="biology-bioinformatics.html#cb257-19" aria-hidden="true" tabindex="-1"></a>rma_intensity <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">exprs</span>(eset_rma)) <span class="sc">%&gt;%</span></span>
-<span id="cb257-20"><a href="biology-bioinformatics.html#cb257-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">probesetid=</span><span class="fu">featureNames</span>(eset_rma)) <span class="sc">%&gt;%</span></span>
-<span id="cb257-21"><a href="biology-bioinformatics.html#cb257-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>probesetid, <span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;log2 Intensity&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb257-22"><a href="biology-bioinformatics.html#cb257-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Category=</span><span class="st">&quot;RMA Normalized&quot;</span>)</span>
-<span id="cb257-23"><a href="biology-bioinformatics.html#cb257-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb257-24"><a href="biology-bioinformatics.html#cb257-24" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(raw_intensity, rma_intensity) <span class="sc">%&gt;%</span></span>
-<span id="cb257-25"><a href="biology-bioinformatics.html#cb257-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sample, <span class="at">y=</span><span class="st">`</span><span class="at">log2 Intensity</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb257-26"><a href="biology-bioinformatics.html#cb257-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb257-27"><a href="biology-bioinformatics.html#cb257-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(Category))</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="biology-bioinformatics.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Dilution)</span>
+<span id="cb273-2"><a href="biology-bioinformatics.html#cb273-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-3"><a href="biology-bioinformatics.html#cb273-3" aria-hidden="true" tabindex="-1"></a><span class="co"># normalize the Dilution microarray expression values</span></span>
+<span id="cb273-4"><a href="biology-bioinformatics.html#cb273-4" aria-hidden="true" tabindex="-1"></a><span class="co"># note Dilution is an AffyBatch object</span></span>
+<span id="cb273-5"><a href="biology-bioinformatics.html#cb273-5" aria-hidden="true" tabindex="-1"></a>eset_rma <span class="ot">&lt;-</span> affy<span class="sc">::</span><span class="fu">rma</span>(Dilution,<span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
+<span id="cb273-6"><a href="biology-bioinformatics.html#cb273-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-7"><a href="biology-bioinformatics.html#cb273-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution of non-normalized probes</span></span>
+<span id="cb273-8"><a href="biology-bioinformatics.html#cb273-8" aria-hidden="true" tabindex="-1"></a><span class="co"># note rma normalization takes the log2 of the expression values,</span></span>
+<span id="cb273-9"><a href="biology-bioinformatics.html#cb273-9" aria-hidden="true" tabindex="-1"></a><span class="co"># so we must do so on the raw data to compare</span></span>
+<span id="cb273-10"><a href="biology-bioinformatics.html#cb273-10" aria-hidden="true" tabindex="-1"></a>raw_intensity <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">exprs</span>(Dilution)) <span class="sc">%&gt;%</span></span>
+<span id="cb273-11"><a href="biology-bioinformatics.html#cb273-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">probeset_id=</span><span class="fu">rownames</span>(<span class="fu">exprs</span>(Dilution))) <span class="sc">%&gt;%</span></span>
+<span id="cb273-12"><a href="biology-bioinformatics.html#cb273-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>probeset_id, <span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Intensity&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb273-13"><a href="biology-bioinformatics.html#cb273-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb273-14"><a href="biology-bioinformatics.html#cb273-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">log2 Intensity</span><span class="st">`</span><span class="ot">=</span><span class="fu">log2</span>(Intensity),</span>
+<span id="cb273-15"><a href="biology-bioinformatics.html#cb273-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Category=</span><span class="st">&quot;Before Normalization&quot;</span></span>
+<span id="cb273-16"><a href="biology-bioinformatics.html#cb273-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb273-17"><a href="biology-bioinformatics.html#cb273-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-18"><a href="biology-bioinformatics.html#cb273-18" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution of normalized probes</span></span>
+<span id="cb273-19"><a href="biology-bioinformatics.html#cb273-19" aria-hidden="true" tabindex="-1"></a>rma_intensity <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">exprs</span>(eset_rma)) <span class="sc">%&gt;%</span></span>
+<span id="cb273-20"><a href="biology-bioinformatics.html#cb273-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">probesetid=</span><span class="fu">featureNames</span>(eset_rma)) <span class="sc">%&gt;%</span></span>
+<span id="cb273-21"><a href="biology-bioinformatics.html#cb273-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>probesetid, <span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;log2 Intensity&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb273-22"><a href="biology-bioinformatics.html#cb273-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Category=</span><span class="st">&quot;RMA Normalized&quot;</span>)</span>
+<span id="cb273-23"><a href="biology-bioinformatics.html#cb273-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-24"><a href="biology-bioinformatics.html#cb273-24" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(raw_intensity, rma_intensity) <span class="sc">%&gt;%</span></span>
+<span id="cb273-25"><a href="biology-bioinformatics.html#cb273-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sample, <span class="at">y=</span><span class="st">`</span><span class="at">log2 Intensity</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb273-26"><a href="biology-bioinformatics.html#cb273-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb273-27"><a href="biology-bioinformatics.html#cb273-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(Category))</span></code></pre></div>
 <p><img src="main_files/microarray%20norm-1.png" width="672" /></p>
 <p>Above, we first apply RMA to the <code>Dilution</code> microarray dataset using the
 <code>affy::rma()</code> function. Then we plot the log 2 intensities of the probes in each
@@ -1347,7 +1362,7 @@ function</a>.
 Consider for the following imaginary sample information tibble that has 10 AD
 and 10 Control subjects with different clinical and protein histology
 measurements assayed on their brain tissue:</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="biology-bioinformatics.html#cb258-1" aria-hidden="true" tabindex="-1"></a>ad_metadata</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="biology-bioinformatics.html#cb274-1" aria-hidden="true" tabindex="-1"></a>ad_metadata</span></code></pre></div>
 <pre><code>## # A tibble: 20 x 8
 ##    ID    age_at_death condition    tau  abeta   iba1   gfap braak_stage
 ##    &lt;chr&gt;        &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;      
@@ -1374,7 +1389,7 @@ measurements assayed on their brain tissue:</p>
 <p>We might be interested in identifying genes that are increased or decreased in
 people with AD compared with Controls. We can create a model matrix for this as
 follows:</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="biology-bioinformatics.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(<span class="sc">~</span> condition, <span class="at">data=</span>ad_metadata)</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="biology-bioinformatics.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(<span class="sc">~</span> condition, <span class="at">data=</span>ad_metadata)</span></code></pre></div>
 <pre><code>##    (Intercept) conditionAD
 ## 1            1           1
 ## 2            1           1
@@ -1423,7 +1438,7 @@ tau ~ age_at_death + abeta
 <p>For most models, the design matrix will have an intercept term of all ones and
 additional colums for the other variables in the model. We might wish to adjust
 out the effect of age by including <code>age_at_death</code> as a covariate in the model:</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="biology-bioinformatics.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(<span class="sc">~</span> age_at_death <span class="sc">+</span> condition, <span class="at">data=</span>ad_metadata)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="biology-bioinformatics.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(<span class="sc">~</span> age_at_death <span class="sc">+</span> condition, <span class="at">data=</span>ad_metadata)</span></code></pre></div>
 <pre><code>##    (Intercept) age_at_death conditionAD
 ## 1            1           81           1
 ## 2            1           80           1
@@ -1486,34 +1501,34 @@ error in individual gene models. See <span class="citation"><a href="#ref-Ritchi
 limma works.</p>
 <p>limma requres an expression matrix like that stored in an ExpressionSet or
 SummarizedExperiment container and a design matrix:</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="biology-bioinformatics.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># intensities is an example gene expression matrix that corresponds to our</span></span>
-<span id="cb266-2"><a href="biology-bioinformatics.html#cb266-2" aria-hidden="true" tabindex="-1"></a><span class="co"># AD sample metadata of 10 AD and 10 Control individuals</span></span>
-<span id="cb266-3"><a href="biology-bioinformatics.html#cb266-3" aria-hidden="true" tabindex="-1"></a>ad_se  <span class="ot">&lt;-</span> <span class="fu">SummarizedExperiment</span>(</span>
-<span id="cb266-4"><a href="biology-bioinformatics.html#cb266-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">assays=</span><span class="fu">list</span>(<span class="at">intensities=</span>intensities),</span>
-<span id="cb266-5"><a href="biology-bioinformatics.html#cb266-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData=</span>ad_metadata,</span>
-<span id="cb266-6"><a href="biology-bioinformatics.html#cb266-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">rowData=</span><span class="fu">rownames</span>(intensities)</span>
-<span id="cb266-7"><a href="biology-bioinformatics.html#cb266-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb266-8"><a href="biology-bioinformatics.html#cb266-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb266-9"><a href="biology-bioinformatics.html#cb266-9" aria-hidden="true" tabindex="-1"></a><span class="co"># define our design matrix for AD vs control, adjusting for age at death</span></span>
-<span id="cb266-10"><a href="biology-bioinformatics.html#cb266-10" aria-hidden="true" tabindex="-1"></a>ad_vs_control_model <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> age_at_death <span class="sc">+</span> condition, <span class="at">data=</span>ad_metadata)</span>
-<span id="cb266-11"><a href="biology-bioinformatics.html#cb266-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb266-12"><a href="biology-bioinformatics.html#cb266-12" aria-hidden="true" tabindex="-1"></a><span class="co"># now run limma</span></span>
-<span id="cb266-13"><a href="biology-bioinformatics.html#cb266-13" aria-hidden="true" tabindex="-1"></a><span class="co"># first fit all genes with the model</span></span>
-<span id="cb266-14"><a href="biology-bioinformatics.html#cb266-14" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> limma<span class="sc">::</span><span class="fu">lmFit</span>(</span>
-<span id="cb266-15"><a href="biology-bioinformatics.html#cb266-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assays</span>(se)<span class="sc">$</span>intensities,</span>
-<span id="cb266-16"><a href="biology-bioinformatics.html#cb266-16" aria-hidden="true" tabindex="-1"></a>  ad_vs_control_model</span>
-<span id="cb266-17"><a href="biology-bioinformatics.html#cb266-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb266-18"><a href="biology-bioinformatics.html#cb266-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb266-19"><a href="biology-bioinformatics.html#cb266-19" aria-hidden="true" tabindex="-1"></a><span class="co"># now better control fit errors with the empirical Bayes method</span></span>
-<span id="cb266-20"><a href="biology-bioinformatics.html#cb266-20" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> limma<span class="sc">::</span><span class="fu">eBayes</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="biology-bioinformatics.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="co"># intensities is an example gene expression matrix that corresponds to our</span></span>
+<span id="cb282-2"><a href="biology-bioinformatics.html#cb282-2" aria-hidden="true" tabindex="-1"></a><span class="co"># AD sample metadata of 10 AD and 10 Control individuals</span></span>
+<span id="cb282-3"><a href="biology-bioinformatics.html#cb282-3" aria-hidden="true" tabindex="-1"></a>ad_se  <span class="ot">&lt;-</span> <span class="fu">SummarizedExperiment</span>(</span>
+<span id="cb282-4"><a href="biology-bioinformatics.html#cb282-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">assays=</span><span class="fu">list</span>(<span class="at">intensities=</span>intensities),</span>
+<span id="cb282-5"><a href="biology-bioinformatics.html#cb282-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData=</span>ad_metadata,</span>
+<span id="cb282-6"><a href="biology-bioinformatics.html#cb282-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">rowData=</span><span class="fu">rownames</span>(intensities)</span>
+<span id="cb282-7"><a href="biology-bioinformatics.html#cb282-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb282-8"><a href="biology-bioinformatics.html#cb282-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-9"><a href="biology-bioinformatics.html#cb282-9" aria-hidden="true" tabindex="-1"></a><span class="co"># define our design matrix for AD vs control, adjusting for age at death</span></span>
+<span id="cb282-10"><a href="biology-bioinformatics.html#cb282-10" aria-hidden="true" tabindex="-1"></a>ad_vs_control_model <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> age_at_death <span class="sc">+</span> condition, <span class="at">data=</span>ad_metadata)</span>
+<span id="cb282-11"><a href="biology-bioinformatics.html#cb282-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-12"><a href="biology-bioinformatics.html#cb282-12" aria-hidden="true" tabindex="-1"></a><span class="co"># now run limma</span></span>
+<span id="cb282-13"><a href="biology-bioinformatics.html#cb282-13" aria-hidden="true" tabindex="-1"></a><span class="co"># first fit all genes with the model</span></span>
+<span id="cb282-14"><a href="biology-bioinformatics.html#cb282-14" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> limma<span class="sc">::</span><span class="fu">lmFit</span>(</span>
+<span id="cb282-15"><a href="biology-bioinformatics.html#cb282-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assays</span>(se)<span class="sc">$</span>intensities,</span>
+<span id="cb282-16"><a href="biology-bioinformatics.html#cb282-16" aria-hidden="true" tabindex="-1"></a>  ad_vs_control_model</span>
+<span id="cb282-17"><a href="biology-bioinformatics.html#cb282-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb282-18"><a href="biology-bioinformatics.html#cb282-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-19"><a href="biology-bioinformatics.html#cb282-19" aria-hidden="true" tabindex="-1"></a><span class="co"># now better control fit errors with the empirical Bayes method</span></span>
+<span id="cb282-20"><a href="biology-bioinformatics.html#cb282-20" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> limma<span class="sc">::</span><span class="fu">eBayes</span>(fit)</span></code></pre></div>
 <p>We have now conducted a differential expression analysis with limma. We can
 extract out the results for our question of interest - which genes are
 associated with AD - using the <code>limma::topTable()</code> function:</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="biology-bioinformatics.html#cb267-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the coefficient name conditionAD is the column name in the design matrix</span></span>
-<span id="cb267-2"><a href="biology-bioinformatics.html#cb267-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjust=&quot;BH&quot; means perform Benjamini-Hochberg multiple testing adjustment</span></span>
-<span id="cb267-3"><a href="biology-bioinformatics.html#cb267-3" aria-hidden="true" tabindex="-1"></a><span class="co"># on the nominal p-values from each gene test</span></span>
-<span id="cb267-4"><a href="biology-bioinformatics.html#cb267-4" aria-hidden="true" tabindex="-1"></a><span class="co"># topTable only returns the top 10 results sorted by ascending p-value by default</span></span>
-<span id="cb267-5"><a href="biology-bioinformatics.html#cb267-5" aria-hidden="true" tabindex="-1"></a><span class="fu">topTable</span>(fit, <span class="at">coef=</span><span class="st">&quot;conditionAD&quot;</span>, <span class="at">adjust=</span><span class="st">&quot;BH&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="biology-bioinformatics.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the coefficient name conditionAD is the column name in the design matrix</span></span>
+<span id="cb283-2"><a href="biology-bioinformatics.html#cb283-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjust=&quot;BH&quot; means perform Benjamini-Hochberg multiple testing adjustment</span></span>
+<span id="cb283-3"><a href="biology-bioinformatics.html#cb283-3" aria-hidden="true" tabindex="-1"></a><span class="co"># on the nominal p-values from each gene test</span></span>
+<span id="cb283-4"><a href="biology-bioinformatics.html#cb283-4" aria-hidden="true" tabindex="-1"></a><span class="co"># topTable only returns the top 10 results sorted by ascending p-value by default</span></span>
+<span id="cb283-5"><a href="biology-bioinformatics.html#cb283-5" aria-hidden="true" tabindex="-1"></a><span class="fu">topTable</span>(fit, <span class="at">coef=</span><span class="st">&quot;conditionAD&quot;</span>, <span class="at">adjust=</span><span class="st">&quot;BH&quot;</span>)</span></code></pre></div>
 <pre><code>##                   logFC  AveExpr         t      P.Value adj.P.Val         B
 ## 234942_s_at   1.1231942 8.397425  4.890779 9.613196e-05  0.770605 -2.987573
 ## 202423_at    -0.7499088 8.646687 -4.785281 1.221646e-04  0.770605 -3.025525
@@ -1571,22 +1586,22 @@ of our experimental conditions, and where limma draws from to construct its
 linear models correctly. This design is relatively simple, just four samples
 belonging to two different conditions (the <code>swirls</code> here refer to the swirl of
 zebra fish, you can just see them as a phenotypic difference)</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="biology-bioinformatics.html#cb269-1" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">swirl =</span> <span class="fu">c</span>(<span class="st">&quot;swirl.1&quot;</span>, <span class="st">&quot;swirl.2&quot;</span>, <span class="st">&quot;swirl.3&quot;</span>, <span class="st">&quot;swirl.4&quot;</span>),</span>
-<span id="cb269-2"><a href="biology-bioinformatics.html#cb269-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">condition =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
-<span id="cb269-3"><a href="biology-bioinformatics.html#cb269-3" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>counts)</span>
-<span id="cb269-4"><a href="biology-bioinformatics.html#cb269-4" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(dge, design)</span>
-<span id="cb269-5"><a href="biology-bioinformatics.html#cb269-5" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> dge[keep,,keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="biology-bioinformatics.html#cb285-1" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">swirl =</span> <span class="fu">c</span>(<span class="st">&quot;swirl.1&quot;</span>, <span class="st">&quot;swirl.2&quot;</span>, <span class="st">&quot;swirl.3&quot;</span>, <span class="st">&quot;swirl.4&quot;</span>),</span>
+<span id="cb285-2"><a href="biology-bioinformatics.html#cb285-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">condition =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb285-3"><a href="biology-bioinformatics.html#cb285-3" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>counts)</span>
+<span id="cb285-4"><a href="biology-bioinformatics.html#cb285-4" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(dge, design)</span>
+<span id="cb285-5"><a href="biology-bioinformatics.html#cb285-5" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> dge[keep,,keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span></code></pre></div>
 <p><code>DGEList()</code> is a function from edgeR, of which limma borrows some loading and
 filtering functions. This experiment filters by expression level, and uses
 square bracket notation (<code>[]</code>) to reduce the number of rows.</p>
 <p>Finally, the expression data is transformed into CPM, counts per million, and
 a linear model is applied to the data with <code>lmFit()</code>. <code>topTable()</code> is used to view the most
 differentially expressed data.</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="biology-bioinformatics.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="co"># limma trend</span></span>
-<span id="cb270-2"><a href="biology-bioinformatics.html#cb270-2" aria-hidden="true" tabindex="-1"></a>logCPM <span class="ot">&lt;-</span> <span class="fu">cpm</span>(dge, <span class="at">log=</span><span class="cn">TRUE</span>, <span class="at">prior.count=</span><span class="dv">3</span>)</span>
-<span id="cb270-3"><a href="biology-bioinformatics.html#cb270-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmFit</span>(logCPM, design)</span>
-<span id="cb270-4"><a href="biology-bioinformatics.html#cb270-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">eBayes</span>(fit, <span class="at">trend=</span><span class="cn">TRUE</span>)</span>
-<span id="cb270-5"><a href="biology-bioinformatics.html#cb270-5" aria-hidden="true" tabindex="-1"></a><span class="fu">topTable</span>(fit, <span class="at">coef=</span><span class="fu">ncol</span>(design))</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="biology-bioinformatics.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="co"># limma trend</span></span>
+<span id="cb286-2"><a href="biology-bioinformatics.html#cb286-2" aria-hidden="true" tabindex="-1"></a>logCPM <span class="ot">&lt;-</span> <span class="fu">cpm</span>(dge, <span class="at">log=</span><span class="cn">TRUE</span>, <span class="at">prior.count=</span><span class="dv">3</span>)</span>
+<span id="cb286-3"><a href="biology-bioinformatics.html#cb286-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmFit</span>(logCPM, design)</span>
+<span id="cb286-4"><a href="biology-bioinformatics.html#cb286-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">eBayes</span>(fit, <span class="at">trend=</span><span class="cn">TRUE</span>)</span>
+<span id="cb286-5"><a href="biology-bioinformatics.html#cb286-5" aria-hidden="true" tabindex="-1"></a><span class="fu">topTable</span>(fit, <span class="at">coef=</span><span class="fu">ncol</span>(design))</span></code></pre></div>
 
 </div>
 </div>
@@ -1701,12 +1716,12 @@ use a combination of <code>pivot_longer()</code> and <code>group_by()</code> to 
 by pathway. Below, we have the results of these operations and used them to
 display a summary of the number of genes in all the pathways contained with the
 hallmark pathways gene collection.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="biology-bioinformatics.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>, <span class="at">delim=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">col_names=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb271-2"><a href="biology-bioinformatics.html#cb271-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Pathway =</span> X1, <span class="at">Desc=</span>X2) <span class="sc">%&gt;%</span></span>
-<span id="cb271-3"><a href="biology-bioinformatics.html#cb271-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Desc) <span class="sc">%&gt;%</span></span>
-<span id="cb271-4"><a href="biology-bioinformatics.html#cb271-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>Pathway, <span class="at">values_to=</span><span class="st">&#39;genes&#39;</span>, <span class="at">values_drop_na=</span><span class="cn">TRUE</span>, <span class="at">names_to =</span> <span class="cn">NULL</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb271-5"><a href="biology-bioinformatics.html#cb271-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Pathway) <span class="sc">%&gt;%</span></span>
-<span id="cb271-6"><a href="biology-bioinformatics.html#cb271-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="biology-bioinformatics.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>, <span class="at">delim=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">col_names=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb287-2"><a href="biology-bioinformatics.html#cb287-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Pathway =</span> X1, <span class="at">Desc=</span>X2) <span class="sc">%&gt;%</span></span>
+<span id="cb287-3"><a href="biology-bioinformatics.html#cb287-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Desc) <span class="sc">%&gt;%</span></span>
+<span id="cb287-4"><a href="biology-bioinformatics.html#cb287-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>Pathway, <span class="at">values_to=</span><span class="st">&#39;genes&#39;</span>, <span class="at">values_drop_na=</span><span class="cn">TRUE</span>, <span class="at">names_to =</span> <span class="cn">NULL</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb287-5"><a href="biology-bioinformatics.html#cb287-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Pathway) <span class="sc">%&gt;%</span></span>
+<span id="cb287-6"><a href="biology-bioinformatics.html#cb287-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 50 x 2
 ##    Pathway                              n
 ##    &lt;chr&gt;                            &lt;int&gt;
@@ -1733,9 +1748,9 @@ facilitate working with gene sets. The foundation of the GSEABase package is the
 GeneSet and GeneSetCollection classes which store gene sets and metadata or a
 collection of GeneSet objects, respectively. We will use the GSEABase package to
 read in the collection of gene sets we previously downloaded.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="biology-bioinformatics.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;GSEABase&#39;</span>)</span>
-<span id="cb273-2"><a href="biology-bioinformatics.html#cb273-2" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt <span class="ot">&lt;-</span> <span class="fu">getGmt</span>(<span class="at">con=</span><span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>)</span>
-<span id="cb273-3"><a href="biology-bioinformatics.html#cb273-3" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="biology-bioinformatics.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;GSEABase&#39;</span>)</span>
+<span id="cb289-2"><a href="biology-bioinformatics.html#cb289-2" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt <span class="ot">&lt;-</span> <span class="fu">getGmt</span>(<span class="at">con=</span><span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>)</span>
+<span id="cb289-3"><a href="biology-bioinformatics.html#cb289-3" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt</span></code></pre></div>
 <pre><code>## GeneSetCollection
 ##   names: HALLMARK_TNFA_SIGNALING_VIA_NFKB, HALLMARK_HYPOXIA, ..., HALLMARK_PANCREAS_BETA_CELLS (50 total)
 ##   unique identifiers: JUNB, CXCL2, ..., SRP14 (4383 total)
@@ -1743,14 +1758,14 @@ read in the collection of gene sets we previously downloaded.</p>
 ##     geneIdType: NullIdentifier (1 total)
 ##     collectionType: NullCollection (1 total)</code></pre>
 <p>If we simply access the hallmarks_gmt variable, we can see that it is a
-GeneSetCollection object containing 50 total gene
+GeneSetCollection object containing 0 total gene
 sets which encompass 4383 unique identifiers or HGNC symbols. Although this
 package supports a range of functions, we will focus on the basics. For a more
 thorough description of the classes and methods, please read their extended
 documentation available
 <a href="https://bioconductor.org/packages/release/bioc/manuals/GSEABase/man/GSEABase.pdf">here</a>.</p>
 <p>The geneIds method will return a list with each pathway as a named vector of associated gene ids:</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="biology-bioinformatics.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">geneIds</span>(hallmarks_gmt), <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="biology-bioinformatics.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">geneIds</span>(hallmarks_gmt), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## $HALLMARK_TNFA_SIGNALING_VIA_NFKB
 ##   [1] &quot;JUNB&quot;     &quot;CXCL2&quot;    &quot;ATF3&quot;     &quot;NFKBIA&quot;   &quot;TNFAIP3&quot;  &quot;PTGS2&quot;   
 ##   [7] &quot;CXCL1&quot;    &quot;IER3&quot;     &quot;CD83&quot;     &quot;CCL20&quot;    &quot;CXCL3&quot;    &quot;MAFF&quot;    
@@ -1823,11 +1838,11 @@ documentation available
 ## [193] &quot;NCAN&quot;     &quot;TGM2&quot;     &quot;ETS1&quot;     &quot;HOXB9&quot;    &quot;SELENBP1&quot; &quot;FOSL2&quot;   
 ## [199] &quot;SULT2B1&quot;  &quot;TGFB3&quot;</code></pre>
 <p>The names method will return all of the gene set names contained within a specific collection:</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="biology-bioinformatics.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">names</span>(hallmarks_gmt),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="biology-bioinformatics.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">names</span>(hallmarks_gmt),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;HALLMARK_TNFA_SIGNALING_VIA_NFKB&quot; &quot;HALLMARK_HYPOXIA&quot;</code></pre>
 <p>We can access a specific gene set contained within this collection by referring
 to its name and using the following notation:</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="biology-bioinformatics.html#cb279-1" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="biology-bioinformatics.html#cb295-1" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]</span></code></pre></div>
 <pre><code>## setName: HALLMARK_ANGIOGENESIS 
 ## geneIds: VCAN, POSTN, ..., CXCL6 (total: 36)
 ## geneIdType: Null
@@ -1840,9 +1855,9 @@ particular case, we could extract the gene names contained assigned to this
 GeneSet by calling the <code>geneIds</code> slot as shown below to return a vector of the
 gene names. We can see the first five below and also the length of the returned
 vector by using the base R <code>length()</code> function:</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="biology-bioinformatics.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]<span class="sc">@</span>geneIds)</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="biology-bioinformatics.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]<span class="sc">@</span>geneIds)</span></code></pre></div>
 <pre><code>## [1] &quot;VCAN&quot;   &quot;POSTN&quot;  &quot;FSTL1&quot;  &quot;LRPAP1&quot; &quot;STC1&quot;   &quot;LPL&quot;</code></pre>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="biology-bioinformatics.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]<span class="sc">@</span>geneIds)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="biology-bioinformatics.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]<span class="sc">@</span>geneIds)</span></code></pre></div>
 <pre><code>## [1] 36</code></pre>
 <p>GSEABase includes a number of built-in functions for reading gene sets in from
 various sources and performing common operations such as set intersections, set
@@ -1942,43 +1957,43 @@ GeneSet object to programmatically generate a contingency table:</p>
 was chosen to make calculations of the values contained within the table
 transparent and easy to understand.</p>
 </div>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="biology-bioinformatics.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load and read our list of DE genes contained within a newline delimited txt file</span></span>
-<span id="cb285-2"><a href="biology-bioinformatics.html#cb285-2" aria-hidden="true" tabindex="-1"></a>de_genes <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&#39;example_de_list.txt&#39;</span>, <span class="at">what=</span><span class="fu">character</span>(), <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
-<span id="cb285-3"><a href="biology-bioinformatics.html#cb285-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-4"><a href="biology-bioinformatics.html#cb285-4" aria-hidden="true" tabindex="-1"></a><span class="co">#define a function that takes a list of DE genes, and a specific GeneSet from a GeneSetCollection to generate a contingency table</span></span>
-<span id="cb285-5"><a href="biology-bioinformatics.html#cb285-5" aria-hidden="true" tabindex="-1"></a><span class="co">#using set operations in GSEABase</span></span>
-<span id="cb285-6"><a href="biology-bioinformatics.html#cb285-6" aria-hidden="true" tabindex="-1"></a>make_contingency <span class="ot">&lt;-</span> <span class="cf">function</span>(de_list, GeneSetobj) {</span>
-<span id="cb285-7"><a href="biology-bioinformatics.html#cb285-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-8"><a href="biology-bioinformatics.html#cb285-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-9"><a href="biology-bioinformatics.html#cb285-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#make our de list into a simple GeneSet object using GSEABase</span></span>
-<span id="cb285-10"><a href="biology-bioinformatics.html#cb285-10" aria-hidden="true" tabindex="-1"></a>  de_geneset <span class="ot">&lt;-</span> <span class="fu">GeneSet</span>(de_list, <span class="at">setName=</span><span class="st">&#39;1000 DE genes&#39;</span>)</span>
-<span id="cb285-11"><a href="biology-bioinformatics.html#cb285-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-12"><a href="biology-bioinformatics.html#cb285-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#If we had the full results, we could determine this value without manually setting it</span></span>
-<span id="cb285-13"><a href="biology-bioinformatics.html#cb285-13" aria-hidden="true" tabindex="-1"></a>  background_len <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb285-14"><a href="biology-bioinformatics.html#cb285-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-15"><a href="biology-bioinformatics.html#cb285-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Calculate the values inside the contingency table using set operations</span></span>
-<span id="cb285-16"><a href="biology-bioinformatics.html#cb285-16" aria-hidden="true" tabindex="-1"></a>  de_in <span class="ot">&lt;-</span> <span class="fu">length</span>((de_geneset <span class="sc">&amp;</span> GeneSetobj)<span class="sc">@</span>geneIds)</span>
-<span id="cb285-17"><a href="biology-bioinformatics.html#cb285-17" aria-hidden="true" tabindex="-1"></a>  de_notin <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">setdiff</span>(de_geneset, GeneSetobj)<span class="sc">@</span>geneIds)</span>
-<span id="cb285-18"><a href="biology-bioinformatics.html#cb285-18" aria-hidden="true" tabindex="-1"></a>  set_notde <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">setdiff</span>(GeneSetobj, de_geneset)<span class="sc">@</span>geneIds)</span>
-<span id="cb285-19"><a href="biology-bioinformatics.html#cb285-19" aria-hidden="true" tabindex="-1"></a>  notin_notde <span class="ot">&lt;-</span> background_len <span class="sc">-</span> (de_in <span class="sc">+</span> de_notin <span class="sc">+</span> set_notde)</span>
-<span id="cb285-20"><a href="biology-bioinformatics.html#cb285-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-21"><a href="biology-bioinformatics.html#cb285-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-22"><a href="biology-bioinformatics.html#cb285-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#return a matrix of the contingency values</span></span>
-<span id="cb285-23"><a href="biology-bioinformatics.html#cb285-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(de_in, de_notin, set_notde, notin_notde), <span class="at">nrow=</span><span class="dv">2</span>))</span>
-<span id="cb285-24"><a href="biology-bioinformatics.html#cb285-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-25"><a href="biology-bioinformatics.html#cb285-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-26"><a href="biology-bioinformatics.html#cb285-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb285-27"><a href="biology-bioinformatics.html#cb285-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-28"><a href="biology-bioinformatics.html#cb285-28" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">make_contingency</span>(de_genes, hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]])</span>
-<span id="cb285-29"><a href="biology-bioinformatics.html#cb285-29" aria-hidden="true" tabindex="-1"></a>contingency_table</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="biology-bioinformatics.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load and read our list of DE genes contained within a newline delimited txt file</span></span>
+<span id="cb301-2"><a href="biology-bioinformatics.html#cb301-2" aria-hidden="true" tabindex="-1"></a>de_genes <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&#39;example_de_list.txt&#39;</span>, <span class="at">what=</span><span class="fu">character</span>(), <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb301-3"><a href="biology-bioinformatics.html#cb301-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-4"><a href="biology-bioinformatics.html#cb301-4" aria-hidden="true" tabindex="-1"></a><span class="co">#define a function that takes a list of DE genes, and a specific GeneSet from a GeneSetCollection to generate a contingency table</span></span>
+<span id="cb301-5"><a href="biology-bioinformatics.html#cb301-5" aria-hidden="true" tabindex="-1"></a><span class="co">#using set operations in GSEABase</span></span>
+<span id="cb301-6"><a href="biology-bioinformatics.html#cb301-6" aria-hidden="true" tabindex="-1"></a>make_contingency <span class="ot">&lt;-</span> <span class="cf">function</span>(de_list, GeneSetobj) {</span>
+<span id="cb301-7"><a href="biology-bioinformatics.html#cb301-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-8"><a href="biology-bioinformatics.html#cb301-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-9"><a href="biology-bioinformatics.html#cb301-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#make our de list into a simple GeneSet object using GSEABase</span></span>
+<span id="cb301-10"><a href="biology-bioinformatics.html#cb301-10" aria-hidden="true" tabindex="-1"></a>  de_geneset <span class="ot">&lt;-</span> <span class="fu">GeneSet</span>(de_list, <span class="at">setName=</span><span class="st">&#39;1000 DE genes&#39;</span>)</span>
+<span id="cb301-11"><a href="biology-bioinformatics.html#cb301-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-12"><a href="biology-bioinformatics.html#cb301-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#If we had the full results, we could determine this value without manually setting it</span></span>
+<span id="cb301-13"><a href="biology-bioinformatics.html#cb301-13" aria-hidden="true" tabindex="-1"></a>  background_len <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb301-14"><a href="biology-bioinformatics.html#cb301-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-15"><a href="biology-bioinformatics.html#cb301-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Calculate the values inside the contingency table using set operations</span></span>
+<span id="cb301-16"><a href="biology-bioinformatics.html#cb301-16" aria-hidden="true" tabindex="-1"></a>  de_in <span class="ot">&lt;-</span> <span class="fu">length</span>((de_geneset <span class="sc">&amp;</span> GeneSetobj)<span class="sc">@</span>geneIds)</span>
+<span id="cb301-17"><a href="biology-bioinformatics.html#cb301-17" aria-hidden="true" tabindex="-1"></a>  de_notin <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">setdiff</span>(de_geneset, GeneSetobj)<span class="sc">@</span>geneIds)</span>
+<span id="cb301-18"><a href="biology-bioinformatics.html#cb301-18" aria-hidden="true" tabindex="-1"></a>  set_notde <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">setdiff</span>(GeneSetobj, de_geneset)<span class="sc">@</span>geneIds)</span>
+<span id="cb301-19"><a href="biology-bioinformatics.html#cb301-19" aria-hidden="true" tabindex="-1"></a>  notin_notde <span class="ot">&lt;-</span> background_len <span class="sc">-</span> (de_in <span class="sc">+</span> de_notin <span class="sc">+</span> set_notde)</span>
+<span id="cb301-20"><a href="biology-bioinformatics.html#cb301-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-21"><a href="biology-bioinformatics.html#cb301-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-22"><a href="biology-bioinformatics.html#cb301-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#return a matrix of the contingency values</span></span>
+<span id="cb301-23"><a href="biology-bioinformatics.html#cb301-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(de_in, de_notin, set_notde, notin_notde), <span class="at">nrow=</span><span class="dv">2</span>))</span>
+<span id="cb301-24"><a href="biology-bioinformatics.html#cb301-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-25"><a href="biology-bioinformatics.html#cb301-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-26"><a href="biology-bioinformatics.html#cb301-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb301-27"><a href="biology-bioinformatics.html#cb301-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-28"><a href="biology-bioinformatics.html#cb301-28" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">make_contingency</span>(de_genes, hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]])</span>
+<span id="cb301-29"><a href="biology-bioinformatics.html#cb301-29" aria-hidden="true" tabindex="-1"></a>contingency_table</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]   13   23
 ## [2,]  987 8977</code></pre>
 <p>We perform the Fisher’s Exact test using the built-in R function <code>fisher.test()</code>
 and view the summarized output by simply calling the variable where we stored
 the test results:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="biology-bioinformatics.html#cb287-1" aria-hidden="true" tabindex="-1"></a>fisher_results <span class="ot">&lt;-</span> <span class="fu">fisher.test</span>(contingency_table, <span class="at">alternative=</span><span class="st">&#39;greater&#39;</span>)</span>
-<span id="cb287-2"><a href="biology-bioinformatics.html#cb287-2" aria-hidden="true" tabindex="-1"></a>fisher_results</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="biology-bioinformatics.html#cb303-1" aria-hidden="true" tabindex="-1"></a>fisher_results <span class="ot">&lt;-</span> <span class="fu">fisher.test</span>(contingency_table, <span class="at">alternative=</span><span class="st">&#39;greater&#39;</span>)</span>
+<span id="cb303-2"><a href="biology-bioinformatics.html#cb303-2" aria-hidden="true" tabindex="-1"></a>fisher_results</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
@@ -2028,9 +2043,99 @@ various web services including <a href="https://david.ncifcrf.gov">DAVID</a> and
 </div>
 <div id="rank-based-analysis-." class="section level3" number="8.6.4">
 <h3><span class="header-section-number">8.6.4</span> Rank-based Analysis .</h3>
-<p>What is GSEA and how does it work? How is it different than over-representation
-analysis, both as a method and with respect to the input it accepts? How do we
-implement GSEA in R (use the fgsea package)?</p>
+<p>We will refer to the specific method developed by the Broad Institute and UC San
+Diego as Gene Set Enrichment Analysis (note the capitalization). This specific
+methodology should not be confused with gene set enrichment analysis, which we
+use as an umbrella term covering the many statistical methodologies used to
+analyze gene sets.</p>
+<p><a href="biology-bioinformatics.html#gene-set-enrichment-analysis">Gene Set Enrichment Analysis</a> (<a href="https://www.gsea-msigdb.org/gsea/index.jsp" class="uri">https://www.gsea-msigdb.org/gsea/index.jsp</a>) was
+a method developed to facilitate the biological analysis of genome-wide
+expression experiments. It is a rank-based method which utilizes all of the
+information from an expression dataset instead of relying on pre-determined
+statistical thresholds. In the simplest case, GSEA organizes expression data
+into two classes, and ranks all discovered genes by a chosen metric correlating
+their expression to these classes. Then, for a pre-defined set of genes, GSEA
+tests whether the members of this particular gene set occur more frequently at
+the top or bottom of the ranked list or are randomly distributed throughout.
+This ranking can be done by a number of different measures, but common ones
+include signal-to-noise ratio, signed log p-value or log fold change estimates.
+These pre-defined gene sets are flexible and may be manually constructed or
+drawn from the many curated databases of gene sets.</p>
+<p>Behind the scenes, GSEA functions by descending through the ranked list and
+increasing a cumulative score when a gene is encountered that’s contained within
+the chosen gene set and decreasing that score when it encounters a gene that is
+not within that gene set. This incrementing is weighted to put more emphasis on
+genes that are found at the extremes of the ranked list and the final score
+taken as the enrichment score (ES) is the maximum of the deviation from zero.
+From this score, a p-value is determined by permuting the phenotype labels to
+generate a null distribution to compare against. To account for multiple
+hypothesis correction, the ES is normalized by the size of the gene set to
+create a normalized enrichment score (NES) and the p-values are subjected to
+Benjamini-Hochberg correction to generate FDR values for each NES.</p>
+<p>To make this explanation more transparent, let us assume that we have performed
+a RNAseq experiment to determine which genes are changed when we knock out our
+gene of interest in a model cell line. We have obtained our results, which
+consists of a list of all genes discovered in the experiment and associated
+statistical measures such as p-value and log fold change estimates. To perform a
+basic GSEA, we would sort this list of genes, without respect to significance,
+by descending fold change to generate a ranked list where genes that are
+upregulated (positive fold change) are at the “top” of our list and genes that
+are downregulated (negative fold change) are at the “bottom” of our list. We
+would use this ranked list and any number or combination of gene sets to perform
+GSEA using one of the available means.</p>
+<p>GSEA is available as a java application with a graphical user interface as well
+as a command-line utility for use in HPC cluster environments. There also exist
+several packages in R that also implement the core GSEA algorithm along with
+various changes and refinements to the underlying statistical methodology. In
+the following section, we will refer to the usage of one such package, fgsea.
+Under most circumstances, GSEA can be run with default parameters but please see
+the official documentation for a list of customizable parameters and situations
+in which to adjust them.</p>
+<p>GSEA will return a list of results for gene sets tested consisting of their
+associated enrichment scores, and various statistical measures for a given
+ranked input With GSEA results, it is typical to set a permissive FDR threshold
+to consider which gene sets are significant. Further inspection of individual
+gene sets may be performed by analyzing the leading edge subset for each gene
+set. This is the group of genes that occur before and contribute to the maximum
+deviation from zero score for a given gene set during the analysis. These genes
+are typically interpreted as being the more relevant subset of genes that likely
+contribute the most to the enrichment signal, and are typically used in further
+investigations comparing leading edge subsets from other gene sets or applying
+domain knowledge to predict their regulatory effects and functions with respect
+to their annotated biological pathway or gene set.</p>
+<p>GSEA is a highly flexible method that incorporates information from all of the
+data generated in HTS experiments. The choice of ranking methods and gene sets
+can all be tailored to the specific experiment or question at hand, and it is a
+simple yet fast method that can detect more subtle changes in gene networks than
+ORA.</p>
+<div class="box warning">
+<p>The interpretation of a GSEA result needs to be made with care. Let’s assume
+that we have performed GSEA using fold Change as our ranking metric and we find
+that the “KEGG Glycolysis” pathway is found to be enriched with a positive
+normalized enrichment score and is statistically significant. Alone, this does
+not necessarily imply that glycolysis is more active between the conditions of
+interest. It simply allows for the conclusion that there is an enrichment of
+genes belonging to this gene set among the genes with a positive log fold change
+in the experiment. This <em>might</em> imply that your experimental conditions are
+affecting some underlying transcriptional regulation that results in these genes
+being up-regulated. However, it could also be explained by feedback mechanisms,
+direct or indirect, from related biological pathways or gene networks. It <em>does
+not</em> allow you to directly conclude that the glycolysis pathway itself is more
+active at a functional level. To make that assertion, you would need to perform
+further <em>in vitro</em> or <em>in vivo</em> functional assays that directly measure the
+activity and outputs of glycolysis given your experimental conditions.</p>
+<p>It is important to remember that unless specified, gene sets will often contain
+a mix of genes with different regulatory activities including both activators
+and inhibitors of that pathway. In addition, for many biological pathways, there
+are other factors that influence its regulation that may not be apparent at
+a gene expression level. In the specific example of metabolic pathways, it is
+common for the enzymatic products of subsequent reactions to feedback and
+regulate the activity and flux through the pathway or connected pathways. This
+regulation is not easily discerned at the gene expression level alone. All of
+this is to say that the results from GSEA must be interpreted with care and
+integrated with other analyses and knowledge to gain a holistic understanding
+of its meaning.</p>
+</div>
 
 </div>
 </div>
