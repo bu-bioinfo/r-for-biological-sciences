@@ -1,0 +1,13 @@
+---
+output: html_document
+---
+
+
+## Network Analysis .
+
+What is a network? What is network analysis? What are some example network
+analysis applications in biology and bioinformatics (there is a full ksection on
+[Biological Networks] in the bio chapter, these are just illustrative examples)?
+How do we represent networks in R, and how do we analyze them? ([Network
+visualization] is covered in the data viz chapter, might be helpful to write
+these two sections together)
