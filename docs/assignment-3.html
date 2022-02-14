@@ -583,7 +583,7 @@ prefer.</p>
 </div>
 <div class="box important">
 <p><strong>Deliverables</strong>
-1. The scaled data matrix for example_intensity_data.csv</p>
+1. The example_intensity_data.csv read in as a <em>dataframe</em>.</p>
 </div>
 </div>
 <div id="proportion-of-variance-explained" class="section level2 unnumbered">
@@ -602,7 +602,10 @@ each principal component.</strong></p>
 </div>
 <div class="box important">
 <p><strong>Deliverables</strong>
-1. A barchart of the proportion of individual variance explained by each
+1. A vector with the variance explained for each PC.
+2. A tibble with the labels for each PC, the variance explained and the
+cumulative variance explained.
+3. A barchart of the proportion of individual variance explained by each
 principal component overlayed with a scatter plot of the cumulative sum of the
 variance explained for each successive principal component. Label all relevant
 axes and provide a descriptive caption for the figure.</p>
@@ -622,7 +625,7 @@ principal components may be found in the pca results object accessed by $x.</p>
 <div class="box warning">
 <p>When plotting individual PCs against one another, remember that different
 principal components explain different amounts of variance and so it will often
-be the case that the scale of “importance” across the different axes will be
+be the case that the scale of “importance” across the axes will be
 different.</p>
 </div>
 <div class="box important">
@@ -676,7 +679,10 @@ display.brewer.all(colorblindFriendly=TRUE) to view these curated palettes.</p>
 </div>
 <div class="box important">
 <p><strong>Deliverables</strong>
-1. A heatmap of the normalized intensity values for the differentially expressed probes (adjusted p-value &lt; .01).</p>
+1. A list of the significant probes from the differential_expression_results.csv.
+2. A matrix of the example_intensity_data.csv filtered to only contain probes
+contained within the list of significant probes.
+3. A heatmap of the normalized intensity values for the differentially expressed probes (adjusted p-value &lt; .01).</p>
 </div>
 </div>
 <div id="references" class="section level2 unnumbered">
