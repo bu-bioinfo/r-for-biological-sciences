@@ -471,3 +471,275 @@ this is to say that the results from GSEA must be interpreted with care and
 integrated with other analyses and knowledge to gain a holistic understanding
 of its meaning.
 :::
+
+### fgsea
+
+
+To perform GSEA analysis in R, we will be using the [fgsea]
+(http://bioconductor.org/packages/release/bioc/html/fgsea.html) package. fgsea
+uses the core algorithm behind rank-based GSEA but with additional statistical
+methodologies meant to provide better estimations of small p-values. For this
+example, we have generated simulated and completely artificial data for the
+ranked list. We have chosen 1000 genes to represent all of the genes discovered
+in our experiment, annotated them with random values for their fold change and
+sorted the list in descending order. The top of our list corresponds to genes
+with a positive fold change and the bottom those with a negative fold change.
+For this hypothetical experiment, let us assume that genes that have a positive
+fold change are upregulated in our condition of interest vs. the reference and
+genes that have a negative fold change are downregulated in our condition of
+interest vs. the reference.
+
+
+:::{.box .note}
+The genes that served as our ranked list input were taken from an experiment
+looking at differences in cancer subtypes. Although our fold change values
+associated with them were generated randomly, there is likely a strong residual
+signal / bias towards various cancer pathways as we will see in our results
+below
+:::
+
+
+```{r fgsea, warning=FALSE, message=FALSE}
+library('fgsea')
+```
+
+```{r, include=FALSE}
+de_genes <- scan('example_de_list.txt', what=character(), sep='\n', fill=TRUE)
+set.seed(42)
+up <- runif(500, min=0, max=10)
+down <- runif(500, min=0, max=10) * -1
+rnks <- sort(c(up, down), decreasing=TRUE)
+```
+
+
+fgsea takes as input, a named vector of gene-level statistics (a ranked list)
+and a named list of gene sets. The gene names in the ranked list must exactly
+match how they appear in the gene sets (see the note below for additional
+considerations to keep in mind). By default, the `fgsea()` function will run a
+pre-ranked GSEA meaning that you must generate the ranked list manually
+beforehand. Importantly, it will not check your ranked list input and will
+assume it is sorted numerically in descending order of your ranking metric.
+
+
+:::{.box .warning}
+Gene sets downloaded from the MSigDB are sets of __human__ genes and are
+represented by either NCBI Entrez IDs or HGNC symbols. For convenience, we have
+been working with gene sets containing HGNC symbols. It is important to remember
+to check what identifier system and what species the gene set is provided as.
+This also becomes relevant when performing rank-based GSEA on data generated in
+non-human species. In these situations, you will need to convert the gene IDs
+between species and assuming you're using a pre-defined gene set, match the
+identifiers from your ranked list to the format found in the gene set.
+
+This issue typically becomes relevant when trying to use the MSigDB gene sets to
+compare against a ranked list of genes generated from HTS experiments in *Mus
+musculus*. MGI symbols typically begin with an uppercase letter and are followed
+by all lowercase letters or numbers. While there are examples of exact
+concordance where true orthologous mouse and human genes have matching MGI and
+HGNC symbols only differing in case (i.e. Gzmb and GZMB), you should __not__
+simply convert MGI symbols to all uppercase. This will work for the subset of
+genes where the orthologs have the same symbol but will misidentify many genes
+where they do not share the same base name. One way to properly perform this
+kind of 'orthology' mapping is to use `biomaRt`, which we have discussed
+previously. :::
+
+
+For this example, we have already made simulated vectors containing the gene
+names and their associated fold change values. We will generate the appropriate
+format using the `setNames` function on our two vectors and we can use both
+`head` and `tail` to quickly check the sorting. For non-simulated data, you
+could generate these vectors in a number of ways depending upon the format
+of your results data.
+
+
+These are the top 5 genes in our ranked list:
+```{r}
+rnk_list <- setNames(rnks, de_genes)
+head(rnk_list)
+```
+
+
+And these are the bottom 5 genes in the list:
+```{r}
+tail(rnk_list)
+```
+
+
+For our gene sets, we will use the same Hallmarks gene set provided by MSigDB.
+There are two ways we can load these gene sets in the appropriate format
+expected. The first is to use one of the built-in functions in fgsea,
+`gmtPathways`, which will read directly from the GMT file. We have displayed
+the contents of a randomly selected gene set below:
+
+
+```{r}
+hallmark_pathways_fgsea <- fgsea::gmtPathways('h.all.v7.5.1.symbols.gmt')
+hallmark_pathways_fgsea$HALLMARK_TGF_BETA_SIGNALING
+```
+
+
+If we had previously loaded these gene sets in using GSEABase, we could also
+simply do the following:
+```{r}
+hallmark_pathways_GSEABase <- geneIds(hallmarks_gmt)
+hallmark_pathways_GSEABase$HALLMARK_TGF_BETA_SIGNALING
+```
+
+
+Now to run fgsea, we will use default parameters besides manually setting
+thresholds to ignore gene sets in the analysis based on minimum and maximum
+values for their size:
+
+```{r}
+fgsea_results <- fgsea(hallmark_pathways_GSEABase, rnk_list, minSize = 15, maxSize=500)
+fgsea_results <- fgsea_results %>% as_tibble()
+```
+
+
+As noted in the official documentation for the original GSEA, very small gene
+sets or very large gene sets may lead to issues with artificially high scores
+or poor normalization, respectively. These values can be adjusted as needed, but
+we have used the range suggested by the official documentation.
+
+
+We will convert the fgsea results into a tibble, and perform some basic
+exploration of our results. We can see below the results sorted by ascending
+`padj` and the pathways with the lowest adjusted p-values are largely associated
+with cancer pathways including Epithelial Mesenchymal Transition, and Apical
+Junctions.
+
+
+```{r display gsea results}
+fgsea_results %>% arrange(padj)
+```
+
+
+To begin to explore these results, we could filter by our FDR threshold and
+subset significant gene sets by the direction of their NES (positive indicating
+an enrichment at the "top" of our list and negative indicating an enrichment at
+the "bottom").
+
+
+```{r}
+top_positive_nes <- fgsea_results %>%
+  filter(padj < .25 & NES > 0) %>%
+  slice_max(NES, n=5)
+
+top_positive_nes
+```
+
+
+To provide a basic visualization of these results, we can display the normalized
+enrichment scores for all of our pathways in a bar chart and `fill` the bars by
+whether or not they meet our `padj` threshold.
+
+
+:::{.box .note}
+Rank-based GSEA is often used as a hypothesis-generating experiment as it can
+quickly capture potentially interesting global patterns of regulation among many
+biological pathways and processes while considering all the information
+generated in a HTS experiment. It is typical to set a permissive FDR for
+considering "significant" gene sets. The results of rank-based GSEA need to be
+further inspected and most often confirmed through complementary or follow-up
+experiments. Thus, we will choose to use a relaxed FDR threshold of < .25.
+:::
+
+
+```{r gsea caption, include=FALSE}
+gsea_caption <- 'GSEA results suggest an enrichment of cancer-related pathways 
+amongst upregulated genes. GSEA was performed using a list of genes
+generated through RNAseq and ranked by descending fold change. GSEA was run 
+using default parameters with minSize = 15 and maxSize = 500. Gene sets with
+a Benjamini-Hochberg adjusted p-value < .25 are considered significant.'
+
+enrich_plot_caption <- 'The Hallmarks EPITHELIAL_MESENCHYMAL_TRANSITION Pathway
+is significantly enriched amongst the upregulated genes. There are 56 genes in the 
+leading edge subset including GAS1, POSTN, and LOX. The Normalized Enrichment
+Score calculated for this gene set was 2.59 and it has an adjusted p-value of 
+7.28e-10'
+
+```
+
+
+```{r top level results plot, fig.cap = gsea_caption}
+fgsea_results %>%
+  mutate(pathway = forcats::fct_reorder(pathway, NES)) %>%
+  ggplot() +
+  geom_bar(aes(x=pathway, y=NES, fill = padj < .25), stat='identity') +
+  scale_fill_manual(values = c('TRUE' = 'red', 'FALSE' = 'blue')) + 
+  theme_minimal() +
+  ggtitle('fgsea results for Hallmark MSigDB gene sets') +
+  ylab('Normalized Enrichment Score (NES)') +
+  xlab('') +
+  coord_flip()
+```
+
+
+Given the artificial nature of our data and our choice of a small gene set
+collection, we have very few results and are able to display all of them
+intelligibly on one plot. In real experiments, there may be several hundred
+significant gene sets of interest. In cases like this, you may need to restrict
+the number of gene sets by taking the top ten ranked by NES (both positive
+and negative) and plotting those in a figure like the one above. This is only a
+suggestion and there are many ways to choose 'interesting' gene sets to plot
+together depending upon the experimental context and future questions of
+interest.
+
+
+If we wished to investigate a single gene set from this list of results, we
+could create an enrichment plot displaying the Enrichment Score as it's
+calculated through the ranked list. For convenience, we have wrapped the
+pre-built function, `plotEnrichment` from fgsea, in a user-defined function that
+allows us to specify a specific pathway. The `plotEnrichment` function expects
+at minimum the list of genes contained within the pathway to plot and the input
+ranked list of gene-level statistics. We have displayed the enrichment plot for
+one of the significantly enriched gene sets below:
+
+
+```{r enrichment plot, fig.cap = enrich_plot_caption}
+make_gsea_plot <- function(pathway_name, rnks) {
+plotEnrichment(hallmark_pathways_fgsea[[pathway_name]], rnks) +
+    labs(title=pathway_name)
+}
+make_gsea_plot('HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION', rnk_list)
+```
+
+
+As mentioned in the prior section, it is often useful for further investigation
+to inspect the leading edge subset of genes contained within 'interesting' gene
+sets. fgsea stores these genes in the form of a list associated with each
+pathway in the returned table. We could convert and save these values in a named
+list for convenience. This can be accomplished by making use of the `deframe()`
+function. Below we have saved all of the genes contained within the leading edge
+subset of significant gene sets, and displayed those belonging to the
+HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION gene set as determined in this
+experiment:
+
+
+```{r}
+gather_leadingedge <- function(results, threshold) {
+
+  genes <- results %>% 
+  filter(padj < threshold) %>%
+  dplyr::select(pathway, leadingEdge) %>%
+  deframe()
+  return(genes)
+}
+
+leading_edge_genes <- gather_leadingedge(fgsea_results, .25)
+leading_edge_genes$HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION
+```
+
+
+This named list contains all of the leading edge genes for gene sets meeting a
+certain `padj` threshold. We could import these as a GSEABase GeneSetCollection
+object for further analyses in R or write them to a file to pass on to
+collaborators.
+
+
+These examples are just some of the ways you can utilize and explore the GSEA
+results returned by fgsea. There are also other methods such as the one found in
+the built-in function, `fgsea::plotGseaTable`, that provide other ways to
+visualize these results for groups of different gene sets. You can also perform
+any number of different filtering and sorting options on the table of results 
+depending upon your interests. 
