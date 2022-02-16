@@ -19,7 +19,7 @@ before-you-begin
 introduction-1
 prog-r-syntax
 prog-types
-factors-.
+factors
 prog-struct
 vectors
 matrices
@@ -153,10 +153,12 @@ deseq2edger-.
 limmavoom-.
 gene-set-enrichment-analysis
 gene-sets
+kegg-pathways
+go-annotations
+molecular-signatures-database
 working-with-gene-sets-in-r
 over-representation-analysis
 rank-based-analysis-.
-genomic-intervals-.
 biological-networks-.
 biological-pathways-.
 gene-regulatory-networks-.
@@ -171,6 +173,7 @@ single-cell-data-visualization-.
 single-cell-marker-analysis-.
 engineering
 unit-testing
+object-orientation-in-r-.
 toolification-.
 pipelines-workflows-.
 parallel-processing-.
