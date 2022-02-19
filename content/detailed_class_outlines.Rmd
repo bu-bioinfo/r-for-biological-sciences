@@ -5,7 +5,6 @@ output: html_document
 # Class Outlines
 
 ## Week 1
-
 * Course Intro & Details
 * Intro: [Data in Biology]
 * Prelim: [RStudio] on SCC
@@ -56,6 +55,7 @@ output: html_document
 * Bioinfo: [Differential Expression: Microarrays (limma)]
 
 ## Week 4
+* [Assignment 3]
 * Data Sci: [Principal Component Analysis]
 * Data Sci: [Cluster Analysis]
 * Data Sci: [Hierarchical Clustering]
@@ -63,56 +63,61 @@ output: html_document
 * Data Viz: [Specifying Heatmap Colors]
 * Data Viz: [Dendrograms]
 * [Assignment 2] Review
-* [Assignment 3]
 * R Prog: [Data structures]
 * R Prog: [Factors]
 * R Prog: [Iteration]
-* Bioinfo: [Gene Set Enrichment Analysis]
-* Bioinfo: [Gene Sets]
-* Bioinfo: [Over-representation Analysis]
-* Bioinfo: [Rank-based Analysis]
-* Bioinfo: [fgsea]
 
 ## Week 5
+* [Assignment 4]
 * Bioinfo: [High Throughput Sequencing]
 * Bioinfo: [RNASeq]
 * Bioinfo: [Count Data]
 * Bioinfo: [Differential Expression: RNASeq]
 * Bioinfo: [DESeq2/EdgeR]
 * Bioinfo: [limma/voom]
-* [Assignment 2] Review
-* [Assignment 3]
+* [Assignment 3] Review
+* Bioinfo: [Gene Set Enrichment Analysis]
+* Bioinfo: [Gene Sets]
+* Bioinfo: [Over-representation Analysis]
+* Bioinfo: [Rank-based Analysis]
+* Bioinfo: [fgsea]
+
+## Week 6
+* [Assignment 5]
 * Data Sci: [Statistical Distributions & Tests]
 * Data Sci: [Statistical Distributions]
 * Data Sci: [Statistical Tests]
 * Data Sci: [p-values]
 * Data Sci: [Multiple Hypothesis Testing]
 * Data Sci: [Statistical power]
+* [Assignment 4] Review
 * R Prog: [Coding Style and Conventions]
 * R Prog: [The `styler` package]
 
-## Week 6
+## Week 7
+* [Assignment 6]
 * Data Viz: [Responsible Plotting]
 * Data Viz: [Grammar of Graphics - Going Deeper]
 * Data Viz: [Plotting Two or More Dimension]
 * Data Viz: [Other Kinds of Plots]
 * Data Viz: [Tips and Tricks]
+* [Assignment 5] Review
 * Data Viz: [How To Use Heatmaps Responsibly]
 * Data Viz: [Multiple Plots]
 * Data Viz: [Facet wrapping]
 * Data Viz: [Publication Ready Plots]
 
-## Week 7
+## Week 8
+* [Assignment 7]
+* Rshiny: [Rshiny]
+* [Assignment 6] Review
+
+## Week 9
+* [Assignment 7] Checkin
 * Bioinfo: [Single Cell Sequencing]
 * Bioinfo: [Single Cell Clustering Methods]
 * Bioinfo: [tSNE & UMAP]
 * Bioinfo: [Seurat]
-* EngineeRing: [Workflow Managers]
-
-## Week 8
-* Rshiny: [Rshiny]
-
-## Week 9
 * Bioinfo: [Biological Pathways]
 * Bioinfo: [Gene Regulatory Networks]
 * Bioinfo: [Protein-Protein Networks]
@@ -121,8 +126,10 @@ output: html_document
 * Data Viz: [Network visualization]
 
 ## Week 10
+* [Assignment 7] Review
 * EngineeRing: [Toolification]
 * EngineeRing: [Parallel Processing]
+* EngineeRing: [Workflow Managers]
 
 ## Week 11
 * EngineeRing: [Object Orientated Programming in R]
