@@ -153,12 +153,10 @@ deseq2edger-.
 limmavoom-.
 gene-set-enrichment-analysis
 gene-sets
-kegg-pathways
-go-annotations
-molecular-signatures-database
 working-with-gene-sets-in-r
 over-representation-analysis
 rank-based-analysis-.
+fgsea
 biological-networks-.
 biological-pathways-.
 gene-regulatory-networks-.

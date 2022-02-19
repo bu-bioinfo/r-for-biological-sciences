@@ -67,53 +67,68 @@ but the materials also stand alone as an independent class.
 
 * **bold** - class held over zoom
 * ~~struckout~~ - class not held, reserved for project work
+* Follow [Week N](#class-outlines) links for detailed list of topic sections.
+* Assignments are assigned and due on the first day of class each week unless
+mentioned otherwise
 
 +-----------+-------------------+----------------------------------------------+-----------------+
 | Week      | Dates             | Topics                                       | Assignment      |
 +===========+===================+==============================================+=================+
+|  Week 0   | Prior to class    | - Github configuration                       | [Assignment 0]  |
++-----------+-------------------+----------------------------------------------+-----------------+
 | [Week 1]  | 1/24 & 1/26       | - Preliminaries                              |                 |
 |           |                   | - Data in Biology                            | [Assignment 1]  |
 |           |                   | - R Programming Basics                       |                 |
 |           |                   | - Data Wrangling & tidyverse Basics          |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 | [Week 2]  | 1/31 & 2/2        | - R in Biology                               |                 |
-|           |                   | - Bio: Bioconductor Basics                   | [Assignment 2]  |
+|           |                   | - Bio: Bioconductor Basics                   | [Assignment 1]  |
 |           |                   | - Data Viz: Grammar of Graphics              |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 | [Week 3]  | **2/7**  & 2/9    | - Data Sci: Data Modeling                    |                 |
-|           |                   | - Bio: Gene Expression                       | [Assignment 3]  |
+|           |                   | - Bio: Gene Expression                       | [Assignment 2]  |
+|           |                   | - Bio: Microarrays                           |                 |
 |           |                   | - Bio: Differential Expression: Microarrays  |                 |
-|           |                   | - Data Sci: Clustering                       |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 4]  | **2/14** & 2/16   | - Data Sci: Distributions & Tests            |                 |
-|           |                   | - R Programming: Structures & Iteration      | [Assignment 4]  |
-|           |                   | - Data Sci: Summarization & Cleaning         |                 |
-|           |                   | - Bio: Gene Set Enrichment Analysis          |                 |
+| [Week 4]  | **2/14** & 2/16   | - Data Sci: PCA & Clustering                 |                 |
+|           |                   | - Data Vis: Heatmaps & Dendrograms           | [Assignment 3]  |
+|           |                   | - R Programming: Structures & Iteration      |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 | [Week 5]  | 2/22 & 2/23       | - Bio: High Throughput Sequencing            |                 |
-|           |                   | - Bio: Differential Expression: RNASeq       | [Assignment 5]  |
+|           | **Note: 2/22 is a | - Bio: RNASeq                                |                 |
+|           | Tuesday**         | - Bio: Count Data                            | [Assignment 4]  |
+|           |                   | - Bio: Differential Expression: RNASeq       |                 |
+|           |                   | - Bio: Gene Set Enrichment Analysis          |                 |
++-----------+-------------------+----------------------------------------------+-----------------+
+| [Week 6]  | **2/28** & 3/2    | - Data Sci: Distributions                    |                 |
+|           |                   | - Data Sci: Statistical Tests                | [Assignment 5]  |
 |           |                   | - R Programming: Style & Conventions         |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 6]  | **2/28** & 3/2    | - Data Viz: Responsible Plotting             | [Assignment 6]  |
+|           | 3/7 & 3/9         |  Spring Break                                |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 7]  | **3/14** & 3/16   | - Bio: Single Cell Sequencing                | [Assignment 7]  |
-|           |                   | - R Programming: Pipelines & Workflows       |                 |
+| [Week 7]  | **3/14** & 3/16   | - Data Viz: Responsible Plotting             | [Assignment 6]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 8]  | 3/21 & 3/23       | - [RShiny]                                   | [Assignment 8]  |
+| [Week 8]  | 3/21 & 3/23       | - RShiny                                     | [Assignment 7]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 9]  | **3/28** & 3/30   | - Bio: Biological Networks                   |                 |
-|           |                   | - Data Sci: Network Analysis                 | [Project]       |
+| [Week 9]  | **3/28** & 3/30   | - Bio: Single Cell Sequencing                |                 |
+|           |                   | - Bio: Biological Networks                   | [Assignment 7]  |
+|           |                   | - Data Sci: Network Analysis                 |                 |
 |           |                   | - Data Viz: Network Viz                      |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 10] | **4/4** & ~~4/6~~ | - [Toolification]                            |                 |
+| [Week 10] | **4/4** & ~~4/6~~ | - Toolification                              |                 |
+|           |                   | - R Programming: Parallel Processing         | [Project]       |
+|           |                   | - R Programming: Pipelines & Workflows       |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 11] | 4/11 & ~~4/13~~   | - [EngineeRing]                              |                 |
+| [Week 11] | 4/11 & ~~4/13~~   | - EngineeRing: Object Orientation            |                 |
+|           |                   | - EngineeRing: Building R Packages           |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 12] | 4/20              | - [Communicating with R]                     |                 |
+| [Week 12] | 4/20              | - Communicating with R                       |                 |
+|           |                   | - Reproducible Analyses in R                 |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 | Week 13   | 4/25 & ~~4/27~~   | - No class - Project work                    |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 | Week 14   | 5/2  & ~~5/4~~    | - No class - Project work                    | Project due     |
+|           |                   |                                              |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 
 ## Instructors {-}
