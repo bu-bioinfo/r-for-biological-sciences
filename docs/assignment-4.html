@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="1 Introduction | BF591 - R for Biological Sciences" />
+  <title>Assignment 4 | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="Assignment 4 | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="Assignment 4 | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="Assignment 4 | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="data-bio.html"/>
+<link rel="prev" href="assignment-3.html"/>
+<link rel="next" href="class-outlines.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -512,100 +512,260 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p>Since the publication of the first draft human genome in 2001, data has driven
-biological discovery at an exponential rate. Rapid technological innovations in
-data-generating biochemical instruments, computational resource availability,
-data storage, and analytical approaches including artificial intelligence,
-machine learning, and data science more generally have combined and synergized
-to enable advances in our understanding of biological systems by orders of
-magnitude. As the rate of development of these technologies has increased, so
-are practitioners of biological inquiry expected to keep up with the rapidly
-expanding set of knowledge, skills, and tools required to use them.</p>
-<p>Modern biological data analysis entails combining knowledge and skills from
-many domains, including not only biological concepts like molecular biology,
-genetics, genomics, and biochemistry, but also in computational and quantitative
-skills including statistics, mathematics, programming and software engineering,
-high performance and cloud computing, data visualization, and computer science.
-No one person can be expert in all of these areas, but modern software tools and
-packages made available by subject matter experts enable us to perform cutting
-edge analysis with a conceptual understanding of the topics.</p>
-<p>One such tool is the <a href="https://www.r-project.org">R programming language</a>, a
-statistical programming language and environment specifically designed to run
-statistical analyses and visualize data. Today
-R is one of the two most popular programming languages in biological data
-analysis and bioinformatics (the other being <a href="https://python.org">python</a>).</p>
-<p>A major innovation in the R language came with the introduction of the
-<a href="https://www.tidyverse.org/">tidyverse</a>, as set of open-source data manipulation and
-visualization packages, first developed by <a href="http://hadley.nz/">Hadley Wickham</a>
-and now improved, supported, and maintained by his team of data scientists and
-software engineers and other individuals. The tidyverse is a collection of
-packages that specialize in different aspects of data manipulation with the goal
-of enabling powerful, consistent, and accurate data operations in the broad
-field of data science. While not changing the structure of the language <em>per
-se</em>, the tidyverse packages define a set of consistent programming conventions
-and patterns that are tailored to the types of manipulations required to make
-data “tidy” and, therefore, easier and more consistent to work with. The
-tidyverse therefore is something of its own “language” that is compatible with
-but distinct in convention from the base R language.</p>
-<p>This book and accompanying course focus on how to use R and its related package
-ecosystems to analyze, visualize, and communicate biological data analyses. As
-noted above, effective biological data analysis employs skills that span several
-knowledge domains. This book covers many of these topics in relatively shallow
-depth, but with the intent of presenting just enough in each to enable the
-learner to become proficient in most day-to-day biological analysis tasks.</p>
-<div id="who-this-book-is-for" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Who This Book Is For</h2>
-<p>This book was written for the practicing biologist wishing to learn how to use
-R to analyze biological data. A basic working knowledge of genetics, genomics,
-molecular biology, and biochemistry is assumed, but we endeavored to include
-enough pertinent background to understand the analysis concepts presented in the
-text. Basic knowledge of statistics is assumed, but again some background is
-provided as necessary to understand the analyses and concepts in the text. No
-further knowledge is assumed.</p>
+<div id="assignment-4" class="section level1 unnumbered">
+<h1>Assignment 4</h1>
+<div id="problem-statement-3" class="section level2 unnumbered">
+<h2>Problem Statement</h2>
+<p>When dealing with gene counts in an mRNA-seq dataset, it is important to
+normalize the data before performing any analyses so you can make accurate
+comparisons of gene expression between samples. There are a number of different
+methods you can use to accomplish and the method you use will depend on the
+kinds of samples you have and the analyses you want to perform. This first part
+of this assignment will guide you through two commonly used methods: Counts Per
+Million and DESeq2 Normalization.</p>
+<p>Once you normalize your data you can do exploratory analysis and construct the
+appropriate graphs. As bioinformaticians, you will need to be able present your
+data in tidy reports with generated plots- sometimes between blocks of text. R
+Markdown is a good tool to accomplish this with, allowing you to display tables
+and plots alongside the bulk of your writing. You’ve had some exposure to R
+Markdown in previous assignments, now you will start writing your own code to
+generate the visualizations for your report. It will be important to remember
+that you need to keep your code separate depending on its function: the function
+declarations and implementation- your code that will work behind-the-scenes to
+perform data manipulation and process inputs without user interaction on the
+“back end”- should stay in your <code>main.R</code> file while your calls to construct and
+display the tibbles and visuals created in the back end should be put in your
+<code>report.Rmd</code> file- despite the user not directly manipulating or editing the
+outputs you generate, they are still interacting with the display by viewing it
+and therefore the lines of code that call the functions to create these outputs
+belong in your “front end.”</p>
 </div>
-<div id="a-note-about-reinventing-the-wheel" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> A Note About Reinventing the Wheel</h2>
-<p>Many topics in this book are covered elsewhere in greater detail and depth. The
-content in each section is intended to stand alone, but may not provide a high
-level of detail that has been done better by others in online materials. These
-sections provide links to these other resources that provide more information,
-in case the instructions in this book are too terse or unclear.</p>
-<div class="box readmore">
+<div id="learning-objectives-3" class="section level2 unnumbered">
+<h2>Learning Objectives</h2>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Reinventing_the_wheel">Wikipedia - Reinventing the Wheel</a></li>
+<li>Data normalization methods (CPM, DESeq2)</li>
+<li>Plotting data in Tidyverse</li>
+<li>Displaying results and compiling reports in R Markdown</li>
+<li>Application of Tidyverse functions</li>
 </ul>
 </div>
+<div id="skill-list-3" class="section level2 unnumbered">
+<h2>Skill List</h2>
+<ul>
+<li>DESeq normalization, referencing the linked Bioconductor vignette if needed</li>
+<li>Tibble manipulation</li>
+<li>Creating different types of graphs in ggplot2</li>
+<li>Running PCA</li>
+</ul>
 </div>
-<div id="sources-and-references" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Sources and References</h2>
-<p>The materials of this book were inspired and informed by a large number of
-sources, including books and freely available online materials. The authors
-would like to thank the creators and maintainers of these resources for their
-generosity in making their valuable contributions:</p>
-<p><strong>R Materials</strong>
-* <a href="https://rstudio-education.github.io/hopr/">Hands-On Programming with R</a>, by Garrett Grolemund
-* <a href="https://r4ds.had.co.nz/">R for Data Science</a>, by Hadley Wickam, Garrett Grolemund, et al
-* <a href="https://adv-r.hadley.nz/">Advanced R</a>, by Hadley Wickam
-* <a href="https://stat545.com/index.html">STAT 545 - Data wrangling, exploration, and analysis with R</a>
-* <a href="https://rstats.wtf/index.html">What They Forgot to Teach You About R</a>
-* <a href="https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/">Reproducible Analysis with R</a>, by State of Alaska’s Salmon and People Project, NCEAS
-* <a href="https://bookdown.org/hneth/ds4psy/">Data Science for Psychologists</a>, by Hansjörg Neth</p>
-<p><strong>Data visualization</strong>
-* <a href="https://wwnorton.com/books/9781324001560/about-the-book">How Charts Lie: Getting Smarter about Visual Information</a>, by Alberto Cairo
-* <a href="http://www.thefunctionalart.com/">The Functional Art - An Introduction to Information Graphics and Visualization</a>, by Alberto Cairo
-* <a href="http://www.thefunctionalart.com/p/the-truthful-art-book.html">The Truthful Art - Data, Charts, and Maps for Communication</a>, by Alberto Cairo</p>
+<div id="instructions-2" class="section level2 unnumbered">
+<h2>Instructions</h2>
+<p>An empty project repo can be found here:</p>
+<p><a href="https://github.com/BF591-R/bf591-assignment-4">https://github.com/BF591-R/bf591-assignment-4</a></p>
+<p>You will be given</p>
+<pre><code>main.R
+test_main.R
+report.Rmd
+verse_counts.tsv
+example_report.html
+</code></pre>
+<p>Like previous assignments, the bulk of the work will be done in the skeleton
+file <code>main.R</code>, but unlike previous assignments the provided <code>report.Rmd</code> is also
+a skeleton file. Both documents will provide the information needed to complete
+the assignment. Please ensure that your inputs and outputs match the
+specifications listed- or at the very least can properly handle inputs as
+instructed and return the expected output since that is how your functions will
+be tested.</p>
+<p>To help you complete the assignment, you are being provided a sample report and
+a set of test functions that are similar to the ones we will use to grade. The
+sample report is provided in the appropriately named <code>sample_report.html</code> and
+the tests for you to use can be found in <code>test_main.R</code>. Please note that while
+the sample report does not display any code, it is okay and- preferred, really-
+for your report to <em>display the code blocks</em> like they have done in previous
+assignments.</p>
+<div id="tasks" class="section level3 unnumbered">
+<h3>Tasks</h3>
+<ol style="list-style-type: decimal">
+<li>Implement the functions as described in <code>main.R</code>.<br />
+</li>
+<li>[optional but highly recommended] Test your functions using `test_main.R</li>
+<li>Fill in <code>report.Rmd</code> as instructed. You will need the functions you implemented in <code>main.R</code></li>
+<li>Knit <code>report.Rmd</code> and create your <code>report.html</code></li>
+</ol>
+</div>
+</div>
+<div id="deliverables" class="section level2 unnumbered">
+<h2>Deliverables</h2>
+<ol style="list-style-type: decimal">
+<li><code>main.R</code> with all of the functions completed</li>
+<li><code>report.Rmd</code> filled in as instructed</li>
+<li><code>report.html</code> knitted from your <code>report.Rmd</code></li>
+</ol>
+</div>
+<div id="function-details-1" class="section level2 unnumbered">
+<h2>Function Details</h2>
+<div id="read_data" class="section level3 unnumbered">
+<h3>1. <code>read_data()</code></h3>
+<p>Load a tsv located at a specified location</p>
+<p>Input (1): string path to file</p>
+<p>Output: (g x m) tibble</p>
+<p>Details: This function will be tested for handling various input strings and
+returning the proper output: dimensions, column names, if column ‘gene’ is
+located in the first column, and output type tibble. Your test_main will include
+additional testing of output column types and lack of row names for your
+reference, to help catch errors early on.</p>
+</div>
+<div id="filter_zero_var_genes" class="section level3 unnumbered">
+<h3>2. <code>filter_zero_var_genes()</code></h3>
+<p>Filter out genes with zero variance</p>
+<p>Input (1): (g x m) tibble</p>
+<p>Output: (n x m) tibble</p>
+<p>Details: This function will be tested for handling an input (g x m) tibble and
+returning the proper output: column names, if column ‘gene’ is located in the
+first column, names of ‘genes’ returned, and output type tibble. Your test_main
+will include additional testing for row consistency- ensuring that the sample
+data still correlates with the gene names- for your reference and to help catch
+errors early on</p>
+</div>
+<div id="timepoint_from_sample" class="section level3 unnumbered">
+<h3>3. <code>timepoint_from_sample()</code></h3>
+<p>Extract time point information from sample name</p>
+<p>Input (1): string (length 5) of sample name in format <code>v[A-Z][a-z,1-9]_[1-9]</code>
+(In other words: <code>v[α][β]_[γ]</code>, where α is any capital modern English letter, β
+is any lower case modern English letter OR any Arabic number 0-9, and γ is any
+Arabic number from 0-9)</p>
+<p>Output: string (length 2) of substring <code>[A-Z][a-z,1-9]</code> from sample name:</p>
+<p>Details: This function will be tested for handling various strings of length 5
+in the form <code>v[A-Z][a-z,1-9]_[1-9]</code> and outputting the proper string, preserving
+letter case where letter case is provided.</p>
+</div>
+<div id="sample_replicate" class="section level3" number="12.1.1">
+<h3><span class="header-section-number">12.1.1</span> 4. <code class="unnumbered">sample_replicate()</code></h3>
+<p>Grab sample replicate number from sample name</p>
+<p>Input (1): Input (1): string (length 5) of sample name in format
+<code>v[A-Z][a-z,1-9]_[1-9]</code> (In other words: <code>v[α][β]_[γ]</code>, where α is any capital
+modern English letter, β is any lower case modern English letter OR any Arabic
+number 0-9, and γ is any Arabic number from 0-9)</p>
+<p>Output: string (length 1 of substring <code>[1-9]</code> from sample name:
+<code>v[A-Z][a-z,1-9]_[1-9]</code> (In other words: [γ] from <code>v[α][β]_[γ]</code>)</p>
+<p>Details: This function will be tested for handling various strings of length 5
+in the form <code>v[A-Z][a-z,1-9]_[1-9]</code> and outputting the proper character string.</p>
+</div>
+<div id="meta_info_from_labels" class="section level3" number="12.1.2">
+<h3><span class="header-section-number">12.1.2</span> 5. <code class="unnumbered">meta_info_from_labels()</code></h3>
+<p>Generate sample-level metadata from sample names and stores the data into a
+tibble. Will include columns named “sample,” “timepoint,” and “replicate” that
+store sample names, sample time points, and sample replicate, respectively.</p>
+<p>Input (1): Character vector of length <code>_S_</code> of sample names with column names “sample,” “timepoint,” and “replicate”</p>
+<p>Output: a <code>(_S_ x 3)</code> tibble</p>
+<p>Details: This function will be tested for handling of a character vector of
+length <code>_S_</code>, where each element in the vector is a string with a length of 5 in
+the form of <code>v[A-Z][a-z,1-9]_[1-9]</code>, and properly outputting a <code>(_S_ x 3)</code>
+tibble with columns named “sample,” “timepoint,” and “replicate” and rows that
+correspond with the input samples. Your test_main will include additional
+testing for the order of elements in column ‘sample’’s correspondence with the
+order of elements in the input vector for your reference. The column types of
+your output tibble will not be tested.</p>
+</div>
+<div id="get_library_size" class="section level3" number="12.1.3">
+<h3><span class="header-section-number">12.1.3</span> 6. <code class="unnumbered">get_library_size()</code></h3>
+<p>Calculate total read counts for each sample in a counts dataset.</p>
+<p>Input (1): a (n x m) tibble of raw read counts</p>
+<p>Output: tibble or named vector of read totals from each sample. Vectors must be
+length <code>_S_</code>, a tibble can be <code>(1 x _S_)</code> with sample names as columns names OR
+<code>(_S_ x 2)</code> where sample name is in the first column and library size is the
+second column</p>
+<p>Details: This function will be tested for the return of a tibble or named vector
+that have sample names which correspond with the appropriate library size.</p>
+</div>
+<div id="normalize_by_cpm" class="section level3" number="12.1.4">
+<h3><span class="header-section-number">12.1.4</span> 7. <code class="unnumbered">normalize_by_cpm()</code></h3>
+<p>Normalize raw counts data to counts per million using (counts) /
+(sample_library_size) * 10^6</p>
+<p>Input (1): a (n x m) tibble of raw read counts</p>
+<p>Output: a (n x m) tibble with read count normalized to counts per million</p>
+<p>Details: This function will be tested to handle a (n x m) tibble. Its output
+will be tested for dimensions, column names, location of string and numeric
+column(s), performance of the desired equation on numeric columns, and that gene
+names still correspond to their rows.</p>
+</div>
+<div id="deseq_normalize" class="section level3" number="12.1.5">
+<h3><span class="header-section-number">12.1.5</span> 8. <code class="unnumbered">deseq_normalize()</code></h3>
+<p>Normalize raw counts data using DESeq2</p>
+<p>Input (1): a (n x m) tibble of raw read counts</p>
+<p>Output: a (n x m) tibble of DESeq2 normalized counts data</p>
+<p>Details:This function will be tested to handle a (n x m) tibble. Its output will
+be tested for dimensions, column names, location of string and numeric
+column(s), performance of the desired equation on numeric columns, and that gene
+names still correspond to their rows.</p>
+</div>
+<div id="plot_pca" class="section level3" number="12.1.6">
+<h3><span class="header-section-number">12.1.6</span> 9. <code class="unnumbered">plot_pca()</code></h3>
+<p>Input (3): a <code>(n x _S_)</code> tibble of data, a <code>(_S_ x 3)</code> tibble of sample-level
+meta information, and a string</p>
+<p>Output: a ggplot scatter plot showing each sample, with PC1 on x-axis and PC2 on y-axis</p>
+<p>Details: The output of this will be tested for the appropriate test run and PCs
+used to plot. It may be visually inspected as part of your grade</p>
+</div>
+<div id="plot_sample_distributions" class="section level3" number="12.1.7">
+<h3><span class="header-section-number">12.1.7</span> 10. <code class="unnumbered">plot_sample_distributions()</code></h3>
+<p>Input (3): a <code>(n x _S_)</code> tibble of data, a boolean to determine whether to scale
+the ‘y’ axis to log10 values, and a string</p>
+<p>Output: a ggplot boxplot that shows gene count distributions</p>
+<p>Details: This function will be tested on a <code>(n x _S_)</code> tibble</p>
+</div>
+<div id="plot_variance_vs_mean" class="section level3" number="12.1.8">
+<h3><span class="header-section-number">12.1.8</span> 11. <code class="unnumbered">plot_variance_vs_mean()</code></h3>
+<p>Input (3): a <code>(n x _S_)</code> tibble of data, a boolean to determine whether to scale
+the ‘y’ axis to log10 values, and a string</p>
+<p>Output: a ggplot scatter plot where the x-axis is the rank of gene ordered by
+mean count over all samples, and the y-axis is the observed variance of the
+given gene. Each dot should have their transparency increased. The scatter plot
+should also be accompanied by a line representing the average mean and variance
+values</p>
+<p>Details: This function will be tested on a <code>(n x _S_)</code> tibble</p>
+</div>
+</div>
+<div id="hints-1" class="section level2 unnumbered">
+<h2>Hints</h2>
+<ul>
+<li><p>Make sure you don’t have any rownames on any of the tibbles your function(s)</p></li>
+<li><p>return. You should get a warning in your R console if you do.</p></li>
+<li><p>Sometimes Tydyverse is the best tool for the job, sometimes it isn’t</p></li>
+<li><p>Some tasks are easier to accomplish with dataframes than tibbles. Not everyone
+will use these methods, but if you do you are welcome to use dataframes within
+a function as long as the inputs and outputs are the ones specified (returning
+a dataframe instead of a tibble may points).</p></li>
+<li><p>The Bioconductor vignette for DESeq2 is linked in part 3 of your <code>report.Rmd</code>.
+<a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#data-transformations-and-visualization">It can also be found
+here</a>)</p></li>
+<li><p>In a previous version of this assignment, the output of
+<code>filter_zero_var_genes()</code> was transformed from <code>(n x m)</code> to <code>(n x _s_)</code> and
+called the <code>counts_matrix</code>. One of the TAs thought use of ‘matrix’ would be
+confusing (since we want you to use datasets of type <code>tibble</code>) so it was
+re-worded, but this piece of trivia might be helpful for interpreting the
+Bioconductor vignette- or if you see any sort of ‘matrix’ referenced in
+<code>report.Rmd</code> because it got overlooked during editing.</p></li>
+<li><p>There may be occasions where you will need to reshape your data from a wide</p></li>
+<li><p>format to a long format</p></li>
+<li><p>Symbols used in <code>main.R</code>~ <code>g</code>: initial number of Genes, <code>m</code>: initial number of
+columns expected when you import <code>verse_counts.tsv</code>, <code>n</code>: number of genes
+expected after you filter in part 1b, <code>_S_</code>: number of Samples</p></li>
+</ul>
 
 </div>
+</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-bio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="assignment-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="class-outlines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
