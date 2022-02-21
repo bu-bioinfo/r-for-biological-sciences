@@ -37,6 +37,7 @@ rmd_files:
     - "1202_assignment_1.Rmd"
     - "1203_assignment_2.Rmd"
     - "1204_assignment_3.Rmd"
+    - "1205_assignment_4.Rmd"
     - "appendix.Rmd"
     - "detailed_class_outlines.Rmd"
 delete_merged_file: true
