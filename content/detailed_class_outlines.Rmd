@@ -70,12 +70,15 @@ output: html_document
 ## Week 5
 * [Assignment 4]
 * Bioinfo: [High Throughput Sequencing]
-* Bioinfo: [RNASeq]
 * Bioinfo: [Count Data]
+* Bioinfo: [RNASeq]
+* Bioinfo: [RNASeq Gene Expression Data]
+* Bioinfo: [Count Normalization]
+* Bioinfo: [Count Transformation]
 * Bioinfo: [Differential Expression: RNASeq]
+* [Assignment 3] Review
 * Bioinfo: [DESeq2/EdgeR]
 * Bioinfo: [limma/voom]
-* [Assignment 3] Review
 * Bioinfo: [Gene Set Enrichment Analysis]
 * Bioinfo: [Gene Sets]
 * Bioinfo: [Over-representation Analysis]
