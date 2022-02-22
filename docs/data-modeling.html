@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.1 Data Modeling | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="6.1 Data Modeling | BF591 - R for Biological Sciences" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.1 Data Modeling | BF591 - R for Biological Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.1 Data Modeling | BF591 - R for Biological Sciences" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-science.html"/>
+<link rel="next" href="statistical-distributions-tests-..html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="" data-path="course-schedule.html"><a href="course-schedule.html"><i class="fa fa-check"></i>Course Schedule</a></li>
+<li class="chapter" data-level="" data-path="instructors.html"><a href="instructors.html"><i class="fa fa-check"></i>Instructors</a></li>
+<li class="chapter" data-level="" data-path="office-hours.html"><a href="office-hours.html"><i class="fa fa-check"></i>Office Hours</a></li>
+<li class="chapter" data-level="" data-path="course-values-and-policies.html"><a href="course-values-and-policies.html"><i class="fa fa-check"></i>Course Values and Policies</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="who-this-book-is-for.html"><a href="who-this-book-is-for.html"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For</a></li>
+<li class="chapter" data-level="1.2" data-path="a-note-about-reinventing-the-wheel.html"><a href="a-note-about-reinventing-the-wheel.html"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel</a></li>
+<li class="chapter" data-level="1.3" data-path="sources-and-references.html"><a href="sources-and-references.html"><i class="fa fa-check"></i><b>1.3</b> Sources and References</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-bio.html"><a href="data-bio.html"><i class="fa fa-check"></i><b>2</b> Data in Biology</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="a-brief-history-of-data-in-molecular-biology.html"><a href="a-brief-history-of-data-in-molecular-biology.html"><i class="fa fa-check"></i><b>2.1</b> A Brief History of Data in Molecular Biology</a></li>
+<li class="chapter" data-level="2.2" data-path="biology-as-a-mature-data-science.html"><a href="biology-as-a-mature-data-science.html"><i class="fa fa-check"></i><b>2.2</b> Biology as a Mature Data Science</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>3</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prelim-r.html"><a href="prelim-r.html"><i class="fa fa-check"></i><b>3.1</b> The R Language</a></li>
+<li class="chapter" data-level="3.2" data-path="prelim-rstudio.html"><a href="prelim-rstudio.html"><i class="fa fa-check"></i><b>3.2</b> RStudio</a></li>
+<li class="chapter" data-level="3.3" data-path="prog-the-r-script.html"><a href="prog-the-r-script.html"><i class="fa fa-check"></i><b>3.3</b> The R Script</a></li>
+<li class="chapter" data-level="3.4" data-path="prog-workflow.html"><a href="prog-workflow.html"><i class="fa fa-check"></i><b>3.4</b> The Scripting Workflow</a></li>
+<li class="chapter" data-level="3.5" data-path="prelim-git.html"><a href="prelim-git.html"><i class="fa fa-check"></i><b>3.5</b> git + github</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="prelim-git.html"><a href="prelim-git.html#motivation"><i class="fa fa-check"></i><b>3.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="3.5.2" data-path="prelim-git.html"><a href="prelim-git.html#git"><i class="fa fa-check"></i><b>3.5.2</b> git</a></li>
+<li class="chapter" data-level="3.5.3" data-path="prelim-git.html"><a href="prelim-git.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>3.5.3</b> Git hosting platforms (GitHub)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="prog-basics.html"><a href="prog-basics.html"><i class="fa fa-check"></i><b>4</b> R Programming</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="before-you-begin.html"><a href="before-you-begin.html"><i class="fa fa-check"></i><b>4.1</b> Before you begin</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="prog-r-syntax.html"><a href="prog-r-syntax.html"><i class="fa fa-check"></i><b>4.3</b> R Syntax Basics</a></li>
+<li class="chapter" data-level="4.4" data-path="prog-types.html"><a href="prog-types.html"><i class="fa fa-check"></i><b>4.4</b> Basic Types of Values</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="prog-types.html"><a href="prog-types.html#factors"><i class="fa fa-check"></i><b>4.4.1</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="prog-struct.html"><a href="prog-struct.html"><i class="fa fa-check"></i><b>4.5</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="prog-struct.html"><a href="prog-struct.html#vectors"><i class="fa fa-check"></i><b>4.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="4.5.2" data-path="prog-struct.html"><a href="prog-struct.html#matrices"><i class="fa fa-check"></i><b>4.5.2</b> Matrices</a></li>
+<li class="chapter" data-level="4.5.3" data-path="prog-struct.html"><a href="prog-struct.html#lists-and-data-frames"><i class="fa fa-check"></i><b>4.5.3</b> Lists and data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="logical-tests-and-comparators.html"><a href="logical-tests-and-comparators.html"><i class="fa fa-check"></i><b>4.6</b> Logical Tests and Comparators</a></li>
+<li class="chapter" data-level="4.7" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>4.7</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="functions.html"><a href="functions.html#prog-dry"><i class="fa fa-check"></i><b>4.7.1</b> DRY: Don’t Repeat Yourself</a></li>
+<li class="chapter" data-level="4.7.2" data-path="functions.html"><a href="functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>4.7.2</b> Writing your own functions</a></li>
+<li class="chapter" data-level="4.7.3" data-path="functions.html"><a href="functions.html#scope"><i class="fa fa-check"></i><b>4.7.3</b> Scope</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.8</b> Iteration</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="iteration.html"><a href="iteration.html#vectorized-operations"><i class="fa fa-check"></i><b>4.8.1</b> Vectorized operations</a></li>
+<li class="chapter" data-level="4.8.2" data-path="iteration.html"><a href="iteration.html#functional-programming"><i class="fa fa-check"></i><b>4.8.2</b> Functional programming</a></li>
+<li class="chapter" data-level="4.8.3" data-path="iteration.html"><a href="iteration.html#apply-and-friends"><i class="fa fa-check"></i><b>4.8.3</b> <code>apply()</code> and friends</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="installing-packages.html"><a href="installing-packages.html"><i class="fa fa-check"></i><b>4.9</b> Installing Packages</a></li>
+<li class="chapter" data-level="4.10" data-path="saving-and-loading-r-data.html"><a href="saving-and-loading-r-data.html"><i class="fa fa-check"></i><b>4.10</b> Saving and Loading R Data</a></li>
+<li class="chapter" data-level="4.11" data-path="prog-debugging.html"><a href="prog-debugging.html"><i class="fa fa-check"></i><b>4.11</b> Troubleshooting and Debugging</a></li>
+<li class="chapter" data-level="4.12" data-path="prog-style.html"><a href="prog-style.html"><i class="fa fa-check"></i><b>4.12</b> Coding Style and Conventions</a>
+<ul>
+<li class="chapter" data-level="4.12.1" data-path="prog-style.html"><a href="prog-style.html#is-my-code-correct"><i class="fa fa-check"></i><b>4.12.1</b> Is my code correct?</a></li>
+<li class="chapter" data-level="4.12.2" data-path="prog-style.html"><a href="prog-style.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>4.12.2</b> Does my code follow the <span>DRY principle</span>?</a></li>
+<li class="chapter" data-level="4.12.3" data-path="prog-style.html"><a href="prog-style.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>4.12.3</b> Did I choose concise but descriptive variable and function names?</a></li>
+<li class="chapter" data-level="4.12.4" data-path="prog-style.html"><a href="prog-style.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>4.12.4</b> Did I use indentation and naming conventions consistently throughout my code?</a></li>
+<li class="chapter" data-level="4.12.5" data-path="prog-style.html"><a href="prog-style.html#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><i class="fa fa-check"></i><b>4.12.5</b> Did I write comments, especially when what the code does is not obvious?</a></li>
+<li class="chapter" data-level="4.12.6" data-path="prog-style.html"><a href="prog-style.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>4.12.6</b> How easy would it be for someone else to understand my code?</a></li>
+<li class="chapter" data-level="4.12.7" data-path="prog-style.html"><a href="prog-style.html#is-my-code-easy-to-maintainchange"><i class="fa fa-check"></i><b>4.12.7</b> Is my code easy to maintain/change?</a></li>
+<li class="chapter" data-level="4.12.8" data-path="prog-style.html"><a href="prog-style.html#the-styler-package-."><i class="fa fa-check"></i><b>4.12.8</b> The <code>styler</code> package .</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="the-tidyverse.html"><a href="the-tidyverse.html"><i class="fa fa-check"></i><b>5.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="5.2" data-path="dw-basics.html"><a href="dw-basics.html"><i class="fa fa-check"></i><b>5.2</b> Tidyverse Basics</a></li>
+<li class="chapter" data-level="5.3" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>5.3</b> Importing Data</a></li>
+<li class="chapter" data-level="5.4" data-path="data-tibble.html"><a href="data-tibble.html"><i class="fa fa-check"></i><b>5.4</b> The tibble</a></li>
+<li class="chapter" data-level="5.5" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>5.5</b> Tidy Data</a></li>
+<li class="chapter" data-level="5.6" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>5.6</b> pipes</a></li>
+<li class="chapter" data-level="5.7" data-path="arranging-data.html"><a href="arranging-data.html"><i class="fa fa-check"></i><b>5.7</b> Arranging Data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="arranging-data.html"><a href="arranging-data.html#dplyrmutate---create-new-columns-using-other-columns"><i class="fa fa-check"></i><b>5.7.1</b> <code>dplyr::mutate()</code> - Create new columns using other columns</a></li>
+<li class="chapter" data-level="5.7.2" data-path="arranging-data.html"><a href="arranging-data.html#stringr---working-with-character-values"><i class="fa fa-check"></i><b>5.7.2</b> <code>stringr</code> - Working with character values</a></li>
+<li class="chapter" data-level="5.7.3" data-path="arranging-data.html"><a href="arranging-data.html#dplyrselect---subset-columns-by-name"><i class="fa fa-check"></i><b>5.7.3</b> <code>dplyr::select()</code> - Subset Columns by Name</a></li>
+<li class="chapter" data-level="5.7.4" data-path="arranging-data.html"><a href="arranging-data.html#dplyrfilter---pick-rows-out-of-a-data-set"><i class="fa fa-check"></i><b>5.7.4</b> <code>dplyr::filter()</code> - Pick rows out of a data set</a></li>
+<li class="chapter" data-level="5.7.5" data-path="arranging-data.html"><a href="arranging-data.html#dplyrarrange---order-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.7.5</b> <code>dplyr::arrange()</code> - Order rows based on their values</a></li>
+<li class="chapter" data-level="5.7.6" data-path="arranging-data.html"><a href="arranging-data.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.7.6</b> Putting it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="grouping-data.html"><a href="grouping-data.html"><i class="fa fa-check"></i><b>5.8</b> Grouping Data</a></li>
+<li class="chapter" data-level="5.9" data-path="rearranging-data.html"><a href="rearranging-data.html"><i class="fa fa-check"></i><b>5.9</b> Rearranging Data</a></li>
+<li class="chapter" data-level="5.10" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>5.10</b> Relational Data</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="relational-data.html"><a href="relational-data.html#dealing-with-multiple-matches"><i class="fa fa-check"></i><b>5.10.1</b> Dealing with multiple matches</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>6</b> Data Science</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-modeling.html"><a href="data-modeling.html"><i class="fa fa-check"></i><b>6.1</b> Data Modeling</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-modeling.html"><a href="data-modeling.html#a-worked-modeling-example"><i class="fa fa-check"></i><b>6.1.1</b> A Worked Modeling Example</a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-modeling.html"><a href="data-modeling.html#data-summarization"><i class="fa fa-check"></i><b>6.1.2</b> Data Summarization</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-modeling.html"><a href="data-modeling.html#linear-models"><i class="fa fa-check"></i><b>6.1.3</b> Linear Models</a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-modeling.html"><a href="data-modeling.html#flavors-of-linear-models"><i class="fa fa-check"></i><b>6.1.4</b> Flavors of Linear Models</a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-modeling.html"><a href="data-modeling.html#assessing-model-accuracy-."><i class="fa fa-check"></i><b>6.1.5</b> Assessing Model Accuracy .</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="statistical-distributions-tests-..html"><a href="statistical-distributions-tests-..html"><i class="fa fa-check"></i><b>6.2</b> Statistical Distributions &amp; Tests .</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="statistical-distributions-tests-..html"><a href="statistical-distributions-tests-..html#statistical-distributions"><i class="fa fa-check"></i><b>6.2.1</b> Statistical Distributions</a></li>
+<li class="chapter" data-level="6.2.2" data-path="statistical-distributions-tests-..html"><a href="statistical-distributions-tests-..html#statistical-tests-."><i class="fa fa-check"></i><b>6.2.2</b> Statistical Tests .</a></li>
+<li class="chapter" data-level="6.2.3" data-path="statistical-distributions-tests-..html"><a href="statistical-distributions-tests-..html#p-values-."><i class="fa fa-check"></i><b>6.2.3</b> p-values .</a></li>
+<li class="chapter" data-level="6.2.4" data-path="statistical-distributions-tests-..html"><a href="statistical-distributions-tests-..html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.2.4</b> Multiple Hypothesis Testing .</a></li>
+<li class="chapter" data-level="6.2.5" data-path="statistical-distributions-tests-..html"><a href="statistical-distributions-tests-..html#statistical-power-."><i class="fa fa-check"></i><b>6.2.5</b> Statistical power .</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="exploratory-analysis.html"><a href="exploratory-analysis.html"><i class="fa fa-check"></i><b>6.3</b> Exploratory Analysis</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="exploratory-analysis.html"><a href="exploratory-analysis.html#principal-component-analysis"><i class="fa fa-check"></i><b>6.3.1</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="6.3.2" data-path="exploratory-analysis.html"><a href="exploratory-analysis.html#cluster-analysis"><i class="fa fa-check"></i><b>6.3.2</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="6.3.3" data-path="exploratory-analysis.html"><a href="exploratory-analysis.html#k-means-."><i class="fa fa-check"></i><b>6.3.3</b> k-means .</a></li>
+<li class="chapter" data-level="6.3.4" data-path="exploratory-analysis.html"><a href="exploratory-analysis.html#others"><i class="fa fa-check"></i><b>6.3.4</b> Others</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="network-analysis-..html"><a href="network-analysis-..html"><i class="fa fa-check"></i><b>6.4</b> Network Analysis .</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>7</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dv-gg.html"><a href="dv-gg.html"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a></li>
+<li class="chapter" data-level="7.2" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html"><i class="fa fa-check"></i><b>7.2</b> Plotting One Dimension</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#dv-bar"><i class="fa fa-check"></i><b>7.2.1</b> Bar chart</a></li>
+<li class="chapter" data-level="7.2.2" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#lollipop-plots"><i class="fa fa-check"></i><b>7.2.2</b> Lollipop plots</a></li>
+<li class="chapter" data-level="7.2.3" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#stacked-area-charts"><i class="fa fa-check"></i><b>7.2.3</b> Stacked Area charts</a></li>
+<li class="chapter" data-level="7.2.4" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#parallel-coordinate-plots"><i class="fa fa-check"></i><b>7.2.4</b> Parallel Coordinate plots</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html"><i class="fa fa-check"></i><b>7.3</b> Visualizing Distributions</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#histogram"><i class="fa fa-check"></i><b>7.3.1</b> Histogram</a></li>
+<li class="chapter" data-level="7.3.2" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#density"><i class="fa fa-check"></i><b>7.3.2</b> Density</a></li>
+<li class="chapter" data-level="7.3.3" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#boxplot"><i class="fa fa-check"></i><b>7.3.3</b> Boxplot</a></li>
+<li class="chapter" data-level="7.3.4" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#violin-plot"><i class="fa fa-check"></i><b>7.3.4</b> Violin plot</a></li>
+<li class="chapter" data-level="7.3.5" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#beeswarm-plot"><i class="fa fa-check"></i><b>7.3.5</b> Beeswarm plot</a></li>
+<li class="chapter" data-level="7.3.6" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#ridgeline"><i class="fa fa-check"></i><b>7.3.6</b> Ridgeline</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html"><i class="fa fa-check"></i><b>7.4</b> Plotting Two or More Dimensions .</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html#scatter-plot-."><i class="fa fa-check"></i><b>7.4.1</b> Scatter plot .</a></li>
+<li class="chapter" data-level="7.4.2" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html#line-plot-."><i class="fa fa-check"></i><b>7.4.2</b> Line plot .</a></li>
+<li class="chapter" data-level="7.4.3" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html#bubble-plot-."><i class="fa fa-check"></i><b>7.4.3</b> Bubble plot .</a></li>
+<li class="chapter" data-level="7.4.4" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html#heatmaps"><i class="fa fa-check"></i><b>7.4.4</b> Heatmaps</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="other-kind-of-plots-..html"><a href="other-kind-of-plots-..html"><i class="fa fa-check"></i><b>7.5</b> Other Kind of Plots .</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="other-kind-of-plots-..html"><a href="other-kind-of-plots-..html#chord-."><i class="fa fa-check"></i><b>7.5.1</b> Chord .</a></li>
+<li class="chapter" data-level="7.5.2" data-path="other-kind-of-plots-..html"><a href="other-kind-of-plots-..html#sankey-."><i class="fa fa-check"></i><b>7.5.2</b> Sankey .</a></li>
+<li class="chapter" data-level="7.5.3" data-path="other-kind-of-plots-..html"><a href="other-kind-of-plots-..html#dendrograms"><i class="fa fa-check"></i><b>7.5.3</b> Dendrograms</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="tips-and-tricks-..html"><a href="tips-and-tricks-..html"><i class="fa fa-check"></i><b>7.6</b> Tips and Tricks .</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="tips-and-tricks-..html"><a href="tips-and-tricks-..html#reordering-1-d-data-elements-."><i class="fa fa-check"></i><b>7.6.1</b> Reordering 1-D Data Elements .</a></li>
+<li class="chapter" data-level="7.6.2" data-path="tips-and-tricks-..html"><a href="tips-and-tricks-..html#confidence-intervals-."><i class="fa fa-check"></i><b>7.6.2</b> Confidence Intervals .</a></li>
+<li class="chapter" data-level="7.6.3" data-path="tips-and-tricks-..html"><a href="tips-and-tricks-..html#annotations-."><i class="fa fa-check"></i><b>7.6.3</b> Annotations .</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="multiple-plots-..html"><a href="multiple-plots-..html"><i class="fa fa-check"></i><b>7.7</b> Multiple Plots .</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="multiple-plots-..html"><a href="multiple-plots-..html#secondary-axes-."><i class="fa fa-check"></i><b>7.7.1</b> Secondary Axes .</a></li>
+<li class="chapter" data-level="7.7.2" data-path="multiple-plots-..html"><a href="multiple-plots-..html#facet-wrapping-."><i class="fa fa-check"></i><b>7.7.2</b> Facet wrapping .</a></li>
+<li class="chapter" data-level="7.7.3" data-path="multiple-plots-..html"><a href="multiple-plots-..html#multipanel-figures-."><i class="fa fa-check"></i><b>7.7.3</b> Multipanel Figures .</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="responsible-plotting-..html"><a href="responsible-plotting-..html"><i class="fa fa-check"></i><b>7.8</b> Responsible Plotting .</a></li>
+<li class="chapter" data-level="7.9" data-path="publication-ready-plots-..html"><a href="publication-ready-plots-..html"><i class="fa fa-check"></i><b>7.9</b> Publication Ready Plots .</a></li>
+<li class="chapter" data-level="7.10" data-path="network-visualization-..html"><a href="network-visualization-..html"><i class="fa fa-check"></i><b>7.10</b> Network visualization .</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>8</b> Biology &amp; Bioinformatics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bio-r.html"><a href="bio-r.html"><i class="fa fa-check"></i><b>8.1</b> R in Biology</a></li>
+<li class="chapter" data-level="8.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html"><i class="fa fa-check"></i><b>8.2</b> Biological Data Overview</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="biological-data-overview.html"><a href="biological-data-overview.html#bio-data-types"><i class="fa fa-check"></i><b>8.2.1</b> Types of Biological Data</a></li>
+<li class="chapter" data-level="8.2.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html#csv-files"><i class="fa fa-check"></i><b>8.2.2</b> CSV Files</a></li>
+<li class="chapter" data-level="8.2.3" data-path="biological-data-overview.html"><a href="biological-data-overview.html#biological-data-is-not-tidy"><i class="fa fa-check"></i><b>8.2.3</b> Biological data is NOT Tidy!</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="bio-bioconductor.html"><a href="bio-bioconductor.html"><i class="fa fa-check"></i><b>8.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="8.4" data-path="microarrays.html"><a href="microarrays.html"><i class="fa fa-check"></i><b>8.4</b> Microarrays</a></li>
+<li class="chapter" data-level="8.5" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html"><i class="fa fa-check"></i><b>8.5</b> High Throughput Sequencing</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#raw-hts-data"><i class="fa fa-check"></i><b>8.5.1</b> Raw HTS Data</a></li>
+<li class="chapter" data-level="8.5.2" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#preliminary-hts-data-analysis"><i class="fa fa-check"></i><b>8.5.2</b> Preliminary HTS Data Analysis</a></li>
+<li class="chapter" data-level="8.5.3" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#count-data"><i class="fa fa-check"></i><b>8.5.3</b> Count Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="gene-identifiers.html"><a href="gene-identifiers.html"><i class="fa fa-check"></i><b>8.6</b> Gene Identifiers</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="gene-identifiers.html"><a href="gene-identifiers.html#gene-identifier-systems"><i class="fa fa-check"></i><b>8.6.1</b> Gene Identifier Systems</a></li>
+<li class="chapter" data-level="8.6.2" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-between-identifier-systems"><i class="fa fa-check"></i><b>8.6.2</b> Mapping Between Identifier Systems</a></li>
+<li class="chapter" data-level="8.6.3" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-homologs"><i class="fa fa-check"></i><b>8.6.3</b> Mapping Homologs</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="gene-expression.html"><a href="gene-expression.html"><i class="fa fa-check"></i><b>8.7</b> Gene Expression</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="gene-expression.html"><a href="gene-expression.html#gene-expression-data-in-bioconductor"><i class="fa fa-check"></i><b>8.7.1</b> Gene Expression Data in Bioconductor</a></li>
+<li class="chapter" data-level="8.7.2" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-analysis"><i class="fa fa-check"></i><b>8.7.2</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="8.7.3" data-path="gene-expression.html"><a href="gene-expression.html#microarray-gene-expression-data"><i class="fa fa-check"></i><b>8.7.3</b> Microarray Gene Expression Data</a></li>
+<li class="chapter" data-level="8.7.4" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-microarrays-limma"><i class="fa fa-check"></i><b>8.7.4</b> Differential Expression: Microarrays (limma)</a></li>
+<li class="chapter" data-level="8.7.5" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq"><i class="fa fa-check"></i><b>8.7.5</b> RNASeq</a></li>
+<li class="chapter" data-level="8.7.6" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq-gene-expression-data"><i class="fa fa-check"></i><b>8.7.6</b> RNASeq Gene Expression Data</a></li>
+<li class="chapter" data-level="8.7.7" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-rnaseq"><i class="fa fa-check"></i><b>8.7.7</b> Differential Expression: RNASeq</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html"><i class="fa fa-check"></i><b>8.8</b> Gene Set Enrichment Analysis</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#gene-sets"><i class="fa fa-check"></i><b>8.8.1</b> Gene Sets</a></li>
+<li class="chapter" data-level="8.8.2" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#working-with-gene-sets-in-r"><i class="fa fa-check"></i><b>8.8.2</b> Working with gene sets in R</a></li>
+<li class="chapter" data-level="8.8.3" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#over-representation-analysis"><i class="fa fa-check"></i><b>8.8.3</b> Over-representation Analysis</a></li>
+<li class="chapter" data-level="8.8.4" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#rank-based-analysis-."><i class="fa fa-check"></i><b>8.8.4</b> Rank-based Analysis .</a></li>
+<li class="chapter" data-level="8.8.5" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#fgsea"><i class="fa fa-check"></i><b>8.8.5</b> fgsea</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="biological-networks-..html"><a href="biological-networks-..html"><i class="fa fa-check"></i><b>8.9</b> Biological Networks .</a>
+<ul>
+<li class="chapter" data-level="8.9.1" data-path="biological-networks-..html"><a href="biological-networks-..html#biological-pathways-."><i class="fa fa-check"></i><b>8.9.1</b> Biological Pathways .</a></li>
+<li class="chapter" data-level="8.9.2" data-path="biological-networks-..html"><a href="biological-networks-..html#gene-regulatory-networks-."><i class="fa fa-check"></i><b>8.9.2</b> Gene Regulatory Networks .</a></li>
+<li class="chapter" data-level="8.9.3" data-path="biological-networks-..html"><a href="biological-networks-..html#protein-protein-interaction-network-."><i class="fa fa-check"></i><b>8.9.3</b> Protein-Protein Interaction Network .</a></li>
+<li class="chapter" data-level="8.9.4" data-path="biological-networks-..html"><a href="biological-networks-..html#wgcna-."><i class="fa fa-check"></i><b>8.9.4</b> WGCNA .</a></li>
+</ul></li>
+<li class="chapter" data-level="8.10" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html"><i class="fa fa-check"></i><b>8.10</b> Single Cell Sequencing Analysis .</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-sequencing-."><i class="fa fa-check"></i><b>8.10.1</b> Single Cell Sequencing .</a></li>
+<li class="chapter" data-level="8.10.2" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-analysis-."><i class="fa fa-check"></i><b>8.10.2</b> Single Cell Analysis .</a></li>
+<li class="chapter" data-level="8.10.3" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-clustering-."><i class="fa fa-check"></i><b>8.10.3</b> Single Cell Clustering .</a></li>
+<li class="chapter" data-level="8.10.4" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#dimensionality-reduction-projection-."><i class="fa fa-check"></i><b>8.10.4</b> Dimensionality Reduction &amp; Projection .</a></li>
+<li class="chapter" data-level="8.10.5" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-data-visualization-."><i class="fa fa-check"></i><b>8.10.5</b> Single Cell Data Visualization .</a></li>
+<li class="chapter" data-level="8.10.6" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-marker-analysis-."><i class="fa fa-check"></i><b>8.10.6</b> Single Cell Marker Analysis .</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>9</b> EngineeRing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="unit-testing.html"><a href="unit-testing.html"><i class="fa fa-check"></i><b>9.1</b> Unit Testing</a></li>
+<li class="chapter" data-level="9.2" data-path="object-orientation-in-r-..html"><a href="object-orientation-in-r-..html"><i class="fa fa-check"></i><b>9.2</b> Object Orientation in R .</a></li>
+<li class="chapter" data-level="9.3" data-path="toolification-..html"><a href="toolification-..html"><i class="fa fa-check"></i><b>9.3</b> Toolification .</a></li>
+<li class="chapter" data-level="9.4" data-path="pipelines-workflows-..html"><a href="pipelines-workflows-..html"><i class="fa fa-check"></i><b>9.4</b> Pipelines &amp; Workflows .</a></li>
+<li class="chapter" data-level="9.5" data-path="parallel-processing-..html"><a href="parallel-processing-..html"><i class="fa fa-check"></i><b>9.5</b> Parallel Processing .</a></li>
+<li class="chapter" data-level="9.6" data-path="r-packages-..html"><a href="r-packages-..html"><i class="fa fa-check"></i><b>9.6</b> R Packages .</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="rshiny.html"><a href="rshiny.html"><i class="fa fa-check"></i><b>10</b> RShiny</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>10.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="10.3" data-path="skill-list.html"><a href="skill-list.html"><i class="fa fa-check"></i><b>10.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="rmarkdown-knitr.html"><a href="rmarkdown-knitr.html"><i class="fa fa-check"></i><b>11.1</b> RMarkdown &amp; knitr</a></li>
+<li class="chapter" data-level="11.2" data-path="bookdown.html"><a href="bookdown.html"><i class="fa fa-check"></i><b>11.2</b> bookdown</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>12</b> Contribution Guide</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="custom-blocks.html"><a href="custom-blocks.html"><i class="fa fa-check"></i><b>12.1</b> Custom blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-format.html"><a href="assignment-format.html"><i class="fa fa-check"></i>Assignment Format</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html"><i class="fa fa-check"></i>Starting an Assignment</a>
+<ul>
+<li><a href="starting-an-assignment.html#starting-your-own-git-repository-and-cloning-it">Starting your own <code>git</code> repository and cloning it</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#contents"><i class="fa fa-check"></i>Contents</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#github-tutorial"><i class="fa fa-check"></i>GitHub tutorial</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#committing-and-pushing-with-r-and-without"><i class="fa fa-check"></i>Committing and Pushing with R (and without)</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#using-rstudio"><i class="fa fa-check"></i>Using RStudio</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#using-the-command-line"><i class="fa fa-check"></i>Using the command line</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i>Assignment 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#problem-statement"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#learning-objectives-and-skill-list"><i class="fa fa-check"></i>Learning Objectives and Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#instructions"><i class="fa fa-check"></i>Instructions</a></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#hints"><i class="fa fa-check"></i>Hints</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html"><i class="fa fa-check"></i>Assignment 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#problem-statement-1"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#learning-objectives-1"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#skill-list-1"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#instructions-1"><i class="fa fa-check"></i>Instructions</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#function-details"><i class="fa fa-check"></i>Function Details</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html"><i class="fa fa-check"></i>Assignment 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#problem-statement-2"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#learning-objectives-2"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#skill-list-2"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#background-on-microarrays"><i class="fa fa-check"></i>Background on Microarrays</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#background-on-principal-component-analysis"><i class="fa fa-check"></i>Background on Principal Component Analysis</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#marisa-et-al.-gene-expression-classification-of-colon-cancer-into-molecular-subtypes-characterization-validation-and-prognostic-value.-plos-medicine-may-2013.-pmid-23700391"><i class="fa fa-check"></i>Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391</a></li>
+<li><a href="assignment-3.html#scaling-data-using-r-scale">Scaling data using R <code>scale()</code></a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#proportion-of-variance-explained"><i class="fa fa-check"></i>Proportion of variance explained</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#plotting-and-visualization-of-pca"><i class="fa fa-check"></i>Plotting and visualization of PCA</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#hierarchical-clustering-and-heatmaps"><i class="fa fa-check"></i>Hierarchical Clustering and Heatmaps</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html"><i class="fa fa-check"></i>Assignment 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#problem-statement-3"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#learning-objectives-3"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#skill-list-3"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#instructions-2"><i class="fa fa-check"></i>Instructions</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#function-details-1"><i class="fa fa-check"></i>Function Details</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#hints-1"><i class="fa fa-check"></i>Hints</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="week-1.html"><a href="week-1.html"><i class="fa fa-check"></i><b>A.1</b> Week 1</a></li>
+<li class="chapter" data-level="A.2" data-path="week-2.html"><a href="week-2.html"><i class="fa fa-check"></i><b>A.2</b> Week 2</a></li>
+<li class="chapter" data-level="A.3" data-path="week-3.html"><a href="week-3.html"><i class="fa fa-check"></i><b>A.3</b> Week 3</a></li>
+<li class="chapter" data-level="A.4" data-path="week-4.html"><a href="week-4.html"><i class="fa fa-check"></i><b>A.4</b> Week 4</a></li>
+<li class="chapter" data-level="A.5" data-path="week-5.html"><a href="week-5.html"><i class="fa fa-check"></i><b>A.5</b> Week 5</a></li>
+<li class="chapter" data-level="A.6" data-path="week-6.html"><a href="week-6.html"><i class="fa fa-check"></i><b>A.6</b> Week 6</a></li>
+<li class="chapter" data-level="A.7" data-path="week-7.html"><a href="week-7.html"><i class="fa fa-check"></i><b>A.7</b> Week 7</a></li>
+<li class="chapter" data-level="A.8" data-path="week-8.html"><a href="week-8.html"><i class="fa fa-check"></i><b>A.8</b> Week 8</a></li>
+<li class="chapter" data-level="A.9" data-path="week-9.html"><a href="week-9.html"><i class="fa fa-check"></i><b>A.9</b> Week 9</a></li>
+<li class="chapter" data-level="A.10" data-path="week-10.html"><a href="week-10.html"><i class="fa fa-check"></i><b>A.10</b> Week 10</a></li>
+<li class="chapter" data-level="A.11" data-path="week-11.html"><a href="week-11.html"><i class="fa fa-check"></i><b>A.11</b> Week 11</a></li>
+<li class="chapter" data-level="A.12" data-path="week-12.html"><a href="week-12.html"><i class="fa fa-check"></i><b>A.12</b> Week 12</a></li>
+<li class="chapter" data-level="A.13" data-path="week-13---no-class-for-project-work.html"><a href="week-13---no-class-for-project-work.html"><i class="fa fa-check"></i><b>A.13</b> Week 13 - no class for project work</a></li>
+<li class="chapter" data-level="A.14" data-path="week-14---no-class-for-project-work.html"><a href="week-14---no-class-for-project-work.html"><i class="fa fa-check"></i><b>A.14</b> Week 14 - no class for project work</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">BF591 - R for Biological Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-modeling" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Data Modeling</h2>
+<p>The goal of data modeling is to describe a dataset using a relatively small
+number of mathematical relationships. Said differently, a model uses some parts
+of a dataset to try to accurately predict other parts of the dataset in a way
+that is useful to us.</p>
+<p>Models are human inventions; they reflect our beliefs about the way the universe
+works. The successful model identifies patterns within a dataset that are the
+result of causal relationships in the universe that led to the phenomena that
+were measured while accounting for noise in the data. However, <em>the model itself
+does not identify or even accurately reflect those causal effects</em>. The model
+merely summarizes patterns and we as scientists are left to interpret those
+patterns and design follow up experiments to investigate the nature of those
+causal relationships using our prior knowledge of the world.</p>
+<p>There are several principles to keep in mind when modeling data:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Data are never wrong.</strong> All data are collected using processes and
+devices designed and implemented by humans, who always have biases and make
+assumptions. All data measure something about the universe, and so are “true” in
+some sense of the word. If what we intended to measure and what we actually
+measured were not the same thing, that is due to our errors in collection or
+interpretation, not due to the data being wrong. If we approach our dataset with
+a particular set of hypotheses and the data don’t support those hypotheses, it
+is our beliefs of the world and our understanding of the dataset that are wrong,
+not the data itself.</p></li>
+<li><p><strong>Not all data are useful.</strong> Just because data isn’t wrong, it doesn’t mean
+it is useful. There may have been systematic errors in the collection of the
+data that makes interpreting them difficult. Data collected for one purpose may
+not be useful for any other purposes. And sometimes, a dataset collected for a
+particular purpose may simply not have the information needed to answer our
+questions; if what we measure has no relationship to what we wish to predict,
+the data itself is not useful - though the knowledge that what we measured has
+no detectable effect on the thing we wish to predict may be very useful!</p></li>
+<li><p><strong>“All models are wrong, but some are useful.”</strong> George Box, the renowned
+British statistician, famously asserted this in a 1976 paper to the Journal of
+the American Statistical Association. <span class="citation">(<a href="#ref-Box1976-rd" role="doc-biblioref">Box 1976</a>)</span>. By this he meant that every
+model we create is a simplification of the system we are seeking to model, which
+is by definition not identical to that system. To perfectly model a system, our
+model would need to be precisely the system we are modeling, which is no longer
+a model but the system itself. Fortunately, even though we know our models are
+always wrong to some degree, they may nonetheless be useful because they are not
+<strong>too</strong> wrong. Some models may indeed be too wrong, though.</p></li>
+<li><p><strong>Data do not contain causal information.</strong> “Correlation does not mean
+causation.” Data are measurements of the results of a process in the universe
+that we wish to understand; the data are possibly reflective of that process,
+but do not contain any information about the process itself. We cannot infer
+causal relationships from a dataset alone. We must construct possible causal
+models using our knowledge of the world first, then apply our data to our model
+and other alternative models to compare their relative plausibility.</p></li>
+<li><p><strong>All data have noise.</strong> The usefulness of a model to describe a dataset is
+related to the relative strength of the patterns and noise in the dataset when
+viewed through the lens of the model; conceptually, the so-called “signal to
+noise ratio” of the data. The fundamental concern of statistics is quantifying
+uncertainty (i.e. noise), and separating it from real signal, though different
+statistical approaches (e.g. frequentist vs Bayesian) reason about uncertainty
+in different ways.</p></li>
+</ol>
+<p>Modeling begins (or should begin) with posing one or more <strong>scientific models</strong>
+of the process or phenomenon we wish to understand. The scientific model is
+conceptual; it reflects our belief of the universe and proposes a causal
+explanation for the phenomenon. We then decide how to map that scientific model
+onto a <strong>statistical model</strong>, which is a mechanical procedure that quantifies
+how well our scientific model explains a dataset. <em>The scientific model and
+statistical model are related but independent choices we make.</em> There may be
+many valid statistical models that represent a given scientific model. However,
+sometimes in practice we lack sufficient knowledge about the process to propose
+scientific models first, requiring data exploration and summarization first to
+suggest reasonable starting points.</p>
+<div class="box important">
+<p>This section pertains primarily to models specified explicitly by humans. There
+is another class of models, namely those created by certain machine learning
+algorithms like neural networks and deep learning, that <em>discover models from
+data</em>. These models are fundamentally different than those designed by human
+minds, in that they are often accurate and therefore useful, but it can be very
+difficult if not impossible to understand how they work. While these are
+important types of models that fall under the umbrella of data science, we limit
+the content of this chapter to human designed statistical models.</p>
+</div>
+<div id="a-worked-modeling-example" class="section level3" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> A Worked Modeling Example</h3>
+<p>As an example, let’s consider a scenario where we wish to assess whether any of
+three genes can help us distinguish between patients who have Parkinson’s
+Disease and those who don’t by measuring the relative activity of those genes in
+blood samples. We have the following made-up dataset:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="data-modeling.html#cb161-1" aria-hidden="true" tabindex="-1"></a>gene_exp</span></code></pre></div>
+<pre><code>## # A tibble: 200 x 5
+##    sample_name `Disease Status` `Gene 1` `Gene 2` `Gene 3`
+##    &lt;chr&gt;       &lt;fct&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 P1          Parkinson&#39;s          257.     636.     504.
+##  2 P2          Parkinson&#39;s          241.     556.     484.
+##  3 P3          Parkinson&#39;s          252.     426.     476.
+##  4 P4          Parkinson&#39;s          271.     405.     458.
+##  5 P5          Parkinson&#39;s          248.     482.     520.
+##  6 P6          Parkinson&#39;s          275.     521.     460.
+##  7 P7          Parkinson&#39;s          264.     415.     568.
+##  8 P8          Parkinson&#39;s          276.     450.     495.
+##  9 P9          Parkinson&#39;s          274.     490.     496.
+## 10 P10         Parkinson&#39;s          251.     584.     573.
+## # ... with 190 more rows</code></pre>
+<p>Our imaginary dataset has 100 Parkinson’s and 100 control subjects. For each of
+our samples, we have a sample ID, Disease Status of <code>Parkinson's</code> or <code>Control</code>,
+and numeric measurements of each of three genes. Below are <a href="visualizing-distributions.html#violin-plot">violin
+plots</a> of our (made-up) data set for these three genes:</p>
+<p><img src="main_files/data%20modeling%20violin-1.png" width="672" /></p>
+<p>By inspection, it appears that Gene 1 has no relationship with disease; we may
+safely eliminate this gene from further consideration. Gene 2 appears to have a
+different profile depending on disease status, where control individuals have
+a higher average expression and a lower variance. Unfortunately, despite this
+qualitative difference, this gene may not be useful for telling whether someone
+has disease or not - the ranges completely overlap. Gene 3 appears to
+discriminate between disease and control. There is some overlap in the two
+expression distributions, but above a certain expression value these data
+suggest a high degree of predictive accuracy may be obtained with this gene.
+Measuring this gene may therefore be useful, if the results from this dataset
+generalize to all people with Parkinson’s Disease.</p>
+<p>So far, we have not done any modeling, but instead relied on plotting and our
+eyes. A more quantitative question might be: how much higher is Gene 3
+expression in Parkinson’s Disease than control? Another way of posing this
+question is: if I know a patient has Parkinson’s Disease, what Gene 3 expression
+value do I expect them to have? Written this way, we have turned our question
+into a prediction problem: if we only had information that a patient had
+Parkinson’s Disease, what is the predicted expression value of their Gene 3?</p>
+<p>Another way to pose this prediction question is in the opposite (and arguably
+more useful) direction: if all we knew about a person was their Gene 3 gene
+expression, how likely is it that the person has Parkinson’s Disease? If this
+gene expression is predictive enough of a person’s disease status, it may be a
+viable <a href="https://en.wikipedia.org/wiki/Biomarker">biomarker</a> of disease and thus
+might be useful in a clinical setting, for example when identifying
+presymptomatic individuals or assessing the efficacy of a pharmacological
+treatment.</p>
+<p>Although it may seems obvious, before beginning to model a dataset, we must
+start by posing the <strong>scientific question</strong> as concisely as possible, as we have
+done above. These questions will help us identify which modeling techniques are
+appropriate and help us ensure we interpret our results correctly.</p>
+<p>We will use this example dataset throughout this chapter to illustrate some key
+concepts.</p>
+</div>
+<div id="data-summarization" class="section level3" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Data Summarization</h3>
+<p>Broadly speaking, <em>data summarization</em> is the process of finding a
+lower-dimensional representation of a larger dataset. There are many ways to
+summarize a set of data; each approach will emphasize different aspects of the
+dataset, and have varying degrees of accuracy. Consider the gene expression of
+Gene 1 for all individuals in our example above, plotted as a distribution with
+a <a href="visualizing-distributions.html#histogram">histogram</a>:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="data-modeling.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb163-2"><a href="data-modeling.html#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>,<span class="at">fill=</span><span class="st">&quot;#a93c13&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/data%20sci%20summ%20hist-1.png" width="672" /></p>
+<div id="point-estimates" class="section level4" number="6.1.2.1">
+<h4><span class="header-section-number">6.1.2.1</span> Point Estimates</h4>
+<p>The data are concentrated around the value 250, and become less common for
+larger and smaller values. Since the extents to the left and right of the middle
+of the distribution appear to be equally distant, perhaps the arithmetic mean
+is a good way to identify the middle of the distribution:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="data-modeling.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb164-2"><a href="data-modeling.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>,<span class="at">fill=</span><span class="st">&quot;#a93c13&quot;</span>) <span class="sc">+</span></span>
+<span id="cb164-3"><a href="data-modeling.html#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span><span class="fu">mean</span>(gene_exp<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="main_files/data%20sci%20summ%20hist2-1.png" width="672" /></p>
+<p>By eye, the mean does seem to correspond well to the value that is among the
+most frequent, and successfully captures an important aspect of the data: its
+<em>central tendency</em>. Summaries that compute a single number are called <em>point
+estimates</em>. Point estimates collapse the data into one singular point, one
+value.</p>
+<div class="box">
+<p>The arithmetic mean is just one measure of central tendency, computed by taking
+the sum of all the values and dividing by the number of values. The mean may be
+a good point estimate of the central tendency of a dataset, but it is sensitive
+to outlier samples. Consider the following examples:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="data-modeling.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb165-2"><a href="data-modeling.html#cb165-2" aria-hidden="true" tabindex="-1"></a>well_behaved_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">data =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>))</span>
+<span id="cb165-3"><a href="data-modeling.html#cb165-3" aria-hidden="true" tabindex="-1"></a>data_w_outliers <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">800</span>), <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">200</span>))) <span class="co"># oops I add some outliers :^)</span></span>
+<span id="cb165-4"><a href="data-modeling.html#cb165-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-5"><a href="data-modeling.html#cb165-5" aria-hidden="true" tabindex="-1"></a>g_no_outlier <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_behaved_data, <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb165-6"><a href="data-modeling.html#cb165-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#56CBF9&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb165-7"><a href="data-modeling.html#cb165-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(well_behaved_data<span class="sc">$</span>data)) <span class="sc">+</span></span>
+<span id="cb165-8"><a href="data-modeling.html#cb165-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Mean example, no outliers&quot;</span>)</span>
+<span id="cb165-9"><a href="data-modeling.html#cb165-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-10"><a href="data-modeling.html#cb165-10" aria-hidden="true" tabindex="-1"></a>g_outlier <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data_w_outliers, <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb165-11"><a href="data-modeling.html#cb165-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#7FBEEB&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb165-12"><a href="data-modeling.html#cb165-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(data_w_outliers<span class="sc">$</span>data)) <span class="sc">+</span></span>
+<span id="cb165-13"><a href="data-modeling.html#cb165-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Mean example, big outliers&quot;</span>)</span>
+<span id="cb165-14"><a href="data-modeling.html#cb165-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-15"><a href="data-modeling.html#cb165-15" aria-hidden="true" tabindex="-1"></a>g_no_outlier <span class="sc">|</span> g_outlier</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The median is another measure of central tendency, which is found by identifying
+the value that divides the samples into equal halves when sorted from smallest
+to largest. The median is more robust in the presence of outliers.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="data-modeling.html#cb166-1" aria-hidden="true" tabindex="-1"></a>g_no_outlier <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_behaved_data, <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb166-2"><a href="data-modeling.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#AFBED1&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb166-3"><a href="data-modeling.html#cb166-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(well_behaved_data<span class="sc">$</span>data)) <span class="sc">+</span></span>
+<span id="cb166-4"><a href="data-modeling.html#cb166-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Median example&quot;</span>)</span>
+<span id="cb166-5"><a href="data-modeling.html#cb166-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-6"><a href="data-modeling.html#cb166-6" aria-hidden="true" tabindex="-1"></a>g_outlier <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data_w_outliers, <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb166-7"><a href="data-modeling.html#cb166-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#7FBEEB&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb166-8"><a href="data-modeling.html#cb166-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(data_w_outliers<span class="sc">$</span>data)) <span class="sc">+</span></span>
+<span id="cb166-9"><a href="data-modeling.html#cb166-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Median example, big outliers&quot;</span>)</span>
+<span id="cb166-10"><a href="data-modeling.html#cb166-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-11"><a href="data-modeling.html#cb166-11" aria-hidden="true" tabindex="-1"></a>g_no_outlier <span class="sc">|</span> g_outlier</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="dispersion" class="section level4" number="6.1.2.2">
+<h4><span class="header-section-number">6.1.2.2</span> Dispersion</h4>
+<p>Central tendencies are important aspects of the data but don’t describe what the
+data do for values outside this point estimate of central tendency; in other
+words, we have not expressed the spread, or <em>dispersion</em> of the data.</p>
+<p>We decide that perhaps computing the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard
+deviation</a> of the data may
+characterize the spread well, since it appears to be symmetric around the mean.
+We can layer this information on the plot as well to inspect it:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="data-modeling.html#cb167-1" aria-hidden="true" tabindex="-1"></a>g1_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(gene_exp<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)</span>
+<span id="cb167-2"><a href="data-modeling.html#cb167-2" aria-hidden="true" tabindex="-1"></a>g1_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(gene_exp<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)</span>
+<span id="cb167-3"><a href="data-modeling.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb167-4"><a href="data-modeling.html#cb167-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>,<span class="at">fill=</span><span class="st">&quot;#a93c13&quot;</span>) <span class="sc">+</span></span>
+<span id="cb167-5"><a href="data-modeling.html#cb167-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>g1_mean) <span class="sc">+</span></span>
+<span id="cb167-6"><a href="data-modeling.html#cb167-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">x=</span>g1_mean<span class="sc">-</span>g1_sd, <span class="at">y=</span><span class="dv">10</span>, <span class="at">xend=</span>g1_mean<span class="sc">+</span>g1_sd, <span class="at">yend=</span><span class="dv">10</span>)</span></code></pre></div>
+<p><img src="main_files/data%20sci%20summ%20sd-1.png" width="672" /></p>
+<p>The width of the horizontal line is proportional to the mean +/- one standard
+deviation around the mean, and has been placed arbitrarily on the y axis at <code>y = 10</code> to show how this range covers the data in the histogram. The +/- 1 standard
+deviation around the mean visually describes the spread of the data reasonably
+well.</p>
+<div class="box">
+<p>Measures the spread of the data, typically around its perceived center (a mean).
+Often related to the distribution of the data.</p>
+<p><strong>Standard deviation</strong>: A measure of how close values are to the mean. Bigger
+standard deviations mean data is more spread out.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="data-modeling.html#cb168-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">sd=</span><span class="fl">1.75</span>)))</span>
+<span id="cb168-2"><a href="data-modeling.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb168-3"><a href="data-modeling.html#cb168-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#EAC5D8&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb168-4"><a href="data-modeling.html#cb168-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">sd</span>(data<span class="sc">$</span>data)) <span class="sc">+</span></span>
+<span id="cb168-5"><a href="data-modeling.html#cb168-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="dv">6</span>)) <span class="sc">+</span></span>
+<span id="cb168-6"><a href="data-modeling.html#cb168-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Standard deviations aplenty&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;SD:&quot;</span>, <span class="fu">sd</span>(data<span class="sc">$</span>data)))</span></code></pre></div>
+<p><img src="main_files/taylor%20sd-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Variance</strong>:
+Similar to SD (it’s the square of SD), variance measures how far a random value
+is from the mean.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="data-modeling.html#cb169-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">sd=</span><span class="fl">0.5</span>)))</span>
+<span id="cb169-2"><a href="data-modeling.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb169-3"><a href="data-modeling.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#DBD8F0&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb169-4"><a href="data-modeling.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(data<span class="sc">$</span>data)) <span class="sc">+</span></span>
+<span id="cb169-5"><a href="data-modeling.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="dv">6</span>)) <span class="sc">+</span></span>
+<span id="cb169-6"><a href="data-modeling.html#cb169-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Same mean as SD plot, but different variance&quot;</span>,</span>
+<span id="cb169-7"><a href="data-modeling.html#cb169-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste</span>(<span class="st">&quot;Variance:&quot;</span>, <span class="fu">sd</span>(data<span class="sc">$</span>data)))</span></code></pre></div>
+<p><img src="main_files/taylor%20var-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="distributions" class="section level4" number="6.1.2.3">
+<h4><span class="header-section-number">6.1.2.3</span> Distributions</h4>
+<p>With these two pieces of knowledge - the mean accurately describes the center of
+the data and the standard deviation describes the spread - we now recognize that
+these data may be <a href="https://en.wikipedia.org/wiki/Normal_distribution">normally distributed</a>, and therefore
+we can potentially describe the dataset mathematically. We decide to visually
+inspect this possibility by layering a normal distribution on top of our data
+using
+<a href="https://ggplot2.tidyverse.org/reference/geom_function.html"><code>stat_function</code></a>:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="data-modeling.html#cb170-1" aria-hidden="true" tabindex="-1"></a>g1_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(gene_exp<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)</span>
+<span id="cb170-2"><a href="data-modeling.html#cb170-2" aria-hidden="true" tabindex="-1"></a>g1_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(gene_exp<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)</span>
+<span id="cb170-3"><a href="data-modeling.html#cb170-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb170-4"><a href="data-modeling.html#cb170-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb170-5"><a href="data-modeling.html#cb170-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y=</span><span class="fu">after_stat</span>(density)),</span>
+<span id="cb170-6"><a href="data-modeling.html#cb170-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins=</span><span class="dv">30</span>,</span>
+<span id="cb170-7"><a href="data-modeling.html#cb170-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="st">&quot;#a93c13&quot;</span></span>
+<span id="cb170-8"><a href="data-modeling.html#cb170-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb170-9"><a href="data-modeling.html#cb170-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun=</span>dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean=</span>g1_mean, <span class="at">sd=</span>g1_sd), <span class="at">size=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-45-1.png" width="672" /></p>
+<p>Note the histogram bars are scaled with
+<code>aes(y=[after_stat](https://ggplot2.tidyverse.org/reference/aes_eval.html)(density))</code>
+to the density of values in each bin to make all the bar heights sum to 1 so
+that the y scale matches that of a normal distribution.</p>
+<p>We have now created our first model: we chose to express the dataset as a normal
+distribution parameterized by the mean and standard deviation and standard
+deviation of the data. Using the values of 254 and 11
+as our mean and standard deviation, respectively, we can express our model
+mathematically as follows:</p>
+<p><span class="math display">\[
+Gene\;1 \sim \mathcal{N}(254, 11)
+\]</span></p>
+<p>Here the <span class="math inline">\(\sim\)</span> symbol means “distributed as” and the <span class="math inline">\(\mathcal{N}(\mu,\sigma)\)</span>
+represents a normal distribution with mean of <span class="math inline">\(\mu\)</span> and standard deviation of
+<span class="math inline">\(\sigma\)</span>. This is mathematical formulation means the same thing as saying we are
+modeling Gene 1 expression as a normal distribution with mean of 254 and
+standard deviation of 11. Without any additional information about a new sample,
+we would expect the expression of that gene to be 254, although it may vary from
+this value.</p>
+<div class="box">
+<p>The normal distribution is the most common distribution observed in nature, but
+it is hardly the only one. We could have proposed other distributions to instead
+summarize our data:</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="data-modeling.html#cb171-1" aria-hidden="true" tabindex="-1"></a>g_norm <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">data =</span> <span class="fu">rnorm</span>(<span class="dv">5000</span>)), <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb171-2"><a href="data-modeling.html#cb171-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#D0FCB3&quot;</span>, <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb171-3"><a href="data-modeling.html#cb171-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Normal distribution&quot;</span>, <span class="st">&quot;rnorm(n = 1000)&quot;</span>)</span>
+<span id="cb171-4"><a href="data-modeling.html#cb171-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-5"><a href="data-modeling.html#cb171-5" aria-hidden="true" tabindex="-1"></a>g_unif <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">data =</span> <span class="fu">runif</span>(<span class="dv">5000</span>)), <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb171-6"><a href="data-modeling.html#cb171-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#271F30&quot;</span>, <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb171-7"><a href="data-modeling.html#cb171-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Uniform distribution&quot;</span>, <span class="st">&quot;runif(n = 1000)&quot;</span>)</span>
+<span id="cb171-8"><a href="data-modeling.html#cb171-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-9"><a href="data-modeling.html#cb171-9" aria-hidden="true" tabindex="-1"></a>g_logistic <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">data =</span> <span class="fu">rlogis</span>(<span class="dv">5000</span>)), <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb171-10"><a href="data-modeling.html#cb171-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#9BC59D&quot;</span>, <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb171-11"><a href="data-modeling.html#cb171-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Logistic distribution&quot;</span>, <span class="st">&quot;rlogis(n = 1000)&quot;</span>)</span>
+<span id="cb171-12"><a href="data-modeling.html#cb171-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-13"><a href="data-modeling.html#cb171-13" aria-hidden="true" tabindex="-1"></a>g_exp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">data =</span> <span class="fu">rexp</span>(<span class="dv">5000</span>, <span class="at">rate =</span> <span class="dv">1</span>)), <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span></span>
+<span id="cb171-14"><a href="data-modeling.html#cb171-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;#6C5A49&quot;</span>, <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb171-15"><a href="data-modeling.html#cb171-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Exponential distribution&quot;</span>, <span class="st">&quot;rexp(n = 1000, rate = 1)&quot;</span>)</span>
+<span id="cb171-16"><a href="data-modeling.html#cb171-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-17"><a href="data-modeling.html#cb171-17" aria-hidden="true" tabindex="-1"></a>(g_norm <span class="sc">|</span> g_unif) <span class="sc">/</span> (g_logistic <span class="sc">|</span> g_exp)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" />
+In addition to the normal distribution, we have also plotted samples drawn from
+a <a href="ihttps://en.wikipedia.org/wiki/Continuous_uniform_distribution">continuous uniform
+distribution</a>
+between 0 and 1, a <a href="https://en.wikipedia.org/wiki/Logistic_distribution">logistic
+distribution</a> which is
+similar to the normal distribution but has heavier “tails,” and an <a href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential
+distribution</a>.
+There are many more distributions than these, and many of them were discovered
+to arise in nature and encode different types of processes and relationships.</p>
+</div>
+<p>A few notes on our data modeling example before we move on:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Our model choice was totally subjective.</strong> We looked at the data and
+decided that a normal distribution was a reasonable choice. There were many
+other choices we could have made, and all of them would be equally valid, though
+they may not all describe the data equally well.</p></li>
+<li><p><strong>We can’t know if this is the “correct” model for the data.</strong> By eye, it
+appears to be a reasonably accurate summary. However, there is no such thing as
+a correct model; some models are simply better at describing the data than
+others. Recall that all models are wrong, and some models are useful. Our model
+may be useful, but it is definitely wrong to some extent.</p></li>
+<li><p><strong>We don’t know how well our model describes the data yet.</strong> So far we’ve
+only used our eyes to choose our model which might be a good starting point
+considering our data are so simple, but we have not yet quantified how well our
+model describes the data, or compared it to alternative models to see which is
+better. This will be discussed briefly in a later section.</p></li>
+</ol>
+</div>
+</div>
+<div id="linear-models" class="section level3" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> Linear Models</h3>
+<p>Our choice of a normal distribution to model our Gene 1 gene expression was only
+<em>descriptive</em>; it was a low-dimensional summary of our dataset. However, it was
+not very <em>informative</em>; it doesn’t tell us anything useful about Gene 1
+expression with respect to our scientific question of distinguishing between
+Parkinson’s Disease and Control individuals. To do that, we will need to find a
+model that can make <em>predictions</em> that we may find useful if we receive new
+data. To do that, we will introduce a new type of model: the linear model.</p>
+<p>A linear model is any statistical model that relates one outcome variable as a
+linear combination (i.e. sum) of one or more explanatory variables. This may be
+expressed mathematically as follows:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 \phi_1 ( X_{i1} ) + \beta_2 \phi_2 ( X_{i2} ) + \ldots + \beta_p \phi_p ( X_{ip} ) + \epsilon_i
+\]</span></p>
+<p>Above, <span class="math inline">\(Y_i\)</span> is some outcome or response variable we wish to model, <span class="math inline">\(X_{ij}\)</span> is
+our explanatory or predictor variable <span class="math inline">\(j\)</span> for observatoin <span class="math inline">\(i\)</span>, and <span class="math inline">\(\beta_j\)</span> are
+coefficients estimated to minimize the difference between the predicted outcome
+<span class="math inline">\(\hat{Y_i}\)</span> and the observed <span class="math inline">\(Y_i\)</span> over all observations. <span class="math inline">\(\phi_j\)</span> is a possibly
+non-linear transformation of the explanatory variable <span class="math inline">\(X_ij\)</span>; note these
+functions may be non-linear so long as the predicted outcome is modeled as a
+linear combination of the transformed variables. The rest of this section is
+dedicated to a worked example of a linear model for gene expression data.</p>
+<p>Let us begin with a <a href="visualizing-distributions.html#beeswarm-plot">beeswarm plot</a> plot of Gene 3:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="data-modeling.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbeeswarm)</span>
+<span id="cb172-2"><a href="data-modeling.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">y=</span><span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span>, <span class="at">color=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb172-3"><a href="data-modeling.html#cb172-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
+<p><img src="main_files/lin%20model%20gene%203%20violin-1.png" width="672" /></p>
+<p>The expression values within each disease status look like they might be
+normally distributed just like Gene 1, so let’s summarize each group with the
+arithmetic mean and standard deviation as before, and instead plot both
+distributions as histograms:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="data-modeling.html#cb173-1" aria-hidden="true" tabindex="-1"></a>exp_summ <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb173-2"><a href="data-modeling.html#cb173-2" aria-hidden="true" tabindex="-1"></a>  gene_exp,</span>
+<span id="cb173-3"><a href="data-modeling.html#cb173-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span>)</span>
+<span id="cb173-4"><a href="data-modeling.html#cb173-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb173-5"><a href="data-modeling.html#cb173-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb173-6"><a href="data-modeling.html#cb173-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean=</span><span class="fu">mean</span>(value),<span class="at">sd=</span><span class="fu">sd</span>(value))</span>
+<span id="cb173-7"><a href="data-modeling.html#cb173-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-8"><a href="data-modeling.html#cb173-8" aria-hidden="true" tabindex="-1"></a>pd_mean <span class="ot">&lt;-</span> <span class="fu">filter</span>(exp_summ, <span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&quot;Parkinson&#39;s&quot;</span>)<span class="sc">$</span>mean</span>
+<span id="cb173-9"><a href="data-modeling.html#cb173-9" aria-hidden="true" tabindex="-1"></a>c_mean <span class="ot">&lt;-</span> <span class="fu">filter</span>(exp_summ, <span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&quot;Control&quot;</span>)<span class="sc">$</span>mean</span>
+<span id="cb173-10"><a href="data-modeling.html#cb173-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-11"><a href="data-modeling.html#cb173-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span>, <span class="at">fill=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb173-12"><a href="data-modeling.html#cb173-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, <span class="at">alpha=</span><span class="fl">0.6</span>,<span class="at">position=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb173-13"><a href="data-modeling.html#cb173-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span>c_mean, <span class="at">xend=</span>pd_mean, <span class="at">y=</span><span class="dv">20</span>, <span class="at">yend=</span><span class="dv">20</span>, <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">ends=</span><span class="st">&quot;both&quot;</span>, <span class="at">angle=</span><span class="dv">90</span>)) <span class="sc">+</span></span>
+<span id="cb173-14"><a href="data-modeling.html#cb173-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="fu">mean</span>(<span class="fu">c</span>(c_mean,pd_mean)), <span class="at">y=</span><span class="dv">21</span>, <span class="at">hjust=</span><span class="fl">0.5</span>, <span class="at">label=</span><span class="st">&quot;How different?&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-47-1.png" width="672" /></p>
+<p>We can make a point estimate of this difference by simply subtracting the means:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="data-modeling.html#cb174-1" aria-hidden="true" tabindex="-1"></a>pd_mean <span class="sc">-</span> c_mean</span></code></pre></div>
+<pre><code>## [1] 164.0942</code></pre>
+<p>In other words, this point estimate suggests that on average Parkinson’s
+patients have 164.1 greater expression than Controls. We can
+plot this relationship relatively simply:</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="data-modeling.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">y=</span><span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span>, <span class="at">color=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb176-2"><a href="data-modeling.html#cb176-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span></span>
+<span id="cb176-3"><a href="data-modeling.html#cb176-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">xend=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">2</span><span class="sc">*</span>c_mean<span class="sc">-</span>pd_mean, <span class="at">yend=</span><span class="dv">2</span><span class="sc">*</span>pd_mean<span class="sc">-</span>c_mean)</span></code></pre></div>
+<p><img src="main_files/lin%20model%20gene%203%20fit-1.png" width="672" /></p>
+<p>However, this point estimate tells us nothing about how confident we are about
+the difference. We can do this by using an <a href="https://en.wikipedia.org/wiki/Least_squares">linear
+regression</a> by modeling Gene 3 as a
+function of disease status:</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="data-modeling.html#cb177-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">data=</span>gene_exp)</span>
+<span id="cb177-2"><a href="data-modeling.html#cb177-2" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = `Gene 3` ~ `Disease Status`, data = gene_exp)
+## 
+## Coefficients:
+##                 (Intercept)  `Disease Status`Parkinson&#39;s  
+##                       334.6                        164.1</code></pre>
+<p>The coefficient associated with having the disease status of Parkinson’s disease
+is almost exactly equal to our difference in means. We also note that the
+coefficient labeled <code>(Intercept)</code> is nearly equal to the mean of our control
+samples (334.6). Under the hood, this simple linear model did the
+same calculation we did by subtracting the means of each group but estimated the
+means using all the data at once, instead of point estimates. Another advantage
+of using <code>lm()</code> over the point estimate method is the model can estimate how
+confident the model was that the difference in mean between Parkinson’s and
+controls subjects. Let’s print some more information about the model than
+before:</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="data-modeling.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = `Gene 3` ~ `Disease Status`, data = gene_exp)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -124.303  -25.758   -2.434   30.518  119.348 
+## 
+## Coefficients:
+##                             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                  334.578      4.414   75.80   &lt;2e-16 ***
+## `Disease Status`Parkinson&#39;s  164.094      6.243   26.29   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 44.14 on 198 degrees of freedom
+## Multiple R-squared:  0.7773, Adjusted R-squared:  0.7761 
+## F-statistic:   691 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We again see our coefficient estimates for the intercept (i.e. mean control
+expression) and our increase in Parkinson’s, but also a number of other terms,
+in particular <code>Pr(&gt;|t|)</code> and <code>Multiple R-squared</code>. The former is the
+<a href="#p-values">p-value</a> associated with each of the coefficient estimates, both of
+which are very small, indicating to us that the model was very confident of the
+estimated values. The latter, multiple R-squared or <span class="math inline">\(R^2\)</span>, describes how much of
+the variance in the data was explained by the model it found as a fraction
+between 0 and 1. This model explains 77.7% of the variance of the data, which is
+substantial. The <span class="math inline">\(R^2\)</span> value also has an associated p-value, which is also very
+small. Overall, these statistics suggest this model fits the data very well.</p>
+<p>We can plot the results of a linear model for each of our genes relatively
+easily:</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="data-modeling.html#cb181-1" aria-hidden="true" tabindex="-1"></a>pd_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">filter</span>(gene_exp,<span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span><span class="sc">==</span><span class="st">&quot;Parkinson&#39;s&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)</span>
+<span id="cb181-2"><a href="data-modeling.html#cb181-2" aria-hidden="true" tabindex="-1"></a>c_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">filter</span>(gene_exp,<span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span><span class="sc">==</span><span class="st">&quot;Control&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>)</span>
+<span id="cb181-3"><a href="data-modeling.html#cb181-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">y=</span><span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span>, <span class="at">color=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb181-4"><a href="data-modeling.html#cb181-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span></span>
+<span id="cb181-5"><a href="data-modeling.html#cb181-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">xend=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">2</span><span class="sc">*</span>c_mean<span class="sc">-</span>pd_mean, <span class="at">yend=</span><span class="dv">2</span><span class="sc">*</span>pd_mean<span class="sc">-</span>c_mean) <span class="sc">+</span></span>
+<span id="cb181-6"><a href="data-modeling.html#cb181-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
+<span id="cb181-7"><a href="data-modeling.html#cb181-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-8"><a href="data-modeling.html#cb181-8" aria-hidden="true" tabindex="-1"></a>pd_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">filter</span>(gene_exp,<span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span><span class="sc">==</span><span class="st">&quot;Parkinson&#39;s&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">Gene 2</span><span class="st">`</span>)</span>
+<span id="cb181-9"><a href="data-modeling.html#cb181-9" aria-hidden="true" tabindex="-1"></a>c_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">filter</span>(gene_exp,<span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span><span class="sc">==</span><span class="st">&quot;Control&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">Gene 2</span><span class="st">`</span>)</span>
+<span id="cb181-10"><a href="data-modeling.html#cb181-10" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">y=</span><span class="st">`</span><span class="at">Gene 2</span><span class="st">`</span>, <span class="at">color=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb181-11"><a href="data-modeling.html#cb181-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span></span>
+<span id="cb181-12"><a href="data-modeling.html#cb181-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">xend=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">2</span><span class="sc">*</span>c_mean<span class="sc">-</span>pd_mean, <span class="at">yend=</span><span class="dv">2</span><span class="sc">*</span>pd_mean<span class="sc">-</span>c_mean) <span class="sc">+</span></span>
+<span id="cb181-13"><a href="data-modeling.html#cb181-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
+<span id="cb181-14"><a href="data-modeling.html#cb181-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-15"><a href="data-modeling.html#cb181-15" aria-hidden="true" tabindex="-1"></a>pd_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">filter</span>(gene_exp,<span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span><span class="sc">==</span><span class="st">&quot;Parkinson&#39;s&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span>)</span>
+<span id="cb181-16"><a href="data-modeling.html#cb181-16" aria-hidden="true" tabindex="-1"></a>c_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">filter</span>(gene_exp,<span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span><span class="sc">==</span><span class="st">&quot;Control&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span>)</span>
+<span id="cb181-17"><a href="data-modeling.html#cb181-17" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(gene_exp, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">y=</span><span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span>, <span class="at">color=</span><span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb181-18"><a href="data-modeling.html#cb181-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span></span>
+<span id="cb181-19"><a href="data-modeling.html#cb181-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">xend=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">2</span><span class="sc">*</span>c_mean<span class="sc">-</span>pd_mean, <span class="at">yend=</span><span class="dv">2</span><span class="sc">*</span>pd_mean<span class="sc">-</span>c_mean) <span class="sc">+</span></span>
+<span id="cb181-20"><a href="data-modeling.html#cb181-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
+<span id="cb181-21"><a href="data-modeling.html#cb181-21" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">|</span> g2 <span class="sc">|</span> g3</span></code></pre></div>
+<p><img src="main_files/lin%20model%203%20genes-1.png" width="672" /></p>
+<p>We can also compute the corresponding linear model fits, and confirm that the
+coefficients agree with the directions observed in the plot, as well as that all
+the associations are significant FDR &lt; 0.05:</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="data-modeling.html#cb182-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Gene 1</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">data=</span>gene_exp)</span>
+<span id="cb182-2"><a href="data-modeling.html#cb182-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Gene 2</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">data=</span>gene_exp)</span>
+<span id="cb182-3"><a href="data-modeling.html#cb182-3" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Gene 3</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">Disease Status</span><span class="st">`</span>, <span class="at">data=</span>gene_exp)</span>
+<span id="cb182-4"><a href="data-modeling.html#cb182-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-5"><a href="data-modeling.html#cb182-5" aria-hidden="true" tabindex="-1"></a>gene_stats <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb182-6"><a href="data-modeling.html#cb182-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;Gene 1&quot;</span>,<span class="fu">coefficients</span>(fit1),<span class="fu">summary</span>(fit1)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>]),</span>
+<span id="cb182-7"><a href="data-modeling.html#cb182-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;Gene 2&quot;</span>,<span class="fu">coefficients</span>(fit2),<span class="fu">summary</span>(fit2)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>]),</span>
+<span id="cb182-8"><a href="data-modeling.html#cb182-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;Gene 3&quot;</span>,<span class="fu">coefficients</span>(fit3),<span class="fu">summary</span>(fit3)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb182-9"><a href="data-modeling.html#cb182-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb182-10"><a href="data-modeling.html#cb182-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(gene_stats) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Gene&quot;</span>,<span class="st">&quot;Intercept&quot;</span>,<span class="st">&quot;Parkinson&#39;s&quot;</span>,<span class="st">&quot;pvalue&quot;</span>)</span>
+<span id="cb182-11"><a href="data-modeling.html#cb182-11" aria-hidden="true" tabindex="-1"></a>gene_stats<span class="sc">$</span>padj <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(gene_stats<span class="sc">$</span>pvalue,<span class="at">method=</span><span class="st">&quot;fdr&quot;</span>)</span>
+<span id="cb182-12"><a href="data-modeling.html#cb182-12" aria-hidden="true" tabindex="-1"></a>gene_stats</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 5
+##   Gene   Intercept        `Parkinson&#39;s`     pvalue                   padj
+##   &lt;chr&gt;  &lt;chr&gt;            &lt;chr&gt;             &lt;chr&gt;                   &lt;dbl&gt;
+## 1 Gene 1 250.410735540151 6.95982194659045  3.92131170913765e-06 3.92e- 6
+## 2 Gene 2 597.763814010886 -93.6291659250254 2.37368730897756e-13 3.56e-13
+## 3 Gene 3 334.57788193953  164.094204856583  1.72774902843408e-66 5.18e-66</code></pre>
+<p>We have just performed our first elementary differential expression analysis
+using a linear model. Specifically, we examined each of our genes for a
+statistical relationship with having Parkinson’s disease. The mechanics of this
+analysis are beyond the scope of this book, but later when we consider
+differential expression analysis packages in <a href="biology-bioinformatics.html#biology-bioinformatics">chapter
+7</a> this pattern should be familiar after this example.</p>
+<div class="box note">
+<p>If you are familiar with <a href="https://en.wikipedia.org/wiki/Logistic_regression">logistic
+regression</a>, you might have
+wondered why we didn’t model disease status, which is a binary variable, as a
+function of gene expression like <code>Disease Status ~ Gene 3</code>. There are several
+reasons for this, <a href="https://en.wikipedia.org/wiki/Separation_(statistics)">complete
+separation</a> principally
+among them. In logistic regression, complete separation occurs when all the
+predictor values (e.g. gene expression) for one outcome group are greater or
+smaller than the other; i.e. there is no overlap in the values between groups.
+This causes logistic regression to fail to converge, leaving these genes with no
+statistics even though these genes are potentially the most interesting! There
+are methods (e.g. <a href="https://cran.r-project.org/web/packages/logistf/index.html">Firth’s Logistic
+Regression</a>) that
+overcome this problem, but methods that model gene expression as a function of
+other outcome variables were developed first and remain the most popular.</p>
+</div>
+<div class="box readmore">
+<p><a href="https://r4ds.had.co.nz/model-basics.html">Modeling Basics - R for Data Science</a>
+<a href="https://en.wikipedia.org/wiki/Least_squares">Least squares regression</a></p>
+</div>
+</div>
+<div id="flavors-of-linear-models" class="section level3" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> Flavors of Linear Models</h3>
+<p>The linear model implemented above is termed <a href="https://en.wikipedia.org/wiki/Linear_regression">linear
+regression</a> due to the way it
+models the relationship between the predictor variables and the outcome.
+Specifically, linear regression makes some strong assumptions about that
+relationship that may not always hold for all datasets. To address this
+limitation, a more flexible class of linear models called <a href="https://en.wikipedia.org/wiki/Generalized_linear_model">generalized linear
+models</a> that allow these
+assumptions to be relaxed by changing the mathematical relationship between the
+predictors and outcome using a <a href="https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function">link
+function</a>,
+and/or by mathematically transforming the predictors themselves. Some of the
+more common generalized linear models are listed below:</p>
+<ul>
+<li><strong>Logistic regression</strong> - models a binary outcome (e.g. disease vs control) as
+a linear combination of predictor variables by using the <a href="https://en.wikipedia.org/wiki/Logistic_function">logistic
+function</a> as the link function.</li>
+<li><strong>Multinomial regression</strong> - models a multinomial (i.e. categorical variable
+with more than two categories) using a <a href="https://en.wikipedia.org/wiki/Multinomial_logistic_regression">multinomial logit function</a> link
+function</li>
+<li><strong>Poisson regression</strong> - models an outcome variable that are count data as
+a linear combination of predictors using the logarithm as the link function;
+this model is commonly used when modeling certain types of high throughput
+sequencing data</li>
+<li><strong>Negative binomial regression</strong> - also models an outcome variable that are
+count data but relaxes some of the assumptions of Poisson regression, namely the
+mean-variance equality constraint; negative binomial regression is commonly used
+to model gene expression estimated from RNASeq data.</li>
+</ul>
+<p>Generalized linear models are very flexible, and there are many other types of
+these models used in biology and data science. It is important to be aware of
+the characteristics of the outcome you wish to model and choose the modeling
+method that is most suitable.</p>
+<div class="box readmore">
+<p><a href="https://en.wikipedia.org/wiki/Generalized_linear_model">Generalized linear models</a></p>
+</div>
+</div>
+<div id="assessing-model-accuracy-." class="section level3" number="6.1.5">
+<h3><span class="header-section-number">6.1.5</span> Assessing Model Accuracy .</h3>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Box1976-rd" class="csl-entry">
+Box, George E P. 1976. <span>“Science and Statistics.”</span> <em>J. Am. Stat. Assoc.</em> 71 (356): 791–99.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistical-distributions-tests-..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
