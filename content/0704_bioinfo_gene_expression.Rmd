@@ -174,68 +174,91 @@ SummarizedExperiment is more modern and flexible, so it is suggested for use
 whenever possible.
 :::
 
-### Microarrays
+### Differential Expression Analysis
 
-![A Microarray Device - Thermo Fisher Scientific](microarray_chip.png)
+Differential expression analysis seeks to identify to what extent gene
+expression is associated with one or more variables of interest. For example,
+we might be interested in genes that have higher expression in subjects with a
+disease, or which genes change in response to a treatment.
 
-Microarrays are devices that measure the relative abundance of thousands of
-distinct DNA sequences simultaneously. Short (~25 nucleotide) single-stranded
-DNA molecules called *probes* are deposited on a small glass slide in a grid of
-spots, where each spot contains many copies of a probe with identical sequence.
-The probe sequences are selected *a priori* based on the purpose of the array.
-For example, gene expression microarrays have probes that correspond to the
-coding regions of the genome for a species of interest, while genotyping
-microarrays use sequences with known variants found in a population of genomes,
-most often the human population. Microarrays of the same type (e.g. human gene
-expression) all have the same set of probes. The choice of DNA sequence probes
-therefore determines what the microarray measures and how to interpret the data.
-The design of a microarray is illustrated in the following figure.
+Typically, gene expression analysis requires two types of data to run: an
+expression matrix and a *design matrix*. The expression matrix will generally
+have features (e.g. genes) as rows and samples as columns. The design matrix is
+a numeric matrix that contains the variables we wish to model and any covariates
+or confounders we wish to adjust for. The variables in the design matrix then
+must be encoded in a way that statistical procedures can understand. The full
+details of how design matrices are constructed is beyond the scope of this book.
+Fortunately, R makes it very easy to construct these matrices from a tibble with
+the [`model.matrix()`
+function](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/model.matrix).
+Consider for the following imaginary sample information tibble that has 10 AD
+and 10 Control subjects with different clinical and protein histology
+measurements assayed on their brain tissue:
 
-![Illustration of Microarray Design](microarray_design.png)
+```{r}
+ad_metadata
+```
 
-A microarray device generates data by applying a specially prepared DNA sample
-to it; the sample usually corresponds to a single biological specimen, e.g. an
-individual patient. The preparation method for the sample depends on what is
-being measured:
+We might be interested in identifying genes that are increased or decreased in
+people with AD compared with Controls. We can create a model matrix for this as
+follows:
 
-* When measuring DNA directly, e.g. genetic variants, the DNA itself is
-  biochemically extracted
-* When measuring gene expression via RNA abundance, RNA is first extracted and
-  then reverse transcribed to complementary DNA (cDNA)
+```{r model matrix}
+model.matrix(~ condition, data=ad_metadata)
+```
 
-In either case, the molecules that will be applied to the microarray are DNA
-molecules. After extraction and preparation, the DNA molecules are then randomly
-cut up into shorter molecules (i.e. *sheared*) and each molecule has a molecular
-tag biochemically ligated to it that will emit fluorescence when excited by a
-specific wavelength of light. This tagged DNA sample is then washed over the
-microarray chip, where DNA molecules that share sequence complementarity with
-the probes on the array pair together. After this treatment, the microarray is
-washed to remove DNA molecules that did not have a match on the array, leaving
-only those molecules with a sequence match that remain bound to probes.
+The `~ condition` argument is an an R
+[forumla](https://rviews.rstudio.com/2017/02/01/the-r-formula-method-the-good-parts/),
+which is a concise description of how variable should be included in the model.
+The general format of a formula is as follows:
 
-The microarray chip is then loaded into a scanning device, where a laser with a
-specific wavelength of light is then shone onto the array, causing the spots
-with tagged DNA molecules associated with probes to fluoresce, and other spots
-remain dark. A high resolution image is taken of the fluorescent array, and the
-image is analyzed to map the intensity of the light on each spot to a numeric
-value proportional to its intensity. The reason for this is that, since each
-spot has many individual probe molecules contained within it, the more copies of
-the corresponding DNA molecule were in the sample, the more light the spot
-emits. In this way, the relative abundance of all probes on the array are
-measured simultaneously. The process of generating microarray data from a sample
-is illustrated in the following figure.
+```
+# portions in [] are optional
+[<outcome variable>] ~ <predictor variable 1> [+ <predictor variable 2>]...
 
-![Illustration of Microarray Data Generation Process](microarray_data_gen.png)
+# examples
 
-After the microarray has been scanned, the relative copy number of the DNA in
-the sample matching the probes on the microarray are expressed as the intensity
-of fluorescence of each probe. The raw intensity data from the scan has been
-processed and analyzed by the scanner software to account for technical biases
-and artefacts of the scanning instrument and data generation process. The data
-from a single scan is processed and stored in a file in [CEL
-format](https://www.affymetrix.com/support/developer/powertools/changelog/gcos-agcc/cel.html),
-a proprietary data format that stores the raw probe intensity data that can be
-loaded for downstream analysis.
+# model Gene 3 expression as a function of disease status
+`Gene 3` ~ condition
+
+# model the amount of tau pathology as a function of abeta pathology,
+# adjusting for age at death
+tau ~ age_at_death + abeta
+
+# create a model without an outcome variable that can be used to create the
+# model matrix to test for differences with disease status adjusting for age at death
+~ age_at_death + condition
+```
+
+For most models, the design matrix will have an intercept term of all ones and
+additional colums for the other variables in the model. We might wish to adjust
+out the effect of age by including `age_at_death` as a covariate in the model:
+
+```{r model matrix cov}
+model.matrix(~ age_at_death + condition, data=ad_metadata)
+```
+
+The model matrix now includes a column for age at death as well. This model
+model matrix is now suitable to pass to differential expression software
+packages to look for genes associated with disease status.
+
+As mentioned above, modern gene expression assays measure thousands of genes
+simultaneously. This means each gene must be tested for differential expression
+individually. In general, each gene is tested using the same statistical model,
+so a differential expression analysis package will perform something equivalent
+to the following:
+
+```
+Gene 1 ~ age_at_death + condition
+Gene 2 ~ age_at_death + condition
+Gene 3 ~ age_at_death + condition
+...
+Gene N ~ age_at_death + condition
+```
+Each gene model will have its own statistics associated with it that we must
+process and interpret after the analysis is complete.
+
+### Microarray Gene Expression Data
 
 On a high level, there are three steps involved in analyzing gene expression
 microarray data:
@@ -255,8 +278,6 @@ statistical analysis to answer research questions.
 The full details of microarray analysis are beyond the scope of this book.
 However in the following sections we cover some of the basic entry points to
 performing these steps in R and Bioconductor.
-
-### Microarray Data in Bioconductor
 
 The CEL data files from a set of microarrays can be loaded into R for analysis
 using the [`affy` Bioconductor
@@ -336,91 +357,7 @@ Above, we first apply RMA to the `Dilution` microarray dataset using the
 `affy::rma()` function. Then we plot the log 2 intensities of the probes in each
 array, first using the raw intensities and then afysis seeking to
 identify how associated gene expression is with one or more variables of
-interest. For example, 
-
-### Differential Expression Analysis
-
-Differential expression analysis seeks to identify to what extent gene
-expression is associated with one or more variables of interest. For example,
-we might be interested in genes that have higher expression in subjects with a
-disease, or which genes change in response to a treatment. 
-
-Typically, gene expression analysis requires two types of data to run: an
-expression matrix and a *design matrix*. The expression matrix will generally
-have features (e.g. genes) as rows and samples as columns. The design matrix is
-a numeric matrix that contains the variables we wish to model and any covariates
-or confounders we wish to adjust for. The variables in the design matrix then
-must be encoded in a way that statistical procedures can understand. The full
-details of how design matrices are constructed is beyond the scope of this book.
-Fortunately, R makes it very easy to construct these matrices from a tibble with
-the [`model.matrix()`
-function](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/model.matrix).
-Consider for the following imaginary sample information tibble that has 10 AD
-and 10 Control subjects with different clinical and protein histology
-measurements assayed on their brain tissue:
-
-```{r}
-ad_metadata
-```
-
-We might be interested in identifying genes that are increased or decreased in
-people with AD compared with Controls. We can create a model matrix for this as
-follows:
-
-```{r model matrix}
-model.matrix(~ condition, data=ad_metadata)
-```
-
-The `~ condition` argument is an an R
-[forumla](https://rviews.rstudio.com/2017/02/01/the-r-formula-method-the-good-parts/),
-which is a concise description of how variable should be included in the model.
-The general format of a formula is as follows:
-
-```
-# portions in [] are optional
-[<outcome variable>] ~ <predictor variable 1> [+ <predictor variable 2>]...
-
-# examples
-
-# model Gene 3 expression as a function of disease status
-`Gene 3` ~ condition
-
-# model the amount of tau pathology as a function of abeta pathology,
-# adjusting for age at death
-tau ~ age_at_death + abeta
-
-# create a model without an outcome variable that can be used to create the
-# model matrix to test for differences with disease status adjusting for age at death
-~ age_at_death + condition
-```
-
-For most models, the design matrix will have an intercept term of all ones and
-additional colums for the other variables in the model. We might wish to adjust
-out the effect of age by including `age_at_death` as a covariate in the model:
-
-```{r model matrix cov}
-model.matrix(~ age_at_death + condition, data=ad_metadata)
-```
-
-The model matrix now includes a column for age at death as well. This model
-model matrix is now suitable to pass to differential expression software
-packages to look for genes associated with disease status.
-
-As mentioned above, modern gene expression assays measure thousands of genes
-simultaneously. This means each gene must be tested for differential expression
-individually. In general, each gene is tested using the same statistical model,
-so a differential expression analysis package will perform something equivalent
-to the following:
-
-```
-Gene 1 ~ age_at_death + condition
-Gene 2 ~ age_at_death + condition
-Gene 3 ~ age_at_death + condition
-...
-Gene N ~ age_at_death + condition
-```
-Each gene model will have its own statistics associated with it that we must
-process and interpret after the analysis is complete.
+interest. For example,
 
 ### Differential Expression: Microarrays (limma)
 
@@ -503,28 +440,400 @@ From the table, none of the probesets in this experiment are significant at FDR
 * [Publication](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4402510/)  
 :::
 
-### High Throughput Sequencing .
+### RNASeq
 
-What is high throughput sequencing (HTS)? What does HTS data look like? What
-does HTS measure, and what kinds of questions can we answer with it? How is HTS
-data analyzed? (How) do we analyze it in R?
+RNA sequencing (RNASeq) is a HTS technology that measures the abundance of RNA
+molecules in a sample. Briefly, RNA molecules are extracted from a sample using
+a biochemical protocol that isolates RNA from other molecules (i.e. DNA,
+proteins, etc) in the sample. Ribosomal RNA is removed from the sample (see Note
+box below), and the remaining RNA molecules are size selected to retain only
+short molecules (~15-300 nucleotides in length, depending on the protocol). The
+size selected molecules are then reverse transcribed into cDNA and converted to
+double stranded molecules. Sequencing libraries are prepared with these cDNA
+using proprietary biochemical protocols to make them suitable for sequencing on
+the sequencing instrument. After sequencing, FASTQ files containing millions of
+reads for one or more samples is produced. Except for the initial RNA
+extraction, all of these steps are typically performed by specialized
+instrumentation facilities called *sequencing cores* who provide the data in
+FASTQ format to the investigators.
 
-### Count Data .
+::: {.box .note}
+80%-90% of the RNA mass in a cell is ribosomal RNA (rRNA), the RNA that makes up
+ribosomes and is responsible for maintaining protein translation processes in
+the cell. If total RNA was sequenced, the large majority of reads would
+correspond to rRNAs and would therefore be of little or no use. For this reason,
+rRNA molecules are removed from the RNA material that goes on to sequencing
+using either a *poly-A tail enrichment* or *ribo-depletion* strategy. These two
+methods maintain different populations of RNA and therefore sequencing datasets
+generated with different strategies require different interpretations. The more
+detail on this topic is beyond the scope of this book, but [@Zhao2018-ao]
+provide a good introduction and comparison of both approaches.
+:::
 
-What is count data? Where does it come from? What are the statistical properties
-of counts and how do those properties influence our choice of analysis methods (
-i.e. Poisson/negative binomial distribution, regularized log transformation to
-normality, etc)?
+The reads produced in an RNASeq experiment represent RNA fragments from
+transcripts. The number of reads that correspond to specific transcripts is
+assumed to be proportional to the copy number of that transcript in the original
+sample. The alignment process described in the [Preliminary HTS Data Analysis]
+section produces alignments of reads against the genome or transcriptome, and
+the number of reads that align against each gene or transcript is counted using
+a *reference annotation* that defines the locations of every known gene in the
+genome. The resulting counts are therefore estimates of the copy number of the
+molecules for each gene or transcript in the original sample. Conceptually, the
+more reads that map to a gene, the higher the abundance of transcripts for that
+gene, and therefore we infer higher the expression of that gene.
 
-### RNASeq .
+::: {.box .important}
+Gene expression for different genes can vary by orders of magnitude within a
+single cell, where highly expressed genes may have billions of transcripts and
+others comparatively few. Therefore, the likelihood of obtaining a read for a
+given transcript is proportional to the *relative abundance* of that transcript
+compared with all other transcripts. Relatively rare transcripts have a low
+probability of being sampled by the sequencing procedure, and extremely lowly
+expressed genes may not be sampled at all. The library size (i.e. the total
+number of reads) in the sequencing dataset for a sample determines the range of
+gene expression the dataset is likely to detect, where datasets with few reads
+are unlikely to sample lowly expressed transcripts even though they are truly
+expressed. For this reason **absence of evidence is not evidence of absence** in
+RNASeq data. If a read is not observed for any given gene, we cannot say that
+the gene is not expressed; we can only say that the relative expression of that
+gene is below the detection threshold of the dataset we generated, given the
+number of sequenced reads.
+:::
 
-What is RNASeq? What does RNASeq measure (steady state RNA copy number)?
+For a single sample, the output of this read counting procedure is a vector of
+read counts for each gene in the annotation. Genes with no reads mapping to them
+will have a count of zero, and all others will have a read count of one or more;
+as mentioned in the [Count Data] section, read counts are typically non-zero
+integers. This procedure is typically repeated separately for a set of samples
+that make up the experiment, and the counts for each sample are concatenated
+together into a counts matrix. This count matrix is the primary result of
+interest that is passed on to downstream analysis, most commonly differential
+expression analysis.
 
-### Differential Expression: RNASeq .
+### RNASeq Gene Expression Data
 
-How do we analyze RNASeq data (i.e. differential expression) in R? What are
-DESeq2/EdgeR, why are they different than other differential expression methods?
-How do we interpret DE results?
+The read counts for each gene or transcript in the genome are estimates of the
+relative abundance of molecules in the original sample. The number of genes
+counted depends on the organism being studied and the maturity of the gene
+annotation used. Complex multicellular organisms have on the order of
+thousands to tens of thousands of genes; for example, humans and mice have
+20k-30k genes in their respective genomes. Each RNASeq experiment thus may yield
+tens of thousands of measurements for each sample.
+
+We shall consider an example RNASeq dataset generated by [@OMeara2015-mu]
+generated to study how mouse cardiac cells can regenerate up until one week
+of age, after which they lose the ability to do so. The dataset has eight
+RNASeq samples, two for each of four time points across the developmental window
+until adulthood. We will load in the expression data as a tibble:
+
+```{r rnaseq load}
+counts <- read_tsv("verse_counts.tsv")
+counts
+```
+
+The annotation counted reads for 55,416 annnotated Ensembl gene for the mouse
+genome, as described in the [Gene Identifier Systems] section. Although they
+were counted with the annotation, no reads were detected for many genes in any
+of the samples, so we may filter them out:
+
+```{r rnaseq filter zero counts}
+nonzero_genes <- rowSums(counts[-1])!=0
+filtered_counts <- counts[nonzero_genes,]
+filtered_counts
+```
+
+Only 32,613 genes remain after filtering out genes with all zeros.
+
+::: {.box .note}
+Filtering genes that are not likely to be differentially expressed is an
+important step in differential expression analysis. There are many approaches
+and rationales for picking filters, and the choice is generally subjective and
+highly dependent upon the specific dataset. Filtering genes with zeros in all
+samples is somewhat liberal, as there may be many genes with reads in only one
+sample. Here is a bar chart of the number of genes detected in each number of
+samples from 1 to all:
+
+```{r rnaseq nonzero samples}
+counts$`Number nonzero samples` <- rowSums(counts[-1]!=0)
+group_by(counts,`Number nonzero samples`) %>%
+  summarize(`Number of genes`=n()) %>%
+  ggplot(aes(x=`Number nonzero samples`,y=`Number of genes`)) +
+  geom_bar(stat="identity") +
+  labs(title="Number of genes detected in x samples")
+```
+
+The largest number of genes is detected in none of the samples, followed by
+genes detected in all samples, with many fewer in between. Regardless of the
+filtering strategy used, *there is no biological meaning to any filtering
+threshold*. The number of reads detected for each gene is dependent primarily
+upon the library size, where larger libraries are more likely to sample lowly
+abundant genes. One therefore cannot filter genes with the intent of "removing
+lowly expressed genes"; instead we can only filter out genes that are below the
+detection threshold afforded by the library size of the dataset.
+:::
+
+The range of gene expression in a cell varies by orders of magnitude. The
+following histogram plots the distribution of read count values for one of the
+adult samples:
+
+```{r rnaseq sample count dist}
+dplyr::select(filtered_counts, vAd_1) %>%
+  mutate(`log10(counts+1)`=log10(vAd_1+1)) %>%
+  ggplot(aes(x=`log10(counts+1)`)) +
+  geom_histogram(bins=50) +
+  labs(title='log10(counts) distribution for Adult mouse')
+```
+
+We add 1 count, called a *pseudocount*, to avoid taking the log of zero, therefore
+all the genes at $x=0$ are genes that have no reads. From the plot, the largest
+count is nearly $10^6$ while the smallest is 1, spanning nearly six orders
+of magnitude. There are relatively few of these highly abundant genes, however,
+and most genes are betwen the range of 100-10,000 reads. We see that this
+distribution is similar for all the samples, when displayed as a [ridgeline
+plot](#ridgeline):
+
+```{r rnaseq ridgeline}
+library(ggridges)
+
+pivot_longer(filtered_counts,-c(gene),names_to="Sample",values_to="Count") %>%
+  mutate(`log10(Count+1)`=log10(Count+1)) %>%
+  ggplot(aes(y=Sample,x=`log10(Count+1)`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="log10(Count+1) Distributions")
+```
+
+The general shape of the distributions is similar, with a large mode of counts
+at zero, representing genes that had zero counts in that sample, and a wider
+mode between 100 and 10,000 where most consistently expressed genes fall.
+However, we note that the peak count of these larger modes vary and also recall
+that though the difference appears small, the log scale of the x axis means
+the differences in counts may be substantial. We will discuss the implications
+of this in the next section.
+
+#### Count Normalization
+
+The number of reads generated for each sample in an RNASeq dataset varies from
+sample to sample due to randomness in the biochemical process that generates
+the data. The relationship between the number of reads that maps to any given
+gene and the relative abundance of the molecule in the sample is dependent upon
+the library size of each sample. The direct number of counts, or the *raw
+counts*, is therefore not directly comparable between samples. A simple example
+should suffice to make this clear:
+
+Imagine two RNASeq datasets generated from the same RNA sample. One of the
+samples was sequenced to 1000 reads, and the other to 2000 reads. Now imagine
+that one gene makes up half of the RNA in the original sample. In the sample
+with 1000 reads, we find this gene has 500 reads. In the sample with 2000 reads,
+the gene has 1000 of those reads. In both cases the *fraction* of reads that map
+to the gene is 0.5, but the absolute number of reads differs greatly. This is
+why the raw counts for a gene are not directly comparable between samples with
+different numbers of reads. Since in general every sample will have a unique
+number of reads, these raw counts will never be directly comparable. The way we
+mitigate this problem is with a statistical procedure called *count
+normalization*.
+
+Count normalization is the process by which the number of raw counts in each
+sample is scaled by a factor to make multiple samples comparable. Many
+strategies have been proposed to do this, but the simplest is a family of
+methods that divide by some factor of the library size. A common method in this
+family is to compute *counts per million reads* or *CPM* normalization, which
+scales each gene count by the number of millions of reads in the library:
+
+$$
+cpm_{s,i} =  \frac{c_{s,i}}{l_s} * 10^6
+$$
+
+Here, $c_{s,i}$ is the raw count of gene $i$ in sample $s$, and $l_s$ is the
+number of reads in the dataset for sample $s$. If each sample is scaled by their
+own library size, then in principle the proportion of read counts assigned to
+each gene out of all reads for that sample will be comparable across samples.
+When we have no additional knowledge of the distribution of genes in our system,
+library size normalization methods are the most general and make the fewest
+assumptions. Below is a ridgeline plot of the counts distribution after CPM
+normalization:
+
+```{r rnaseq ridgeline cpm, echo=FALSE}
+size_factors <- sum(filtered_counts[-1])/10^6
+cpm_counts <- as_tibble(apply(filtered_counts[-1],2,function(x) x/size_factors))
+pivot_longer(cpm_counts,everything(),names_to="Sample",values_to="Count") %>%
+  mutate(`log10(Count+1)`=log10(Count+1)) %>%
+  ggplot(aes(y=Sample,x=`log10(Count+1)`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="log10(Count+1) Distributions")
+```
+
+The distributions look quite different after CPM normalization, but the modes
+now look more consistent than with raw counts.
+
+
+One drawback of library size normalization is it is sensitive to extreme values;
+individual genes with many more reads in one sample than in other samples. These
+outliers can lead to pathological effects when comparing gene count values
+across samples. However, if we are measuring gene expression in a single
+biological system like mouse or human, as is often the case, other methods have
+been developed to better use our understanding of the gene expression
+distribution to perform more robust and biologically meaningful normalization.
+A more robust approach is possible when we make the reasonable assumption that,
+for any set of biological conditions in an experiment, *most genes are not
+differentially expressed*. This is the assumption made by the *DESeq2
+normalization method*.
+
+The DESeq2 normalization method is a statistical procedure that uses the median
+geometric mean computed across all samples to determine the scale factor for
+each sample. The procedure is somewhat complicated and we encourage the reader
+to examine it in detail in the DESeq2 publication [@Love2014-lb]. The method has
+proven to be consistent and reliable compared with other strategies
+[@Dillies2013-rq] and is the default normalization for the populare DESeq2
+differential expression method, which will be described in a later section. The
+DESeq2 normalization method may be implemented using the [DESeq2 Bioconductor
+package](https://bioconductor.org/packages/release/bioc/html/DESeq2.html):
+
+```{r rnaseq deseq2 norm}
+library(DESeq2)
+# DESeq2 requires a counts matrix, column data (sample information), and a formula
+# the counts matrix *must be raw counts*
+count_mat <- as.matrix(filtered_counts[-1])
+
+row.names(count_mat) <- filtered_counts$gene
+
+dds <- DESeqDataSetFromMatrix(
+  countData=count_mat,
+  colData=tibble(sample_name=colnames(filtered_counts[-1])),
+  design=~1 # no formula is needed for normalization, ~1 produces a trivial design matrix
+)
+
+# compute normalization factors
+dds <- estimateSizeFactors(dds)
+
+# extract the normalized counts
+deseq_norm_counts <- as_tibble(counts(dds,normalized=TRUE)) %>%
+  mutate(gene=filtered_counts$gene) %>%
+  relocate(gene)
+```
+
+Using the DESeq2 package, we first construct a DESeq object using the raw counts
+matrix, a sample information tibble with only a sample name column, and a
+trivial design formula, which will be explained in more depth in the
+[DESeq2/edgeR] section. The `estimateSizeFactors()` function performs the
+normalization routine on the counts, and the `counts(dds,normalized=TRUE)` call
+extracts the normalized counts matrix. When plotted as a ridgeline plot as
+before, we see that the gene expression distribution modes are better behaved
+compared to raw counts, and the shape of the distribution is preserved unlike
+with CPM normalized counts:
+
+
+```{r rnaseq ridgeline deseq2}
+pivot_longer(deseq_norm_counts,-c(gene),names_to="Sample",values_to="Count") %>%
+  mutate(`log10(Count+1)`=log10(Count+1)) %>%
+  ggplot(aes(y=Sample,x=`log10(Count+1)`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="log10(Count+1) Distributions")
+```
+
+The DESeq2 normalization procedure has two important considerations to keep in
+mind:
+
+* **The procedure borrows information across all samples.** The geometric mean
+of counts across all samples is computed as part of the normalization procedure.
+This means that the size factors computed *depend on the samples in the
+dataset*. The normalized counts for one sample will likely change if it is
+normalized with a different set of samples.
+* **The procedure does not use genes with any zero counts.** The geometric mean
+calculation across all samples means that any sample with a zero count results
+in the entire geometric mean being zero. For this reason *only genes with
+nonzero counts in every sample are used to calculate the normalization factors*.
+If one of the samples has a large number of zeros, for example due to a small
+library size, this could dramatically influence the normalization factors for
+the entire experiment.
+
+The CPM normalization procedure does not borrow information across all samples,
+and therefore is not subject to these considerations.
+
+These are only two of many possible normalization methods, DESeq2 being the most
+popular at the time of writing. For a detailed explanation of many normalization
+methods, see [@Dillies2013-rq].
+
+#### Count Transformation
+
+As mentioned in the [Count Data] section, one way to deal with the non-normality
+of count data is to perform a data transformation that makes the counts data
+follow a normal distribution. Transformation to normality allows common and
+powerful statistical methods like linear regression to be used. The most basic
+count transformation is to take the logarithm of the counts. However, this can
+be problematic for genes with low counts, causing the values to spread further
+apart than genes with high counts, increasing the likelihood of false positive
+results. To address this issue, the DESeq2 package provides the `rlog()`
+function that performs a regularized logarithmic transformation that adjusts the
+log transform based on the mean count of each gene.
+
+::: {.box .note}
+The rlog transformation also has the desirable effect of making the count data
+homoskedastic, meaning the variance of a gene is not dependent on the mean. Some
+statistical methods assume that a dataset has this property. The relationship of
+mean count vs variance will be discussed in more detail in the next section.
+:::
+
+We can clearlysee the effect of rlog on the counts distribution by plotting the
+rlog'ed counts using a ridgeline plot as before:
+
+```{r rnaseq rlog}
+# the dds is the DESeq2 object from earlier
+rld <- rlog(dds)
+
+# extract rlog values as a tibble
+rlog_counts <- as_tibble(assay(rld))
+rlog_counts$gene <- filtered_counts$gene
+pivot_longer(rlog_counts,-c(gene),names_to="Sample",values_to="rlog count") %>%
+  ggplot(aes(y=Sample,x=`rlog count`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="rlog Distributions")
+```
+
+::: {.box .warning}
+It is generally accepted that count transformations have significant drawbacks
+compared with statistical methods that model counts and errors explicitly, like
+generalized linear models (GLM) such as Poisson and Negative Binomial
+regressions [@St-Pierre2018-tc]. Whenever possible, these GLM based methods
+should be used instead of transformations. However, the transformations may
+sometimes be necessary depending on the required analysis, so the rlog function
+in DESeq2 may be useful for these cases.
+:::
+
+::: {.box .readmore}
+* [DESeq2 package vignette on Count data transformations](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-data-transformations)
+:::
+
+### Differential Expression: RNASeq
+
+The read counts for each gene or transcript form the primary data used to
+identify genes whose expression correlates with some condition of interest. The
+counts matrix created by concatenating read counts for all genes across a set of
+samples where rows are genes or transcripts and columns are samples is the most
+common form of expression data used for this purpose. As mentioned in the
+[Count Data] section, these counts are not normally distributed and therefore
+require a statistical approach that can accommodate the counts distribution. 
+
+One important property of RNASeq expression data is that genes with higher mean
+count also have higher variance. This mean-variance dependence is called
+*heteroskedasticity* and violates the assumptions of some statistical
+procedures, including linear regression. We can visualize this dependence by
+calculating the mean and variance for each of our normalized count genes and
+plotting them against each other:
+
+```{r rnaseq mean variance, echo=FALSE}
+tibble(
+  Mean=rowMeans(deseq_norm_counts[-1]),
+  Variance=apply(deseq_norm_counts[-1],1,var)
+) %>%
+  ggplot(aes(x=Mean,y=Variance)) +
+  geom_point(alpha=0.2) +
+  geom_smooth(method = 'gam', formula=y ~ s(x, bs = "cs")) +
+  scale_x_log10() + scale_y_log10()
+```
+
+The strong relationship between the mean and variance is characteristic of
+RNASeq expression data, and motivates the use of a generalized linear model
+called *negative binomial regression*. 
 
 #### DESeq2/EdgeR .
 

@@ -4,46 +4,6 @@ output: html_document
 
 ## Biological Data Overview
 
-### CSV Files
-
-The most common, convenient, and flexible data file format in biology and
-bioinformatics is the *character-delimited* or *character-separated text file*.
-These files are plain text files (i.e. not the native file format of any
-specific program, like Excel) that generally contain rectangles of data. When
-formatted correctly, you can think of these files as containing a grid or matrix
-of data values with some number of columns, each of which has the same number of
-values. Each line of these files has some number of data values separated by a
-consistent character, most commonly the comma which are called [comma-separated
-value, or "CSV", files](https://en.wikipedia.org/wiki/Comma-separated_values)
-and filenames typically end with the extension `.csv`. Note that
-other characters, especially the <Tab> character, may be used to create valid
-files in this format, and all the same general principles apply. This is an
-example of a simple CSV file:
-
-```
-id,somevalue,category,genes
-1,2.123,A,APOE
-4,5.123,B,"HOXA1,HOXB1"
-7,8.123,,SNCA
-```
-
-Some properties and principles of CSV files:
-
-* The first line often but not always contains the column names of each column
-* Each value is delimited by the same character, in this case `,`
-* Values can be any value, including numbers and characters
-* When a value contains the delimiting character (e.g. HOXA1,HOXB1 contains a
-  `,`), the value is wrapped in double quotes
-* Values can be missing, indicated by sequential delimiters (i.e. `,,` or one
-  `,` at the end of the line, if the last column value is missing)
-* There is no delimiter at the end of the lines
-* To be well-formatted *every line must have the same number of delimited
-  values*
-
-These same properties and principles apply to all character-separated files,
-regardless of the specific delimiter used. If a file follows these principles,
-they can be loaded very easily into R or any other data analysis setting.
-
 ### Types of Biological Data {#bio-data-types}
 
 In very general terms, there are five types of data used in biological data
@@ -56,7 +16,9 @@ high-throughput sequencing data, mass/charge ratio data from mass spectrometry,
 16S rRNA sequencing data from metagenomic studies, SNPs from genotyping assays,
 etc. These data can be very large and are often not efficiently processed using
 R. Instead, specialized tools built outside of R are used to first process the
-primary data into a form that is amenable to analysis.
+primary data into a form that is amenable to analysis. The most common primary
+biological data types include [Microarrays], [High Throughput Sequencing] data,
+and [mass spectrometry](https://en.wikipedia.org/wiki/Mass_spectrometry) data.
 
 **Processed data.** Processed data is the result of any analysis or
 transformation of primary data into an intermediate, more interpretable form.
@@ -103,6 +65,45 @@ work together for a typical biological data analysis.
 
 ![Information flow in biological data analysis](information_flow.png)
 
+### CSV Files
+
+The most common, convenient, and flexible data file format in biology and
+bioinformatics is the *character-delimited* or *character-separated text file*.
+These files are plain text files (i.e. not the native file format of any
+specific program, like Excel) that generally contain rectangles of data. When
+formatted correctly, you can think of these files as containing a grid or matrix
+of data values with some number of columns, each of which has the same number of
+values. Each line of these files has some number of data values separated by a
+consistent character, most commonly the comma which are called [comma-separated
+value, or "CSV", files](https://en.wikipedia.org/wiki/Comma-separated_values)
+and filenames typically end with the extension `.csv`. Note that
+other characters, especially the <Tab> character, may be used to create valid
+files in this format, and all the same general principles apply. This is an
+example of a simple CSV file:
+
+```
+id,somevalue,category,genes
+1,2.123,A,APOE
+4,5.123,B,"HOXA1,HOXB1"
+7,8.123,,SNCA
+```
+
+Some properties and principles of CSV files:
+
+* The first line often but not always contains the column names of each column
+* Each value is delimited by the same character, in this case `,`
+* Values can be any value, including numbers and characters
+* When a value contains the delimiting character (e.g. HOXA1,HOXB1 contains a
+  `,`), the value is wrapped in double quotes
+* Values can be missing, indicated by sequential delimiters (i.e. `,,` or one
+  `,` at the end of the line, if the last column value is missing)
+* There is no delimiter at the end of the lines
+* To be well-formatted *every line must have the same number of delimited
+  values*
+
+These same properties and principles apply to all character-separated files,
+regardless of the specific delimiter used. If a file follows these principles,
+they can be loaded very easily into R or any other data analysis setting.
 ### Common Biological Data Matrices
 
 Typically the first data set you will work with in R is *processed data* as
@@ -198,5 +199,5 @@ issue:
 
   ```r
   intensity_variance <- apply(intensities, 2, var)
-intensities$variance <- intensity_variance
+  intensities$variance <- intensity_variance
   ```
