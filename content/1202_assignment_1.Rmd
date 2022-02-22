@@ -2,11 +2,12 @@
 output:
   html_document:
     css: style.css
+  split_by: chapter
 ---
 
-# Assignment 1 {-}
+## Assignment 1 {-}
 
-## Problem Statement {-}
+### Problem Statement {-}
 This assignment will focus on basic functions of R with an emphasis on
 `tidyverse` implementations. `tidyverse` is a collection of packages, pioneered
 by Hadley Wickham and RStudio, that looks to standardize procedures,
@@ -19,7 +20,7 @@ different modes of data (i.e. microarray expression data is kept separate
 from clinical data detailing the samples). You will get an opportunity to work
 with both of these datasets, and be required to cross reference between the two.
 
-## Learning Objectives and Skill List {-}
+### Learning Objectives and Skill List {-}
 - Install various packages needed for analysis
 - Load Data
 - Gain familiarity with common `tidyverse` operations such as `groupby()`,
@@ -27,7 +28,7 @@ with both of these datasets, and be required to cross reference between the two.
 - Create a small plot to display results
 - Utilize R Markdown to create an attractive format for sharing data.
 
-## Instructions {-}
+### Instructions {-}
 Our main focus for this assignment are installing packages, manipulating data,
 and summarizing important statistics across both samples and features (genes). An
 empty project repo can be found here:
@@ -70,7 +71,7 @@ assignment:
   all the code chunks in the report successfully, you should be able to knit the
   entire report
 
-## Hints {-}
+### Hints {-}
 
 * When developing the `period_to_underscore()` function, you might find the
 [`stringr::str_replace_all()`](https://stringr.tidyverse.org/reference/str_replace.html)

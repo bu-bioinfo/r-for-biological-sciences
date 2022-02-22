@@ -4,7 +4,7 @@ output:
     css: style.css
 ---
 
-# Assignment 3 {-}
+## Assignment 3 {-}
 
 ```{r setup, include=FALSE, eval=FALSE}
 library('tidyverse')
@@ -13,7 +13,7 @@ library('tidymodels')
 library('RColorBrewer')
 ```
 
-## Problem Statement {-}
+### Problem Statement {-}
 
 High dimensional data is typically time and resource-intensive to analyze,
 interpret and visualize. Gene expression data (including microarray data) often
@@ -21,15 +21,15 @@ consists of measurements for tens of thousands of known genes for every sample.
 Learning methods to inspect, reduce and display high dimensional data is
 necessary for many machine learning and bioinformatics problems.
 
-## Learning Objectives {-}
+### Learning Objectives {-}
 1. Understand the basic principles of Principal Component Analysis (PCA) and hierarchical clustering / heatmaps
 2. Perform PCA in R and evaluate the basic outputs of PCA
 3. Generate basic clustered heatmaps
 
-## Skill List {-}
+### Skill List {-}
 1. R: `scale()`, transpose `t()`, `prcomp()`, `heatmap()`, ggplot2
 
-## Background on Microarrays {-}
+### Background on Microarrays {-}
 
 A [microarray](#microarrays) consists of thousands of specifically
 designed single stranded DNA sequences affixed or bound to a solid surface
@@ -41,7 +41,7 @@ digital image. Finally, image processing will transform each spot (bound probe)
 to a numerical measurement that can be used to infer expression levels for
 genes.
 
-## Background on Principal Component Analysis {-}
+### Background on Principal Component Analysis {-}
 
 [Principal component analysis](#principal-component-analysis) is an exploratory
 data analysis technique commonly used to reduce the dimensionality of data while
@@ -57,7 +57,7 @@ forth. As you can infer, if a small number of PCs capture a majority of variance
 contained within a dataset, they can be used as a lower dimensional
 representation of the data.
 
-## Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391 {-}
+### Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391 {-}
 
 The example intensity data was taken from the listed publication. In it, the
 authors proposed the use of gene expression profiling (through microarray
@@ -68,7 +68,7 @@ clinical pathologies. We have provided you a sample expression matrix that was
 normalized and subjected to batch correction. We will use the
 `example_intensity_data.csv` as our data matrix going forward.
 
-## Scaling data using R `scale()` {-}
+### Scaling data using R `scale()` {-}
 
 Oftentimes, it is necessary to analyze or plot data that contains variables that
 differ by multiple orders of magnitude. In bioinformatics, this is an extremely
@@ -110,7 +110,7 @@ __Deliverables__
 1. The example_intensity_data.csv read in as a *dataframe*.
 :::
 
-## Proportion of variance explained {-}
+### Proportion of variance explained {-}
 
 As mentioned earlier, principal components represent a successively maximal
 amount of variance in your dataset. It is often helpful to visualize the
@@ -137,7 +137,7 @@ variance explained for each successive principal component. Label all relevant
 axes and provide a descriptive caption for the figure.
 :::
 
-## Plotting and visualization of PCA {-}
+### Plotting and visualization of PCA {-}
 
 In typical HTS experiments, PCA is a common tool used to analyze the similarity
 between samples and determine if the experimental variable of interest
@@ -165,7 +165,7 @@ assignment to the SixSubtypesClassification made in the original publication
 their corresponding Six Subtypes Classification.
 :::
 
-## Hierarchical Clustering and Heatmaps {-}
+### Hierarchical Clustering and Heatmaps {-}
 
 Now that we've discussed the basics of PCA, we will move on to discuss the use
 of hierarchical clustering and heatmaps. Heatmaps are a common plot used to
@@ -219,7 +219,7 @@ contained within the list of significant probes.
 3. A heatmap of the normalized intensity values for the differentially expressed probes (adjusted p-value < .01).
 :::
 
-## References {-}
+### References {-}
 
 <small>
 https://www.genome.gov/about-genomics/fact-sheets/DNA-Microarray-Technology
