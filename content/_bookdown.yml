@@ -23,6 +23,8 @@ rmd_files:
     - "0700_bioinfo.Rmd"
     - "0701_bioinfo_biological_data.Rmd"
     - "0702_bioinfo_bioconductor.Rmd"
+    - "0702_bioinfo_microarrays.Rmd"
+    - "0702_bioinfo_hts.Rmd"
     - "0703_bioinfo_gene_ids.Rmd"
     - "0704_bioinfo_gene_expression.Rmd"
     - "0705_bioinfo_gsea.Rmd"
