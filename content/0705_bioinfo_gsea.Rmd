@@ -368,7 +368,7 @@ implemented in a number of different R packages such as
 various web services including [DAVID](https://david.ncifcrf.gov) and
 [enrichR](https://maayanlab.cloud/Enrichr/)
 
-### Rank-based Analysis .
+### Rank-based Analysis
 
 We will refer to the specific method developed by the Broad Institute and UC San
 Diego as Gene Set Enrichment Analysis (note the capitalization). This specific
