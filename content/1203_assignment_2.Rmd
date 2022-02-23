@@ -4,25 +4,25 @@ output:
     css: style.css
 ---
 
-# Assignment 2 {-}
+## Assignment 2 {-}
 
-## Problem Statement {-}
+### Problem Statement {-}
 Arranging the structure of our data inputs is vital to using R, as is creating
 the correct environment for analysis by installing packages. It is also
 important to share data and results easily using R markdown.
 
-## Learning Objectives {-}
+### Learning Objectives {-}
 - Install various packages needed for analysis
 - Load data, filter that data, and retrieve HGNC ids for the data
 - Create a small plot to display results
 - Utilize R Markdown to create an attractive format for sharing data.
 
-## Skill List {-}
+### Skill List {-}
 - How to utilize R markdown to create a report of data analysis
 - Installing and loading packages in R
 - Utilizing Bioconductor to equate affy ids to HGNC ids (gene names)
 
-## Instructions {-}
+### Instructions {-}
 Our main focus for this assignment are installing packages, manipulating data,
 and plotting our manipulated data. We will be borrowing from the same CSV of
 expression data from BF528's Project 1, available
@@ -54,9 +54,9 @@ complete with your additional comments and code execution.
 This page will go into detail on how the functions and their associated tests
 should work.
 
-## Function Details {-}
+### Function Details {-}
 
-### 1. Bioconductor {-}
+#### 1. Bioconductor {-}
 While many useful R packages can be loaded through
 [CRAN](https://cran.r-project.org/) using the `install.packages()` syntax, a lot
 of specifically bioinformatics packages are exclusively released on
@@ -74,7 +74,7 @@ has an example of this method.
 
 This section is untested.
 
-### 2. `load_expression()` {-}
+#### 2. `load_expression()` {-}
 
 Perhaps the most integral part of using the many data wrangling abilities of R
 is actually entering your data into the R environment. While there are many ways
@@ -85,7 +85,7 @@ of our data doesn't have a name. Try to use the `load_expression()` data to load
 data from a `filename` parameter and **return** a tibble of that information. I
 called my firs column "probeids".
 
-#### Tests {-}
+##### Tests {-}
 
 The tests for this function are:  
 ``` {r eval=FALSE}
@@ -105,7 +105,7 @@ The test then compares the dimensions of that result, and expects 54,675 rows
 and 36 columns. These are the dimensions of the input CSV. It also checks to
 confirm it is a tibble object (because tibbles are better than dataframes).
 
-### 3. `filter_15()` {-}
+#### 3. `filter_15()` {-}
 
 In order to filter the numerous rows we have for this data, we introduce a
 function that filters the probe IDs in the tibble our data is stored in. We want
@@ -123,7 +123,7 @@ for this function might take 5-10 seconds to run (a long time for a program like
 this!). Instead, you could use a function like `apply()` or `lapply()` to filter
 every row at once. This solution takes mere moments.
 
-#### Tests {-}
+##### Tests {-}
 ``` {r eval=FALSE}
 library(tibble)
 test_that("the correct rows are filtered out in filter_15()", {
@@ -145,7 +145,7 @@ ensures that `filter_15()` selects the correct rows. Creating a small sample
 table like this can be very useful when testing your own code since you don't
 need to look at a large amount of data to see if it's working correctly or not.
 
-### 4. `affy_to_hgnc()` {-}
+#### 4. `affy_to_hgnc()` {-}
 This is an important, but sometimes painful, part of using R. There is a great
 built-in package for connecting to Ensembl (a database of genomic information
 for many species) called `biomaRt`. We will use `biomaRt` to connect the
@@ -171,7 +171,7 @@ and return a `data.frame`. You can use `dplyr::pull()` to turn a tibble into a
 simple character vector, and `dplyr::as_tibble()` to go from a data frame to a
 tibble.
 
-#### Tests {-}
+##### Tests {-}
 ``` {r eval=FALSE}
 test_that("affy ids can be converted to HGNC names properly using affy_to_hgnc()", {
   # biomaRt super buggy so we can try to account for not connecting well
@@ -209,7 +209,7 @@ from happening, but it ensures we know that something isn't quite right. If the
 `response` does not contain an error, we simply test that it returned the
 correct gene symbols for our random affy probe ID of choice.
 
-### 5. `reduce_data()` {-}
+#### 5. `reduce_data()` {-}
 
 We have one final step in manipulating our data before we plot it. We have our
 original data, the probe IDs and their associated HGNC symbols, and a list of
@@ -242,7 +242,7 @@ Once again, there are many ways to reshape this data (some maybe more elegant
 than this!) and all we need is the data to be correctly shaped when it is
 returned.
 
-#### Tests {-}
+##### Tests {-}
 
 ``` {r eval=FALSE}
 test_that("reduce_data() is correctly changing the size and shape of the tibble", {

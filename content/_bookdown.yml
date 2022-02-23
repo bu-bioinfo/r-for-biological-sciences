@@ -23,6 +23,8 @@ rmd_files:
     - "0700_bioinfo.Rmd"
     - "0701_bioinfo_biological_data.Rmd"
     - "0702_bioinfo_bioconductor.Rmd"
+    - "0702_bioinfo_microarrays.Rmd"
+    - "0702_bioinfo_hts.Rmd"
     - "0703_bioinfo_gene_ids.Rmd"
     - "0704_bioinfo_gene_expression.Rmd"
     - "0705_bioinfo_gsea.Rmd"
@@ -37,6 +39,7 @@ rmd_files:
     - "1202_assignment_1.Rmd"
     - "1203_assignment_2.Rmd"
     - "1204_assignment_3.Rmd"
+    - "1205_assignment_4.Rmd"
     - "appendix.Rmd"
     - "detailed_class_outlines.Rmd"
 delete_merged_file: true

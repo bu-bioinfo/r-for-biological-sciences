@@ -1,0 +1,66 @@
+---
+output: html_document
+---
+
+## Microarrays
+
+![A Microarray Device - Thermo Fisher Scientific](microarray_chip.png)
+
+Microarrays are devices that measure the relative abundance of thousands of
+distinct DNA sequences simultaneously. Short (~25 nucleotide) single-stranded
+DNA molecules called *probes* are deposited on a small glass slide in a grid of
+spots, where each spot contains many copies of a probe with identical sequence.
+The probe sequences are selected *a priori* based on the purpose of the array.
+For example, gene expression microarrays have probes that correspond to the
+coding regions of the genome for a species of interest, while genotyping
+microarrays use sequences with known variants found in a population of genomes,
+most often the human population. Microarrays of the same type (e.g. human gene
+expression) all have the same set of probes. The choice of DNA sequence probes
+therefore determines what the microarray measures and how to interpret the data.
+The design of a microarray is illustrated in the following figure.
+
+![Illustration of Microarray Design](microarray_design.png)
+
+A microarray device generates data by applying a specially prepared DNA sample
+to it; the sample usually corresponds to a single biological specimen, e.g. an
+individual patient. The preparation method for the sample depends on what is
+being measured:
+
+* When measuring DNA directly, e.g. genetic variants, the DNA itself is
+  biochemically extracted
+* When measuring gene expression via RNA abundance, RNA is first extracted and
+  then reverse transcribed to complementary DNA (cDNA)
+
+In either case, the molecules that will be applied to the microarray are DNA
+molecules. After extraction and preparation, the DNA molecules are then randomly
+cut up into shorter molecules (i.e. *sheared*) and each molecule has a molecular
+tag biochemically ligated to it that will emit fluorescence when excited by a
+specific wavelength of light. This tagged DNA sample is then washed over the
+microarray chip, where DNA molecules that share sequence complementarity with
+the probes on the array pair together. After this treatment, the microarray is
+washed to remove DNA molecules that did not have a match on the array, leaving
+only those molecules with a sequence match that remain bound to probes.
+
+The microarray chip is then loaded into a scanning device, where a laser with a
+specific wavelength of light is then shone onto the array, causing the spots
+with tagged DNA molecules associated with probes to fluoresce, and other spots
+remain dark. A high resolution image is taken of the fluorescent array, and the
+image is analyzed to map the intensity of the light on each spot to a numeric
+value proportional to its intensity. The reason for this is that, since each
+spot has many individual probe molecules contained within it, the more copies of
+the corresponding DNA molecule were in the sample, the more light the spot
+emits. In this way, the relative abundance of all probes on the array are
+measured simultaneously. The process of generating microarray data from a sample
+is illustrated in the following figure.
+
+![Illustration of Microarray Data Generation Process](microarray_data_gen.png)
+
+After the microarray has been scanned, the relative copy number of the DNA in
+the sample matching the probes on the microarray are expressed as the intensity
+of fluorescence of each probe. The raw intensity data from the scan has been
+processed and analyzed by the scanner software to account for technical biases
+and artefacts of the scanning instrument and data generation process. The data
+from a single scan is processed and stored in a file in [CEL
+format](https://www.affymetrix.com/support/developer/powertools/changelog/gcos-agcc/cel.html),
+a proprietary data format that stores the raw probe intensity data that can be
+loaded for downstream analysis.
