@@ -73,6 +73,8 @@ output: html_document
 * Bioinfo: [Count Data]
 * Bioinfo: [RNASeq]
 * Bioinfo: [RNASeq Gene Expression Data]
+* Bioinfo: [Filtering Counts]
+* Bioinfo: [Count Distributions]
 * Bioinfo: [Count Normalization]
 * Bioinfo: [Count Transformation]
 * Bioinfo: [Differential Expression: RNASeq]
