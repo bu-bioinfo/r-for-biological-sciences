@@ -5,6 +5,7 @@ output: html_document
 ```{r, include=FALSE}
 source("0700_bioinfo.R")
 source("setup_example_data.R")
+library(tidyverse)
 ```
 
 ## Gene Expression
@@ -321,7 +322,7 @@ tissue and a central nervous system cell line. To load a data package into R,
 first run `library(<data package>)` and then `data(<dataset name>)`.
 :::
 
-```{r microarray norm, cache=TRUE}
+```{r microarray norm}
 library(affy)
 library(affydata)
 data(Dilution)
@@ -528,13 +529,33 @@ until adulthood. We will load in the expression data as a tibble:
 
 ```{r rnaseq load}
 counts <- read_tsv("verse_counts.tsv")
-counts
+counts 
 ```
 
 The annotation counted reads for 55,416 annnotated Ensembl gene for the mouse
-genome, as described in the [Gene Identifier Systems] section. Although they
-were counted with the annotation, no reads were detected for many genes in any
-of the samples, so we may filter them out:
+genome, as described in the [Gene Identifier Systems] section.
+
+There are typically three steps when analyzing a RNASeq count matrix:
+
+1. **Filter genes that are unlikely to be differentially expressed.**
+2. **Normalize filtered counts to make samples comparable to one another.**
+3. **Differential expression analysis of filtered, normalized counts.**
+
+Each of these steps will be described in detail below.
+
+### Filtering Counts
+
+Filtering genes that are not likely to be differentially expressed is an
+important step in differential expression analysis. The primary reason for this
+is to reduce the number of genes tested for differential expression, thereby
+reducing the multiple testing burden on the results. There are many approaches
+and rationales for picking filters, and the choice is generally subjective and
+highly dependent upon the specific dataset. In this section we discuss some of
+the rationale and considerations for different filtering strategies.
+
+Genes that were not detected in any sample are the easiest to filter, and often
+eliminate many genes from consideration. Below we filter out all genes that have
+zero counts in all samples:
 
 ```{r rnaseq filter zero counts}
 nonzero_genes <- rowSums(counts[-1])!=0
@@ -542,43 +563,133 @@ filtered_counts <- counts[nonzero_genes,]
 filtered_counts
 ```
 
-Only 32,613 genes remain after filtering out genes with all zeros.
+Only 32,613 genes remain after filtering out genes with all zeros, eliminating
+nearly 23,000 genes, or more than 40% of the genes in the annotation. Filtering
+genes with zeros in all samples as we have done above is somewhat liberal, as
+there may be many genes with reads in only one sample. Genes with only a single
+sample with a non-zero count also cannot be differentially expressed, so we can
+easily decide to eliminate those as well:
 
-::: {.box .note}
-Filtering genes that are not likely to be differentially expressed is an
-important step in differential expression analysis. There are many approaches
-and rationales for picking filters, and the choice is generally subjective and
-highly dependent upon the specific dataset. Filtering genes with zeros in all
-samples is somewhat liberal, as there may be many genes with reads in only one
-sample. Here is a bar chart of the number of genes detected in each number of
-samples from 1 to all:
+```{r rnaseq filter zero one counts}
+nonzero_genes <- rowSums(counts[-1])>=2
+filtered_counts <- counts[nonzero_genes,]
+filtered_counts
+```
+
+We have now reduced our number of genes to 28,979 by including only genes with
+at least two non-zero counts. We may now wonder how many genes we would include
+if we required at least $n$ samples to have non-zero counts. Consider the
+following bar chart of the number of genes detected in at least $n$ samples:
 
 ```{r rnaseq nonzero samples}
-counts$`Number nonzero samples` <- rowSums(counts[-1]!=0)
-group_by(counts,`Number nonzero samples`) %>%
-  summarize(`Number of genes`=n()) %>%
-  ggplot(aes(x=`Number nonzero samples`,y=`Number of genes`)) +
-  geom_bar(stat="identity") +
-  labs(title="Number of genes detected in x samples")
+library(patchwork)
+
+nonzero_counts <- mutate(counts,`Number of samples`=rowSums(counts[-1]!=0)) %>%
+  group_by(`Number of samples`) %>%
+  summarize(`Number of genes`=n() ) %>%
+  mutate(`Cumulative number of genes`=sum(`Number of genes`)-lag(cumsum(`Number of genes`),1,default=0))
+
+sum_g <- ggplot(nonzero_counts) +
+  geom_bar(aes(x=`Number of samples`,y=`Cumulative number of genes`,fill="In at least n"),stat="identity") +
+  geom_bar(aes(x=`Number of samples`,y=`Number of genes`,fill="In exactly n"),stat="identity") +
+  labs(title="Number of genes detected in n samples") +
+  scale_fill_discrete(name="Nonzero in:")
+
+sum_g
 ```
 
 The largest number of genes is detected in none of the samples, followed by
-genes detected in all samples, with many fewer in between. Regardless of the
-filtering strategy used, *there is no biological meaning to any filtering
-threshold*. The number of reads detected for each gene is dependent primarily
-upon the library size, where larger libraries are more likely to sample lowly
-abundant genes. One therefore cannot filter genes with the intent of "removing
-lowly expressed genes"; instead we can only filter out genes that are below the
-detection threshold afforded by the library size of the dataset.
-:::
+genes detected in all samples, with many fewer in between. Based on the plot,
+there is no obvious choice for how many nonzero samples are sufficient to use as
+a filter.
+
+We may gain additional insight into this problem by considering the distribution
+of counts for genes present in at least $n$ samples as above, rather than just
+the number of nonzero counts. Below is a plot similar to that above but, which
+plots the distribution of mean counts across samples within each number of
+nonzero samples:
+
+```{r rnaseq nonzero dist}
+# calculate the mean count for non-zero counts in genes with exactly n non-zero counts
+mutate(counts,`Number of nonzero samples`=factor(rowSums(counts[-1]!=0))) %>%
+  pivot_longer(-c(gene,`Number of nonzero samples`),names_to="Sample",values_to="Count") %>%
+  group_by(`Number of nonzero samples`) %>%
+  group_by(gene, .add=TRUE) %>% summarize(`Nonzero Count Mean`=mean(Count[Count!=0]),.groups="keep") %>%
+  ungroup() %>%
+  ggplot(aes(x=`Number of nonzero samples`,y=`Nonzero Count Mean`,fill=`Number of nonzero samples`)) +
+  geom_violin(scale="width") +
+  scale_y_log10() +
+  labs(title="Nonzero count mean for genes with exactly n nonzero counts")
+```
+
+From this plot, we see that the mean count for genes with even a single sample
+with a zero is substantially lower than most genes without any zeros. We might
+therefore decide to filter out genes that have *any* zeros, with the rationale
+that most genes of appreciable abundance would still be included. However, there
+are some genes with a high average count for samples that are not zero that
+would be eliminated if we chose to use only genes expressed in all 8 samples.
+Again, there is no clear choice of filtering threshold, and a subjective
+decision is necessary.
+
+One important property of RNASeq expression data is that genes with higher mean
+count also have higher variance. This mean-variance dependence means these count
+data are *heteroskedastic*, a term used to describe data that has inconstant
+variance across different values. We can visualize this dependence by
+calculating the mean and variance for each of our normalized count genes and
+plotting them against each other:
+
+```{r rnaseq mean variance, echo=FALSE}
+tibble(
+  Mean=rowMeans(counts[-1]),
+  Variance=apply(counts[-1],1,var)
+) %>%
+  ggplot(aes(x=Mean,y=Variance)) +
+  geom_point(alpha=0.2) +
+  geom_smooth(method = 'gam', formula=y ~ s(x, bs = "cs")) +
+  scale_x_log10() + scale_y_log10()
+```
+
+Unlike in microarray data, where probesets can be filtered based on variance,
+using low variance as a filter for count data would result in filtering out
+genes with low mean, which would lead to undesirable bias toward highly
+expressed genes.
+
+Depending on the experiment, it may be meaningful if a gene is detected
+at all in any of the samples. In these cases, genes with only 1 read in a single
+sample might be kept, even though these genes would not result in confident
+statistical inference if subjected to differential expression. The scientific
+question asked by the experiment is an important consideration when deciding
+thresholds.
+
+When the goal of the RNASeq experiment is differential expression analysis, a
+good rule of thumb when choosing a filtering threshold is to choose genes that
+have sufficiently many non-zero counts such that the statistical method has
+enough variance to perform reliable inference. For example, a reasonable
+filtering threshold might be to include genes that have non-zero counts in at
+least 50% of the samples. This threshold depends only upon the number of samples
+being considered. In an experimental design with two or more sample groups, a
+reasonable strategy might be to require at least 50% of samples *within at least
+one group* or *within all groups* to be included. Taking the experimental design
+into account when filtering can ensure the most interesting genes, e.g. those
+expressed only in one condition, are captured.
+
+Regardless of the filtering strategy used, **there is no biological meaning to
+any filtering threshold**. The number of reads detected for each gene is
+dependent primarily upon the library size, where larger libraries are more
+likely to sample lowly abundant genes. Therefore, we cannot filter genes with
+the intent of "removing lowly expressed genes"; instead we can only filter out
+genes that are below the detection threshold afforded by the library size of the
+dataset. 
+
+### Count Distributions
 
 The range of gene expression in a cell varies by orders of magnitude. The
 following histogram plots the distribution of read count values for one of the
 adult samples:
 
 ```{r rnaseq sample count dist}
-dplyr::select(filtered_counts, vAd_1) %>%
-  mutate(`log10(counts+1)`=log10(vAd_1+1)) %>%
+dplyr::select(filtered_counts, Ad_1) %>%
+  mutate(`log10(counts+1)`=log10(Ad_1+1)) %>%
   ggplot(aes(x=`log10(counts+1)`)) +
   geom_histogram(bins=50) +
   labs(title='log10(counts) distribution for Adult mouse')
@@ -620,17 +731,17 @@ the library size of each sample. The direct number of counts, or the *raw
 counts*, is therefore not directly comparable between samples. A simple example
 should suffice to make this clear:
 
-Imagine two RNASeq datasets generated from the same RNA sample. One of the
-samples was sequenced to 1000 reads, and the other to 2000 reads. Now imagine
-that one gene makes up half of the RNA in the original sample. In the sample
-with 1000 reads, we find this gene has 500 reads. In the sample with 2000 reads,
-the gene has 1000 of those reads. In both cases the *fraction* of reads that map
-to the gene is 0.5, but the absolute number of reads differs greatly. This is
-why the raw counts for a gene are not directly comparable between samples with
-different numbers of reads. Since in general every sample will have a unique
-number of reads, these raw counts will never be directly comparable. The way we
-mitigate this problem is with a statistical procedure called *count
-normalization*.
+> Imagine two RNASeq datasets generated from the same RNA sample. One of the
+> samples was sequenced to 1000 reads, and the other to 2000 reads. Now imagine
+> that one gene makes up half of the RNA in the original sample. In the sample
+> with 1000 reads, we find this gene has 500 reads. In the sample with 2000 reads,
+> the gene has 1000 of those reads. In both cases the *fraction* of reads that map
+> to the gene is 0.5, but the absolute number of reads differs greatly. This is
+> why the raw counts for a gene are not directly comparable between samples with
+> different numbers of reads. Since in general every sample will have a unique
+> number of reads, these raw counts will never be directly comparable. The way we
+> mitigate this problem is with a statistical procedure called *count
+> normalization*.
 
 Count normalization is the process by which the number of raw counts in each
 sample is scaled by a factor to make multiple samples comparable. Many
@@ -813,33 +924,159 @@ common form of expression data used for this purpose. As mentioned in the
 [Count Data] section, these counts are not normally distributed and therefore
 require a statistical approach that can accommodate the counts distribution. 
 
-One important property of RNASeq expression data is that genes with higher mean
-count also have higher variance. This mean-variance dependence is called
-*heteroskedasticity* and violates the assumptions of some statistical
-procedures, including linear regression. We can visualize this dependence by
-calculating the mean and variance for each of our normalized count genes and
-plotting them against each other:
-
-```{r rnaseq mean variance, echo=FALSE}
-tibble(
-  Mean=rowMeans(deseq_norm_counts[-1]),
-  Variance=apply(deseq_norm_counts[-1],1,var)
-) %>%
-  ggplot(aes(x=Mean,y=Variance)) +
-  geom_point(alpha=0.2) +
-  geom_smooth(method = 'gam', formula=y ~ s(x, bs = "cs")) +
-  scale_x_log10() + scale_y_log10()
-```
-
 The strong relationship between the mean and variance is characteristic of
 RNASeq expression data, and motivates the use of a generalized linear model
-called *negative binomial regression*. 
+called *negative binomial regression*. Negative binomial regression models count
+data using the [negative binomial distribution](https://en.wikipedia.org/wiki/Negative_binomial_distribution),
+which allows the relationship of mean and variance of a counts distribution to
+vary. The statistical details of the negative binomial distribution and negative
+binomial regression are beyond the scope of this book, but below we will discuss
+the aspects necessary to implement differential expression analysis.
 
-#### DESeq2/EdgeR .
+#### DESeq2/EdgeR
 
-#### limma/voom .
+[DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) and
+[edgeR](https://bioconductor.org/packages/release/bioc/html/edgeR.html) are bioconductor packages that both implement negative binomial
+regression to perform differential expression on RNASeq data. Both perform
+raw counts normalization as part of their function, though they differ in
+the normalization method (DESeq2 method is described above, while edgeR uses
+trimmed mean of M-values (TMM), see [@Robinson2010-ik]). The interface for using
+both packages is also similar, so we will focus on DESeq2 in this section.
 
-his brief example is from the limma User Guide chapter 15, and covers loading
+As mentioned briefly above, DESeq2 requires three pieces of information to
+perform differential expression:
+
+1. A **raw** counts matrix with genes as rows and samples as columns
+2. A data frame with metadata associated with the columns
+3. A design formula for the differential expression model
+
+DESeq2 requires raw counts due to its normalization procedure, which borrows
+information across samples when computing size factors, as described above in
+the [Count Normalization] section.
+
+With these three pieces of information, we construct a `DESeq` object:
+
+```{r rnaseq deseq2 dataset}
+library(DESeq2)
+
+# filter counts to retain genes with at least 6 out of 8 samples with nonzero counts
+filtered_counts <- counts[rowSums(counts[-1]!=0)>=6,]
+
+# DESeq2 requires a counts matrix, column data (sample information), and a formula
+# the counts matrix *must be raw counts*
+count_mat <- as.matrix(filtered_counts[-1])
+row.names(count_mat) <- filtered_counts$gene
+
+# create a sample matrix from sample names
+sample_info <- tibble(
+  sample_name=colnames(filtered_counts[-1])
+) %>%
+  separate(sample_name,c("timepoint","replicate"),sep="_",remove=FALSE) %>%
+  mutate(
+    timepoint=factor(timepoint,levels=c("Ad","P0","P4","P7"))
+  )
+
+design <- formula(~ timepoint)
+
+sample_info
+```
+
+The design formula `~ timepoint` is similar to that supplied to the
+`model.matrix()` function as described in the [Differential Expression Analysis]
+section, where DESeq2 implicitly creates the model matrix by combining the
+column data with the formula. In this differential expression analysis, we wish
+to identify genes that are different between the timepoints `P0`, `P4`, `P7`,
+and `Ad`. With these three pieces of information prepared, we can create a DESeq
+object and perform differential expression analysis:
+
+```{r rnaseq deseq2 de}
+dds <- DESeqDataSetFromMatrix(
+  countData=count_mat,
+  colData=sample_info,
+  design=design
+)
+dds <- DESeq(dds)
+resultsNames(dds)
+```
+
+DESeq2 performed differential expression on each gene and estimated parameters
+for three different comparisons - P0 vs Ad, P4 vs Ad, and P7 vs Ad. Here, Ad is
+the *reference group* so that we may interpret the statistics as relative to the
+adult animals. The choice of reference group does not change the magnitude of
+the results, but may change the sign of the estimated coefficients, which are
+log2 fold changes. To extract out the differential expression statistics for the
+P0 vs Ad comparison, we can use the `results()` function:
+
+```{r rnaseq deseq2 results}
+res <- results(dds, name="timepoint_P0_vs_Ad")
+p0_vs_Ad_de <- as_tibble(res) %>%
+  mutate(gene=rownames(res)) %>%
+  relocate(gene) %>%
+  arrange(pvalue)
+p0_vs_Ad_de
+```
+
+These are the results of the differential expression comparing P0 with Ad; the
+other contrasts (P4 vs Ad and P7 vs Ad) may be extracted by specifying the
+appropriate result names to the `name` argument to the `results()` function. The columns in the DESeq2 results are defined as follows:
+
+* *baseMean* - the mean normalized count of all samples for the gene
+* *log2FoldChange* - the estimated coefficient (i.e. log2FoldChange) for the comparison of interest
+* *lfcSE* - the standard error for the log2FoldChange estimate
+* *stat* - the [Wald statistic](https://en.wikipedia.org/wiki/Wald_test) associated with the log2FoldChange estimate
+* *pvalue* - the nominal p-value of the Wald test (i.e. the signifiance of the association)
+* *padj* - the multiple testing adjusted p-value (i.e. false discovery rate)
+
+In the P0 vs Ad comparison, we can check the number of significant results easily:
+
+```{r rnaseq deseq2 sig}
+# number of genes significant at FDR < 0.05
+filter(p0_vs_Ad_de,padj<0.05)
+```
+
+There were 7,557 significantly differentially expressed genes associated with
+this comparison, which includes both up- and down-regulated genes (examine the
+signs of the log2FoldChange column). A common diagnostic plot of differenial
+expression results is the so-called *volcano plot* which plots the
+log2FoldChange on the x-axis against -log10 adjusted p-value on the y-axis:
+
+```{r rnaseq deseq2 volcano}
+mutate(
+  p0_vs_Ad_de,
+  `-log10(adjusted p)`=-log10(padj),
+  `FDR<0.05`=padj<0.05
+  ) %>%
+  ggplot(aes(x=log2FoldChange,y=`-log10(adjusted p)`,color=`FDR<0.05`)) +
+  geom_point()
+```
+
+The plot shows that there are significant genes at FDR < 0.05 that are increased
+and decreased in the comparison.
+
+DESeq2 has many capabilities beyond this basic differential expression
+functionality as described in its [comprehensive documentation in its vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).
+
+As mentioned, edgeR implements a very similar model to DESeq2 and also has
+[excellent
+documentation](https://bioconductor.org/packages/release/bioc/html/edgeR.html).
+
+#### limma/voom
+
+While the limma package was initially developed for microarray analysis, the
+authors added support for RNASeq soon after the HTS technique became available.
+limma accommodates count data by first performing a [Count Transformation] using
+its own
+[voom](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29)
+transformation procedure. voom transforms counts by first performing a counts
+per million normalization, taking the logarithm of the CPM values, and finally
+estimates the mean-variance relationship across genes for use in its empirical
+Bayes statistical framework. The counts data being thus transformed, limma
+performs statistical inference using its usual linear model framework to produce
+differential expression results with arbitrarily complex statistical models.
+
+This brief example is from the [limma User
+Guide](https://www.bioconductor.org/packages/devel/bioc/vignettes/limma/inst/doc/)
+chapter 15, and covers loading
 and processing data from an RNA-seq experiment. We go into more depth while
 working with limma in assignment 6.
 
@@ -856,6 +1093,7 @@ dge <- DGEList(counts=counts)
 keep <- filterByExpr(dge, design)
 dge <- dge[keep,,keep.lib.sizes=FALSE]
 ```
+
 `DGEList()` is a function from edgeR, of which limma borrows some loading and
 filtering functions. This experiment filters by expression level, and uses
 square bracket notation (`[]`) to reduce the number of rows.
@@ -863,6 +1101,7 @@ square bracket notation (`[]`) to reduce the number of rows.
 Finally, the expression data is transformed into CPM, counts per million, and
 a linear model is applied to the data with `lmFit()`. `topTable()` is used to view the most
 differentially expressed data.
+
 ```r
 # limma trend
 logCPM <- cpm(dge, log=TRUE, prior.count=3)
