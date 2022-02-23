@@ -358,14 +358,16 @@ div.csl-indent {
 <li class="chapter" data-level="8.7.4" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-microarrays-limma"><i class="fa fa-check"></i><b>8.7.4</b> Differential Expression: Microarrays (limma)</a></li>
 <li class="chapter" data-level="8.7.5" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq"><i class="fa fa-check"></i><b>8.7.5</b> RNASeq</a></li>
 <li class="chapter" data-level="8.7.6" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq-gene-expression-data"><i class="fa fa-check"></i><b>8.7.6</b> RNASeq Gene Expression Data</a></li>
-<li class="chapter" data-level="8.7.7" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-rnaseq"><i class="fa fa-check"></i><b>8.7.7</b> Differential Expression: RNASeq</a></li>
+<li class="chapter" data-level="8.7.7" data-path="gene-expression.html"><a href="gene-expression.html#filtering-counts"><i class="fa fa-check"></i><b>8.7.7</b> Filtering Counts</a></li>
+<li class="chapter" data-level="8.7.8" data-path="gene-expression.html"><a href="gene-expression.html#count-distributions"><i class="fa fa-check"></i><b>8.7.8</b> Count Distributions</a></li>
+<li class="chapter" data-level="8.7.9" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-rnaseq"><i class="fa fa-check"></i><b>8.7.9</b> Differential Expression: RNASeq</a></li>
 </ul></li>
 <li class="chapter" data-level="8.8" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html"><i class="fa fa-check"></i><b>8.8</b> Gene Set Enrichment Analysis</a>
 <ul>
 <li class="chapter" data-level="8.8.1" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#gene-sets"><i class="fa fa-check"></i><b>8.8.1</b> Gene Sets</a></li>
 <li class="chapter" data-level="8.8.2" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#working-with-gene-sets-in-r"><i class="fa fa-check"></i><b>8.8.2</b> Working with gene sets in R</a></li>
 <li class="chapter" data-level="8.8.3" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#over-representation-analysis"><i class="fa fa-check"></i><b>8.8.3</b> Over-representation Analysis</a></li>
-<li class="chapter" data-level="8.8.4" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#rank-based-analysis-."><i class="fa fa-check"></i><b>8.8.4</b> Rank-based Analysis .</a></li>
+<li class="chapter" data-level="8.8.4" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#rank-based-analysis"><i class="fa fa-check"></i><b>8.8.4</b> Rank-based Analysis</a></li>
 <li class="chapter" data-level="8.8.5" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#fgsea"><i class="fa fa-check"></i><b>8.8.5</b> fgsea</a></li>
 </ul></li>
 <li class="chapter" data-level="8.9" data-path="biological-networks-..html"><a href="biological-networks-..html"><i class="fa fa-check"></i><b>8.9</b> Biological Networks .</a>
@@ -1017,9 +1019,9 @@ of age, after which they lose the ability to do so. The dataset has eight
 RNASeq samples, two for each of four time points across the developmental window
 until adulthood. We will load in the expression data as a tibble:</p>
 <div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="gene-expression.html#cb291-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;verse_counts.tsv&quot;</span>)</span>
-<span id="cb291-2"><a href="gene-expression.html#cb291-2" aria-hidden="true" tabindex="-1"></a>counts</span></code></pre></div>
+<span id="cb291-2"><a href="gene-expression.html#cb291-2" aria-hidden="true" tabindex="-1"></a>counts </span></code></pre></div>
 <pre><code>## # A tibble: 55,416 x 9
-##    gene                 vP0_1 vP0_2 vP4_1 vP4_2 vP7_1 vP7_2 vAd_1 vAd_2
+##    gene                  P0_1  P0_2  P4_1  P4_2  P7_1  P7_2  Ad_1  Ad_2
 ##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ##  1 ENSMUSG00000102693.2     0     0     0     0     0     0     0     0
 ##  2 ENSMUSG00000064842.3     0     0     0     0     0     0     0     0
@@ -1033,14 +1035,32 @@ until adulthood. We will load in the expression data as a tibble:</p>
 ## 10 ENSMUSG00000103147.2     0     0     0     0     0     0     0     0
 ## # ... with 55,406 more rows</code></pre>
 <p>The annotation counted reads for 55,416 annnotated Ensembl gene for the mouse
-genome, as described in the <a href="gene-identifiers.html#gene-identifier-systems">Gene Identifier Systems</a> section. Although they
-were counted with the annotation, no reads were detected for many genes in any
-of the samples, so we may filter them out:</p>
+genome, as described in the <a href="gene-identifiers.html#gene-identifier-systems">Gene Identifier Systems</a> section.</p>
+<p>There are typically three steps when analyzing a RNASeq count matrix:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Filter genes that are unlikely to be differentially expressed.</strong></li>
+<li><strong>Normalize filtered counts to make samples comparable to one another.</strong></li>
+<li><strong>Differential expression analysis of filtered, normalized counts.</strong></li>
+</ol>
+<p>Each of these steps will be described in detail below.</p>
+</div>
+<div id="filtering-counts" class="section level3" number="8.7.7">
+<h3><span class="header-section-number">8.7.7</span> Filtering Counts</h3>
+<p>Filtering genes that are not likely to be differentially expressed is an
+important step in differential expression analysis. The primary reason for this
+is to reduce the number of genes tested for differential expression, thereby
+reducing the multiple testing burden on the results. There are many approaches
+and rationales for picking filters, and the choice is generally subjective and
+highly dependent upon the specific dataset. In this section we discuss some of
+the rationale and considerations for different filtering strategies.</p>
+<p>Genes that were not detected in any sample are the easiest to filter, and often
+eliminate many genes from consideration. Below we filter out all genes that have
+zero counts in all samples:</p>
 <div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="gene-expression.html#cb293-1" aria-hidden="true" tabindex="-1"></a>nonzero_genes <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(counts[<span class="sc">-</span><span class="dv">1</span>])<span class="sc">!=</span><span class="dv">0</span></span>
 <span id="cb293-2"><a href="gene-expression.html#cb293-2" aria-hidden="true" tabindex="-1"></a>filtered_counts <span class="ot">&lt;-</span> counts[nonzero_genes,]</span>
 <span id="cb293-3"><a href="gene-expression.html#cb293-3" aria-hidden="true" tabindex="-1"></a>filtered_counts</span></code></pre></div>
 <pre><code>## # A tibble: 32,613 x 9
-##    gene                  vP0_1 vP0_2 vP4_1 vP4_2 vP7_1 vP7_2 vAd_1 vAd_2
+##    gene                   P0_1  P0_2  P4_1  P4_2  P7_1  P7_2  Ad_1  Ad_2
 ##    &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ##  1 ENSMUSG00000051951.6     19    24    17    17    17    12     7     5
 ##  2 ENSMUSG00000102851.2      0     0     0     0     1     0     0     0
@@ -1053,39 +1073,122 @@ of the samples, so we may filter them out:</p>
 ##  9 ENSMUSG00000025900.14     4     3     6     7     7     3    36    35
 ## 10 ENSMUSG00000102948.2      1     0     0     0     0     0     0     1
 ## # ... with 32,603 more rows</code></pre>
-<p>Only 32,613 genes remain after filtering out genes with all zeros.</p>
-<div class="box note">
-<p>Filtering genes that are not likely to be differentially expressed is an
-important step in differential expression analysis. There are many approaches
-and rationales for picking filters, and the choice is generally subjective and
-highly dependent upon the specific dataset. Filtering genes with zeros in all
-samples is somewhat liberal, as there may be many genes with reads in only one
-sample. Here is a bar chart of the number of genes detected in each number of
-samples from 1 to all:</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="gene-expression.html#cb295-1" aria-hidden="true" tabindex="-1"></a>counts<span class="sc">$</span><span class="st">`</span><span class="at">Number nonzero samples</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(counts[<span class="sc">-</span><span class="dv">1</span>]<span class="sc">!=</span><span class="dv">0</span>)</span>
-<span id="cb295-2"><a href="gene-expression.html#cb295-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(counts,<span class="st">`</span><span class="at">Number nonzero samples</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb295-3"><a href="gene-expression.html#cb295-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="st">`</span><span class="at">Number of genes</span><span class="st">`</span><span class="ot">=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb295-4"><a href="gene-expression.html#cb295-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Number nonzero samples</span><span class="st">`</span>,<span class="at">y=</span><span class="st">`</span><span class="at">Number of genes</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb295-5"><a href="gene-expression.html#cb295-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
-<span id="cb295-6"><a href="gene-expression.html#cb295-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Number of genes detected in x samples&quot;</span>)</span></code></pre></div>
+<p>Only 32,613 genes remain after filtering out genes with all zeros, eliminating
+nearly 23,000 genes, or more than 40% of the genes in the annotation. Filtering
+genes with zeros in all samples as we have done above is somewhat liberal, as
+there may be many genes with reads in only one sample. Genes with only a single
+sample with a non-zero count also cannot be differentially expressed, so we can
+easily decide to eliminate those as well:</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="gene-expression.html#cb295-1" aria-hidden="true" tabindex="-1"></a>nonzero_genes <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(counts[<span class="sc">-</span><span class="dv">1</span>])<span class="sc">&gt;=</span><span class="dv">2</span></span>
+<span id="cb295-2"><a href="gene-expression.html#cb295-2" aria-hidden="true" tabindex="-1"></a>filtered_counts <span class="ot">&lt;-</span> counts[nonzero_genes,]</span>
+<span id="cb295-3"><a href="gene-expression.html#cb295-3" aria-hidden="true" tabindex="-1"></a>filtered_counts</span></code></pre></div>
+<pre><code>## # A tibble: 28,979 x 9
+##    gene                   P0_1  P0_2  P4_1  P4_2  P7_1  P7_2  Ad_1  Ad_2
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 ENSMUSG00000051951.6     19    24    17    17    17    12     7     5
+##  2 ENSMUSG00000103377.2      1     0     0     1     0     1     1     0
+##  3 ENSMUSG00000104017.2      0     3     0     0     0     1     0     0
+##  4 ENSMUSG00000102331.2      5     8     2     6     6    11     4     3
+##  5 ENSMUSG00000025900.14     4     3     6     7     7     3    36    35
+##  6 ENSMUSG00000102948.2      1     0     0     0     0     0     0     1
+##  7 ENSMUSG00000025902.14   195   186   204   229   157   173   196   129
+##  8 ENSMUSG00000104238.2      0     4     0     2     4     1     3     3
+##  9 ENSMUSG00000102269.2      7    16     6     6     4     6     8     3
+## 10 ENSMUSG00000118917.1      0     1     0     0     1     1     0     0
+## # ... with 28,969 more rows</code></pre>
+<p>We have now reduced our number of genes to 28,979 by including only genes with
+at least two non-zero counts. We may now wonder how many genes we would include
+if we required at least <span class="math inline">\(n\)</span> samples to have non-zero counts. Consider the
+following bar chart of the number of genes detected in at least <span class="math inline">\(n\)</span> samples:</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="gene-expression.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb297-2"><a href="gene-expression.html#cb297-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb297-3"><a href="gene-expression.html#cb297-3" aria-hidden="true" tabindex="-1"></a>nonzero_counts <span class="ot">&lt;-</span> <span class="fu">mutate</span>(counts,<span class="st">`</span><span class="at">Number of samples</span><span class="st">`</span><span class="ot">=</span><span class="fu">rowSums</span>(counts[<span class="sc">-</span><span class="dv">1</span>]<span class="sc">!=</span><span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb297-4"><a href="gene-expression.html#cb297-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Number of samples</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb297-5"><a href="gene-expression.html#cb297-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="st">`</span><span class="at">Number of genes</span><span class="st">`</span><span class="ot">=</span><span class="fu">n</span>() ) <span class="sc">%&gt;%</span></span>
+<span id="cb297-6"><a href="gene-expression.html#cb297-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Cumulative number of genes</span><span class="st">`</span><span class="ot">=</span><span class="fu">sum</span>(<span class="st">`</span><span class="at">Number of genes</span><span class="st">`</span>)<span class="sc">-</span><span class="fu">lag</span>(<span class="fu">cumsum</span>(<span class="st">`</span><span class="at">Number of genes</span><span class="st">`</span>),<span class="dv">1</span>,<span class="at">default=</span><span class="dv">0</span>))</span>
+<span id="cb297-7"><a href="gene-expression.html#cb297-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb297-8"><a href="gene-expression.html#cb297-8" aria-hidden="true" tabindex="-1"></a>sum_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nonzero_counts) <span class="sc">+</span></span>
+<span id="cb297-9"><a href="gene-expression.html#cb297-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Number of samples</span><span class="st">`</span>,<span class="at">y=</span><span class="st">`</span><span class="at">Cumulative number of genes</span><span class="st">`</span>,<span class="at">fill=</span><span class="st">&quot;In at least n&quot;</span>),<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb297-10"><a href="gene-expression.html#cb297-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Number of samples</span><span class="st">`</span>,<span class="at">y=</span><span class="st">`</span><span class="at">Number of genes</span><span class="st">`</span>,<span class="at">fill=</span><span class="st">&quot;In exactly n&quot;</span>),<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb297-11"><a href="gene-expression.html#cb297-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Number of genes detected in n samples&quot;</span>) <span class="sc">+</span></span>
+<span id="cb297-12"><a href="gene-expression.html#cb297-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name=</span><span class="st">&quot;Nonzero in:&quot;</span>)</span>
+<span id="cb297-13"><a href="gene-expression.html#cb297-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb297-14"><a href="gene-expression.html#cb297-14" aria-hidden="true" tabindex="-1"></a>sum_g</span></code></pre></div>
 <p><img src="main_files/rnaseq%20nonzero%20samples-1.png" width="672" /></p>
 <p>The largest number of genes is detected in none of the samples, followed by
-genes detected in all samples, with many fewer in between. Regardless of the
-filtering strategy used, <em>there is no biological meaning to any filtering
-threshold</em>. The number of reads detected for each gene is dependent primarily
-upon the library size, where larger libraries are more likely to sample lowly
-abundant genes. One therefore cannot filter genes with the intent of “removing
-lowly expressed genes”; instead we can only filter out genes that are below the
-detection threshold afforded by the library size of the dataset.</p>
+genes detected in all samples, with many fewer in between. Based on the plot,
+there is no obvious choice for how many nonzero samples are sufficient to use as
+a filter.</p>
+<p>We may gain additional insight into this problem by considering the distribution
+of counts for genes present in at least <span class="math inline">\(n\)</span> samples as above, rather than just
+the number of nonzero counts. Below is a plot similar to that above but, which
+plots the distribution of mean counts across samples within each number of
+nonzero samples:</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="gene-expression.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the mean count for non-zero counts in genes with exactly n non-zero counts</span></span>
+<span id="cb298-2"><a href="gene-expression.html#cb298-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(counts,<span class="st">`</span><span class="at">Number of nonzero samples</span><span class="st">`</span><span class="ot">=</span><span class="fu">factor</span>(<span class="fu">rowSums</span>(counts[<span class="sc">-</span><span class="dv">1</span>]<span class="sc">!=</span><span class="dv">0</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb298-3"><a href="gene-expression.html#cb298-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(gene,<span class="st">`</span><span class="at">Number of nonzero samples</span><span class="st">`</span>),<span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;Count&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb298-4"><a href="gene-expression.html#cb298-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Number of nonzero samples</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb298-5"><a href="gene-expression.html#cb298-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene, <span class="at">.add=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="st">`</span><span class="at">Nonzero Count Mean</span><span class="st">`</span><span class="ot">=</span><span class="fu">mean</span>(Count[Count<span class="sc">!=</span><span class="dv">0</span>]),<span class="at">.groups=</span><span class="st">&quot;keep&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb298-6"><a href="gene-expression.html#cb298-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb298-7"><a href="gene-expression.html#cb298-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Number of nonzero samples</span><span class="st">`</span>,<span class="at">y=</span><span class="st">`</span><span class="at">Nonzero Count Mean</span><span class="st">`</span>,<span class="at">fill=</span><span class="st">`</span><span class="at">Number of nonzero samples</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb298-8"><a href="gene-expression.html#cb298-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">scale=</span><span class="st">&quot;width&quot;</span>) <span class="sc">+</span></span>
+<span id="cb298-9"><a href="gene-expression.html#cb298-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb298-10"><a href="gene-expression.html#cb298-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Nonzero count mean for genes with exactly n nonzero counts&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/rnaseq%20nonzero%20dist-1.png" width="672" /></p>
+<p>From this plot, we see that the mean count for genes with even a single sample
+with a zero is substantially lower than most genes without any zeros. We might
+therefore decide to filter out genes that have <em>any</em> zeros, with the rationale
+that most genes of appreciable abundance would still be included. However, there
+are some genes with a high average count for samples that are not zero that
+would be eliminated if we chose to use only genes expressed in all 8 samples.
+Again, there is no clear choice of filtering threshold, and a subjective
+decision is necessary.</p>
+<p>One important property of RNASeq expression data is that genes with higher mean
+count also have higher variance. This mean-variance dependence means these count
+data are <em>heteroskedastic</em>, a term used to describe data that has inconstant
+variance across different values. We can visualize this dependence by
+calculating the mean and variance for each of our normalized count genes and
+plotting them against each other:</p>
+<p><img src="main_files/rnaseq%20mean%20variance-1.png" width="672" /></p>
+<p>Unlike in microarray data, where probesets can be filtered based on variance,
+using low variance as a filter for count data would result in filtering out
+genes with low mean, which would lead to undesirable bias toward highly
+expressed genes.</p>
+<p>Depending on the experiment, it may be meaningful if a gene is detected
+at all in any of the samples. In these cases, genes with only 1 read in a single
+sample might be kept, even though these genes would not result in confident
+statistical inference if subjected to differential expression. The scientific
+question asked by the experiment is an important consideration when deciding
+thresholds.</p>
+<p>When the goal of the RNASeq experiment is differential expression analysis, a
+good rule of thumb when choosing a filtering threshold is to choose genes that
+have sufficiently many non-zero counts such that the statistical method has
+enough variance to perform reliable inference. For example, a reasonable
+filtering threshold might be to include genes that have non-zero counts in at
+least 50% of the samples. This threshold depends only upon the number of samples
+being considered. In an experimental design with two or more sample groups, a
+reasonable strategy might be to require at least 50% of samples <em>within at least
+one group</em> or <em>within all groups</em> to be included. Taking the experimental design
+into account when filtering can ensure the most interesting genes, e.g. those
+expressed only in one condition, are captured.</p>
+<p>Regardless of the filtering strategy used, <strong>there is no biological meaning to
+any filtering threshold</strong>. The number of reads detected for each gene is
+dependent primarily upon the library size, where larger libraries are more
+likely to sample lowly abundant genes. Therefore, we cannot filter genes with
+the intent of “removing lowly expressed genes”; instead we can only filter out
+genes that are below the detection threshold afforded by the library size of the
+dataset.</p>
 </div>
+<div id="count-distributions" class="section level3" number="8.7.8">
+<h3><span class="header-section-number">8.7.8</span> Count Distributions</h3>
 <p>The range of gene expression in a cell varies by orders of magnitude. The
 following histogram plots the distribution of read count values for one of the
 adult samples:</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="gene-expression.html#cb296-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(filtered_counts, vAd_1) <span class="sc">%&gt;%</span></span>
-<span id="cb296-2"><a href="gene-expression.html#cb296-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">log10(counts+1)</span><span class="st">`</span><span class="ot">=</span><span class="fu">log10</span>(vAd_1<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb296-3"><a href="gene-expression.html#cb296-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">log10(counts+1)</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb296-4"><a href="gene-expression.html#cb296-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>) <span class="sc">+</span></span>
-<span id="cb296-5"><a href="gene-expression.html#cb296-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&#39;log10(counts) distribution for Adult mouse&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="gene-expression.html#cb299-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(filtered_counts, Ad_1) <span class="sc">%&gt;%</span></span>
+<span id="cb299-2"><a href="gene-expression.html#cb299-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">log10(counts+1)</span><span class="st">`</span><span class="ot">=</span><span class="fu">log10</span>(Ad_1<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb299-3"><a href="gene-expression.html#cb299-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">log10(counts+1)</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb299-4"><a href="gene-expression.html#cb299-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb299-5"><a href="gene-expression.html#cb299-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&#39;log10(counts) distribution for Adult mouse&#39;</span>)</span></code></pre></div>
 <p><img src="main_files/rnaseq%20sample%20count%20dist-1.png" width="672" /></p>
 <p>We add 1 count, called a <em>pseudocount</em>, to avoid taking the log of zero, therefore
 all the genes at <span class="math inline">\(x=0\)</span> are genes that have no reads. From the plot, the largest
@@ -1094,13 +1197,13 @@ of magnitude. There are relatively few of these highly abundant genes, however,
 and most genes are betwen the range of 100-10,000 reads. We see that this
 distribution is similar for all the samples, when displayed as a <a href="visualizing-distributions.html#ridgeline">ridgeline
 plot</a>:</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="gene-expression.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
-<span id="cb297-2"><a href="gene-expression.html#cb297-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb297-3"><a href="gene-expression.html#cb297-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(filtered_counts,<span class="sc">-</span><span class="fu">c</span>(gene),<span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;Count&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb297-4"><a href="gene-expression.html#cb297-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">log10(Count+1)</span><span class="st">`</span><span class="ot">=</span><span class="fu">log10</span>(Count<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb297-5"><a href="gene-expression.html#cb297-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>Sample,<span class="at">x=</span><span class="st">`</span><span class="at">log10(Count+1)</span><span class="st">`</span>,<span class="at">fill=</span>Sample)) <span class="sc">+</span></span>
-<span id="cb297-6"><a href="gene-expression.html#cb297-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">bandwidth=</span><span class="fl">0.132</span>) <span class="sc">+</span></span>
-<span id="cb297-7"><a href="gene-expression.html#cb297-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;log10(Count+1) Distributions&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="gene-expression.html#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb300-2"><a href="gene-expression.html#cb300-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb300-3"><a href="gene-expression.html#cb300-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(filtered_counts,<span class="sc">-</span><span class="fu">c</span>(gene),<span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;Count&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb300-4"><a href="gene-expression.html#cb300-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">log10(Count+1)</span><span class="st">`</span><span class="ot">=</span><span class="fu">log10</span>(Count<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb300-5"><a href="gene-expression.html#cb300-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>Sample,<span class="at">x=</span><span class="st">`</span><span class="at">log10(Count+1)</span><span class="st">`</span>,<span class="at">fill=</span>Sample)) <span class="sc">+</span></span>
+<span id="cb300-6"><a href="gene-expression.html#cb300-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">bandwidth=</span><span class="fl">0.132</span>) <span class="sc">+</span></span>
+<span id="cb300-7"><a href="gene-expression.html#cb300-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;log10(Count+1) Distributions&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/rnaseq%20ridgeline-1.png" width="672" /></p>
 <p>The general shape of the distributions is similar, with a large mode of counts
 at zero, representing genes that had zero counts in that sample, and a wider
@@ -1109,8 +1212,8 @@ However, we note that the peak count of these larger modes vary and also recall
 that though the difference appears small, the log scale of the x axis means
 the differences in counts may be substantial. We will discuss the implications
 of this in the next section.</p>
-<div id="count-normalization" class="section level4" number="8.7.6.1">
-<h4><span class="header-section-number">8.7.6.1</span> Count Normalization</h4>
+<div id="count-normalization" class="section level4" number="8.7.8.1">
+<h4><span class="header-section-number">8.7.8.1</span> Count Normalization</h4>
 <p>The number of reads generated for each sample in an RNASeq dataset varies from
 sample to sample due to randomness in the biochemical process that generates
 the data. The relationship between the number of reads that maps to any given
@@ -1118,6 +1221,7 @@ gene and the relative abundance of the molecule in the sample is dependent upon
 the library size of each sample. The direct number of counts, or the <em>raw
 counts</em>, is therefore not directly comparable between samples. A simple example
 should suffice to make this clear:</p>
+<blockquote>
 <p>Imagine two RNASeq datasets generated from the same RNA sample. One of the
 samples was sequenced to 1000 reads, and the other to 2000 reads. Now imagine
 that one gene makes up half of the RNA in the original sample. In the sample
@@ -1129,6 +1233,7 @@ different numbers of reads. Since in general every sample will have a unique
 number of reads, these raw counts will never be directly comparable. The way we
 mitigate this problem is with a statistical procedure called <em>count
 normalization</em>.</p>
+</blockquote>
 <p>Count normalization is the process by which the number of raw counts in each
 sample is scaled by a factor to make multiple samples comparable. Many
 strategies have been proposed to do this, but the simplest is a family of
@@ -1169,40 +1274,40 @@ proven to be consistent and reliable compared with other strategies
 differential expression method, which will be described in a later section. The
 DESeq2 normalization method may be implemented using the <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2 Bioconductor
 package</a>:</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="gene-expression.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
-<span id="cb298-2"><a href="gene-expression.html#cb298-2" aria-hidden="true" tabindex="-1"></a><span class="co"># DESeq2 requires a counts matrix, column data (sample information), and a formula</span></span>
-<span id="cb298-3"><a href="gene-expression.html#cb298-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the counts matrix *must be raw counts*</span></span>
-<span id="cb298-4"><a href="gene-expression.html#cb298-4" aria-hidden="true" tabindex="-1"></a>count_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(filtered_counts[<span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb298-5"><a href="gene-expression.html#cb298-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb298-6"><a href="gene-expression.html#cb298-6" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(count_mat) <span class="ot">&lt;-</span> filtered_counts<span class="sc">$</span>gene</span>
-<span id="cb298-7"><a href="gene-expression.html#cb298-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb298-8"><a href="gene-expression.html#cb298-8" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
-<span id="cb298-9"><a href="gene-expression.html#cb298-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData=</span>count_mat,</span>
-<span id="cb298-10"><a href="gene-expression.html#cb298-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData=</span><span class="fu">tibble</span>(<span class="at">sample_name=</span><span class="fu">colnames</span>(filtered_counts[<span class="sc">-</span><span class="dv">1</span>])),</span>
-<span id="cb298-11"><a href="gene-expression.html#cb298-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">design=</span><span class="sc">~</span><span class="dv">1</span> <span class="co"># no formula is needed for normalization, ~1 produces a trivial design matrix</span></span>
-<span id="cb298-12"><a href="gene-expression.html#cb298-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb298-13"><a href="gene-expression.html#cb298-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb298-14"><a href="gene-expression.html#cb298-14" aria-hidden="true" tabindex="-1"></a><span class="co"># compute normalization factors</span></span>
-<span id="cb298-15"><a href="gene-expression.html#cb298-15" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">estimateSizeFactors</span>(dds)</span>
-<span id="cb298-16"><a href="gene-expression.html#cb298-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb298-17"><a href="gene-expression.html#cb298-17" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the normalized counts</span></span>
-<span id="cb298-18"><a href="gene-expression.html#cb298-18" aria-hidden="true" tabindex="-1"></a>deseq_norm_counts <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">counts</span>(dds,<span class="at">normalized=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb298-19"><a href="gene-expression.html#cb298-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene=</span>filtered_counts<span class="sc">$</span>gene) <span class="sc">%&gt;%</span></span>
-<span id="cb298-20"><a href="gene-expression.html#cb298-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(gene)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="gene-expression.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb301-2"><a href="gene-expression.html#cb301-2" aria-hidden="true" tabindex="-1"></a><span class="co"># DESeq2 requires a counts matrix, column data (sample information), and a formula</span></span>
+<span id="cb301-3"><a href="gene-expression.html#cb301-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the counts matrix *must be raw counts*</span></span>
+<span id="cb301-4"><a href="gene-expression.html#cb301-4" aria-hidden="true" tabindex="-1"></a>count_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(filtered_counts[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb301-5"><a href="gene-expression.html#cb301-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-6"><a href="gene-expression.html#cb301-6" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(count_mat) <span class="ot">&lt;-</span> filtered_counts<span class="sc">$</span>gene</span>
+<span id="cb301-7"><a href="gene-expression.html#cb301-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-8"><a href="gene-expression.html#cb301-8" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
+<span id="cb301-9"><a href="gene-expression.html#cb301-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData=</span>count_mat,</span>
+<span id="cb301-10"><a href="gene-expression.html#cb301-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData=</span><span class="fu">tibble</span>(<span class="at">sample_name=</span><span class="fu">colnames</span>(filtered_counts[<span class="sc">-</span><span class="dv">1</span>])),</span>
+<span id="cb301-11"><a href="gene-expression.html#cb301-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">design=</span><span class="sc">~</span><span class="dv">1</span> <span class="co"># no formula is needed for normalization, ~1 produces a trivial design matrix</span></span>
+<span id="cb301-12"><a href="gene-expression.html#cb301-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb301-13"><a href="gene-expression.html#cb301-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-14"><a href="gene-expression.html#cb301-14" aria-hidden="true" tabindex="-1"></a><span class="co"># compute normalization factors</span></span>
+<span id="cb301-15"><a href="gene-expression.html#cb301-15" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">estimateSizeFactors</span>(dds)</span>
+<span id="cb301-16"><a href="gene-expression.html#cb301-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-17"><a href="gene-expression.html#cb301-17" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the normalized counts</span></span>
+<span id="cb301-18"><a href="gene-expression.html#cb301-18" aria-hidden="true" tabindex="-1"></a>deseq_norm_counts <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">counts</span>(dds,<span class="at">normalized=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb301-19"><a href="gene-expression.html#cb301-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene=</span>filtered_counts<span class="sc">$</span>gene) <span class="sc">%&gt;%</span></span>
+<span id="cb301-20"><a href="gene-expression.html#cb301-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(gene)</span></code></pre></div>
 <p>Using the DESeq2 package, we first construct a DESeq object using the raw counts
 matrix, a sample information tibble with only a sample name column, and a
 trivial design formula, which will be explained in more depth in the
-[DESeq2/edgeR] section. The <code>estimateSizeFactors()</code> function performs the
+<a href="gene-expression.html#deseq2edger">DESeq2/edgeR</a> section. The <code>estimateSizeFactors()</code> function performs the
 normalization routine on the counts, and the <code>counts(dds,normalized=TRUE)</code> call
 extracts the normalized counts matrix. When plotted as a ridgeline plot as
 before, we see that the gene expression distribution modes are better behaved
 compared to raw counts, and the shape of the distribution is preserved unlike
 with CPM normalized counts:</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="gene-expression.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(deseq_norm_counts,<span class="sc">-</span><span class="fu">c</span>(gene),<span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;Count&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb299-2"><a href="gene-expression.html#cb299-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">log10(Count+1)</span><span class="st">`</span><span class="ot">=</span><span class="fu">log10</span>(Count<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb299-3"><a href="gene-expression.html#cb299-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>Sample,<span class="at">x=</span><span class="st">`</span><span class="at">log10(Count+1)</span><span class="st">`</span>,<span class="at">fill=</span>Sample)) <span class="sc">+</span></span>
-<span id="cb299-4"><a href="gene-expression.html#cb299-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">bandwidth=</span><span class="fl">0.132</span>) <span class="sc">+</span></span>
-<span id="cb299-5"><a href="gene-expression.html#cb299-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;log10(Count+1) Distributions&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="gene-expression.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(deseq_norm_counts,<span class="sc">-</span><span class="fu">c</span>(gene),<span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;Count&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb302-2"><a href="gene-expression.html#cb302-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">log10(Count+1)</span><span class="st">`</span><span class="ot">=</span><span class="fu">log10</span>(Count<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb302-3"><a href="gene-expression.html#cb302-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>Sample,<span class="at">x=</span><span class="st">`</span><span class="at">log10(Count+1)</span><span class="st">`</span>,<span class="at">fill=</span>Sample)) <span class="sc">+</span></span>
+<span id="cb302-4"><a href="gene-expression.html#cb302-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">bandwidth=</span><span class="fl">0.132</span>) <span class="sc">+</span></span>
+<span id="cb302-5"><a href="gene-expression.html#cb302-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;log10(Count+1) Distributions&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/rnaseq%20ridgeline%20deseq2-1.png" width="672" /></p>
 <p>The DESeq2 normalization procedure has two important considerations to keep in
 mind:</p>
@@ -1226,8 +1331,8 @@ and therefore is not subject to these considerations.</p>
 popular at the time of writing. For a detailed explanation of many normalization
 methods, see <span class="citation">(<a href="#ref-Dillies2013-rq" role="doc-biblioref">Dillies et al. 2013</a>)</span>.</p>
 </div>
-<div id="count-transformation" class="section level4" number="8.7.6.2">
-<h4><span class="header-section-number">8.7.6.2</span> Count Transformation</h4>
+<div id="count-transformation" class="section level4" number="8.7.8.2">
+<h4><span class="header-section-number">8.7.8.2</span> Count Transformation</h4>
 <p>As mentioned in the <a href="high-throughput-sequencing.html#count-data">Count Data</a> section, one way to deal with the non-normality
 of count data is to perform a data transformation that makes the counts data
 follow a normal distribution. Transformation to normality allows common and
@@ -1246,16 +1351,16 @@ mean count vs variance will be discussed in more detail in the next section.</p>
 </div>
 <p>We can clearlysee the effect of rlog on the counts distribution by plotting the
 rlog’ed counts using a ridgeline plot as before:</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="gene-expression.html#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the dds is the DESeq2 object from earlier</span></span>
-<span id="cb300-2"><a href="gene-expression.html#cb300-2" aria-hidden="true" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">rlog</span>(dds)</span>
-<span id="cb300-3"><a href="gene-expression.html#cb300-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb300-4"><a href="gene-expression.html#cb300-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract rlog values as a tibble</span></span>
-<span id="cb300-5"><a href="gene-expression.html#cb300-5" aria-hidden="true" tabindex="-1"></a>rlog_counts <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">assay</span>(rld))</span>
-<span id="cb300-6"><a href="gene-expression.html#cb300-6" aria-hidden="true" tabindex="-1"></a>rlog_counts<span class="sc">$</span>gene <span class="ot">&lt;-</span> filtered_counts<span class="sc">$</span>gene</span>
-<span id="cb300-7"><a href="gene-expression.html#cb300-7" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(rlog_counts,<span class="sc">-</span><span class="fu">c</span>(gene),<span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;rlog count&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb300-8"><a href="gene-expression.html#cb300-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>Sample,<span class="at">x=</span><span class="st">`</span><span class="at">rlog count</span><span class="st">`</span>,<span class="at">fill=</span>Sample)) <span class="sc">+</span></span>
-<span id="cb300-9"><a href="gene-expression.html#cb300-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">bandwidth=</span><span class="fl">0.132</span>) <span class="sc">+</span></span>
-<span id="cb300-10"><a href="gene-expression.html#cb300-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;rlog Distributions&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="gene-expression.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the dds is the DESeq2 object from earlier</span></span>
+<span id="cb303-2"><a href="gene-expression.html#cb303-2" aria-hidden="true" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">rlog</span>(dds)</span>
+<span id="cb303-3"><a href="gene-expression.html#cb303-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb303-4"><a href="gene-expression.html#cb303-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract rlog values as a tibble</span></span>
+<span id="cb303-5"><a href="gene-expression.html#cb303-5" aria-hidden="true" tabindex="-1"></a>rlog_counts <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">assay</span>(rld))</span>
+<span id="cb303-6"><a href="gene-expression.html#cb303-6" aria-hidden="true" tabindex="-1"></a>rlog_counts<span class="sc">$</span>gene <span class="ot">&lt;-</span> filtered_counts<span class="sc">$</span>gene</span>
+<span id="cb303-7"><a href="gene-expression.html#cb303-7" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(rlog_counts,<span class="sc">-</span><span class="fu">c</span>(gene),<span class="at">names_to=</span><span class="st">&quot;Sample&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;rlog count&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb303-8"><a href="gene-expression.html#cb303-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>Sample,<span class="at">x=</span><span class="st">`</span><span class="at">rlog count</span><span class="st">`</span>,<span class="at">fill=</span>Sample)) <span class="sc">+</span></span>
+<span id="cb303-9"><a href="gene-expression.html#cb303-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">bandwidth=</span><span class="fl">0.132</span>) <span class="sc">+</span></span>
+<span id="cb303-10"><a href="gene-expression.html#cb303-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;rlog Distributions&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/rnaseq%20rlog-1.png" width="672" /></p>
 <div class="box warning">
 <p>It is generally accepted that count transformations have significant drawbacks
@@ -1273,8 +1378,8 @@ in DESeq2 may be useful for these cases.</p>
 </div>
 </div>
 </div>
-<div id="differential-expression-rnaseq" class="section level3" number="8.7.7">
-<h3><span class="header-section-number">8.7.7</span> Differential Expression: RNASeq</h3>
+<div id="differential-expression-rnaseq" class="section level3" number="8.7.9">
+<h3><span class="header-section-number">8.7.9</span> Differential Expression: RNASeq</h3>
 <p>The read counts for each gene or transcript form the primary data used to
 identify genes whose expression correlates with some condition of interest. The
 counts matrix created by concatenating read counts for all genes across a set of
@@ -1282,22 +1387,175 @@ samples where rows are genes or transcripts and columns are samples is the most
 common form of expression data used for this purpose. As mentioned in the
 <a href="high-throughput-sequencing.html#count-data">Count Data</a> section, these counts are not normally distributed and therefore
 require a statistical approach that can accommodate the counts distribution.</p>
-<p>One important property of RNASeq expression data is that genes with higher mean
-count also have higher variance. This mean-variance dependence is called
-<em>heteroskedasticity</em> and violates the assumptions of some statistical
-procedures, including linear regression. We can visualize this dependence by
-calculating the mean and variance for each of our normalized count genes and
-plotting them against each other:</p>
-<p><img src="main_files/rnaseq%20mean%20variance-1.png" width="672" /></p>
 <p>The strong relationship between the mean and variance is characteristic of
 RNASeq expression data, and motivates the use of a generalized linear model
-called <em>negative binomial regression</em>.</p>
-<div id="deseq2edger-." class="section level4" number="8.7.7.1">
-<h4><span class="header-section-number">8.7.7.1</span> DESeq2/EdgeR .</h4>
+called <em>negative binomial regression</em>. Negative binomial regression models count
+data using the <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution">negative binomial distribution</a>,
+which allows the relationship of mean and variance of a counts distribution to
+vary. The statistical details of the negative binomial distribution and negative
+binomial regression are beyond the scope of this book, but below we will discuss
+the aspects necessary to implement differential expression analysis.</p>
+<div id="deseq2edger" class="section level4" number="8.7.9.1">
+<h4><span class="header-section-number">8.7.9.1</span> DESeq2/EdgeR</h4>
+<p><a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a> and
+<a href="https://bioconductor.org/packages/release/bioc/html/edgeR.html">edgeR</a> are bioconductor packages that both implement negative binomial
+regression to perform differential expression on RNASeq data. Both perform
+raw counts normalization as part of their function, though they differ in
+the normalization method (DESeq2 method is described above, while edgeR uses
+trimmed mean of M-values (TMM), see <span class="citation">(<a href="#ref-Robinson2010-ik" role="doc-biblioref">Robinson and Oshlack 2010</a>)</span>). The interface for using
+both packages is also similar, so we will focus on DESeq2 in this section.</p>
+<p>As mentioned briefly above, DESeq2 requires three pieces of information to
+perform differential expression:</p>
+<ol style="list-style-type: decimal">
+<li>A <strong>raw</strong> counts matrix with genes as rows and samples as columns</li>
+<li>A data frame with metadata associated with the columns</li>
+<li>A design formula for the differential expression model</li>
+</ol>
+<p>DESeq2 requires raw counts due to its normalization procedure, which borrows
+information across samples when computing size factors, as described above in
+the <a href="gene-expression.html#count-normalization">Count Normalization</a> section.</p>
+<p>With these three pieces of information, we construct a <code>DESeq</code> object:</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="gene-expression.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb304-2"><a href="gene-expression.html#cb304-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb304-3"><a href="gene-expression.html#cb304-3" aria-hidden="true" tabindex="-1"></a><span class="co"># filter counts to retain genes with at least 6 out of 8 samples with nonzero counts</span></span>
+<span id="cb304-4"><a href="gene-expression.html#cb304-4" aria-hidden="true" tabindex="-1"></a>filtered_counts <span class="ot">&lt;-</span> counts[<span class="fu">rowSums</span>(counts[<span class="sc">-</span><span class="dv">1</span>]<span class="sc">!=</span><span class="dv">0</span>)<span class="sc">&gt;=</span><span class="dv">6</span>,]</span>
+<span id="cb304-5"><a href="gene-expression.html#cb304-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb304-6"><a href="gene-expression.html#cb304-6" aria-hidden="true" tabindex="-1"></a><span class="co"># DESeq2 requires a counts matrix, column data (sample information), and a formula</span></span>
+<span id="cb304-7"><a href="gene-expression.html#cb304-7" aria-hidden="true" tabindex="-1"></a><span class="co"># the counts matrix *must be raw counts*</span></span>
+<span id="cb304-8"><a href="gene-expression.html#cb304-8" aria-hidden="true" tabindex="-1"></a>count_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(filtered_counts[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb304-9"><a href="gene-expression.html#cb304-9" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(count_mat) <span class="ot">&lt;-</span> filtered_counts<span class="sc">$</span>gene</span>
+<span id="cb304-10"><a href="gene-expression.html#cb304-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb304-11"><a href="gene-expression.html#cb304-11" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sample matrix from sample names</span></span>
+<span id="cb304-12"><a href="gene-expression.html#cb304-12" aria-hidden="true" tabindex="-1"></a>sample_info <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb304-13"><a href="gene-expression.html#cb304-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_name=</span><span class="fu">colnames</span>(filtered_counts[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb304-14"><a href="gene-expression.html#cb304-14" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb304-15"><a href="gene-expression.html#cb304-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(sample_name,<span class="fu">c</span>(<span class="st">&quot;timepoint&quot;</span>,<span class="st">&quot;replicate&quot;</span>),<span class="at">sep=</span><span class="st">&quot;_&quot;</span>,<span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb304-16"><a href="gene-expression.html#cb304-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb304-17"><a href="gene-expression.html#cb304-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">timepoint=</span><span class="fu">factor</span>(timepoint,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Ad&quot;</span>,<span class="st">&quot;P0&quot;</span>,<span class="st">&quot;P4&quot;</span>,<span class="st">&quot;P7&quot;</span>))</span>
+<span id="cb304-18"><a href="gene-expression.html#cb304-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb304-19"><a href="gene-expression.html#cb304-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb304-20"><a href="gene-expression.html#cb304-20" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">formula</span>(<span class="sc">~</span> timepoint)</span>
+<span id="cb304-21"><a href="gene-expression.html#cb304-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb304-22"><a href="gene-expression.html#cb304-22" aria-hidden="true" tabindex="-1"></a>sample_info</span></code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##   sample_name timepoint replicate
+##   &lt;chr&gt;       &lt;fct&gt;     &lt;chr&gt;    
+## 1 P0_1        P0        1        
+## 2 P0_2        P0        2        
+## 3 P4_1        P4        1        
+## 4 P4_2        P4        2        
+## 5 P7_1        P7        1        
+## 6 P7_2        P7        2        
+## 7 Ad_1        Ad        1        
+## 8 Ad_2        Ad        2</code></pre>
+<p>The design formula <code>~ timepoint</code> is similar to that supplied to the
+<code>model.matrix()</code> function as described in the <a href="gene-expression.html#differential-expression-analysis">Differential Expression Analysis</a>
+section, where DESeq2 implicitly creates the model matrix by combining the
+column data with the formula. In this differential expression analysis, we wish
+to identify genes that are different between the timepoints <code>P0</code>, <code>P4</code>, <code>P7</code>,
+and <code>Ad</code>. With these three pieces of information prepared, we can create a DESeq
+object and perform differential expression analysis:</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="gene-expression.html#cb306-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
+<span id="cb306-2"><a href="gene-expression.html#cb306-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData=</span>count_mat,</span>
+<span id="cb306-3"><a href="gene-expression.html#cb306-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData=</span>sample_info,</span>
+<span id="cb306-4"><a href="gene-expression.html#cb306-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">design=</span>design</span>
+<span id="cb306-5"><a href="gene-expression.html#cb306-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb306-6"><a href="gene-expression.html#cb306-6" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb306-7"><a href="gene-expression.html#cb306-7" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span></code></pre></div>
+<pre><code>## [1] &quot;Intercept&quot;          &quot;timepoint_P0_vs_Ad&quot; &quot;timepoint_P4_vs_Ad&quot;
+## [4] &quot;timepoint_P7_vs_Ad&quot;</code></pre>
+<p>DESeq2 performed differential expression on each gene and estimated parameters
+for three different comparisons - P0 vs Ad, P4 vs Ad, and P7 vs Ad. Here, Ad is
+the <em>reference group</em> so that we may interpret the statistics as relative to the
+adult animals. The choice of reference group does not change the magnitude of
+the results, but may change the sign of the estimated coefficients, which are
+log2 fold changes. To extract out the differential expression statistics for the
+P0 vs Ad comparison, we can use the <code>results()</code> function:</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="gene-expression.html#cb308-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name=</span><span class="st">&quot;timepoint_P0_vs_Ad&quot;</span>)</span>
+<span id="cb308-2"><a href="gene-expression.html#cb308-2" aria-hidden="true" tabindex="-1"></a>p0_vs_Ad_de <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(res) <span class="sc">%&gt;%</span></span>
+<span id="cb308-3"><a href="gene-expression.html#cb308-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene=</span><span class="fu">rownames</span>(res)) <span class="sc">%&gt;%</span></span>
+<span id="cb308-4"><a href="gene-expression.html#cb308-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(gene) <span class="sc">%&gt;%</span></span>
+<span id="cb308-5"><a href="gene-expression.html#cb308-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pvalue)</span>
+<span id="cb308-6"><a href="gene-expression.html#cb308-6" aria-hidden="true" tabindex="-1"></a>p0_vs_Ad_de</span></code></pre></div>
+<pre><code>## # A tibble: 21,213 x 7
+##    gene                  baseMean log2FoldChange lfcSE  stat    pvalue      padj
+##    &lt;chr&gt;                    &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 ENSMUSG00000000031.17   19624.           6.75 0.190  35.6 5.70e-278 1.07e-273
+##  2 ENSMUSG00000026418.17    9671.           9.84 0.285  34.5 2.29e-261 2.15e-257
+##  3 ENSMUSG00000051855.16    3462.           5.35 0.157  34.1 2.84e-255 1.77e-251
+##  4 ENSMUSG00000027750.17    9482.           4.05 0.125  32.4 2.26e-230 1.06e-226
+##  5 ENSMUSG00000042828.13    3906.          -5.32 0.167 -31.8 1.67e-221 6.25e-218
+##  6 ENSMUSG00000046598.16    1154.          -6.08 0.197 -30.8 4.77e-208 1.49e-204
+##  7 ENSMUSG00000019817.19    1952.           5.15 0.171  30.1 1.43e-198 3.83e-195
+##  8 ENSMUSG00000021622.4    17146.          -4.57 0.157 -29.0 4.41e-185 1.03e-181
+##  9 ENSMUSG00000002500.16    2121.          -6.20 0.217 -28.5 6.69e-179 1.39e-175
+## 10 ENSMUSG00000024598.10    1885.           5.90 0.209  28.2 5.56e-175 1.04e-171
+## # ... with 21,203 more rows</code></pre>
+<p>These are the results of the differential expression comparing P0 with Ad; the
+other contrasts (P4 vs Ad and P7 vs Ad) may be extracted by specifying the
+appropriate result names to the <code>name</code> argument to the <code>results()</code> function. The columns in the DESeq2 results are defined as follows:</p>
+<ul>
+<li><em>baseMean</em> - the mean normalized count of all samples for the gene</li>
+<li><em>log2FoldChange</em> - the estimated coefficient (i.e. log2FoldChange) for the comparison of interest</li>
+<li><em>lfcSE</em> - the standard error for the log2FoldChange estimate</li>
+<li><em>stat</em> - the <a href="https://en.wikipedia.org/wiki/Wald_test">Wald statistic</a> associated with the log2FoldChange estimate</li>
+<li><em>pvalue</em> - the nominal p-value of the Wald test (i.e. the signifiance of the association)</li>
+<li><em>padj</em> - the multiple testing adjusted p-value (i.e. false discovery rate)</li>
+</ul>
+<p>In the P0 vs Ad comparison, we can check the number of significant results easily:</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="gene-expression.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of genes significant at FDR &lt; 0.05</span></span>
+<span id="cb310-2"><a href="gene-expression.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(p0_vs_Ad_de,padj<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 7,557 x 7
+##    gene                  baseMean log2FoldChange lfcSE  stat    pvalue      padj
+##    &lt;chr&gt;                    &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 ENSMUSG00000000031.17   19624.           6.75 0.190  35.6 5.70e-278 1.07e-273
+##  2 ENSMUSG00000026418.17    9671.           9.84 0.285  34.5 2.29e-261 2.15e-257
+##  3 ENSMUSG00000051855.16    3462.           5.35 0.157  34.1 2.84e-255 1.77e-251
+##  4 ENSMUSG00000027750.17    9482.           4.05 0.125  32.4 2.26e-230 1.06e-226
+##  5 ENSMUSG00000042828.13    3906.          -5.32 0.167 -31.8 1.67e-221 6.25e-218
+##  6 ENSMUSG00000046598.16    1154.          -6.08 0.197 -30.8 4.77e-208 1.49e-204
+##  7 ENSMUSG00000019817.19    1952.           5.15 0.171  30.1 1.43e-198 3.83e-195
+##  8 ENSMUSG00000021622.4    17146.          -4.57 0.157 -29.0 4.41e-185 1.03e-181
+##  9 ENSMUSG00000002500.16    2121.          -6.20 0.217 -28.5 6.69e-179 1.39e-175
+## 10 ENSMUSG00000024598.10    1885.           5.90 0.209  28.2 5.56e-175 1.04e-171
+## # ... with 7,547 more rows</code></pre>
+<p>There were 7,557 significantly differentially expressed genes associated with
+this comparison, which includes both up- and down-regulated genes (examine the
+signs of the log2FoldChange column). A common diagnostic plot of differenial
+expression results is the so-called <em>volcano plot</em> which plots the
+log2FoldChange on the x-axis against -log10 adjusted p-value on the y-axis:</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="gene-expression.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb312-2"><a href="gene-expression.html#cb312-2" aria-hidden="true" tabindex="-1"></a>  p0_vs_Ad_de,</span>
+<span id="cb312-3"><a href="gene-expression.html#cb312-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">-log10(adjusted p)</span><span class="st">`</span><span class="ot">=</span><span class="sc">-</span><span class="fu">log10</span>(padj),</span>
+<span id="cb312-4"><a href="gene-expression.html#cb312-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">FDR&lt;0.05</span><span class="st">`</span><span class="ot">=</span>padj<span class="sc">&lt;</span><span class="fl">0.05</span></span>
+<span id="cb312-5"><a href="gene-expression.html#cb312-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb312-6"><a href="gene-expression.html#cb312-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>log2FoldChange,<span class="at">y=</span><span class="st">`</span><span class="at">-log10(adjusted p)</span><span class="st">`</span>,<span class="at">color=</span><span class="st">`</span><span class="at">FDR&lt;0.05</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb312-7"><a href="gene-expression.html#cb312-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="main_files/rnaseq%20deseq2%20volcano-1.png" width="672" /></p>
+<p>The plot shows that there are significant genes at FDR &lt; 0.05 that are increased
+and decreased in the comparison.</p>
+<p>DESeq2 has many capabilities beyond this basic differential expression
+functionality as described in its <a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">comprehensive documentation in its vignette</a>.</p>
+<p>As mentioned, edgeR implements a very similar model to DESeq2 and also has
+<a href="https://bioconductor.org/packages/release/bioc/html/edgeR.html">excellent
+documentation</a>.</p>
 </div>
-<div id="limmavoom-." class="section level4" number="8.7.7.2">
-<h4><span class="header-section-number">8.7.7.2</span> limma/voom .</h4>
-<p>his brief example is from the limma User Guide chapter 15, and covers loading
+<div id="limmavoom" class="section level4" number="8.7.9.2">
+<h4><span class="header-section-number">8.7.9.2</span> limma/voom</h4>
+<p>While the limma package was initially developed for microarray analysis, the
+authors added support for RNASeq soon after the HTS technique became available.
+limma accommodates count data by first performing a <a href="gene-expression.html#count-transformation">Count Transformation</a> using
+its own
+<a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29">voom</a>
+transformation procedure. voom transforms counts by first performing a counts
+per million normalization, taking the logarithm of the CPM values, and finally
+estimates the mean-variance relationship across genes for use in its empirical
+Bayes statistical framework. The counts data being thus transformed, limma
+performs statistical inference using its usual linear model framework to produce
+differential expression results with arbitrarily complex statistical models.</p>
+<p>This brief example is from the <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/limma/inst/doc/">limma User
+Guide</a>
+chapter 15, and covers loading
 and processing data from an RNA-seq experiment. We go into more depth while
 working with limma in assignment 6.</p>
 <p>Without going into too much detail, the <code>design</code> variable is how we inform limma
@@ -1305,22 +1563,22 @@ of our experimental conditions, and where limma draws from to construct its
 linear models correctly. This design is relatively simple, just four samples
 belonging to two different conditions (the <code>swirls</code> here refer to the swirl of
 zebra fish, you can just see them as a phenotypic difference)</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="gene-expression.html#cb301-1" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">swirl =</span> <span class="fu">c</span>(<span class="st">&quot;swirl.1&quot;</span>, <span class="st">&quot;swirl.2&quot;</span>, <span class="st">&quot;swirl.3&quot;</span>, <span class="st">&quot;swirl.4&quot;</span>),</span>
-<span id="cb301-2"><a href="gene-expression.html#cb301-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">condition =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
-<span id="cb301-3"><a href="gene-expression.html#cb301-3" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>counts)</span>
-<span id="cb301-4"><a href="gene-expression.html#cb301-4" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(dge, design)</span>
-<span id="cb301-5"><a href="gene-expression.html#cb301-5" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> dge[keep,,keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="gene-expression.html#cb313-1" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">swirl =</span> <span class="fu">c</span>(<span class="st">&quot;swirl.1&quot;</span>, <span class="st">&quot;swirl.2&quot;</span>, <span class="st">&quot;swirl.3&quot;</span>, <span class="st">&quot;swirl.4&quot;</span>),</span>
+<span id="cb313-2"><a href="gene-expression.html#cb313-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">condition =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb313-3"><a href="gene-expression.html#cb313-3" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>counts)</span>
+<span id="cb313-4"><a href="gene-expression.html#cb313-4" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(dge, design)</span>
+<span id="cb313-5"><a href="gene-expression.html#cb313-5" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> dge[keep,,keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span></code></pre></div>
 <p><code>DGEList()</code> is a function from edgeR, of which limma borrows some loading and
 filtering functions. This experiment filters by expression level, and uses
 square bracket notation (<code>[]</code>) to reduce the number of rows.</p>
 <p>Finally, the expression data is transformed into CPM, counts per million, and
 a linear model is applied to the data with <code>lmFit()</code>. <code>topTable()</code> is used to view the most
 differentially expressed data.</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="gene-expression.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="co"># limma trend</span></span>
-<span id="cb302-2"><a href="gene-expression.html#cb302-2" aria-hidden="true" tabindex="-1"></a>logCPM <span class="ot">&lt;-</span> <span class="fu">cpm</span>(dge, <span class="at">log=</span><span class="cn">TRUE</span>, <span class="at">prior.count=</span><span class="dv">3</span>)</span>
-<span id="cb302-3"><a href="gene-expression.html#cb302-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmFit</span>(logCPM, design)</span>
-<span id="cb302-4"><a href="gene-expression.html#cb302-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">eBayes</span>(fit, <span class="at">trend=</span><span class="cn">TRUE</span>)</span>
-<span id="cb302-5"><a href="gene-expression.html#cb302-5" aria-hidden="true" tabindex="-1"></a><span class="fu">topTable</span>(fit, <span class="at">coef=</span><span class="fu">ncol</span>(design))</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="gene-expression.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="co"># limma trend</span></span>
+<span id="cb314-2"><a href="gene-expression.html#cb314-2" aria-hidden="true" tabindex="-1"></a>logCPM <span class="ot">&lt;-</span> <span class="fu">cpm</span>(dge, <span class="at">log=</span><span class="cn">TRUE</span>, <span class="at">prior.count=</span><span class="dv">3</span>)</span>
+<span id="cb314-3"><a href="gene-expression.html#cb314-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmFit</span>(logCPM, design)</span>
+<span id="cb314-4"><a href="gene-expression.html#cb314-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">eBayes</span>(fit, <span class="at">trend=</span><span class="cn">TRUE</span>)</span>
+<span id="cb314-5"><a href="gene-expression.html#cb314-5" aria-hidden="true" tabindex="-1"></a><span class="fu">topTable</span>(fit, <span class="at">coef=</span><span class="fu">ncol</span>(design))</span></code></pre></div>
 
 </div>
 </div>
@@ -1341,6 +1599,9 @@ O’Meara, Caitlin C, Joseph A Wamstad, Rachel A Gladstone, Gregory M Fomovsky, 
 </div>
 <div id="ref-Ritchie2015-bj" class="csl-entry">
 Ritchie, Matthew E, Belinda Phipson, Di Wu, Yifang Hu, Charity W Law, Wei Shi, and Gordon K Smyth. 2015. <span>“Limma Powers Differential Expression Analyses for <span class="nocase">RNA-sequencing</span> and Microarray Studies.”</span> <em>Nucleic Acids Res.</em>, January, gkv007.
+</div>
+<div id="ref-Robinson2010-ik" class="csl-entry">
+Robinson, Mark D, and Alicia Oshlack. 2010. <span>“A Scaling Normalization Method for Differential Expression Analysis of <span class="nocase">RNA-seq</span> Data.”</span> <em>Genome Biol.</em> 11 (3): R25.
 </div>
 <div id="ref-St-Pierre2018-tc" class="csl-entry">
 St-Pierre, Anne P, Violaine Shikon, and David C Schneider. 2018. <span>“Count Data in Biology-Data Transformation or Model Reformation?”</span> <em>Ecol. Evol.</em> 8 (6): 3077–85.
