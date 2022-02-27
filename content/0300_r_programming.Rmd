@@ -631,7 +631,8 @@ The second signature of the `mean` function introduces two new types of syntax:
 have a default value if not provided explicitly.
 
 **Variable arguments** - `...`. This means the `mean` function can accept
-arguments that are not explicitly listed in the signature.
+arguments that are not explicitly listed in the signature. This syntax is called
+[dynamic dots](https://rlang.r-lib.org/reference/dyn-dots.html).
 
 With these definitions, we can now understand the Arguments section of the help
 documentation:
