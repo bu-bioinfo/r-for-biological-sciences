@@ -261,7 +261,7 @@ process and interpret after the analysis is complete.
 
 ### Microarray Gene Expression Data
 
-On a high level, there are three steps involved in analyzing gene expression
+On a high level, there are four steps involved in analyzing gene expression
 microarray data:
 
 1. **Summarization of probes to probesets.** Each gene is represented by
@@ -529,7 +529,7 @@ until adulthood. We will load in the expression data as a tibble:
 
 ```{r rnaseq load}
 counts <- read_tsv("verse_counts.tsv")
-counts 
+counts
 ```
 
 The annotation counted reads for 55,416 annnotated Ensembl gene for the mouse
@@ -679,7 +679,7 @@ dependent primarily upon the library size, where larger libraries are more
 likely to sample lowly abundant genes. Therefore, we cannot filter genes with
 the intent of "removing lowly expressed genes"; instead we can only filter out
 genes that are below the detection threshold afforded by the library size of the
-dataset. 
+dataset.
 
 ### Count Distributions
 
@@ -922,7 +922,7 @@ counts matrix created by concatenating read counts for all genes across a set of
 samples where rows are genes or transcripts and columns are samples is the most
 common form of expression data used for this purpose. As mentioned in the
 [Count Data] section, these counts are not normally distributed and therefore
-require a statistical approach that can accommodate the counts distribution. 
+require a statistical approach that can accommodate the counts distribution.
 
 The strong relationship between the mean and variance is characteristic of
 RNASeq expression data, and motivates the use of a generalized linear model
