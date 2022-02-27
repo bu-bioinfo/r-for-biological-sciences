@@ -135,7 +135,7 @@ Details: This function will be tested for handling various strings of length 5
 in the form `v[A-Z][a-z,1-9]_[1-9]` and outputting the proper string, preserving
 letter case where letter case is provided.
 
-#### 4. `sample_replicate()`{-}
+#### 4. `sample_replicate()` {-}
 
 Grab sample replicate number from sample name
 
@@ -150,7 +150,7 @@ Output: string (length 1 of substring `[1-9]` from sample name:
 Details: This function will be tested for handling various strings of length 5
 in the form `v[A-Z][a-z,1-9]_[1-9]` and outputting the proper character string.
 
-#### 5. `meta_info_from_labels()`{-}
+#### 5. `meta_info_from_labels()` {-}
 
 Generate sample-level metadata from sample names and stores the data into a
 tibble. Will include columns named "sample", "timepoint", and "replicate" that
@@ -170,7 +170,7 @@ testing for the order of elements in column 'sample''s correspondence with the
 order of elements in the input vector for your reference. The column types of
 your output tibble will not be tested.
 
-#### 6. `get_library_size()`{-}
+#### 6. `get_library_size()` {-}
 
 Calculate total read counts for each sample in a counts dataset.
 
@@ -184,7 +184,7 @@ second column
 Details: This function will be tested for the return of a tibble or named vector
 that have sample names which correspond with the appropriate library size.
 
-#### 7. `normalize_by_cpm()`{-}
+#### 7. `normalize_by_cpm()` {-}
 
 Normalize raw counts data to counts per million using (counts) /
 (sample_library_size) * 10^6
@@ -198,7 +198,7 @@ will be tested for dimensions, column names, location of string and numeric
 column(s), performance of the desired equation on numeric columns, and that gene
 names still correspond to their rows.
 
-#### 8. `deseq_normalize()`{-}
+#### 8. `deseq_normalize()` {-}
 
 Normalize raw counts data using DESeq2
 
@@ -211,7 +211,7 @@ be tested for dimensions, column names, location of string and numeric
 column(s), performance of the desired equation on numeric columns, and that gene
 names still correspond to their rows.
 
-#### 9. `plot_pca()`{-}
+#### 9. `plot_pca()` {-}
 
 Input (3): a `(n x _S_)` tibble of data, a `(_S_ x 3)` tibble of sample-level
 meta information, and a string
@@ -221,16 +221,18 @@ Output: a ggplot scatter plot showing each sample, with PC1 on x-axis and PC2 on
 Details: The output of this will be tested for the appropriate test run and PCs
 used to plot. It may be visually inspected as part of your grade
 
-#### 10. `plot_sample_distributions()`{-}
+#### 10. `plot_sample_distributions()` {-}
 
 Input (3): a `(n x _S_)` tibble of data, a boolean to determine whether to scale
 the 'y' axis to log10 values, and a string
 
 Output: a ggplot boxplot that shows gene count distributions
 
-Details: This function will be tested on a `(n x _S_)` tibble
+Details: This function will be tested on a `(n x _S_)` tibble. It will be tested 
+for functionality of its inputs, handling of data, expected graph elements, and 
+graph type. It may also be visually inspected as part of your grade
 
-#### 11. `plot_variance_vs_mean()`{-}
+#### 11. `plot_variance_vs_mean()` {-}
 
 Input (3): a `(n x _S_)` tibble of data, a boolean to determine whether to scale
 the 'y' axis to log10 values, and a string
@@ -242,7 +244,9 @@ should also be accompanied by a line representing the average mean and variance
 values
 
 
-Details: This function will be tested on a `(n x _S_)` tibble
+Details: This function will be tested on a `(n x _S_)` tibble. It will be tested 
+for functionality of its inputs, handling of data, expected graph elements, and 
+graph type. It may also be visually inspected as part of your grade
 
 ### Hints {-}
 
