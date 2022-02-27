@@ -51,11 +51,12 @@ output: html_document
 * Bioinfo: [Gene Expression]
 * Bioinfo: [Gene Expression Data in Bioconductor]
 * Bioinfo: [Microarrays]
-* Bioinfo: [Microarray Data in Bioconductor]
+* Bioinfo: [Microarray Gene Expression Data]
 * Bioinfo: [Differential Expression: Microarrays (limma)]
 
 ## Week 4
 * [Assignment 3]
+* Data Sci: [Exploratory Data Analysis]
 * Data Sci: [Principal Component Analysis]
 * Data Sci: [Cluster Analysis]
 * Data Sci: [Hierarchical Clustering]
@@ -123,6 +124,8 @@ output: html_document
 * Bioinfo: [Single Cell Clustering Methods]
 * Bioinfo: [tSNE & UMAP]
 * Bioinfo: [Seurat]
+
+## Week 10
 * Bioinfo: [Biological Pathways]
 * Bioinfo: [Gene Regulatory Networks]
 * Bioinfo: [Protein-Protein Networks]
@@ -130,21 +133,19 @@ output: html_document
 * Data Sci: [Network Analysis]
 * Data Viz: [Network visualization]
 
-## Week 10
+## Week 11
 * [Assignment 7] Review
 * EngineeRing: [Toolification]
 * EngineeRing: [Parallel Processing]
 * EngineeRing: [Workflow Managers]
 
-## Week 11
+## Week 12
 * EngineeRing: [Object Orientated Programming in R]
 * EngineeRing: [Building R Packages]
 
-## Week 12
+## Week 13
 * Comm: [Sharing and Documenting Project Code]
 * Comm: [Reproducible Analysis in R]
 * Comm: [Data Documentation and Publishing]
-
-## Week 13 - no class for project work
 
 ## Week 14 - no class for project work

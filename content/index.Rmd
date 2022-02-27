@@ -110,24 +110,25 @@ mentioned otherwise
 +-----------+-------------------+----------------------------------------------+-----------------+
 | [Week 8]  | 3/21 & 3/23       | - RShiny                                     | [Assignment 7]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 9]  | **3/28** & 3/30   | - Bio: Single Cell Sequencing                |                 |
-|           |                   | - Bio: Biological Networks                   | [Assignment 7]  |
-|           |                   | - Data Sci: Network Analysis                 |                 |
+| [Week 9]  | **3/28** & 3/30   | - Bio: Single Cell Sequencing                | [Assignment 7]  |
++-----------+-------------------+----------------------------------------------+-----------------+
+| [Week 10] | **4/4** & 4/6     | - Bio: Biological Networks                   |                 |
+|           |                   | - Data Sci: Network Analysis                 | [Project]       |
 |           |                   | - Data Viz: Network Viz                      |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 10] | **4/4** & ~~4/6~~ | - Toolification                              |                 |
-|           |                   | - R Programming: Parallel Processing         | [Project]       |
+| [Week 11] | 4/11 & ~~4/13~~   | - Toolification                              |                 |
+|           |                   | - R Programming: Parallel Processing         |                 |
 |           |                   | - R Programming: Pipelines & Workflows       |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 11] | 4/11 & ~~4/13~~   | - EngineeRing: Object Orientation            |                 |
+| [Week 12] | 4/20              | - EngineeRing: Object Orientation            |                 |
 |           |                   | - EngineeRing: Building R Packages           |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 12] | 4/20              | - Communicating with R                       |                 |
+| [Week 13] | 4/25 & ~~4/27~~   | - Communicating with R                       |                 |
 |           |                   | - Reproducible Analyses in R                 |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| Week 13   | 4/25 & ~~4/27~~   | - No class - Project work                    |                 |
+| Week 14   | ~~5/2 & 5/4~~     | - No class - Project work                    |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| Week 14   | 5/2  & ~~5/4~~    | - No class - Project work                    | Project due     |
+|           | 5/9               | - First day of exam period                   | Project due     |
 |           |                   |                                              |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 
