@@ -257,6 +257,294 @@ know which tests are appropriate in a given situation? What is the difference
 between a parametric and non-parametric test? What are some common tests (e.g.
 t-test, Chi-sq, hypergeometric, etc), and how do we run them in R?
 
+#### What is a Statistical Test
+A statistical test is an application of mathematics that we used to analyze quantitative data. They can be described as a way to understand how the independent variable(s) of the study affect the outcome of the dependent variable. The kind of statistical test appropriate for a study depends on a number of factors including variables characteristics, study design, and data distribution. 
+The independent variable is (are) the variable(s) being controlled in the study to determine its effects on the dependent variable(s). Not all studies have independent variable(s).
+
+##### Study design {-}
+
+The number of conditions a study has corresponds to the number of levels the independent variable has, for example 1 condition = 1 level, 2 conditions = 2 levels, and so on. This is different from the number of independent variables a study has. If a study has multiple independent variables, each will have its own number of levels. Statistical tests can be categorized as to whether they can handle 1, 2, or 2+ levels. 
+
+If you have 2 or more levels, then the type of grouping will need to be considered: are they between-subjects* or repeated-measures**. A between-subject design means that each participant undergoes one condition whereas a repeated-measures design has each participant undergo all conditions. A third type exists called matched groups, where different subjects undergo different conditions but are matched to each other in some important way, and may be treated as a repeated-measure design when selecting for a statistical test 
+
+<small>
+*Independent design = between-subjects = between-groups; not to be confused with the variable.
+**Dependent design = repeated-measures = within-subjects = within-groups; also not to be confused with the variable.
+</small>
+
+##### Variables {-}
+The characteristics of your variables, both independent (predictor) and dependent (descriptor), will help you choose which statistical test to use. Specifically, the number of each, their type, and the level of measurement, will help you narrow your choices to select the appropriate test.
+
+###### Number of Variables {-}
+The number of both independent and dependent variables will affect which test you select. Test selection will differ whether you have 1 or 2+ dependent variables and 0, 1, or 2+ independent variables.
+
+###### Types of Data (Continuous and Categorical) {-}
+Typically in bioinformatics, data is subdivided into 3 categories: Continuous, Categorical, and Binary. Continuous data is data that exists on a continuum, where measurements can occur at any point between the extreme values. For example, height is a continuous variable: 152.853288cm (60.1783 in), 182.9704cm (72.0356 in), 172.7cm(68in), 163cm(64.2in) and 145.647cm (57.3413 in) are all technically valid heights. Categorical data is data that can be divided to categories or groups such as (high, medium, and low) or (under10, 10-29, and 30+). Binary data, data that can either be one thing or another (T/D, Y/N, 0/1, etc) falls under the Categorical data umbrella though may get mentioned separately elsewhere. Data that exists in sequential, positive integer form- such as number of siblings- is called Discrete data (bonus 4th category!) but typically ends up being treated as categorical data.
+
+###### Levels of Measurement {-}
+The main levels of measurement in we use in statistics are Ratio, Interval, Nominal, and Ordinal. Both Ratio and Interval levels have distance between measurements defined; the biggest difference between the two is that Ratio measurements have a meaningful zero value (and no negative numbers). Height in inches or cm, Kelvin, and number of students in a class are all Ratio measurements. Interval measurements do not have a meaningful zero. Celsius and Fahrenheit both have arbitrary 0s- the freezing point of pure and (a specific kind of) ocean water- making most standard temperature measurements type Interval. Ordinal measurements have a meaningful order to their values but have variable/imprecise distances between measurements, like socioeconomic status (upper, middle, and lower) and days since diagnosis (under 10, 10-39, 40-99, 100+). Nominal measurements do not have meaningful order to their values, like country of origin and yes/no. Ratio and Interval measurements are continuous variables while Nominal and Ordinal measurements are categorical variables.
+
+##### Data Distribution (Parametric vs Nonparametric) {-}
+This is the third factor to keep in mind for test selection and only applicable for NON-nominal dependent variables. Parametric tests make the assumption that the population the data is sourced from has a normal or Gaussian distribution. These are powerful tests because of their data distribution assumption, with the downside of only being able to be used in select cases. Nonparametric tests do not assume a normal distribution and therefore can be used in a wide range of cases, thought they are less likely to find significance in the results.
+
+
+#### Common Statistical Tests
+Here are some common statistical tests and a quick overview as to how to run them in R. If you would like more information about a specific test, links are included in the descriptions
+
+These are only some statistical tests. [Here's a link to where you can find a few more](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/)
+
+[And here's a link to Wikipedia's list of statistical tests if you want to overload on statistical tests because it's your new hobby](https://en.wikipedia.org/wiki/Category:Statistical_tests) 
+
+##### __One-Sample T-Test__ {-}
+
+
+_Dependent Variables_: 1, continuous [ratio and interval]
+
+_Independent Variables_: 0 variables
+
+_Design_: 1 group, 1 level
+
+_Parametric_: Yes
+
+[More t-test information shamelessly linked from SPH]( https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/PH717-Module7-T-tests4.html)
+[Null and Alternate (Research) Hypotheses](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_hypothesistest-means-proportions/BS704_HypothesisTest-Means-Proportions2.html#headingtaglink_1)
+[Z-values](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_probability/bs704_probability9.html)(not mentioned but are in texts that fully explain t-tests)
+One-Sample t-tests come in 3 flavors: two-tailed test, one-tailed test (upper tail), and one-tailed test (lower tail). 
+
+```{r eval= FALSE} 
+# One-sample t-test
+t.test(x, #numeric vector of data 
+       mu = 0, #True value of the mean. Defaults to 0
+       alternative = "two.sided", # ("two.sided", "less", "greater") depending on which you want to use. Defaults to "two.sided
+       conf.level = 0.95 #1-alpha. Defaults to 0.95
+)
+```
+The `t.test()` function allows for multiple kinds of t-tests. To use this function to perform a one sample t-test, you will need a numeric vector of the data you want to run the data on, the mean you want to compare it to, your confidence level (1 - alpha), and your alternative hypothesis. The t-test, like other kinds of t-tests, will compare the means by calculating the t-statistic, p-value and confidence intervals of your data’s mean. 
+
+
+_t_: The calculated t-statistic, uses formula : (mean(x) - mu)/(sd(x)*sqrt(n_samples))
+
+_df_: Degrees of Freedom. Calculated by: n_samples-1
+
+_p_: The p-value of the t-test as determined by the t-statistic and df on the [t-distribution table](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_hypothesistest-means-proportions/t-table.pdf)
+
+_(conf.level) percent confidence interval_: calculated interval where the true mean(x) is with conf.level % certainty.
+
+_sample estimates, mean of x_: The calculated mean of x
+
+Accepting or rejecting the null hypothesis is a matter of determining if mean(x) is outside the percent confidence interval range, if it is then the p-value will determine the significance of the results.
+
+```{r}
+#Example
+set.seed(10)
+x0 <- rnorm(100, 0, 1) #rnorm(n_samples, true_mean, standard_deviation)
+
+ttestx0 <- t.test(x0, mu = 0, alternative = "two.sided", conf.level = 0.95) #actual running of the t-test
+#t.test(x0) yeilds the same results bc I used default values for mu, alternative, and conf.level
+
+tlessx0 <- t.test(x0, mu = 0, alternative = "less", conf.level = 0.90)
+
+knitr::knit_print(ttestx0) #display t-test output via knitr
+```
+In `t.test_x0`, we are running a two-tailed t-test on a vector of 100 doubles generated with `rnorm()` where the intended mean is 0. Since this is a two-tailed test, the _alternate_ hypothesis is `mean(x0) != 0` while the _null_ hypothesis is `mean(x0) = 0`
+
+Since mu=0 and 0 is within the range (-.323, 0.050), we have failed to reject the null hypothesis with this set of data
+
+##### __Unpaired T-Test__ {-}
+
+
+_Dependent Variables_: 1, continuous [ratio and interval]
+
+_Independent Variables_: 1
+
+_Design_: 2 groups, 2 levels
+
+_Parametric_: Yes
+
+```{r eval= FALSE} 
+# One-sample t-test
+t.test(x, #numeric vector of data 1
+       y, #numeric vector of data 2
+       alternative = "two.sided", # ("two.sided", "less", "greater") depending on which you want to use. Defaults to "two.sided
+       conf.level = 0.95 #1-alpha. Defaults to 0.95
+)
+```
+
+The unpaired t-test functions similarly to the one-sample t-test except instead of mu, it uses dataset y. Variance is assumed to be about equal between dataset x and y.
+[Moer information about unpaired t-tests here](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests6.html)
+[Another R guide for upaired t-tests](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests7.html)
+
+```{r}
+#Unpaired t-test example
+set.seed(10)
+x <- rnorm(100, 0, 1)
+y <- rnorm(100, 3, 1)
+
+unpaired <- t.test(x, y)
+
+knitr::knit_print(unpaired)
+```
+Output for an unpaired two sample t-test is similar to the output for the one-sample. Mu is typically 0 (though one could change it with 'mu = n' in the function call) and the test uses the confidence interval for (mean(x)-mean(y)), which is (-3.308, -2.775). Since mu does not exist within the confidence interval, the null hypothesis can be rejected. 
+
+##### __Paired T-Test__ {-}
+
+
+_Dependent Variables_: 1, continuous [ratio and interval]
+
+_Independent Variables_: 1
+
+_Design_: 1 group, 2 levels
+
+_Parametric_: Yes
+
+```{r eval= FALSE} 
+# One-sample t-test
+t.test(x, #numeric vector of data 1
+       y, #numeric vector of data 2
+       paired = TRUE, #defaults to FALSE
+       alternative = "two.sided", # ("two.sided", "less", "greater") depending on which you want to use. Defaults to "two.sided
+       conf.level = 0.95 #1-alpha. Defaults to 0.95
+)
+```
+
+The paired t-test works for matched and repeated-measures designs. Like the unpaired t-test, it has a second data vector and does not need 'mu'. When running a paired t-test make sure that you specify that `paired = TRUE` when calling the function and that x and y have the same length.
+[More information about paired t-tests here](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests8.html#headingtaglink_2)
+
+```{r}
+#Unpaired t-test example
+set.seed(10)
+x <- rnorm(100, 0, 13)
+y <- rnorm(100, 3, 1)
+
+unpaired <- t.test(x, y, paired = TRUE)
+
+knitr::knit_print(unpaired)
+```
+Similar to the unpaired t-test, the paired t-test looks at the differences between x and y. Unlike the unpaired t-test, the statistic creates and runs its test on a third set of data created from the differences of x and y. For an x and y of length n, r would create a third data set of ` new = ((x1-y1), (x2-y2),...(xn-1-yn-1), (xn-yn))` and run its testing with mean(new) and sd(new)
+
+##### __One-Sample Median__ {-}
+
+
+_Dependent Variables_: 1, (ordinal, interval, or ratio)
+
+_Independent Variables_: 0
+
+_Design_: 1 group
+
+_Parametric_: No
+
+##### __Chi-Square test__ {-}
+
+
+_Dependent Variables_: 1, categorical
+
+_Independent Variables_: 1
+
+_Design_: 1 group, 2 + levels
+
+_Parametric_: No
+
+##### __Chi-Square Goodness-Of-Fit_ _{-}
+
+
+_Dependent Variables_: 1, categorical
+
+_Independent Variables_: 0
+
+_Design_: 1 group
+
+_Parametric_: No
+
+##### __Wilcoxon-Mann Whitney test__ {-}
+
+
+_Dependent Variables_: 1, (ordinal, interval, or ratio)
+
+_Independent Variables_: 1
+
+_Design_: 2 groups, 2 levels
+
+_Parametric_: No
+
+##### __Wilcoxon Signed Ranks test__ {-}
+
+
+_Dependent Variables_: 1, (ordinal, interval, or ratio)
+
+_Independent Variables_: 1
+
+_Design_: 1 groups, 2 levels
+
+_Parametric_: No
+
+##### __One-Way ANOVA__ {-}
+
+
+_Dependent Variables_: 1, continuous
+
+_Independent Variables_: 1
+
+_Design_: 2+ groups, 2+ levels
+
+_Parametric_: Yes
+
+##### __One-Way Repeted Measures ANOVA__ {-}
+
+
+_Dependent Variables_: 1, continuous
+
+_Independent Variables_: 1
+
+_Design_: 1 group, 2+ levels
+
+_Parametric_: Yes
+
+##### __Factorial ANOVA__ {-}
+
+
+_Dependent Variables_: 1, continuous
+
+_Independent Variables_: 2+
+
+_Design_: 2+ groups, 2+ levels (inherent w/ 2+ groups)
+
+_Parametric_: Yes
+
+##### __One-Way MANOVA__ {-}
+
+
+_Dependent Variables_: 2+, continuous
+
+_Independent Variables_: 1
+
+_Design_: 2+ groups, 2+ levels (inherent w/ 2+ groups)
+
+_Parametric_: Yes
+
+##### __Regressions__ {-}
+
+##### __Factor Analysis__ {-}
+
+###Choosing a Test
+
+1. Look for your _Dependent Variable(s)._ How many do you have? (1 or 2+)
+      + Which ones exist on a continuum, where any fraction within the valid range is technically possible, though the actual data might have rounded? (Continuous vs Categorical)
+      + For Categorical: If values do not have a definite order then it’s Nominal. Else it’s probably Ordinal
+2. Look for your _Independent Variable(s)._ How many do you have? (0, 1, or 2+)
+      + Define their types and level of measurement as described in 1a and then do 2b and 2c if you have 1 or more independent variables
+      + How many conditions does each independent variable have? (= # of levels)
+      + Does the same subject or (equivalent subjects) undergo each condition/level? (‘Yes’ -> repeated-measures; ‘No’ -> between-groups
+3. If you do not have nominal data, can you assume your data would have a normal distribution if you measured the general population? (‘Yes’-> parametric; ‘No’ -> non-parametric)
+
+<small>
+Citations:
+
+Ranganathan P, Gogtay NJ. An Introduction to Statistics - Data Types, Distributions and Summarizing Data. Indian J Crit Care Med. 2019 Jun;23(Suppl 2):S169-S170. doi: 10.5005/jp-journals-10071-23198. PMID: 31485129; PMCID: PMC6707495.
+
+Parab S, Bhalerao S. Choosing statistical test. Int J Ayurveda Res. 2010;1(3):187-191. doi:10.4103/0974-7788.72494
+Introduction to SAS. UCLA: Statistical Consulting Group. from https://stats.idre.ucla.edu/sas/modules/sas-learning-moduleintroduction-to-the-features-of-sas/ (accessed February 24, 2022)
+</small>
+
 ### p-values .
 
 What is a p-value? What is the relationship between a p-value and a distribution?
