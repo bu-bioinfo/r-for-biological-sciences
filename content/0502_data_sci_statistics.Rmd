@@ -2,14 +2,59 @@
 output: html_document
 ---
 
-## Statistical Distributions & Tests .
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+## Statistical Distributions & Tests
+
+Biological data, like all data, is uncertain. Measurements always contain noise,
+but a collection of measurements do not always contain signal. The field of
+statistics grew from the recognition that mathematics can be used to quantify
+uncertainty and help us reason about whether a signal exists within a dataset,
+and how certain we are of that signal. At its core, statistics is about
+separating the signal from the noise of a dataset in a rigorous and precise way.
+
+In statistics, uncertainty is expressed as deviation from an expected value.
+For example, in a [normal
+distribution](https://en.wikipedia.org/wiki/Normal_distribution), the expected
+value is the arithmetic mean and a common measure of uncertainty around that
+value is the standard deviation.  One of the fundamental statistical tools used
+when estimating uncertainty is the *statistical distribution*, or *probability
+distribution*, or simply *distribution*.
+
+There are two broad classes of distributions: statistical, or theoretical,
+distributions and empirical distributions. In this section we will discuss some
+general properties of distributions, briefly describe some common probability
+distributions, and explain how to specify and use these distributions in R.
+
+
+### Random Variables
+
+
 
 ### Statistical Distributions
 
-By definition, a distribution is a function that shows
-**the possible values for a variable and how often they occur**.
-Generally, they are divided into two categories: discrete distributions and
-continuous distributions.  
+By definition, a statistical distribution is a function that maps **the possible
+values for a variable to how often they occur**.
+
+More precisely, uncertainty is usually expressed as either a [confidence
+interval](https://en.wikipedia.org/wiki/Confidence_interval) specifying a range
+of values that are probable within some desired threshold, or a probability that
+the data follow a distribution parameterized with a given mean and deviation
+from that mean.
+
+::: {.box .note}
+In probability theory, if a plausible event has a probability of zero, this
+*does not mean that event can never occur*, nor does a probability of one mean
+the event is destined to occur. This is due to the asymptotic properties of
+probability distributions, where every [supported value](https://en.wikipedia.org/wiki/Support_(mathematics)) of the distribution
+has a non-zero value by definition, though many values may be very close to
+zero.
+:::
+
+Generally, statistical distributions are divided into two categories: discrete
+distributions and continuous distributions.
 
 #### Discrete distributions
 
@@ -170,6 +215,7 @@ f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!}
 
 
 #### Continuous distributions
+
 There are a number of different continuous distributions. Here we will focus
 on the **Normal distribution (Gaussian distribution)**. A lot of variables in
 real life are normally distributed, common examples include people's height,
@@ -249,6 +295,34 @@ qnorm(p = 0.6914625, mean = 0, sd = 1)
 Similarly, other distributions such as chi-square distribution, they all have
 the same set of functions: `rchisq()`, `dchisq()`, `pchisq()` and `qchisq()` etc.  
 
+### Empirical Distributions
+
+Empirical distributions describe the relative frequency of observed values in a
+dataset. Empirical distributions may have any shape, and may be visualized using
+any of the methods described in the [Visualizing Distributions] section, e.g. a
+[density plot](#density-plots). The following beeswarm and density plot both
+visualize the same made-up dataset:
+
+```{r stat hist, echo=FALSE}
+library(ggbeeswarm)
+library(patchwork)
+# synthetic dataset generated with three normal distributions
+d <- tibble(
+  Value=c(rnorm(1000,0,2),rnorm(1000,5,1),rnorm(1000,10,5))  
+)
+g_dens <- ggplot(d,aes(x=Value,fill="orange")) +
+  geom_density() +
+  guides(fill="none") # turns off the legend
+g_bee <- ggplot(d, aes(x=1,y=Value)) +
+  geom_beeswarm()
+g_bee | g_dens
+```
+
+Note the $y$ axis in the plot on the right is scaled as a density, rather than a
+count. A distribution plotted as a density ensures the values sum to 1, thus
+making a probability distribution. This empirical distribution looks quite
+complicated, and cannot be easily captured with a single mean and confidence
+interval.
 
 ### Statistical Tests .
 
