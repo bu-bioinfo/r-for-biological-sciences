@@ -2,7 +2,7 @@
 output: html_document
 ---
 
-## Exploratory Analysis
+## Exploratory Data Analysis
 
 So far, we have discussed methods where we chose an explicit model to summarize
 our data. However, sometimes we don't have enough information about our data to
