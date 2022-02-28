@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.4 Exploratory Data Analysis | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="6.4 Exploratory Data Analysis | BF591 - R for Biological Sciences" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.4 Exploratory Data Analysis | BF591 - R for Biological Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.4 Exploratory Data Analysis | BF591 - R for Biological Sciences" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="statistical-tests.html"/>
+<link rel="next" href="network-analysis-..html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="" data-path="course-schedule.html"><a href="course-schedule.html"><i class="fa fa-check"></i>Course Schedule</a></li>
+<li class="chapter" data-level="" data-path="instructors.html"><a href="instructors.html"><i class="fa fa-check"></i>Instructors</a></li>
+<li class="chapter" data-level="" data-path="office-hours.html"><a href="office-hours.html"><i class="fa fa-check"></i>Office Hours</a></li>
+<li class="chapter" data-level="" data-path="course-values-and-policies.html"><a href="course-values-and-policies.html"><i class="fa fa-check"></i>Course Values and Policies</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="who-this-book-is-for.html"><a href="who-this-book-is-for.html"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For</a></li>
+<li class="chapter" data-level="1.2" data-path="a-note-about-reinventing-the-wheel.html"><a href="a-note-about-reinventing-the-wheel.html"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel</a></li>
+<li class="chapter" data-level="1.3" data-path="sources-and-references.html"><a href="sources-and-references.html"><i class="fa fa-check"></i><b>1.3</b> Sources and References</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-bio.html"><a href="data-bio.html"><i class="fa fa-check"></i><b>2</b> Data in Biology</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="a-brief-history-of-data-in-molecular-biology.html"><a href="a-brief-history-of-data-in-molecular-biology.html"><i class="fa fa-check"></i><b>2.1</b> A Brief History of Data in Molecular Biology</a></li>
+<li class="chapter" data-level="2.2" data-path="biology-as-a-mature-data-science.html"><a href="biology-as-a-mature-data-science.html"><i class="fa fa-check"></i><b>2.2</b> Biology as a Mature Data Science</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>3</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prelim-r.html"><a href="prelim-r.html"><i class="fa fa-check"></i><b>3.1</b> The R Language</a></li>
+<li class="chapter" data-level="3.2" data-path="prelim-rstudio.html"><a href="prelim-rstudio.html"><i class="fa fa-check"></i><b>3.2</b> RStudio</a></li>
+<li class="chapter" data-level="3.3" data-path="prog-the-r-script.html"><a href="prog-the-r-script.html"><i class="fa fa-check"></i><b>3.3</b> The R Script</a></li>
+<li class="chapter" data-level="3.4" data-path="prog-workflow.html"><a href="prog-workflow.html"><i class="fa fa-check"></i><b>3.4</b> The Scripting Workflow</a></li>
+<li class="chapter" data-level="3.5" data-path="prelim-git.html"><a href="prelim-git.html"><i class="fa fa-check"></i><b>3.5</b> git + github</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="prelim-git.html"><a href="prelim-git.html#motivation"><i class="fa fa-check"></i><b>3.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="3.5.2" data-path="prelim-git.html"><a href="prelim-git.html#git"><i class="fa fa-check"></i><b>3.5.2</b> git</a></li>
+<li class="chapter" data-level="3.5.3" data-path="prelim-git.html"><a href="prelim-git.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>3.5.3</b> Git hosting platforms (GitHub)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="prog-basics.html"><a href="prog-basics.html"><i class="fa fa-check"></i><b>4</b> R Programming</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="before-you-begin.html"><a href="before-you-begin.html"><i class="fa fa-check"></i><b>4.1</b> Before you begin</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="prog-r-syntax.html"><a href="prog-r-syntax.html"><i class="fa fa-check"></i><b>4.3</b> R Syntax Basics</a></li>
+<li class="chapter" data-level="4.4" data-path="prog-types.html"><a href="prog-types.html"><i class="fa fa-check"></i><b>4.4</b> Basic Types of Values</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="prog-types.html"><a href="prog-types.html#factors"><i class="fa fa-check"></i><b>4.4.1</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="prog-struct.html"><a href="prog-struct.html"><i class="fa fa-check"></i><b>4.5</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="prog-struct.html"><a href="prog-struct.html#vectors"><i class="fa fa-check"></i><b>4.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="4.5.2" data-path="prog-struct.html"><a href="prog-struct.html#matrices"><i class="fa fa-check"></i><b>4.5.2</b> Matrices</a></li>
+<li class="chapter" data-level="4.5.3" data-path="prog-struct.html"><a href="prog-struct.html#lists-and-data-frames"><i class="fa fa-check"></i><b>4.5.3</b> Lists and data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="logical-tests-and-comparators.html"><a href="logical-tests-and-comparators.html"><i class="fa fa-check"></i><b>4.6</b> Logical Tests and Comparators</a></li>
+<li class="chapter" data-level="4.7" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>4.7</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="functions.html"><a href="functions.html#prog-dry"><i class="fa fa-check"></i><b>4.7.1</b> DRY: Don’t Repeat Yourself</a></li>
+<li class="chapter" data-level="4.7.2" data-path="functions.html"><a href="functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>4.7.2</b> Writing your own functions</a></li>
+<li class="chapter" data-level="4.7.3" data-path="functions.html"><a href="functions.html#scope"><i class="fa fa-check"></i><b>4.7.3</b> Scope</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.8</b> Iteration</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="iteration.html"><a href="iteration.html#vectorized-operations"><i class="fa fa-check"></i><b>4.8.1</b> Vectorized operations</a></li>
+<li class="chapter" data-level="4.8.2" data-path="iteration.html"><a href="iteration.html#functional-programming"><i class="fa fa-check"></i><b>4.8.2</b> Functional programming</a></li>
+<li class="chapter" data-level="4.8.3" data-path="iteration.html"><a href="iteration.html#apply-and-friends"><i class="fa fa-check"></i><b>4.8.3</b> <code>apply()</code> and friends</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="installing-packages.html"><a href="installing-packages.html"><i class="fa fa-check"></i><b>4.9</b> Installing Packages</a></li>
+<li class="chapter" data-level="4.10" data-path="saving-and-loading-r-data.html"><a href="saving-and-loading-r-data.html"><i class="fa fa-check"></i><b>4.10</b> Saving and Loading R Data</a></li>
+<li class="chapter" data-level="4.11" data-path="prog-debugging.html"><a href="prog-debugging.html"><i class="fa fa-check"></i><b>4.11</b> Troubleshooting and Debugging</a></li>
+<li class="chapter" data-level="4.12" data-path="prog-style.html"><a href="prog-style.html"><i class="fa fa-check"></i><b>4.12</b> Coding Style and Conventions</a>
+<ul>
+<li class="chapter" data-level="4.12.1" data-path="prog-style.html"><a href="prog-style.html#is-my-code-correct"><i class="fa fa-check"></i><b>4.12.1</b> Is my code correct?</a></li>
+<li class="chapter" data-level="4.12.2" data-path="prog-style.html"><a href="prog-style.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>4.12.2</b> Does my code follow the <span>DRY principle</span>?</a></li>
+<li class="chapter" data-level="4.12.3" data-path="prog-style.html"><a href="prog-style.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>4.12.3</b> Did I choose concise but descriptive variable and function names?</a></li>
+<li class="chapter" data-level="4.12.4" data-path="prog-style.html"><a href="prog-style.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>4.12.4</b> Did I use indentation and naming conventions consistently throughout my code?</a></li>
+<li class="chapter" data-level="4.12.5" data-path="prog-style.html"><a href="prog-style.html#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><i class="fa fa-check"></i><b>4.12.5</b> Did I write comments, especially when what the code does is not obvious?</a></li>
+<li class="chapter" data-level="4.12.6" data-path="prog-style.html"><a href="prog-style.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>4.12.6</b> How easy would it be for someone else to understand my code?</a></li>
+<li class="chapter" data-level="4.12.7" data-path="prog-style.html"><a href="prog-style.html#is-my-code-easy-to-maintainchange"><i class="fa fa-check"></i><b>4.12.7</b> Is my code easy to maintain/change?</a></li>
+<li class="chapter" data-level="4.12.8" data-path="prog-style.html"><a href="prog-style.html#the-styler-package-."><i class="fa fa-check"></i><b>4.12.8</b> The <code>styler</code> package .</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="the-tidyverse.html"><a href="the-tidyverse.html"><i class="fa fa-check"></i><b>5.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="5.2" data-path="dw-basics.html"><a href="dw-basics.html"><i class="fa fa-check"></i><b>5.2</b> Tidyverse Basics</a></li>
+<li class="chapter" data-level="5.3" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>5.3</b> Importing Data</a></li>
+<li class="chapter" data-level="5.4" data-path="data-tibble.html"><a href="data-tibble.html"><i class="fa fa-check"></i><b>5.4</b> The tibble</a></li>
+<li class="chapter" data-level="5.5" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>5.5</b> Tidy Data</a></li>
+<li class="chapter" data-level="5.6" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>5.6</b> pipes</a></li>
+<li class="chapter" data-level="5.7" data-path="arranging-data.html"><a href="arranging-data.html"><i class="fa fa-check"></i><b>5.7</b> Arranging Data</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="arranging-data.html"><a href="arranging-data.html#dplyrmutate---create-new-columns-using-other-columns"><i class="fa fa-check"></i><b>5.7.1</b> <code>dplyr::mutate()</code> - Create new columns using other columns</a></li>
+<li class="chapter" data-level="5.7.2" data-path="arranging-data.html"><a href="arranging-data.html#stringr---working-with-character-values"><i class="fa fa-check"></i><b>5.7.2</b> <code>stringr</code> - Working with character values</a></li>
+<li class="chapter" data-level="5.7.3" data-path="arranging-data.html"><a href="arranging-data.html#dplyrselect---subset-columns-by-name"><i class="fa fa-check"></i><b>5.7.3</b> <code>dplyr::select()</code> - Subset Columns by Name</a></li>
+<li class="chapter" data-level="5.7.4" data-path="arranging-data.html"><a href="arranging-data.html#dplyrfilter---pick-rows-out-of-a-data-set"><i class="fa fa-check"></i><b>5.7.4</b> <code>dplyr::filter()</code> - Pick rows out of a data set</a></li>
+<li class="chapter" data-level="5.7.5" data-path="arranging-data.html"><a href="arranging-data.html#dplyrarrange---order-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.7.5</b> <code>dplyr::arrange()</code> - Order rows based on their values</a></li>
+<li class="chapter" data-level="5.7.6" data-path="arranging-data.html"><a href="arranging-data.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.7.6</b> Putting it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="grouping-data.html"><a href="grouping-data.html"><i class="fa fa-check"></i><b>5.8</b> Grouping Data</a></li>
+<li class="chapter" data-level="5.9" data-path="rearranging-data.html"><a href="rearranging-data.html"><i class="fa fa-check"></i><b>5.9</b> Rearranging Data</a></li>
+<li class="chapter" data-level="5.10" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>5.10</b> Relational Data</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="relational-data.html"><a href="relational-data.html#dealing-with-multiple-matches"><i class="fa fa-check"></i><b>5.10.1</b> Dealing with multiple matches</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>6</b> Data Science</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-modeling.html"><a href="data-modeling.html"><i class="fa fa-check"></i><b>6.1</b> Data Modeling</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-modeling.html"><a href="data-modeling.html#a-worked-modeling-example"><i class="fa fa-check"></i><b>6.1.1</b> A Worked Modeling Example</a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-modeling.html"><a href="data-modeling.html#data-summarization"><i class="fa fa-check"></i><b>6.1.2</b> Data Summarization</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-modeling.html"><a href="data-modeling.html#linear-models"><i class="fa fa-check"></i><b>6.1.3</b> Linear Models</a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-modeling.html"><a href="data-modeling.html#flavors-of-linear-models"><i class="fa fa-check"></i><b>6.1.4</b> Flavors of Linear Models</a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-modeling.html"><a href="data-modeling.html#assessing-model-accuracy-."><i class="fa fa-check"></i><b>6.1.5</b> Assessing Model Accuracy .</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="statistical-distributions.html"><a href="statistical-distributions.html"><i class="fa fa-check"></i><b>6.2</b> Statistical Distributions</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="statistical-distributions.html"><a href="statistical-distributions.html#random-variables"><i class="fa fa-check"></i><b>6.2.1</b> Random Variables</a></li>
+<li class="chapter" data-level="6.2.2" data-path="statistical-distributions.html"><a href="statistical-distributions.html#statistical-distribution-basics"><i class="fa fa-check"></i><b>6.2.2</b> Statistical Distribution Basics</a></li>
+<li class="chapter" data-level="6.2.3" data-path="statistical-distributions.html"><a href="statistical-distributions.html#distributions-in-r"><i class="fa fa-check"></i><b>6.2.3</b> Distributions in R</a></li>
+<li class="chapter" data-level="6.2.4" data-path="statistical-distributions.html"><a href="statistical-distributions.html#discrete-distributions"><i class="fa fa-check"></i><b>6.2.4</b> Discrete Distributions</a></li>
+<li class="chapter" data-level="6.2.5" data-path="statistical-distributions.html"><a href="statistical-distributions.html#continuous-distributions"><i class="fa fa-check"></i><b>6.2.5</b> Continuous Distributions</a></li>
+<li class="chapter" data-level="6.2.6" data-path="statistical-distributions.html"><a href="statistical-distributions.html#empirical-distributions"><i class="fa fa-check"></i><b>6.2.6</b> Empirical Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="statistical-tests.html"><a href="statistical-tests.html"><i class="fa fa-check"></i><b>6.3</b> Statistical Tests</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
+<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values-."><i class="fa fa-check"></i><b>6.3.4</b> p-values .</a></li>
+<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power-."><i class="fa fa-check"></i><b>6.3.6</b> Statistical power .</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#principal-component-analysis"><i class="fa fa-check"></i><b>6.4.1</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="6.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#cluster-analysis"><i class="fa fa-check"></i><b>6.4.2</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="6.4.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#k-means-."><i class="fa fa-check"></i><b>6.4.3</b> k-means .</a></li>
+<li class="chapter" data-level="6.4.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#others"><i class="fa fa-check"></i><b>6.4.4</b> Others</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="network-analysis-..html"><a href="network-analysis-..html"><i class="fa fa-check"></i><b>6.5</b> Network Analysis .</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>7</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dv-gg.html"><a href="dv-gg.html"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a></li>
+<li class="chapter" data-level="7.2" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html"><i class="fa fa-check"></i><b>7.2</b> Plotting One Dimension</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#dv-bar"><i class="fa fa-check"></i><b>7.2.1</b> Bar chart</a></li>
+<li class="chapter" data-level="7.2.2" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#lollipop-plots"><i class="fa fa-check"></i><b>7.2.2</b> Lollipop plots</a></li>
+<li class="chapter" data-level="7.2.3" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#stacked-area-charts"><i class="fa fa-check"></i><b>7.2.3</b> Stacked Area charts</a></li>
+<li class="chapter" data-level="7.2.4" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#parallel-coordinate-plots"><i class="fa fa-check"></i><b>7.2.4</b> Parallel Coordinate plots</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html"><i class="fa fa-check"></i><b>7.3</b> Visualizing Distributions</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#histogram"><i class="fa fa-check"></i><b>7.3.1</b> Histogram</a></li>
+<li class="chapter" data-level="7.3.2" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#density"><i class="fa fa-check"></i><b>7.3.2</b> Density</a></li>
+<li class="chapter" data-level="7.3.3" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#boxplot"><i class="fa fa-check"></i><b>7.3.3</b> Boxplot</a></li>
+<li class="chapter" data-level="7.3.4" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#violin-plot"><i class="fa fa-check"></i><b>7.3.4</b> Violin plot</a></li>
+<li class="chapter" data-level="7.3.5" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#beeswarm-plot"><i class="fa fa-check"></i><b>7.3.5</b> Beeswarm plot</a></li>
+<li class="chapter" data-level="7.3.6" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#ridgeline"><i class="fa fa-check"></i><b>7.3.6</b> Ridgeline</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html"><i class="fa fa-check"></i><b>7.4</b> Plotting Two or More Dimensions .</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html#scatter-plot-."><i class="fa fa-check"></i><b>7.4.1</b> Scatter plot .</a></li>
+<li class="chapter" data-level="7.4.2" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html#line-plot-."><i class="fa fa-check"></i><b>7.4.2</b> Line plot .</a></li>
+<li class="chapter" data-level="7.4.3" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html#bubble-plot-."><i class="fa fa-check"></i><b>7.4.3</b> Bubble plot .</a></li>
+<li class="chapter" data-level="7.4.4" data-path="plotting-two-or-more-dimensions-..html"><a href="plotting-two-or-more-dimensions-..html#heatmaps"><i class="fa fa-check"></i><b>7.4.4</b> Heatmaps</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="other-kind-of-plots-..html"><a href="other-kind-of-plots-..html"><i class="fa fa-check"></i><b>7.5</b> Other Kind of Plots .</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="other-kind-of-plots-..html"><a href="other-kind-of-plots-..html#chord-."><i class="fa fa-check"></i><b>7.5.1</b> Chord .</a></li>
+<li class="chapter" data-level="7.5.2" data-path="other-kind-of-plots-..html"><a href="other-kind-of-plots-..html#sankey-."><i class="fa fa-check"></i><b>7.5.2</b> Sankey .</a></li>
+<li class="chapter" data-level="7.5.3" data-path="other-kind-of-plots-..html"><a href="other-kind-of-plots-..html#dendrograms"><i class="fa fa-check"></i><b>7.5.3</b> Dendrograms</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="tips-and-tricks-..html"><a href="tips-and-tricks-..html"><i class="fa fa-check"></i><b>7.6</b> Tips and Tricks .</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="tips-and-tricks-..html"><a href="tips-and-tricks-..html#reordering-1-d-data-elements-."><i class="fa fa-check"></i><b>7.6.1</b> Reordering 1-D Data Elements .</a></li>
+<li class="chapter" data-level="7.6.2" data-path="tips-and-tricks-..html"><a href="tips-and-tricks-..html#confidence-intervals-."><i class="fa fa-check"></i><b>7.6.2</b> Confidence Intervals .</a></li>
+<li class="chapter" data-level="7.6.3" data-path="tips-and-tricks-..html"><a href="tips-and-tricks-..html#annotations-."><i class="fa fa-check"></i><b>7.6.3</b> Annotations .</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="multiple-plots-..html"><a href="multiple-plots-..html"><i class="fa fa-check"></i><b>7.7</b> Multiple Plots .</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="multiple-plots-..html"><a href="multiple-plots-..html#secondary-axes-."><i class="fa fa-check"></i><b>7.7.1</b> Secondary Axes .</a></li>
+<li class="chapter" data-level="7.7.2" data-path="multiple-plots-..html"><a href="multiple-plots-..html#facet-wrapping-."><i class="fa fa-check"></i><b>7.7.2</b> Facet wrapping .</a></li>
+<li class="chapter" data-level="7.7.3" data-path="multiple-plots-..html"><a href="multiple-plots-..html#multipanel-figures-."><i class="fa fa-check"></i><b>7.7.3</b> Multipanel Figures .</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="responsible-plotting-..html"><a href="responsible-plotting-..html"><i class="fa fa-check"></i><b>7.8</b> Responsible Plotting .</a></li>
+<li class="chapter" data-level="7.9" data-path="publication-ready-plots-..html"><a href="publication-ready-plots-..html"><i class="fa fa-check"></i><b>7.9</b> Publication Ready Plots .</a></li>
+<li class="chapter" data-level="7.10" data-path="network-visualization-..html"><a href="network-visualization-..html"><i class="fa fa-check"></i><b>7.10</b> Network visualization .</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>8</b> Biology &amp; Bioinformatics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bio-r.html"><a href="bio-r.html"><i class="fa fa-check"></i><b>8.1</b> R in Biology</a></li>
+<li class="chapter" data-level="8.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html"><i class="fa fa-check"></i><b>8.2</b> Biological Data Overview</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="biological-data-overview.html"><a href="biological-data-overview.html#bio-data-types"><i class="fa fa-check"></i><b>8.2.1</b> Types of Biological Data</a></li>
+<li class="chapter" data-level="8.2.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html#csv-files"><i class="fa fa-check"></i><b>8.2.2</b> CSV Files</a></li>
+<li class="chapter" data-level="8.2.3" data-path="biological-data-overview.html"><a href="biological-data-overview.html#biological-data-is-not-tidy"><i class="fa fa-check"></i><b>8.2.3</b> Biological data is NOT Tidy!</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="bio-bioconductor.html"><a href="bio-bioconductor.html"><i class="fa fa-check"></i><b>8.3</b> Bioconductor</a></li>
+<li class="chapter" data-level="8.4" data-path="microarrays.html"><a href="microarrays.html"><i class="fa fa-check"></i><b>8.4</b> Microarrays</a></li>
+<li class="chapter" data-level="8.5" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html"><i class="fa fa-check"></i><b>8.5</b> High Throughput Sequencing</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#raw-hts-data"><i class="fa fa-check"></i><b>8.5.1</b> Raw HTS Data</a></li>
+<li class="chapter" data-level="8.5.2" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#preliminary-hts-data-analysis"><i class="fa fa-check"></i><b>8.5.2</b> Preliminary HTS Data Analysis</a></li>
+<li class="chapter" data-level="8.5.3" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#count-data"><i class="fa fa-check"></i><b>8.5.3</b> Count Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="gene-identifiers.html"><a href="gene-identifiers.html"><i class="fa fa-check"></i><b>8.6</b> Gene Identifiers</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="gene-identifiers.html"><a href="gene-identifiers.html#gene-identifier-systems"><i class="fa fa-check"></i><b>8.6.1</b> Gene Identifier Systems</a></li>
+<li class="chapter" data-level="8.6.2" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-between-identifier-systems"><i class="fa fa-check"></i><b>8.6.2</b> Mapping Between Identifier Systems</a></li>
+<li class="chapter" data-level="8.6.3" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-homologs"><i class="fa fa-check"></i><b>8.6.3</b> Mapping Homologs</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="gene-expression.html"><a href="gene-expression.html"><i class="fa fa-check"></i><b>8.7</b> Gene Expression</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="gene-expression.html"><a href="gene-expression.html#gene-expression-data-in-bioconductor"><i class="fa fa-check"></i><b>8.7.1</b> Gene Expression Data in Bioconductor</a></li>
+<li class="chapter" data-level="8.7.2" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-analysis"><i class="fa fa-check"></i><b>8.7.2</b> Differential Expression Analysis</a></li>
+<li class="chapter" data-level="8.7.3" data-path="gene-expression.html"><a href="gene-expression.html#microarray-gene-expression-data"><i class="fa fa-check"></i><b>8.7.3</b> Microarray Gene Expression Data</a></li>
+<li class="chapter" data-level="8.7.4" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-microarrays-limma"><i class="fa fa-check"></i><b>8.7.4</b> Differential Expression: Microarrays (limma)</a></li>
+<li class="chapter" data-level="8.7.5" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq"><i class="fa fa-check"></i><b>8.7.5</b> RNASeq</a></li>
+<li class="chapter" data-level="8.7.6" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq-gene-expression-data"><i class="fa fa-check"></i><b>8.7.6</b> RNASeq Gene Expression Data</a></li>
+<li class="chapter" data-level="8.7.7" data-path="gene-expression.html"><a href="gene-expression.html#filtering-counts"><i class="fa fa-check"></i><b>8.7.7</b> Filtering Counts</a></li>
+<li class="chapter" data-level="8.7.8" data-path="gene-expression.html"><a href="gene-expression.html#count-distributions"><i class="fa fa-check"></i><b>8.7.8</b> Count Distributions</a></li>
+<li class="chapter" data-level="8.7.9" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-rnaseq"><i class="fa fa-check"></i><b>8.7.9</b> Differential Expression: RNASeq</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html"><i class="fa fa-check"></i><b>8.8</b> Gene Set Enrichment Analysis</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#gene-sets"><i class="fa fa-check"></i><b>8.8.1</b> Gene Sets</a></li>
+<li class="chapter" data-level="8.8.2" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#working-with-gene-sets-in-r"><i class="fa fa-check"></i><b>8.8.2</b> Working with gene sets in R</a></li>
+<li class="chapter" data-level="8.8.3" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#over-representation-analysis"><i class="fa fa-check"></i><b>8.8.3</b> Over-representation Analysis</a></li>
+<li class="chapter" data-level="8.8.4" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#rank-based-analysis"><i class="fa fa-check"></i><b>8.8.4</b> Rank-based Analysis</a></li>
+<li class="chapter" data-level="8.8.5" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#fgsea"><i class="fa fa-check"></i><b>8.8.5</b> fgsea</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="biological-networks-..html"><a href="biological-networks-..html"><i class="fa fa-check"></i><b>8.9</b> Biological Networks .</a>
+<ul>
+<li class="chapter" data-level="8.9.1" data-path="biological-networks-..html"><a href="biological-networks-..html#biological-pathways-."><i class="fa fa-check"></i><b>8.9.1</b> Biological Pathways .</a></li>
+<li class="chapter" data-level="8.9.2" data-path="biological-networks-..html"><a href="biological-networks-..html#gene-regulatory-networks-."><i class="fa fa-check"></i><b>8.9.2</b> Gene Regulatory Networks .</a></li>
+<li class="chapter" data-level="8.9.3" data-path="biological-networks-..html"><a href="biological-networks-..html#protein-protein-interaction-network-."><i class="fa fa-check"></i><b>8.9.3</b> Protein-Protein Interaction Network .</a></li>
+<li class="chapter" data-level="8.9.4" data-path="biological-networks-..html"><a href="biological-networks-..html#wgcna-."><i class="fa fa-check"></i><b>8.9.4</b> WGCNA .</a></li>
+</ul></li>
+<li class="chapter" data-level="8.10" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html"><i class="fa fa-check"></i><b>8.10</b> Single Cell Sequencing Analysis .</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-sequencing-."><i class="fa fa-check"></i><b>8.10.1</b> Single Cell Sequencing .</a></li>
+<li class="chapter" data-level="8.10.2" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-analysis-."><i class="fa fa-check"></i><b>8.10.2</b> Single Cell Analysis .</a></li>
+<li class="chapter" data-level="8.10.3" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-clustering-."><i class="fa fa-check"></i><b>8.10.3</b> Single Cell Clustering .</a></li>
+<li class="chapter" data-level="8.10.4" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#dimensionality-reduction-projection-."><i class="fa fa-check"></i><b>8.10.4</b> Dimensionality Reduction &amp; Projection .</a></li>
+<li class="chapter" data-level="8.10.5" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-data-visualization-."><i class="fa fa-check"></i><b>8.10.5</b> Single Cell Data Visualization .</a></li>
+<li class="chapter" data-level="8.10.6" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-marker-analysis-."><i class="fa fa-check"></i><b>8.10.6</b> Single Cell Marker Analysis .</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>9</b> EngineeRing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="unit-testing.html"><a href="unit-testing.html"><i class="fa fa-check"></i><b>9.1</b> Unit Testing</a></li>
+<li class="chapter" data-level="9.2" data-path="object-orientation-in-r-..html"><a href="object-orientation-in-r-..html"><i class="fa fa-check"></i><b>9.2</b> Object Orientation in R .</a></li>
+<li class="chapter" data-level="9.3" data-path="toolification-..html"><a href="toolification-..html"><i class="fa fa-check"></i><b>9.3</b> Toolification .</a></li>
+<li class="chapter" data-level="9.4" data-path="pipelines-workflows-..html"><a href="pipelines-workflows-..html"><i class="fa fa-check"></i><b>9.4</b> Pipelines &amp; Workflows .</a></li>
+<li class="chapter" data-level="9.5" data-path="parallel-processing-..html"><a href="parallel-processing-..html"><i class="fa fa-check"></i><b>9.5</b> Parallel Processing .</a></li>
+<li class="chapter" data-level="9.6" data-path="r-packages-..html"><a href="r-packages-..html"><i class="fa fa-check"></i><b>9.6</b> R Packages .</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="rshiny.html"><a href="rshiny.html"><i class="fa fa-check"></i><b>10</b> RShiny</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>10.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="10.3" data-path="skill-list.html"><a href="skill-list.html"><i class="fa fa-check"></i><b>10.3</b> Skill List</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="rmarkdown-knitr.html"><a href="rmarkdown-knitr.html"><i class="fa fa-check"></i><b>11.1</b> RMarkdown &amp; knitr</a></li>
+<li class="chapter" data-level="11.2" data-path="bookdown.html"><a href="bookdown.html"><i class="fa fa-check"></i><b>11.2</b> bookdown</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>12</b> Contribution Guide</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="custom-blocks.html"><a href="custom-blocks.html"><i class="fa fa-check"></i><b>12.1</b> Custom blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-format.html"><a href="assignment-format.html"><i class="fa fa-check"></i>Assignment Format</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html"><i class="fa fa-check"></i>Starting an Assignment</a>
+<ul>
+<li><a href="starting-an-assignment.html#starting-your-own-git-repository-and-cloning-it">Starting your own <code>git</code> repository and cloning it</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#contents"><i class="fa fa-check"></i>Contents</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#github-tutorial"><i class="fa fa-check"></i>GitHub tutorial</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#committing-and-pushing-with-r-and-without"><i class="fa fa-check"></i>Committing and Pushing with R (and without)</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#using-rstudio"><i class="fa fa-check"></i>Using RStudio</a></li>
+<li class="chapter" data-level="" data-path="starting-an-assignment.html"><a href="starting-an-assignment.html#using-the-command-line"><i class="fa fa-check"></i>Using the command line</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i>Assignment 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#problem-statement"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#learning-objectives-and-skill-list"><i class="fa fa-check"></i>Learning Objectives and Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#instructions"><i class="fa fa-check"></i>Instructions</a></li>
+<li class="chapter" data-level="" data-path="assignment-1.html"><a href="assignment-1.html#hints"><i class="fa fa-check"></i>Hints</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html"><i class="fa fa-check"></i>Assignment 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#problem-statement-1"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#learning-objectives-1"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#skill-list-1"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#instructions-1"><i class="fa fa-check"></i>Instructions</a></li>
+<li class="chapter" data-level="" data-path="assignment-2.html"><a href="assignment-2.html#function-details"><i class="fa fa-check"></i>Function Details</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html"><i class="fa fa-check"></i>Assignment 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#problem-statement-2"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#learning-objectives-2"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#skill-list-2"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#background-on-microarrays"><i class="fa fa-check"></i>Background on Microarrays</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#background-on-principal-component-analysis"><i class="fa fa-check"></i>Background on Principal Component Analysis</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#marisa-et-al.-gene-expression-classification-of-colon-cancer-into-molecular-subtypes-characterization-validation-and-prognostic-value.-plos-medicine-may-2013.-pmid-23700391"><i class="fa fa-check"></i>Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391</a></li>
+<li><a href="assignment-3.html#scaling-data-using-r-scale">Scaling data using R <code>scale()</code></a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#proportion-of-variance-explained"><i class="fa fa-check"></i>Proportion of variance explained</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#plotting-and-visualization-of-pca"><i class="fa fa-check"></i>Plotting and visualization of PCA</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#hierarchical-clustering-and-heatmaps"><i class="fa fa-check"></i>Hierarchical Clustering and Heatmaps</a></li>
+<li class="chapter" data-level="" data-path="assignment-3.html"><a href="assignment-3.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html"><i class="fa fa-check"></i>Assignment 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#problem-statement-3"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#learning-objectives-3"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#skill-list-3"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#instructions-2"><i class="fa fa-check"></i>Instructions</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#function-details-1"><i class="fa fa-check"></i>Function Details</a></li>
+<li class="chapter" data-level="" data-path="assignment-4.html"><a href="assignment-4.html#hints-1"><i class="fa fa-check"></i>Hints</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html"><i class="fa fa-check"></i>Assignment 5</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#problem-statement-4"><i class="fa fa-check"></i>Problem Statement</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#learning-objectives-4"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#skill-list-4"><i class="fa fa-check"></i>Skill List</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#deseq2-background"><i class="fa fa-check"></i>DESeq2 Background</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#generating-a-counts-matrix"><i class="fa fa-check"></i>Generating a counts matrix</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#prefiltering-counts-matrix"><i class="fa fa-check"></i>Prefiltering Counts matrix</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#median-of-ratios-normalization"><i class="fa fa-check"></i>Median-of-ratios normalization</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#deseq2-preparation"><i class="fa fa-check"></i>DESeq2 preparation</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#omeara-et-al.-transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration.-circ-res.-feb-2015.-pmid-25477501l"><i class="fa fa-check"></i>O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#reading-and-subsetting-the-data-from-verse_counts.tsv-and-sample_metadata.csv"><i class="fa fa-check"></i>1. Reading and subsetting the data from verse_counts.tsv and sample_metadata.csv</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#running-deseq2"><i class="fa fa-check"></i>2. Running DESeq2</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#annotating-results-to-construct-a-labeled-volcano-plot"><i class="fa fa-check"></i>3. Annotating results to construct a labeled volcano plot</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#diagnostic-plot-of-the-raw-p-values-for-all-genes"><i class="fa fa-check"></i>4. Diagnostic plot of the raw p-values for all genes</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#plotting-the-logfoldchanges-for-differentially-expressed-genes"><i class="fa fa-check"></i>5. Plotting the LogFoldChanges for differentially expressed genes</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#the-choice-of-fdr-cutoff-depends-on-cost"><i class="fa fa-check"></i>The choice of FDR cutoff depends on cost</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#plotting-the-normalized-counts-of-differentially-expressed-genes"><i class="fa fa-check"></i>6. Plotting the normalized counts of differentially expressed genes</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#volcano-plot-to-visualize-differential-expression-results"><i class="fa fa-check"></i>7. Volcano Plot to visualize differential expression results</a></li>
+<li><a href="assignment-5.html#running-fgsea-vignette">8. Running fgsea <span>vignette</span></a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#plotting-the-top-ten-positive-nes-and-top-ten-negative-nes-pathways"><i class="fa fa-check"></i>9. Plotting the top ten positive NES and top ten negative NES pathways</a></li>
+<li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="week-1.html"><a href="week-1.html"><i class="fa fa-check"></i><b>A.1</b> Week 1</a></li>
+<li class="chapter" data-level="A.2" data-path="week-2.html"><a href="week-2.html"><i class="fa fa-check"></i><b>A.2</b> Week 2</a></li>
+<li class="chapter" data-level="A.3" data-path="week-3.html"><a href="week-3.html"><i class="fa fa-check"></i><b>A.3</b> Week 3</a></li>
+<li class="chapter" data-level="A.4" data-path="week-4.html"><a href="week-4.html"><i class="fa fa-check"></i><b>A.4</b> Week 4</a></li>
+<li class="chapter" data-level="A.5" data-path="week-5.html"><a href="week-5.html"><i class="fa fa-check"></i><b>A.5</b> Week 5</a></li>
+<li class="chapter" data-level="A.6" data-path="week-6.html"><a href="week-6.html"><i class="fa fa-check"></i><b>A.6</b> Week 6</a></li>
+<li class="chapter" data-level="A.7" data-path="week-7.html"><a href="week-7.html"><i class="fa fa-check"></i><b>A.7</b> Week 7</a></li>
+<li class="chapter" data-level="A.8" data-path="week-8.html"><a href="week-8.html"><i class="fa fa-check"></i><b>A.8</b> Week 8</a></li>
+<li class="chapter" data-level="A.9" data-path="week-9.html"><a href="week-9.html"><i class="fa fa-check"></i><b>A.9</b> Week 9</a></li>
+<li class="chapter" data-level="A.10" data-path="week-10.html"><a href="week-10.html"><i class="fa fa-check"></i><b>A.10</b> Week 10</a></li>
+<li class="chapter" data-level="A.11" data-path="week-11.html"><a href="week-11.html"><i class="fa fa-check"></i><b>A.11</b> Week 11</a></li>
+<li class="chapter" data-level="A.12" data-path="week-12.html"><a href="week-12.html"><i class="fa fa-check"></i><b>A.12</b> Week 12</a></li>
+<li class="chapter" data-level="A.13" data-path="week-13.html"><a href="week-13.html"><i class="fa fa-check"></i><b>A.13</b> Week 13</a></li>
+<li class="chapter" data-level="A.14" data-path="week-14---no-class-for-project-work.html"><a href="week-14---no-class-for-project-work.html"><i class="fa fa-check"></i><b>A.14</b> Week 14 - no class for project work</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">BF591 - R for Biological Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-data-analysis" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Exploratory Data Analysis</h2>
+<p>So far, we have discussed methods where we chose an explicit model to summarize
+our data. However, sometimes we don’t have enough information about our data to
+propose reasonable models, as we did earlier when exploring the distribution of
+our imaginary gene expression dataset. There may be patterns in the data that
+emerge when we compute different summaries and ask whether there is a non-random
+structure to how the individual samples or features compare with one another.
+The types of methods we use to take a dataset and examine it for structure
+without a prefigured hypothesis is called <em>exploratory analysis</em> and is a key
+approach to working with biological data.</p>
+<div id="principal-component-analysis" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Principal Component Analysis</h3>
+<p>A very common method of exploratory analysis is <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">principal component
+analysis</a> or PCA.
+PCA is a statistical procedure that identifies so called <em>directions of
+orthogonal variance</em> that capture covariance between different dimensions in a
+dataset. Because the approach captures this covariance between features of
+arbitrary dimension, it is often used for so-called <a href="https://en.wikipedia.org/wiki/Dimensionality_reduction">dimensionality
+reduction</a>, where a
+large amount of variance in a dataset with a potentially large number of
+dimensions may be expressed in terms of a set of <a href="https://en.wikipedia.org/wiki/Change_of_basis">basis
+vectors</a> of smaller dimension.
+The mathematical details of this approach are beyond the scope of this book, but
+below we explain in general terms the intuition behind what PCA does, and
+present an example of how it is used in a biological context.</p>
+<p>PCA decomposes a dataset into a set of <a href="https://en.wikipedia.org/wiki/Orthonormal_basis">orthonormal basis
+vectors</a> that collectively
+capture all the variance in the dataset, where the first basis vector, called
+the <em>first principal component</em> explains the largest fraction of the variance,
+the second principal component explains the second largest fraction, and so on.
+There are always an equal number of principal components as there are dimensions
+in the dataset or the number of samples, whichever is smaller. Typically only a
+small number of these components are needed to explain most of the variance.</p>
+<p>Each principal component is a <span class="math inline">\(p\)</span>-dimensional <a href="https://en.wikipedia.org/wiki/Unit_vector">unit
+vector</a> (i.e. a vector of magnitude
+1), where <span class="math inline">\(p\)</span> is the number of features in the dataset, and the values are
+weights that describe the component’s direction of variance. By multiplying this
+component with the values in each sample, we obtain the <em>projection</em> of each
+sample with respect to the basis of the component. The projections of each
+sample made with each principal component produces a rotation of the dataset in
+<span class="math inline">\(p\)</span> dimensional space. The figure below presents a geometric intuition of PCA.</p>
+<div class="figure">
+<img src="PCA.png" alt="" />
+<p class="caption">Principal Component Analysis - Geometric Intuition Illustration</p>
+</div>
+<p>Many biological datasets, especially those that make genome-wide measurements
+like with gene expression assays, have many thousands of features (e.g. genes)
+and comparatively few samples. Since PCA can only determine a maximum number of
+principal components as the smaller of the number of features or samples, we
+will almost always only have as many components as samples. To demonstrate this,
+we perform PCA using the
+<a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp"><code>stats::prcomp()</code></a>
+function on an example microarray gene expression intensity dataset:</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="exploratory-data-analysis.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="co"># intensities contains microarray expression data for ~54k probesets x 20 samples</span></span>
+<span id="cb219-2"><a href="exploratory-data-analysis.html#cb219-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-3"><a href="exploratory-data-analysis.html#cb219-3" aria-hidden="true" tabindex="-1"></a><span class="co"># transpose expression values so samples are rows</span></span>
+<span id="cb219-4"><a href="exploratory-data-analysis.html#cb219-4" aria-hidden="true" tabindex="-1"></a>expr_mat <span class="ot">&lt;-</span> intensities <span class="sc">%&gt;%</span></span>
+<span id="cb219-5"><a href="exploratory-data-analysis.html#cb219-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(probeset_id),<span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb219-6"><a href="exploratory-data-analysis.html#cb219-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>probeset_id)</span>
+<span id="cb219-7"><a href="exploratory-data-analysis.html#cb219-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-8"><a href="exploratory-data-analysis.html#cb219-8" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA expects all features (i.e. probesets) to be mean-centered,</span></span>
+<span id="cb219-9"><a href="exploratory-data-analysis.html#cb219-9" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to dataframe so we can use rownames</span></span>
+<span id="cb219-10"><a href="exploratory-data-analysis.html#cb219-10" aria-hidden="true" tabindex="-1"></a>expr_mat_centered <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(</span>
+<span id="cb219-11"><a href="exploratory-data-analysis.html#cb219-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(expr_mat,<span class="sc">-</span><span class="fu">c</span>(sample)),<span class="cf">function</span>(x) x<span class="sc">-</span><span class="fu">mean</span>(x))</span>
+<span id="cb219-12"><a href="exploratory-data-analysis.html#cb219-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb219-13"><a href="exploratory-data-analysis.html#cb219-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(expr_mat_centered) <span class="ot">&lt;-</span> expr_mat<span class="sc">$</span>sample</span>
+<span id="cb219-14"><a href="exploratory-data-analysis.html#cb219-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-15"><a href="exploratory-data-analysis.html#cb219-15" aria-hidden="true" tabindex="-1"></a><span class="co"># prcomp performs PCA</span></span>
+<span id="cb219-16"><a href="exploratory-data-analysis.html#cb219-16" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(</span>
+<span id="cb219-17"><a href="exploratory-data-analysis.html#cb219-17" aria-hidden="true" tabindex="-1"></a>  expr_mat_centered,</span>
+<span id="cb219-18"><a href="exploratory-data-analysis.html#cb219-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">center=</span><span class="cn">FALSE</span>, <span class="co"># prcomp centers features to have mean zero by default, but we already did it</span></span>
+<span id="cb219-19"><a href="exploratory-data-analysis.html#cb219-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale=</span><span class="cn">TRUE</span> <span class="co"># prcomp scales each feature to have unit variance</span></span>
+<span id="cb219-20"><a href="exploratory-data-analysis.html#cb219-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb219-21"><a href="exploratory-data-analysis.html#cb219-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-22"><a href="exploratory-data-analysis.html#cb219-22" aria-hidden="true" tabindex="-1"></a><span class="co"># the str() function prints the structure of its argument</span></span>
+<span id="cb219-23"><a href="exploratory-data-analysis.html#cb219-23" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pca)</span></code></pre></div>
+<pre><code>## List of 5
+##  $ sdev    : num [1:20] 101.5 81 71.2 61.9 57.9 ...
+##  $ rotation: num [1:54675, 1:20] 0.00219 0.00173 -0.00313 0.00465 0.0034 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:54675] &quot;X1007_s_at&quot; &quot;X1053_at&quot; &quot;X117_at&quot; &quot;X121_at&quot; ...
+##   .. ..$ : chr [1:20] &quot;PC1&quot; &quot;PC2&quot; &quot;PC3&quot; &quot;PC4&quot; ...
+##  $ center  : logi FALSE
+##  $ scale   : Named num [1:54675] 0.379 0.46 0.628 0.272 0.196 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:54675] &quot;X1007_s_at&quot; &quot;X1053_at&quot; &quot;X117_at&quot; &quot;X121_at&quot; ...
+##  $ x       : num [1:20, 1:20] -67.94 186.14 6.07 -70.72 9.58 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:20] &quot;A1&quot; &quot;A2&quot; &quot;A3&quot; &quot;A4&quot; ...
+##   .. ..$ : chr [1:20] &quot;PC1&quot; &quot;PC2&quot; &quot;PC3&quot; &quot;PC4&quot; ...
+##  - attr(*, &quot;class&quot;)= chr &quot;prcomp&quot;</code></pre>
+<p>The result of <code>prcomp()</code> is a list with five members:</p>
+<ul>
+<li><code>sdev</code> - the standard deviation (i.e. the square root of the variance) for each component</li>
+<li><code>rotation</code> - a matrix where the principal components are in columns</li>
+<li><code>x</code> - the projections of the original data, aka the rotated data matrix</li>
+<li><code>center</code> - if <code>center=TRUE</code> was passed, a vector of feature means</li>
+<li><code>scale</code> - if <code>scale=TRUE</code> was passed, a vector of the feature variances</li>
+</ul>
+<p>Recall that each principal component explains a fraction of the overall variance
+in the dataset. The <code>sdev</code> variable returned by <code>prcomp()</code> may be used to first
+calculate the variance explained by each component by squaring it, then dividing
+by the sum:</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="exploratory-data-analysis.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb221-2"><a href="exploratory-data-analysis.html#cb221-2" aria-hidden="true" tabindex="-1"></a>pca_var <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb221-3"><a href="exploratory-data-analysis.html#cb221-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC=</span><span class="fu">factor</span>(<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>),<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)),</span>
+<span id="cb221-4"><a href="exploratory-data-analysis.html#cb221-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variance=</span>pca<span class="sc">$</span>sdev<span class="sc">**</span><span class="dv">2</span>,</span>
+<span id="cb221-5"><a href="exploratory-data-analysis.html#cb221-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span><span class="ot">=</span>Variance<span class="sc">/</span><span class="fu">sum</span>(Variance)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb221-6"><a href="exploratory-data-analysis.html#cb221-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Cumulative % Explained Variance</span><span class="st">`</span><span class="ot">=</span><span class="fu">cumsum</span>(<span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span>)</span>
+<span id="cb221-7"><a href="exploratory-data-analysis.html#cb221-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb221-8"><a href="exploratory-data-analysis.html#cb221-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb221-9"><a href="exploratory-data-analysis.html#cb221-9" aria-hidden="true" tabindex="-1"></a>exp_g <span class="ot">&lt;-</span> pca_var <span class="sc">%&gt;%</span></span>
+<span id="cb221-10"><a href="exploratory-data-analysis.html#cb221-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb221-11"><a href="exploratory-data-analysis.html#cb221-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb221-12"><a href="exploratory-data-analysis.html#cb221-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb221-13"><a href="exploratory-data-analysis.html#cb221-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>)) <span class="co"># make x labels rotate 90 degrees</span></span>
+<span id="cb221-14"><a href="exploratory-data-analysis.html#cb221-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb221-15"><a href="exploratory-data-analysis.html#cb221-15" aria-hidden="true" tabindex="-1"></a>cum_g <span class="ot">&lt;-</span> pca_var <span class="sc">%&gt;%</span></span>
+<span id="cb221-16"><a href="exploratory-data-analysis.html#cb221-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">Cumulative % Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb221-17"><a href="exploratory-data-analysis.html#cb221-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb221-18"><a href="exploratory-data-analysis.html#cb221-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb221-19"><a href="exploratory-data-analysis.html#cb221-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">100</span>) <span class="sc">+</span> <span class="co"># set y limits to [0,100]</span></span>
+<span id="cb221-20"><a href="exploratory-data-analysis.html#cb221-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span>
+<span id="cb221-21"><a href="exploratory-data-analysis.html#cb221-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb221-22"><a href="exploratory-data-analysis.html#cb221-22" aria-hidden="true" tabindex="-1"></a>exp_g <span class="sc">|</span> cum_g</span></code></pre></div>
+<p><img src="main_files/pca%20var-1.png" width="672" /></p>
+<p>The first component explains nearly 20% of all variance in the dataset, followed
+by the second component with about 12%, the third component 9%, and so on. The
+cumulative variance plot on the right shows that the top 15 components are
+required to capture 90% of the variance in the dataset. This suggests that each
+sample contributes a significant amount of variance to the overall dataset, but
+that there are still some features that covary among them.</p>
+<p>An important use of PCA results is the identification of outlier samples. This
+is accomplished by plotting the projections of each sample and examining the
+result by eye to identify samples that are “far away” from the other samples.
+This is usually done by inspection and outlier samples chosen subjectively;
+there are no general rules to decide when a sample is an outlier by this method.
+Below the projections for components 1 and 2 are plotted against each other as a
+scatter plot:</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="exploratory-data-analysis.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb222-2"><a href="exploratory-data-analysis.html#cb222-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC1,<span class="at">y=</span>PC2)) <span class="sc">+</span></span>
+<span id="cb222-3"><a href="exploratory-data-analysis.html#cb222-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="main_files/pca%20pairwise-1.png" width="672" /></p>
+<p>By eye, no samples appear to be obvious outliers. However, this plot is just one
+of many pairs of projections. We could plot all pairs of the first six
+components using the <a href="https://ggobi.github.io/ggally/reference/ggpairs.html"><code>ggpairs() function</code></a> in the
+<a href="https://ggobi.github.io/ggally/">GGally</a> package:</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="exploratory-data-analysis.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb223-2"><a href="exploratory-data-analysis.html#cb223-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb223-3"><a href="exploratory-data-analysis.html#cb223-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(PC1<span class="sc">:</span>PC6) <span class="sc">%&gt;%</span></span>
+<span id="cb223-4"><a href="exploratory-data-analysis.html#cb223-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="main_files/pca%20pairs-1.png" width="672" /></p>
+<p>This is already nearly unintelligible and mostly uninformative. While it is very
+common for projections for pairs of components to be plotted, an alternative way
+to visualize projections across all samples is by plotting the distribution of
+projections for each component using a <a href="#beeswarm-plots">beeswarm plot</a>:</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="exploratory-data-analysis.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb224-2"><a href="exploratory-data-analysis.html#cb224-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(),<span class="at">names_to=</span><span class="st">&quot;PC&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;projection&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb224-3"><a href="exploratory-data-analysis.html#cb224-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PC=</span><span class="fu">fct_relevel</span>(PC,<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb224-4"><a href="exploratory-data-analysis.html#cb224-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span>projection)) <span class="sc">+</span></span>
+<span id="cb224-5"><a href="exploratory-data-analysis.html#cb224-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;PCA Projection Plot&quot;</span>) <span class="sc">+</span></span>
+<span id="cb224-6"><a href="exploratory-data-analysis.html#cb224-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="main_files/pca%20proj%20beeswarm-1.png" width="672" /></p>
+<p>Now we can see all the projections for all components in the same plot, although
+we cannot see how they relate to one another.</p>
+<p>These projection plots may become more useful if we layer on additional
+information about our samples. There are two types of samples in our dataset (
+labelled <code>A</code> and <code>C</code>. We can color our pairwise scatter plot by type like so:</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="exploratory-data-analysis.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb225-2"><a href="exploratory-data-analysis.html#cb225-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">rownames</span>(pca<span class="sc">$</span>x),<span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb225-3"><a href="exploratory-data-analysis.html#cb225-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC1,<span class="at">y=</span>PC2,<span class="at">color=</span>type)) <span class="sc">+</span></span>
+<span id="cb225-4"><a href="exploratory-data-analysis.html#cb225-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="main_files/pca%20color%20scatter-1.png" width="672" /></p>
+<p>Little pattern is obvious from the plot, but we can plot pairs of components as
+before but now with type information:</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="exploratory-data-analysis.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb226-2"><a href="exploratory-data-analysis.html#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb226-3"><a href="exploratory-data-analysis.html#cb226-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">rownames</span>(pca<span class="sc">$</span>x),<span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb226-4"><a href="exploratory-data-analysis.html#cb226-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(type,PC1<span class="sc">:</span>PC6)) <span class="sc">%&gt;%</span></span>
+<span id="cb226-5"><a href="exploratory-data-analysis.html#cb226-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">fill=</span>type))</span></code></pre></div>
+<p><img src="main_files/pca%20pairs%20type-1.png" width="672" /></p>
+<p>Examining PC3 and PC4, we now observe that there may indeed be some genes that
+distinguish between types based on the separation of projection scores for the
+two types. Finally, we can also color our beeswarm plot by type:</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="exploratory-data-analysis.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb227-2"><a href="exploratory-data-analysis.html#cb227-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb227-3"><a href="exploratory-data-analysis.html#cb227-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sample=</span><span class="fu">rownames</span>(pca<span class="sc">$</span>x),</span>
+<span id="cb227-4"><a href="exploratory-data-analysis.html#cb227-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(sample,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb227-5"><a href="exploratory-data-analysis.html#cb227-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb227-6"><a href="exploratory-data-analysis.html#cb227-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(PC1<span class="sc">:</span>PC20,<span class="at">names_to=</span><span class="st">&quot;PC&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;projection&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb227-7"><a href="exploratory-data-analysis.html#cb227-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PC=</span><span class="fu">fct_relevel</span>(PC,<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb227-8"><a href="exploratory-data-analysis.html#cb227-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span>projection,<span class="at">color=</span>type)) <span class="sc">+</span></span>
+<span id="cb227-9"><a href="exploratory-data-analysis.html#cb227-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;PCA Projection Plot&quot;</span>) <span class="sc">+</span></span>
+<span id="cb227-10"><a href="exploratory-data-analysis.html#cb227-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="main_files/pca%20proj%20beeswarm%20type-1.png" width="672" /></p>
+<p>These approaches to plotting the results of a PCA are complementary, and all
+may be useful in understanding the structure of a dataset.</p>
+</div>
+<div id="cluster-analysis" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Cluster Analysis</h3>
+<p>Cluster analysis or simple clustering is the task of grouping objects together
+such that objects within the same group, or <em>cluster</em>, are more similar to each
+other than to objects in other clusters. It is a type of <a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis">exploratory data
+analysis</a> that seeks to
+identify structure or organization in a dataset without making strong
+assumptions about the data or testing a specific hypothesis. Many different
+<a href="https://en.wikipedia.org/wiki/Category:Cluster_analysis_algorithms">clustering algorithms</a>
+have been developed that employ different computational strategies and are
+designed for data with different types and properties. The choice of algorithm
+is often dependent upon not only the type of data being clustered but also the
+comparative performance of different clustering algorithms applied to the same
+data. Different algorithms may identify different types of patterns, and so no
+one clustering method is better than any other in general.</p>
+<p>The goal of clustering may be easily illustrated with the following plot:</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="exploratory-data-analysis.html#cb228-1" aria-hidden="true" tabindex="-1"></a>unclustered <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2)) <span class="sc">+</span></span>
+<span id="cb228-2"><a href="exploratory-data-analysis.html#cb228-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb228-3"><a href="exploratory-data-analysis.html#cb228-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Unclustered&quot;</span>)</span>
+<span id="cb228-4"><a href="exploratory-data-analysis.html#cb228-4" aria-hidden="true" tabindex="-1"></a>clustered <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2,<span class="at">color=</span>cluster,<span class="at">shape=</span>cluster)) <span class="sc">+</span></span>
+<span id="cb228-5"><a href="exploratory-data-analysis.html#cb228-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb228-6"><a href="exploratory-data-analysis.html#cb228-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Clustered&quot;</span>)</span>
+<span id="cb228-7"><a href="exploratory-data-analysis.html#cb228-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-8"><a href="exploratory-data-analysis.html#cb228-8" aria-hidden="true" tabindex="-1"></a>unclustered <span class="sc">|</span> clustered</span></code></pre></div>
+<p><img src="main_files/clustering%20goal-1.png" width="672" /></p>
+<p>That is, the goal of clustering is to take unlabeled data that has some
+structure like on the left and label data points that are similar to one another
+to be in the same cluster. A full treatment of cluster analysis is beyond the
+scope of this book, but below we discuss a few of the most common and general
+clustering algorithms used in biology and bioinformatics.</p>
+<div id="hierarchical-clustering" class="section level4" number="6.4.2.1">
+<h4><span class="header-section-number">6.4.2.1</span> Hierarchical Clustering</h4>
+<p>Hierarchical clustering is a form of clustering that clusters data points
+together in nested, or <em>hierarchical</em>, groups based on their dissimilarity from
+one another. There are two broad strategies to accomplish this:</p>
+<ul>
+<li><strong>Agglomerative</strong>: all data points start in their own groups, and groups are
+iteratively merged hierarchically into larger groups based on their similarity
+until all data points have been added to a group</li>
+<li><strong>Divisive</strong>: all data points start in the same group, and are recursively
+split into smaller groups based on their dissimilarity</li>
+</ul>
+<p>Whichever approach is used, the critical step in clustering is choosing the
+<a href="https://en.wikipedia.org/wiki/Metric_(mathematics)">distance function</a> that
+quantifies how dissimilar two data points are. Distance functions, or <em>metrics</em>
+are non-negative real numbers whose magnitude is proportional to some notion of
+distance between a pair of points. There are <a href="https://en.wikipedia.org/wiki/Metric_(mathematics)#Generalized_metrics">many different distance
+functions</a>
+to choose from, and the choice is made based on the type of data being
+clustered. For numeric data, <a href="https://en.wikipedia.org/wiki/Euclidean_distance">euclidean
+distance</a>, which corresponds
+to the length of a line segment drawn between two points in any <span class="math inline">\(n\)</span>-dimensional
+<a href="https://en.wikipedia.org/wiki/Euclidean_space">Euclidean space</a> is often a
+reasonable choice.</p>
+<p>Because the divisive strategy is conceptually the inverse of
+agglomerative clustering, we will limit our description to agglomerative
+clustering. Once the distance function has been chosen, distances between all
+pairs of points are computed and the two nearest points are merged into a group.
+The new group of points is used for computing distances to all other points as a
+set using a <em>linkage function</em>
+which defines how the group is summarized into a single point for the purposes
+of distance calculation. The linkage function is what distinguishes different
+clustering algorithms, which include:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Single-linkage_clustering">Single-linkage</a> - distance between two groups is computed as the distance between the two nearest members of the groups</li>
+<li><a href="https://en.wikipedia.org/wiki/Complete-linkage_clustering">Complete-linkage</a> - distance between two groups is computed as the distance between the two farthest members of the groups</li>
+<li><a href="https://en.wikipedia.org/wiki/UPGMA">Unweighted Pair Group Method with Arithmetic mean (UPGMA)</a> - distance between two groups is the average distance of all pairs of points between groups</li>
+<li><a href="https://en.wikipedia.org/wiki/WPGMA">Weighted Pair Group Method with Arithmetic mean (WPGMA)</a> - similar to UPGMA, but weights distances from pairs of groups evenly when merging</li>
+</ul>
+<p>The choice of linkage function (and therefore clustering algorithm) should be
+determined based on knowledge of the dataset and assessment of clustering
+performance. In general, there is no one linkage function that will always
+perform well.</p>
+<p>The following figure illustrates a simple example of clustering a 1 dimensional
+set of points using WPGMA:</p>
+<div class="figure">
+<img src="hierarchical_clustering.png" alt="" />
+<p class="caption">Conceptual illustration of agglomerative hierarchical clustering</p>
+</div>
+<p>Below we will cluster the synthetic dataset introduced above in R:</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exploratory-data-analysis.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2)) <span class="sc">+</span></span>
+<span id="cb229-2"><a href="exploratory-data-analysis.html#cb229-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb229-3"><a href="exploratory-data-analysis.html#cb229-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Unclustered&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/hclust%20data-1.png" width="672" /></p>
+<p>This synthetic dataset has two distinct groups of samples drawn from
+multivariate normal samples. To hierarchically cluster these samples, we use the
+<a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist"><code>dist()</code></a>
+and <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust"><code>hclust()</code></a>
+functions:</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="exploratory-data-analysis.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute all pairwise distances using euclidean distance as the distance metric</span></span>
+<span id="cb230-2"><a href="exploratory-data-analysis.html#cb230-2" aria-hidden="true" tabindex="-1"></a>euc_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(well_clustered_data,<span class="sc">-</span>ID))</span>
+<span id="cb230-3"><a href="exploratory-data-analysis.html#cb230-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-4"><a href="exploratory-data-analysis.html#cb230-4" aria-hidden="true" tabindex="-1"></a><span class="co"># produce a clustering of the data using the hclust for hierarchical clustering</span></span>
+<span id="cb230-5"><a href="exploratory-data-analysis.html#cb230-5" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(euc_dist, <span class="at">method=</span><span class="st">&quot;ave&quot;</span>)</span>
+<span id="cb230-6"><a href="exploratory-data-analysis.html#cb230-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-7"><a href="exploratory-data-analysis.html#cb230-7" aria-hidden="true" tabindex="-1"></a><span class="co"># add ID as labels to the clustering object</span></span>
+<span id="cb230-8"><a href="exploratory-data-analysis.html#cb230-8" aria-hidden="true" tabindex="-1"></a>hc<span class="sc">$</span>labels <span class="ot">&lt;-</span> well_clustered_data<span class="sc">$</span>ID</span>
+<span id="cb230-9"><a href="exploratory-data-analysis.html#cb230-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-10"><a href="exploratory-data-analysis.html#cb230-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-11"><a href="exploratory-data-analysis.html#cb230-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hc)</span></code></pre></div>
+<pre><code>## List of 7
+##  $ merge      : int [1:59, 1:2] -50 -33 -48 -46 -44 -21 -11 -4 -36 -3 ...
+##  $ height     : num [1:59] 0.00429 0.08695 0.23536 0.24789 0.25588 ...
+##  $ order      : int [1:60] 8 9 7 6 19 18 11 16 4 14 ...
+##  $ labels     : chr [1:60] &quot;A1&quot; &quot;A2&quot; &quot;A3&quot; &quot;A4&quot; ...
+##  $ method     : chr &quot;average&quot;
+##  $ call       : language hclust(d = euc_dist, method = &quot;ave&quot;)
+##  $ dist.method: chr &quot;euclidean&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;hclust&quot;</code></pre>
+<p>The <code>hclust()</code> return object describes the clustering as a tree that can be
+visualized using a <a href="other-kind-of-plots-..html#dendrograms">dendrogram</a>:</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="exploratory-data-analysis.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdendro)</span>
+<span id="cb232-2"><a href="exploratory-data-analysis.html#cb232-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdendrogram</span>(hc)</span></code></pre></div>
+<p><img src="main_files/hclust%20dendro-1.png" width="672" />
+Our data do indeed cluster well, where all samples from the same group cluster
+together perfectly. See the <a href="other-kind-of-plots-..html#dendrograms">dendrogram</a> section in the <a href="#data-viz">data
+vizualization chapter</a> for more detail on how to plot clustering
+results.</p>
+<p>It is sometimes desirable to use split hierarchical clustering into groups based
+on their pattern. In the above clustering, three discrete clusters corresponding
+sample groups are clearly visible. If we wished to separate these three groups,
+we can use the
+<a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cutree"><code>cutree</code></a>
+to divide the tree into three groups using <code>k=3</code>:</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="exploratory-data-analysis.html#cb233-1" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc,<span class="at">k=</span><span class="dv">3</span>)</span>
+<span id="cb233-2"><a href="exploratory-data-analysis.html#cb233-2" aria-hidden="true" tabindex="-1"></a>labels</span></code></pre></div>
+<pre><code>##  A1  A2  A3  A4  A5  A6  A7  A8  A9 A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20 
+##   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1 
+##  B1  B2  B3  B4  B5  B6  B7  B8  B9 B10 B11 B12 B13 B14 B15 B16 B17 B18 B19 B20 
+##   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2 
+##  C1  C2  C3  C4  C5  C6  C7  C8  C9 C10 C11 C12 C13 C14 C15 C16 C17 C18 C19 C20 
+##   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3</code></pre>
+<p>We can then use these samples and labels to color our original plot as desired:</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="exploratory-data-analysis.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we turn our labels into a tibble so we can join them with the original tibble</span></span>
+<span id="cb235-2"><a href="exploratory-data-analysis.html#cb235-2" aria-hidden="true" tabindex="-1"></a>well_clustered_data <span class="sc">%&gt;%</span></span>
+<span id="cb235-3"><a href="exploratory-data-analysis.html#cb235-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb235-4"><a href="exploratory-data-analysis.html#cb235-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb235-5"><a href="exploratory-data-analysis.html#cb235-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">ID=</span><span class="fu">names</span>(labels),</span>
+<span id="cb235-6"><a href="exploratory-data-analysis.html#cb235-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">label=</span><span class="fu">as.factor</span>(labels)</span>
+<span id="cb235-7"><a href="exploratory-data-analysis.html#cb235-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb235-8"><a href="exploratory-data-analysis.html#cb235-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb235-9"><a href="exploratory-data-analysis.html#cb235-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2,<span class="at">color=</span>label)) <span class="sc">+</span></span>
+<span id="cb235-10"><a href="exploratory-data-analysis.html#cb235-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb235-11"><a href="exploratory-data-analysis.html#cb235-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Clustered&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/hclust%20cutree%20color-1.png" width="672" /></p>
+<p>We were able to recover the correct clustering because this dataset was easy to
+cluster by construction. Real data are seldom so well behaved.</p>
+</div>
+</div>
+<div id="k-means-." class="section level3" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> k-means .</h3>
+</div>
+<div id="others" class="section level3" number="6.4.4">
+<h3><span class="header-section-number">6.4.4</span> Others</h3>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="statistical-tests.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="network-analysis-..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
