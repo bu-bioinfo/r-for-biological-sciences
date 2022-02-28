@@ -5,16 +5,16 @@ output:
 ---
 
 ## Assignment 6 {-}
-> I don't think the "gg" in "ggplot" stands for "good game"...
+> Volcanoes don't really look like that, do they?
 
 ### Problem Statement {-}
-Plotting data is a useful but oftentimes complicated skill set. While R has many tools to help simplify and create attractive and useful graphs, they can be difficult to utilize and have many pitfalls. This assignment will teach you the most important parts of plotting with R using the package `ggplot`.
+Because R has been utilized in bioinformatics communities for years at this point, there are many different approaches to do one task. While in the last assignment we just used DESeq2, we will be performing differential expression analysis with two additional packages (edgeR and Limma) and comparing the results we find. 
 
 ### Learning Objectives {-}
 1. The basic operations of `ggplot` and "The Grammar of Graphics".
 2. Using differential gene expression analysis packages to generate data for plotting.
 3. Creating simple plots and **not** using the default colors and themes.
-4. Combining multiple plots into one image and exporting them to disk.
+4. Combining multiple plots into one image using `fact_wrap()`
 
 ### Skill List {-}
 - A tempered heart and mind that understands a plot may not ever look _exactly_ how you want it to.
@@ -25,7 +25,7 @@ Plotting data is a useful but oftentimes complicated skill set. While R has many
 ### Instructions {-}
 Complete `main.R` in a way that satisfies all of the tests in `test_main.R`. Follow the instructions in the function descriptions for `main.R` and read here for details on the tests your code should satisfy. You will use these functions to complete figures in `report.Rmd`.
 
-You can use `testthat:test_file('test_main.R')` in your R console to run all tests in `rest_main.R`. Do not modify the tests.
+You can use `testthat:test_file('test_main.R')` in your R console to run all tests in `test_main.R`. Do not modify the tests. While it is difficult to write tests that cover every solution to a problem, our tests are written to ensure the outputs of a function are aligned with what an analysis should perform. If you feel a test is working incorrectly, let a TA know.
 
 ### Function Details {-}
 
@@ -49,7 +49,6 @@ Row3 0 5
 
 ##### Tests {-}
 ``` {r eval=FALSE}
-
 test_that("test data is loading correctly and reduced", {
   test_df <- load_n_trim(csv)
   expect_equal(names(test_df), c("vP0_1", "vP0_2", "vAd_1", "vAd_2"))
@@ -57,7 +56,7 @@ test_that("test data is loading correctly and reduced", {
   expect_equal(class(test_df), "data.frame")
 })
 ```
-The tests for this assignment are relatively straightforward, mostly ensuring that data is loaded and ends up in the right shape and format. The first test ensures the columns were filtered, the second ensures the size is correct, and the final ensures it is a data frame and _not_ a tibble. No tibbles. Tible-less?
+The tests for this assignment are relatively straightforward, mostly ensuring that data is loaded and ends up in the right shape and format. The first test ensures the columns were filtered, the second ensures the size is correct, and the final ensures it is a data frame and _not_ a tibble. No tibbles. Tibble-less?
 
 #### 2. `run_deseq()` {-}
 This is the first of three functions that technically do identical things (but in different ways). One of the most popular Bioconductor packages, DESeq2 has a number of options available for differential expression analysis. We will load in the counts data, select our variables of interest, and use `DESeq()` to process them. Links are included in the function description to DESeq2 documentation, you will find answers to most questions there, especially since those were the documents used to _write_ this assignment. This function will return the results of the analysis.
@@ -94,7 +93,7 @@ test_that("edger function is returning correct results", {
   expect_equal(dim(edger_res), c(15026, 3))
 })
 ```
-Similar to the DESeq2 tests, we aren't necessarily looking for a carbon copy of the results. While the process _should_ be entirely deterministic, it is better to allow some wiggle room and merely look that the columns we're interested in are present and that the data has the right shape. Note that EdgeR doesn't perform a BH correction (the p-adjusted column is non-existant). It's either an option that's off by default or just not a feature! Not a problem, we have the p-values so we can do it ourselves later on.
+Similar to the DESeq2 tests, we aren't necessarily looking for a carbon copy of the results. While the process _should_ be entirely deterministic, it is better to allow some wiggle room and merely look that the columns we're interested in are present and that the data has the right shape. Note that EdgeR doesn't perform a BH correction (the p-adjusted column is non-existant). It's either an option that's off by default or just not a feature! Not a problem, we have the p-values so we can do it ourselves (see the markdown).
 
 #### 4. `run_limma()` and `run_voom()` {-}
 Our final in this set of three, we're testing two related functions in the Limma package. While you can create an analysis that _only_ uses Limma, in our case we can apply the **voom** workflow to refine our data a little more. More info on how these work in the cited documentation. A little technique that can be useful for optional workflows like this is including a boolean flag in the parameters of the function. If I am running a function `add_numbers(1, -4, abs=TRUE)`, the parameter `abs` might change the functions operation so that it takes the absolute value of numbers before adding them together. I could create this behavior like so:
@@ -112,21 +111,21 @@ This is a very useful technique for re-using functions, meaning I don't need to 
 ##### Tests {-}
 ``` {r eval=FALSE}
 test_that("test limma + voom work + work together", {
-  load("mock_counts_df.RData")
+  load("data/mock_counts_df.RData")
   group <- factor(rep(c(1,2), each=2))
   # design
   design <- data.frame(day4=1, day4vsday7=c(0, 0, 1, 1))
   row.names(design) <- c("vP4_1", "vP4_2", "vP7_1", "vP7_2")
   # limma
-  limma_res <- run_limma(counts_df, design, voom=FALSE)
-  expect_equal(dim(limma_res), c(1000, 6))
-  expect_equal(names(limma_res), c("day4", "day4vsday7", "AveExpr", "F",
+  limma_res <- run_limma(counts_df, design, group, voom=FALSE)
+  expect_equal(dim(limma_res), c(15026, 6))
+  expect_equal(names(limma_res), c("day4", "day4vsday7", "AveExpr", "F", 
                                    "P.Value", "adj.P.Val"))
   # voom
   dge <- DGEList(counts=counts_df, group=group)
-  voom_res <- run_voom(dge, design)
-  expect_equal(dim(voom_res), c(1000, 6))
-  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value",
+  expect_warning(voom_res <- run_voom(dge, design)) # voom yelling, ignore
+  expect_equal(dim(voom_res), c(15026, 6))
+  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value", 
                                   "adj.P.Val", "B"))
 })
 ```
@@ -136,7 +135,7 @@ This is a longer series of tests but since we're considering two functions that 
 Note that Limma uses EdgeR to input data, so your first couple steps will look pretty familiar.
 :::
 
-We create a design object to use, defining the experimental conditions. These are again using the day 4 and day 7 trials from the heart data. First, we test Limma by checking the dimensions of the results are **1,000** rows long. This differs from the first two examples, because Limma has a built-in method for controlling the number of results it returns. Your function (for both `run_limma()` and `run_voom()`) should end using `topTable(number=1000, resort.by = "p")`. This will return the top 1,000 rows, sorted by p-value ascending. The same test is done for voom, and the tests expect very similar results.
+We create a design object to use, defining the experimental conditions. These are again using the day 4 and day 7 trials from the heart data.
 
 ::: {.box .important}
 `run_voom()` should be used in `run_limma()`, in the boolean-parameter-if-else structure I discuss above. This means that `run_voom()` is _defined_ before or after `run_limma()` is. This is okay, because `run_voom()` only needs to be defined _when `run_limma`_ is run.
