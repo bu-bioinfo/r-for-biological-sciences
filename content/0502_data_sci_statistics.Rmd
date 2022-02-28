@@ -47,7 +47,7 @@ The probability of a random variable taking one of its possible values is
 usually written $P(X = x)$. The value of $P(X = x)$ is defined by the
 distribution of $X$. As we will see later in the [p-values] section, sometimes
 we are also interested in the probability of observing a value of $x$ or larger
-(or smaller). These probabilities are written $(P \ge x)$ (or $(P \le x)$). How
+(or smaller). These probabilities are written $P(X > x)$ (or $P(X < x)$). How
 these probabilities are computed is described in the next section.
 
 ### Statistical Distribution Basics
