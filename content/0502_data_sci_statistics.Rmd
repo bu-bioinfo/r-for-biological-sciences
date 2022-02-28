@@ -6,7 +6,7 @@ output: html_document
 library(tidyverse)
 ```
 
-## Statistical Distributions & Tests
+## Statistical Distributions
 
 Biological data, like all data, is uncertain. Measurements always contain noise,
 but a collection of measurements do not always contain signal. The field of
@@ -50,7 +50,7 @@ we are also interested in the probability of observing a value of $x$ or larger
 (or smaller). These probabilities are written $(P \ge x)$ (or $(P \le x)$). How
 these probabilities are computed is described in the next section.
 
-### Statistical Distributions
+### Statistical Distribution Basics
 
 By definition, a statistical distribution is a function that maps **the possible
 values for a variable to how often they occur**. Said differently, a statistical
@@ -71,20 +71,7 @@ tibble(
 
 ```
 
-::: {.box .note}
-In probability theory, if a plausible event has a probability of zero, this
-*does not mean that event can never occur*. In fact, every specific value in a
-distribution that supports all real numbers has a probability of zero (i.e. one
-specific value out of an infinite number of values). Instead, the probability
-distribution function allows us to reason about the *relative likelihood* of
-observing values in one range of the distribution compared with the others. 
-While most values have extremely small relative probabilities, they never are
-equal to zero. This is due to the asymptotic properties of probability
-distributions, where every [supported
-value](https://en.wikipedia.org/wiki/Support_(mathematics)) of the distribution
-has a non-zero value by definition, though many values may be very close to
-zero.
-:::
+
 
 The plot above depicts to the *probability density function* (PDF) of a normal
 distribution with mean of zero and a standard deviation of one. The PDF defines
@@ -103,11 +90,34 @@ because its PDF requires two parameters - mean and standard deviation - to
 compute probabilities. The choice of parameter values $\mu$ and $\sigma$ in the
 normal distribution determine the probability of the value of $x$.
 
+::: {.box .note}
+Probability density functions are defined for continuous distributions only,
+as described later in this section. Discrete distributions have a probability
+mass function (PMF) instead of a PDF, since the probability distribution is
+subdivided into a set of different categories. PMFs have different mathematical
+characteristics than PDFs (e.g. they are not continuous and therefore are not
+differentiable), but serve the same purpose.
+:::
+
+In probability theory, if a plausible event has a probability of zero, this
+*does not mean that event can never occur*. In fact, every specific value in a
+distribution that supports all real numbers has a probability of zero (i.e. one
+specific value out of an infinite number of values). Instead, the probability
+distribution function allows us to reason about the *relative likelihood* of
+observing values in one range of the distribution compared with the others. 
+While most values have extremely small relative probabilities, they never are
+equal to zero. This is due to the asymptotic properties of probability
+distributions, where every [supported
+value](https://en.wikipedia.org/wiki/Support_(mathematics)) of the distribution
+has a non-zero value by definition, though many values may be very close to
+zero.
+
 The PDF provides the probability density of specific values within the
 distribution, but sometimes we are interested in the probability of a value
 being less than or equal to a particular value. We compute this using the
-*cumulative density function* (CDF). In the plot below, both the PDF and CDF are
-plotted for a normal distribution with mean zero and standard deviation of 1:
+*cumulative distribution function* (CDF) or sometimes just *distribution
+function*. In the plot below, both the PDF and CDF are plotted for a normal
+distribution with mean zero and standard deviation of 1:
 
 ```{r stat pdf cdf}
 tibble(
@@ -120,15 +130,133 @@ tibble(
   geom_line(aes(x=x,y=CDF,color="CDF"),linetype="dashed")
 ```
 
+The value of the CDF corresponds to the area under the density curve up to the
+corresponding value of $x$; 1 minus that value is the area under the curve
+greater than that value. The following figures illustrate this:
 
+```{r stat cdfs, echo=FALSE}
+d <- tibble(
+  x = c(-4,4),
+) 
+g <- ggplot(d,aes(x=x)) +
+  stat_function(fun=dnorm,mapping=aes(color="PDF")) +
+  geom_point(aes(x=x,y=y),data=tibble(x=c(1.37),y=c(pnorm(1.37)))) +
+  stat_function(fun=pnorm,linetype="dashed",mapping=aes(color="CDF"))+
+  geom_segment(
+    aes(x=x,y=y,xend=xend,yend=yend),
+    data=tibble(x=1.37,xend=1.37,y=pnorm(1.37),yend=0),
+    linetype="dashed"
+    )
 
+(g + stat_function(fun=dnorm,
+                xlim=c(-4,1.37),
+                geom="area",
+                alpha=0.2,
+                ) + labs(title=str_c("P(X < x| x=1.37) = ",round(pnorm(1.37),2)))) /
+(g + stat_function(fun=dnorm,
+                xlim=c(1.37,4),
+                geom="area",
+                alpha=0.2
+                ) + labs(title=str_c("P(X > x| x=1.37) = ",round(1-pnorm(1.37),2))))
+```
 
+91% of the probability density is less than the (arbitrary) value of $x=1.37$,
+and likewise 9% is greater. This is how [p-values] are calculated, as described
+later.
+
+The CDF is also useful for generating samples from the distribution. In the
+following plot, 1000 random samples were drawn from a uniform distribution in
+the interval $(0,1)$ and plotted using the inverse CDF function:
+
+```{r stat inv cdf, echo=FALSE}
+d <- tibble(
+  p=runif(1000,0,1),
+  x=qnorm(p,0,1)
+)
+unif <- ggplot(d,aes(y=x)) +
+  geom_histogram(bins=30)
+norm <- ggplot(d,aes(x=p)) +
+  geom_histogram(bins=30)
+scatter <- ggplot(d,aes(x=p,y=x)) +
+  geom_point() +
+  stat_function(
+    fun=qnorm,
+    xlim=c(0,1),
+    linetype="dashed",
+    color="red"
+    )
+ 
+norm + plot_spacer() + scatter + unif + 
+  plot_layout(
+    ncol = 2, 
+    nrow = 2, 
+    widths = c(4, 1),
+    heights = c(1, 4)
+  ) 
+```
+
+The histograms on the margins show the distributions of the $p$ and $x$ values
+for the scatter points. The $p$ coordinates are uniform, while the $x$
+distribution is normal with mean of zero and standard deviation of one. In this
+way, we can draw samples from a normal distribution, or any other distribution
+that has an invertible CDF.
+
+### Distributions in R
+
+There are four key operations we performed with the normal distribution in the
+previous section:
+
+1. Calculate probabilities using the PDF
+2. Calculate cumulative probabilities using the CDF
+3. Calculate the value associated with a cumulative probability
+4. Sample values from a parameterized distribution
+
+In R, each of these operations has a dedicated function for each different
+distribution, prefixed by `d`, `p`, `q`, and `r`. For the normal distribution,
+these functions are `dnorm`, `pnorm`, `qnorm`, and `rnorm`:
+
+1. `dnorm(x, mean=0, sd=1)` - PDF of the normal distribution
+2. `pnorm(q, mean=0, sd=1)` - CDF of the normal distribution
+3. `qnorm(p, mean=0, sd=1)` - inverse CDF; accepts quantiles between 0 and 1 and returns the
+value of the distribution for those quantiles
+4. `rnorm(n, mean=0, sd=1)` - generate `n` samples from a normal distribution
+
+R uses this scheme for all of its base distributions, which include:
+
++-------------------+------------------------------+
+| Distribution      | Probability Density Function |
++===================+==============================+
+| Normal            | `dnorm(x,mean,sd)`           |
++-------------------+------------------------------+
+| t Distribution    | `dt(x,df)`                   |
++-------------------+------------------------------+
+| Poisson           | `dpois(n,lambda)`            |
++-------------------+------------------------------+
+| Binomial          | `dbinom(x, size, prob)`      |
++-------------------+------------------------------+
+| Negative Binomial | `dnbinom(x, size, prob, mu)` |
++-------------------+------------------------------+
+| Exponential       | `dexp(x, rate)`              |
++-------------------+------------------------------+
+| $\chi^2$          | `dchisq(x, df)`              |
++-------------------+------------------------------+
+
+There are [many more distributions](https://www.stat.umn.edu/geyer/old/5101/rlook.html)
+implemented in R beyond these, and they all follow the same scheme. 
+
+The next two sections will cover examples of some of these distributions.
 Generally, statistical distributions are divided into two categories: discrete
 distributions and continuous distributions.
 
-### Discrete distributions
+### Discrete Distributions
+
+Discrete distributions are defined over countable, possibly infinite sets.
+Common discrete distributions include binomial (e.g. coin flips), multinomial
+(e.g. dice rolls), Poisson (e.g. number of WGS sequencing reads that map to a
+specific locus), etc. Below we describe a few of these in detail.
 
 #### Bernoulli random trail and more  
+
 One of the examples for discrete random variable distribution is the **Bernoulli**
 function. A Bernoulli trail has only 2 outcomes with probability $p$ and $(1-p)$.
 Consider flipping a fair coin, and the random variable X can take value 0 or 1
@@ -150,7 +278,7 @@ $$
 
 The **geometric** random variable, similar to the binomial, is also from a
 sequence of random Bernoulli trials with a constant probability parameter $p$.
-But this time, we define the random variable X as the number of consecutive
+But this time, we define the random variable $X$ as the number of consecutive
 failures before the first success. In this case, the probability of $x$
 consecutive failures followed by success on trial $x+1$ is:  
 
@@ -306,12 +434,14 @@ $$
 specific day.
 - e is Euler's number (e=2.71828)  
 
-### Continuous distributions
+### Continuous Distributions
 
-There are a number of different continuous distributions. Here we will focus
-on the **Normal distribution (Gaussian distribution)**. A lot of variables in
-real life are normally distributed, common examples include people's height,
-blood pressure, and students' exam score.  
+In contrast with discrete distributions, continuous distributions are defined
+over infinite, possibly bounded domains, e.g. all real numbers. There are a
+number of different continuous distributions. Here we will focus on the **Normal
+distribution (Gaussian distribution)**. A lot of variables in real life are
+normally distributed, common examples include people's height, blood pressure,
+and students' exam score.
 
 This is what a normal distribution with mean = 0 and standard deviation = 1
 looks like:
@@ -486,20 +616,44 @@ being treated as categorical data.
 
 ##### Levels of Measurement {-}
 
-The main levels of measurement in we use in statistics are Ratio, Interval, Nominal, and Ordinal. Both Ratio and Interval levels have distance between measurements defined; the biggest difference between the two is that Ratio measurements have a meaningful zero value (and no negative numbers). Height in inches or cm, Kelvin, and number of students in a class are all Ratio measurements. Interval measurements do not have a meaningful zero. Celsius and Fahrenheit both have arbitrary 0s- the freezing point of pure and (a specific kind of) ocean water- making most standard temperature measurements type Interval. Ordinal measurements have a meaningful order to their values but have variable/imprecise distances between measurements, like socioeconomic status (upper, middle, and lower) and days since diagnosis (under 10, 10-39, 40-99, 100+). Nominal measurements do not have meaningful order to their values, like country of origin and yes/no. Ratio and Interval measurements are continuous variables while Nominal and Ordinal measurements are categorical variables.
+The main levels of measurement in we use in statistics are Ratio, Interval,
+Nominal, and Ordinal. Both Ratio and Interval levels have distance between
+measurements defined; the biggest difference between the two is that Ratio
+measurements have a meaningful zero value (and no negative numbers). Height in
+inches or cm, Kelvin, and number of students in a class are all Ratio
+measurements. Interval measurements do not have a meaningful zero. Celsius and
+Fahrenheit both have arbitrary 0s- the freezing point of pure and (a specific
+kind of) ocean water- making most standard temperature measurements type
+Interval. Ordinal measurements have a meaningful order to their values but have
+variable/imprecise distances between measurements, like socioeconomic status
+(upper, middle, and lower) and days since diagnosis (under 10, 10-39, 40-99,
+100+). Nominal measurements do not have meaningful order to their values, like
+country of origin and yes/no. Ratio and Interval measurements are continuous
+variables while Nominal and Ordinal measurements are categorical variables.
 
 #### Data Distribution (Parametric vs Nonparametric) {-}
 
-This is the third factor to keep in mind for test selection and only applicable for NON-nominal dependent variables. Parametric tests make the assumption that the population the data is sourced from has a normal or Gaussian distribution. These are powerful tests because of their data distribution assumption, with the downside of only being able to be used in select cases. Nonparametric tests do not assume a normal distribution and therefore can be used in a wide range of cases, thought they are less likely to find significance in the results.
+This is the third factor to keep in mind for test selection and only applicable
+for NON-nominal dependent variables. Parametric tests make the assumption that
+the population the data is sourced from has a normal or Gaussian distribution.
+These are powerful tests because of their data distribution assumption, with the
+downside of only being able to be used in select cases. Nonparametric tests do
+not assume a normal distribution and therefore can be used in a wide range of
+cases, thought they are less likely to find significance in the results.
 
 
 ### Common Statistical Tests
 
-Here are some common statistical tests and a quick overview as to how to run them in R. If you would like more information about a specific test, links are included in the descriptions
+Here are some common statistical tests and a quick overview as to how to run
+them in R. If you would like more information about a specific test, links are
+included in the descriptions
 
-These are only some statistical tests. [Here's a link to where you can find a few more](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/)
+These are only some statistical tests. [Here's a link to where you can find a
+few more](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/)
 
-[And here's a link to Wikipedia's list of statistical tests if you want to overload on statistical tests because it's your new hobby](https://en.wikipedia.org/wiki/Category:Statistical_tests) 
+[And here's a link to Wikipedia's list of statistical tests if you want to
+overload on statistical tests because it's your new
+hobby](https://en.wikipedia.org/wiki/Category:Statistical_tests)
 
 #### __One-Sample T-Test__ {-}
 
@@ -512,10 +666,12 @@ _Design_: 1 group, 1 level
 
 _Parametric_: Yes
 
+::: {.box .readmore}
 [More t-test information shamelessly linked from SPH]( https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/PH717-Module7-T-tests4.html)
 [Null and Alternate (Research) Hypotheses](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_hypothesistest-means-proportions/BS704_HypothesisTest-Means-Proportions2.html#headingtaglink_1)
 [Z-values](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_probability/bs704_probability9.html)(not mentioned but are in texts that fully explain t-tests)
 One-Sample t-tests come in 3 flavors: two-tailed test, one-tailed test (upper tail), and one-tailed test (lower tail). 
+:::
 
 ```{r eval= FALSE} 
 # One-sample t-test
@@ -564,7 +720,8 @@ generated with `rnorm()` where the intended mean is 0. Since this is a
 two-tailed test, the _alternate_ hypothesis is `mean(x0) != 0` while the _null_
 hypothesis is `mean(x0) = 0`
 
-Since mu=0 and 0 is within the range (-.323, 0.050), we have failed to reject the null hypothesis with this set of data
+Since mu=0 and 0 is within the range (-.323, 0.050), we have failed to reject
+the null hypothesis with this set of data
 
 #### __Unpaired T-Test__ {-}
 
@@ -605,7 +762,12 @@ unpaired <- t.test(x, y)
 
 knitr::knit_print(unpaired)
 ```
-Output for an unpaired two sample t-test is similar to the output for the one-sample. Mu is typically 0 (though one could change it with 'mu = n' in the function call) and the test uses the confidence interval for (mean(x)-mean(y)), which is (-3.308, -2.775). Since mu does not exist within the confidence interval, the null hypothesis can be rejected. 
+
+Output for an unpaired two sample t-test is similar to the output for the
+one-sample. Mu is typically 0 (though one could change it with 'mu = n' in the
+function call) and the test uses the confidence interval for (mean(x)-mean(y)),
+which is (-3.308, -2.775). Since mu does not exist within the confidence
+interval, the null hypothesis can be rejected.
 
 #### __Paired T-Test__ {-}
 
@@ -628,8 +790,13 @@ t.test(x, #numeric vector of data 1
 )
 ```
 
-The paired t-test works for matched and repeated-measures designs. Like the unpaired t-test, it has a second data vector and does not need 'mu'. When running a paired t-test make sure that you specify that `paired = TRUE` when calling the function and that x and y have the same length.
-[More information about paired t-tests here](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests8.html#headingtaglink_2)
+The paired t-test works for matched and repeated-measures designs. Like the
+unpaired t-test, it has a second data vector and does not need 'mu'. When
+running a paired t-test make sure that you specify that `paired = TRUE` when
+calling the function and that x and y have the same length.
+
+[More information about paired t-tests
+here](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests8.html#headingtaglink_2)
 
 ```{r}
 #Unpaired t-test example
@@ -771,21 +938,21 @@ Parab S, Bhalerao S. Choosing statistical test. Int J Ayurveda Res. 2010;1(3):18
 Introduction to SAS. UCLA: Statistical Consulting Group. from https://stats.idre.ucla.edu/sas/modules/sas-learning-moduleintroduction-to-the-features-of-sas/ (accessed February 24, 2022)
 </small>
 
-### p-values
+### p-values .
 
 What is a p-value? What is the relationship between a p-value and a distribution?
 What does a p-value look like when plotted with a distribution? How do we
 interpret p-values? How do we compute a p-value using a distribution and a
 statistic using R? (Should we mention critical values?)
 
-### Multiple Hypothesis Testing
+### Multiple Hypothesis Testing .
 
 What is multiply hypothesis testing adjustment? Why is it important? What are
 some common adjustment methods (Bonferroni (FWER) and Benjamini-Hochberg (FDR))?
 How do we interpret adjusted p-values (depends on the adjustment method)? How
 do we compute adjusted p-values in R?
 
-### Statistical power
+### Statistical power .
 
 Conceptually, what is statistical power, and what does it mean? Why is it
 important? What is the relationship between a dataset, an analysis, and power?
