@@ -90,13 +90,18 @@ output: html_document
 
 ## Week 6
 * [Assignment 5]
-* Data Sci: [Statistical Distributions & Tests]
 * Data Sci: [Statistical Distributions]
+* Data Sci: [Random Variables]
+* Data Sci: [Statistical Distribution Basics]
+* Data Sci: [Distributions in R]
+* Data Sci: [Discrete Distributions]
+* Data Sci: [Continuous Distributions]
+* Data Sci: [Empirical Distributions]
+* [Assignment 4] Review
 * Data Sci: [Statistical Tests]
 * Data Sci: [p-values]
 * Data Sci: [Multiple Hypothesis Testing]
 * Data Sci: [Statistical power]
-* [Assignment 4] Review
 * R Prog: [Coding Style and Conventions]
 * R Prog: [The `styler` package]
 
