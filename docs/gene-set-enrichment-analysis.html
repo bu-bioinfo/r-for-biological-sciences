@@ -276,9 +276,9 @@ div.csl-indent {
 <li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
 <li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
 <li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values-."><i class="fa fa-check"></i><b>6.3.4</b> p-values .</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.4</b> P-values</a></li>
 <li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power-."><i class="fa fa-check"></i><b>6.3.6</b> Statistical power .</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.6</b> Statistical power</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
 <ul>
@@ -641,12 +641,12 @@ use a combination of <code>pivot_longer()</code> and <code>group_by()</code> to 
 by pathway. Below, we have the results of these operations and used them to
 display a summary of the number of genes in all the pathways contained with the
 hallmark pathways gene collection.</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="gene-set-enrichment-analysis.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>, <span class="at">delim=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">col_names=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb326-2"><a href="gene-set-enrichment-analysis.html#cb326-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Pathway =</span> X1, <span class="at">Desc=</span>X2) <span class="sc">%&gt;%</span></span>
-<span id="cb326-3"><a href="gene-set-enrichment-analysis.html#cb326-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Desc) <span class="sc">%&gt;%</span></span>
-<span id="cb326-4"><a href="gene-set-enrichment-analysis.html#cb326-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>Pathway, <span class="at">values_to=</span><span class="st">&#39;genes&#39;</span>, <span class="at">values_drop_na=</span><span class="cn">TRUE</span>, <span class="at">names_to =</span> <span class="cn">NULL</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb326-5"><a href="gene-set-enrichment-analysis.html#cb326-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Pathway) <span class="sc">%&gt;%</span></span>
-<span id="cb326-6"><a href="gene-set-enrichment-analysis.html#cb326-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="gene-set-enrichment-analysis.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>, <span class="at">delim=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">col_names=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb335-2"><a href="gene-set-enrichment-analysis.html#cb335-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Pathway =</span> X1, <span class="at">Desc=</span>X2) <span class="sc">%&gt;%</span></span>
+<span id="cb335-3"><a href="gene-set-enrichment-analysis.html#cb335-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Desc) <span class="sc">%&gt;%</span></span>
+<span id="cb335-4"><a href="gene-set-enrichment-analysis.html#cb335-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>Pathway, <span class="at">values_to=</span><span class="st">&#39;genes&#39;</span>, <span class="at">values_drop_na=</span><span class="cn">TRUE</span>, <span class="at">names_to =</span> <span class="cn">NULL</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb335-5"><a href="gene-set-enrichment-analysis.html#cb335-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Pathway) <span class="sc">%&gt;%</span></span>
+<span id="cb335-6"><a href="gene-set-enrichment-analysis.html#cb335-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 50 x 2
 ##    Pathway                              n
 ##    &lt;chr&gt;                            &lt;int&gt;
@@ -673,9 +673,9 @@ facilitate working with gene sets. The foundation of the GSEABase package is the
 GeneSet and GeneSetCollection classes which store gene sets and metadata or a
 collection of GeneSet objects, respectively. We will use the GSEABase package to
 read in the collection of gene sets we previously downloaded.</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="gene-set-enrichment-analysis.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;GSEABase&#39;</span>)</span>
-<span id="cb328-2"><a href="gene-set-enrichment-analysis.html#cb328-2" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt <span class="ot">&lt;-</span> <span class="fu">getGmt</span>(<span class="at">con=</span><span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>)</span>
-<span id="cb328-3"><a href="gene-set-enrichment-analysis.html#cb328-3" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="gene-set-enrichment-analysis.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;GSEABase&#39;</span>)</span>
+<span id="cb337-2"><a href="gene-set-enrichment-analysis.html#cb337-2" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt <span class="ot">&lt;-</span> <span class="fu">getGmt</span>(<span class="at">con=</span><span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>)</span>
+<span id="cb337-3"><a href="gene-set-enrichment-analysis.html#cb337-3" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt</span></code></pre></div>
 <pre><code>## GeneSetCollection
 ##   names: HALLMARK_TNFA_SIGNALING_VIA_NFKB, HALLMARK_HYPOXIA, ..., HALLMARK_PANCREAS_BETA_CELLS (50 total)
 ##   unique identifiers: JUNB, CXCL2, ..., SRP14 (4383 total)
@@ -683,14 +683,14 @@ read in the collection of gene sets we previously downloaded.</p>
 ##     geneIdType: NullIdentifier (1 total)
 ##     collectionType: NullCollection (1 total)</code></pre>
 <p>If we simply access the hallmarks_gmt variable, we can see that it is a
-GeneSetCollection object containing 0 total gene
+GeneSetCollection object containing 50 total gene
 sets which encompass 4383 unique identifiers or HGNC symbols. Although this
 package supports a range of functions, we will focus on the basics. For a more
 thorough description of the classes and methods, please read their extended
 documentation available
 <a href="https://bioconductor.org/packages/release/bioc/manuals/GSEABase/man/GSEABase.pdf">here</a>.</p>
 <p>The geneIds method will return a list with each pathway as a named vector of associated gene ids:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="gene-set-enrichment-analysis.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">geneIds</span>(hallmarks_gmt), <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="gene-set-enrichment-analysis.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">geneIds</span>(hallmarks_gmt), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## $HALLMARK_TNFA_SIGNALING_VIA_NFKB
 ##   [1] &quot;JUNB&quot;     &quot;CXCL2&quot;    &quot;ATF3&quot;     &quot;NFKBIA&quot;   &quot;TNFAIP3&quot;  &quot;PTGS2&quot;   
 ##   [7] &quot;CXCL1&quot;    &quot;IER3&quot;     &quot;CD83&quot;     &quot;CCL20&quot;    &quot;CXCL3&quot;    &quot;MAFF&quot;    
@@ -763,11 +763,11 @@ documentation available
 ## [193] &quot;NCAN&quot;     &quot;TGM2&quot;     &quot;ETS1&quot;     &quot;HOXB9&quot;    &quot;SELENBP1&quot; &quot;FOSL2&quot;   
 ## [199] &quot;SULT2B1&quot;  &quot;TGFB3&quot;</code></pre>
 <p>The names method will return all of the gene set names contained within a specific collection:</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="gene-set-enrichment-analysis.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">names</span>(hallmarks_gmt),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="gene-set-enrichment-analysis.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">names</span>(hallmarks_gmt),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;HALLMARK_TNFA_SIGNALING_VIA_NFKB&quot; &quot;HALLMARK_HYPOXIA&quot;</code></pre>
 <p>We can access a specific gene set contained within this collection by referring
 to its name and using the following notation:</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="gene-set-enrichment-analysis.html#cb334-1" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="gene-set-enrichment-analysis.html#cb343-1" aria-hidden="true" tabindex="-1"></a>hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]</span></code></pre></div>
 <pre><code>## setName: HALLMARK_ANGIOGENESIS 
 ## geneIds: VCAN, POSTN, ..., CXCL6 (total: 36)
 ## geneIdType: Null
@@ -780,9 +780,9 @@ particular case, we could extract the gene names contained assigned to this
 GeneSet by calling the <code>geneIds</code> slot as shown below to return a vector of the
 gene names. We can see the first five below and also the length of the returned
 vector by using the base R <code>length()</code> function:</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="gene-set-enrichment-analysis.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]<span class="sc">@</span>geneIds)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="gene-set-enrichment-analysis.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]<span class="sc">@</span>geneIds)</span></code></pre></div>
 <pre><code>## [1] &quot;VCAN&quot;   &quot;POSTN&quot;  &quot;FSTL1&quot;  &quot;LRPAP1&quot; &quot;STC1&quot;   &quot;LPL&quot;</code></pre>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="gene-set-enrichment-analysis.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]<span class="sc">@</span>geneIds)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="gene-set-enrichment-analysis.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]]<span class="sc">@</span>geneIds)</span></code></pre></div>
 <pre><code>## [1] 36</code></pre>
 <p>GSEABase includes a number of built-in functions for reading gene sets in from
 various sources and performing common operations such as set intersections, set
@@ -882,43 +882,43 @@ GeneSet object to programmatically generate a contingency table:</p>
 was chosen to make calculations of the values contained within the table
 transparent and easy to understand.</p>
 </div>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="gene-set-enrichment-analysis.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load and read our list of DE genes contained within a newline delimited txt file</span></span>
-<span id="cb340-2"><a href="gene-set-enrichment-analysis.html#cb340-2" aria-hidden="true" tabindex="-1"></a>de_genes <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&#39;example_de_list.txt&#39;</span>, <span class="at">what=</span><span class="fu">character</span>(), <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
-<span id="cb340-3"><a href="gene-set-enrichment-analysis.html#cb340-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-4"><a href="gene-set-enrichment-analysis.html#cb340-4" aria-hidden="true" tabindex="-1"></a><span class="co">#define a function that takes a list of DE genes, and a specific GeneSet from a GeneSetCollection to generate a contingency table</span></span>
-<span id="cb340-5"><a href="gene-set-enrichment-analysis.html#cb340-5" aria-hidden="true" tabindex="-1"></a><span class="co">#using set operations in GSEABase</span></span>
-<span id="cb340-6"><a href="gene-set-enrichment-analysis.html#cb340-6" aria-hidden="true" tabindex="-1"></a>make_contingency <span class="ot">&lt;-</span> <span class="cf">function</span>(de_list, GeneSetobj) {</span>
-<span id="cb340-7"><a href="gene-set-enrichment-analysis.html#cb340-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-8"><a href="gene-set-enrichment-analysis.html#cb340-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-9"><a href="gene-set-enrichment-analysis.html#cb340-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#make our de list into a simple GeneSet object using GSEABase</span></span>
-<span id="cb340-10"><a href="gene-set-enrichment-analysis.html#cb340-10" aria-hidden="true" tabindex="-1"></a>  de_geneset <span class="ot">&lt;-</span> <span class="fu">GeneSet</span>(de_list, <span class="at">setName=</span><span class="st">&#39;1000 DE genes&#39;</span>)</span>
-<span id="cb340-11"><a href="gene-set-enrichment-analysis.html#cb340-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-12"><a href="gene-set-enrichment-analysis.html#cb340-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#If we had the full results, we could determine this value without manually setting it</span></span>
-<span id="cb340-13"><a href="gene-set-enrichment-analysis.html#cb340-13" aria-hidden="true" tabindex="-1"></a>  background_len <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb340-14"><a href="gene-set-enrichment-analysis.html#cb340-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-15"><a href="gene-set-enrichment-analysis.html#cb340-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Calculate the values inside the contingency table using set operations</span></span>
-<span id="cb340-16"><a href="gene-set-enrichment-analysis.html#cb340-16" aria-hidden="true" tabindex="-1"></a>  de_in <span class="ot">&lt;-</span> <span class="fu">length</span>((de_geneset <span class="sc">&amp;</span> GeneSetobj)<span class="sc">@</span>geneIds)</span>
-<span id="cb340-17"><a href="gene-set-enrichment-analysis.html#cb340-17" aria-hidden="true" tabindex="-1"></a>  de_notin <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">setdiff</span>(de_geneset, GeneSetobj)<span class="sc">@</span>geneIds)</span>
-<span id="cb340-18"><a href="gene-set-enrichment-analysis.html#cb340-18" aria-hidden="true" tabindex="-1"></a>  set_notde <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">setdiff</span>(GeneSetobj, de_geneset)<span class="sc">@</span>geneIds)</span>
-<span id="cb340-19"><a href="gene-set-enrichment-analysis.html#cb340-19" aria-hidden="true" tabindex="-1"></a>  notin_notde <span class="ot">&lt;-</span> background_len <span class="sc">-</span> (de_in <span class="sc">+</span> de_notin <span class="sc">+</span> set_notde)</span>
-<span id="cb340-20"><a href="gene-set-enrichment-analysis.html#cb340-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-21"><a href="gene-set-enrichment-analysis.html#cb340-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-22"><a href="gene-set-enrichment-analysis.html#cb340-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#return a matrix of the contingency values</span></span>
-<span id="cb340-23"><a href="gene-set-enrichment-analysis.html#cb340-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(de_in, de_notin, set_notde, notin_notde), <span class="at">nrow=</span><span class="dv">2</span>))</span>
-<span id="cb340-24"><a href="gene-set-enrichment-analysis.html#cb340-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-25"><a href="gene-set-enrichment-analysis.html#cb340-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-26"><a href="gene-set-enrichment-analysis.html#cb340-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb340-27"><a href="gene-set-enrichment-analysis.html#cb340-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-28"><a href="gene-set-enrichment-analysis.html#cb340-28" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">make_contingency</span>(de_genes, hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]])</span>
-<span id="cb340-29"><a href="gene-set-enrichment-analysis.html#cb340-29" aria-hidden="true" tabindex="-1"></a>contingency_table</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="gene-set-enrichment-analysis.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load and read our list of DE genes contained within a newline delimited txt file</span></span>
+<span id="cb349-2"><a href="gene-set-enrichment-analysis.html#cb349-2" aria-hidden="true" tabindex="-1"></a>de_genes <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&#39;example_de_list.txt&#39;</span>, <span class="at">what=</span><span class="fu">character</span>(), <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb349-3"><a href="gene-set-enrichment-analysis.html#cb349-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-4"><a href="gene-set-enrichment-analysis.html#cb349-4" aria-hidden="true" tabindex="-1"></a><span class="co">#define a function that takes a list of DE genes, and a specific GeneSet from a GeneSetCollection to generate a contingency table</span></span>
+<span id="cb349-5"><a href="gene-set-enrichment-analysis.html#cb349-5" aria-hidden="true" tabindex="-1"></a><span class="co">#using set operations in GSEABase</span></span>
+<span id="cb349-6"><a href="gene-set-enrichment-analysis.html#cb349-6" aria-hidden="true" tabindex="-1"></a>make_contingency <span class="ot">&lt;-</span> <span class="cf">function</span>(de_list, GeneSetobj) {</span>
+<span id="cb349-7"><a href="gene-set-enrichment-analysis.html#cb349-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-8"><a href="gene-set-enrichment-analysis.html#cb349-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-9"><a href="gene-set-enrichment-analysis.html#cb349-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#make our de list into a simple GeneSet object using GSEABase</span></span>
+<span id="cb349-10"><a href="gene-set-enrichment-analysis.html#cb349-10" aria-hidden="true" tabindex="-1"></a>  de_geneset <span class="ot">&lt;-</span> <span class="fu">GeneSet</span>(de_list, <span class="at">setName=</span><span class="st">&#39;1000 DE genes&#39;</span>)</span>
+<span id="cb349-11"><a href="gene-set-enrichment-analysis.html#cb349-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-12"><a href="gene-set-enrichment-analysis.html#cb349-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#If we had the full results, we could determine this value without manually setting it</span></span>
+<span id="cb349-13"><a href="gene-set-enrichment-analysis.html#cb349-13" aria-hidden="true" tabindex="-1"></a>  background_len <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb349-14"><a href="gene-set-enrichment-analysis.html#cb349-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-15"><a href="gene-set-enrichment-analysis.html#cb349-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Calculate the values inside the contingency table using set operations</span></span>
+<span id="cb349-16"><a href="gene-set-enrichment-analysis.html#cb349-16" aria-hidden="true" tabindex="-1"></a>  de_in <span class="ot">&lt;-</span> <span class="fu">length</span>((de_geneset <span class="sc">&amp;</span> GeneSetobj)<span class="sc">@</span>geneIds)</span>
+<span id="cb349-17"><a href="gene-set-enrichment-analysis.html#cb349-17" aria-hidden="true" tabindex="-1"></a>  de_notin <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">setdiff</span>(de_geneset, GeneSetobj)<span class="sc">@</span>geneIds)</span>
+<span id="cb349-18"><a href="gene-set-enrichment-analysis.html#cb349-18" aria-hidden="true" tabindex="-1"></a>  set_notde <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">setdiff</span>(GeneSetobj, de_geneset)<span class="sc">@</span>geneIds)</span>
+<span id="cb349-19"><a href="gene-set-enrichment-analysis.html#cb349-19" aria-hidden="true" tabindex="-1"></a>  notin_notde <span class="ot">&lt;-</span> background_len <span class="sc">-</span> (de_in <span class="sc">+</span> de_notin <span class="sc">+</span> set_notde)</span>
+<span id="cb349-20"><a href="gene-set-enrichment-analysis.html#cb349-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-21"><a href="gene-set-enrichment-analysis.html#cb349-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-22"><a href="gene-set-enrichment-analysis.html#cb349-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#return a matrix of the contingency values</span></span>
+<span id="cb349-23"><a href="gene-set-enrichment-analysis.html#cb349-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(de_in, de_notin, set_notde, notin_notde), <span class="at">nrow=</span><span class="dv">2</span>))</span>
+<span id="cb349-24"><a href="gene-set-enrichment-analysis.html#cb349-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-25"><a href="gene-set-enrichment-analysis.html#cb349-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-26"><a href="gene-set-enrichment-analysis.html#cb349-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb349-27"><a href="gene-set-enrichment-analysis.html#cb349-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-28"><a href="gene-set-enrichment-analysis.html#cb349-28" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">make_contingency</span>(de_genes, hallmarks_gmt[[<span class="st">&#39;HALLMARK_ANGIOGENESIS&#39;</span>]])</span>
+<span id="cb349-29"><a href="gene-set-enrichment-analysis.html#cb349-29" aria-hidden="true" tabindex="-1"></a>contingency_table</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]   13   23
 ## [2,]  987 8977</code></pre>
 <p>We perform the Fisher’s Exact test using the built-in R function <code>fisher.test()</code>
 and view the summarized output by simply calling the variable where we stored
 the test results:</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="gene-set-enrichment-analysis.html#cb342-1" aria-hidden="true" tabindex="-1"></a>fisher_results <span class="ot">&lt;-</span> <span class="fu">fisher.test</span>(contingency_table, <span class="at">alternative=</span><span class="st">&#39;greater&#39;</span>)</span>
-<span id="cb342-2"><a href="gene-set-enrichment-analysis.html#cb342-2" aria-hidden="true" tabindex="-1"></a>fisher_results</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="gene-set-enrichment-analysis.html#cb351-1" aria-hidden="true" tabindex="-1"></a>fisher_results <span class="ot">&lt;-</span> <span class="fu">fisher.test</span>(contingency_table, <span class="at">alternative=</span><span class="st">&#39;greater&#39;</span>)</span>
+<span id="cb351-2"><a href="gene-set-enrichment-analysis.html#cb351-2" aria-hidden="true" tabindex="-1"></a>fisher_results</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
@@ -1084,7 +1084,7 @@ associated with them were generated randomly, there is likely a strong residual
 signal / bias towards various cancer pathways as we will see in our results
 below</p>
 </div>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="gene-set-enrichment-analysis.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;fgsea&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="gene-set-enrichment-analysis.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;fgsea&#39;</span>)</span></code></pre></div>
 <p>fgsea takes as input, a named vector of gene-level statistics (a ranked list)
 and a named list of gene sets. The gene names in the ranked list must exactly
 match how they appear in the gene sets (see the note below for additional
@@ -1119,12 +1119,12 @@ format using the <code>setNames</code> function on our two vectors and we can us
 could generate these vectors in a number of ways depending upon the format
 of your results data.</p>
 <p>These are the top 5 genes in our ranked list:</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="gene-set-enrichment-analysis.html#cb345-1" aria-hidden="true" tabindex="-1"></a>rnk_list <span class="ot">&lt;-</span> <span class="fu">setNames</span>(rnks, de_genes)</span>
-<span id="cb345-2"><a href="gene-set-enrichment-analysis.html#cb345-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rnk_list)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="gene-set-enrichment-analysis.html#cb354-1" aria-hidden="true" tabindex="-1"></a>rnk_list <span class="ot">&lt;-</span> <span class="fu">setNames</span>(rnks, de_genes)</span>
+<span id="cb354-2"><a href="gene-set-enrichment-analysis.html#cb354-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rnk_list)</span></code></pre></div>
 <pre><code>##  RBMS1P1    RBMS1     GAS1    SFRP2   CCDC80      MGP 
 ## 9.965527 9.907958 9.888917 9.828172 9.826594 9.802787</code></pre>
 <p>And these are the bottom 5 genes in the list:</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="gene-set-enrichment-analysis.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(rnk_list)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="gene-set-enrichment-analysis.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(rnk_list)</span></code></pre></div>
 <pre><code>##      KLF7   ANKDD1A    RIMKLB     RGS19    PLPPR4     TENM4 
 ## -9.865186 -9.922858 -9.930453 -9.931198 -9.959923 -9.984908</code></pre>
 <p>For our gene sets, we will use the same Hallmarks gene set provided by MSigDB.
@@ -1132,8 +1132,8 @@ There are two ways we can load these gene sets in the appropriate format
 expected. The first is to use one of the built-in functions in fgsea,
 <code>gmtPathways</code>, which will read directly from the GMT file. We have displayed
 the contents of a randomly selected gene set below:</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="gene-set-enrichment-analysis.html#cb349-1" aria-hidden="true" tabindex="-1"></a>hallmark_pathways_fgsea <span class="ot">&lt;-</span> fgsea<span class="sc">::</span><span class="fu">gmtPathways</span>(<span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>)</span>
-<span id="cb349-2"><a href="gene-set-enrichment-analysis.html#cb349-2" aria-hidden="true" tabindex="-1"></a>hallmark_pathways_fgsea<span class="sc">$</span>HALLMARK_TGF_BETA_SIGNALING</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="gene-set-enrichment-analysis.html#cb358-1" aria-hidden="true" tabindex="-1"></a>hallmark_pathways_fgsea <span class="ot">&lt;-</span> fgsea<span class="sc">::</span><span class="fu">gmtPathways</span>(<span class="st">&#39;h.all.v7.5.1.symbols.gmt&#39;</span>)</span>
+<span id="cb358-2"><a href="gene-set-enrichment-analysis.html#cb358-2" aria-hidden="true" tabindex="-1"></a>hallmark_pathways_fgsea<span class="sc">$</span>HALLMARK_TGF_BETA_SIGNALING</span></code></pre></div>
 <pre><code>##  [1] &quot;TGFBR1&quot;   &quot;SMAD7&quot;    &quot;TGFB1&quot;    &quot;SMURF2&quot;   &quot;SMURF1&quot;   &quot;BMPR2&quot;   
 ##  [7] &quot;SKIL&quot;     &quot;SKI&quot;      &quot;ACVR1&quot;    &quot;PMEPA1&quot;   &quot;NCOR2&quot;    &quot;SERPINE1&quot;
 ## [13] &quot;JUNB&quot;     &quot;SMAD1&quot;    &quot;SMAD6&quot;    &quot;PPP1R15A&quot; &quot;TGIF1&quot;    &quot;FURIN&quot;   
@@ -1145,8 +1145,8 @@ the contents of a randomly selected gene set below:</p>
 ## [49] &quot;THBS1&quot;    &quot;FNTA&quot;     &quot;HDAC1&quot;    &quot;UBE2D3&quot;   &quot;LTBP2&quot;    &quot;RHOA&quot;</code></pre>
 <p>If we had previously loaded these gene sets in using GSEABase, we could also
 simply do the following:</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="gene-set-enrichment-analysis.html#cb351-1" aria-hidden="true" tabindex="-1"></a>hallmark_pathways_GSEABase <span class="ot">&lt;-</span> <span class="fu">geneIds</span>(hallmarks_gmt)</span>
-<span id="cb351-2"><a href="gene-set-enrichment-analysis.html#cb351-2" aria-hidden="true" tabindex="-1"></a>hallmark_pathways_GSEABase<span class="sc">$</span>HALLMARK_TGF_BETA_SIGNALING</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="gene-set-enrichment-analysis.html#cb360-1" aria-hidden="true" tabindex="-1"></a>hallmark_pathways_GSEABase <span class="ot">&lt;-</span> <span class="fu">geneIds</span>(hallmarks_gmt)</span>
+<span id="cb360-2"><a href="gene-set-enrichment-analysis.html#cb360-2" aria-hidden="true" tabindex="-1"></a>hallmark_pathways_GSEABase<span class="sc">$</span>HALLMARK_TGF_BETA_SIGNALING</span></code></pre></div>
 <pre><code>##  [1] &quot;TGFBR1&quot;   &quot;SMAD7&quot;    &quot;TGFB1&quot;    &quot;SMURF2&quot;   &quot;SMURF1&quot;   &quot;BMPR2&quot;   
 ##  [7] &quot;SKIL&quot;     &quot;SKI&quot;      &quot;ACVR1&quot;    &quot;PMEPA1&quot;   &quot;NCOR2&quot;    &quot;SERPINE1&quot;
 ## [13] &quot;JUNB&quot;     &quot;SMAD1&quot;    &quot;SMAD6&quot;    &quot;PPP1R15A&quot; &quot;TGIF1&quot;    &quot;FURIN&quot;   
@@ -1159,8 +1159,8 @@ simply do the following:</p>
 <p>Now to run fgsea, we will use default parameters besides manually setting
 thresholds to ignore gene sets in the analysis based on minimum and maximum
 values for their size:</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="gene-set-enrichment-analysis.html#cb353-1" aria-hidden="true" tabindex="-1"></a>fgsea_results <span class="ot">&lt;-</span> <span class="fu">fgsea</span>(hallmark_pathways_GSEABase, rnk_list, <span class="at">minSize =</span> <span class="dv">15</span>, <span class="at">maxSize=</span><span class="dv">500</span>)</span>
-<span id="cb353-2"><a href="gene-set-enrichment-analysis.html#cb353-2" aria-hidden="true" tabindex="-1"></a>fgsea_results <span class="ot">&lt;-</span> fgsea_results <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="gene-set-enrichment-analysis.html#cb362-1" aria-hidden="true" tabindex="-1"></a>fgsea_results <span class="ot">&lt;-</span> <span class="fu">fgsea</span>(hallmark_pathways_GSEABase, rnk_list, <span class="at">minSize =</span> <span class="dv">15</span>, <span class="at">maxSize=</span><span class="dv">500</span>)</span>
+<span id="cb362-2"><a href="gene-set-enrichment-analysis.html#cb362-2" aria-hidden="true" tabindex="-1"></a>fgsea_results <span class="ot">&lt;-</span> fgsea_results <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
 <p>As noted in the official documentation for the original GSEA, very small gene
 sets or very large gene sets may lead to issues with artificially high scores
 or poor normalization, respectively. These values can be adjusted as needed, but
@@ -1170,7 +1170,7 @@ exploration of our results. We can see below the results sorted by ascending
 <code>padj</code> and the pathways with the lowest adjusted p-values are largely associated
 with cancer pathways including Epithelial Mesenchymal Transition, and Apical
 Junctions.</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="gene-set-enrichment-analysis.html#cb354-1" aria-hidden="true" tabindex="-1"></a>fgsea_results <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(padj)</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="gene-set-enrichment-analysis.html#cb363-1" aria-hidden="true" tabindex="-1"></a>fgsea_results <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(padj)</span></code></pre></div>
 <pre><code>## # A tibble: 15 x 8
 ##    pathway                 pval     padj log2err     ES    NES  size leadingEdge
 ##    &lt;chr&gt;                  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;list&gt;     
@@ -1193,11 +1193,11 @@ Junctions.</p>
 subset significant gene sets by the direction of their NES (positive indicating
 an enrichment at the “top” of our list and negative indicating an enrichment at
 the “bottom”).</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="gene-set-enrichment-analysis.html#cb356-1" aria-hidden="true" tabindex="-1"></a>top_positive_nes <span class="ot">&lt;-</span> fgsea_results <span class="sc">%&gt;%</span></span>
-<span id="cb356-2"><a href="gene-set-enrichment-analysis.html#cb356-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> .<span class="dv">25</span> <span class="sc">&amp;</span> NES <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb356-3"><a href="gene-set-enrichment-analysis.html#cb356-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(NES, <span class="at">n=</span><span class="dv">5</span>)</span>
-<span id="cb356-4"><a href="gene-set-enrichment-analysis.html#cb356-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb356-5"><a href="gene-set-enrichment-analysis.html#cb356-5" aria-hidden="true" tabindex="-1"></a>top_positive_nes</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="gene-set-enrichment-analysis.html#cb365-1" aria-hidden="true" tabindex="-1"></a>top_positive_nes <span class="ot">&lt;-</span> fgsea_results <span class="sc">%&gt;%</span></span>
+<span id="cb365-2"><a href="gene-set-enrichment-analysis.html#cb365-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> .<span class="dv">25</span> <span class="sc">&amp;</span> NES <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb365-3"><a href="gene-set-enrichment-analysis.html#cb365-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(NES, <span class="at">n=</span><span class="dv">5</span>)</span>
+<span id="cb365-4"><a href="gene-set-enrichment-analysis.html#cb365-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-5"><a href="gene-set-enrichment-analysis.html#cb365-5" aria-hidden="true" tabindex="-1"></a>top_positive_nes</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 8
 ##   pathway                    pval     padj log2err    ES   NES  size leadingEdge
 ##   &lt;chr&gt;                     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;list&gt;     
@@ -1218,16 +1218,16 @@ considering “significant” gene sets. The results of rank-based GSEA need to 
 further inspected and most often confirmed through complementary or follow-up
 experiments. Thus, we will choose to use a relaxed FDR threshold of &lt; .25.</p>
 </div>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="gene-set-enrichment-analysis.html#cb358-1" aria-hidden="true" tabindex="-1"></a>fgsea_results <span class="sc">%&gt;%</span></span>
-<span id="cb358-2"><a href="gene-set-enrichment-analysis.html#cb358-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pathway =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(pathway, NES)) <span class="sc">%&gt;%</span></span>
-<span id="cb358-3"><a href="gene-set-enrichment-analysis.html#cb358-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb358-4"><a href="gene-set-enrichment-analysis.html#cb358-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>pathway, <span class="at">y=</span>NES, <span class="at">fill =</span> padj <span class="sc">&lt;</span> .<span class="dv">25</span>), <span class="at">stat=</span><span class="st">&#39;identity&#39;</span>) <span class="sc">+</span></span>
-<span id="cb358-5"><a href="gene-set-enrichment-analysis.html#cb358-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;TRUE&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;FALSE&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>)) <span class="sc">+</span> </span>
-<span id="cb358-6"><a href="gene-set-enrichment-analysis.html#cb358-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb358-7"><a href="gene-set-enrichment-analysis.html#cb358-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;fgsea results for Hallmark MSigDB gene sets&#39;</span>) <span class="sc">+</span></span>
-<span id="cb358-8"><a href="gene-set-enrichment-analysis.html#cb358-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Normalized Enrichment Score (NES)&#39;</span>) <span class="sc">+</span></span>
-<span id="cb358-9"><a href="gene-set-enrichment-analysis.html#cb358-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;&#39;</span>) <span class="sc">+</span></span>
-<span id="cb358-10"><a href="gene-set-enrichment-analysis.html#cb358-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="gene-set-enrichment-analysis.html#cb367-1" aria-hidden="true" tabindex="-1"></a>fgsea_results <span class="sc">%&gt;%</span></span>
+<span id="cb367-2"><a href="gene-set-enrichment-analysis.html#cb367-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pathway =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(pathway, NES)) <span class="sc">%&gt;%</span></span>
+<span id="cb367-3"><a href="gene-set-enrichment-analysis.html#cb367-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb367-4"><a href="gene-set-enrichment-analysis.html#cb367-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>pathway, <span class="at">y=</span>NES, <span class="at">fill =</span> padj <span class="sc">&lt;</span> .<span class="dv">25</span>), <span class="at">stat=</span><span class="st">&#39;identity&#39;</span>) <span class="sc">+</span></span>
+<span id="cb367-5"><a href="gene-set-enrichment-analysis.html#cb367-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;TRUE&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;FALSE&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb367-6"><a href="gene-set-enrichment-analysis.html#cb367-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb367-7"><a href="gene-set-enrichment-analysis.html#cb367-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;fgsea results for Hallmark MSigDB gene sets&#39;</span>) <span class="sc">+</span></span>
+<span id="cb367-8"><a href="gene-set-enrichment-analysis.html#cb367-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Normalized Enrichment Score (NES)&#39;</span>) <span class="sc">+</span></span>
+<span id="cb367-9"><a href="gene-set-enrichment-analysis.html#cb367-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;&#39;</span>) <span class="sc">+</span></span>
+<span id="cb367-10"><a href="gene-set-enrichment-analysis.html#cb367-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <div class="figure">
 <img src="main_files/top%20level%20results%20plot-1.png" alt="GSEA results suggest an enrichment of cancer-related pathways 
 amongst upregulated genes. GSEA was performed using a list of genes
@@ -1259,11 +1259,11 @@ allows us to specify a specific pathway. The <code>plotEnrichment</code> functio
 at minimum the list of genes contained within the pathway to plot and the input
 ranked list of gene-level statistics. We have displayed the enrichment plot for
 one of the significantly enriched gene sets below:</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="gene-set-enrichment-analysis.html#cb359-1" aria-hidden="true" tabindex="-1"></a>make_gsea_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(pathway_name, rnks) {</span>
-<span id="cb359-2"><a href="gene-set-enrichment-analysis.html#cb359-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotEnrichment</span>(hallmark_pathways_fgsea[[pathway_name]], rnks) <span class="sc">+</span></span>
-<span id="cb359-3"><a href="gene-set-enrichment-analysis.html#cb359-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span>pathway_name)</span>
-<span id="cb359-4"><a href="gene-set-enrichment-analysis.html#cb359-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb359-5"><a href="gene-set-enrichment-analysis.html#cb359-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make_gsea_plot</span>(<span class="st">&#39;HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION&#39;</span>, rnk_list)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="gene-set-enrichment-analysis.html#cb368-1" aria-hidden="true" tabindex="-1"></a>make_gsea_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(pathway_name, rnks) {</span>
+<span id="cb368-2"><a href="gene-set-enrichment-analysis.html#cb368-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotEnrichment</span>(hallmark_pathways_fgsea[[pathway_name]], rnks) <span class="sc">+</span></span>
+<span id="cb368-3"><a href="gene-set-enrichment-analysis.html#cb368-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span>pathway_name)</span>
+<span id="cb368-4"><a href="gene-set-enrichment-analysis.html#cb368-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb368-5"><a href="gene-set-enrichment-analysis.html#cb368-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make_gsea_plot</span>(<span class="st">&#39;HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION&#39;</span>, rnk_list)</span></code></pre></div>
 <div class="figure">
 <img src="main_files/enrichment%20plot-1.png" alt="The Hallmarks EPITHELIAL_MESENCHYMAL_TRANSITION Pathway
 is significantly enriched amongst the upregulated genes. There are 56 genes in the 
@@ -1287,17 +1287,17 @@ function. Below we have saved all of the genes contained within the leading edge
 subset of significant gene sets, and displayed those belonging to the
 HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION gene set as determined in this
 experiment:</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="gene-set-enrichment-analysis.html#cb360-1" aria-hidden="true" tabindex="-1"></a>gather_leadingedge <span class="ot">&lt;-</span> <span class="cf">function</span>(results, threshold) {</span>
-<span id="cb360-2"><a href="gene-set-enrichment-analysis.html#cb360-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb360-3"><a href="gene-set-enrichment-analysis.html#cb360-3" aria-hidden="true" tabindex="-1"></a>  genes <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span> </span>
-<span id="cb360-4"><a href="gene-set-enrichment-analysis.html#cb360-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> threshold) <span class="sc">%&gt;%</span></span>
-<span id="cb360-5"><a href="gene-set-enrichment-analysis.html#cb360-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(pathway, leadingEdge) <span class="sc">%&gt;%</span></span>
-<span id="cb360-6"><a href="gene-set-enrichment-analysis.html#cb360-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">deframe</span>()</span>
-<span id="cb360-7"><a href="gene-set-enrichment-analysis.html#cb360-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(genes)</span>
-<span id="cb360-8"><a href="gene-set-enrichment-analysis.html#cb360-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb360-9"><a href="gene-set-enrichment-analysis.html#cb360-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb360-10"><a href="gene-set-enrichment-analysis.html#cb360-10" aria-hidden="true" tabindex="-1"></a>leading_edge_genes <span class="ot">&lt;-</span> <span class="fu">gather_leadingedge</span>(fgsea_results, .<span class="dv">25</span>)</span>
-<span id="cb360-11"><a href="gene-set-enrichment-analysis.html#cb360-11" aria-hidden="true" tabindex="-1"></a>leading_edge_genes<span class="sc">$</span>HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="gene-set-enrichment-analysis.html#cb369-1" aria-hidden="true" tabindex="-1"></a>gather_leadingedge <span class="ot">&lt;-</span> <span class="cf">function</span>(results, threshold) {</span>
+<span id="cb369-2"><a href="gene-set-enrichment-analysis.html#cb369-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb369-3"><a href="gene-set-enrichment-analysis.html#cb369-3" aria-hidden="true" tabindex="-1"></a>  genes <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span> </span>
+<span id="cb369-4"><a href="gene-set-enrichment-analysis.html#cb369-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> threshold) <span class="sc">%&gt;%</span></span>
+<span id="cb369-5"><a href="gene-set-enrichment-analysis.html#cb369-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(pathway, leadingEdge) <span class="sc">%&gt;%</span></span>
+<span id="cb369-6"><a href="gene-set-enrichment-analysis.html#cb369-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">deframe</span>()</span>
+<span id="cb369-7"><a href="gene-set-enrichment-analysis.html#cb369-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(genes)</span>
+<span id="cb369-8"><a href="gene-set-enrichment-analysis.html#cb369-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb369-9"><a href="gene-set-enrichment-analysis.html#cb369-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb369-10"><a href="gene-set-enrichment-analysis.html#cb369-10" aria-hidden="true" tabindex="-1"></a>leading_edge_genes <span class="ot">&lt;-</span> <span class="fu">gather_leadingedge</span>(fgsea_results, .<span class="dv">25</span>)</span>
+<span id="cb369-11"><a href="gene-set-enrichment-analysis.html#cb369-11" aria-hidden="true" tabindex="-1"></a>leading_edge_genes<span class="sc">$</span>HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION</span></code></pre></div>
 <pre><code>##  [1] &quot;GAS1&quot;   &quot;MGP&quot;    &quot;SPOCK1&quot; &quot;EFEMP2&quot; &quot;FERMT2&quot; &quot;FBN1&quot;   &quot;TAGLN&quot;  &quot;FSTL1&quot; 
 ##  [9] &quot;TIMP3&quot;  &quot;VIM&quot;    &quot;VCAN&quot;   &quot;THBS2&quot;  &quot;ACTA2&quot;  &quot;DCN&quot;    &quot;BGN&quot;    &quot;NNMT&quot;  
 ## [17] &quot;CALD1&quot;  &quot;NTM&quot;    &quot;FBLN1&quot;  &quot;SPARC&quot;  &quot;COL5A2&quot; &quot;MYL9&quot;   &quot;SLIT2&quot;  &quot;DPYSL3&quot;

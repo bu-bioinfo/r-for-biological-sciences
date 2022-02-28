@@ -276,9 +276,9 @@ div.csl-indent {
 <li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
 <li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
 <li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values-."><i class="fa fa-check"></i><b>6.3.4</b> p-values .</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.4</b> P-values</a></li>
 <li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power-."><i class="fa fa-check"></i><b>6.3.6</b> Statistical power .</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.6</b> Statistical power</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
 <ul>
@@ -536,11 +536,11 @@ div.csl-indent {
 <div id="reordering-1-d-data-elements-." class="section level3" number="7.6.1">
 <h3><span class="header-section-number">7.6.1</span> Reordering 1-D Data Elements .</h3>
 <p>How do we enforce an order on elements in a plot? Why might we want to do that?</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="tips-and-tricks-..html#cb275-1" aria-hidden="true" tabindex="-1"></a>ad_metadata <span class="sc">%&gt;%</span></span>
-<span id="cb275-2"><a href="tips-and-tricks-..html#cb275-2" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(tau) <span class="sc">%&gt;%</span></span>
-<span id="cb275-3"><a href="tips-and-tricks-..html#cb275-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau,<span class="at">fill=</span>condition)) <span class="sc">+</span></span>
-<span id="cb275-4"><a href="tips-and-tricks-..html#cb275-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-102-1.png" width="672" /></p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="tips-and-tricks-..html#cb284-1" aria-hidden="true" tabindex="-1"></a>ad_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb284-2"><a href="tips-and-tricks-..html#cb284-2" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(tau) <span class="sc">%&gt;%</span></span>
+<span id="cb284-3"><a href="tips-and-tricks-..html#cb284-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>tau,<span class="at">fill=</span>condition)) <span class="sc">+</span></span>
+<span id="cb284-4"><a href="tips-and-tricks-..html#cb284-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-111-1.png" width="672" /></p>
 <p>But wait, our bars are in the same order as in the previous plot. Sorting our
 data prior to plotting did not have the desired effect. The reason is that
 although the <code>ID</code> column is a character string in our original tibble, ggplot

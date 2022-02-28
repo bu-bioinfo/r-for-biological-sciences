@@ -276,9 +276,9 @@ div.csl-indent {
 <li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
 <li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
 <li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values-."><i class="fa fa-check"></i><b>6.3.4</b> p-values .</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.4</b> P-values</a></li>
 <li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power-."><i class="fa fa-check"></i><b>6.3.6</b> Statistical power .</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.6</b> Statistical power</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
 <ul>
@@ -553,35 +553,35 @@ depicting the distribution of a set of numbers.</p>
 the range of a dataset from minimum to maximum into bins usually of the same
 width and tabulates the number of values that fall within each bin. Below is a
 histogram of our <code>age_at_death</code> measurement for all samples:</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="visualizing-distributions.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb248-2"><a href="visualizing-distributions.html#cb248-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death))</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-84-1.png" width="672" /></p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="visualizing-distributions.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb257-2"><a href="visualizing-distributions.html#cb257-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death))</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-93-1.png" width="672" /></p>
 <p>Note that the histogram does not look very complete, because there are only 20
 values in our data. We can mitigate this somewhat by increasing the number of
 bins the data range is divided into:</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="visualizing-distributions.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb249-2"><a href="visualizing-distributions.html#cb249-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">bins=</span><span class="dv">10</span>)</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-85-1.png" width="672" /></p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="visualizing-distributions.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb258-2"><a href="visualizing-distributions.html#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">bins=</span><span class="dv">10</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-94-1.png" width="672" /></p>
 <p>This is a little bit better, but there are still some bins (76-79, 84-87) that
 have no values. Compare this to the following synthetic dataset of 1000
 normally distributed values:</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="visualizing-distributions.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb250-2"><a href="visualizing-distributions.html#cb250-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb250-3"><a href="visualizing-distributions.html#cb250-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb250-4"><a href="visualizing-distributions.html#cb250-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb250-5"><a href="visualizing-distributions.html#cb250-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>x))</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-86-1.png" width="672" /></p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="visualizing-distributions.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb259-2"><a href="visualizing-distributions.html#cb259-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb259-3"><a href="visualizing-distributions.html#cb259-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb259-4"><a href="visualizing-distributions.html#cb259-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb259-5"><a href="visualizing-distributions.html#cb259-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>x))</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-95-1.png" width="672" /></p>
 <p>For distributions with a small number of samples, histograms might not be the
 best visualization. We will continue with synthetic normally distributed dataset
 for the remaining examples.</p>
 <p>ggplot allows you to easily plot multiple distributions on the same plot:</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="visualizing-distributions.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb251-2"><a href="visualizing-distributions.html#cb251-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="at">mean=</span><span class="dv">4</span>)),</span>
-<span id="cb251-3"><a href="visualizing-distributions.html#cb251-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
-<span id="cb251-4"><a href="visualizing-distributions.html#cb251-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb251-5"><a href="visualizing-distributions.html#cb251-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
-<span id="cb251-6"><a href="visualizing-distributions.html#cb251-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>, <span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">position=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-87-1.png" width="672" /></p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="visualizing-distributions.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb260-2"><a href="visualizing-distributions.html#cb260-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="at">mean=</span><span class="dv">4</span>)),</span>
+<span id="cb260-3"><a href="visualizing-distributions.html#cb260-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
+<span id="cb260-4"><a href="visualizing-distributions.html#cb260-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb260-5"><a href="visualizing-distributions.html#cb260-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
+<span id="cb260-6"><a href="visualizing-distributions.html#cb260-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>, <span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">position=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-96-1.png" width="672" /></p>
 <p>The <code>alpha=0.6, position="identity"</code> arguments makes the bars partially
 transparent so you can see the overlap more clearly.</p>
 <div class="box readmore">
@@ -604,40 +604,40 @@ the counts in each bin are divided by the total number of data points, a
 proportion.</p>
 <p>Compare the histogram and density plots
 of the <code>age_at_death</code> variable from our example tibble:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="visualizing-distributions.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb252-2"><a href="visualizing-distributions.html#cb252-2" aria-hidden="true" tabindex="-1"></a>hist_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb252-3"><a href="visualizing-distributions.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">bins=</span><span class="dv">30</span>)</span>
-<span id="cb252-4"><a href="visualizing-distributions.html#cb252-4" aria-hidden="true" tabindex="-1"></a>density_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb252-5"><a href="visualizing-distributions.html#cb252-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">fill=</span><span class="st">&quot;#c9a13daa&quot;</span>)</span>
-<span id="cb252-6"><a href="visualizing-distributions.html#cb252-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-7"><a href="visualizing-distributions.html#cb252-7" aria-hidden="true" tabindex="-1"></a>hist_g <span class="sc">|</span> density_g</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-88-1.png" width="672" /></p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="visualizing-distributions.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb261-2"><a href="visualizing-distributions.html#cb261-2" aria-hidden="true" tabindex="-1"></a>hist_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb261-3"><a href="visualizing-distributions.html#cb261-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">bins=</span><span class="dv">30</span>)</span>
+<span id="cb261-4"><a href="visualizing-distributions.html#cb261-4" aria-hidden="true" tabindex="-1"></a>density_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb261-5"><a href="visualizing-distributions.html#cb261-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>age_at_death),<span class="at">fill=</span><span class="st">&quot;#c9a13daa&quot;</span>)</span>
+<span id="cb261-6"><a href="visualizing-distributions.html#cb261-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-7"><a href="visualizing-distributions.html#cb261-7" aria-hidden="true" tabindex="-1"></a>hist_g <span class="sc">|</span> density_g</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-97-1.png" width="672" /></p>
 <p>Notice the overall shape of the two distributions is similar, with the highest
 values in both around age 77. The density plot is a smoother representation of
 a histogram, but its accuracy is still highly sensitive to the number of
 measurements used to construct it. Compare the histogram and density plots of
 two sets of 1000 normally distributed samples with different means:</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="visualizing-distributions.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb253-2"><a href="visualizing-distributions.html#cb253-2" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb253-3"><a href="visualizing-distributions.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="at">mean=</span><span class="dv">4</span>)),</span>
-<span id="cb253-4"><a href="visualizing-distributions.html#cb253-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
-<span id="cb253-5"><a href="visualizing-distributions.html#cb253-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb253-6"><a href="visualizing-distributions.html#cb253-6" aria-hidden="true" tabindex="-1"></a>hist_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples) <span class="sc">+</span></span>
-<span id="cb253-7"><a href="visualizing-distributions.html#cb253-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
-<span id="cb253-8"><a href="visualizing-distributions.html#cb253-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type),</span>
-<span id="cb253-9"><a href="visualizing-distributions.html#cb253-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.6</span>,</span>
-<span id="cb253-10"><a href="visualizing-distributions.html#cb253-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">position=</span><span class="st">&quot;identity&quot;</span>,</span>
-<span id="cb253-11"><a href="visualizing-distributions.html#cb253-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins=</span><span class="dv">30</span></span>
-<span id="cb253-12"><a href="visualizing-distributions.html#cb253-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb253-13"><a href="visualizing-distributions.html#cb253-13" aria-hidden="true" tabindex="-1"></a>density_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples) <span class="sc">+</span></span>
-<span id="cb253-14"><a href="visualizing-distributions.html#cb253-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(</span>
-<span id="cb253-15"><a href="visualizing-distributions.html#cb253-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type),</span>
-<span id="cb253-16"><a href="visualizing-distributions.html#cb253-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.6</span>,</span>
-<span id="cb253-17"><a href="visualizing-distributions.html#cb253-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">position=</span><span class="st">&quot;identity&quot;</span></span>
-<span id="cb253-18"><a href="visualizing-distributions.html#cb253-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb253-19"><a href="visualizing-distributions.html#cb253-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb253-20"><a href="visualizing-distributions.html#cb253-20" aria-hidden="true" tabindex="-1"></a>hist_g <span class="sc">|</span> density_g</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-89-1.png" width="672" /></p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="visualizing-distributions.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb262-2"><a href="visualizing-distributions.html#cb262-2" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb262-3"><a href="visualizing-distributions.html#cb262-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="at">mean=</span><span class="dv">4</span>)),</span>
+<span id="cb262-4"><a href="visualizing-distributions.html#cb262-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">1000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
+<span id="cb262-5"><a href="visualizing-distributions.html#cb262-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb262-6"><a href="visualizing-distributions.html#cb262-6" aria-hidden="true" tabindex="-1"></a>hist_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples) <span class="sc">+</span></span>
+<span id="cb262-7"><a href="visualizing-distributions.html#cb262-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb262-8"><a href="visualizing-distributions.html#cb262-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type),</span>
+<span id="cb262-9"><a href="visualizing-distributions.html#cb262-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.6</span>,</span>
+<span id="cb262-10"><a href="visualizing-distributions.html#cb262-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">position=</span><span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb262-11"><a href="visualizing-distributions.html#cb262-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins=</span><span class="dv">30</span></span>
+<span id="cb262-12"><a href="visualizing-distributions.html#cb262-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb262-13"><a href="visualizing-distributions.html#cb262-13" aria-hidden="true" tabindex="-1"></a>density_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples) <span class="sc">+</span></span>
+<span id="cb262-14"><a href="visualizing-distributions.html#cb262-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(</span>
+<span id="cb262-15"><a href="visualizing-distributions.html#cb262-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">fill=</span>type),</span>
+<span id="cb262-16"><a href="visualizing-distributions.html#cb262-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.6</span>,</span>
+<span id="cb262-17"><a href="visualizing-distributions.html#cb262-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">position=</span><span class="st">&quot;identity&quot;</span></span>
+<span id="cb262-18"><a href="visualizing-distributions.html#cb262-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb262-19"><a href="visualizing-distributions.html#cb262-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb262-20"><a href="visualizing-distributions.html#cb262-20" aria-hidden="true" tabindex="-1"></a>hist_g <span class="sc">|</span> density_g</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-98-1.png" width="672" /></p>
 <p>Again the two types of plots depict similar distributions, although they are
 different enough to possibly suggest different interpretations. In general,
 density plots might be preferable over histograms if the data are noisy or
@@ -654,9 +654,9 @@ accuracy when the number of samples is low.</p>
 <h3><span class="header-section-number">7.3.3</span> Boxplot</h3>
 <p>Box plots, or box and whisker plots, are extremely common when used to describe
 distributions. Below is a boxplot of age at death divided by condition:</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="visualizing-distributions.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb254-2"><a href="visualizing-distributions.html#cb254-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>age_at_death))</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-90-1.png" width="672" /></p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="visualizing-distributions.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb263-2"><a href="visualizing-distributions.html#cb263-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>age_at_death))</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-99-1.png" width="672" /></p>
 <p>Boxplots are drawn assuming the data are
 <a href="https://en.wikipedia.org/wiki/Unimodality">unimodal</a> (i.e. shaped like a hill,
 possibly slanted to one side or the other), where the extents of the box
@@ -675,17 +675,17 @@ samples within it. Although the median can give a sense of skewness, if the
 data are not unimodal this may be misleading. Consider the following
 distributions plotted as boxplots or as violin plots (described in the next
 section):</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="visualizing-distributions.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb255-2"><a href="visualizing-distributions.html#cb255-2" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb255-3"><a href="visualizing-distributions.html#cb255-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb255-4"><a href="visualizing-distributions.html#cb255-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">2000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
-<span id="cb255-5"><a href="visualizing-distributions.html#cb255-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb255-6"><a href="visualizing-distributions.html#cb255-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">fill=</span>type))</span>
-<span id="cb255-7"><a href="visualizing-distributions.html#cb255-7" aria-hidden="true" tabindex="-1"></a>boxplot_g <span class="ot">&lt;-</span> g <span class="sc">+</span>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb255-8"><a href="visualizing-distributions.html#cb255-8" aria-hidden="true" tabindex="-1"></a>violin_g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_violin</span>()</span>
-<span id="cb255-9"><a href="visualizing-distributions.html#cb255-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-10"><a href="visualizing-distributions.html#cb255-10" aria-hidden="true" tabindex="-1"></a>boxplot_g <span class="sc">|</span> violin_g</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-91-1.png" width="672" /></p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="visualizing-distributions.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb264-2"><a href="visualizing-distributions.html#cb264-2" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb264-3"><a href="visualizing-distributions.html#cb264-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
+<span id="cb264-4"><a href="visualizing-distributions.html#cb264-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">2000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
+<span id="cb264-5"><a href="visualizing-distributions.html#cb264-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb264-6"><a href="visualizing-distributions.html#cb264-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">fill=</span>type))</span>
+<span id="cb264-7"><a href="visualizing-distributions.html#cb264-7" aria-hidden="true" tabindex="-1"></a>boxplot_g <span class="ot">&lt;-</span> g <span class="sc">+</span>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb264-8"><a href="visualizing-distributions.html#cb264-8" aria-hidden="true" tabindex="-1"></a>violin_g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_violin</span>()</span>
+<span id="cb264-9"><a href="visualizing-distributions.html#cb264-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb264-10"><a href="visualizing-distributions.html#cb264-10" aria-hidden="true" tabindex="-1"></a>boxplot_g <span class="sc">|</span> violin_g</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-100-1.png" width="672" /></p>
 <p>The two distributions look almost identical in the boxplot figure; however they
 are dramatically different when visualized using a method like a violin plot
 where the contours of the entire distribution are depicted. Unless you are
@@ -709,9 +709,9 @@ similar in principle to a histogram or a density plot, in that it describes the
 contour of all the data in the distribution, not just the quantiles and extents,
 as in a box plot. Below is a violin plot of the <code>tau</code> measures from our example
 tibble:</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="visualizing-distributions.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb256-2"><a href="visualizing-distributions.html#cb256-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>tau,<span class="at">fill=</span>condition))</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-92-1.png" width="672" /></p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="visualizing-distributions.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb265-2"><a href="visualizing-distributions.html#cb265-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>tau,<span class="at">fill=</span>condition))</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-101-1.png" width="672" /></p>
 <p>The violin plot is both more and less descriptive than a boxplot; it does depict
 the entire distribution of the data, but also doesn’t include features like
 median by default.</p>
@@ -730,10 +730,10 @@ data itself as points like in a scatter plot. The individual values of the
 distribution are organized vertically and spaced such that the points don’t
 overlap. In this plot, the distribution of age at death is plotted for each kind
 of sample and the markers are colored by the amount of tau:</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="visualizing-distributions.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbeeswarm)</span>
-<span id="cb257-2"><a href="visualizing-distributions.html#cb257-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
-<span id="cb257-3"><a href="visualizing-distributions.html#cb257-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>age_at_death,<span class="at">color=</span>condition),<span class="at">cex=</span><span class="dv">2</span>,<span class="at">size=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-93-1.png" width="672" /></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="visualizing-distributions.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbeeswarm)</span>
+<span id="cb266-2"><a href="visualizing-distributions.html#cb266-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ad_metadata) <span class="sc">+</span></span>
+<span id="cb266-3"><a href="visualizing-distributions.html#cb266-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition,<span class="at">y=</span>age_at_death,<span class="at">color=</span>condition),<span class="at">cex=</span><span class="dv">2</span>,<span class="at">size=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-102-1.png" width="672" /></p>
 <p>We may not have noticed before that our AD samples have a big gap in ages
 between 74 and 81; since the beeswarm plot displays all the data, we can see it
 easily here.</p>
@@ -741,13 +741,13 @@ easily here.</p>
 range; not too many and not too few. The example above is close to having too
 few values per group for this plot to be useful, but consider the following with
 too many samples:</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="visualizing-distributions.html#cb258-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb258-2"><a href="visualizing-distributions.html#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb258-3"><a href="visualizing-distributions.html#cb258-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">2000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
-<span id="cb258-4"><a href="visualizing-distributions.html#cb258-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb258-5"><a href="visualizing-distributions.html#cb258-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">color=</span>type)) <span class="sc">+</span></span>
-<span id="cb258-6"><a href="visualizing-distributions.html#cb258-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-94-1.png" width="672" /></p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="visualizing-distributions.html#cb267-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb267-2"><a href="visualizing-distributions.html#cb267-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
+<span id="cb267-3"><a href="visualizing-distributions.html#cb267-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">2000</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">1000</span>))</span>
+<span id="cb267-4"><a href="visualizing-distributions.html#cb267-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb267-5"><a href="visualizing-distributions.html#cb267-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">color=</span>type)) <span class="sc">+</span></span>
+<span id="cb267-6"><a href="visualizing-distributions.html#cb267-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-103-1.png" width="672" /></p>
 <p>This plot likely has too many samples to be the right choice (it’s also ugly),
 but it does give an idea of the distribution of the data.</p>
 <p>In the previous examples the markers for each group also determined the color of
@@ -755,14 +755,14 @@ the group. This makes the chart a bit easier to read and more pleasing to the
 eye, but is technically redundant. You can use however profitably however to
 color markers by some other value that might be of interest. Consider this final
 example where markers are colored by another randomly generated variable:</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="visualizing-distributions.html#cb259-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb259-2"><a href="visualizing-distributions.html#cb259-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb259-3"><a href="visualizing-distributions.html#cb259-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">200</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">100</span>)),</span>
-<span id="cb259-4"><a href="visualizing-distributions.html#cb259-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">category=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&#39;healthy&#39;</span>,<span class="st">&#39;disease&#39;</span>),<span class="dv">300</span>,<span class="at">replace=</span><span class="cn">TRUE</span>)</span>
-<span id="cb259-5"><a href="visualizing-distributions.html#cb259-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb259-6"><a href="visualizing-distributions.html#cb259-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">color=</span>category)) <span class="sc">+</span></span>
-<span id="cb259-7"><a href="visualizing-distributions.html#cb259-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-95-1.png" width="672" /></p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="visualizing-distributions.html#cb268-1" aria-hidden="true" tabindex="-1"></a>normal_samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb268-2"><a href="visualizing-distributions.html#cb268-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
+<span id="cb268-3"><a href="visualizing-distributions.html#cb268-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">200</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">100</span>)),</span>
+<span id="cb268-4"><a href="visualizing-distributions.html#cb268-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">category=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&#39;healthy&#39;</span>,<span class="st">&#39;disease&#39;</span>),<span class="dv">300</span>,<span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb268-5"><a href="visualizing-distributions.html#cb268-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb268-6"><a href="visualizing-distributions.html#cb268-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(normal_samples, <span class="fu">aes</span>(<span class="at">x=</span>type,<span class="at">y=</span>x,<span class="at">color=</span>category)) <span class="sc">+</span></span>
+<span id="cb268-7"><a href="visualizing-distributions.html#cb268-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>()</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-104-1.png" width="672" /></p>
 <p>We are now effectively visualizing three dimensions which may provide insight
 into the data.</p>
 <div class="box readmore">
@@ -779,23 +779,23 @@ chart</a>. The
 ridgeline plot is simply multiple density plots drawn for different variables
 within the same plot. Like the beeswarm plot, ridgeline plots are provided by
 another package outside ggplot2.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="visualizing-distributions.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
-<span id="cb260-2"><a href="visualizing-distributions.html#cb260-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb260-3"><a href="visualizing-distributions.html#cb260-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb260-4"><a href="visualizing-distributions.html#cb260-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
-<span id="cb260-5"><a href="visualizing-distributions.html#cb260-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">200</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">100</span>)),</span>
-<span id="cb260-6"><a href="visualizing-distributions.html#cb260-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb260-7"><a href="visualizing-distributions.html#cb260-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>type,<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
-<span id="cb260-8"><a href="visualizing-distributions.html#cb260-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>()</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-96-1.png" width="672" /></p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="visualizing-distributions.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb269-2"><a href="visualizing-distributions.html#cb269-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-3"><a href="visualizing-distributions.html#cb269-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb269-4"><a href="visualizing-distributions.html#cb269-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">2</span>,<span class="dv">3</span>)),</span>
+<span id="cb269-5"><a href="visualizing-distributions.html#cb269-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;A&#39;</span>,<span class="dv">200</span>),<span class="fu">rep</span>(<span class="st">&#39;B&#39;</span>,<span class="dv">100</span>)),</span>
+<span id="cb269-6"><a href="visualizing-distributions.html#cb269-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb269-7"><a href="visualizing-distributions.html#cb269-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>type,<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
+<span id="cb269-8"><a href="visualizing-distributions.html#cb269-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>()</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-105-1.png" width="672" /></p>
 <p>Many distributions may be plotted:</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="visualizing-distributions.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb261-2"><a href="visualizing-distributions.html#cb261-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">10000</span>,<span class="at">mean=</span><span class="fu">runif</span>(<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">10</span>),<span class="at">sd=</span><span class="fu">runif</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>)),</span>
-<span id="cb261-3"><a href="visualizing-distributions.html#cb261-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;E&quot;</span>,<span class="st">&quot;F&quot;</span>,<span class="st">&quot;G&quot;</span>,<span class="st">&quot;H&quot;</span>,<span class="st">&quot;I&quot;</span>,<span class="st">&quot;J&quot;</span>),<span class="dv">1000</span>)</span>
-<span id="cb261-4"><a href="visualizing-distributions.html#cb261-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb261-5"><a href="visualizing-distributions.html#cb261-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>type,<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
-<span id="cb261-6"><a href="visualizing-distributions.html#cb261-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha=</span><span class="fl">0.6</span>,<span class="at">position=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-97-1.png" width="672" /></p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="visualizing-distributions.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb270-2"><a href="visualizing-distributions.html#cb270-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">10000</span>,<span class="at">mean=</span><span class="fu">runif</span>(<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">10</span>),<span class="at">sd=</span><span class="fu">runif</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>)),</span>
+<span id="cb270-3"><a href="visualizing-distributions.html#cb270-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;E&quot;</span>,<span class="st">&quot;F&quot;</span>,<span class="st">&quot;G&quot;</span>,<span class="st">&quot;H&quot;</span>,<span class="st">&quot;I&quot;</span>,<span class="st">&quot;J&quot;</span>),<span class="dv">1000</span>)</span>
+<span id="cb270-4"><a href="visualizing-distributions.html#cb270-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb270-5"><a href="visualizing-distributions.html#cb270-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>type,<span class="at">x=</span>x,<span class="at">fill=</span>type)) <span class="sc">+</span></span>
+<span id="cb270-6"><a href="visualizing-distributions.html#cb270-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha=</span><span class="fl">0.6</span>,<span class="at">position=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-106-1.png" width="672" /></p>
 <div class="box readmore">
 <ul>
 <li><a href="https://www.r-graph-gallery.com/294-basic-ridgeline-plot.html">R Graph Gallery - ridgeline plots</a></li>

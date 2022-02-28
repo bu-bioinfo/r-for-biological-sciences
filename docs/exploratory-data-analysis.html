@@ -276,9 +276,9 @@ div.csl-indent {
 <li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
 <li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
 <li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values-."><i class="fa fa-check"></i><b>6.3.4</b> p-values .</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.4</b> P-values</a></li>
 <li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power-."><i class="fa fa-check"></i><b>6.3.6</b> Statistical power .</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.6</b> Statistical power</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
 <ul>
@@ -585,29 +585,29 @@ will almost always only have as many components as samples. To demonstrate this,
 we perform PCA using the
 <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp"><code>stats::prcomp()</code></a>
 function on an example microarray gene expression intensity dataset:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="exploratory-data-analysis.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="co"># intensities contains microarray expression data for ~54k probesets x 20 samples</span></span>
-<span id="cb219-2"><a href="exploratory-data-analysis.html#cb219-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb219-3"><a href="exploratory-data-analysis.html#cb219-3" aria-hidden="true" tabindex="-1"></a><span class="co"># transpose expression values so samples are rows</span></span>
-<span id="cb219-4"><a href="exploratory-data-analysis.html#cb219-4" aria-hidden="true" tabindex="-1"></a>expr_mat <span class="ot">&lt;-</span> intensities <span class="sc">%&gt;%</span></span>
-<span id="cb219-5"><a href="exploratory-data-analysis.html#cb219-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(probeset_id),<span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb219-6"><a href="exploratory-data-analysis.html#cb219-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>probeset_id)</span>
-<span id="cb219-7"><a href="exploratory-data-analysis.html#cb219-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb219-8"><a href="exploratory-data-analysis.html#cb219-8" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA expects all features (i.e. probesets) to be mean-centered,</span></span>
-<span id="cb219-9"><a href="exploratory-data-analysis.html#cb219-9" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to dataframe so we can use rownames</span></span>
-<span id="cb219-10"><a href="exploratory-data-analysis.html#cb219-10" aria-hidden="true" tabindex="-1"></a>expr_mat_centered <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(</span>
-<span id="cb219-11"><a href="exploratory-data-analysis.html#cb219-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(expr_mat,<span class="sc">-</span><span class="fu">c</span>(sample)),<span class="cf">function</span>(x) x<span class="sc">-</span><span class="fu">mean</span>(x))</span>
-<span id="cb219-12"><a href="exploratory-data-analysis.html#cb219-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb219-13"><a href="exploratory-data-analysis.html#cb219-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(expr_mat_centered) <span class="ot">&lt;-</span> expr_mat<span class="sc">$</span>sample</span>
-<span id="cb219-14"><a href="exploratory-data-analysis.html#cb219-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb219-15"><a href="exploratory-data-analysis.html#cb219-15" aria-hidden="true" tabindex="-1"></a><span class="co"># prcomp performs PCA</span></span>
-<span id="cb219-16"><a href="exploratory-data-analysis.html#cb219-16" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(</span>
-<span id="cb219-17"><a href="exploratory-data-analysis.html#cb219-17" aria-hidden="true" tabindex="-1"></a>  expr_mat_centered,</span>
-<span id="cb219-18"><a href="exploratory-data-analysis.html#cb219-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">center=</span><span class="cn">FALSE</span>, <span class="co"># prcomp centers features to have mean zero by default, but we already did it</span></span>
-<span id="cb219-19"><a href="exploratory-data-analysis.html#cb219-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale=</span><span class="cn">TRUE</span> <span class="co"># prcomp scales each feature to have unit variance</span></span>
-<span id="cb219-20"><a href="exploratory-data-analysis.html#cb219-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb219-21"><a href="exploratory-data-analysis.html#cb219-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb219-22"><a href="exploratory-data-analysis.html#cb219-22" aria-hidden="true" tabindex="-1"></a><span class="co"># the str() function prints the structure of its argument</span></span>
-<span id="cb219-23"><a href="exploratory-data-analysis.html#cb219-23" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pca)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="exploratory-data-analysis.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># intensities contains microarray expression data for ~54k probesets x 20 samples</span></span>
+<span id="cb228-2"><a href="exploratory-data-analysis.html#cb228-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-3"><a href="exploratory-data-analysis.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="co"># transpose expression values so samples are rows</span></span>
+<span id="cb228-4"><a href="exploratory-data-analysis.html#cb228-4" aria-hidden="true" tabindex="-1"></a>expr_mat <span class="ot">&lt;-</span> intensities <span class="sc">%&gt;%</span></span>
+<span id="cb228-5"><a href="exploratory-data-analysis.html#cb228-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(probeset_id),<span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb228-6"><a href="exploratory-data-analysis.html#cb228-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>probeset_id)</span>
+<span id="cb228-7"><a href="exploratory-data-analysis.html#cb228-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-8"><a href="exploratory-data-analysis.html#cb228-8" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA expects all features (i.e. probesets) to be mean-centered,</span></span>
+<span id="cb228-9"><a href="exploratory-data-analysis.html#cb228-9" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to dataframe so we can use rownames</span></span>
+<span id="cb228-10"><a href="exploratory-data-analysis.html#cb228-10" aria-hidden="true" tabindex="-1"></a>expr_mat_centered <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(</span>
+<span id="cb228-11"><a href="exploratory-data-analysis.html#cb228-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(expr_mat,<span class="sc">-</span><span class="fu">c</span>(sample)),<span class="cf">function</span>(x) x<span class="sc">-</span><span class="fu">mean</span>(x))</span>
+<span id="cb228-12"><a href="exploratory-data-analysis.html#cb228-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb228-13"><a href="exploratory-data-analysis.html#cb228-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(expr_mat_centered) <span class="ot">&lt;-</span> expr_mat<span class="sc">$</span>sample</span>
+<span id="cb228-14"><a href="exploratory-data-analysis.html#cb228-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-15"><a href="exploratory-data-analysis.html#cb228-15" aria-hidden="true" tabindex="-1"></a><span class="co"># prcomp performs PCA</span></span>
+<span id="cb228-16"><a href="exploratory-data-analysis.html#cb228-16" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(</span>
+<span id="cb228-17"><a href="exploratory-data-analysis.html#cb228-17" aria-hidden="true" tabindex="-1"></a>  expr_mat_centered,</span>
+<span id="cb228-18"><a href="exploratory-data-analysis.html#cb228-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">center=</span><span class="cn">FALSE</span>, <span class="co"># prcomp centers features to have mean zero by default, but we already did it</span></span>
+<span id="cb228-19"><a href="exploratory-data-analysis.html#cb228-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale=</span><span class="cn">TRUE</span> <span class="co"># prcomp scales each feature to have unit variance</span></span>
+<span id="cb228-20"><a href="exploratory-data-analysis.html#cb228-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb228-21"><a href="exploratory-data-analysis.html#cb228-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-22"><a href="exploratory-data-analysis.html#cb228-22" aria-hidden="true" tabindex="-1"></a><span class="co"># the str() function prints the structure of its argument</span></span>
+<span id="cb228-23"><a href="exploratory-data-analysis.html#cb228-23" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pca)</span></code></pre></div>
 <pre><code>## List of 5
 ##  $ sdev    : num [1:20] 101.5 81 71.2 61.9 57.9 ...
 ##  $ rotation: num [1:54675, 1:20] 0.00219 0.00173 -0.00313 0.00465 0.0034 ...
@@ -634,28 +634,28 @@ function on an example microarray gene expression intensity dataset:</p>
 in the dataset. The <code>sdev</code> variable returned by <code>prcomp()</code> may be used to first
 calculate the variance explained by each component by squaring it, then dividing
 by the sum:</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="exploratory-data-analysis.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb221-2"><a href="exploratory-data-analysis.html#cb221-2" aria-hidden="true" tabindex="-1"></a>pca_var <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb221-3"><a href="exploratory-data-analysis.html#cb221-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC=</span><span class="fu">factor</span>(<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>),<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)),</span>
-<span id="cb221-4"><a href="exploratory-data-analysis.html#cb221-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variance=</span>pca<span class="sc">$</span>sdev<span class="sc">**</span><span class="dv">2</span>,</span>
-<span id="cb221-5"><a href="exploratory-data-analysis.html#cb221-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span><span class="ot">=</span>Variance<span class="sc">/</span><span class="fu">sum</span>(Variance)<span class="sc">*</span><span class="dv">100</span>,</span>
-<span id="cb221-6"><a href="exploratory-data-analysis.html#cb221-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Cumulative % Explained Variance</span><span class="st">`</span><span class="ot">=</span><span class="fu">cumsum</span>(<span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span>)</span>
-<span id="cb221-7"><a href="exploratory-data-analysis.html#cb221-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb221-8"><a href="exploratory-data-analysis.html#cb221-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-9"><a href="exploratory-data-analysis.html#cb221-9" aria-hidden="true" tabindex="-1"></a>exp_g <span class="ot">&lt;-</span> pca_var <span class="sc">%&gt;%</span></span>
-<span id="cb221-10"><a href="exploratory-data-analysis.html#cb221-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb221-11"><a href="exploratory-data-analysis.html#cb221-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb221-12"><a href="exploratory-data-analysis.html#cb221-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb221-13"><a href="exploratory-data-analysis.html#cb221-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>)) <span class="co"># make x labels rotate 90 degrees</span></span>
-<span id="cb221-14"><a href="exploratory-data-analysis.html#cb221-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-15"><a href="exploratory-data-analysis.html#cb221-15" aria-hidden="true" tabindex="-1"></a>cum_g <span class="ot">&lt;-</span> pca_var <span class="sc">%&gt;%</span></span>
-<span id="cb221-16"><a href="exploratory-data-analysis.html#cb221-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">Cumulative % Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb221-17"><a href="exploratory-data-analysis.html#cb221-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb221-18"><a href="exploratory-data-analysis.html#cb221-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb221-19"><a href="exploratory-data-analysis.html#cb221-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">100</span>) <span class="sc">+</span> <span class="co"># set y limits to [0,100]</span></span>
-<span id="cb221-20"><a href="exploratory-data-analysis.html#cb221-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span>
-<span id="cb221-21"><a href="exploratory-data-analysis.html#cb221-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-22"><a href="exploratory-data-analysis.html#cb221-22" aria-hidden="true" tabindex="-1"></a>exp_g <span class="sc">|</span> cum_g</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="exploratory-data-analysis.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb230-2"><a href="exploratory-data-analysis.html#cb230-2" aria-hidden="true" tabindex="-1"></a>pca_var <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb230-3"><a href="exploratory-data-analysis.html#cb230-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC=</span><span class="fu">factor</span>(<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>),<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)),</span>
+<span id="cb230-4"><a href="exploratory-data-analysis.html#cb230-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variance=</span>pca<span class="sc">$</span>sdev<span class="sc">**</span><span class="dv">2</span>,</span>
+<span id="cb230-5"><a href="exploratory-data-analysis.html#cb230-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span><span class="ot">=</span>Variance<span class="sc">/</span><span class="fu">sum</span>(Variance)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb230-6"><a href="exploratory-data-analysis.html#cb230-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Cumulative % Explained Variance</span><span class="st">`</span><span class="ot">=</span><span class="fu">cumsum</span>(<span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span>)</span>
+<span id="cb230-7"><a href="exploratory-data-analysis.html#cb230-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb230-8"><a href="exploratory-data-analysis.html#cb230-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-9"><a href="exploratory-data-analysis.html#cb230-9" aria-hidden="true" tabindex="-1"></a>exp_g <span class="ot">&lt;-</span> pca_var <span class="sc">%&gt;%</span></span>
+<span id="cb230-10"><a href="exploratory-data-analysis.html#cb230-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">% Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb230-11"><a href="exploratory-data-analysis.html#cb230-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb230-12"><a href="exploratory-data-analysis.html#cb230-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb230-13"><a href="exploratory-data-analysis.html#cb230-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>)) <span class="co"># make x labels rotate 90 degrees</span></span>
+<span id="cb230-14"><a href="exploratory-data-analysis.html#cb230-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-15"><a href="exploratory-data-analysis.html#cb230-15" aria-hidden="true" tabindex="-1"></a>cum_g <span class="ot">&lt;-</span> pca_var <span class="sc">%&gt;%</span></span>
+<span id="cb230-16"><a href="exploratory-data-analysis.html#cb230-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span><span class="st">`</span><span class="at">Cumulative % Explained Variance</span><span class="st">`</span>,<span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb230-17"><a href="exploratory-data-analysis.html#cb230-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb230-18"><a href="exploratory-data-analysis.html#cb230-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb230-19"><a href="exploratory-data-analysis.html#cb230-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">100</span>) <span class="sc">+</span> <span class="co"># set y limits to [0,100]</span></span>
+<span id="cb230-20"><a href="exploratory-data-analysis.html#cb230-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span>
+<span id="cb230-21"><a href="exploratory-data-analysis.html#cb230-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-22"><a href="exploratory-data-analysis.html#cb230-22" aria-hidden="true" tabindex="-1"></a>exp_g <span class="sc">|</span> cum_g</span></code></pre></div>
 <p><img src="main_files/pca%20var-1.png" width="672" /></p>
 <p>The first component explains nearly 20% of all variance in the dataset, followed
 by the second component with about 12%, the third component 9%, and so on. The
@@ -670,61 +670,61 @@ This is usually done by inspection and outlier samples chosen subjectively;
 there are no general rules to decide when a sample is an outlier by this method.
 Below the projections for components 1 and 2 are plotted against each other as a
 scatter plot:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="exploratory-data-analysis.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
-<span id="cb222-2"><a href="exploratory-data-analysis.html#cb222-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC1,<span class="at">y=</span>PC2)) <span class="sc">+</span></span>
-<span id="cb222-3"><a href="exploratory-data-analysis.html#cb222-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="exploratory-data-analysis.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb231-2"><a href="exploratory-data-analysis.html#cb231-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC1,<span class="at">y=</span>PC2)) <span class="sc">+</span></span>
+<span id="cb231-3"><a href="exploratory-data-analysis.html#cb231-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="main_files/pca%20pairwise-1.png" width="672" /></p>
 <p>By eye, no samples appear to be obvious outliers. However, this plot is just one
 of many pairs of projections. We could plot all pairs of the first six
 components using the <a href="https://ggobi.github.io/ggally/reference/ggpairs.html"><code>ggpairs() function</code></a> in the
 <a href="https://ggobi.github.io/ggally/">GGally</a> package:</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="exploratory-data-analysis.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb223-2"><a href="exploratory-data-analysis.html#cb223-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
-<span id="cb223-3"><a href="exploratory-data-analysis.html#cb223-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(PC1<span class="sc">:</span>PC6) <span class="sc">%&gt;%</span></span>
-<span id="cb223-4"><a href="exploratory-data-analysis.html#cb223-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="exploratory-data-analysis.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb232-2"><a href="exploratory-data-analysis.html#cb232-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb232-3"><a href="exploratory-data-analysis.html#cb232-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(PC1<span class="sc">:</span>PC6) <span class="sc">%&gt;%</span></span>
+<span id="cb232-4"><a href="exploratory-data-analysis.html#cb232-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code></pre></div>
 <p><img src="main_files/pca%20pairs-1.png" width="672" /></p>
 <p>This is already nearly unintelligible and mostly uninformative. While it is very
 common for projections for pairs of components to be plotted, an alternative way
 to visualize projections across all samples is by plotting the distribution of
 projections for each component using a <a href="#beeswarm-plots">beeswarm plot</a>:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="exploratory-data-analysis.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
-<span id="cb224-2"><a href="exploratory-data-analysis.html#cb224-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(),<span class="at">names_to=</span><span class="st">&quot;PC&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;projection&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb224-3"><a href="exploratory-data-analysis.html#cb224-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PC=</span><span class="fu">fct_relevel</span>(PC,<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb224-4"><a href="exploratory-data-analysis.html#cb224-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span>projection)) <span class="sc">+</span></span>
-<span id="cb224-5"><a href="exploratory-data-analysis.html#cb224-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;PCA Projection Plot&quot;</span>) <span class="sc">+</span></span>
-<span id="cb224-6"><a href="exploratory-data-analysis.html#cb224-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="exploratory-data-analysis.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb233-2"><a href="exploratory-data-analysis.html#cb233-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(),<span class="at">names_to=</span><span class="st">&quot;PC&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;projection&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb233-3"><a href="exploratory-data-analysis.html#cb233-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PC=</span><span class="fu">fct_relevel</span>(PC,<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb233-4"><a href="exploratory-data-analysis.html#cb233-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span>projection)) <span class="sc">+</span></span>
+<span id="cb233-5"><a href="exploratory-data-analysis.html#cb233-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;PCA Projection Plot&quot;</span>) <span class="sc">+</span></span>
+<span id="cb233-6"><a href="exploratory-data-analysis.html#cb233-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
 <p><img src="main_files/pca%20proj%20beeswarm-1.png" width="672" /></p>
 <p>Now we can see all the projections for all components in the same plot, although
 we cannot see how they relate to one another.</p>
 <p>These projection plots may become more useful if we layer on additional
 information about our samples. There are two types of samples in our dataset (
 labelled <code>A</code> and <code>C</code>. We can color our pairwise scatter plot by type like so:</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="exploratory-data-analysis.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
-<span id="cb225-2"><a href="exploratory-data-analysis.html#cb225-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">rownames</span>(pca<span class="sc">$</span>x),<span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb225-3"><a href="exploratory-data-analysis.html#cb225-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC1,<span class="at">y=</span>PC2,<span class="at">color=</span>type)) <span class="sc">+</span></span>
-<span id="cb225-4"><a href="exploratory-data-analysis.html#cb225-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="exploratory-data-analysis.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb234-2"><a href="exploratory-data-analysis.html#cb234-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">rownames</span>(pca<span class="sc">$</span>x),<span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb234-3"><a href="exploratory-data-analysis.html#cb234-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC1,<span class="at">y=</span>PC2,<span class="at">color=</span>type)) <span class="sc">+</span></span>
+<span id="cb234-4"><a href="exploratory-data-analysis.html#cb234-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="main_files/pca%20color%20scatter-1.png" width="672" /></p>
 <p>Little pattern is obvious from the plot, but we can plot pairs of components as
 before but now with type information:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="exploratory-data-analysis.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb226-2"><a href="exploratory-data-analysis.html#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
-<span id="cb226-3"><a href="exploratory-data-analysis.html#cb226-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">rownames</span>(pca<span class="sc">$</span>x),<span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb226-4"><a href="exploratory-data-analysis.html#cb226-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(type,PC1<span class="sc">:</span>PC6)) <span class="sc">%&gt;%</span></span>
-<span id="cb226-5"><a href="exploratory-data-analysis.html#cb226-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">fill=</span>type))</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="exploratory-data-analysis.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb235-2"><a href="exploratory-data-analysis.html#cb235-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb235-3"><a href="exploratory-data-analysis.html#cb235-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="fu">rownames</span>(pca<span class="sc">$</span>x),<span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb235-4"><a href="exploratory-data-analysis.html#cb235-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(type,PC1<span class="sc">:</span>PC6)) <span class="sc">%&gt;%</span></span>
+<span id="cb235-5"><a href="exploratory-data-analysis.html#cb235-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">fill=</span>type))</span></code></pre></div>
 <p><img src="main_files/pca%20pairs%20type-1.png" width="672" /></p>
 <p>Examining PC3 and PC4, we now observe that there may indeed be some genes that
 distinguish between types based on the separation of projection scores for the
 two types. Finally, we can also color our beeswarm plot by type:</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="exploratory-data-analysis.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
-<span id="cb227-2"><a href="exploratory-data-analysis.html#cb227-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb227-3"><a href="exploratory-data-analysis.html#cb227-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sample=</span><span class="fu">rownames</span>(pca<span class="sc">$</span>x),</span>
-<span id="cb227-4"><a href="exploratory-data-analysis.html#cb227-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(sample,<span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb227-5"><a href="exploratory-data-analysis.html#cb227-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb227-6"><a href="exploratory-data-analysis.html#cb227-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(PC1<span class="sc">:</span>PC20,<span class="at">names_to=</span><span class="st">&quot;PC&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;projection&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb227-7"><a href="exploratory-data-analysis.html#cb227-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PC=</span><span class="fu">fct_relevel</span>(PC,<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb227-8"><a href="exploratory-data-analysis.html#cb227-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span>projection,<span class="at">color=</span>type)) <span class="sc">+</span></span>
-<span id="cb227-9"><a href="exploratory-data-analysis.html#cb227-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;PCA Projection Plot&quot;</span>) <span class="sc">+</span></span>
-<span id="cb227-10"><a href="exploratory-data-analysis.html#cb227-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="exploratory-data-analysis.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb236-2"><a href="exploratory-data-analysis.html#cb236-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb236-3"><a href="exploratory-data-analysis.html#cb236-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sample=</span><span class="fu">rownames</span>(pca<span class="sc">$</span>x),</span>
+<span id="cb236-4"><a href="exploratory-data-analysis.html#cb236-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">type=</span>stringr<span class="sc">::</span><span class="fu">str_sub</span>(sample,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb236-5"><a href="exploratory-data-analysis.html#cb236-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb236-6"><a href="exploratory-data-analysis.html#cb236-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(PC1<span class="sc">:</span>PC20,<span class="at">names_to=</span><span class="st">&quot;PC&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;projection&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb236-7"><a href="exploratory-data-analysis.html#cb236-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PC=</span><span class="fu">fct_relevel</span>(PC,<span class="fu">str_c</span>(<span class="st">&quot;PC&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb236-8"><a href="exploratory-data-analysis.html#cb236-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>PC,<span class="at">y=</span>projection,<span class="at">color=</span>type)) <span class="sc">+</span></span>
+<span id="cb236-9"><a href="exploratory-data-analysis.html#cb236-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;PCA Projection Plot&quot;</span>) <span class="sc">+</span></span>
+<span id="cb236-10"><a href="exploratory-data-analysis.html#cb236-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>,<span class="at">vjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
 <p><img src="main_files/pca%20proj%20beeswarm%20type-1.png" width="672" /></p>
 <p>These approaches to plotting the results of a PCA are complementary, and all
 may be useful in understanding the structure of a dataset.</p>
@@ -745,14 +745,14 @@ comparative performance of different clustering algorithms applied to the same
 data. Different algorithms may identify different types of patterns, and so no
 one clustering method is better than any other in general.</p>
 <p>The goal of clustering may be easily illustrated with the following plot:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="exploratory-data-analysis.html#cb228-1" aria-hidden="true" tabindex="-1"></a>unclustered <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2)) <span class="sc">+</span></span>
-<span id="cb228-2"><a href="exploratory-data-analysis.html#cb228-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb228-3"><a href="exploratory-data-analysis.html#cb228-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Unclustered&quot;</span>)</span>
-<span id="cb228-4"><a href="exploratory-data-analysis.html#cb228-4" aria-hidden="true" tabindex="-1"></a>clustered <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2,<span class="at">color=</span>cluster,<span class="at">shape=</span>cluster)) <span class="sc">+</span></span>
-<span id="cb228-5"><a href="exploratory-data-analysis.html#cb228-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb228-6"><a href="exploratory-data-analysis.html#cb228-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Clustered&quot;</span>)</span>
-<span id="cb228-7"><a href="exploratory-data-analysis.html#cb228-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-8"><a href="exploratory-data-analysis.html#cb228-8" aria-hidden="true" tabindex="-1"></a>unclustered <span class="sc">|</span> clustered</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="exploratory-data-analysis.html#cb237-1" aria-hidden="true" tabindex="-1"></a>unclustered <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2)) <span class="sc">+</span></span>
+<span id="cb237-2"><a href="exploratory-data-analysis.html#cb237-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb237-3"><a href="exploratory-data-analysis.html#cb237-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Unclustered&quot;</span>)</span>
+<span id="cb237-4"><a href="exploratory-data-analysis.html#cb237-4" aria-hidden="true" tabindex="-1"></a>clustered <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2,<span class="at">color=</span>cluster,<span class="at">shape=</span>cluster)) <span class="sc">+</span></span>
+<span id="cb237-5"><a href="exploratory-data-analysis.html#cb237-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb237-6"><a href="exploratory-data-analysis.html#cb237-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Clustered&quot;</span>)</span>
+<span id="cb237-7"><a href="exploratory-data-analysis.html#cb237-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-8"><a href="exploratory-data-analysis.html#cb237-8" aria-hidden="true" tabindex="-1"></a>unclustered <span class="sc">|</span> clustered</span></code></pre></div>
 <p><img src="main_files/clustering%20goal-1.png" width="672" /></p>
 <p>That is, the goal of clustering is to take unlabeled data that has some
 structure like on the left and label data points that are similar to one another
@@ -809,26 +809,26 @@ set of points using WPGMA:</p>
 <p class="caption">Conceptual illustration of agglomerative hierarchical clustering</p>
 </div>
 <p>Below we will cluster the synthetic dataset introduced above in R:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exploratory-data-analysis.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2)) <span class="sc">+</span></span>
-<span id="cb229-2"><a href="exploratory-data-analysis.html#cb229-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb229-3"><a href="exploratory-data-analysis.html#cb229-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Unclustered&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="exploratory-data-analysis.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2)) <span class="sc">+</span></span>
+<span id="cb238-2"><a href="exploratory-data-analysis.html#cb238-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb238-3"><a href="exploratory-data-analysis.html#cb238-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Unclustered&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/hclust%20data-1.png" width="672" /></p>
 <p>This synthetic dataset has two distinct groups of samples drawn from
 multivariate normal samples. To hierarchically cluster these samples, we use the
 <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist"><code>dist()</code></a>
 and <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust"><code>hclust()</code></a>
 functions:</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="exploratory-data-analysis.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute all pairwise distances using euclidean distance as the distance metric</span></span>
-<span id="cb230-2"><a href="exploratory-data-analysis.html#cb230-2" aria-hidden="true" tabindex="-1"></a>euc_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(well_clustered_data,<span class="sc">-</span>ID))</span>
-<span id="cb230-3"><a href="exploratory-data-analysis.html#cb230-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb230-4"><a href="exploratory-data-analysis.html#cb230-4" aria-hidden="true" tabindex="-1"></a><span class="co"># produce a clustering of the data using the hclust for hierarchical clustering</span></span>
-<span id="cb230-5"><a href="exploratory-data-analysis.html#cb230-5" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(euc_dist, <span class="at">method=</span><span class="st">&quot;ave&quot;</span>)</span>
-<span id="cb230-6"><a href="exploratory-data-analysis.html#cb230-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb230-7"><a href="exploratory-data-analysis.html#cb230-7" aria-hidden="true" tabindex="-1"></a><span class="co"># add ID as labels to the clustering object</span></span>
-<span id="cb230-8"><a href="exploratory-data-analysis.html#cb230-8" aria-hidden="true" tabindex="-1"></a>hc<span class="sc">$</span>labels <span class="ot">&lt;-</span> well_clustered_data<span class="sc">$</span>ID</span>
-<span id="cb230-9"><a href="exploratory-data-analysis.html#cb230-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb230-10"><a href="exploratory-data-analysis.html#cb230-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb230-11"><a href="exploratory-data-analysis.html#cb230-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hc)</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="exploratory-data-analysis.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute all pairwise distances using euclidean distance as the distance metric</span></span>
+<span id="cb239-2"><a href="exploratory-data-analysis.html#cb239-2" aria-hidden="true" tabindex="-1"></a>euc_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(well_clustered_data,<span class="sc">-</span>ID))</span>
+<span id="cb239-3"><a href="exploratory-data-analysis.html#cb239-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-4"><a href="exploratory-data-analysis.html#cb239-4" aria-hidden="true" tabindex="-1"></a><span class="co"># produce a clustering of the data using the hclust for hierarchical clustering</span></span>
+<span id="cb239-5"><a href="exploratory-data-analysis.html#cb239-5" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(euc_dist, <span class="at">method=</span><span class="st">&quot;ave&quot;</span>)</span>
+<span id="cb239-6"><a href="exploratory-data-analysis.html#cb239-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-7"><a href="exploratory-data-analysis.html#cb239-7" aria-hidden="true" tabindex="-1"></a><span class="co"># add ID as labels to the clustering object</span></span>
+<span id="cb239-8"><a href="exploratory-data-analysis.html#cb239-8" aria-hidden="true" tabindex="-1"></a>hc<span class="sc">$</span>labels <span class="ot">&lt;-</span> well_clustered_data<span class="sc">$</span>ID</span>
+<span id="cb239-9"><a href="exploratory-data-analysis.html#cb239-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-10"><a href="exploratory-data-analysis.html#cb239-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-11"><a href="exploratory-data-analysis.html#cb239-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hc)</span></code></pre></div>
 <pre><code>## List of 7
 ##  $ merge      : int [1:59, 1:2] -50 -33 -48 -46 -44 -21 -11 -4 -36 -3 ...
 ##  $ height     : num [1:59] 0.00429 0.08695 0.23536 0.24789 0.25588 ...
@@ -840,8 +840,8 @@ functions:</p>
 ##  - attr(*, &quot;class&quot;)= chr &quot;hclust&quot;</code></pre>
 <p>The <code>hclust()</code> return object describes the clustering as a tree that can be
 visualized using a <a href="other-kind-of-plots-..html#dendrograms">dendrogram</a>:</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="exploratory-data-analysis.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdendro)</span>
-<span id="cb232-2"><a href="exploratory-data-analysis.html#cb232-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdendrogram</span>(hc)</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="exploratory-data-analysis.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdendro)</span>
+<span id="cb241-2"><a href="exploratory-data-analysis.html#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdendrogram</span>(hc)</span></code></pre></div>
 <p><img src="main_files/hclust%20dendro-1.png" width="672" />
 Our data do indeed cluster well, where all samples from the same group cluster
 together perfectly. See the <a href="other-kind-of-plots-..html#dendrograms">dendrogram</a> section in the <a href="#data-viz">data
@@ -853,8 +853,8 @@ sample groups are clearly visible. If we wished to separate these three groups,
 we can use the
 <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cutree"><code>cutree</code></a>
 to divide the tree into three groups using <code>k=3</code>:</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="exploratory-data-analysis.html#cb233-1" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc,<span class="at">k=</span><span class="dv">3</span>)</span>
-<span id="cb233-2"><a href="exploratory-data-analysis.html#cb233-2" aria-hidden="true" tabindex="-1"></a>labels</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="exploratory-data-analysis.html#cb242-1" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc,<span class="at">k=</span><span class="dv">3</span>)</span>
+<span id="cb242-2"><a href="exploratory-data-analysis.html#cb242-2" aria-hidden="true" tabindex="-1"></a>labels</span></code></pre></div>
 <pre><code>##  A1  A2  A3  A4  A5  A6  A7  A8  A9 A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20 
 ##   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1 
 ##  B1  B2  B3  B4  B5  B6  B7  B8  B9 B10 B11 B12 B13 B14 B15 B16 B17 B18 B19 B20 
@@ -862,17 +862,17 @@ to divide the tree into three groups using <code>k=3</code>:</p>
 ##  C1  C2  C3  C4  C5  C6  C7  C8  C9 C10 C11 C12 C13 C14 C15 C16 C17 C18 C19 C20 
 ##   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3</code></pre>
 <p>We can then use these samples and labels to color our original plot as desired:</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="exploratory-data-analysis.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we turn our labels into a tibble so we can join them with the original tibble</span></span>
-<span id="cb235-2"><a href="exploratory-data-analysis.html#cb235-2" aria-hidden="true" tabindex="-1"></a>well_clustered_data <span class="sc">%&gt;%</span></span>
-<span id="cb235-3"><a href="exploratory-data-analysis.html#cb235-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb235-4"><a href="exploratory-data-analysis.html#cb235-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
-<span id="cb235-5"><a href="exploratory-data-analysis.html#cb235-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">ID=</span><span class="fu">names</span>(labels),</span>
-<span id="cb235-6"><a href="exploratory-data-analysis.html#cb235-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">label=</span><span class="fu">as.factor</span>(labels)</span>
-<span id="cb235-7"><a href="exploratory-data-analysis.html#cb235-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb235-8"><a href="exploratory-data-analysis.html#cb235-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb235-9"><a href="exploratory-data-analysis.html#cb235-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2,<span class="at">color=</span>label)) <span class="sc">+</span></span>
-<span id="cb235-10"><a href="exploratory-data-analysis.html#cb235-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb235-11"><a href="exploratory-data-analysis.html#cb235-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Clustered&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="exploratory-data-analysis.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we turn our labels into a tibble so we can join them with the original tibble</span></span>
+<span id="cb244-2"><a href="exploratory-data-analysis.html#cb244-2" aria-hidden="true" tabindex="-1"></a>well_clustered_data <span class="sc">%&gt;%</span></span>
+<span id="cb244-3"><a href="exploratory-data-analysis.html#cb244-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb244-4"><a href="exploratory-data-analysis.html#cb244-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb244-5"><a href="exploratory-data-analysis.html#cb244-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">ID=</span><span class="fu">names</span>(labels),</span>
+<span id="cb244-6"><a href="exploratory-data-analysis.html#cb244-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">label=</span><span class="fu">as.factor</span>(labels)</span>
+<span id="cb244-7"><a href="exploratory-data-analysis.html#cb244-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb244-8"><a href="exploratory-data-analysis.html#cb244-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb244-9"><a href="exploratory-data-analysis.html#cb244-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2,<span class="at">color=</span>label)) <span class="sc">+</span></span>
+<span id="cb244-10"><a href="exploratory-data-analysis.html#cb244-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb244-11"><a href="exploratory-data-analysis.html#cb244-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Clustered&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/hclust%20cutree%20color-1.png" width="672" /></p>
 <p>We were able to recover the correct clustering because this dataset was easy to
 cluster by construction. Real data are seldom so well behaved.</p>

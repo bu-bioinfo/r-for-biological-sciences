@@ -88,9 +88,9 @@ what-is-a-statistical-test
 common-statistical-tests
 chi-square-goodness-of-fit_-_-
 choosing-a-test
-p-values-.
+p-values
 multiple-hypothesis-testing-.
-statistical-power-.
+statistical-power
 exploratory-data-analysis
 principal-component-analysis
 cluster-analysis
