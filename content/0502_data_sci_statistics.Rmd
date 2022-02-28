@@ -15,98 +15,179 @@ uncertainty and help us reason about whether a signal exists within a dataset,
 and how certain we are of that signal. At its core, statistics is about
 separating the signal from the noise of a dataset in a rigorous and precise way.
 
-In statistics, uncertainty is expressed as deviation from an expected value.
-For example, in a [normal
-distribution](https://en.wikipedia.org/wiki/Normal_distribution), the expected
-value is the arithmetic mean and a common measure of uncertainty around that
-value is the standard deviation.  One of the fundamental statistical tools used
-when estimating uncertainty is the *statistical distribution*, or *probability
-distribution*, or simply *distribution*.
-
-There are two broad classes of distributions: statistical, or theoretical,
-distributions and empirical distributions. In this section we will discuss some
-general properties of distributions, briefly describe some common probability
-distributions, and explain how to specify and use these distributions in R.
-
+One of the fundamental statistical tools used when estimating uncertainty is the
+*statistical distribution*, or *probability distribution*, or simply
+*distribution*. There are two broad classes of distributions: statistical, or
+theoretical, distributions and empirical distributions. In this section we will
+discuss some general properties of distributions, briefly describe some common
+probability distributions, and explain how to specify and use these
+distributions in R.
 
 ### Random Variables
 
+A random variable is an object or quantity which depends upon random events and
+that can have samples drawn from it. For example, a six-sided die is a random
+variable with six possible outcomes, and a single roll of the die will yield one
+of those outcomes with some probability (equal probability, if the die is fair).
+A coin is also a random variable, with heads or tails as the outcome. A gene's
+expression in a RNASeq experiment is a random variable, where the possible
+outcomes are any non-negative integer corresponding to the number of reads that
+map to it. In these examples, the outcome is a simple category or real number,
+but random variables can be associated with more complex outcomes as well,
+including trees, sets, shapes, sequences, etc. The probability of each outcome
+is specified by the distribution associated with the random variable.
 
+Random variables are usually notated as capital letters, like $X,Y,Z,$ etc. A
+sample drawn from a random variable is usually notated as a lowercase of the
+same letter, e.g. $x$ is a sample drawn from the random variable $X$. The
+distribution of a random variable is usually described like "$X$ follows a
+binomial distribution" or "$Y$ is a normally distributed random variable".
+
+The probability of a random variable taking one of its possible values is
+usually written $P(X = x)$. The value of $P(X = x)$ is defined by the
+distribution of $X$. As we will see later in the [p-values] section, sometimes
+we are also interested in the probability of observing a value of $x$ or larger
+(or smaller). These probabilities are written $(P \ge x)$ (or $(P \le x)$). How
+these probabilities are computed is described in the next section.
 
 ### Statistical Distributions
 
 By definition, a statistical distribution is a function that maps **the possible
-values for a variable to how often they occur**.
+values for a variable to how often they occur**. Said differently, a statistical
+distribution is used to compute the probability of seeing a single value, or a
+range of values, relative to all other possible values, assuming the random
+variable in question follows the statistical distribution. The following is a
+visualization of the theoretical distribution of a normally distributed random
+variable:
 
-More precisely, uncertainty is usually expressed as either a [confidence
-interval](https://en.wikipedia.org/wiki/Confidence_interval) specifying a range
-of values that are probable within some desired threshold, or a probability that
-the data follow a distribution parameterized with a given mean and deviation
-from that mean.
+```{r stat normal}
+tibble(
+  x = seq(-4,4,by=0.1),
+  `Probability Density`=dnorm(x,0,1)
+) %>%
+  ggplot(aes(x=x,y=`Probability Density`)) +
+  geom_line() +
+  labs(title="Probability Density Function for a Normal Distribution")
+
+```
 
 ::: {.box .note}
 In probability theory, if a plausible event has a probability of zero, this
-*does not mean that event can never occur*, nor does a probability of one mean
-the event is destined to occur. This is due to the asymptotic properties of
-probability distributions, where every [supported value](https://en.wikipedia.org/wiki/Support_(mathematics)) of the distribution
+*does not mean that event can never occur*. In fact, every specific value in a
+distribution that supports all real numbers has a probability of zero (i.e. one
+specific value out of an infinite number of values). Instead, the probability
+distribution function allows us to reason about the *relative likelihood* of
+observing values in one range of the distribution compared with the others. 
+While most values have extremely small relative probabilities, they never are
+equal to zero. This is due to the asymptotic properties of probability
+distributions, where every [supported
+value](https://en.wikipedia.org/wiki/Support_(mathematics)) of the distribution
 has a non-zero value by definition, though many values may be very close to
 zero.
 :::
 
+The plot above depicts to the *probability density function* (PDF) of a normal
+distribution with mean of zero and a standard deviation of one. The PDF defines
+the probability associated with every possible value of $x$, which for the
+normal distribution is all real numbers. All PDFs have a closed mathematical
+form. The PDF for the normal distribution is:
+
+$$
+P(X = x|\mu,\sigma) = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(x-\mu)^2}{2\sigma}}
+$$
+
+The notation $P(X = x|\mu,\sigma)$ is read like "the probability that the random
+variable $X$ takes the value $x$, given mean $\mu$ and standard deviation
+$\sigma$". The normal distribution is an example of a *parametric distribution*
+because its PDF requires two parameters - mean and standard deviation - to
+compute probabilities. The choice of parameter values $\mu$ and $\sigma$ in the
+normal distribution determine the probability of the value of $x$.
+
+The PDF provides the probability density of specific values within the
+distribution, but sometimes we are interested in the probability of a value
+being less than or equal to a particular value. We compute this using the
+*cumulative density function* (CDF). In the plot below, both the PDF and CDF are
+plotted for a normal distribution with mean zero and standard deviation of 1:
+
+```{r stat pdf cdf}
+tibble(
+  x = seq(-4,4,by=0.1),
+  PDF=dnorm(x,0,1),
+  CDF=pnorm(x,0,1)
+) %>%
+  ggplot() +
+  geom_line(aes(x=x,y=PDF,color="PDF")) +
+  geom_line(aes(x=x,y=CDF,color="CDF"),linetype="dashed")
+```
+
+
+
+
 Generally, statistical distributions are divided into two categories: discrete
 distributions and continuous distributions.
 
-#### Discrete distributions
+### Discrete distributions
 
-##### Bernoulli random trail and more  
+#### Bernoulli random trail and more  
 One of the examples for discrete random variable distribution is the **Bernoulli**
 function. A Bernoulli trail has only 2 outcomes with probability $p$ and $(1-p)$.
 Consider flipping a fair coin, and the random variable X can take value 0 or 1
 indicating you get a head or a tail. If it's a fair coin, we would expect the
-Pr{ X = 0 } = Pr{ X = 1 } = 0.5. Or, if we throw a die and we record X = 1 when
-we get a six, and X = 0 otherwise, then Pr{ X = 0 } = 5/6 and Pr{ X = 1 } = 1/6.  
+$Pr(X = 0) = Pr(X = 1) = 0.5$. Or, if we throw a die and we record X = 1 when
+we get a six, and X = 0 otherwise, then $Pr(X = 0) = 5/6$ and $Pr(X = 1) = 1/6$.  
 
 Now consider a slightly complicated situation: what if we are throwing the die
 $n$ times and we would like to analyze the total number of six, say $x$, we get
 during those $n$ throws? Now, this leads us to the **binomial distribution**.
-If it's a fair die, we would say our proportion parameter p = 1/6, which means
+If it's a fair die, we would say our proportion parameter $p = 1/6$, which means
 the probability we are getting a six is 1/6 for each throw.  
 
-$$\begin{equation}
+$$
+\begin{equation}
 f(x) = \frac {n!} {x!(n-x)!}p^x (1-p) ^{(n-x)}
-\end{equation}$$
+\end{equation}
+$$
 
 The **geometric** random variable, similar to the binomial, is also from a
-sequence of random Bernoulli trials with a constant probability parameter p.
+sequence of random Bernoulli trials with a constant probability parameter $p$.
 But this time, we define the random variable X as the number of consecutive
-failures before the first success. In this case, the probability of x
-consecutive failures followed by success on trial x+1 is:  
+failures before the first success. In this case, the probability of $x$
+consecutive failures followed by success on trial $x+1$ is:  
 
-$$\begin{equation}
+$$
+\begin{equation}
 f(x) = p * (1-p)^x
-\end{equation}$$
+\end{equation}
+$$
 
 The **negative binomial** distribution goes one step forward. This time, we are
 still performing a sequence of independent Bernoulli random trials with a
-constant probability of success equal to p. But now we would like to record the
-random variable Z to be the total number of failures before we finally get to
-the $r^{th}$ success. In other words, when we get to the $r^{th}$ success, we
-had x+r Bernoulli random trails, in which x times failed and r times succeeded.  
+constant probability of success equal to $p$. But now we would like to record
+the random variable $Z$ to be the total number of failures before we finally get
+to the $r^{th}$ success. In other words, when we get to the $r^{th}$ success, we
+had $x+r$ Bernoulli random trails, in which $x$ times failed and $r$ times
+succeeded.
 
-$$\begin{equation}
+$$
+\begin{equation}
 f(x) = \frac {x+r-1} {r-1} p^r {(1-p)}^x
-\end{equation}$$
+\end{equation}
+$$
 
-##### Poisson  
+#### Poisson  
+
 The Poisson distribution is used to express the probability of a given number
 of events occurring in a fixed interval of time or space, and these events
 occur with a known constant mean rate and independently of the time since
 the last event. ~~But no one understands this definition.~~  
 
 The formula for Poisson distribution is:  
-$$\begin{equation}
+
+$$
+\begin{equation}
 f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!}
-\end{equation}$$
+\end{equation}
+$$
 
 - lambda is the expected value of the random variable X  
 - k is the number of occurrences  
@@ -118,10 +199,12 @@ is to receive incoming letters. Assume the number of incoming letters is not
 affected by the day of the week or season of the year. You are expected to get
 20 letters on average in a day. But, the actual number of letters you receive
 each day will not be perfectly 20.  
+
 You recorded the number of letters you receive each day in a month (30 days).
 In the following plot, each dot represents a day. The x-axis is calender day,
 and y-axis is the number of letters you receive on that day. Although on average
-you are receiving 20 letters each day, the actual number of letters each day vary a lot.
+you are receiving 20 letters each day, the actual number of letters each day
+vary a lot.
 
 ```{r}
 set.seed(2)
@@ -134,8 +217,9 @@ plot(my_letter,
 abline(a = 20, b = 0, lwd = 2, lty = 3, col = "salmon")
 ```
 
-Now, let's plot the density plot of our data. The x-axis is the number of
-letters on a single day, and the y-axis is the probability.  
+Now, let's plot the density plot of our data. The $x$-axis is the number of
+letters on a single day, and the $y$-axis is the probability.  
+
 ```{r}
 plot(density(my_letter),
   lwd = 2, col = "royalblue",
@@ -157,7 +241,8 @@ plot(density(rpois(n = 5000, lambda = 20)),
 )
 ```
 
-Here is the theoretical Poisson distribution with lambda = 20.  
+Here is the theoretical Poisson distribution with lambda = 20:
+
 ```{r}
 plot(dpois(c(1:40), lambda = 20),
   lwd = 2, type = "l", col = "royalblue",
@@ -167,17 +252,20 @@ plot(dpois(c(1:40), lambda = 20),
 
 If we want to know what's the probability to receive, for example, 18 letters,  
 we can use `dpois()` function.
+
 ```{r}
 dpois(x = 18, lambda = 20)
 ```
 
 If we want to know the probability of receiving 18 or less letters,
 use `ppois()` function.
+
 ```{r}
 ppois(q = 18, lambda = 20, lower.tail = T)
 ```
 
 It is the cumulative area colored in the following plot:  
+
 ```{r}
 plot(dpois(c(1:40), lambda = 20),
   lwd = 2, type = "l", col = "royalblue",
@@ -192,12 +280,13 @@ segments(x0 = 18, y0 = 0, y1 = 0.08439355, lwd = 2, lty = 2, col = "salmon")
 ```
 
 `qpois()` is like the "reverse" of `ppois()`.  
+
 ```{r}
 qpois(p = 0.3814219, lambda = 20)
 ```
 
-
 Let's review the definition of Poisson distribution.  
+
 - "these events occur in a fixed interval of time or space", which is a day;  
 - "these events occur with a known constant mean rate", which is 20 letters;  
 - "independently of the time since the last event", which means the number of
@@ -205,23 +294,28 @@ letters you receive today is independent of the letter you receive tomorrow.
 ~~more work today don't guarantee less work tomorrow, just like in real life~~  
 
 Now let's re-visit the formula.  
-$$\begin{equation}
-f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!}
-\end{equation}$$
 
-- lambda is the expected value of X, which is 20 letters in this example.  
-- k is the number of occurrences, which is the number of letters you get on a specific day.  
+$$
+\begin{equation}
+f(k; \lambda) = Pr(X=k) = \frac {\lambda^k e^{-\lambda}} {k!}
+\end{equation}
+$$
+
+- lambda is the expected value of $X$, which is 20 letters in this example.  
+- $k$ is the number of occurrences, which is the number of letters you get on a
+specific day.
 - e is Euler's number (e=2.71828)  
 
-
-#### Continuous distributions
+### Continuous distributions
 
 There are a number of different continuous distributions. Here we will focus
 on the **Normal distribution (Gaussian distribution)**. A lot of variables in
 real life are normally distributed, common examples include people's height,
 blood pressure, and students' exam score.  
 
-This is what a normal distribution with mean = 0 and standard deviation = 1 looks like:  
+This is what a normal distribution with mean = 0 and standard deviation = 1
+looks like:
+
 ```{r}
 set.seed(2)
 norm <- rnorm(n = 50000, mean = 0, sd = 1)
@@ -231,23 +325,26 @@ plot(density(norm),
 )
 ```
 
-
 Similar as the Poisson distribution above, there are several functions to work
-with normal distribution, including `rnorm()`, `dnorm()`, `pnorm()`, and `qnorm()`.  
+with normal distribution, including `rnorm()`, `dnorm()`, `pnorm()`, and
+`qnorm()`.
 
 `rnorm()` is used to draw random data points from a normal distribution with
 a given mean and standard deviation.
+
 ```{r}
 set.seed(2)
 rnorm(
   n = 6, # number of data points to draw
   mean = 0, # mean
-  sd = 1
-) # standard deviation
+  sd = 1 # standard deviation
+) 
 ```
 
 `dnorm()` is the density at a given quantile. For instance, in the normal
-distribution (mean=0, sd=1) above, the probability density at 0.5 is roughly 0.35.
+distribution (mean=0, standard deviation=1) above, the probability density at
+0.5 is roughly 0.35.
+
 ```{r}
 dnorm(x = 0.5, mean = 0, sd = 1)
 ```
@@ -262,7 +359,6 @@ segments(x0 = -5, y0 = 0.3520653, x1 = 0.5, lwd = 2, lty = 3, col = "salmon")
 points(x = 0.5, y = 0.3520653, cex = 1.5, lwd = 2, col = "red")
 text(x = 1.1, y = 0.36, labels = "0.3521", col = "red2")
 ```
-
 
 `pnorm()` gives the distribution function. Or, you can think of it as the
 cumulative of the left side of the density function until a given value,
@@ -285,8 +381,9 @@ polygon(
 segments(x0 = 0.5, y0 = 0, y1 = 0.3520653, lwd = 2, lty = 2, col = "salmon")
 ```
 
-`qnorm()` gives the quantile function.
-You can think of it as the "reverse" of `pnorm()`. For instance:  
+`qnorm()` gives the quantile function. You can think of it as the "reverse" of
+`pnorm()`. For instance:
+
 ```{r}
 pnorm(q = 0.5, mean = 0, sd = 1)
 qnorm(p = 0.6914625, mean = 0, sd = 1)
@@ -324,52 +421,87 @@ making a probability distribution. This empirical distribution looks quite
 complicated, and cannot be easily captured with a single mean and confidence
 interval.
 
-### Statistical Tests .
+## Statistical Tests
 
-What is a statistical test, and when is it appropriate to run one? How do we
-know which tests are appropriate in a given situation? What is the difference
-between a parametric and non-parametric test? What are some common tests (e.g.
-t-test, Chi-sq, hypergeometric, etc), and how do we run them in R?
+### What is a statistical test
 
-#### What is a Statistical Test
-A statistical test is an application of mathematics that we used to analyze quantitative data. They can be described as a way to understand how the independent variable(s) of the study affect the outcome of the dependent variable. The kind of statistical test appropriate for a study depends on a number of factors including variables characteristics, study design, and data distribution. 
-The independent variable is (are) the variable(s) being controlled in the study to determine its effects on the dependent variable(s). Not all studies have independent variable(s).
+A statistical test is an application of mathematics that we used to analyze
+quantitative data. They can be described as a way to understand how the
+independent variable(s) of the study affect the outcome of the dependent
+variable. The kind of statistical test appropriate for a study depends on a
+number of factors including variables characteristics, study design, and data
+distribution. The independent variable is (are) the variable(s) being controlled
+in the study to determine its effects on the dependent variable(s). Not all
+studies have independent variable(s).
 
-##### Study design {-}
+#### Study design {-}
 
-The number of conditions a study has corresponds to the number of levels the independent variable has, for example 1 condition = 1 level, 2 conditions = 2 levels, and so on. This is different from the number of independent variables a study has. If a study has multiple independent variables, each will have its own number of levels. Statistical tests can be categorized as to whether they can handle 1, 2, or 2+ levels. 
+The number of conditions a study has corresponds to the number of levels the
+independent variable has, for example 1 condition = 1 level, 2 conditions = 2
+levels, and so on. This is different from the number of independent variables a
+study has. If a study has multiple independent variables, each will have its own
+number of levels. Statistical tests can be categorized as to whether they can
+handle 1, 2, or 2+ levels.
 
-If you have 2 or more levels, then the type of grouping will need to be considered: are they between-subjects* or repeated-measures**. A between-subject design means that each participant undergoes one condition whereas a repeated-measures design has each participant undergo all conditions. A third type exists called matched groups, where different subjects undergo different conditions but are matched to each other in some important way, and may be treated as a repeated-measure design when selecting for a statistical test 
+If you have 2 or more levels, then the type of grouping will need to be
+considered: are they between-subjects* or repeated-measures**. A between-subject
+design means that each participant undergoes one condition whereas a
+repeated-measures design has each participant undergo all conditions. A third
+type exists called matched groups, where different subjects undergo different
+conditions but are matched to each other in some important way, and may be
+treated as a repeated-measure design when selecting for a statistical test
 
 <small>
 *Independent design = between-subjects = between-groups; not to be confused with the variable.
 **Dependent design = repeated-measures = within-subjects = within-groups; also not to be confused with the variable.
 </small>
 
-##### Variables {-}
-The characteristics of your variables, both independent (predictor) and dependent (descriptor), will help you choose which statistical test to use. Specifically, the number of each, their type, and the level of measurement, will help you narrow your choices to select the appropriate test.
+#### Variables {-}
 
-###### Number of Variables {-}
-The number of both independent and dependent variables will affect which test you select. Test selection will differ whether you have 1 or 2+ dependent variables and 0, 1, or 2+ independent variables.
+The characteristics of your variables, both independent (predictor) and
+dependent (descriptor), will help you choose which statistical test to use.
+Specifically, the number of each, their type, and the level of measurement, will
+help you narrow your choices to select the appropriate test.
 
-###### Types of Data (Continuous and Categorical) {-}
-Typically in bioinformatics, data is subdivided into 3 categories: Continuous, Categorical, and Binary. Continuous data is data that exists on a continuum, where measurements can occur at any point between the extreme values. For example, height is a continuous variable: 152.853288cm (60.1783 in), 182.9704cm (72.0356 in), 172.7cm(68in), 163cm(64.2in) and 145.647cm (57.3413 in) are all technically valid heights. Categorical data is data that can be divided to categories or groups such as (high, medium, and low) or (under10, 10-29, and 30+). Binary data, data that can either be one thing or another (T/D, Y/N, 0/1, etc) falls under the Categorical data umbrella though may get mentioned separately elsewhere. Data that exists in sequential, positive integer form- such as number of siblings- is called Discrete data (bonus 4th category!) but typically ends up being treated as categorical data.
+##### Number of Variables {-}
 
-###### Levels of Measurement {-}
+The number of both independent and dependent variables will affect which test
+you select. Test selection will differ whether you have 1 or 2+ dependent
+variables and 0, 1, or 2+ independent variables.
+
+##### Types of Data (Continuous and Categorical) {-}
+
+Typically in bioinformatics, data is subdivided into 3 categories: Continuous,
+Categorical, and Binary. Continuous data is data that can take real number
+values within either a finite or infinite range. For example, height is a
+continuous variable: 152.853288cm (60.1783 in), 182.9704cm (72.0356 in),
+172.7cm(68in), 163cm(64.2in) and 145.647cm (57.3413 in) are all technically
+valid heights. Categorical data is data that can be divided to categories or
+groups such as (high, medium, and low) or (under10, 10-29, and 30+). Binary
+data, data that can either be one thing or another (T/D, Y/N, 0/1, etc) falls
+under the Categorical data umbrella though may get mentioned separately
+elsewhere. Data that exists in sequential, positive integer form- such as number
+of siblings- is called Discrete data (bonus 4th category!) but typically ends up
+being treated as categorical data.
+
+##### Levels of Measurement {-}
+
 The main levels of measurement in we use in statistics are Ratio, Interval, Nominal, and Ordinal. Both Ratio and Interval levels have distance between measurements defined; the biggest difference between the two is that Ratio measurements have a meaningful zero value (and no negative numbers). Height in inches or cm, Kelvin, and number of students in a class are all Ratio measurements. Interval measurements do not have a meaningful zero. Celsius and Fahrenheit both have arbitrary 0s- the freezing point of pure and (a specific kind of) ocean water- making most standard temperature measurements type Interval. Ordinal measurements have a meaningful order to their values but have variable/imprecise distances between measurements, like socioeconomic status (upper, middle, and lower) and days since diagnosis (under 10, 10-39, 40-99, 100+). Nominal measurements do not have meaningful order to their values, like country of origin and yes/no. Ratio and Interval measurements are continuous variables while Nominal and Ordinal measurements are categorical variables.
 
-##### Data Distribution (Parametric vs Nonparametric) {-}
+#### Data Distribution (Parametric vs Nonparametric) {-}
+
 This is the third factor to keep in mind for test selection and only applicable for NON-nominal dependent variables. Parametric tests make the assumption that the population the data is sourced from has a normal or Gaussian distribution. These are powerful tests because of their data distribution assumption, with the downside of only being able to be used in select cases. Nonparametric tests do not assume a normal distribution and therefore can be used in a wide range of cases, thought they are less likely to find significance in the results.
 
 
-#### Common Statistical Tests
+### Common Statistical Tests
+
 Here are some common statistical tests and a quick overview as to how to run them in R. If you would like more information about a specific test, links are included in the descriptions
 
 These are only some statistical tests. [Here's a link to where you can find a few more](https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/)
 
 [And here's a link to Wikipedia's list of statistical tests if you want to overload on statistical tests because it's your new hobby](https://en.wikipedia.org/wiki/Category:Statistical_tests) 
 
-##### __One-Sample T-Test__ {-}
+#### __One-Sample T-Test__ {-}
 
 
 _Dependent Variables_: 1, continuous [ratio and interval]
@@ -393,7 +525,13 @@ t.test(x, #numeric vector of data
        conf.level = 0.95 #1-alpha. Defaults to 0.95
 )
 ```
-The `t.test()` function allows for multiple kinds of t-tests. To use this function to perform a one sample t-test, you will need a numeric vector of the data you want to run the data on, the mean you want to compare it to, your confidence level (1 - alpha), and your alternative hypothesis. The t-test, like other kinds of t-tests, will compare the means by calculating the t-statistic, p-value and confidence intervals of your data’s mean. 
+
+The `t.test()` function allows for multiple kinds of t-tests. To use this
+function to perform a one sample t-test, you will need a numeric vector of the
+data you want to run the data on, the mean you want to compare it to, your
+confidence level (1 - alpha), and your alternative hypothesis. The t-test, like
+other kinds of t-tests, will compare the means by calculating the t-statistic,
+p-value and confidence intervals of your data’s mean.
 
 
 _t_: The calculated t-statistic, uses formula : (mean(x) - mu)/(sd(x)*sqrt(n_samples))
@@ -420,11 +558,15 @@ tlessx0 <- t.test(x0, mu = 0, alternative = "less", conf.level = 0.90)
 
 knitr::knit_print(ttestx0) #display t-test output via knitr
 ```
-In `t.test_x0`, we are running a two-tailed t-test on a vector of 100 doubles generated with `rnorm()` where the intended mean is 0. Since this is a two-tailed test, the _alternate_ hypothesis is `mean(x0) != 0` while the _null_ hypothesis is `mean(x0) = 0`
+
+In `t.test_x0`, we are running a two-tailed t-test on a vector of 100 doubles
+generated with `rnorm()` where the intended mean is 0. Since this is a
+two-tailed test, the _alternate_ hypothesis is `mean(x0) != 0` while the _null_
+hypothesis is `mean(x0) = 0`
 
 Since mu=0 and 0 is within the range (-.323, 0.050), we have failed to reject the null hypothesis with this set of data
 
-##### __Unpaired T-Test__ {-}
+#### __Unpaired T-Test__ {-}
 
 
 _Dependent Variables_: 1, continuous [ratio and interval]
@@ -444,9 +586,14 @@ t.test(x, #numeric vector of data 1
 )
 ```
 
-The unpaired t-test functions similarly to the one-sample t-test except instead of mu, it uses dataset y. Variance is assumed to be about equal between dataset x and y.
+The unpaired t-test functions similarly to the one-sample t-test except instead
+of mu, it uses dataset y. Variance is assumed to be about equal between dataset
+x and y.
+
+::: {.box .readmore}
 [Moer information about unpaired t-tests here](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests6.html)
 [Another R guide for upaired t-tests](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests7.html)
+:::
 
 ```{r}
 #Unpaired t-test example
@@ -460,7 +607,7 @@ knitr::knit_print(unpaired)
 ```
 Output for an unpaired two sample t-test is similar to the output for the one-sample. Mu is typically 0 (though one could change it with 'mu = n' in the function call) and the test uses the confidence interval for (mean(x)-mean(y)), which is (-3.308, -2.775). Since mu does not exist within the confidence interval, the null hypothesis can be rejected. 
 
-##### __Paired T-Test__ {-}
+#### __Paired T-Test__ {-}
 
 
 _Dependent Variables_: 1, continuous [ratio and interval]
@@ -494,9 +641,14 @@ unpaired <- t.test(x, y, paired = TRUE)
 
 knitr::knit_print(unpaired)
 ```
-Similar to the unpaired t-test, the paired t-test looks at the differences between x and y. Unlike the unpaired t-test, the statistic creates and runs its test on a third set of data created from the differences of x and y. For an x and y of length n, r would create a third data set of ` new = ((x1-y1), (x2-y2),...(xn-1-yn-1), (xn-yn))` and run its testing with mean(new) and sd(new)
 
-##### __One-Sample Median__ {-}
+Similar to the unpaired t-test, the paired t-test looks at the differences
+between x and y. Unlike the unpaired t-test, the statistic creates and runs its
+test on a third set of data created from the differences of x and y. For an x
+and y of length n, r would create a third data set of ` new = ((x1-y1),
+(x2-y2),...(xn-1-yn-1), (xn-yn))` and run its testing with mean(new) and sd(new)
+
+#### __One-Sample Median__ {-}
 
 
 _Dependent Variables_: 1, (ordinal, interval, or ratio)
@@ -507,7 +659,7 @@ _Design_: 1 group
 
 _Parametric_: No
 
-##### __Chi-Square test__ {-}
+#### __Chi-Square test__ {-}
 
 
 _Dependent Variables_: 1, categorical
@@ -518,7 +670,7 @@ _Design_: 1 group, 2 + levels
 
 _Parametric_: No
 
-##### __Chi-Square Goodness-Of-Fit_ _{-}
+#### __Chi-Square Goodness-Of-Fit_ _{-}
 
 
 _Dependent Variables_: 1, categorical
@@ -529,7 +681,7 @@ _Design_: 1 group
 
 _Parametric_: No
 
-##### __Wilcoxon-Mann Whitney test__ {-}
+#### __Wilcoxon-Mann Whitney test__ {-}
 
 
 _Dependent Variables_: 1, (ordinal, interval, or ratio)
@@ -540,7 +692,7 @@ _Design_: 2 groups, 2 levels
 
 _Parametric_: No
 
-##### __Wilcoxon Signed Ranks test__ {-}
+#### __Wilcoxon Signed Ranks test__ {-}
 
 
 _Dependent Variables_: 1, (ordinal, interval, or ratio)
@@ -551,7 +703,7 @@ _Design_: 1 groups, 2 levels
 
 _Parametric_: No
 
-##### __One-Way ANOVA__ {-}
+#### __One-Way ANOVA__ {-}
 
 
 _Dependent Variables_: 1, continuous
@@ -562,7 +714,7 @@ _Design_: 2+ groups, 2+ levels
 
 _Parametric_: Yes
 
-##### __One-Way Repeted Measures ANOVA__ {-}
+#### __One-Way Repeted Measures ANOVA__ {-}
 
 
 _Dependent Variables_: 1, continuous
@@ -573,7 +725,7 @@ _Design_: 1 group, 2+ levels
 
 _Parametric_: Yes
 
-##### __Factorial ANOVA__ {-}
+#### __Factorial ANOVA__ {-}
 
 
 _Dependent Variables_: 1, continuous
@@ -584,7 +736,7 @@ _Design_: 2+ groups, 2+ levels (inherent w/ 2+ groups)
 
 _Parametric_: Yes
 
-##### __One-Way MANOVA__ {-}
+#### __One-Way MANOVA__ {-}
 
 
 _Dependent Variables_: 2+, continuous
@@ -595,11 +747,11 @@ _Design_: 2+ groups, 2+ levels (inherent w/ 2+ groups)
 
 _Parametric_: Yes
 
-##### __Regressions__ {-}
+#### __Regressions__ {-}
 
-##### __Factor Analysis__ {-}
+#### __Factor Analysis__ {-}
 
-###Choosing a Test
+### Choosing a Test
 
 1. Look for your _Dependent Variable(s)._ How many do you have? (1 or 2+)
       + Which ones exist on a continuum, where any fraction within the valid range is technically possible, though the actual data might have rounded? (Continuous vs Categorical)
@@ -619,21 +771,21 @@ Parab S, Bhalerao S. Choosing statistical test. Int J Ayurveda Res. 2010;1(3):18
 Introduction to SAS. UCLA: Statistical Consulting Group. from https://stats.idre.ucla.edu/sas/modules/sas-learning-moduleintroduction-to-the-features-of-sas/ (accessed February 24, 2022)
 </small>
 
-### p-values .
+### p-values
 
 What is a p-value? What is the relationship between a p-value and a distribution?
 What does a p-value look like when plotted with a distribution? How do we
 interpret p-values? How do we compute a p-value using a distribution and a
 statistic using R? (Should we mention critical values?)
 
-### Multiple Hypothesis Testing .
+### Multiple Hypothesis Testing
 
 What is multiply hypothesis testing adjustment? Why is it important? What are
 some common adjustment methods (Bonferroni (FWER) and Benjamini-Hochberg (FDR))?
 How do we interpret adjusted p-values (depends on the adjustment method)? How
 do we compute adjusted p-values in R?
 
-### Statistical power .
+### Statistical power
 
 Conceptually, what is statistical power, and what does it mean? Why is it
 important? What is the relationship between a dataset, an analysis, and power?
