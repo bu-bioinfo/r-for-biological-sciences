@@ -1094,6 +1094,8 @@ One of the applications of statistical power, besides as a measure of Type II er
 The effect size is a measurement of the magnitude of experimental effects. There are a number of ways to calculate effect size including but not limited to Cohen’s D, Pearson’s R, and Odds Ratio. If you would like to read about what BU’s SPH has to say about it, [here is the SPH module link]( https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_power/BS704_Power8.html)
 
 
+
+
 <small>
 Citations:
 Dorey FJ. Statistics in brief: Statistical power: what is it and when should it be used?. Clin Orthop Relat Res. 2011;469(2):619-620. doi:10.1007/s11999-010-1435-0
