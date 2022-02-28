@@ -815,27 +815,26 @@ test on a third set of data created from the differences of x and y. For an x
 and y of length n, r would create a third data set of ` new = ((x1-y1),
 (x2-y2),...(xn-1-yn-1), (xn-yn))` and run its testing with mean(new) and sd(new)
 
-#### __One-Sample Median__ {-}
 
-
-_Dependent Variables_: 1, (ordinal, interval, or ratio)
-
-_Independent Variables_: 0
-
-_Design_: 1 group
-
-_Parametric_: No
-
-#### __Chi-Square test__ {-}
+#### __Chi-Squared test__ {-}
 
 
 _Dependent Variables_: 1, categorical
 
 _Independent Variables_: 1
 
-_Design_: 1 group, 2 + levels
+_Design_: 2 groups, 2 + levels
 
 _Parametric_: No
+
+[More Information on Chi-Squared tests](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare3.html)
+
+```{r eval=FALSE}
+#How to Run a chi-squared test
+chisq.test(x, # numeric vector, matrix, or factor
+           y # numeric vector; ignored if x is a matrix; factor of the same length as x if x is a factor
+)
+```
 
 #### __Chi-Square Goodness-Of-Fit_ _{-}
 
@@ -848,6 +847,22 @@ _Design_: 1 group
 
 _Parametric_: No
 
+[More Information on Chi-Squared test on one sample ](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare2.html#headingtaglink_1)
+
+```{r eval=FALSE}
+#How to Run a chi-square goodness of fit
+chisq.test(x, # numeric vector
+           p = #list of probabilities, like c(10, 10, 10, 70)/100), same length as x
+)
+```
+
+The chi-squared goodness-of-fit can compare one set of outcomes to a given set of probabilities to determine the likelihood of the test probabilities differing from the given. The set of given probabilities constitutes the null hypothesis. In the below example, the dataset is the tested outcome frequencies: the number of times x[1], x[2], x[3], and x[4] were observed. If my null hypothesis says that each of the 4 should be observed an equal number of times, then the resulting chi-square test should will have a p-value of p<0.001
+
+```{r}
+x <- c(10,25, 18, 92)
+
+chisq.test(x, p=c(25, 25, 25, 25)/100)
+```
 #### __Wilcoxon-Mann Whitney test__ {-}
 
 
@@ -858,6 +873,13 @@ _Independent Variables_: 1
 _Design_: 2 groups, 2 levels
 
 _Parametric_: No
+
+[More information here](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_nonparametric/bs704_nonparametric4.html)
+```{r eval=FALSE}
+wilcox.test(x,#Numeric vector of data
+            y #optional numeric vector of data)
+
+```
 
 #### __Wilcoxon Signed Ranks test__ {-}
 
@@ -870,6 +892,16 @@ _Design_: 1 groups, 2 levels
 
 _Parametric_: No
 
+[More information here](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_nonparametric/BS704_Nonparametric6.html)
+
+```{r`eval=FALSE}
+
+wilcox.test(x,#Numeric vector of data
+            y, #numeric vector of data from 2nd level- same length
+            paired = TRUE)
+
+```
+
 #### __One-Way ANOVA__ {-}
 
 
@@ -881,38 +913,13 @@ _Design_: 2+ groups, 2+ levels
 
 _Parametric_: Yes
 
-#### __One-Way Repeted Measures ANOVA__ {-}
+[More information here](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ANOVA/BS704_HypothesisTesting-ANOVA4.html#headingtaglink_3)
+```{r eval=FALSE}
+summary(aov(formula, #formula specifying the model
+            data #data frame containing the variables in the formula))
 
+```
 
-_Dependent Variables_: 1, continuous
-
-_Independent Variables_: 1
-
-_Design_: 1 group, 2+ levels
-
-_Parametric_: Yes
-
-#### __Factorial ANOVA__ {-}
-
-
-_Dependent Variables_: 1, continuous
-
-_Independent Variables_: 2+
-
-_Design_: 2+ groups, 2+ levels (inherent w/ 2+ groups)
-
-_Parametric_: Yes
-
-#### __One-Way MANOVA__ {-}
-
-
-_Dependent Variables_: 2+, continuous
-
-_Independent Variables_: 1
-
-_Design_: 2+ groups, 2+ levels (inherent w/ 2+ groups)
-
-_Parametric_: Yes
 
 #### __Regressions__ {-}
 
@@ -929,21 +936,58 @@ _Parametric_: Yes
       + Does the same subject or (equivalent subjects) undergo each condition/level? (‘Yes’ -> repeated-measures; ‘No’ -> between-groups
 3. If you do not have nominal data, can you assume your data would have a normal distribution if you measured the general population? (‘Yes’-> parametric; ‘No’ -> non-parametric)
 
-<small>
-Citations:
+### P-values
 
-Ranganathan P, Gogtay NJ. An Introduction to Statistics - Data Types, Distributions and Summarizing Data. Indian J Crit Care Med. 2019 Jun;23(Suppl 2):S169-S170. doi: 10.5005/jp-journals-10071-23198. PMID: 31485129; PMCID: PMC6707495.
+In statistics, the p-value is the probability of obtaining the observed results assuming that the null hypothesis is correct. In other words, the p-value is the probability of the same results happening by chance selection from the normal population rather than the test condition.
 
-Parab S, Bhalerao S. Choosing statistical test. Int J Ayurveda Res. 2010;1(3):187-191. doi:10.4103/0974-7788.72494
-Introduction to SAS. UCLA: Statistical Consulting Group. from https://stats.idre.ucla.edu/sas/modules/sas-learning-moduleintroduction-to-the-features-of-sas/ (accessed February 24, 2022)
-</small>
+For instance, imagine there is a game that randomly picks one out of four colors. The game developer decides to add a 5th color, yellow, so that each color now has 1/5 chance of winning and a 4/5 chance of losing. How many of its first games would yellow have to lose in a row before you suspect the dev forgot to code in the ability for yellow to win? If you want to wait to until there is a < 5% chance of yellow losing every single game in a row under normal circumstances before pointing this out to the dev, then yellow would have to lose 14/14 games (a 4.4% likelihood).
 
-### p-values .
 
-What is a p-value? What is the relationship between a p-value and a distribution?
-What does a p-value look like when plotted with a distribution? How do we
-interpret p-values? How do we compute a p-value using a distribution and a
-statistic using R? (Should we mention critical values?)
+To visualize how 14 losses in a row in a game of chance with 1/5 success rate would occur in less than 5% of all instances, we can run a simulation of 1000 instances of 14 games with 1/5 chance success and displaying the results with their frequencies of success:
+```{r}
+roll <- function(nrolls, noptions){
+ outcomes <- sample(1:noptions, nrolls, TRUE)
+ return(length(outcomes[outcomes == 1]))
+}
+
+dataset <- function(sample, nrolls, noptions){
+  simulations <- c()
+  for(i in 1:sample){simulations[i] <- roll(nrolls, noptions)}
+  return(simulations)
+}
+
+set.seed(18)
+Yellow_Wins <- dataset(1000, 14, 5)
+hist(Yellow_Wins, freq=FALSE, right=FALSE)
+```
+Here you see that slightly less than 5% of all run instances had 0 wins. 
+
+
+In this situation, we are comparing if yellow’s win rate is significantly lower than if yellow had an equal chance at winning.  The research hypothesis or alternative hypothesis in this case is that yellow’s chance of winning is significantly lower than the rest of the colors while the null hypothesis would be that yellow’s chance of winning is the same as the rest of the colors.
+The p-value of this test would be 0.043 because 43 out of 1000 instances of 14 rolls with a 1/5 chance of success totaled 0 successes, the number of successes we saw. If we instead were looking for 1 success or less out of 14 rolls, the p-value would be 0.19, because our simulation ran 147 instances of 1 success and 42 instances of 0 success.
+
+Since p-values are calculated by the percentage of outcomes that are higher than the one observed, on a normal distribution they may look something like this:
+```{r}
+set.seed(2)
+norm <- rnorm(n = 50000, mean = 4, sd = 1)
+plot(density(norm),
+     main = "P-Values on a Normal Distribution", xlab = "X-Values",
+     lwd = 2, col = "royalblue"
+)
+polygon(
+  x = c(density(norm)$x[density(norm)$x >= 6], 6),
+  y = c(density(norm)$y[density(norm)$x >= 6], 0),
+  border = "royalblue", col = "lightblue1"
+)
+segments(x0 = 6, y0 = 0, y1 = 0.4, lwd = 2, lty = 2, col = "salmon")
+text(7, 0.2, "Observed Value (@ 2sd)")
+text(3.9, 0.01, "Instances higher than crit. val ->")
+```
+
+Here the observed value is 6, which happens to be exactly 2 standard deviations above the mean. To compute the p-value of this instance, the area under the curve would need to be calculated which can be easily done by looking up the appropriate values on a z-table. [Here is a link about finding the area under the normal curve]( https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/sas/sas4-onesamplettest/sas4-onesamplettest3.html)
+
+[SPH’s information about p-values here]( https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/PH717-Module7-T-tests3.html)
+
 
 ### Multiple Hypothesis Testing .
 
@@ -952,10 +996,114 @@ some common adjustment methods (Bonferroni (FWER) and Benjamini-Hochberg (FDR))?
 How do we interpret adjusted p-values (depends on the adjustment method)? How
 do we compute adjusted p-values in R?
 
-### Statistical power .
+### Statistical power 
 
-Conceptually, what is statistical power, and what does it mean? Why is it
-important? What is the relationship between a dataset, an analysis, and power?
-What aspects of an analysis influence the statistical power of a test? (I don't
-think it's reasonable to ask students to perform power calculations, just to be
-aware that power is a thing and generally what it is).
+__Statistical Power__ is the probability that the null hypothesis was actually false but the data did not have enough evidence to reject it. In short, it is the failure to reject the null hypothesis in the presence of a significant effect. This is a Type II error, also known as a false negative. Its counterpart, the Type I error, is the probability that a null hypothesis was rejected when there was no significant effect.
+
+The chance of a Type I error is represented by alpha, the same alpha that we use to calculate significance level (1-alpha). Type II errors are represented by beta. The relationship between statistical power and beta are similar to the relationship between significance level and alpha: statistical power is calculated as 1-beta. 
+
+[Read more about the relationship between Type II and Type I errors]( https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_hypothesistest-means-proportions/BS704_HypothesisTest-Means-Proportions3.html#headingtaglink_3)
+
+To calculate beta, find the area under the curve of the research hypothesis distribution on the opposite side of the critical value line where alpha is calculated. To find the area in the tail of the distribution, you would need to reference a Z-score chart, which will not be expected of you in this course. If you wish to read more about it [here is a link about finding the area under the normal curve with z-scores, same one as linked above]( https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/sas/sas4-onesamplettest/sas4-onesamplettest3.html) 
+
+```{r echo=FALSE}
+sigma <- 15    # theoretical standard deviation
+mu0   <- 100   # expected value under H0
+mu1   <- 130   # expected value under H1
+alpha <- 0.05  # probability of type I error
+crit <- qnorm(1-alpha, mu0, sigma)
+pow <- pnorm(crit, mu1, sigma, lower.tail=FALSE)
+beta <- 1-pow
+xLims <- c(50, 180)
+left  <- seq(xLims[1],   crit, length.out=100)
+right <- seq(crit, xLims[2],   length.out=100)
+yH0r  <- dnorm(right, mu0, sigma)
+yH1l  <- dnorm(left,  mu1, sigma)
+yH1r  <- dnorm(right, mu1, sigma)
+
+curve(dnorm(x, mu0, sigma), xlim=xLims, lwd=2, col="red", xlab="x", ylab="density",
+      main="Relationship of Alpha and Beta Around Critical Value", ylim=c(0, 0.03), xaxs="i")
+curve(dnorm(x, mu1, sigma), lwd=2, col="blue", add=TRUE)
+polygon(c(right, rev(right)), c(yH0r, numeric(length(right))), border=NA,
+        col=rgb(1, 0.3, 0.3, 0.6))
+polygon(c(left,  rev(left)),  c(yH1l, numeric(length(left))),  border=NA,
+        col=rgb(0.3, 0.3, 1, 0.6))
+polygon(c(right, rev(right)), c(yH1r, numeric(length(right))), border=NA,
+        density=5, lty=2, lwd=2, angle=45, col="darkgray")
+abline(v=crit, lty=1, lwd=3, col="red")
+text(crit+1,  0.03,  adj=0, label="Critical Value")
+text(mu0-10,  0.025, adj=1, label="Null Hypothesis")
+text(mu1+10,  0.025, adj=0, label="Alternative Hypothesis")
+text(crit+8,  0.01,  adj=0, label="Statistical Power", cex=1.3)
+text(crit-12, 0.004,  expression(beta),  cex=1.3)
+text(crit-12, 0.002,  "Beta",  cex=1.3)
+text(crit+5,  0.0015, expression(alpha), cex=1.3)
+text(crit+5,  -0.0005, "Alpha", cex=1.3)
+
+```
+<small> Code sourced from:
+caracal, "How do I find the probability of a type II error", stats.stackexchange.com, Feb 19, 2011, [link](https://stats.stackexchange.com/questions/7402/how-do-i-find-the-probability-of-a-type-ii-error), Date Accessed: Feb 28, 2022 </small>
+
+The above graph shows the relationship of alpha and beta. Since the alternative hypothesis is looking for a higher mean, alpha is calculated by the area under the null hypothesis curve on right side of the critical value while beta is calculated by the area under the alternative hypothesis on the left of the critical value line. Should an experiment get a higher p-value than the critical value, then the Beta will increase in relationship to Alpha decreasing.
+
+```{r echo=FALSE}
+sigma <- 15    # theoretical standard deviation
+mu0   <- 100   # expected value under H0
+mu1   <- 130   # expected value under H1
+alpha <- 0.025  # probability of type I error
+crit <- qnorm(1-alpha, mu0, sigma)
+old <- qnorm(1-0.05, mu0, sigma)
+pow <- pnorm(crit, mu1, sigma, lower.tail=FALSE)
+beta <- 1-pow
+xLims <- c(50, 180)
+left  <- seq(xLims[1],   crit, length.out=100)
+right <- seq(crit, xLims[2],   length.out=100)
+yH0r  <- dnorm(right, mu0, sigma)
+yH1l  <- dnorm(left,  mu1, sigma)
+yH1r  <- dnorm(right, mu1, sigma)
+
+curve(dnorm(x, mu0, sigma), xlim=xLims, lwd=2, col="red", xlab="x", ylab="density",
+      main="Relationship of Alpha and Beta Around P<Critical", ylim=c(0, 0.03), xaxs="i")
+curve(dnorm(x, mu1, sigma), lwd=2, col="blue", add=TRUE)
+polygon(c(right, rev(right)), c(yH0r, numeric(length(right))), border=NA,
+        col=rgb(1, 0.3, 0.3, 0.6))
+polygon(c(left,  rev(left)),  c(yH1l, numeric(length(left))),  border=NA,
+        col=rgb(0.3, 0.3, 1, 0.6))
+polygon(c(right, rev(right)), c(yH1r, numeric(length(right))), border=NA,
+        density=5, lty=2, lwd=2, angle=45, col="darkgray")
+abline(v=crit, lty=1, lwd=3, col="red")
+abline(v=old, lty=2, lwd=2, col="pink")
+text(crit+1,  0.03,  adj=0, label="Critical Value ->")
+text(mu0-10,  0.025, adj=1, label="Null Hypothesis")
+text(mu1+10,  0.025, adj=0, label="Alternative Hypothesis")
+text(crit+8,  0.01,  adj=0, label="Statistical Power", cex=1.3)
+text(crit-12, 0.004,  expression(beta),  cex=1.3)
+text(crit-12, 0.002,  "Beta",  cex=1.3)
+text(crit+5,  0.0015, expression(alpha), cex=1.3)
+text(crit+5,  -0.0005, "Alpha", cex=1.3)
+
+```
+In this graph, the critical value was moved to 0.025 while the null and alternative hypotheses stayed the same. As the chance of alpha decreased, the chances of beta increased. The opposite is also true, as alpha increases, beta decreases
+
+##### Applications of Statistical Power {-}
+
+One of the applications of statistical power, besides as a measure of Type II error probability, is to allow you to run a power analysis. A power analysis involves using the relationship between __Effect Size__, __Sample Size__, __Significance__, and __Statistical Power__ when you have three of the four parts in order to find the value of the fourth. This is typically used to find the effect size of a study, as that is often the hardest to estimate, or to find a sample size that corresponds with a desired effect size when designing a study.
+[Further reading on statistical power and power analysis]( https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Power/BS704_Power6.html)
+
+##### Effect Size {-}
+The effect size is a measurement of the magnitude of experimental effects. There are a number of ways to calculate effect size including but not limited to Cohen’s D, Pearson’s R, and Odds Ratio. If you would like to read about what BU’s SPH has to say about it, [here is the SPH module link]( https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_power/BS704_Power8.html)
+
+
+
+
+<small>
+Citations:
+Dorey FJ. Statistics in brief: Statistical power: what is it and when should it be used?. Clin Orthop Relat Res. 2011;469(2):619-620. doi:10.1007/s11999-010-1435-0
+
+Parab S, Bhalerao S. Choosing statistical test. Int J Ayurveda Res. 2010;1(3):187-191. doi:10.4103/0974-7788.72494
+Introduction to SAS. UCLA: Statistical Consulting Group. from https://stats.idre.ucla.edu/sas/modules/sas-learning-moduleintroduction-to-the-features-of-sas/ (accessed February 24, 2022)
+
+Ranganathan P, Gogtay NJ. An Introduction to Statistics - Data Types, Distributions and Summarizing Data. Indian J Crit Care Med. 2019 Jun;23(Suppl 2):S169-S170. doi: 10.5005/jp-journals-10071-23198. PMID: 31485129; PMCID: PMC6707495.
+
+
+</small>
