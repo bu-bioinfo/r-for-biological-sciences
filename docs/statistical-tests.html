@@ -274,11 +274,12 @@ div.csl-indent {
 <li class="chapter" data-level="6.3" data-path="statistical-tests.html"><a href="statistical-tests.html"><i class="fa fa-check"></i><b>6.3</b> Statistical Tests</a>
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
-<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
-<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.4</b> P-values</a></li>
-<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.6</b> Statistical power</a></li>
+<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.2</b> P-values</a></li>
+<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#controlling-errors"><i class="fa fa-check"></i><b>6.3.3</b> Controlling Errors</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.4</b> Common Statistical Tests</a></li>
+<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.5</b> Choosing a Test</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.6</b> Multiple Hypothesis Testing .</a></li>
+<li class="chapter" data-level="6.3.7" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.7</b> Statistical power</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
 <ul>
@@ -541,94 +542,149 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="statistical-tests" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Statistical Tests</h2>
+<p>Note: many parts of this section were shamelessly copied from wikipedia. I hope
+mentioning this suffices as attribution.</p>
+<p>Statistical or hypothesis testing forms the basis of many types of inference we
+conduct in biological data analysis. The purpose is to quantify how likely it is
+that we see an observed value of some quantity, assuming it was drawn from a
+random variable with a specific distribution.</p>
 <div id="what-is-a-statistical-test" class="section level3" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> What is a statistical test</h3>
-<p>A statistical test is an application of mathematics that we used to analyze
-quantitative data. They can be described as a way to understand how the
-independent variable(s) of the study affect the outcome of the dependent
-variable. The kind of statistical test appropriate for a study depends on a
-number of factors including variables characteristics, study design, and data
-distribution. The independent variable is (are) the variable(s) being controlled
-in the study to determine its effects on the dependent variable(s). Not all
-studies have independent variable(s).</p>
-<div id="study-design" class="section level4 unnumbered">
-<h4>Study design</h4>
-<p>The number of conditions a study has corresponds to the number of levels the
-independent variable has, for example 1 condition = 1 level, 2 conditions = 2
-levels, and so on. This is different from the number of independent variables a
-study has. If a study has multiple independent variables, each will have its own
-number of levels. Statistical tests can be categorized as to whether they can
-handle 1, 2, or 2+ levels.</p>
-<p>If you have 2 or more levels, then the type of grouping will need to be
-considered: are they between-subjects* or repeated-measures**. A between-subject
-design means that each participant undergoes one condition whereas a
-repeated-measures design has each participant undergo all conditions. A third
-type exists called matched groups, where different subjects undergo different
-conditions but are matched to each other in some important way, and may be
-treated as a repeated-measure design when selecting for a statistical test</p>
-<p><small>
-*Independent design = between-subjects = between-groups; not to be confused with the variable.
-**Dependent design = repeated-measures = within-subjects = within-groups; also not to be confused with the variable.
-</small></p>
+<p>A statistical hypothesis test is a method of statistical inference used to
+determine a possible conclusion from two different, and likely conflicting,
+hypotheses. If we state one hypothesis only and the aim of the statistical test
+is to see whether this hypothesis is tenable, but not to investigate other
+specific hypotheses, then such a test is called a null hypothesis test.</p>
+<p>In a statistical hypothesis test, a null hypothesis and an alternative
+hypothesis are proposed for the probability distribution of the data. If the
+sample obtained has a probability of occurrence less than the pre-specified
+threshold probability, the significance level, given the null hypothesis is
+true, the difference between the sample and the null hypothesis is deemed
+statistically significant. The hypothesis test may then lead to the rejection of
+null hypothesis and acceptance of alternate hypothesis.</p>
+<p>The earliest use of statistical hypothesis testing is generally credited to the
+question of whether male and female births are equally likely (null hypothesis),
+which was addressed in the 1700s by John Arbuthnot (1710), and later by
+Pierre-Simon Laplace (1770s).</p>
+<p>Arbuthnot examined birth records in London for each of the 82 years from 1629 to
+1710, and applied the <em>sign test</em>, a simple non-parametric test. In every year,
+the number of males born in London exceeded the number of females. Assuming more
+male or more female births as equally likely, the probability of the observed
+outcome is <span class="math inline">\(0.5^{82}\)</span>, or about 1 in 483,600,000,000,000,000,000,000. Arbuthnot
+concluded that this is too small to be due to chance and must instead be due to
+divine providence.</p>
+<p>In this example, the null hypothesis is that the number of males and females
+born every year is the same. If we observed exactly 1:1 ratio of males to
+females in each of the 82 years, the probability of there being more males than
+females in any given year would be 0.5. Observing 82 consecutive years with more
+males than females therefore results in a probability of <span class="math inline">\(0.5^{82}\)</span>, as stated
+above. Since every year in our observed sample had more males than females, this
+is the most extreme outcome possible (other than every year having more females
+than males). If we had observed one year out of 82 having more females than
+males, the probability of observing that event is <span class="math inline">\(82*0.5^{82}\)</span>, or one for
+ever possible way of observing a single year with more females than males out of
+82.</p>
+<p>In modern terms, he rejected the null hypothesis of equally likely male and
+female births at the <span class="math inline">\(p = 0.5^{82}\)</span> significance level. This significance level
+is called a <em>p-value</em>.</p>
 </div>
-<div id="variables" class="section level4 unnumbered">
-<h4>Variables</h4>
-<p>The characteristics of your variables, both independent (predictor) and
-dependent (descriptor), will help you choose which statistical test to use.
-Specifically, the number of each, their type, and the level of measurement, will
-help you narrow your choices to select the appropriate test.</p>
-<div id="number-of-variables" class="section level5 unnumbered">
-<h5>Number of Variables</h5>
-<p>The number of both independent and dependent variables will affect which test
-you select. Test selection will differ whether you have 1 or 2+ dependent
-variables and 0, 1, or 2+ independent variables.</p>
+<div id="p-values" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> P-values</h3>
+<p>In statistics, the p-value is the probability of obtaining a result as or more
+extreme as the observed value, assuming that the null hypothesis is true.</p>
+<p>For instance, imagine there is a game that randomly picks one out of four
+colors. The game developer decides to add a 5th color, yellow, so that each
+color now has 1/5 chance of winning and a 4/5 chance of losing. How many of its
+first games would yellow have to lose in a row before you suspect the dev forgot
+to code in the ability for yellow to win? If you want to wait to until there is
+a &lt; 5% chance of yellow losing every single game in a row under normal
+circumstances before pointing this out to the dev, then yellow would have to
+lose 14/14 games (a 4.4% likelihood).</p>
+<p>To visualize how 14 losses in a row in a game of chance with 1/5 success rate
+would occur in less than 5% of all instances, we can run a simulation of 1000
+instances of 14 games with 1/5 chance success and displaying the results with
+their frequencies of success:</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="statistical-tests.html#cb210-1" aria-hidden="true" tabindex="-1"></a>roll <span class="ot">&lt;-</span> <span class="cf">function</span>(nrolls, noptions){</span>
+<span id="cb210-2"><a href="statistical-tests.html#cb210-2" aria-hidden="true" tabindex="-1"></a> outcomes <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>noptions, nrolls, <span class="cn">TRUE</span>)</span>
+<span id="cb210-3"><a href="statistical-tests.html#cb210-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(<span class="fu">length</span>(outcomes[outcomes <span class="sc">==</span> <span class="dv">1</span>]))</span>
+<span id="cb210-4"><a href="statistical-tests.html#cb210-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb210-5"><a href="statistical-tests.html#cb210-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb210-6"><a href="statistical-tests.html#cb210-6" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="cf">function</span>(sample, nrolls, noptions){</span>
+<span id="cb210-7"><a href="statistical-tests.html#cb210-7" aria-hidden="true" tabindex="-1"></a>  simulations <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb210-8"><a href="statistical-tests.html#cb210-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>sample){simulations[i] <span class="ot">&lt;-</span> <span class="fu">roll</span>(nrolls, noptions)}</span>
+<span id="cb210-9"><a href="statistical-tests.html#cb210-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(simulations)</span>
+<span id="cb210-10"><a href="statistical-tests.html#cb210-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb210-11"><a href="statistical-tests.html#cb210-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb210-12"><a href="statistical-tests.html#cb210-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">18</span>)</span>
+<span id="cb210-13"><a href="statistical-tests.html#cb210-13" aria-hidden="true" tabindex="-1"></a>Yellow_Wins <span class="ot">&lt;-</span> <span class="fu">dataset</span>(<span class="dv">1000</span>, <span class="dv">14</span>, <span class="dv">5</span>)</span>
+<span id="cb210-14"><a href="statistical-tests.html#cb210-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Yellow_Wins, <span class="at">freq=</span><span class="cn">FALSE</span>, <span class="at">right=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-64-1.png" width="672" /></p>
+<p>Here you see that slightly less than 5% of all run instances had 0 wins.</p>
+<p>In this situation, we are comparing if yellow’s win rate is significantly lower
+than if yellow had an equal chance at winning. The research hypothesis or
+alternative hypothesis in this case is that yellow’s chance of winning is
+significantly lower than the rest of the colors while the null hypothesis would
+be that yellow’s chance of winning is the same as the rest of the colors.</p>
+<p>The p-value of this test would be 0.043 because 43 out of 1000 instances of 14
+rolls with a 1/5 chance of success totaled 0 successes, the number of successes
+we saw. If we instead were looking for 1 success or less out of 14 rolls, the
+p-value would be 0.19, because our simulation ran 147 instances of 1 success and
+42 instances of 0 success.</p>
+<p>Since p-values are calculated by the percentage of outcomes that are higher than the one observed, on a normal distribution they may look something like this:</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="statistical-tests.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb211-2"><a href="statistical-tests.html#cb211-2" aria-hidden="true" tabindex="-1"></a>norm <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50000</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb211-3"><a href="statistical-tests.html#cb211-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(norm),</span>
+<span id="cb211-4"><a href="statistical-tests.html#cb211-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;P-Values on a Normal Distribution&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;X-Values&quot;</span>,</span>
+<span id="cb211-5"><a href="statistical-tests.html#cb211-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;royalblue&quot;</span></span>
+<span id="cb211-6"><a href="statistical-tests.html#cb211-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb211-7"><a href="statistical-tests.html#cb211-7" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
+<span id="cb211-8"><a href="statistical-tests.html#cb211-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="fu">density</span>(norm)<span class="sc">$</span>x[<span class="fu">density</span>(norm)<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="dv">6</span>], <span class="dv">6</span>),</span>
+<span id="cb211-9"><a href="statistical-tests.html#cb211-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">density</span>(norm)<span class="sc">$</span>y[<span class="fu">density</span>(norm)<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="dv">6</span>], <span class="dv">0</span>),</span>
+<span id="cb211-10"><a href="statistical-tests.html#cb211-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">border =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightblue1&quot;</span></span>
+<span id="cb211-11"><a href="statistical-tests.html#cb211-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb211-12"><a href="statistical-tests.html#cb211-12" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> <span class="dv">6</span>, <span class="at">y0 =</span> <span class="dv">0</span>, <span class="at">y1 =</span> <span class="fl">0.4</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;salmon&quot;</span>)</span>
+<span id="cb211-13"><a href="statistical-tests.html#cb211-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">7</span>, <span class="fl">0.2</span>, <span class="st">&quot;Observed Value (@ 2sd)&quot;</span>)</span>
+<span id="cb211-14"><a href="statistical-tests.html#cb211-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">3.9</span>, <span class="fl">0.01</span>, <span class="st">&quot;Instances higher than crit. val -&gt;&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/unnamed-chunk-65-1.png" width="672" /></p>
+<p>Here the observed value is 6, which happens to be exactly 2 standard deviations above the mean. To compute the p-value of this instance, the area under the curve would need to be calculated which can be easily done by looking up the appropriate values on a z-table. <a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/sas/sas4-onesamplettest/sas4-onesamplettest3.html">Here is a link about finding the area under the normal curve</a></p>
+<p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/PH717-Module7-T-tests3.html">SPH’s information about p-values here</a></p>
 </div>
-<div id="types-of-data-continuous-and-categorical" class="section level5 unnumbered">
-<h5>Types of Data (Continuous and Categorical)</h5>
-<p>Typically in bioinformatics, data is subdivided into 3 categories: Continuous,
-Categorical, and Binary. Continuous data is data that can take real number
-values within either a finite or infinite range. For example, height is a
-continuous variable: 152.853288cm (60.1783 in), 182.9704cm (72.0356 in),
-172.7cm(68in), 163cm(64.2in) and 145.647cm (57.3413 in) are all technically
-valid heights. Categorical data is data that can be divided to categories or
-groups such as (high, medium, and low) or (under10, 10-29, and 30+). Binary
-data, data that can either be one thing or another (T/D, Y/N, 0/1, etc) falls
-under the Categorical data umbrella though may get mentioned separately
-elsewhere. Data that exists in sequential, positive integer form- such as number
-of siblings- is called Discrete data (bonus 4th category!) but typically ends up
-being treated as categorical data.</p>
+<div id="controlling-errors" class="section level3" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Controlling Errors</h3>
+<p>The purpose of the significance level is to control the expected <em>error rate</em> of
+the test. Since by definition a p-value corresponds to the probability of seeing
+a value as extreme or greater than the observed value, this corresponds to the
+probability of observing that value by chance, assuming the distribution is
+true. In such cases, rejecting the null hypothesis due to a large but random
+value where the null hypothesis actually holds is called a <em>false positive</em> or
+a <em>type I error</em>. Setting a significance level to a smaller probability
+therefore reduces the chances of making false positive inferences.</p>
+<p>The trade-off of choosing a smaller significance level is the increased chance
+of not rejecting the null hypothesis for instances when it is false. These types
+of errors are called <em>false negatives</em> or <em>type II errors</em>.</p>
+<p>Intuitively, type I errors can be thought of as errors of <em>commission</em>, i.e. the
+researcher unluckily concludes that something is the fact. For instance,
+consider a study where researchers compare a drug with a placebo. If the
+patients who are given the drug get better than the patients given the placebo
+by chance, it may appear that the drug is effective, but in fact the conclusion
+is incorrect. In reverse, type II errors are errors of <em>omission</em>. In the
+example above, if the patients who got the drug did not get better at a higher
+rate than the ones who got the placebo, but this was a random fluke, that would
+be a type II error. The consequence of a type II error depends on the size and
+direction of the missed determination and the circumstances. An expensive cure
+for one in a million patients may be inconsequential even if it truly is a cure.</p>
+<p>The significance level chosen for any test is always subjective, and is ideally
+made by taking the context of the data into account and assessing whether false
+positives or false negatives are more tolerable. A common but arbitrary
+convention is to choose 0.05 as the significance level, which corresponds to a
+95% confidence of correctly rejecting the null hypothesis, but has no special
+meaning. If false negatives are less tolerable than false positives, e.g. when
+an inexpensive and risk-free treatment is available for patients who might
+possibly have a disease that has serious potential health implications, then a
+lower significance level may be warranted.</p>
 </div>
-<div id="levels-of-measurement" class="section level5 unnumbered">
-<h5>Levels of Measurement</h5>
-<p>The main levels of measurement in we use in statistics are Ratio, Interval,
-Nominal, and Ordinal. Both Ratio and Interval levels have distance between
-measurements defined; the biggest difference between the two is that Ratio
-measurements have a meaningful zero value (and no negative numbers). Height in
-inches or cm, Kelvin, and number of students in a class are all Ratio
-measurements. Interval measurements do not have a meaningful zero. Celsius and
-Fahrenheit both have arbitrary 0s- the freezing point of pure and (a specific
-kind of) ocean water- making most standard temperature measurements type
-Interval. Ordinal measurements have a meaningful order to their values but have
-variable/imprecise distances between measurements, like socioeconomic status
-(upper, middle, and lower) and days since diagnosis (under 10, 10-39, 40-99,
-100+). Nominal measurements do not have meaningful order to their values, like
-country of origin and yes/no. Ratio and Interval measurements are continuous
-variables while Nominal and Ordinal measurements are categorical variables.</p>
-</div>
-</div>
-<div id="data-distribution-parametric-vs-nonparametric" class="section level4 unnumbered">
-<h4>Data Distribution (Parametric vs Nonparametric)</h4>
-<p>This is the third factor to keep in mind for test selection and only applicable
-for NON-nominal dependent variables. Parametric tests make the assumption that
-the population the data is sourced from has a normal or Gaussian distribution.
-These are powerful tests because of their data distribution assumption, with the
-downside of only being able to be used in select cases. Nonparametric tests do
-not assume a normal distribution and therefore can be used in a wide range of
-cases, thought they are less likely to find significance in the results.</p>
-</div>
-</div>
-<div id="common-statistical-tests" class="section level3" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> Common Statistical Tests</h3>
+<div id="common-statistical-tests" class="section level3" number="6.3.4">
+<h3><span class="header-section-number">6.3.4</span> Common Statistical Tests</h3>
 <p>Here are some common statistical tests and a quick overview as to how to run
 them in R. If you would like more information about a specific test, links are
 included in the descriptions</p>
@@ -649,12 +705,12 @@ hobby</a></p>
 <a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_probability/bs704_probability9.html">Z-values</a>(not mentioned but are in texts that fully explain t-tests)
 One-Sample t-tests come in 3 flavors: two-tailed test, one-tailed test (upper tail), and one-tailed test (lower tail).</p>
 </div>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="statistical-tests.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample t-test</span></span>
-<span id="cb210-2"><a href="statistical-tests.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="co">#numeric vector of data </span></span>
-<span id="cb210-3"><a href="statistical-tests.html#cb210-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mu =</span> <span class="dv">0</span>, <span class="co">#True value of the mean. Defaults to 0</span></span>
-<span id="cb210-4"><a href="statistical-tests.html#cb210-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="co"># (&quot;two.sided&quot;, &quot;less&quot;, &quot;greater&quot;) depending on which you want to use. Defaults to &quot;two.sided</span></span>
-<span id="cb210-5"><a href="statistical-tests.html#cb210-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span> <span class="co">#1-alpha. Defaults to 0.95</span></span>
-<span id="cb210-6"><a href="statistical-tests.html#cb210-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="statistical-tests.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample t-test</span></span>
+<span id="cb212-2"><a href="statistical-tests.html#cb212-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="co">#numeric vector of data </span></span>
+<span id="cb212-3"><a href="statistical-tests.html#cb212-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mu =</span> <span class="dv">0</span>, <span class="co">#True value of the mean. Defaults to 0</span></span>
+<span id="cb212-4"><a href="statistical-tests.html#cb212-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="co"># (&quot;two.sided&quot;, &quot;less&quot;, &quot;greater&quot;) depending on which you want to use. Defaults to &quot;two.sided</span></span>
+<span id="cb212-5"><a href="statistical-tests.html#cb212-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span> <span class="co">#1-alpha. Defaults to 0.95</span></span>
+<span id="cb212-6"><a href="statistical-tests.html#cb212-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>The <code>t.test()</code> function allows for multiple kinds of t-tests. To use this
 function to perform a one sample t-test, you will need a numeric vector of the
 data you want to run the data on, the mean you want to compare it to, your
@@ -667,16 +723,16 @@ p-value and confidence intervals of your data’s mean.</p>
 <p><em>(conf.level) percent confidence interval</em>: calculated interval where the true mean(x) is with conf.level % certainty.</p>
 <p><em>sample estimates, mean of x</em>: The calculated mean of x</p>
 <p>Accepting or rejecting the null hypothesis is a matter of determining if mean(x) is outside the percent confidence interval range, if it is then the p-value will determine the significance of the results.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="statistical-tests.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Example</span></span>
-<span id="cb211-2"><a href="statistical-tests.html#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
-<span id="cb211-3"><a href="statistical-tests.html#cb211-3" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co">#rnorm(n_samples, true_mean, standard_deviation)</span></span>
-<span id="cb211-4"><a href="statistical-tests.html#cb211-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb211-5"><a href="statistical-tests.html#cb211-5" aria-hidden="true" tabindex="-1"></a>ttestx0 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x0, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>) <span class="co">#actual running of the t-test</span></span>
-<span id="cb211-6"><a href="statistical-tests.html#cb211-6" aria-hidden="true" tabindex="-1"></a><span class="co">#t.test(x0) yeilds the same results bc I used default values for mu, alternative, and conf.level</span></span>
-<span id="cb211-7"><a href="statistical-tests.html#cb211-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb211-8"><a href="statistical-tests.html#cb211-8" aria-hidden="true" tabindex="-1"></a>tlessx0 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x0, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>, <span class="at">conf.level =</span> <span class="fl">0.90</span>)</span>
-<span id="cb211-9"><a href="statistical-tests.html#cb211-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb211-10"><a href="statistical-tests.html#cb211-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">knit_print</span>(ttestx0) <span class="co">#display t-test output via knitr</span></span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="statistical-tests.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Example</span></span>
+<span id="cb213-2"><a href="statistical-tests.html#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb213-3"><a href="statistical-tests.html#cb213-3" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co">#rnorm(n_samples, true_mean, standard_deviation)</span></span>
+<span id="cb213-4"><a href="statistical-tests.html#cb213-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-5"><a href="statistical-tests.html#cb213-5" aria-hidden="true" tabindex="-1"></a>ttestx0 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x0, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>) <span class="co">#actual running of the t-test</span></span>
+<span id="cb213-6"><a href="statistical-tests.html#cb213-6" aria-hidden="true" tabindex="-1"></a><span class="co">#t.test(x0) yeilds the same results bc I used default values for mu, alternative, and conf.level</span></span>
+<span id="cb213-7"><a href="statistical-tests.html#cb213-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-8"><a href="statistical-tests.html#cb213-8" aria-hidden="true" tabindex="-1"></a>tlessx0 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x0, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>, <span class="at">conf.level =</span> <span class="fl">0.90</span>)</span>
+<span id="cb213-9"><a href="statistical-tests.html#cb213-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-10"><a href="statistical-tests.html#cb213-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">knit_print</span>(ttestx0) <span class="co">#display t-test output via knitr</span></span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -701,12 +757,12 @@ the null hypothesis with this set of data</p>
 <p><em>Independent Variables</em>: 1</p>
 <p><em>Design</em>: 2 groups, 2 levels</p>
 <p><em>Parametric</em>: Yes</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="statistical-tests.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample t-test</span></span>
-<span id="cb213-2"><a href="statistical-tests.html#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="co">#numeric vector of data 1</span></span>
-<span id="cb213-3"><a href="statistical-tests.html#cb213-3" aria-hidden="true" tabindex="-1"></a>       y, <span class="co">#numeric vector of data 2</span></span>
-<span id="cb213-4"><a href="statistical-tests.html#cb213-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="co"># (&quot;two.sided&quot;, &quot;less&quot;, &quot;greater&quot;) depending on which you want to use. Defaults to &quot;two.sided</span></span>
-<span id="cb213-5"><a href="statistical-tests.html#cb213-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span> <span class="co">#1-alpha. Defaults to 0.95</span></span>
-<span id="cb213-6"><a href="statistical-tests.html#cb213-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="statistical-tests.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample t-test</span></span>
+<span id="cb215-2"><a href="statistical-tests.html#cb215-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="co">#numeric vector of data 1</span></span>
+<span id="cb215-3"><a href="statistical-tests.html#cb215-3" aria-hidden="true" tabindex="-1"></a>       y, <span class="co">#numeric vector of data 2</span></span>
+<span id="cb215-4"><a href="statistical-tests.html#cb215-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="co"># (&quot;two.sided&quot;, &quot;less&quot;, &quot;greater&quot;) depending on which you want to use. Defaults to &quot;two.sided</span></span>
+<span id="cb215-5"><a href="statistical-tests.html#cb215-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span> <span class="co">#1-alpha. Defaults to 0.95</span></span>
+<span id="cb215-6"><a href="statistical-tests.html#cb215-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>The unpaired t-test functions similarly to the one-sample t-test except instead
 of mu, it uses dataset y. Variance is assumed to be about equal between dataset
 x and y.</p>
@@ -714,14 +770,14 @@ x and y.</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests6.html">Moer information about unpaired t-tests here</a>
 <a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests7.html">Another R guide for upaired t-tests</a></p>
 </div>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="statistical-tests.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Unpaired t-test example</span></span>
-<span id="cb214-2"><a href="statistical-tests.html#cb214-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
-<span id="cb214-3"><a href="statistical-tests.html#cb214-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb214-4"><a href="statistical-tests.html#cb214-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
-<span id="cb214-5"><a href="statistical-tests.html#cb214-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-6"><a href="statistical-tests.html#cb214-6" aria-hidden="true" tabindex="-1"></a>unpaired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y)</span>
-<span id="cb214-7"><a href="statistical-tests.html#cb214-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-8"><a href="statistical-tests.html#cb214-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">knit_print</span>(unpaired)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="statistical-tests.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Unpaired t-test example</span></span>
+<span id="cb216-2"><a href="statistical-tests.html#cb216-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb216-3"><a href="statistical-tests.html#cb216-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb216-4"><a href="statistical-tests.html#cb216-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb216-5"><a href="statistical-tests.html#cb216-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-6"><a href="statistical-tests.html#cb216-6" aria-hidden="true" tabindex="-1"></a>unpaired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y)</span>
+<span id="cb216-7"><a href="statistical-tests.html#cb216-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-8"><a href="statistical-tests.html#cb216-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">knit_print</span>(unpaired)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -745,27 +801,27 @@ interval, the null hypothesis can be rejected.</p>
 <p><em>Independent Variables</em>: 1</p>
 <p><em>Design</em>: 1 group, 2 levels</p>
 <p><em>Parametric</em>: Yes</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="statistical-tests.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample t-test</span></span>
-<span id="cb216-2"><a href="statistical-tests.html#cb216-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="co">#numeric vector of data 1</span></span>
-<span id="cb216-3"><a href="statistical-tests.html#cb216-3" aria-hidden="true" tabindex="-1"></a>       y, <span class="co">#numeric vector of data 2</span></span>
-<span id="cb216-4"><a href="statistical-tests.html#cb216-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="co">#defaults to FALSE</span></span>
-<span id="cb216-5"><a href="statistical-tests.html#cb216-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="co"># (&quot;two.sided&quot;, &quot;less&quot;, &quot;greater&quot;) depending on which you want to use. Defaults to &quot;two.sided</span></span>
-<span id="cb216-6"><a href="statistical-tests.html#cb216-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span> <span class="co">#1-alpha. Defaults to 0.95</span></span>
-<span id="cb216-7"><a href="statistical-tests.html#cb216-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="statistical-tests.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sample t-test</span></span>
+<span id="cb218-2"><a href="statistical-tests.html#cb218-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="co">#numeric vector of data 1</span></span>
+<span id="cb218-3"><a href="statistical-tests.html#cb218-3" aria-hidden="true" tabindex="-1"></a>       y, <span class="co">#numeric vector of data 2</span></span>
+<span id="cb218-4"><a href="statistical-tests.html#cb218-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="co">#defaults to FALSE</span></span>
+<span id="cb218-5"><a href="statistical-tests.html#cb218-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="co"># (&quot;two.sided&quot;, &quot;less&quot;, &quot;greater&quot;) depending on which you want to use. Defaults to &quot;two.sided</span></span>
+<span id="cb218-6"><a href="statistical-tests.html#cb218-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span> <span class="co">#1-alpha. Defaults to 0.95</span></span>
+<span id="cb218-7"><a href="statistical-tests.html#cb218-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>The paired t-test works for matched and repeated-measures designs. Like the
 unpaired t-test, it has a second data vector and does not need ‘mu.’ When
 running a paired t-test make sure that you specify that <code>paired = TRUE</code> when
 calling the function and that x and y have the same length.</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests8.html#headingtaglink_2">More information about paired t-tests
 here</a></p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="statistical-tests.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Unpaired t-test example</span></span>
-<span id="cb217-2"><a href="statistical-tests.html#cb217-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
-<span id="cb217-3"><a href="statistical-tests.html#cb217-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">13</span>)</span>
-<span id="cb217-4"><a href="statistical-tests.html#cb217-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
-<span id="cb217-5"><a href="statistical-tests.html#cb217-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb217-6"><a href="statistical-tests.html#cb217-6" aria-hidden="true" tabindex="-1"></a>unpaired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb217-7"><a href="statistical-tests.html#cb217-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb217-8"><a href="statistical-tests.html#cb217-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">knit_print</span>(unpaired)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="statistical-tests.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Unpaired t-test example</span></span>
+<span id="cb219-2"><a href="statistical-tests.html#cb219-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb219-3"><a href="statistical-tests.html#cb219-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">13</span>)</span>
+<span id="cb219-4"><a href="statistical-tests.html#cb219-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb219-5"><a href="statistical-tests.html#cb219-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-6"><a href="statistical-tests.html#cb219-6" aria-hidden="true" tabindex="-1"></a>unpaired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb219-7"><a href="statistical-tests.html#cb219-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-8"><a href="statistical-tests.html#cb219-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">knit_print</span>(unpaired)</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -789,26 +845,26 @@ and y of length n, r would create a third data set of <code>new = ((x1-y1), (x2-
 <p><em>Design</em>: 2 groups, 2 + levels</p>
 <p><em>Parametric</em>: No</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare3.html">More Information on Chi-Squared tests</a></p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="statistical-tests.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How to Run a chi-squared test</span></span>
-<span id="cb219-2"><a href="statistical-tests.html#cb219-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(x, <span class="co"># numeric vector, matrix, or factor</span></span>
-<span id="cb219-3"><a href="statistical-tests.html#cb219-3" aria-hidden="true" tabindex="-1"></a>           y <span class="co"># numeric vector; ignored if x is a matrix; factor of the same length as x if x is a factor</span></span>
-<span id="cb219-4"><a href="statistical-tests.html#cb219-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="statistical-tests.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How to Run a chi-squared test</span></span>
+<span id="cb221-2"><a href="statistical-tests.html#cb221-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(x, <span class="co"># numeric vector, matrix, or factor</span></span>
+<span id="cb221-3"><a href="statistical-tests.html#cb221-3" aria-hidden="true" tabindex="-1"></a>           y <span class="co"># numeric vector; ignored if x is a matrix; factor of the same length as x if x is a factor</span></span>
+<span id="cb221-4"><a href="statistical-tests.html#cb221-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
-<div id="chi-square-goodness-of-fit_-_-" class="section level4" number="6.3.2.1">
-<h4><span class="header-section-number">6.3.2.1</span> __Chi-Square Goodness-Of-Fit_ _{-}</h4>
+<div id="chi-square-goodness-of-fit_-_-" class="section level4" number="6.3.4.1">
+<h4><span class="header-section-number">6.3.4.1</span> __Chi-Square Goodness-Of-Fit_ _{-}</h4>
 <p><em>Dependent Variables</em>: 1, categorical</p>
 <p><em>Independent Variables</em>: 0</p>
 <p><em>Design</em>: 1 group</p>
 <p><em>Parametric</em>: No</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare2.html#headingtaglink_1">More Information on Chi-Squared test on one sample</a></p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="statistical-tests.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How to Run a chi-square goodness of fit</span></span>
-<span id="cb220-2"><a href="statistical-tests.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(x, <span class="co"># numeric vector</span></span>
-<span id="cb220-3"><a href="statistical-tests.html#cb220-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">p =</span> <span class="co">#list of probabilities, like c(10, 10, 10, 70)/100), same length as x</span></span>
-<span id="cb220-4"><a href="statistical-tests.html#cb220-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="statistical-tests.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How to Run a chi-square goodness of fit</span></span>
+<span id="cb222-2"><a href="statistical-tests.html#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(x, <span class="co"># numeric vector</span></span>
+<span id="cb222-3"><a href="statistical-tests.html#cb222-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">p =</span> <span class="co">#list of probabilities, like c(10, 10, 10, 70)/100), same length as x</span></span>
+<span id="cb222-4"><a href="statistical-tests.html#cb222-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>The chi-squared goodness-of-fit can compare one set of outcomes to a given set of probabilities to determine the likelihood of the test probabilities differing from the given. The set of given probabilities constitutes the null hypothesis. In the below example, the dataset is the tested outcome frequencies: the number of times x[1], x[2], x[3], and x[4] were observed. If my null hypothesis says that each of the 4 should be observed an equal number of times, then the resulting chi-square test should will have a p-value of p&lt;0.001</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="statistical-tests.html#cb221-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">25</span>, <span class="dv">18</span>, <span class="dv">92</span>)</span>
-<span id="cb221-2"><a href="statistical-tests.html#cb221-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-3"><a href="statistical-tests.html#cb221-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(x, <span class="at">p=</span><span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">25</span>)<span class="sc">/</span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="statistical-tests.html#cb223-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">25</span>, <span class="dv">18</span>, <span class="dv">92</span>)</span>
+<span id="cb223-2"><a href="statistical-tests.html#cb223-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb223-3"><a href="statistical-tests.html#cb223-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(x, <span class="at">p=</span><span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">25</span>)<span class="sc">/</span><span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
@@ -822,8 +878,8 @@ and y of length n, r would create a third data set of <code>new = ((x1-y1), (x2-
 <p><em>Design</em>: 2 groups, 2 levels</p>
 <p><em>Parametric</em>: No</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_nonparametric/bs704_nonparametric4.html">More information here</a></p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="statistical-tests.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(x,<span class="co">#Numeric vector of data</span></span>
-<span id="cb223-2"><a href="statistical-tests.html#cb223-2" aria-hidden="true" tabindex="-1"></a>            y <span class="co">#optional numeric vector of data)</span></span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="statistical-tests.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(x,<span class="co">#Numeric vector of data</span></span>
+<span id="cb225-2"><a href="statistical-tests.html#cb225-2" aria-hidden="true" tabindex="-1"></a>            y <span class="co">#optional numeric vector of data)</span></span></code></pre></div>
 </div>
 <div id="wilcoxon-signed-ranks-test" class="section level4 unnumbered">
 <h4><strong>Wilcoxon Signed Ranks test</strong></h4>
@@ -845,8 +901,8 @@ wilcox.test(x,#Numeric vector of data
 <p><em>Design</em>: 2+ groups, 2+ levels</p>
 <p><em>Parametric</em>: Yes</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ANOVA/BS704_HypothesisTesting-ANOVA4.html#headingtaglink_3">More information here</a></p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="statistical-tests.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(formula, <span class="co">#formula specifying the model</span></span>
-<span id="cb225-2"><a href="statistical-tests.html#cb225-2" aria-hidden="true" tabindex="-1"></a>            data <span class="co">#data frame containing the variables in the formula))</span></span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="statistical-tests.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(formula, <span class="co">#formula specifying the model</span></span>
+<span id="cb227-2"><a href="statistical-tests.html#cb227-2" aria-hidden="true" tabindex="-1"></a>            data <span class="co">#data frame containing the variables in the formula))</span></span></code></pre></div>
 </div>
 <div id="regressions" class="section level4 unnumbered">
 <h4><strong>Regressions</strong></h4>
@@ -855,8 +911,8 @@ wilcox.test(x,#Numeric vector of data
 <h4><strong>Factor Analysis</strong></h4>
 </div>
 </div>
-<div id="choosing-a-test" class="section level3" number="6.3.3">
-<h3><span class="header-section-number">6.3.3</span> Choosing a Test</h3>
+<div id="choosing-a-test" class="section level3" number="6.3.5">
+<h3><span class="header-section-number">6.3.5</span> Choosing a Test</h3>
 <ol style="list-style-type: decimal">
 <li>Look for your <em>Dependent Variable(s).</em> How many do you have? (1 or 2+)
 <ul>
@@ -872,57 +928,39 @@ wilcox.test(x,#Numeric vector of data
 <li>If you do not have nominal data, can you assume your data would have a normal distribution if you measured the general population? (‘Yes’-&gt; parametric; ‘No’ -&gt; non-parametric)</li>
 </ol>
 </div>
-<div id="p-values" class="section level3" number="6.3.4">
-<h3><span class="header-section-number">6.3.4</span> P-values</h3>
-<p>In statistics, the p-value is the probability of obtaining the observed results assuming that the null hypothesis is correct. In other words, the p-value is the probability of the same results happening by chance selection from the normal population rather than the test condition.</p>
-<p>For instance, imagine there is a game that randomly picks one out of four colors. The game developer decides to add a 5th color, yellow, so that each color now has 1/5 chance of winning and a 4/5 chance of losing. How many of its first games would yellow have to lose in a row before you suspect the dev forgot to code in the ability for yellow to win? If you want to wait to until there is a &lt; 5% chance of yellow losing every single game in a row under normal circumstances before pointing this out to the dev, then yellow would have to lose 14/14 games (a 4.4% likelihood).</p>
-<p>To visualize how 14 losses in a row in a game of chance with 1/5 success rate would occur in less than 5% of all instances, we can run a simulation of 1000 instances of 14 games with 1/5 chance success and displaying the results with their frequencies of success:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="statistical-tests.html#cb226-1" aria-hidden="true" tabindex="-1"></a>roll <span class="ot">&lt;-</span> <span class="cf">function</span>(nrolls, noptions){</span>
-<span id="cb226-2"><a href="statistical-tests.html#cb226-2" aria-hidden="true" tabindex="-1"></a> outcomes <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>noptions, nrolls, <span class="cn">TRUE</span>)</span>
-<span id="cb226-3"><a href="statistical-tests.html#cb226-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(<span class="fu">length</span>(outcomes[outcomes <span class="sc">==</span> <span class="dv">1</span>]))</span>
-<span id="cb226-4"><a href="statistical-tests.html#cb226-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb226-5"><a href="statistical-tests.html#cb226-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-6"><a href="statistical-tests.html#cb226-6" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="cf">function</span>(sample, nrolls, noptions){</span>
-<span id="cb226-7"><a href="statistical-tests.html#cb226-7" aria-hidden="true" tabindex="-1"></a>  simulations <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb226-8"><a href="statistical-tests.html#cb226-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>sample){simulations[i] <span class="ot">&lt;-</span> <span class="fu">roll</span>(nrolls, noptions)}</span>
-<span id="cb226-9"><a href="statistical-tests.html#cb226-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(simulations)</span>
-<span id="cb226-10"><a href="statistical-tests.html#cb226-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb226-11"><a href="statistical-tests.html#cb226-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-12"><a href="statistical-tests.html#cb226-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">18</span>)</span>
-<span id="cb226-13"><a href="statistical-tests.html#cb226-13" aria-hidden="true" tabindex="-1"></a>Yellow_Wins <span class="ot">&lt;-</span> <span class="fu">dataset</span>(<span class="dv">1000</span>, <span class="dv">14</span>, <span class="dv">5</span>)</span>
-<span id="cb226-14"><a href="statistical-tests.html#cb226-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Yellow_Wins, <span class="at">freq=</span><span class="cn">FALSE</span>, <span class="at">right=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-75-1.png" width="672" />
-Here you see that slightly less than 5% of all run instances had 0 wins.</p>
-<p>In this situation, we are comparing if yellow’s win rate is significantly lower than if yellow had an equal chance at winning. The research hypothesis or alternative hypothesis in this case is that yellow’s chance of winning is significantly lower than the rest of the colors while the null hypothesis would be that yellow’s chance of winning is the same as the rest of the colors.
-The p-value of this test would be 0.043 because 43 out of 1000 instances of 14 rolls with a 1/5 chance of success totaled 0 successes, the number of successes we saw. If we instead were looking for 1 success or less out of 14 rolls, the p-value would be 0.19, because our simulation ran 147 instances of 1 success and 42 instances of 0 success.</p>
-<p>Since p-values are calculated by the percentage of outcomes that are higher than the one observed, on a normal distribution they may look something like this:</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="statistical-tests.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb227-2"><a href="statistical-tests.html#cb227-2" aria-hidden="true" tabindex="-1"></a>norm <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50000</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb227-3"><a href="statistical-tests.html#cb227-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(norm),</span>
-<span id="cb227-4"><a href="statistical-tests.html#cb227-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;P-Values on a Normal Distribution&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;X-Values&quot;</span>,</span>
-<span id="cb227-5"><a href="statistical-tests.html#cb227-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;royalblue&quot;</span></span>
-<span id="cb227-6"><a href="statistical-tests.html#cb227-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb227-7"><a href="statistical-tests.html#cb227-7" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
-<span id="cb227-8"><a href="statistical-tests.html#cb227-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="fu">density</span>(norm)<span class="sc">$</span>x[<span class="fu">density</span>(norm)<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="dv">6</span>], <span class="dv">6</span>),</span>
-<span id="cb227-9"><a href="statistical-tests.html#cb227-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">density</span>(norm)<span class="sc">$</span>y[<span class="fu">density</span>(norm)<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="dv">6</span>], <span class="dv">0</span>),</span>
-<span id="cb227-10"><a href="statistical-tests.html#cb227-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">border =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightblue1&quot;</span></span>
-<span id="cb227-11"><a href="statistical-tests.html#cb227-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb227-12"><a href="statistical-tests.html#cb227-12" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> <span class="dv">6</span>, <span class="at">y0 =</span> <span class="dv">0</span>, <span class="at">y1 =</span> <span class="fl">0.4</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;salmon&quot;</span>)</span>
-<span id="cb227-13"><a href="statistical-tests.html#cb227-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">7</span>, <span class="fl">0.2</span>, <span class="st">&quot;Observed Value (@ 2sd)&quot;</span>)</span>
-<span id="cb227-14"><a href="statistical-tests.html#cb227-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">3.9</span>, <span class="fl">0.01</span>, <span class="st">&quot;Instances higher than crit. val -&gt;&quot;</span>)</span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-76-1.png" width="672" /></p>
-<p>Here the observed value is 6, which happens to be exactly 2 standard deviations above the mean. To compute the p-value of this instance, the area under the curve would need to be calculated which can be easily done by looking up the appropriate values on a z-table. <a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/sas/sas4-onesamplettest/sas4-onesamplettest3.html">Here is a link about finding the area under the normal curve</a></p>
-<p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/PH717-Module7-T-tests3.html">SPH’s information about p-values here</a></p>
+<div id="multiple-hypothesis-testing-." class="section level3" number="6.3.6">
+<h3><span class="header-section-number">6.3.6</span> Multiple Hypothesis Testing .</h3>
+<p>In statistics, the multiple comparisons, multiplicity or multiple testing
+problem occurs when one considers a set of statistical inferences simultaneously
+or infers a subset of parameters selected based on the observed values.
+The more inferences are made, the more likely erroneous inferences become.
+Several statistical techniques have been developed to address that problem,
+typically by requiring a stricter significance threshold for individual
+comparisons, so as to compensate for the number of inferences being made.
+The goal of these techniques is to better control the number of false positives
+produced by the test. The general term for identifying these stricter
+significance thresholds is <em>multiple testing correction</em>. p-values that have
+been subject to multiple testing correction are called <em>multiple hypothesis
+adjusted p-values</em> or simply <em>adjusted p-values</em>, whereas the unadjusted
+p-values are called <em>nominal p-values</em>.</p>
+<p>There are two popular approaches for performing multiple testing correction: the
+<a href="https://en.wikipedia.org/wiki/Familywise_error_rate">Bonferroni correction, or familywise error
+rate</a>(FWER) and
+<a href="https://en.wikipedia.org/wiki/False_discovery_rate">Benjamini-Hochberg correction, or false discovery
+rate*</a>(FDR). The FWER is the
+more conservative approach, where adjusted p-values indicate the probability of
+making one or more false positive inferences for all tests with that adjusted
+p-value and smaller. FDR is more permissive, and is defined as the fraction of
+results that are expected to be false positives for all tests with the given
+threshold and below.</p>
+<p>Both Bonferroni and Benjamini-Hochberg procedures assume all tests are
+independent. In many types of biological data, e.g. genome wide gene expression,
+this assumption may not hold, since many properties of a biological system may
+be correlated. For this reason, FDR is more often applied to adjust p-values in
+these types of experiments because it is more permissive.</p>
 </div>
-<div id="multiple-hypothesis-testing-." class="section level3" number="6.3.5">
-<h3><span class="header-section-number">6.3.5</span> Multiple Hypothesis Testing .</h3>
-<p>What is multiply hypothesis testing adjustment? Why is it important? What are
-some common adjustment methods (Bonferroni (FWER) and Benjamini-Hochberg (FDR))?
-How do we interpret adjusted p-values (depends on the adjustment method)? How
-do we compute adjusted p-values in R?</p>
-</div>
-<div id="statistical-power" class="section level3" number="6.3.6">
-<h3><span class="header-section-number">6.3.6</span> Statistical power</h3>
+<div id="statistical-power" class="section level3" number="6.3.7">
+<h3><span class="header-section-number">6.3.7</span> Statistical power</h3>
 <p><strong>Statistical Power</strong> is the probability that the null hypothesis was actually false but the data did not have enough evidence to reject it. In short, it is the failure to reject the null hypothesis in the presence of a significant effect. This is a Type II error, also known as a false negative. Its counterpart, the Type I error, is the probability that a null hypothesis was rejected when there was no significant effect.</p>
 <p>The chance of a Type I error is represented by alpha, the same alpha that we use to calculate significance level (1-alpha). Type II errors are represented by beta. The relationship between statistical power and beta are similar to the relationship between significance level and alpha: statistical power is calculated as 1-beta.</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_hypothesistest-means-proportions/BS704_HypothesisTest-Means-Proportions3.html#headingtaglink_3">Read more about the relationship between Type II and Type I errors</a></p>
