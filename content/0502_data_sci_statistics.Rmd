@@ -553,94 +553,168 @@ interval.
 
 ## Statistical Tests
 
+Note: many parts of this section were shamelessly copied from wikipedia. I hope
+mentioning this suffices as attribution.
+
+Statistical or hypothesis testing forms the basis of many types of inference we
+conduct in biological data analysis. The purpose is to quantify how likely it is
+that we see an observed value of some quantity, assuming it was drawn from a
+random variable with a specific distribution.
+
 ### What is a statistical test
 
-A statistical test is an application of mathematics that we used to analyze
-quantitative data. They can be described as a way to understand how the
-independent variable(s) of the study affect the outcome of the dependent
-variable. The kind of statistical test appropriate for a study depends on a
-number of factors including variables characteristics, study design, and data
-distribution. The independent variable is (are) the variable(s) being controlled
-in the study to determine its effects on the dependent variable(s). Not all
-studies have independent variable(s).
+A statistical hypothesis test is a method of statistical inference used to
+determine a possible conclusion from two different, and likely conflicting,
+hypotheses. If we state one hypothesis only and the aim of the statistical test
+is to see whether this hypothesis is tenable, but not to investigate other
+specific hypotheses, then such a test is called a null hypothesis test.
 
-#### Study design {-}
+In a statistical hypothesis test, a null hypothesis and an alternative
+hypothesis are proposed for the probability distribution of the data. If the
+sample obtained has a probability of occurrence less than the pre-specified
+threshold probability, the significance level, given the null hypothesis is
+true, the difference between the sample and the null hypothesis is deemed
+statistically significant. The hypothesis test may then lead to the rejection of
+null hypothesis and acceptance of alternate hypothesis.
 
-The number of conditions a study has corresponds to the number of levels the
-independent variable has, for example 1 condition = 1 level, 2 conditions = 2
-levels, and so on. This is different from the number of independent variables a
-study has. If a study has multiple independent variables, each will have its own
-number of levels. Statistical tests can be categorized as to whether they can
-handle 1, 2, or 2+ levels.
+The earliest use of statistical hypothesis testing is generally credited to the
+question of whether male and female births are equally likely (null hypothesis),
+which was addressed in the 1700s by John Arbuthnot (1710), and later by
+Pierre-Simon Laplace (1770s).
 
-If you have 2 or more levels, then the type of grouping will need to be
-considered: are they between-subjects* or repeated-measures**. A between-subject
-design means that each participant undergoes one condition whereas a
-repeated-measures design has each participant undergo all conditions. A third
-type exists called matched groups, where different subjects undergo different
-conditions but are matched to each other in some important way, and may be
-treated as a repeated-measure design when selecting for a statistical test
+Arbuthnot examined birth records in London for each of the 82 years from 1629 to
+1710, and applied the *sign test*, a simple non-parametric test. In every year,
+the number of males born in London exceeded the number of females. Assuming more
+male or more female births as equally likely, the probability of the observed
+outcome is $0.5^{82}$, or about 1 in 483,600,000,000,000,000,000,000. Arbuthnot
+concluded that this is too small to be due to chance and must instead be due to
+divine providence.
 
-<small>
-*Independent design = between-subjects = between-groups; not to be confused with the variable.
-**Dependent design = repeated-measures = within-subjects = within-groups; also not to be confused with the variable.
-</small>
+In this example, the null hypothesis is that the number of males and females
+born every year is the same. If we observed exactly 1:1 ratio of males to
+females in each of the 82 years, the probability of there being more males than
+females in any given year would be 0.5. Observing 82 consecutive years with more
+males than females therefore results in a probability of $0.5^{82}$, as stated
+above. Since every year in our observed sample had more males than females, this
+is the most extreme outcome possible (other than every year having more females
+than males). If we had observed one year out of 82 having more females than
+males, the probability of observing that event is $82*0.5^{82}$, or one for
+ever possible way of observing a single year with more females than males out of
+82. 
 
-#### Variables {-}
+In modern terms, he rejected the null hypothesis of equally likely male and
+female births at the $p = 0.5^{82}$ significance level. This significance level
+is called a *p-value*.
 
-The characteristics of your variables, both independent (predictor) and
-dependent (descriptor), will help you choose which statistical test to use.
-Specifically, the number of each, their type, and the level of measurement, will
-help you narrow your choices to select the appropriate test.
+### P-values
 
-##### Number of Variables {-}
+In statistics, the p-value is the probability of obtaining a result as or more
+extreme as the observed value, assuming that the null hypothesis is true.
 
-The number of both independent and dependent variables will affect which test
-you select. Test selection will differ whether you have 1 or 2+ dependent
-variables and 0, 1, or 2+ independent variables.
+For instance, imagine there is a game that randomly picks one out of four
+colors. The game developer decides to add a 5th color, yellow, so that each
+color now has 1/5 chance of winning and a 4/5 chance of losing. How many of its
+first games would yellow have to lose in a row before you suspect the dev forgot
+to code in the ability for yellow to win? If you want to wait to until there is
+a < 5% chance of yellow losing every single game in a row under normal
+circumstances before pointing this out to the dev, then yellow would have to
+lose 14/14 games (a 4.4% likelihood).
 
-##### Types of Data (Continuous and Categorical) {-}
+To visualize how 14 losses in a row in a game of chance with 1/5 success rate
+would occur in less than 5% of all instances, we can run a simulation of 1000
+instances of 14 games with 1/5 chance success and displaying the results with
+their frequencies of success:
 
-Typically in bioinformatics, data is subdivided into 3 categories: Continuous,
-Categorical, and Binary. Continuous data is data that can take real number
-values within either a finite or infinite range. For example, height is a
-continuous variable: 152.853288cm (60.1783 in), 182.9704cm (72.0356 in),
-172.7cm(68in), 163cm(64.2in) and 145.647cm (57.3413 in) are all technically
-valid heights. Categorical data is data that can be divided to categories or
-groups such as (high, medium, and low) or (under10, 10-29, and 30+). Binary
-data, data that can either be one thing or another (T/D, Y/N, 0/1, etc) falls
-under the Categorical data umbrella though may get mentioned separately
-elsewhere. Data that exists in sequential, positive integer form- such as number
-of siblings- is called Discrete data (bonus 4th category!) but typically ends up
-being treated as categorical data.
+```{r}
+roll <- function(nrolls, noptions){
+ outcomes <- sample(1:noptions, nrolls, TRUE)
+ return(length(outcomes[outcomes == 1]))
+}
 
-##### Levels of Measurement {-}
+dataset <- function(sample, nrolls, noptions){
+  simulations <- c()
+  for(i in 1:sample){simulations[i] <- roll(nrolls, noptions)}
+  return(simulations)
+}
 
-The main levels of measurement in we use in statistics are Ratio, Interval,
-Nominal, and Ordinal. Both Ratio and Interval levels have distance between
-measurements defined; the biggest difference between the two is that Ratio
-measurements have a meaningful zero value (and no negative numbers). Height in
-inches or cm, Kelvin, and number of students in a class are all Ratio
-measurements. Interval measurements do not have a meaningful zero. Celsius and
-Fahrenheit both have arbitrary 0s- the freezing point of pure and (a specific
-kind of) ocean water- making most standard temperature measurements type
-Interval. Ordinal measurements have a meaningful order to their values but have
-variable/imprecise distances between measurements, like socioeconomic status
-(upper, middle, and lower) and days since diagnosis (under 10, 10-39, 40-99,
-100+). Nominal measurements do not have meaningful order to their values, like
-country of origin and yes/no. Ratio and Interval measurements are continuous
-variables while Nominal and Ordinal measurements are categorical variables.
+set.seed(18)
+Yellow_Wins <- dataset(1000, 14, 5)
+hist(Yellow_Wins, freq=FALSE, right=FALSE)
+```
 
-#### Data Distribution (Parametric vs Nonparametric) {-}
+Here you see that slightly less than 5% of all run instances had 0 wins. 
 
-This is the third factor to keep in mind for test selection and only applicable
-for NON-nominal dependent variables. Parametric tests make the assumption that
-the population the data is sourced from has a normal or Gaussian distribution.
-These are powerful tests because of their data distribution assumption, with the
-downside of only being able to be used in select cases. Nonparametric tests do
-not assume a normal distribution and therefore can be used in a wide range of
-cases, thought they are less likely to find significance in the results.
 
+In this situation, we are comparing if yellow’s win rate is significantly lower
+than if yellow had an equal chance at winning.  The research hypothesis or
+alternative hypothesis in this case is that yellow’s chance of winning is
+significantly lower than the rest of the colors while the null hypothesis would
+be that yellow’s chance of winning is the same as the rest of the colors.
+
+The p-value of this test would be 0.043 because 43 out of 1000 instances of 14
+rolls with a 1/5 chance of success totaled 0 successes, the number of successes
+we saw. If we instead were looking for 1 success or less out of 14 rolls, the
+p-value would be 0.19, because our simulation ran 147 instances of 1 success and
+42 instances of 0 success.
+
+Since p-values are calculated by the percentage of outcomes that are higher than the one observed, on a normal distribution they may look something like this:
+```{r}
+set.seed(2)
+norm <- rnorm(n = 50000, mean = 4, sd = 1)
+plot(density(norm),
+     main = "P-Values on a Normal Distribution", xlab = "X-Values",
+     lwd = 2, col = "royalblue"
+)
+polygon(
+  x = c(density(norm)$x[density(norm)$x >= 6], 6),
+  y = c(density(norm)$y[density(norm)$x >= 6], 0),
+  border = "royalblue", col = "lightblue1"
+)
+segments(x0 = 6, y0 = 0, y1 = 0.4, lwd = 2, lty = 2, col = "salmon")
+text(7, 0.2, "Observed Value (@ 2sd)")
+text(3.9, 0.01, "Instances higher than crit. val ->")
+```
+
+Here the observed value is 6, which happens to be exactly 2 standard deviations above the mean. To compute the p-value of this instance, the area under the curve would need to be calculated which can be easily done by looking up the appropriate values on a z-table. [Here is a link about finding the area under the normal curve]( https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/sas/sas4-onesamplettest/sas4-onesamplettest3.html)
+
+[SPH’s information about p-values here]( https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/PH717-Module7-T-tests3.html)
+
+### Controlling Errors
+
+The purpose of the significance level is to control the expected *error rate* of
+the test. Since by definition a p-value corresponds to the probability of seeing
+a value as extreme or greater than the observed value, this corresponds to the
+probability of observing that value by chance, assuming the distribution is
+true. In such cases, rejecting the null hypothesis due to a large but random
+value where the null hypothesis actually holds is called a *false positive* or
+a *type I error*. Setting a significance level to a smaller probability
+therefore reduces the chances of making false positive inferences.
+
+The trade-off of choosing a smaller significance level is the increased chance
+of not rejecting the null hypothesis for instances when it is false. These types
+of errors are called *false negatives* or *type II errors*.
+
+Intuitively, type I errors can be thought of as errors of *commission*, i.e. the
+researcher unluckily concludes that something is the fact. For instance,
+consider a study where researchers compare a drug with a placebo. If the
+patients who are given the drug get better than the patients given the placebo
+by chance, it may appear that the drug is effective, but in fact the conclusion
+is incorrect. In reverse, type II errors are errors of *omission*. In the
+example above, if the patients who got the drug did not get better at a higher
+rate than the ones who got the placebo, but this was a random fluke, that would
+be a type II error. The consequence of a type II error depends on the size and
+direction of the missed determination and the circumstances. An expensive cure
+for one in a million patients may be inconsequential even if it truly is a cure.
+
+The significance level chosen for any test is always subjective, and is ideally
+made by taking the context of the data into account and assessing whether false
+positives or false negatives are more tolerable. A common but arbitrary
+convention is to choose 0.05 as the significance level, which corresponds to a
+95% confidence of correctly rejecting the null hypothesis, but has no special
+meaning. If false negatives are less tolerable than false positives, e.g. when
+an inexpensive and risk-free treatment is available for patients who might
+possibly have a disease that has serious potential health implications, then a
+lower significance level may be warranted.
 
 ### Common Statistical Tests
 
@@ -936,65 +1010,40 @@ summary(aov(formula, #formula specifying the model
       + Does the same subject or (equivalent subjects) undergo each condition/level? (‘Yes’ -> repeated-measures; ‘No’ -> between-groups
 3. If you do not have nominal data, can you assume your data would have a normal distribution if you measured the general population? (‘Yes’-> parametric; ‘No’ -> non-parametric)
 
-### P-values
-
-In statistics, the p-value is the probability of obtaining the observed results assuming that the null hypothesis is correct. In other words, the p-value is the probability of the same results happening by chance selection from the normal population rather than the test condition.
-
-For instance, imagine there is a game that randomly picks one out of four colors. The game developer decides to add a 5th color, yellow, so that each color now has 1/5 chance of winning and a 4/5 chance of losing. How many of its first games would yellow have to lose in a row before you suspect the dev forgot to code in the ability for yellow to win? If you want to wait to until there is a < 5% chance of yellow losing every single game in a row under normal circumstances before pointing this out to the dev, then yellow would have to lose 14/14 games (a 4.4% likelihood).
-
-
-To visualize how 14 losses in a row in a game of chance with 1/5 success rate would occur in less than 5% of all instances, we can run a simulation of 1000 instances of 14 games with 1/5 chance success and displaying the results with their frequencies of success:
-```{r}
-roll <- function(nrolls, noptions){
- outcomes <- sample(1:noptions, nrolls, TRUE)
- return(length(outcomes[outcomes == 1]))
-}
-
-dataset <- function(sample, nrolls, noptions){
-  simulations <- c()
-  for(i in 1:sample){simulations[i] <- roll(nrolls, noptions)}
-  return(simulations)
-}
-
-set.seed(18)
-Yellow_Wins <- dataset(1000, 14, 5)
-hist(Yellow_Wins, freq=FALSE, right=FALSE)
-```
-Here you see that slightly less than 5% of all run instances had 0 wins. 
-
-
-In this situation, we are comparing if yellow’s win rate is significantly lower than if yellow had an equal chance at winning.  The research hypothesis or alternative hypothesis in this case is that yellow’s chance of winning is significantly lower than the rest of the colors while the null hypothesis would be that yellow’s chance of winning is the same as the rest of the colors.
-The p-value of this test would be 0.043 because 43 out of 1000 instances of 14 rolls with a 1/5 chance of success totaled 0 successes, the number of successes we saw. If we instead were looking for 1 success or less out of 14 rolls, the p-value would be 0.19, because our simulation ran 147 instances of 1 success and 42 instances of 0 success.
-
-Since p-values are calculated by the percentage of outcomes that are higher than the one observed, on a normal distribution they may look something like this:
-```{r}
-set.seed(2)
-norm <- rnorm(n = 50000, mean = 4, sd = 1)
-plot(density(norm),
-     main = "P-Values on a Normal Distribution", xlab = "X-Values",
-     lwd = 2, col = "royalblue"
-)
-polygon(
-  x = c(density(norm)$x[density(norm)$x >= 6], 6),
-  y = c(density(norm)$y[density(norm)$x >= 6], 0),
-  border = "royalblue", col = "lightblue1"
-)
-segments(x0 = 6, y0 = 0, y1 = 0.4, lwd = 2, lty = 2, col = "salmon")
-text(7, 0.2, "Observed Value (@ 2sd)")
-text(3.9, 0.01, "Instances higher than crit. val ->")
-```
-
-Here the observed value is 6, which happens to be exactly 2 standard deviations above the mean. To compute the p-value of this instance, the area under the curve would need to be calculated which can be easily done by looking up the appropriate values on a z-table. [Here is a link about finding the area under the normal curve]( https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/sas/sas4-onesamplettest/sas4-onesamplettest3.html)
-
-[SPH’s information about p-values here]( https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/PH717-Module7-T-tests3.html)
 
 
 ### Multiple Hypothesis Testing .
 
-What is multiply hypothesis testing adjustment? Why is it important? What are
-some common adjustment methods (Bonferroni (FWER) and Benjamini-Hochberg (FDR))?
-How do we interpret adjusted p-values (depends on the adjustment method)? How
-do we compute adjusted p-values in R?
+In statistics, the multiple comparisons, multiplicity or multiple testing
+problem occurs when one considers a set of statistical inferences simultaneously
+or infers a subset of parameters selected based on the observed values.
+The more inferences are made, the more likely erroneous inferences become.
+Several statistical techniques have been developed to address that problem,
+typically by requiring a stricter significance threshold for individual
+comparisons, so as to compensate for the number of inferences being made.
+The goal of these techniques is to better control the number of false positives
+produced by the test. The general term for identifying these stricter
+significance thresholds is *multiple testing correction*. p-values that have
+been subject to multiple testing correction are called *multiple hypothesis
+adjusted p-values* or simply *adjusted p-values*, whereas the unadjusted
+p-values are called *nominal p-values*.
+
+There are two popular approaches for performing multiple testing correction: the
+[Bonferroni correction, or familywise error
+rate](https://en.wikipedia.org/wiki/Familywise_error_rate)(FWER) and
+[Benjamini-Hochberg correction, or  false discovery
+rate*](https://en.wikipedia.org/wiki/False_discovery_rate)(FDR). The FWER is the
+more conservative approach, where adjusted p-values indicate the probability of
+making one or more false positive inferences for all tests with that adjusted
+p-value and smaller. FDR is more permissive, and is defined as the fraction of
+results that are expected to be false positives for all tests with the given
+threshold and below.
+
+Both Bonferroni and Benjamini-Hochberg procedures assume all tests are
+independent. In many types of biological data, e.g. genome wide gene expression,
+this assumption may not hold, since many properties of a biological system may
+be correlated. For this reason, FDR is more often applied to adjust p-values in
+these types of experiments because it is more permissive.
 
 ### Statistical power 
 
