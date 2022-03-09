@@ -116,21 +116,10 @@ test_that("test limma + voom work + work together", {
   # design
   design <- data.frame(day4=1, day4vsday7=c(0, 0, 1, 1))
   row.names(design) <- c("vP4_1", "vP4_2", "vP7_1", "vP7_2")
-<<<<<<< HEAD
   # limma + voom
   expect_warning(voom_res <- run_limma(counts_df, design, group)) # voom yelling, ignore
-=======
-  # limma
-  limma_res <- run_limma(counts_df, design, group, voom=FALSE)
-  expect_equal(dim(limma_res), c(15026, 6))
-  expect_equal(names(limma_res), c("day4", "day4vsday7", "AveExpr", "F",
-                                   "P.Value", "adj.P.Val"))
-  # voom
-  dge <- DGEList(counts=counts_df, group=group)
-  expect_warning(voom_res <- run_voom(dge, design)) # voom yelling, ignore
->>>>>>> 681be787f8cf837f77821a19c2d23913054d1982
   expect_equal(dim(voom_res), c(15026, 6))
-  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value",
+  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value", 
                                   "adj.P.Val", "B"))
 })
 ```
