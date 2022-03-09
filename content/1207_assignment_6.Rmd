@@ -8,13 +8,13 @@ output:
 > Volcanoes don't really look like that, do they?
 
 ### Problem Statement {-}
-Because R has been utilized in bioinformatics communities for years at this point, there are many different approaches to do one task. While in the last assignment we just used DESeq2, we will be performing differential expression analysis with two additional packages (edgeR and Limma) and comparing the results we find. 
+Because R has been utilized in bioinformatics communities for years at this point, there are many different approaches to do one task. While in the last assignment we just used DESeq2, we will be performing differential expression analysis with two additional packages (edgeR and Limma) and comparing the results we find.
 
 ### Learning Objectives {-}
 1. The basic operations of `ggplot` and "The Grammar of Graphics".
 2. Using differential gene expression analysis packages to generate data for plotting.
 3. Creating simple plots and **not** using the default colors and themes.
-4. Combining multiple plots into one image using `fact_wrap()`
+4. Combining multiple plots into one image using `facet_wrap()`
 
 ### Skill List {-}
 - A tempered heart and mind that understands a plot may not ever look _exactly_ how you want it to.
@@ -116,10 +116,21 @@ test_that("test limma + voom work + work together", {
   # design
   design <- data.frame(day4=1, day4vsday7=c(0, 0, 1, 1))
   row.names(design) <- c("vP4_1", "vP4_2", "vP7_1", "vP7_2")
+<<<<<<< HEAD
   # limma + voom
   expect_warning(voom_res <- run_limma(counts_df, design, group)) # voom yelling, ignore
+=======
+  # limma
+  limma_res <- run_limma(counts_df, design, group, voom=FALSE)
+  expect_equal(dim(limma_res), c(15026, 6))
+  expect_equal(names(limma_res), c("day4", "day4vsday7", "AveExpr", "F",
+                                   "P.Value", "adj.P.Val"))
+  # voom
+  dge <- DGEList(counts=counts_df, group=group)
+  expect_warning(voom_res <- run_voom(dge, design)) # voom yelling, ignore
+>>>>>>> 681be787f8cf837f77821a19c2d23913054d1982
   expect_equal(dim(voom_res), c(15026, 6))
-  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value", 
+  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value",
                                   "adj.P.Val", "B"))
 })
 ```
