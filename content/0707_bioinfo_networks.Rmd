@@ -31,8 +31,150 @@ PPI information when interpreting other biological data (like differential
 expression? not sure)?
 
 ### WGCNA .
+Weighted correlation network analysis (WGCNA) identifies genes (or other biology features) that are highly correlated with each other, and group them into clusters / modules.  
+Typical inputs of WGCNA is the expression matrix of genes, proteins or other biology features. Then, WGCNA will construct a undirected and weighted co-expression network. The nodes will be genes (or other features), and the edges connecting them will be the pairwise correlation value of their expression level. Modules are simply the clusters of highly connected genes. After the modules are detected, down stream analyses may include summarizing the module by its "eigengenes", inferring the functionality of a gene from genes in the same module, or compare different modules.  
+For more information, you may refer to this [article](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-9-559) or the [manual of WGCNA R package](https://cran.r-project.org/web/packages/WGCNA/WGCNA.pdf).  
 
-What is WGCNA? What problem does WGCNA attempt to solve, and how is it different
-than other classes of analysis methods (e.g. differential expression)? What data
-are appropriate for use in WGCNA? How do we run an interpret a WGCNA analysis in
-R?
+#### How to run WGCNA in R 
+First, install package `WGCNA`. 
+```
+BiocManager::install("WGCNA")
+library(WGCNA)
+```
+note: if you receive error message saying some dependencies are not available, it's probably because you used to try to install it using standard method `install.package("WGCNA")`. If that's the case, try the following to re-install WGCNA: 
+```
+BiocManager::install("WGCNA",force = T)
+```
+
+Let's load a toy gene expression matrix. We have 15 samples and 7 genes. 
+```{r echo=FALSE}
+set.seed(1)
+nsamp <- 50
+suppressPackageStartupMessages(library(WGCNA))
+dat <- data.frame(
+  "CRAB" = c(rnorm(nsamp, 10, 5)),
+  "Whale" = c(rnorm(nsamp, 8, 2))
+)
+dat$Lobst <- dat$CRAB * 1.5 + rnorm(nsamp, 0, 4)
+dat$Octop <- dat$CRAB * 0.7 + rnorm(nsamp, 0, 4)
+dat$Coral <- dat$CRAB * 2 + rnorm(nsamp, 0, 4)
+dat$BabyShark <- dat$Whale * 2 - rnorm(nsamp, 3, 4)
+dat$Orca <- dat$Whale * 3 + rnorm(nsamp, 3, 4)
+rownames(dat) <- paste0("samp", c(1:nsamp))
+head(dat)
+```
+An optional choice in WGCNA to allow multithreads
+```{r}
+allowWGCNAThreads(4)
+```
+
+Now we will choose a "soft-thresholding power" to construct the network. There is no single answer in the power to choose.  
+If you refer to [WGCNA faq](https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/faq.html), there are more details for power choosing. 
+```{r}
+# A set of soft-thresholding powers to choose from:
+powers <- seq(1, 10)
+
+# Call the network topology analysis function
+sft <- pickSoftThreshold(
+  data = dat,
+  powerVector = powers,
+  verbose = 5
+)
+
+par(mfrow = c(1, 2))
+cex1 <- 0.9
+plot(sft$fitIndices[, 1],
+  -sign(sft$fitIndices[, 3]) * sft$fitIndices[, 2],
+  xlab = "Soft Threshold (power)",
+  ylab = "Scale Free Topology Model Fit, signed R^2",
+  main = paste("Scale independence")
+)
+text(sft$fitIndices[, 1],
+  -sign(sft$fitIndices[, 3]) * sft$fitIndices[, 2],
+  labels = powers, cex = cex1, col = "red"
+)
+abline(h = 0.90, col = "red")
+plot(sft$fitIndices[, 1],
+  sft$fitIndices[, 5],
+  xlab = "Soft Threshold (power)",
+  ylab = "Mean Connectivity",
+  type = "n",
+  main = paste("Mean connectivity")
+)
+text(sft$fitIndices[, 1],
+  sft$fitIndices[, 5],
+  labels = powers,
+  cex = cex1, col = "red"
+)
+```
+
+Generally, we want to choose a power that give us the "Scale Free Topology Model Fit, signed R^2" around **0.8**. This toy dataset is too small and can't show it properly.  
+For illustration, we will pick power 4 in this example.  
+
+```{r}
+picked_power <- 4
+
+# fix a namespace conflict issue, force R to use the cor() function in WGCNA:
+temp_cor <- cor
+cor <- WGCNA::cor
+```
+
+Construct network.  
+There are a lot of parameters. In most cases, you don't need to modify them. But, make sure you choose the proper `power`, `networkType` ("signed" or "unsigned"), and `minModuleSize` in your analysis.  
+- `networkType`  Using "signed" option, the direction of the correlation will be considered, e.g. two genes won't be clustered together if their correlation value is a perfect -1. On the other hand, use "unsigned" option to consider the absolute value of correlation.  
+- `minModuleSize`  The minimum umber of features, e.g. genes, in a module. In this example with only 7 genes, so I set this argument to be 2. In real analysis, a typical choice may be 20 or 30 for a matrix with several hundreds or thousands of genes.  
+
+```{r}
+netwk <- blockwiseModules(
+  datExpr = dat,
+  power = picked_power,
+  networkType = "signed",
+  deepSplit = 2,
+  pamRespectsDendro = F,
+  minModuleSize = 2,
+  maxBlockSize = 4000,
+  reassignThreshold = 0,
+  mergeCutHeight = 0.25,
+  saveTOMs = T, # Archive the run results in TOM file (saves time)
+  saveTOMFileBase = "ER",
+  numericLabels = T,
+  verbose = 3
+)
+```
+
+Now we can see the module membership assignment: 
+```{r}
+netwk$colors
+```
+CRAB, Lobst, Octop and Coral are assigned to module 1. Whale, BabyShark and Orca are assigned to module 2.  
+
+We can use function labels2colors() to conveniently convert the module membership to color labels.  
+```{r}
+mergedColors <- labels2colors(netwk$colors)
+```
+
+Plot the dendrogram and the module colors: 
+```{r}
+plotDendroAndColors(
+  netwk$dendrograms[[1]],
+  mergedColors[netwk$blockGenes[[1]]],
+  "Module colors",
+  dendroLabels = FALSE,
+  hang = 0.03,
+  addGuide = TRUE,
+  guideHang = 0.05
+)
+```
+
+In a real analysis with a lot of genes, you will see much more modules and colors.  
+In this dendrogram, you will be able to roughly see the size of each module by looking at the area of different colors.  
+
+At this point, the WGCNA analysis is finished.  
+We can summarize the module information in a data frame:  
+```{r}
+module_df <- data.frame(
+  gene_id = names(netwk$colors),
+  modules = labels2colors(netwk$colors)
+)
+module_df
+```
