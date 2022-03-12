@@ -2,6 +2,100 @@
 output: html_document
 ---
 
-## Network visualization .
+## Network visualization 
 
-How do we visualize networks?
+The most commonly used package to visualize network is `igraph`.  
+```{r message=FALSE, warning=FALSE}
+library(igraph)
+```
+
+First, let's create a graph with 15 nodes.  
+
+```{r}
+names <- c("Opal", "Tourmaline", "Emerald", "Citrine", "Jasper", "Moonstone", "Agate", "Chalcedony", "Crystal", "Obsidian", "Quartz", "Topaz", "Beryl", "Sugilite", "Sapphire")
+```
+
+Use `sample_gnm()` to generate a random graph.  
+```{r}
+set.seed(10)
+samp_g <- sample_gnm(n = 15, m = 20)
+```
+
+To assign color to vertices, use `vertex_attr()`. `gorder()` returns the number of vertices.  
+```{r}
+vertex_attr(samp_g) <- list(name = names, color = rep("slategray1", gorder(samp_g)))
+```
+
+To assign color to edges, use `vertex_attr()`. `gsize()` returns the total number of edges. 
+```{r}
+edge_attr(samp_g) <- list(color = sample(
+  x = c("slateblue1", "lightpink1", "steelblue1", "palegreen3"),
+  size = gsize(samp_g), replace = TRUE
+))
+```
+
+To visualize the network, there's just... one simple function!  
+```{r}
+plot(samp_g)
+```
+
+But, in real-world, we don't want a random network. Now let's create our network from scratch.  
+
+There are many different ways to create a network. One of the most basic (and easy) ways is using `graph_from_data_frame()` function in `igraph`.  
+1. Create 2 columns in the data frame: `from` and `to`. Each row represents an edge, and the entries are vertex names. For instance, as indicated in row 1, there is an edge "from Crystal to Moonstone". In an undirected graph, you can put the two vertices in either way.  
+2. (optional) Add another column `color` to represent the color to plot the edge.  
+3. (optional) You can also add additional information for each edge. For example, add a column `weight` to specify the weight of this edge. The `weight` will become useful when you do network analysis later, for example, find the shortest path between two vertices. You can also add other attributes you want, like the "connection_type" here. 
+```{r}
+set.seed(4)
+my_gem_df <- data.frame(
+  "from" = c("Crystal", "Crystal", "Crystal", "Crystal", "Topaz", "Obsidian", "Agate", "Topaz"),
+  "to" = c("Moonstone", "Citrine", "Obsidian", "Agate", "Citrine", "Topaz", "Moonstone", "Moonstone"),
+  "color" = c("slateblue1", "slateblue1", "slateblue1", "steelblue1", "palegreen3", "steelblue1", "lightpink1", "palegreen3"),
+  "connection_type" = c(rep(1, 6), 2, 2)
+)
+my_gem_df$weight <- as.numeric(as.factor(my_gem_df$color))
+my_gem_df
+```
+
+Now create an igraph object from the data frame, and assign vertex color. 
+```{r}
+g <- graph_from_data_frame(my_gem_df, directed = FALSE)
+vertex_attr(g) <- list(name = vertex_attr(g, "name"), color = rep("slategray1", gorder(g)))
+```
+
+Again, simply use `plot(g)` to plot the network. We can also do some fancy customization to play around with the labels! *(Remember the `connection_type` I specified above in the data frame? In `edge.lty`, 1 is a solid line, and 2 is a dash line)* 
+```{r}
+set.seed(4)
+plot(g,
+  edge.width = 1.5,
+  edge.lty = edge_attr(g, "connection_type"),
+  vertex.label.family = "Trebuchet MS",
+  vertex.label.font = 3,
+  vertex.label.cex = 1,
+  vertex.label.dist = 2,
+  vertex.label.degree = pi / 2
+)
+```
+
+To see the whole list of available arguments available when plotting your network, visit [igraph plot manual](https://igraph.org/r/doc/plot.common.html).  
+
+In the case of an directed graph, simply put `directed = TRUE` when creating the igraph object, and you will see the cute arrows.  
+```{r}
+g <- graph_from_data_frame(my_gem_df, directed = TRUE)
+vertex_attr(g) <- list(name = vertex_attr(g, "name"), color = rep("slategray1", gorder(g)))
+set.seed(4)
+plot(g,
+  edge.width = 1.5,
+  edge.lty = edge_attr(g, "connection_type"),
+  edge.arrow.size = 0.8,
+  vertex.label.family = "Trebuchet MS",
+  vertex.label.font = 3,
+  vertex.label.cex = 1,
+  vertex.label.dist = 2,
+  vertex.label.degree = pi / 2
+)
+```
+
+### Interactive network plots 
+Besides `igraph`, there are many other packages to create fancier networks. One example is `visNetwork`. It can create an interactive network, and it's easy to use! Check [example here](https://cran.r-project.org/web/packages/visNetwork/vignettes/Introduction-to-visNetwork.html). It can be implemented in your HTML report knitted from R markdown and R Shiny app interface!  
+One thing to keep in mind: as you can imagine, since it is interactive, `visNetwork` requires much more memory and time compared to a static graph. So, you may need to make a choice when you develop your web interface or R markdown HTML report.  
