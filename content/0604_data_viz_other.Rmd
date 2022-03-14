@@ -7,11 +7,7 @@ source("0600_data_viz.R")
 ```
 
 
-## Other Kind of Plots .
-
-### Chord .
-
-### Sankey .
+## Other Kind of Plots
 
 ### Dendrograms
 
@@ -100,3 +96,38 @@ between clusters.
 * [Dendrograms](https://en.wikipedia.org/wiki/Dendrogram) Wikipedia page
 * [`ggdendro` package vignette](https://cran.r-project.org/web/packages/ggdendro/vignettes/ggdendro.html)
 :::
+
+### Chord Diagrams and Circos Plots
+
+[Circos](http://circos.ca/) is a software package that creates circular
+diagrams originally designed to depict genomic features and data. The software
+is capable of making beautiful, information dense figures. The Circos software
+itself is written in the [Perl](https://www.perl.org/) programming language, but
+the [`circlize` package](https://jokergoo.github.io/circlize_book/book/) brings
+these capabilities to R. The following is a basic circos plot created by the
+`circlize` package:
+
+![Basic circlize plot](circlize-glance-track-1-1.png)
+
+The circle is divided up into 8 *sectors* here labeled with letters. There is a
+single track added to the plot, where each sector has a 2-dimensional random
+dataset plotted within the arc of the sector's track box. Many tracks may be
+added to the same plot:
+
+![Multiple tracks in a circlize plot](circlize-glance-track-links-1.png)
+
+The arches inside the circle are called *chords* and are drawn to indicate there
+is a relationship between the coordinates of different sectors. Diagrams with
+such chords between sectors are called *chord diagrams*, and some plots are
+composed only of coords:
+
+![circlize chord diagram](chord-diagram-basic-1.png)
+
+These chord diagrams are often used in genomics studies to illustrate
+chromosomal rearrangements:
+
+![genomic links example](genomic-links-1.png)
+
+
+Read the [circlize documentation](https://jokergoo.github.io/circlize_book/book/)
+for more information on how to use this very feature rich package.

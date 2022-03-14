@@ -1,0 +1,193 @@
+---
+output: html_document
+---
+
+## Grammar of Graphics {#dv-gg}
+
+The grammar of graphics is a system of rules that describes how data and
+graphical aesthetics (e.g. color, size, shape, etc) are combined to form
+graphics and plots. First popularized in the book [The Grammar of
+Graphics](https://www.google.com/books/edition/_/ZiwLCAAAQBAJ?hl=en) by Leland
+Wilkinson and co-authors in 1999, this grammar is a major contribution to the
+structural theory of statistical graphics. In 2005, Hadley Wickam wrote an
+implementation of the grammar of graphics in R called
+[ggplot2](https://ggplot2.tidyverse.org/) (gg stands for grammar of graphics).
+
+Under the grammar of graphics, every plot is the combination of three types of
+information: **data**, **geometry**, and **aesthetics**. Data is the data we
+wish to plot. Geometry is the type of geometry we wish to use to depict the data
+(e.g. circles, squares, lines, etc). Aesthetics connect the data to the geometry
+and defines how the data controls the way the selected geometry looks.
+
+A simple example will help to explain. Consider the following made up sample
+metadata tibble for a study of subjects who died with Alzheimer's Disease (AD)
+and neuropathologically normal controls:
+
+``` {r include=FALSE}
+source("0600_data_viz.R")
+```
+
+``` {r}
+ad_metadata
+```
+
+For context, [tau protein](https://en.wikipedia.org/wiki/Tau_protein) and
+[amyloid beta peptides from the amyloid precursor
+protein](https://en.wikipedia.org/wiki/Amyloid_beta)
+aggregate into neurofibrillary tangles and A-beta plaques, respectively, the
+brains of people with AD. Generally, the amount of both of these pathologies is
+associated with more severe disease. [Braak
+stage](https://en.wikipedia.org/wiki/Braak_staging) is a neuropathological
+assessment of the amount of pathology in a brain that is associated with the
+severity of disease, where 0 indicates absence of pathology and 6 with
+widespread involvement in multiple brain regions. Aggregation of tau is also a
+[consequence of normal aging](https://pubmed.ncbi.nlm.nih.gov/8866683/), so must
+accompany neurological symptoms such as dementia to indicate an AD diagnosis
+post mortem. Note we have control samples as well as AD.
+
+![Tauopathy: tau protein accumulates in the cell bodies of affected neurons -
+Wikipedia](https://upload.wikimedia.org/wikipedia/commons/f/f7/Tauopathy_in_Alzheimer%27s_disease.jpg)
+
+The histology measures `tau`, `abeta`, `iba1`, and `gfap` have been quantified
+using digital microscopy, where brain sections are stained with
+immunohistochemistry to identify the location and degree of pathology; the
+measures in the table are the number of pixels of a 400 x 400 pixel image of a
+piece of brain tissue that fluoresce when stained with the corresponding
+antibody. Tau and A-beta antibodies are specialized to the types of aggregated
+proteins mentioned above and provide a quantification of the level of overall
+AD pathology. Ionized calcium binding adaptor molecule 1 (IBA1) is a marker of
+activated [microglia](https://en.wikipedia.org/wiki/Microglia), the resident
+macrophages of the brain, which is an
+indication of neuroinflammation. Glial fibrillary acidic protein (GFAP) is a
+marker for activated [astrocytes](https://en.wikipedia.org/wiki/Astrocyte),
+specialized cells that derive from the neuron lineage, are critical for
+maintaining the [blood brain
+barrier](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4292164/), and are also
+involved in the neuroinflammatory response.
+
+Let's say we wished to visualize the relationship between age at death and the
+amount of tau pathology. A scatter plot where each marker is a subject with $x$
+and $y$ position corresponding to `age_at_death` and `tau` respectively. The
+following R code creates such a plot with ggplot2:
+
+``` {r}
+ggplot(data=ad_metadata, mapping = aes(x = age_at_death, y=tau)) +
+  geom_point()
+```
+
+All ggplot2 plots begin with the `ggplot()` function call, which is passed a
+tibble with the **data** to be plotted. We then define  the **aesthetics** are
+defined by mapping the x coordinate to the `age_at_death` column and the y
+coordinate to the `tau` column with `aes(x = age_at_death, y=tau)`. Finally, the
+**geometry** as 'point' with `geom_point()`, meaning marks will be made at pairs
+of x,y coordinates. The plot shows what we expect given our knowledge of the
+relationship between age and amount of tau; the two look to be positively
+correlated.
+
+However, we are not capturing the whole story: we know that there are both AD
+and Control subjects in this dataset. How does `condition` relate to this
+relationship we see? We can layer on an additional aesthetic of color to add
+this information to the plot:
+
+``` {r}
+ggplot(data=ad_metadata, mapping = aes(x = age_at_death, y=tau, color=condition)) +
+  geom_point()
+```
+
+This looks a little clearer, showing that Control subjects generally have both
+an earlier age at death and a lower amount of tau pathology. This might be a
+problem, however, since if the age distributions of AD and Control groups are
+different that might pose a problem with
+[confounding](https://en.wikipedia.org/wiki/Confounding). We should investigate
+this.
+
+Instead of plotting age at death and tau against each other, we will examine the
+distributions of each of these variables for AD and Control samples separately.
+We will use the [violin
+geometry](https://ggplot2.tidyverse.org/reference/geom_violin.html) with
+`geom_violin()` to look at the distributions of `age_at_death`:
+
+``` {r}
+ggplot(data=ad_metadata, mapping = aes(x=condition, y=age_at_death)) +
+  geom_violin()
+```
+
+We can see immediately that there are big differences between the age
+distributions of the two groups. This is not ideal, but perhaps we can adjust
+for these effects in downstream analyses. We'd like to look at the tau
+distributions as well, but it would be nice to have these two plots side by side
+in the same plot. To do that, we will use another library called
+[patchwork](https://patchwork.data-imaginist.com/), which allows independent
+ggplot2 plots to be arranged together with a simple expressive syntax:
+
+``` {r}
+library(patchwork)
+age_boxplot <- ggplot(data=ad_metadata, mapping = aes(x=condition, y=age_at_death)) +
+  geom_boxplot()
+tau_boxplot <- ggplot(data=ad_metadata, mapping=aes(x=condition, y=tau)) +
+  geom_boxplot()
+
+age_boxplot | tau_boxplot # this puts the plots side by side
+```
+
+This confirms our suspicion, and also reveals a serious problem with our
+samples: we have strong confounding of tau and age at death between AD and
+Control samples. This means that if we look for differences between AD and
+Control, we won't know if the difference is due to the amount of tau pathology
+or due to age of the subjects. With this sample set, we simply cannot
+confidently answer that question. Just a few simple plots alerted us to this
+problem; hopefully more expensive datasets have not already been generated for
+these samples, so that hopefully different subjects are available that could
+avoid this confounding.
+
+This has been a biological data analysis oriented tutorial on plotting meant to
+illustrate the principles of the grammar of graphics. Namely, every plot has
+**data**, **geometry**, and **aesthetics** that can be independently controlled
+to produce many types of plots. Many of these plots have names, like scatter
+plots and boxplots, but as you compose different types of geometries and
+aesthetics together you may find yourself generating plots that aren't so easily
+named.
+
+The next sections of this chapter are a kind of "cook book" of different kinds
+plots you can generate with data of different shapes. It is not intended to be
+comprehensive, but a helpful guide when you are trying to decide how to
+visualize your own datasets.
+
+::: {.box .note}
+If you want to go directly to the comprehensive documentation of the many types
+of ggplot2 plots, peruse the [R Graph Gallery](https://www.r-graph-gallery.com/)
+site.
+:::
+
+::: {.box .readmore}
+* [ggplot2 - Elegant Graphics for Data Analysis](https://ggplot2-book.org/index.html), by Hadley Wickam
+* [R for Data Science - Data Vizualization](https://r4ds.had.co.nz/data-visualisation.html)
+* [R Graph Gallery](https://www.r-graph-gallery.com/)
+* [patchwork package](https://patchwork.data-imaginist.com/)
+:::
+
+### `ggplot` mechanics
+
+`ggplot` has two key concepts that give it great flexibility: **layers** and
+**scales*.
+
+Every plot has one or more layers that contain a type of geometry that
+represents a data encoding. In general, each layer will only have one geometry
+type, e.g. points or lines, but the geometry might be complex, e.g. density
+plots. The layers added to a plot form a stack, where the layers added first are
+beneath those added later. The geometry in each layer may draw from the same
+data, or each may have its own. Each layer may also share the aesthetic mapping
+from the `ggplot()` call, or may have its own. This is why both the `ggplot()`
+function and each individual `geom_X()`  function can accept data and aesthetic
+mappings. The package comes with a large number of geometries described in its
+[reference documentation](https://ggplot2.tidyverse.org/reference/index.html#geoms).
+
+The geometry in each layer maps the data values to visual properties using
+scales. A scale may map a data range to a pixel range, or to a color on a color
+gradient, or one of a set of discrete colors or shapes. `ggplot` provides
+reasonable default scales for each geometry type. You can override these
+defaults by using the [`scale_X`
+functions](https://ggplot2.tidyverse.org/reference/index.html#scales).
+
+The [ggplot2 book](https://ggplot2-book.org/) is an excellent resource for all
+things ggplot2.

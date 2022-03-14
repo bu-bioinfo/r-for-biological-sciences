@@ -7,16 +7,133 @@ library(tidyverse)
 source("0600_data_viz.R")
 ```
 
-## Plotting Two or More Dimensions .
+## Plotting Two or More Dimensions
 
-### Scatter plot .
+Multi-dimensional plots allow relationships between different quantities to be
+depicted visually. As mentioned in the [Elemental Perceptual Tasks] section,
+this involves mapping data to visual elements using different encodings. The
+plot types in this section are examples of these different approaches to
+combining visual data encodings.
 
-### Line plot .
+### Scatter Plots
+
+Scatter plots visualize pairs of quantities, usually continuous, as points in
+a two dimensional space. Most commonly, the points are plotted in [cartesian
+coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system), but
+[polar coordinates](https://en.wikipedia.org/wiki/Polar_coordinate_system) or
+other types of coordinate systems.
+
+```{r viz dim scatter}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
+  geom_point(size=3)
+```
+
+The `geom_point()` geometry draws a shape, circle by default, at pixel
+coordinates proportional to each $(x,y)$ pair. The shape may be changed by
+specifying the `shape=N` parameter to `geom_point`, where `N` is an integer ID
+of the shape. The following plot shows which IDs correspond to which shapes:
+
+```{r point shapes}
+g <- ggplot()
+for(x in 0:5) {
+  for(y in 0:4) {
+    if(x+y*6 < 26) {
+      g <- g + geom_point(aes(x=x,y=y),tibble(x=x,y=y),shape=x+y*6,size=8) +
+       geom_label(aes(x=x,y=y+0.5,label=label),tibble(x=x,y=y,label=x+y*6))
+    }
+  }
+}
+g
+
+```
+
+However, `geom_points()` will choose up to six different shapes for you if you
+map a categorical encoding to the `shape` aesthetic:
+
+```{r scatter shape enc}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
+  geom_point(size=3)
+```
+Controlling which shapes are mapped to which value can be accomplished with
+[`scale_shape_manual()`](https://ggplot2.tidyverse.org/reference/scale_manual.html):
+
+```{r scatter shape manual}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
+  geom_point(size=3) +
+  scale_shape_manual(values=c(3,9))
+```
+
+Color encodings can also be added using either a continuous or discrete values:
+
+```{r scatter color}
+library(patchwork)
+g <- ggplot(ad_metadata)
+g_condition <- g + geom_point(mapping=aes(x=abeta, y=tau, color=condition),size=3)
+g_age <- g + geom_point(mapping=aes(x=abeta, y=tau, color=age_at_death),size=3)
+g_condition / g_age
+```
+
+### Bubble Plots
+
+A close relative of the scatter plot is the bubble plot. A bubble plot is a
+scatter plot where the area of the point markers is proportional to a third
+continuous dimension. Consider the plot from above, with age at death encoded as
+the area of each point:
+
+```{r viz dim bubbl}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, size=age_at_death)) +
+  geom_point(alpha=0.5)
+```
+In this example, the markers have been given 50% transparency, so overlapping
+bubbles may be discerned more easily.
+
+:::{.box .warning}
+Recall from the [Human Visual Perception] section that it is difficult for
+humans to accurately assess the relative sizes of shapes that are not near each
+other. Bubble plots may be useful in some instances, but should be used
+carefully.
+:::
+
+### Connected Scatter Plots
+
+Another close relative of the scatter plot is the connected scatter plot. A
+connected scatter plot is simply a scatter plot where certain pairs of points
+are connected with a line in addition to the markers. Any pairs of points may
+have lines connecting them, but most often the line indicates some dimension of
+time, i.e. two points that are sequential in time are connected. Below is a
+connected scatter plot with a line drawn from the youngest to oldest age at
+death:
+
+```{r viz connected scatter}
+arrange(ad_metadata,age_at_death) %>%
+  mutate(
+    x=abeta,
+    xend=lag(x,1),
+    y=tau,
+    yend=lag(y,1)
+  ) %>%
+  ggplot() +
+  geom_segment(aes(x=abeta, xend=xend, y=tau, yend=yend)) +
+  geom_point(aes(x=x,y=y,shape=condition,color=condition),size=3)
+```
+
+The plot suggests that perhaps the AD and Control samples might be closer in age
+within groups than between. We can confirm this using another type of plot, e.g.
+density grouped by condition.
+
+### Line Plots
+
+Line plots connect pairs of points with a line without drawing a symbol at each
+point. The `geom_line()` function will draw lines between pairs of points sorted
+by $x$ axis by default:
 
 ```{r}
 ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
     geom_line()
 ```
+
+This may be useful when plotting multiple lines using the `group` aesthetic
+mapping:
 
 ``` {r}
 pivot_longer(ad_metadata,
@@ -28,7 +145,35 @@ pivot_longer(ad_metadata,
     geom_line()
 ```
 
-### Bubble plot .
+This plot is similar to a [parallel coordinate plot](parallel-coordinate-plots),
+in that all four dimensions of each sample are displayed using a position
+encoding.
+
+### Parallel Coordinate Plots
+
+Parallel coordinate plots are line plots where each of possibly many continuous
+variables are given vertical position encodings and each sample has its own
+line. Unlike the line plot above, each vertical axis can have a different scale,
+thus allowing plots of variables with very different value ranges. The following
+is a parallel coordinate plot of our AD metadata:
+
+```{r viz pcp ad}
+library(GGally)
+
+ggparcoord(ad_metadata,
+           columns=c(2,4:8),
+           groupColumn=3,
+           showPoints=TRUE
+           ) +
+  scale_color_manual(values=c("#bbbbbb", "#666666"))
+```
+
+All the variables have been scaled and centered to have mean zero and standard
+deviation 1, and the values plotted using a position encoding vertically long
+each. Each line is a different subject, and have been colored based on the type
+of subject, either AD or control. This encoding allows us to make a number of
+observations about the samples, e.g. except for gfap, AD samples have
+consistently higher values than Controls.
 
 ### Heatmaps
 
