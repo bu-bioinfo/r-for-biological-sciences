@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7.1 Responsible Plotting | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="7.1 Responsible Plotting | BF591 - R for Biological Sciences" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7.1 Responsible Plotting | BF591 - R for Biological Sciences" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.1 Responsible Plotting | BF591 - R for Biological Sciences" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-visualization.html"/>
+<link rel="next" href="dv-gg.html"/>
+<script src="libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="index.html#syllabus">Syllabus<span></span></a>
+<ul>
+<li><a href="course-schedule.html#course-schedule">Course Schedule<span></span></a></li>
+<li><a href="instructors.html#instructors">Instructors<span></span></a></li>
+<li><a href="office-hours.html#office-hours">Office Hours<span></span></a></li>
+<li><a href="course-values-and-policies.html#course-values-and-policies">Course Values and Policies<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="who-this-book-is-for.html"><a href="who-this-book-is-for.html"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="a-note-about-reinventing-the-wheel.html"><a href="a-note-about-reinventing-the-wheel.html"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="sources-and-references.html"><a href="sources-and-references.html"><i class="fa fa-check"></i><b>1.3</b> Sources and References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-bio.html"><a href="data-bio.html"><i class="fa fa-check"></i><b>2</b> Data in Biology<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="a-brief-history-of-data-in-molecular-biology.html"><a href="a-brief-history-of-data-in-molecular-biology.html"><i class="fa fa-check"></i><b>2.1</b> A Brief History of Data in Molecular Biology<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="biology-as-a-mature-data-science.html"><a href="biology-as-a-mature-data-science.html"><i class="fa fa-check"></i><b>2.2</b> Biology as a Mature Data Science<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>3</b> Preliminaries<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prelim-r.html"><a href="prelim-r.html"><i class="fa fa-check"></i><b>3.1</b> The R Language<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="prelim-rstudio.html"><a href="prelim-rstudio.html"><i class="fa fa-check"></i><b>3.2</b> RStudio<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="prog-the-r-script.html"><a href="prog-the-r-script.html"><i class="fa fa-check"></i><b>3.3</b> The R Script<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="prog-workflow.html"><a href="prog-workflow.html"><i class="fa fa-check"></i><b>3.4</b> The Scripting Workflow<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="prelim-git.html"><a href="prelim-git.html"><i class="fa fa-check"></i><b>3.5</b> git + github<span></span></a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="prelim-git.html"><a href="prelim-git.html#motivation"><i class="fa fa-check"></i><b>3.5.1</b> Motivation<span></span></a></li>
+<li class="chapter" data-level="3.5.2" data-path="prelim-git.html"><a href="prelim-git.html#git"><i class="fa fa-check"></i><b>3.5.2</b> git<span></span></a></li>
+<li class="chapter" data-level="3.5.3" data-path="prelim-git.html"><a href="prelim-git.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>3.5.3</b> Git hosting platforms (GitHub)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="prog-basics.html"><a href="prog-basics.html"><i class="fa fa-check"></i><b>4</b> R Programming<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="before-you-begin.html"><a href="before-you-begin.html"><i class="fa fa-check"></i><b>4.1</b> Before you begin<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>4.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="prog-r-syntax.html"><a href="prog-r-syntax.html"><i class="fa fa-check"></i><b>4.3</b> R Syntax Basics<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="prog-types.html"><a href="prog-types.html"><i class="fa fa-check"></i><b>4.4</b> Basic Types of Values<span></span></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="prog-types.html"><a href="prog-types.html#factors"><i class="fa fa-check"></i><b>4.4.1</b> Factors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="prog-struct.html"><a href="prog-struct.html"><i class="fa fa-check"></i><b>4.5</b> Data Structures<span></span></a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="prog-struct.html"><a href="prog-struct.html#vectors"><i class="fa fa-check"></i><b>4.5.1</b> Vectors<span></span></a></li>
+<li class="chapter" data-level="4.5.2" data-path="prog-struct.html"><a href="prog-struct.html#matrices"><i class="fa fa-check"></i><b>4.5.2</b> Matrices<span></span></a></li>
+<li class="chapter" data-level="4.5.3" data-path="prog-struct.html"><a href="prog-struct.html#lists-and-data-frames"><i class="fa fa-check"></i><b>4.5.3</b> Lists and data frames<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="logical-tests-and-comparators.html"><a href="logical-tests-and-comparators.html"><i class="fa fa-check"></i><b>4.6</b> Logical Tests and Comparators<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>4.7</b> Functions<span></span></a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="functions.html"><a href="functions.html#prog-dry"><i class="fa fa-check"></i><b>4.7.1</b> DRY: Don’t Repeat Yourself<span></span></a></li>
+<li class="chapter" data-level="4.7.2" data-path="functions.html"><a href="functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>4.7.2</b> Writing your own functions<span></span></a></li>
+<li class="chapter" data-level="4.7.3" data-path="functions.html"><a href="functions.html#scope"><i class="fa fa-check"></i><b>4.7.3</b> Scope<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.8</b> Iteration<span></span></a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="iteration.html"><a href="iteration.html#vectorized-operations"><i class="fa fa-check"></i><b>4.8.1</b> Vectorized operations<span></span></a></li>
+<li class="chapter" data-level="4.8.2" data-path="iteration.html"><a href="iteration.html#functional-programming"><i class="fa fa-check"></i><b>4.8.2</b> Functional programming<span></span></a></li>
+<li class="chapter" data-level="4.8.3" data-path="iteration.html"><a href="iteration.html#apply-and-friends"><i class="fa fa-check"></i><b>4.8.3</b> <code>apply()</code> and friends<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="installing-packages.html"><a href="installing-packages.html"><i class="fa fa-check"></i><b>4.9</b> Installing Packages<span></span></a></li>
+<li class="chapter" data-level="4.10" data-path="saving-and-loading-r-data.html"><a href="saving-and-loading-r-data.html"><i class="fa fa-check"></i><b>4.10</b> Saving and Loading R Data<span></span></a></li>
+<li class="chapter" data-level="4.11" data-path="prog-debugging.html"><a href="prog-debugging.html"><i class="fa fa-check"></i><b>4.11</b> Troubleshooting and Debugging<span></span></a></li>
+<li class="chapter" data-level="4.12" data-path="prog-style.html"><a href="prog-style.html"><i class="fa fa-check"></i><b>4.12</b> Coding Style and Conventions<span></span></a>
+<ul>
+<li class="chapter" data-level="4.12.1" data-path="prog-style.html"><a href="prog-style.html#is-my-code-correct"><i class="fa fa-check"></i><b>4.12.1</b> Is my code correct?<span></span></a></li>
+<li class="chapter" data-level="4.12.2" data-path="prog-style.html"><a href="prog-style.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>4.12.2</b> Does my code follow the <span>DRY principle</span>?<span></span></a></li>
+<li class="chapter" data-level="4.12.3" data-path="prog-style.html"><a href="prog-style.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>4.12.3</b> Did I choose concise but descriptive variable and function names?<span></span></a></li>
+<li class="chapter" data-level="4.12.4" data-path="prog-style.html"><a href="prog-style.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>4.12.4</b> Did I use indentation and naming conventions consistently throughout my code?<span></span></a></li>
+<li class="chapter" data-level="4.12.5" data-path="prog-style.html"><a href="prog-style.html#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><i class="fa fa-check"></i><b>4.12.5</b> Did I write comments, especially when what the code does is not obvious?<span></span></a></li>
+<li class="chapter" data-level="4.12.6" data-path="prog-style.html"><a href="prog-style.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>4.12.6</b> How easy would it be for someone else to understand my code?<span></span></a></li>
+<li class="chapter" data-level="4.12.7" data-path="prog-style.html"><a href="prog-style.html#is-my-code-easy-to-maintainchange"><i class="fa fa-check"></i><b>4.12.7</b> Is my code easy to maintain/change?<span></span></a></li>
+<li class="chapter" data-level="4.12.8" data-path="prog-style.html"><a href="prog-style.html#the-styler-package-."><i class="fa fa-check"></i><b>4.12.8</b> The <code>styler</code> package .<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="the-tidyverse.html"><a href="the-tidyverse.html"><i class="fa fa-check"></i><b>5.1</b> The Tidyverse<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="dw-basics.html"><a href="dw-basics.html"><i class="fa fa-check"></i><b>5.2</b> Tidyverse Basics<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>5.3</b> Importing Data<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="data-tibble.html"><a href="data-tibble.html"><i class="fa fa-check"></i><b>5.4</b> The tibble<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>5.5</b> Tidy Data<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>5.6</b> pipes<span></span></a></li>
+<li class="chapter" data-level="5.7" data-path="arranging-data.html"><a href="arranging-data.html"><i class="fa fa-check"></i><b>5.7</b> Arranging Data<span></span></a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="arranging-data.html"><a href="arranging-data.html#dplyrmutate---create-new-columns-using-other-columns"><i class="fa fa-check"></i><b>5.7.1</b> <code>dplyr::mutate()</code> - Create new columns using other columns<span></span></a></li>
+<li class="chapter" data-level="5.7.2" data-path="arranging-data.html"><a href="arranging-data.html#stringr---working-with-character-values"><i class="fa fa-check"></i><b>5.7.2</b> <code>stringr</code> - Working with character values<span></span></a></li>
+<li class="chapter" data-level="5.7.3" data-path="arranging-data.html"><a href="arranging-data.html#dplyrselect---subset-columns-by-name"><i class="fa fa-check"></i><b>5.7.3</b> <code>dplyr::select()</code> - Subset Columns by Name<span></span></a></li>
+<li class="chapter" data-level="5.7.4" data-path="arranging-data.html"><a href="arranging-data.html#dplyrfilter---pick-rows-out-of-a-data-set"><i class="fa fa-check"></i><b>5.7.4</b> <code>dplyr::filter()</code> - Pick rows out of a data set<span></span></a></li>
+<li class="chapter" data-level="5.7.5" data-path="arranging-data.html"><a href="arranging-data.html#dplyrarrange---order-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.7.5</b> <code>dplyr::arrange()</code> - Order rows based on their values<span></span></a></li>
+<li class="chapter" data-level="5.7.6" data-path="arranging-data.html"><a href="arranging-data.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.7.6</b> Putting it all together<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="grouping-data.html"><a href="grouping-data.html"><i class="fa fa-check"></i><b>5.8</b> Grouping Data<span></span></a></li>
+<li class="chapter" data-level="5.9" data-path="rearranging-data.html"><a href="rearranging-data.html"><i class="fa fa-check"></i><b>5.9</b> Rearranging Data<span></span></a></li>
+<li class="chapter" data-level="5.10" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>5.10</b> Relational Data<span></span></a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="relational-data.html"><a href="relational-data.html#dealing-with-multiple-matches"><i class="fa fa-check"></i><b>5.10.1</b> Dealing with multiple matches<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>6</b> Data Science<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-modeling.html"><a href="data-modeling.html"><i class="fa fa-check"></i><b>6.1</b> Data Modeling<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-modeling.html"><a href="data-modeling.html#a-worked-modeling-example"><i class="fa fa-check"></i><b>6.1.1</b> A Worked Modeling Example<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-modeling.html"><a href="data-modeling.html#data-summarization"><i class="fa fa-check"></i><b>6.1.2</b> Data Summarization<span></span></a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-modeling.html"><a href="data-modeling.html#linear-models"><i class="fa fa-check"></i><b>6.1.3</b> Linear Models<span></span></a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-modeling.html"><a href="data-modeling.html#flavors-of-linear-models"><i class="fa fa-check"></i><b>6.1.4</b> Flavors of Linear Models<span></span></a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-modeling.html"><a href="data-modeling.html#assessing-model-accuracy-."><i class="fa fa-check"></i><b>6.1.5</b> Assessing Model Accuracy .<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="statistical-distributions.html"><a href="statistical-distributions.html"><i class="fa fa-check"></i><b>6.2</b> Statistical Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="statistical-distributions.html"><a href="statistical-distributions.html#random-variables"><i class="fa fa-check"></i><b>6.2.1</b> Random Variables<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="statistical-distributions.html"><a href="statistical-distributions.html#statistical-distribution-basics"><i class="fa fa-check"></i><b>6.2.2</b> Statistical Distribution Basics<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="statistical-distributions.html"><a href="statistical-distributions.html#distributions-in-r"><i class="fa fa-check"></i><b>6.2.3</b> Distributions in R<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="statistical-distributions.html"><a href="statistical-distributions.html#discrete-distributions"><i class="fa fa-check"></i><b>6.2.4</b> Discrete Distributions<span></span></a></li>
+<li class="chapter" data-level="6.2.5" data-path="statistical-distributions.html"><a href="statistical-distributions.html#continuous-distributions"><i class="fa fa-check"></i><b>6.2.5</b> Continuous Distributions<span></span></a></li>
+<li class="chapter" data-level="6.2.6" data-path="statistical-distributions.html"><a href="statistical-distributions.html#empirical-distributions"><i class="fa fa-check"></i><b>6.2.6</b> Empirical Distributions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="statistical-tests.html"><a href="statistical-tests.html"><i class="fa fa-check"></i><b>6.3</b> Statistical Tests<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.4</b> P-values<span></span></a></li>
+<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .<span></span></a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.6</b> Statistical power<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#principal-component-analysis"><i class="fa fa-check"></i><b>6.4.1</b> Principal Component Analysis<span></span></a></li>
+<li class="chapter" data-level="6.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#cluster-analysis"><i class="fa fa-check"></i><b>6.4.2</b> Cluster Analysis<span></span></a></li>
+<li class="chapter" data-level="6.4.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#k-means-."><i class="fa fa-check"></i><b>6.4.3</b> k-means .<span></span></a></li>
+<li class="chapter" data-level="6.4.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#others"><i class="fa fa-check"></i><b>6.4.4</b> Others<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="network-analysis-..html"><a href="network-analysis-..html"><i class="fa fa-check"></i><b>6.5</b> Network Analysis .<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>7</b> Data Visualization<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="responsible-plotting.html"><a href="responsible-plotting.html"><i class="fa fa-check"></i><b>7.1</b> Responsible Plotting<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="responsible-plotting.html"><a href="responsible-plotting.html#visualization-principles"><i class="fa fa-check"></i><b>7.1.1</b> Visualization Principles<span></span></a></li>
+<li class="chapter" data-level="7.1.2" data-path="responsible-plotting.html"><a href="responsible-plotting.html#human-visual-perception"><i class="fa fa-check"></i><b>7.1.2</b> Human Visual Perception<span></span></a></li>
+<li class="chapter" data-level="7.1.3" data-path="responsible-plotting.html"><a href="responsible-plotting.html#visual-encodings"><i class="fa fa-check"></i><b>7.1.3</b> Visual Encodings<span></span></a></li>
+<li class="chapter" data-level="7.1.4" data-path="responsible-plotting.html"><a href="responsible-plotting.html#some-opinionated-rules-of-thumb"><i class="fa fa-check"></i><b>7.1.4</b> Some Opinionated Rules of Thumb<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="dv-gg.html"><a href="dv-gg.html"><i class="fa fa-check"></i><b>7.2</b> Grammar of Graphics<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="dv-gg.html"><a href="dv-gg.html#ggplot-mechanics"><i class="fa fa-check"></i><b>7.2.1</b> <code>ggplot</code> mechanics<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html"><i class="fa fa-check"></i><b>7.3</b> Plotting One Dimension<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#dv-bar"><i class="fa fa-check"></i><b>7.3.1</b> Bar chart<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#lollipop-plots"><i class="fa fa-check"></i><b>7.3.2</b> Lollipop plots<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#stacked-area-charts"><i class="fa fa-check"></i><b>7.3.3</b> Stacked Area charts<span></span></a></li>
+<li class="chapter" data-level="7.3.4" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#parallel-coordinate-plots"><i class="fa fa-check"></i><b>7.3.4</b> Parallel Coordinate plots<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html"><i class="fa fa-check"></i><b>7.4</b> Visualizing Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#histogram"><i class="fa fa-check"></i><b>7.4.1</b> Histogram<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#density"><i class="fa fa-check"></i><b>7.4.2</b> Density<span></span></a></li>
+<li class="chapter" data-level="7.4.3" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#boxplot"><i class="fa fa-check"></i><b>7.4.3</b> Boxplot<span></span></a></li>
+<li class="chapter" data-level="7.4.4" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#violin-plot"><i class="fa fa-check"></i><b>7.4.4</b> Violin plot<span></span></a></li>
+<li class="chapter" data-level="7.4.5" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#beeswarm-plot"><i class="fa fa-check"></i><b>7.4.5</b> Beeswarm plot<span></span></a></li>
+<li class="chapter" data-level="7.4.6" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#ridgeline"><i class="fa fa-check"></i><b>7.4.6</b> Ridgeline<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html"><i class="fa fa-check"></i><b>7.5</b> Plotting Two or More Dimensions<span></span></a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#scatter-plots"><i class="fa fa-check"></i><b>7.5.1</b> Scatter Plots<span></span></a></li>
+<li class="chapter" data-level="7.5.2" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#bubble-plots"><i class="fa fa-check"></i><b>7.5.2</b> Bubble Plots<span></span></a></li>
+<li class="chapter" data-level="7.5.3" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#connected-scatter-plots"><i class="fa fa-check"></i><b>7.5.3</b> Connected Scatter Plots<span></span></a></li>
+<li class="chapter" data-level="7.5.4" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#line-plots"><i class="fa fa-check"></i><b>7.5.4</b> Line Plots<span></span></a></li>
+<li class="chapter" data-level="7.5.5" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#parallel-coordinate-plots-1"><i class="fa fa-check"></i><b>7.5.5</b> Parallel Coordinate Plots<span></span></a></li>
+<li class="chapter" data-level="7.5.6" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#heatmaps"><i class="fa fa-check"></i><b>7.5.6</b> Heatmaps<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html"><i class="fa fa-check"></i><b>7.6</b> Other Kind of Plots<span></span></a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html#dendrograms"><i class="fa fa-check"></i><b>7.6.1</b> Dendrograms<span></span></a></li>
+<li class="chapter" data-level="7.6.2" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html#chord-diagrams-and-circos-plots"><i class="fa fa-check"></i><b>7.6.2</b> Chord Diagrams and Circos Plots<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="multiple-plots-..html"><a href="multiple-plots-..html"><i class="fa fa-check"></i><b>7.7</b> Multiple Plots .<span></span></a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="multiple-plots-..html"><a href="multiple-plots-..html#secondary-axes-."><i class="fa fa-check"></i><b>7.7.1</b> Secondary Axes .<span></span></a></li>
+<li class="chapter" data-level="7.7.2" data-path="multiple-plots-..html"><a href="multiple-plots-..html#facet-wrapping-."><i class="fa fa-check"></i><b>7.7.2</b> Facet wrapping .<span></span></a></li>
+<li class="chapter" data-level="7.7.3" data-path="multiple-plots-..html"><a href="multiple-plots-..html#multipanel-figures-."><i class="fa fa-check"></i><b>7.7.3</b> Multipanel Figures .<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="publication-ready-plots-..html"><a href="publication-ready-plots-..html"><i class="fa fa-check"></i><b>7.8</b> Publication Ready Plots .<span></span></a></li>
+<li class="chapter" data-level="7.9" data-path="network-visualization.html"><a href="network-visualization.html"><i class="fa fa-check"></i><b>7.9</b> Network visualization<span></span></a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="network-visualization.html"><a href="network-visualization.html#interactive-network-plots"><i class="fa fa-check"></i><b>7.9.1</b> Interactive network plots<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>8</b> Biology &amp; Bioinformatics<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bio-r.html"><a href="bio-r.html"><i class="fa fa-check"></i><b>8.1</b> R in Biology<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html"><i class="fa fa-check"></i><b>8.2</b> Biological Data Overview<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="biological-data-overview.html"><a href="biological-data-overview.html#bio-data-types"><i class="fa fa-check"></i><b>8.2.1</b> Types of Biological Data<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html#csv-files"><i class="fa fa-check"></i><b>8.2.2</b> CSV Files<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="biological-data-overview.html"><a href="biological-data-overview.html#biological-data-is-not-tidy"><i class="fa fa-check"></i><b>8.2.3</b> Biological data is NOT Tidy!<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="bio-bioconductor.html"><a href="bio-bioconductor.html"><i class="fa fa-check"></i><b>8.3</b> Bioconductor<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="microarrays.html"><a href="microarrays.html"><i class="fa fa-check"></i><b>8.4</b> Microarrays<span></span></a></li>
+<li class="chapter" data-level="8.5" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html"><i class="fa fa-check"></i><b>8.5</b> High Throughput Sequencing<span></span></a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#raw-hts-data"><i class="fa fa-check"></i><b>8.5.1</b> Raw HTS Data<span></span></a></li>
+<li class="chapter" data-level="8.5.2" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#preliminary-hts-data-analysis"><i class="fa fa-check"></i><b>8.5.2</b> Preliminary HTS Data Analysis<span></span></a></li>
+<li class="chapter" data-level="8.5.3" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#count-data"><i class="fa fa-check"></i><b>8.5.3</b> Count Data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="gene-identifiers.html"><a href="gene-identifiers.html"><i class="fa fa-check"></i><b>8.6</b> Gene Identifiers<span></span></a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="gene-identifiers.html"><a href="gene-identifiers.html#gene-identifier-systems"><i class="fa fa-check"></i><b>8.6.1</b> Gene Identifier Systems<span></span></a></li>
+<li class="chapter" data-level="8.6.2" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-between-identifier-systems"><i class="fa fa-check"></i><b>8.6.2</b> Mapping Between Identifier Systems<span></span></a></li>
+<li class="chapter" data-level="8.6.3" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-homologs"><i class="fa fa-check"></i><b>8.6.3</b> Mapping Homologs<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="gene-expression.html"><a href="gene-expression.html"><i class="fa fa-check"></i><b>8.7</b> Gene Expression<span></span></a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="gene-expression.html"><a href="gene-expression.html#gene-expression-data-in-bioconductor"><i class="fa fa-check"></i><b>8.7.1</b> Gene Expression Data in Bioconductor<span></span></a></li>
+<li class="chapter" data-level="8.7.2" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-analysis"><i class="fa fa-check"></i><b>8.7.2</b> Differential Expression Analysis<span></span></a></li>
+<li class="chapter" data-level="8.7.3" data-path="gene-expression.html"><a href="gene-expression.html#microarray-gene-expression-data"><i class="fa fa-check"></i><b>8.7.3</b> Microarray Gene Expression Data<span></span></a></li>
+<li class="chapter" data-level="8.7.4" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-microarrays-limma"><i class="fa fa-check"></i><b>8.7.4</b> Differential Expression: Microarrays (limma)<span></span></a></li>
+<li class="chapter" data-level="8.7.5" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq"><i class="fa fa-check"></i><b>8.7.5</b> RNASeq<span></span></a></li>
+<li class="chapter" data-level="8.7.6" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq-gene-expression-data"><i class="fa fa-check"></i><b>8.7.6</b> RNASeq Gene Expression Data<span></span></a></li>
+<li class="chapter" data-level="8.7.7" data-path="gene-expression.html"><a href="gene-expression.html#filtering-counts"><i class="fa fa-check"></i><b>8.7.7</b> Filtering Counts<span></span></a></li>
+<li class="chapter" data-level="8.7.8" data-path="gene-expression.html"><a href="gene-expression.html#count-distributions"><i class="fa fa-check"></i><b>8.7.8</b> Count Distributions<span></span></a></li>
+<li class="chapter" data-level="8.7.9" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-rnaseq"><i class="fa fa-check"></i><b>8.7.9</b> Differential Expression: RNASeq<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html"><i class="fa fa-check"></i><b>8.8</b> Gene Set Enrichment Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#gene-sets"><i class="fa fa-check"></i><b>8.8.1</b> Gene Sets<span></span></a></li>
+<li class="chapter" data-level="8.8.2" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#working-with-gene-sets-in-r"><i class="fa fa-check"></i><b>8.8.2</b> Working with gene sets in R<span></span></a></li>
+<li class="chapter" data-level="8.8.3" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#over-representation-analysis"><i class="fa fa-check"></i><b>8.8.3</b> Over-representation Analysis<span></span></a></li>
+<li class="chapter" data-level="8.8.4" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#rank-based-analysis"><i class="fa fa-check"></i><b>8.8.4</b> Rank-based Analysis<span></span></a></li>
+<li class="chapter" data-level="8.8.5" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#fgsea"><i class="fa fa-check"></i><b>8.8.5</b> fgsea<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="biological-networks-..html"><a href="biological-networks-..html"><i class="fa fa-check"></i><b>8.9</b> Biological Networks .<span></span></a>
+<ul>
+<li class="chapter" data-level="8.9.1" data-path="biological-networks-..html"><a href="biological-networks-..html#biological-pathways-."><i class="fa fa-check"></i><b>8.9.1</b> Biological Pathways .<span></span></a></li>
+<li class="chapter" data-level="8.9.2" data-path="biological-networks-..html"><a href="biological-networks-..html#gene-regulatory-networks-."><i class="fa fa-check"></i><b>8.9.2</b> Gene Regulatory Networks .<span></span></a></li>
+<li class="chapter" data-level="8.9.3" data-path="biological-networks-..html"><a href="biological-networks-..html#protein-protein-interaction-network-."><i class="fa fa-check"></i><b>8.9.3</b> Protein-Protein Interaction Network .<span></span></a></li>
+<li class="chapter" data-level="8.9.4" data-path="biological-networks-..html"><a href="biological-networks-..html#wgcna-."><i class="fa fa-check"></i><b>8.9.4</b> WGCNA .<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.10" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html"><i class="fa fa-check"></i><b>8.10</b> Single Cell Sequencing Analysis .<span></span></a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-sequencing-."><i class="fa fa-check"></i><b>8.10.1</b> Single Cell Sequencing .<span></span></a></li>
+<li class="chapter" data-level="8.10.2" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-analysis-."><i class="fa fa-check"></i><b>8.10.2</b> Single Cell Analysis .<span></span></a></li>
+<li class="chapter" data-level="8.10.3" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-clustering-."><i class="fa fa-check"></i><b>8.10.3</b> Single Cell Clustering .<span></span></a></li>
+<li class="chapter" data-level="8.10.4" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#dimensionality-reduction-projection-."><i class="fa fa-check"></i><b>8.10.4</b> Dimensionality Reduction &amp; Projection .<span></span></a></li>
+<li class="chapter" data-level="8.10.5" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-data-visualization-."><i class="fa fa-check"></i><b>8.10.5</b> Single Cell Data Visualization .<span></span></a></li>
+<li class="chapter" data-level="8.10.6" data-path="single-cell-sequencing-analysis-..html"><a href="single-cell-sequencing-analysis-..html#single-cell-marker-analysis-."><i class="fa fa-check"></i><b>8.10.6</b> Single Cell Marker Analysis .<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>9</b> EngineeRing<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="unit-testing.html"><a href="unit-testing.html"><i class="fa fa-check"></i><b>9.1</b> Unit Testing<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="object-orientation-in-r-..html"><a href="object-orientation-in-r-..html"><i class="fa fa-check"></i><b>9.2</b> Object Orientation in R .<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="toolification-..html"><a href="toolification-..html"><i class="fa fa-check"></i><b>9.3</b> Toolification .<span></span></a></li>
+<li class="chapter" data-level="9.4" data-path="pipelines-workflows-..html"><a href="pipelines-workflows-..html"><i class="fa fa-check"></i><b>9.4</b> Pipelines &amp; Workflows .<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="parallel-processing-..html"><a href="parallel-processing-..html"><i class="fa fa-check"></i><b>9.5</b> Parallel Processing .<span></span></a></li>
+<li class="chapter" data-level="9.6" data-path="r-packages-..html"><a href="r-packages-..html"><i class="fa fa-check"></i><b>9.6</b> R Packages .<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="rshiny.html"><a href="rshiny.html"><i class="fa fa-check"></i><b>10</b> RShiny<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>10.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>10.2</b> Learning Objectives<span></span></a></li>
+<li class="chapter" data-level="10.3" data-path="skill-list.html"><a href="skill-list.html"><i class="fa fa-check"></i><b>10.3</b> Skill List<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="rmarkdown-knitr.html"><a href="rmarkdown-knitr.html"><i class="fa fa-check"></i><b>11.1</b> RMarkdown &amp; knitr<span></span></a></li>
+<li class="chapter" data-level="11.2" data-path="bookdown.html"><a href="bookdown.html"><i class="fa fa-check"></i><b>11.2</b> bookdown<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>12</b> Contribution Guide<span></span></a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="custom-blocks.html"><a href="custom-blocks.html"><i class="fa fa-check"></i><b>12.1</b> Custom blocks<span></span></a></li>
+</ul></li>
+<li><a href="assignments.html#assignments">Assignments<span></span></a>
+<ul>
+<li><a href="assignment-format.html#assignment-format">Assignment Format<span></span></a></li>
+<li><a href="starting-an-assignment.html#starting-an-assignment">Starting an Assignment<span></span></a>
+<ul>
+<li><a href="starting-an-assignment.html#starting-your-own-git-repository-and-cloning-it">Starting your own <code>git</code> repository and cloning it<span></span></a></li>
+<li><a href="starting-an-assignment.html#contents">Contents<span></span></a></li>
+<li><a href="starting-an-assignment.html#github-tutorial">GitHub tutorial<span></span></a></li>
+<li><a href="starting-an-assignment.html#committing-and-pushing-with-r-and-without">Committing and Pushing with R (and without)<span></span></a></li>
+<li><a href="starting-an-assignment.html#using-rstudio">Using RStudio<span></span></a></li>
+<li><a href="starting-an-assignment.html#using-the-command-line">Using the command line<span></span></a></li>
+</ul></li>
+<li><a href="assignment-1.html#assignment-1">Assignment 1<span></span></a>
+<ul>
+<li><a href="assignment-1.html#problem-statement">Problem Statement<span></span></a></li>
+<li><a href="assignment-1.html#learning-objectives-and-skill-list">Learning Objectives and Skill List<span></span></a></li>
+<li><a href="assignment-1.html#instructions">Instructions<span></span></a></li>
+<li><a href="assignment-1.html#hints">Hints<span></span></a></li>
+</ul></li>
+<li><a href="assignment-2.html#assignment-2">Assignment 2<span></span></a>
+<ul>
+<li><a href="assignment-2.html#problem-statement-1">Problem Statement<span></span></a></li>
+<li><a href="assignment-2.html#learning-objectives-1">Learning Objectives<span></span></a></li>
+<li><a href="assignment-2.html#skill-list-1">Skill List<span></span></a></li>
+<li><a href="assignment-2.html#instructions-1">Instructions<span></span></a></li>
+<li><a href="assignment-2.html#function-details">Function Details<span></span></a></li>
+</ul></li>
+<li><a href="assignment-3.html#assignment-3">Assignment 3<span></span></a>
+<ul>
+<li><a href="assignment-3.html#problem-statement-2">Problem Statement<span></span></a></li>
+<li><a href="assignment-3.html#learning-objectives-2">Learning Objectives<span></span></a></li>
+<li><a href="assignment-3.html#skill-list-2">Skill List<span></span></a></li>
+<li><a href="assignment-3.html#background-on-microarrays">Background on Microarrays<span></span></a></li>
+<li><a href="assignment-3.html#background-on-principal-component-analysis">Background on Principal Component Analysis<span></span></a></li>
+<li><a href="assignment-3.html#marisa-et-al.-gene-expression-classification-of-colon-cancer-into-molecular-subtypes-characterization-validation-and-prognostic-value.-plos-medicine-may-2013.-pmid-23700391">Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391<span></span></a></li>
+<li><a href="assignment-3.html#scaling-data-using-r-scale">Scaling data using R <code>scale()</code><span></span></a></li>
+<li><a href="assignment-3.html#proportion-of-variance-explained">Proportion of variance explained<span></span></a></li>
+<li><a href="assignment-3.html#plotting-and-visualization-of-pca">Plotting and visualization of PCA<span></span></a></li>
+<li><a href="assignment-3.html#hierarchical-clustering-and-heatmaps">Hierarchical Clustering and Heatmaps<span></span></a></li>
+<li><a href="assignment-3.html#references">References<span></span></a></li>
+</ul></li>
+<li><a href="assignment-4.html#assignment-4">Assignment 4<span></span></a>
+<ul>
+<li><a href="assignment-4.html#problem-statement-3">Problem Statement<span></span></a></li>
+<li><a href="assignment-4.html#learning-objectives-3">Learning Objectives<span></span></a></li>
+<li><a href="assignment-4.html#skill-list-3">Skill List<span></span></a></li>
+<li><a href="assignment-4.html#instructions-2">Instructions<span></span></a></li>
+<li><a href="assignment-4.html#deliverables">Deliverables<span></span></a></li>
+<li><a href="assignment-4.html#function-details-1">Function Details<span></span></a></li>
+<li><a href="assignment-4.html#hints-1">Hints<span></span></a></li>
+</ul></li>
+<li><a href="assignment-5.html#assignment-5">Assignment 5<span></span></a>
+<ul>
+<li><a href="assignment-5.html#problem-statement-4">Problem Statement<span></span></a></li>
+<li><a href="assignment-5.html#learning-objectives-4">Learning Objectives<span></span></a></li>
+<li><a href="assignment-5.html#skill-list-4">Skill List<span></span></a></li>
+<li><a href="assignment-5.html#deseq2-background">DESeq2 Background<span></span></a></li>
+<li><a href="assignment-5.html#generating-a-counts-matrix">Generating a counts matrix<span></span></a></li>
+<li><a href="assignment-5.html#prefiltering-counts-matrix">Prefiltering Counts matrix<span></span></a></li>
+<li><a href="assignment-5.html#median-of-ratios-normalization">Median-of-ratios normalization<span></span></a></li>
+<li><a href="assignment-5.html#deseq2-preparation">DESeq2 preparation<span></span></a></li>
+<li><a href="assignment-5.html#omeara-et-al.-transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration.-circ-res.-feb-2015.-pmid-25477501l">O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l<span></span></a></li>
+<li><a href="assignment-5.html#reading-and-subsetting-the-data-from-verse_counts.tsv-and-sample_metadata.csv">1. Reading and subsetting the data from verse_counts.tsv and sample_metadata.csv<span></span></a></li>
+<li><a href="assignment-5.html#running-deseq2">2. Running DESeq2<span></span></a></li>
+<li><a href="assignment-5.html#annotating-results-to-construct-a-labeled-volcano-plot">3. Annotating results to construct a labeled volcano plot<span></span></a></li>
+<li><a href="assignment-5.html#diagnostic-plot-of-the-raw-p-values-for-all-genes">4. Diagnostic plot of the raw p-values for all genes<span></span></a></li>
+<li><a href="assignment-5.html#plotting-the-logfoldchanges-for-differentially-expressed-genes">5. Plotting the LogFoldChanges for differentially expressed genes<span></span></a></li>
+<li><a href="assignment-5.html#the-choice-of-fdr-cutoff-depends-on-cost">The choice of FDR cutoff depends on cost<span></span></a></li>
+<li><a href="assignment-5.html#plotting-the-normalized-counts-of-differentially-expressed-genes">6. Plotting the normalized counts of differentially expressed genes<span></span></a></li>
+<li><a href="assignment-5.html#volcano-plot-to-visualize-differential-expression-results">7. Volcano Plot to visualize differential expression results<span></span></a></li>
+<li><a href="assignment-5.html#running-fgsea-vignette">8. Running fgsea <span>vignette</span><span></span></a></li>
+<li><a href="assignment-5.html#plotting-the-top-ten-positive-nes-and-top-ten-negative-nes-pathways">9. Plotting the top ten positive NES and top ten negative NES pathways<span></span></a></li>
+<li><a href="assignment-5.html#references-1">References<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix<span></span></b></span></li>
+<li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines<span></span></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="week-1.html"><a href="week-1.html"><i class="fa fa-check"></i><b>A.1</b> Week 1<span></span></a></li>
+<li class="chapter" data-level="A.2" data-path="week-2.html"><a href="week-2.html"><i class="fa fa-check"></i><b>A.2</b> Week 2<span></span></a></li>
+<li class="chapter" data-level="A.3" data-path="week-3.html"><a href="week-3.html"><i class="fa fa-check"></i><b>A.3</b> Week 3<span></span></a></li>
+<li class="chapter" data-level="A.4" data-path="week-4.html"><a href="week-4.html"><i class="fa fa-check"></i><b>A.4</b> Week 4<span></span></a></li>
+<li class="chapter" data-level="A.5" data-path="week-5.html"><a href="week-5.html"><i class="fa fa-check"></i><b>A.5</b> Week 5<span></span></a></li>
+<li class="chapter" data-level="A.6" data-path="week-6.html"><a href="week-6.html"><i class="fa fa-check"></i><b>A.6</b> Week 6<span></span></a></li>
+<li class="chapter" data-level="A.7" data-path="week-7.html"><a href="week-7.html"><i class="fa fa-check"></i><b>A.7</b> Week 7<span></span></a></li>
+<li class="chapter" data-level="A.8" data-path="week-8.html"><a href="week-8.html"><i class="fa fa-check"></i><b>A.8</b> Week 8<span></span></a></li>
+<li class="chapter" data-level="A.9" data-path="week-9.html"><a href="week-9.html"><i class="fa fa-check"></i><b>A.9</b> Week 9<span></span></a></li>
+<li class="chapter" data-level="A.10" data-path="week-10.html"><a href="week-10.html"><i class="fa fa-check"></i><b>A.10</b> Week 10<span></span></a></li>
+<li class="chapter" data-level="A.11" data-path="week-11.html"><a href="week-11.html"><i class="fa fa-check"></i><b>A.11</b> Week 11<span></span></a></li>
+<li class="chapter" data-level="A.12" data-path="week-12.html"><a href="week-12.html"><i class="fa fa-check"></i><b>A.12</b> Week 12<span></span></a></li>
+<li class="chapter" data-level="A.13" data-path="week-13.html"><a href="week-13.html"><i class="fa fa-check"></i><b>A.13</b> Week 13<span></span></a></li>
+<li class="chapter" data-level="A.14" data-path="week-14---no-class-for-project-work.html"><a href="week-14---no-class-for-project-work.html"><i class="fa fa-check"></i><b>A.14</b> Week 14 - no class for project work<span></span></a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">BF591 - R for Biological Sciences</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="responsible-plotting" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Responsible Plotting<a href="responsible-plotting.html#responsible-plotting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>“Good plots empower us to ask good questions.” - Alberto Cairo, How Charts Lie</p>
+<p>Plots are the primary vehicles of communicating scientific results. A very
+common and useful approach to writing scientific papers is to decide how many
+figures are needed to tell the story, and then create plots as necessary to
+convey that story. The text plays a supporting role for the figures. Effective
+data visualization has immense power to communicate the ideas (and beliefs) of
+the chart creator. Consider the famous “hockey stick graph” depicting average
+global temperatures created by Jerry Mahlman to describe the pattern of global
+warming shown by Mann, Bradkely &amp; Hughes in 1999:</p>
+<div class="figure">
+<img src="hockey_stick_chart.jpg" alt="" />
+<p class="caption">“Hockey stick graph” by Jerry Mahlman, showing the trend of temperature rise over the past 1000 years in the northern hemisphere</p>
+</div>
+<p>The data and models underlying the graph are very complex, but the story is
+clear: the past 100 years has seen a dramatic increase in average temperature in
+the northern hemisphere. This chart was one of the main drivers behind renewed
+main stream awareness of climate change, in no small part because it is easy to
+understand.</p>
+<p>Given the power visualization has, and the increasing amount of data created by
+and required for daily life, it is ever more important that data visualization
+designers understand the principles and pitfalls of effective plotting. There is
+no easy solution to accomplishing this, but Alberto Cairo and Enrico Bertini,
+two journalists who specialize in data visualization and infographics, lay out
+five qualities of an effective visualization, in Cairo’s book <a href="http://www.thefunctionalart.com/p/the-truthful-art-book.html">the truthful
+art</a>:</p>
+<ol style="list-style-type: decimal">
+<li><strong>It is truthful</strong> - the message conveyed by the visualization expresses some
+truth of the underlying data (to the extent that anything is “true”)</li>
+<li><strong>It is functional</strong> - the visualization is accurate, and allows the reader
+to do something useful with the insights they gain</li>
+<li><strong>It is insightful</strong> - the visualization should reveal patterns in the data
+that would otherwise be difficult or impossible to see and understand</li>
+<li><strong>It is enlightening</strong> - the reader should leave the experience of engaging
+with the visualization convinced of something, ideally what the designer intends</li>
+<li><strong>It is beautiful</strong> - it is visually appealing to its target audience, which
+helps the user more easily spend time and engage with the visualization</li>
+</ol>
+<p>A full treatment of these ideas are included in, among others, three excellent
+books by Alberto Cairo, linked at the end of this section. The sections that
+follow describe some of the ideas and concepts that make visualization
+challenging and offer some guidance from the books mentioned on how to produce
+effective visualizations.</p>
+<div class="box readmore">
+<p>All three of these books were written by Alberto Cairo:</p>
+<ul>
+<li><a href="http://www.thefunctionalart.com/p/reviews.html">How Charts Lie</a></li>
+<li><a href="http://www.thefunctionalart.com/p/about-book.html">the funcitonal art</a></li>
+<li><a href="http://www.thefunctionalart.com/p/the-truthful-art-book.html">the truthful art</a></li>
+</ul>
+</div>
+<div id="visualization-principles" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Visualization Principles<a href="responsible-plotting.html#visualization-principles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The purpose of data visualization is to illustrate (from the latin <em>illustrare</em>,
+meaning to light up or illuminate) relationships between quantities. Effective
+data visualization takes advantage of our highly evolved <a href="https://en.wikipedia.org/wiki/Visual_perception">visual perception
+system</a> to communicate these
+relationships to our cognitive and decision making systems. Therefore, our
+visualization strategies should take knowledge of our perceptual biases into
+account when deciding how to present data. Poor data visualization choices may
+make interpretation difficult, or worse lead us to incorrect inferences and
+conclusions.</p>
+</div>
+<div id="human-visual-perception" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Human Visual Perception<a href="responsible-plotting.html#human-visual-perception" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The human visual perceptual system is intrinsically integrated with our
+cognitive system. This makes it a <em>predictive</em> or <em>interpretive</em> system, where
+patterns of light received by the eye are pre-processed before the relatively
+slower executive function parts of our brains can make judgements.
+If we compare our perception of the world around us to a cinematic film, this
+makes our visual perception less raw video footage and more like a director’s
+commentary, where we add our interpretations, motivations, experiences, and
+anecdotal annotations to the images before we cognitively interpret them. Said
+differently, our visuo-cognitive system performs <em>pattern recognition</em> on the
+information we receive, and annotates the information with the patterns it
+thinks it sees. Very often, our cognition predicts patterns that are accurate,
+which therefore may be useful for us in making decisions, e.g. how to move out
+of the trajectory of a falling tree branch. However, sometimes our pattern
+recognition system, which is always <em>trying</em> to match patterns, sees patterns
+that don’t exist. Some of the most well known and well studied examples of these
+perceptual errors are <em>optical illusions.</em></p>
+<p>Optical illusions are images or animations that reveal the errors and bias of
+our perceptual system. Some illusions that are static images appear to move.
+Others distort the true relations between lines or shapes, or lead to incorrect
+or inconsistent perception of color. Consider the famous <a href="https://en.wikipedia.org/wiki/Checker_shadow_illusion">checkerboard shadow
+illusion</a> created by
+Edward H. Adelson in 1995:</p>
+<div class="figure">
+<img src="checker_illusion.png" alt="" />
+<p class="caption">Checkerboard shadow illusion, the squares marked A and B are the same color</p>
+</div>
+<p>The image on the right clearly shows the two squares A and B are the same shade
+of grey, though A appears darker than B in the left image. This is because our
+perceptual system identifies color by <em>contrasting</em> adjacent colors. Since the
+colors adjacent to the A and B squares differ, our perception of the colors also
+differ. This example illustrates the contrast bias according to the <em>value</em>, or
+lightness, of the color, but the principle also applies to different hues:</p>
+<div class="figure">
+<img src="gradient_illusion.png" alt="" />
+<p class="caption">The three squares are drawn on top of and below the image and are the same color</p>
+</div>
+<p>An illusion that shows how our perceptual system distorts relationships between
+geometry is as follows:</p>
+<div class="figure">
+<img src="wavy_grid.png" alt="" />
+<p class="caption">The horizontal and vertical pattern appears to be “wavy” but in fact form straight lines</p>
+</div>
+<p>The pattern of light and dark squares intersecting with the grid makes the lines
+appear “wavy” when all the horizontal and vertical lines are in fact straight,
+parallel, and perpendicular.</p>
+<p>A final example illusion that is relevant for data visualization demonstrates
+a similar contextual bias of relative area:</p>
+<div class="figure">
+<img src="area_illusion.png" alt="" />
+<p class="caption">The blue dots have the same diameter</p>
+</div>
+<p>The two blue dots in the image have the same radius, although the dot within
+the large black circles appears smaller.</p>
+<p>Not only are there illusions that distort our perception of shapes that are
+there, but there are also illusions that convince us of the existence of shapes
+that are <em>not</em> there. The following illusion illustrates the point:</p>
+<div class="figure">
+<img src="negative_shape.png" alt="" />
+<p class="caption">The shapes are drawn to suggest a triangle in the middle, though no triangle is actually drawn</p>
+</div>
+<p>Seeing shapes when they aren’t there is nothing new to humans, of course.</p>
+<div class="figure">
+<img src="cloud_dog.png" alt="" />
+<p class="caption">Clouds that resemble shapes - this author sees a running dog</p>
+</div>
+<p>Each of these perceptual biases relate to how we interpret many common data
+visualization strategies. We cannot avoid making these interpretive errors via
+our cognition alone, but we can use this knowledge in the design of our plots
+to mitigate their effects. To quickly summarize the perceptual biases we have
+demonstrated:</p>
+<ol style="list-style-type: decimal">
+<li>We perceive the value and hue of colors in contrast to adjacent colors</li>
+<li>Certain types of geometry interfere with our ability to assess accurate
+relationships between geometric shapes</li>
+<li>We perceive the size (area) of shapes relative to nearby shapes</li>
+<li>We may perceive shapes where there are none drawn, based on nearby shapes</li>
+<li>We may perceive shapes that are similar to other familiar shapes, but have no
+true relationship</li>
+</ol>
+<p>Each of these biases influence how we perceive and interpret plots, as we will
+see in the rest of this chapter.</p>
+</div>
+<div id="visual-encodings" class="section level3 hasAnchor" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Visual Encodings<a href="responsible-plotting.html#visual-encodings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Data visualization is the process of encoding numbers as positions, shapes, and
+colors in a two- or sometimes three-dimensional space. There are many different
+geometric properties we can use to create an encoding, including:</p>
+<ol style="list-style-type: decimal">
+<li>Length, width, or height</li>
+<li>Position</li>
+<li>Area</li>
+<li>Angle/proportional area</li>
+<li>Shape</li>
+<li>Hue and value of colors</li>
+</ol>
+<p>Examples of each of these encodings is depicted for a fictitious dataset of
+values between zero and one in the following figure:</p>
+<div class="figure">
+<img src="viz_encodings.png" alt="" />
+<p class="caption">Different encodings for the same data. This figure was inspired by Alberto Cairo in his book the truthful art.</p>
+</div>
+<p>The example encodings in the figure are among the most common and recognizable
+elements used in scientific plotting. Every time a reader examines a plot, they
+must <em>decode</em> it to a (hopefully) accurate mental model of the quantities that
+underlie it. Using familiar encodings that a reader will already know how to
+interpret makes this decoding cognitively easier, thereby enabling the plot to
+be more quickly understood.</p>
+<p>Every quantity we wish to plot must be mapped to a visualization using one or
+more of these geometric encodings. By combining different variables with
+different encodings, we construct more complex plots. Consider the scatter plot,
+which contains two continuous values per datum, each of which is mapped to a
+visualization with a position encoding:</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="responsible-plotting.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb245-2"><a href="responsible-plotting.html#cb245-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
+<span id="cb245-3"><a href="responsible-plotting.html#cb245-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">0</span>,<span class="dv">5</span>)</span>
+<span id="cb245-4"><a href="responsible-plotting.html#cb245-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb245-5"><a href="responsible-plotting.html#cb245-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb245-6"><a href="responsible-plotting.html#cb245-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="main_files/viz%20scatter-1.png" width="672" /></p>
+<p>We might layer on another encoding by introducing a new variable that is the
+absolute value of the product of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> and make the area of each datum
+proportional to that value:</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="responsible-plotting.html#cb246-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span>  <span class="fu">tibble</span>(</span>
+<span id="cb246-2"><a href="responsible-plotting.html#cb246-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
+<span id="cb246-3"><a href="responsible-plotting.html#cb246-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">0</span>,<span class="dv">5</span>),</span>
+<span id="cb246-4"><a href="responsible-plotting.html#cb246-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">x times y</span><span class="st">`</span><span class="ot">=</span><span class="fu">abs</span>(x<span class="sc">*</span>y)</span>
+<span id="cb246-5"><a href="responsible-plotting.html#cb246-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb246-6"><a href="responsible-plotting.html#cb246-6" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb246-7"><a href="responsible-plotting.html#cb246-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y,<span class="at">size=</span><span class="st">`</span><span class="at">x times y</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb246-8"><a href="responsible-plotting.html#cb246-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="main_files/viz%20scatter%202-1.png" width="672" /></p>
+<p>We could layer yet more encodings to color each marker proportional to a value
+between 0 and 1, and also change the shape based on a category:</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="responsible-plotting.html#cb247-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(data,</span>
+<span id="cb247-2"><a href="responsible-plotting.html#cb247-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">z=</span><span class="fu">runif</span>(<span class="dv">100</span>),</span>
+<span id="cb247-3"><a href="responsible-plotting.html#cb247-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">category=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>), <span class="dv">100</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb247-4"><a href="responsible-plotting.html#cb247-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb247-5"><a href="responsible-plotting.html#cb247-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb247-6"><a href="responsible-plotting.html#cb247-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">size=</span><span class="st">`</span><span class="at">x times y</span><span class="st">`</span>, <span class="at">color=</span>z, <span class="at">shape=</span>category)) <span class="sc">+</span></span>
+<span id="cb247-7"><a href="responsible-plotting.html#cb247-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="main_files/viz%20scatter%203-1.png" width="672" /></p>
+<p>Let’s say the sum of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is meaningful as well, and we are interested in
+the order of the data along this axis. We can connect all the points with lines
+by using a length encoding between adjacent data points after sorting by <span class="math inline">\(x+y\)</span>:</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="responsible-plotting.html#cb248-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(data,</span>
+<span id="cb248-2"><a href="responsible-plotting.html#cb248-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">x + y</span><span class="st">`</span><span class="ot">=</span>x<span class="sc">+</span>y,</span>
+<span id="cb248-3"><a href="responsible-plotting.html#cb248-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb248-4"><a href="responsible-plotting.html#cb248-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="st">`</span><span class="at">x + y</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb248-5"><a href="responsible-plotting.html#cb248-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb248-6"><a href="responsible-plotting.html#cb248-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend=</span><span class="fu">lag</span>(x,<span class="dv">1</span>),</span>
+<span id="cb248-7"><a href="responsible-plotting.html#cb248-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend=</span><span class="fu">lag</span>(y,<span class="dv">1</span>)</span>
+<span id="cb248-8"><a href="responsible-plotting.html#cb248-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb248-9"><a href="responsible-plotting.html#cb248-9" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb248-10"><a href="responsible-plotting.html#cb248-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb248-11"><a href="responsible-plotting.html#cb248-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">xend=</span>xend,<span class="at">y=</span>y,<span class="at">yend=</span>yend,<span class="at">alpha=</span><span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb248-12"><a href="responsible-plotting.html#cb248-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">size=</span><span class="st">`</span><span class="at">x times y</span><span class="st">`</span>, <span class="at">color=</span>z, <span class="at">shape=</span>category))</span></code></pre></div>
+<p><img src="main_files/viz%20scatter%204-1.png" width="672" /></p>
+<p>The plot is becoming very busy and difficult to interpret because we have
+encoded six different dimensions in the same plot:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(x\)</span> value has a positional encoding</li>
+<li><span class="math inline">\(y\)</span> value has another positional encoding</li>
+<li>The product <span class="math inline">\(xy\)</span> has an area encoding</li>
+<li><span class="math inline">\(z\)</span> has a quantitative color value encoding</li>
+<li>category has a categorical encoding to shape</li>
+<li>The adjacency of coordinates along the <span class="math inline">\(x + y\)</span> axis with a length encoding</li>
+</ol>
+<p>Very complex plots may be built by thinking explicitly about how each dimension
+of the data are encoded, but the designer (i.e. you) must carefully consider
+whether the chosen encodings faithfully depict the relationships in the data.</p>
+<p>These common encodings depicted in the earlier figure are not the only
+possibilities for mapping visual properties to a set of values. Consider the
+violin plot below:</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="responsible-plotting.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<span id="cb249-2"><a href="responsible-plotting.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb249-3"><a href="responsible-plotting.html#cb249-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">value=</span><span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
+<span id="cb249-4"><a href="responsible-plotting.html#cb249-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">category=</span><span class="st">&#39;A&#39;</span></span>
+<span id="cb249-5"><a href="responsible-plotting.html#cb249-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb249-6"><a href="responsible-plotting.html#cb249-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>category,<span class="at">y=</span>value,<span class="at">fill=</span>category)) <span class="sc">+</span></span>
+<span id="cb249-7"><a href="responsible-plotting.html#cb249-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code></pre></div>
+<p><img src="main_files/viz%20violin-1.png" width="672" /></p>
+<p>Here, <code>geom_violin()</code> has preprocessed the data to map the number of values
+across the full range of values into a density. The density is then encoded with
+a width encoding, where the width of the violin across the range of values,
+which is encoded with a position encoding.</p>
+<p>Most common chart types are simply combinations of variables with different
+encodings. The following table contains the encodings employed for different
+types of plots:</p>
+<table>
+<colgroup>
+<col width="21%" />
+<col width="10%" />
+<col width="28%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Plot</th>
+<th><span class="math inline">\(x\)</span> encoding</th>
+<th><span class="math inline">\(y\)</span> encoding</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="scatter-plot">scatter</a></td>
+<td>position</td>
+<td>position</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="bar-chart">vertical bar</a></td>
+<td>position</td>
+<td>height</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="bar-chart">horizontal bar</a></td>
+<td>width</td>
+<td>position</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="lollipop-plots">lollipop</a></td>
+<td>position</td>
+<td>height for line + position for “head”</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="violin-plots">violin</a></td>
+<td>position</td>
+<td>width</td>
+<td><span class="math inline">\(x\)</span> transformed to range, <span class="math inline">\(y\)</span> transformed to densities</td>
+</tr>
+</tbody>
+</table>
+<div id="elementary-perceptual-tasks" class="section level4 hasAnchor" number="7.1.3.1">
+<h4><span class="header-section-number">7.1.3.1</span> Elementary Perceptual Tasks<a href="responsible-plotting.html#elementary-perceptual-tasks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The purpose of visualizations is to enable the reader to construct an accurate
+mental model of the relationships or ideas contained within the data. As
+discussed in the <a href="responsible-plotting.html#human-visual-perception">Human Visual Perception</a> section, not all visualizations allow
+for easy and accurate judgments of this kind due to the biases of our biological
+visuo-cognitive biases. However, some encodings of data allow <em>more accurate</em>
+judgments than others. William Cleveland and Robert McGill, two statisticians,
+proposed a hierarchy of visual encodings that span the spectrum of precision of
+our ability to accurately interpret visual information <span class="citation">(<a href="#ref-Cleveland1984-ay" role="doc-biblioref">Cleveland and McGill 1984</a>)</span>. They
+defined the act of mapping a specific type of encoding to a cognitive model an
+<em>elementary perceptual task.</em> The hierarchy is depicted in the following figure:</p>
+<div class="figure">
+<img src="elementary_perceptual_tasks.png" alt="" />
+<p class="caption">Elementary Perceptual Task Hierarchy - inspired by Alberto Cairo in the truthful art, which was inspired by Willian Cleveland and Robert McGill</p>
+</div>
+<p>The hierarchy is oriented from least to most cognitively difficult decoding
+tasks, where the easier tasks lend themselves to easier comparisons and
+judgements. For example, the easiest perceptual task is to compare visual
+elements with a position encoding that are all aligned across all charts; the
+positional decoding is the same for each chart, even if they use different
+stylistic elements. Further down the hierarchy, more cognitive effort is
+required to assess the precise relationships between elements of the
+plot, therefore possibly reducing the accuracy of our judgements.</p>
+<p>This is not to say that it is always better for the reader to make highly
+accurate estimates. General trends and patterns may be more readily (and
+beautifully) apparent with less accurate encodings. Consider the following
+clustered heatmap:</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="responsible-plotting.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="co"># these data have two groups of samples with similar random data profiles</span></span>
+<span id="cb250-2"><a href="responsible-plotting.html#cb250-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(</span>
+<span id="cb250-3"><a href="responsible-plotting.html#cb250-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb250-4"><a href="responsible-plotting.html#cb250-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">A=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">2</span>)),</span>
+<span id="cb250-5"><a href="responsible-plotting.html#cb250-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">B=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">2</span>)),</span>
+<span id="cb250-6"><a href="responsible-plotting.html#cb250-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">C=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">2</span>)),</span>
+<span id="cb250-7"><a href="responsible-plotting.html#cb250-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">D=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="sc">-</span><span class="dv">1</span>)),</span>
+<span id="cb250-8"><a href="responsible-plotting.html#cb250-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">E=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="sc">-</span><span class="dv">1</span>)),</span>
+<span id="cb250-9"><a href="responsible-plotting.html#cb250-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">F=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">4</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb250-10"><a href="responsible-plotting.html#cb250-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb250-11"><a href="responsible-plotting.html#cb250-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb250-12"><a href="responsible-plotting.html#cb250-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(data) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&#39;G&#39;</span>,<span class="fu">seq</span>(<span class="fu">nrow</span>(data)))</span>
+<span id="cb250-13"><a href="responsible-plotting.html#cb250-13" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data)</span></code></pre></div>
+<p><img src="main_files/heatmap%20perceptual%20task-1.png" width="672" /></p>
+<p>In this toy example, it may be sufficient for the reader’s comprehension to show
+that samples A, B, and C cluster together, as do D, E, and F, without requiring
+them to know <em>precisely</em> how different they are. In this case, the clustering
+suggested by the visualization should be presented in some other way that is
+more precise as well, for example a statistical comparison with results reported
+in a table, to confirm what our eyes tell us.</p>
+<p>It is usually a good idea to plot data multiple ways, to ensure the patterns we
+see with one encoding are also seen with another. We might consider plotting
+the data again using a <a href="parallel-coordinate-plots">parallel coordinates plot</a>:</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="responsible-plotting.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb251-2"><a href="responsible-plotting.html#cb251-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb251-3"><a href="responsible-plotting.html#cb251-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(data) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb251-4"><a href="responsible-plotting.html#cb251-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">group=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;Group 1&#39;</span>,<span class="dv">10</span>),<span class="fu">rep</span>(<span class="st">&#39;Group 2&#39;</span>,<span class="dv">10</span>))</span>
+<span id="cb251-5"><a href="responsible-plotting.html#cb251-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb251-6"><a href="responsible-plotting.html#cb251-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggparcoord</span>(<span class="at">columns=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="at">groupColumn=</span><span class="dv">7</span>)</span></code></pre></div>
+<p><img src="main_files/viz%20element%20pcp-1.png" width="672" /></p>
+<p>For simplicity, we added a new variable <code>group</code> that is consistent with the
+clustering we observed in the heatmap, which we might have extracted
+computationally by cutting the row dendrogram into two flat clusters. The
+parallel coordinate plot also visually confirms our interpretation of two
+distinct clusters. We may now feel more comfortable including one or the other
+plot in a figure, though this author finds the parallel coordinate plot more
+accurate and enlightening. Recall the elementary perceptual task hierarchy:
+aligned position encodings enable more accurate estimates of data. Heatmaps,
+which use color value and hue, enable the least accurate estimates.</p>
+</div>
+</div>
+<div id="some-opinionated-rules-of-thumb" class="section level3 hasAnchor" number="7.1.4">
+<h3><span class="header-section-number">7.1.4</span> Some Opinionated Rules of Thumb<a href="responsible-plotting.html#some-opinionated-rules-of-thumb" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Effective data visualization is challenging, and there are no simple solutions
+or single approaches to doing it well. In this sense, data visualization is as
+much an art as a science. This author has some rules of thumb he applies when
+visualizing data:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Visualize the same data in multiple ways.</strong> This will help ensure you
+aren’t being unduly influenced by the quirks of certain encodings or inherent
+visuo-cognitive biases.</li>
+<li><strong>Perform precise statistical analysis to confirm findings identified when
+inspecting plots.</strong> Examine the underlying data and devise statistical tests or
+procedures to verify and quantify patterns you see.</li>
+<li><strong>Informative is better than beautiful.</strong> Although it may be tempting to make
+plots beautiful, this should not be at the expense of clarity. Make them clear
+first, then make them beautiful.</li>
+<li><strong>No plot is better than a useless plot.</strong> Some plots, while pretty, are
+useless in a literal sense; the information contained within the plot is of no
+use in either devising followup experiments or gaining insight into the data.</li>
+<li><strong>Sometimes a table is the right way to present data.</strong> Tables may be
+considered boring, but they are the most accurate representation of the data
+(i.e. they ARE the data). Especially for relatively small datasets, a table may
+do the job of communicating results better than any plot.</li>
+<li><strong>If there is text on the plot, you should be able to read it.</strong> Many results
+in biological data analysis have hundreds or thousands of individual points,
+each of which has a label of some sort. If the font size for labels is too small
+to read, or they substantially overlap each other making them illegible, either
+the plot needs to change or the labels should not be drawn. Same goes for axis
+labels.</li>
+<li><strong>(Almost) every plot should have axis labels, tick marks and labels, a
+legend, and a title.</strong> There are a few exceptions to this, but a plot should be
+mostly understandable without any help from the text or caption. If it isn’t,
+it’s probably a poor visualization strategy and can be improved.</li>
+<li><strong>When using colors, be aware of color blindness.</strong> There are several known
+forms of colorblindness in humans. Most default color schemes are “colorblind
+friendly” but sometimes these color combinations can be counterinutitive. Check
+sites like <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">ColorBrewer</a>
+to find color schemes that are likely to be colorblind friendly.</li>
+<li><strong>Make differences visually appear as big as they mean.</strong> Scales on plots can
+distort the meaning of the underlying data. For example, consider the following
+two plots with identical data:</li>
+</ol>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="responsible-plotting.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb252-2"><a href="responsible-plotting.html#cb252-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb252-3"><a href="responsible-plotting.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">percent=</span><span class="fu">c</span>(<span class="dv">86</span>,<span class="dv">88</span>,<span class="dv">87</span>,<span class="dv">90</span>,<span class="dv">93</span>,<span class="dv">89</span>),</span>
+<span id="cb252-4"><a href="responsible-plotting.html#cb252-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID=</span><span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>,<span class="st">&#39;E&#39;</span>,<span class="st">&#39;F&#39;</span>)</span>
+<span id="cb252-5"><a href="responsible-plotting.html#cb252-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb252-6"><a href="responsible-plotting.html#cb252-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>ID,<span class="at">y=</span>percent)) <span class="sc">+</span></span>
+<span id="cb252-7"><a href="responsible-plotting.html#cb252-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span>
+<span id="cb252-8"><a href="responsible-plotting.html#cb252-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb252-9"><a href="responsible-plotting.html#cb252-9" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">85</span>,<span class="dv">95</span>)) <span class="sc">|</span> g</span></code></pre></div>
+<p><img src="main_files/viz%20misleading%20scales-1.png" width="672" /></p>
+<p>The left plot, which had its y axis limited to the values of the data, make the
+differences between samples seem visually much larger than they actually are.
+If a difference between 87 and 93 percent is in fact meaningful, then this might
+be ok, but the context matters.</p>
+<p>You will identify your own strategies over time as you practice data
+visualization, and these rules of thumb might not work for you. There is no one
+right way to do data visualization, and as long as you are dedicated to
+representing your data accurately, there is no wrong way.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Cleveland1984-ay" class="csl-entry">
+Cleveland, William S, and Robert McGill. 1984. <span>“Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods.”</span> <em>J. Am. Stat. Assoc.</em> 79 (387): 531–54.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dv-gg.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
