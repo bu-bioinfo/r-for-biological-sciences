@@ -274,12 +274,11 @@ div.csl-indent {
 <li class="chapter" data-level="6.3" data-path="statistical-tests.html"><a href="statistical-tests.html"><i class="fa fa-check"></i><b>6.3</b> Statistical Tests</a>
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
-<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.2</b> P-values</a></li>
-<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#controlling-errors"><i class="fa fa-check"></i><b>6.3.3</b> Controlling Errors</a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.4</b> Common Statistical Tests</a></li>
-<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.5</b> Choosing a Test</a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.6</b> Multiple Hypothesis Testing .</a></li>
-<li class="chapter" data-level="6.3.7" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.7</b> Statistical power</a></li>
+<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
+<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values-."><i class="fa fa-check"></i><b>6.3.4</b> p-values .</a></li>
+<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power-."><i class="fa fa-check"></i><b>6.3.6</b> Statistical power .</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
 <ul>
@@ -496,14 +495,6 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#plotting-the-top-ten-positive-nes-and-top-ten-negative-nes-pathways"><i class="fa fa-check"></i>9. Plotting the top ten positive NES and top ten negative NES pathways</a></li>
 <li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#references-1"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html"><i class="fa fa-check"></i>Assignment 6</a>
-<ul>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#problem-statement-5"><i class="fa fa-check"></i>Problem Statement</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#learning-objectives-5"><i class="fa fa-check"></i>Learning Objectives</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#skill-list-5"><i class="fa fa-check"></i>Skill List</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#instructions-3"><i class="fa fa-check"></i>Instructions</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#function-details-2"><i class="fa fa-check"></i>Function Details</a></li>
-</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines</a>
@@ -582,43 +573,43 @@ any hierarchical grouping of data can be used to generate a dendrogram.</p>
 ways in R. Using our AD marker example data, we hierarchically cluster the
 subjects based on the content of all their markers and visualize the result as
 follows:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="other-kind-of-plots-..html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdendro)</span>
-<span id="cb282-2"><a href="other-kind-of-plots-..html#cb282-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-3"><a href="other-kind-of-plots-..html#cb282-3" aria-hidden="true" tabindex="-1"></a><span class="co"># produce a clustering of the data using the hclust for hierarchical clustering</span></span>
-<span id="cb282-4"><a href="other-kind-of-plots-..html#cb282-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and euclidean distance as the distance metric</span></span>
-<span id="cb282-5"><a href="other-kind-of-plots-..html#cb282-5" aria-hidden="true" tabindex="-1"></a>euc_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(ad_metadata,<span class="fu">c</span>(tau,abeta,iba1,gfap)))</span>
-<span id="cb282-6"><a href="other-kind-of-plots-..html#cb282-6" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(euc_dist, <span class="at">method=</span><span class="st">&quot;ave&quot;</span>)</span>
-<span id="cb282-7"><a href="other-kind-of-plots-..html#cb282-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-8"><a href="other-kind-of-plots-..html#cb282-8" aria-hidden="true" tabindex="-1"></a><span class="co"># add ID as labels to the clustering object</span></span>
-<span id="cb282-9"><a href="other-kind-of-plots-..html#cb282-9" aria-hidden="true" tabindex="-1"></a>hc<span class="sc">$</span>labels <span class="ot">&lt;-</span> ad_metadata<span class="sc">$</span>ID</span>
-<span id="cb282-10"><a href="other-kind-of-plots-..html#cb282-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-11"><a href="other-kind-of-plots-..html#cb282-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdendrogram</span>(hc)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="other-kind-of-plots-..html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdendro)</span>
+<span id="cb273-2"><a href="other-kind-of-plots-..html#cb273-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-3"><a href="other-kind-of-plots-..html#cb273-3" aria-hidden="true" tabindex="-1"></a><span class="co"># produce a clustering of the data using the hclust for hierarchical clustering</span></span>
+<span id="cb273-4"><a href="other-kind-of-plots-..html#cb273-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and euclidean distance as the distance metric</span></span>
+<span id="cb273-5"><a href="other-kind-of-plots-..html#cb273-5" aria-hidden="true" tabindex="-1"></a>euc_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(ad_metadata,<span class="fu">c</span>(tau,abeta,iba1,gfap)))</span>
+<span id="cb273-6"><a href="other-kind-of-plots-..html#cb273-6" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(euc_dist, <span class="at">method=</span><span class="st">&quot;ave&quot;</span>)</span>
+<span id="cb273-7"><a href="other-kind-of-plots-..html#cb273-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-8"><a href="other-kind-of-plots-..html#cb273-8" aria-hidden="true" tabindex="-1"></a><span class="co"># add ID as labels to the clustering object</span></span>
+<span id="cb273-9"><a href="other-kind-of-plots-..html#cb273-9" aria-hidden="true" tabindex="-1"></a>hc<span class="sc">$</span>labels <span class="ot">&lt;-</span> ad_metadata<span class="sc">$</span>ID</span>
+<span id="cb273-10"><a href="other-kind-of-plots-..html#cb273-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-11"><a href="other-kind-of-plots-..html#cb273-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdendrogram</span>(hc)</span></code></pre></div>
 <p><img src="main_files/dendro%20full-1.png" width="672" /></p>
 <p>This dendrogram does not produce highly distinct clusters of AD and control
 samples with all the data.</p>
 <p>To illustrate what a dataset with strong clustering looks like, we draw
 multivariate samples from two normal distributions and cluster the results:</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="other-kind-of-plots-..html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb283-2"><a href="other-kind-of-plots-..html#cb283-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdendro)</span>
-<span id="cb283-3"><a href="other-kind-of-plots-..html#cb283-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-4"><a href="other-kind-of-plots-..html#cb283-4" aria-hidden="true" tabindex="-1"></a>well_clustered_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb283-5"><a href="other-kind-of-plots-..html#cb283-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID=</span><span class="fu">c</span>(stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">&quot;A&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">&quot;B&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)),</span>
-<span id="cb283-6"><a href="other-kind-of-plots-..html#cb283-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">f1=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">1</span>)),</span>
-<span id="cb283-7"><a href="other-kind-of-plots-..html#cb283-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">f2=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">1</span>))</span>
-<span id="cb283-8"><a href="other-kind-of-plots-..html#cb283-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb283-9"><a href="other-kind-of-plots-..html#cb283-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-10"><a href="other-kind-of-plots-..html#cb283-10" aria-hidden="true" tabindex="-1"></a>scatter_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb283-11"><a href="other-kind-of-plots-..html#cb283-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-12"><a href="other-kind-of-plots-..html#cb283-12" aria-hidden="true" tabindex="-1"></a><span class="co"># produce a clustering of the data using the hclust for hierarchical clustering</span></span>
-<span id="cb283-13"><a href="other-kind-of-plots-..html#cb283-13" aria-hidden="true" tabindex="-1"></a><span class="co"># and euclidean distance as the distance metric</span></span>
-<span id="cb283-14"><a href="other-kind-of-plots-..html#cb283-14" aria-hidden="true" tabindex="-1"></a>euc_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(well_clustered_data,<span class="sc">-</span>ID))</span>
-<span id="cb283-15"><a href="other-kind-of-plots-..html#cb283-15" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(euc_dist, <span class="at">method=</span><span class="st">&quot;ave&quot;</span>)</span>
-<span id="cb283-16"><a href="other-kind-of-plots-..html#cb283-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-17"><a href="other-kind-of-plots-..html#cb283-17" aria-hidden="true" tabindex="-1"></a><span class="co"># add ID as labels to the clustering object</span></span>
-<span id="cb283-18"><a href="other-kind-of-plots-..html#cb283-18" aria-hidden="true" tabindex="-1"></a>hc<span class="sc">$</span>labels <span class="ot">&lt;-</span> well_clustered_data<span class="sc">$</span>ID</span>
-<span id="cb283-19"><a href="other-kind-of-plots-..html#cb283-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-20"><a href="other-kind-of-plots-..html#cb283-20" aria-hidden="true" tabindex="-1"></a>dendro_g <span class="ot">&lt;-</span> <span class="fu">ggdendrogram</span>(hc)</span>
-<span id="cb283-21"><a href="other-kind-of-plots-..html#cb283-21" aria-hidden="true" tabindex="-1"></a>scatter_g <span class="sc">|</span> dendro_g</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="other-kind-of-plots-..html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb274-2"><a href="other-kind-of-plots-..html#cb274-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdendro)</span>
+<span id="cb274-3"><a href="other-kind-of-plots-..html#cb274-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb274-4"><a href="other-kind-of-plots-..html#cb274-4" aria-hidden="true" tabindex="-1"></a>well_clustered_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb274-5"><a href="other-kind-of-plots-..html#cb274-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID=</span><span class="fu">c</span>(stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">&quot;A&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">&quot;B&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)),</span>
+<span id="cb274-6"><a href="other-kind-of-plots-..html#cb274-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">f1=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">1</span>)),</span>
+<span id="cb274-7"><a href="other-kind-of-plots-..html#cb274-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">f2=</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">1</span>))</span>
+<span id="cb274-8"><a href="other-kind-of-plots-..html#cb274-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb274-9"><a href="other-kind-of-plots-..html#cb274-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb274-10"><a href="other-kind-of-plots-..html#cb274-10" aria-hidden="true" tabindex="-1"></a>scatter_g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(well_clustered_data, <span class="fu">aes</span>(<span class="at">x=</span>f1,<span class="at">y=</span>f2)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb274-11"><a href="other-kind-of-plots-..html#cb274-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb274-12"><a href="other-kind-of-plots-..html#cb274-12" aria-hidden="true" tabindex="-1"></a><span class="co"># produce a clustering of the data using the hclust for hierarchical clustering</span></span>
+<span id="cb274-13"><a href="other-kind-of-plots-..html#cb274-13" aria-hidden="true" tabindex="-1"></a><span class="co"># and euclidean distance as the distance metric</span></span>
+<span id="cb274-14"><a href="other-kind-of-plots-..html#cb274-14" aria-hidden="true" tabindex="-1"></a>euc_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(well_clustered_data,<span class="sc">-</span>ID))</span>
+<span id="cb274-15"><a href="other-kind-of-plots-..html#cb274-15" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(euc_dist, <span class="at">method=</span><span class="st">&quot;ave&quot;</span>)</span>
+<span id="cb274-16"><a href="other-kind-of-plots-..html#cb274-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb274-17"><a href="other-kind-of-plots-..html#cb274-17" aria-hidden="true" tabindex="-1"></a><span class="co"># add ID as labels to the clustering object</span></span>
+<span id="cb274-18"><a href="other-kind-of-plots-..html#cb274-18" aria-hidden="true" tabindex="-1"></a>hc<span class="sc">$</span>labels <span class="ot">&lt;-</span> well_clustered_data<span class="sc">$</span>ID</span>
+<span id="cb274-19"><a href="other-kind-of-plots-..html#cb274-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb274-20"><a href="other-kind-of-plots-..html#cb274-20" aria-hidden="true" tabindex="-1"></a>dendro_g <span class="ot">&lt;-</span> <span class="fu">ggdendrogram</span>(hc)</span>
+<span id="cb274-21"><a href="other-kind-of-plots-..html#cb274-21" aria-hidden="true" tabindex="-1"></a>scatter_g <span class="sc">|</span> dendro_g</span></code></pre></div>
 <p><img src="main_files/dendro%20strong-1.png" width="672" /></p>
 <p>Here, all the A and B samples strongly cluster together, with a large distance
 between clusters.</p>

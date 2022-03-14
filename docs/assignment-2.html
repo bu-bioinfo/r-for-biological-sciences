@@ -274,12 +274,11 @@ div.csl-indent {
 <li class="chapter" data-level="6.3" data-path="statistical-tests.html"><a href="statistical-tests.html"><i class="fa fa-check"></i><b>6.3</b> Statistical Tests</a>
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
-<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.2</b> P-values</a></li>
-<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#controlling-errors"><i class="fa fa-check"></i><b>6.3.3</b> Controlling Errors</a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.4</b> Common Statistical Tests</a></li>
-<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.5</b> Choosing a Test</a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.6</b> Multiple Hypothesis Testing .</a></li>
-<li class="chapter" data-level="6.3.7" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.7</b> Statistical power</a></li>
+<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
+<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values-."><i class="fa fa-check"></i><b>6.3.4</b> p-values .</a></li>
+<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power-."><i class="fa fa-check"></i><b>6.3.6</b> Statistical power .</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
 <ul>
@@ -496,14 +495,6 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#plotting-the-top-ten-positive-nes-and-top-ten-negative-nes-pathways"><i class="fa fa-check"></i>9. Plotting the top ten positive NES and top ten negative NES pathways</a></li>
 <li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#references-1"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html"><i class="fa fa-check"></i>Assignment 6</a>
-<ul>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#problem-statement-5"><i class="fa fa-check"></i>Problem Statement</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#learning-objectives-5"><i class="fa fa-check"></i>Learning Objectives</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#skill-list-5"><i class="fa fa-check"></i>Skill List</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#instructions-3"><i class="fa fa-check"></i>Instructions</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#function-details-2"><i class="fa fa-check"></i>Function Details</a></li>
-</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines</a>
@@ -628,11 +619,11 @@ called my firs column “probeids.”</p>
 <div id="tests" class="section level5 unnumbered">
 <h5>Tests</h5>
 <p>The tests for this function are:</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="assignment-2.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;loading csv correctly&quot;</span>, {</span>
-<span id="cb386-2"><a href="assignment-2.html#cb386-2" aria-hidden="true" tabindex="-1"></a>  result_tib <span class="ot">&lt;-</span> <span class="fu">load_expression</span>(<span class="st">&quot;/project/bf528/project_1/data/example_intensity_data.csv&quot;</span>)</span>
-<span id="cb386-3"><a href="assignment-2.html#cb386-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(result_tib), <span class="fu">c</span>(<span class="dv">54675</span>, <span class="dv">36</span>))</span>
-<span id="cb386-4"><a href="assignment-2.html#cb386-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">is_tibble</span>(result_tib))</span>
-<span id="cb386-5"><a href="assignment-2.html#cb386-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="assignment-2.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;loading csv correctly&quot;</span>, {</span>
+<span id="cb377-2"><a href="assignment-2.html#cb377-2" aria-hidden="true" tabindex="-1"></a>  result_tib <span class="ot">&lt;-</span> <span class="fu">load_expression</span>(<span class="st">&quot;/project/bf528/project_1/data/example_intensity_data.csv&quot;</span>)</span>
+<span id="cb377-3"><a href="assignment-2.html#cb377-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(result_tib), <span class="fu">c</span>(<span class="dv">54675</span>, <span class="dv">36</span>))</span>
+<span id="cb377-4"><a href="assignment-2.html#cb377-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">is_tibble</span>(result_tib))</span>
+<span id="cb377-5"><a href="assignment-2.html#cb377-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>This test uses the <code>load_expression()</code> you write to store the returned tibble in <code>result_tib</code>.</p>
 <div class="box important">
 <p>While this test is using the same file for data input as you are, this may not always be the case.</p>
@@ -660,18 +651,18 @@ this!). Instead, you could use a function like <code>apply()</code> or <code>lap
 every row at once. This solution takes mere moments.</p>
 <div id="tests-1" class="section level5 unnumbered">
 <h5>Tests</h5>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="assignment-2.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb387-2"><a href="assignment-2.html#cb387-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;the correct rows are filtered out in filter_15()&quot;</span>, {</span>
-<span id="cb387-3"><a href="assignment-2.html#cb387-3" aria-hidden="true" tabindex="-1"></a>  test_tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids=</span><span class="fu">c</span>(<span class="st">&#39;1_s_at&#39;</span>, <span class="st">&#39;2_s_at&#39;</span>, <span class="st">&#39;3_s_at&#39;</span>, <span class="st">&#39;4_s_at&#39;</span>),</span>
-<span id="cb387-4"><a href="assignment-2.html#cb387-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1=</span><span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span>),</span>
-<span id="cb387-5"><a href="assignment-2.html#cb387-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2=</span><span class="fu">rep</span>(<span class="fl">1.6</span>, <span class="dv">4</span>),</span>
-<span id="cb387-6"><a href="assignment-2.html#cb387-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3=</span><span class="fu">rep</span>(<span class="fl">2.5</span>, <span class="dv">4</span>),</span>
-<span id="cb387-7"><a href="assignment-2.html#cb387-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM4=</span><span class="fu">rep</span>(<span class="fl">3.99</span>, <span class="dv">4</span>),</span>
-<span id="cb387-8"><a href="assignment-2.html#cb387-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM5=</span><span class="fu">rep</span>(<span class="fl">3.0</span>, <span class="dv">4</span>),</span>
-<span id="cb387-9"><a href="assignment-2.html#cb387-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM6=</span><span class="fu">rep</span>(<span class="fl">1.0</span>, <span class="dv">4</span>),</span>
-<span id="cb387-10"><a href="assignment-2.html#cb387-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM7=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
-<span id="cb387-11"><a href="assignment-2.html#cb387-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">pull</span>(<span class="fu">filter_15</span>(test_tib)), <span class="fu">c</span>(<span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>))</span>
-<span id="cb387-12"><a href="assignment-2.html#cb387-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="assignment-2.html#cb378-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb378-2"><a href="assignment-2.html#cb378-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;the correct rows are filtered out in filter_15()&quot;</span>, {</span>
+<span id="cb378-3"><a href="assignment-2.html#cb378-3" aria-hidden="true" tabindex="-1"></a>  test_tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids=</span><span class="fu">c</span>(<span class="st">&#39;1_s_at&#39;</span>, <span class="st">&#39;2_s_at&#39;</span>, <span class="st">&#39;3_s_at&#39;</span>, <span class="st">&#39;4_s_at&#39;</span>),</span>
+<span id="cb378-4"><a href="assignment-2.html#cb378-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1=</span><span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span>),</span>
+<span id="cb378-5"><a href="assignment-2.html#cb378-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2=</span><span class="fu">rep</span>(<span class="fl">1.6</span>, <span class="dv">4</span>),</span>
+<span id="cb378-6"><a href="assignment-2.html#cb378-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3=</span><span class="fu">rep</span>(<span class="fl">2.5</span>, <span class="dv">4</span>),</span>
+<span id="cb378-7"><a href="assignment-2.html#cb378-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM4=</span><span class="fu">rep</span>(<span class="fl">3.99</span>, <span class="dv">4</span>),</span>
+<span id="cb378-8"><a href="assignment-2.html#cb378-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM5=</span><span class="fu">rep</span>(<span class="fl">3.0</span>, <span class="dv">4</span>),</span>
+<span id="cb378-9"><a href="assignment-2.html#cb378-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM6=</span><span class="fu">rep</span>(<span class="fl">1.0</span>, <span class="dv">4</span>),</span>
+<span id="cb378-10"><a href="assignment-2.html#cb378-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM7=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
+<span id="cb378-11"><a href="assignment-2.html#cb378-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">pull</span>(<span class="fu">filter_15</span>(test_tib)), <span class="fu">c</span>(<span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>))</span>
+<span id="cb378-12"><a href="assignment-2.html#cb378-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>In order to test this function, we create a small sample tibble of expression
 data containing only seven samples and four IDs. Two of the rows <em>do</em> have more
 than 15% of their values exceeding <code>log2(15)</code>, the other two do not. This test
@@ -706,16 +697,16 @@ simple character vector, and <code>dplyr::as_tibble()</code> to go from a data f
 tibble.</p>
 <div id="tests-2" class="section level5 unnumbered">
 <h5>Tests</h5>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="assignment-2.html#cb388-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;affy ids can be converted to HGNC names properly using affy_to_hgnc()&quot;</span>, {</span>
-<span id="cb388-2"><a href="assignment-2.html#cb388-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
-<span id="cb388-3"><a href="assignment-2.html#cb388-3" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">affy_to_hgnc</span>(<span class="fu">tibble</span>(<span class="st">&#39;1553551_s_at&#39;</span>)), <span class="cn">TRUE</span>)</span>
-<span id="cb388-4"><a href="assignment-2.html#cb388-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">&quot;Error&quot;</span>, response[<span class="dv">1</span>])) {</span>
-<span id="cb388-5"><a href="assignment-2.html#cb388-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_warning</span>(<span class="fu">warning</span>(<span class="st">&quot;Could not connect to ENSEMBL.&quot;</span>))</span>
-<span id="cb388-6"><a href="assignment-2.html#cb388-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb388-7"><a href="assignment-2.html#cb388-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
-<span id="cb388-8"><a href="assignment-2.html#cb388-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(response<span class="sc">$</span>hgnc_symbol, <span class="fu">c</span>(<span class="st">&quot;MT-ND1&quot;</span>, <span class="st">&quot;MT-TI&quot;</span>, <span class="st">&quot;MT-TM&quot;</span>, <span class="st">&quot;MT-ND2&quot;</span>))</span>
-<span id="cb388-9"><a href="assignment-2.html#cb388-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb388-10"><a href="assignment-2.html#cb388-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="assignment-2.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;affy ids can be converted to HGNC names properly using affy_to_hgnc()&quot;</span>, {</span>
+<span id="cb379-2"><a href="assignment-2.html#cb379-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
+<span id="cb379-3"><a href="assignment-2.html#cb379-3" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">affy_to_hgnc</span>(<span class="fu">tibble</span>(<span class="st">&#39;1553551_s_at&#39;</span>)), <span class="cn">TRUE</span>)</span>
+<span id="cb379-4"><a href="assignment-2.html#cb379-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">&quot;Error&quot;</span>, response[<span class="dv">1</span>])) {</span>
+<span id="cb379-5"><a href="assignment-2.html#cb379-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_warning</span>(<span class="fu">warning</span>(<span class="st">&quot;Could not connect to ENSEMBL.&quot;</span>))</span>
+<span id="cb379-6"><a href="assignment-2.html#cb379-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb379-7"><a href="assignment-2.html#cb379-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb379-8"><a href="assignment-2.html#cb379-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(response<span class="sc">$</span>hgnc_symbol, <span class="fu">c</span>(<span class="st">&quot;MT-ND1&quot;</span>, <span class="st">&quot;MT-TI&quot;</span>, <span class="st">&quot;MT-TM&quot;</span>, <span class="st">&quot;MT-ND2&quot;</span>))</span>
+<span id="cb379-9"><a href="assignment-2.html#cb379-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb379-10"><a href="assignment-2.html#cb379-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>As fun as it is to try to get <code>biomaRt</code> function to connect correctly, it is
 even more fun to test them. Since a failure to connect doesn’t indicate an
 actual failure in <em>our</em> code we must use a <code>try()</code> block in order to capture if
@@ -758,36 +749,36 @@ correct location. Finally, we created two tibbles of good and bad genes using
 <code>which()</code> and the <code>%in%</code> modifier. Which evaluates true conditions across a
 range of data, so we can pass the list of genes we want and select the correct
 ones. For instance:</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="assignment-2.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb389-2"><a href="assignment-2.html#cb389-2" aria-hidden="true" tabindex="-1"></a>tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gene =</span> <span class="fu">c</span>(<span class="st">&quot;gene1&quot;</span>, <span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>, <span class="st">&quot;gene4&quot;</span>),</span>
-<span id="cb389-3"><a href="assignment-2.html#cb389-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">affy =</span> <span class="fu">c</span>(<span class="st">&quot;a_s_1&quot;</span>, <span class="st">&quot;a_s_2&quot;</span>, <span class="st">&quot;a_s_3&quot;</span>, <span class="st">&quot;a_s_4&quot;</span>))</span>
-<span id="cb389-4"><a href="assignment-2.html#cb389-4" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>)) <span class="co"># returns the index of the TRUE rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="assignment-2.html#cb380-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb380-2"><a href="assignment-2.html#cb380-2" aria-hidden="true" tabindex="-1"></a>tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gene =</span> <span class="fu">c</span>(<span class="st">&quot;gene1&quot;</span>, <span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>, <span class="st">&quot;gene4&quot;</span>),</span>
+<span id="cb380-3"><a href="assignment-2.html#cb380-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">affy =</span> <span class="fu">c</span>(<span class="st">&quot;a_s_1&quot;</span>, <span class="st">&quot;a_s_2&quot;</span>, <span class="st">&quot;a_s_3&quot;</span>, <span class="st">&quot;a_s_4&quot;</span>))</span>
+<span id="cb380-4"><a href="assignment-2.html#cb380-4" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>)) <span class="co"># returns the index of the TRUE rows</span></span></code></pre></div>
 <pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="assignment-2.html#cb391-1" aria-hidden="true" tabindex="-1"></a>tib<span class="sc">$</span>affy[<span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>))] <span class="co"># use [] to get data back</span></span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="assignment-2.html#cb382-1" aria-hidden="true" tabindex="-1"></a>tib<span class="sc">$</span>affy[<span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>))] <span class="co"># use [] to get data back</span></span></code></pre></div>
 <pre><code>## [1] &quot;a_s_2&quot; &quot;a_s_3&quot;</code></pre>
 <p>Once again, there are many ways to reshape this data (some maybe more elegant
 than this!) and all we need is the data to be correctly shaped when it is
 returned.</p>
 <div id="tests-3" class="section level5 unnumbered">
 <h5>Tests</h5>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="assignment-2.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;reduce_data() is correctly changing the size and shape of the tibble&quot;</span>, {</span>
-<span id="cb393-2"><a href="assignment-2.html#cb393-2" aria-hidden="true" tabindex="-1"></a>  t_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
-<span id="cb393-3"><a href="assignment-2.html#cb393-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span>),</span>
-<span id="cb393-4"><a href="assignment-2.html#cb393-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span>),</span>
-<span id="cb393-5"><a href="assignment-2.html#cb393-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span>))</span>
-<span id="cb393-6"><a href="assignment-2.html#cb393-6" aria-hidden="true" tabindex="-1"></a>  names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">affy_hg_u133_plus_2 =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
-<span id="cb393-7"><a href="assignment-2.html#cb393-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>, <span class="st">&quot;UTWPU&quot;</span>))</span>
-<span id="cb393-8"><a href="assignment-2.html#cb393-8" aria-hidden="true" tabindex="-1"></a>  good <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>)</span>
-<span id="cb393-9"><a href="assignment-2.html#cb393-9" aria-hidden="true" tabindex="-1"></a>  bad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SONIC&quot;</span>)</span>
-<span id="cb393-10"><a href="assignment-2.html#cb393-10" aria-hidden="true" tabindex="-1"></a>  reduce_test <span class="ot">&lt;-</span> <span class="fu">reduce_data</span>(t_tibble, names, good, bad)</span>
-<span id="cb393-11"><a href="assignment-2.html#cb393-11" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>),</span>
-<span id="cb393-12"><a href="assignment-2.html#cb393-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>),</span>
-<span id="cb393-13"><a href="assignment-2.html#cb393-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">gene_set =</span> <span class="fu">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>),</span>
-<span id="cb393-14"><a href="assignment-2.html#cb393-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>),</span>
-<span id="cb393-15"><a href="assignment-2.html#cb393-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>),</span>
-<span id="cb393-16"><a href="assignment-2.html#cb393-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>))</span>
-<span id="cb393-17"><a href="assignment-2.html#cb393-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(reduce_test, result)</span>
-<span id="cb393-18"><a href="assignment-2.html#cb393-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="assignment-2.html#cb384-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;reduce_data() is correctly changing the size and shape of the tibble&quot;</span>, {</span>
+<span id="cb384-2"><a href="assignment-2.html#cb384-2" aria-hidden="true" tabindex="-1"></a>  t_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
+<span id="cb384-3"><a href="assignment-2.html#cb384-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span>),</span>
+<span id="cb384-4"><a href="assignment-2.html#cb384-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span>),</span>
+<span id="cb384-5"><a href="assignment-2.html#cb384-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span>))</span>
+<span id="cb384-6"><a href="assignment-2.html#cb384-6" aria-hidden="true" tabindex="-1"></a>  names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">affy_hg_u133_plus_2 =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
+<span id="cb384-7"><a href="assignment-2.html#cb384-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>, <span class="st">&quot;UTWPU&quot;</span>))</span>
+<span id="cb384-8"><a href="assignment-2.html#cb384-8" aria-hidden="true" tabindex="-1"></a>  good <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>)</span>
+<span id="cb384-9"><a href="assignment-2.html#cb384-9" aria-hidden="true" tabindex="-1"></a>  bad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SONIC&quot;</span>)</span>
+<span id="cb384-10"><a href="assignment-2.html#cb384-10" aria-hidden="true" tabindex="-1"></a>  reduce_test <span class="ot">&lt;-</span> <span class="fu">reduce_data</span>(t_tibble, names, good, bad)</span>
+<span id="cb384-11"><a href="assignment-2.html#cb384-11" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>),</span>
+<span id="cb384-12"><a href="assignment-2.html#cb384-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>),</span>
+<span id="cb384-13"><a href="assignment-2.html#cb384-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">gene_set =</span> <span class="fu">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>),</span>
+<span id="cb384-14"><a href="assignment-2.html#cb384-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>),</span>
+<span id="cb384-15"><a href="assignment-2.html#cb384-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>),</span>
+<span id="cb384-16"><a href="assignment-2.html#cb384-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>))</span>
+<span id="cb384-17"><a href="assignment-2.html#cb384-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(reduce_test, result)</span>
+<span id="cb384-18"><a href="assignment-2.html#cb384-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>In order to test a function that changes a tibble, we need to use a tibble. We
 only create a test table that is three rows by four columns, but that is enough
 to get the gist of the function. We simply pass the four parameters to

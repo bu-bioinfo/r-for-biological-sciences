@@ -274,12 +274,11 @@ div.csl-indent {
 <li class="chapter" data-level="6.3" data-path="statistical-tests.html"><a href="statistical-tests.html"><i class="fa fa-check"></i><b>6.3</b> Statistical Tests</a>
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test</a></li>
-<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.2</b> P-values</a></li>
-<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#controlling-errors"><i class="fa fa-check"></i><b>6.3.3</b> Controlling Errors</a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.4</b> Common Statistical Tests</a></li>
-<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.5</b> Choosing a Test</a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.6</b> Multiple Hypothesis Testing .</a></li>
-<li class="chapter" data-level="6.3.7" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.7</b> Statistical power</a></li>
+<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests</a></li>
+<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test</a></li>
+<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values-."><i class="fa fa-check"></i><b>6.3.4</b> p-values .</a></li>
+<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .</a></li>
+<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power-."><i class="fa fa-check"></i><b>6.3.6</b> Statistical power .</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis</a>
 <ul>
@@ -496,14 +495,6 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#plotting-the-top-ten-positive-nes-and-top-ten-negative-nes-pathways"><i class="fa fa-check"></i>9. Plotting the top ten positive NES and top ten negative NES pathways</a></li>
 <li class="chapter" data-level="" data-path="assignment-5.html"><a href="assignment-5.html#references-1"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html"><i class="fa fa-check"></i>Assignment 6</a>
-<ul>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#problem-statement-5"><i class="fa fa-check"></i>Problem Statement</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#learning-objectives-5"><i class="fa fa-check"></i>Learning Objectives</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#skill-list-5"><i class="fa fa-check"></i>Skill List</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#instructions-3"><i class="fa fa-check"></i>Instructions</a></li>
-<li class="chapter" data-level="" data-path="assignment-6.html"><a href="assignment-6.html#function-details-2"><i class="fa fa-check"></i>Function Details</a></li>
-</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines</a>
@@ -568,9 +559,9 @@ process. User contributed and maintained packages provide specialized
 functionality for specific types of analysis.</p>
 <p>Bioconductor itself must be installed prior to installing other Bioconductor
 packages. To [install bioconductor], you can run the following:</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="bio-bioconductor.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb288-2"><a href="bio-bioconductor.html#cb288-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
-<span id="cb288-3"><a href="bio-bioconductor.html#cb288-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="bio-bioconductor.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb279-2"><a href="bio-bioconductor.html#cb279-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb279-3"><a href="bio-bioconductor.html#cb279-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="at">version =</span> <span class="st">&quot;3.14&quot;</span>)</span></code></pre></div>
 <div class="box warning">
 <p>Bioconductor undergoes regular releases indicated by a version, e.g. <code>version = "3.14"</code> at the time of writing. Every bioconductor package also has a version,
 and each of those versions may or may not be compatible with a specific version
@@ -586,8 +577,8 @@ the time when you write your code.</p>
 <p>The <code>BiocManager</code> package is the only Bioconductor package installable using
 <code>install.packages()</code>. After installing the BiocManager package, you may then
 install bioconductor packages:</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="bio-bioconductor.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="co"># installs the affy bioconductor package for microarray analysis</span></span>
-<span id="cb289-2"><a href="bio-bioconductor.html#cb289-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;affy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="bio-bioconductor.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="co"># installs the affy bioconductor package for microarray analysis</span></span>
+<span id="cb280-2"><a href="bio-bioconductor.html#cb280-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;affy&quot;</span>)</span></code></pre></div>
 <p>One key aspect of Bioconductor packages is consistent and helpful documentation;
 every package page on the Bioconductor.org site lists a block of code that will
 install the package, e.g. for the <a href="https://www.bioconductor.org/packages/release/bioc/html/affy.html">affy

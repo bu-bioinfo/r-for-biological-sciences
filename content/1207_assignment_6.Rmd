@@ -116,30 +116,20 @@ test_that("test limma + voom work + work together", {
   # design
   design <- data.frame(day4=1, day4vsday7=c(0, 0, 1, 1))
   row.names(design) <- c("vP4_1", "vP4_2", "vP7_1", "vP7_2")
-  # limma
-  limma_res <- run_limma(counts_df, design, group, voom=FALSE)
-  expect_equal(dim(limma_res), c(15026, 6))
-  expect_equal(names(limma_res), c("day4", "day4vsday7", "AveExpr", "F",
-                                   "P.Value", "adj.P.Val"))
-  # voom
-  dge <- DGEList(counts=counts_df, group=group)
-  expect_warning(voom_res <- run_voom(dge, design)) # voom yelling, ignore
+  # limma + voom
+  expect_warning(voom_res <- run_limma(counts_df, design, group)) # voom yelling, ignore
   expect_equal(dim(voom_res), c(15026, 6))
-  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value",
+  expect_equal(names(voom_res), c("logFC", "AveExpr", "t", "P.Value", 
                                   "adj.P.Val", "B"))
 })
 ```
-This is a longer series of tests but since we're considering two functions that is to be expected. It ultimately functions similarly to the first two series of tests: load test data, apply the function to it, make sure the results are the right size, shape, and type.  
+This ultimately functions similarly to the first two series of tests: load test data, apply the function to it, make sure the results are the right size, shape, and type. This includes the voom procedure, so using _only_ limma results will yield failures.  
 
 ::: {.box .note}
 Note that Limma uses EdgeR to input data, so your first couple steps will look pretty familiar.
 :::
 
 We create a design object to use, defining the experimental conditions. These are again using the day 4 and day 7 trials from the heart data.
-
-::: {.box .important}
-`run_voom()` should be used in `run_limma()`, in the boolean-parameter-if-else structure I discuss above. This means that `run_voom()` is _defined_ before or after `run_limma()` is. This is okay, because `run_voom()` only needs to be defined _when `run_limma`_ is run.
-:::
 
 #### 5. `combine_pval()` {-}
 The final three functions concern modifying our differential expression results and creating plots of these combined results. While it would be trivial to make three plots using the same code or function, have R generate one consistent plot after changes in your data or method is extremely useful.
