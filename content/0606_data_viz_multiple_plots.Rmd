@@ -3,18 +3,110 @@ output: html_document
 ---
 
 
-## Multiple Plots .
+## Multiple Plots
 
-How do we add multiple datasets to plots?
+Sometimes it is convenient to plot multiple sets of data at once. This can be
+accomplished in two ways: facet wrapping to separate out different subsets of a
+dataset into plots with shared axes, and adding multiple plots to the same
+figure.
 
-### Secondary Axes .
+### Facet wrapping
 
-How and when do we add series with different scales to the same plot?
+Facet wrapping separates subsets of a dataset into plots with identical axes.
+This can be useful if different groups of data points overlap and occlude one
+another. Consider the following dataset with three groups of normally
+distributed random samples:
 
-### Facet wrapping .
+```{r viz facet oneplot}
+library(mvtnorm) # package implementing multivariate normal distributions
+nsamp <- 100
+data <-  rbind(
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,0.8,0.8,1),nrow=2)),
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,-0.8,-0.8,1),nrow=2)),
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,0,0,1),nrow=2))
+)
+colnames(data) <- c('x','y')
+g_oneplot <- as_tibble(data) %>%
+  mutate(
+    sample_name=c(rep('A',nsamp),rep('B',nsamp),rep('C',nsamp))
+  ) %>%
+  ggplot(aes(x=x,y=y,color=sample_name)) +
+  geom_point()
+g_oneplot
+```
 
-What is facet wrapping and in which contexts is it useful (i.e. group_by)?
+The three sample data points are plotted on top of each other, and although they
+are colored differently, it is difficult to discern the patterns of each group
+clearly. This same plot may be split into three, one for each sample group,
+using the [`facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html)
+function:
 
-### Multipanel Figures .
+```{r viz facet wrap}
+g_oneplot + facet_wrap(vars(sample_name))
+```
 
-How do we add multiple, unrelated subplots to the same larger plot?
+Now the trends of each group are clearly visible. The `facet_wrap()` function
+accepts one required argument, which is the variable name in the data that
+should be used to separate the groups decorated by the `vars()` function. Any
+geometry may be used with a facet wrap. For example, we could add a
+`geom_smooth()` to the plot to estimate a smoothing function within each facet:
+
+```{r viz facet wrap plus}
+g_oneplot + facet_wrap(vars(sample_name)) +
+  geom_smooth(method="loess", formula=y ~ x)
+```
+
+By default, facet wrapping fixes all the axes of each plot to be identical,
+which enables the most accurate estimates of comparisons between plots according
+to the [Elementary Perceptual Tasks] hierarchy. This and many other aspects of
+the faceting may be adjusted using arguments as described in the
+[documentation](https://ggplot2.tidyverse.org/reference/facet_wrap.html).
+
+### Multipanel Figures
+
+Facet wrapping is useful when all of the data for the separate plots are on the
+same scale, and comaprisons of the facet groups is meaningful. However, faceting
+is less convenient when we desire to place plots with unrelated data in the same
+figure. The [`patchwork`](https://patchwork.data-imaginist.com/) package allows
+us to compose multiple plots together using an intuitive set of operators. For
+example, we may put two plots next to each other by separating them with the `|`
+operator:
+
+```{r viz patch simple}
+data <- tibble(
+  a=rnorm(100,0,1),
+  b=rnorm(100,3,2)
+)
+g_scatter <- ggplot(data, aes(x=a, y=b)) +
+  geom_point()
+g_violin <- pivot_longer(data, c(a,b)) %>% ggplot(aes(x=name,y=value,fill=name)) +
+  geom_violin()
+
+g_scatter | g_violin
+```
+
+Note that each plot was saved to its own variable and then composed with the
+patchwork operator `|`, which puts the plots side-by-side. We could also place
+one plot on top of the other with the `/` operator:
+
+```{r viz patchwork vert}
+g_scatter / g_violin
+```
+
+Plots may be composed into arbitrarily complex multipanel figures in this way
+using `()` to group plots together:
+
+```{r patch complex}
+g_scatter / ( g_scatter | g_violin)
+```
+
+Another possible composition:
+
+```{r viz complex 2}
+(g_scatter / g_scatter ) | g_violin
+```
+
+The patchwork library is very flexible, and allows the designer to compose plots
+in many different ways. These multipanel plots make excellent starting points
+for producing [publication-quality figures](publication-ready-plots), as
+described in the next section.

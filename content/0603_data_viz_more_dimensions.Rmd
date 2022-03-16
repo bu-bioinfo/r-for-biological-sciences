@@ -175,6 +175,23 @@ of subject, either AD or control. This encoding allows us to make a number of
 observations about the samples, e.g. except for gfap, AD samples have
 consistently higher values than Controls.
 
+:::{.box .note}
+A common way to specify colors is with a six digit
+[hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) code, e.g. `#2ca9f3`.
+These codes form a triplet of (`rr`,`gg`,`bb`), where `rr` is the value of the
+color red, `gg` the value of green, and `bb` for blue, examples:
+
+* `#000000` is the color black, or a value of zero in all three colors
+* `#ffffff` is the color white, with maximum value for all three colors
+* `#ff0000` is the color red, with full red value and no value for green or blue
+* `#0000ff` is the color blue, with full blue value and no value for red or green
+* `#2ca9f3` is <span style="color: #2ca9f3">this color</span>, a combination of red, green, and blue
+
+All colors in tidyverse may be specified with these hexadecimal color codes. See
+[web colors](https://en.wikipedia.org/wiki/Web_colors) for more information on
+how to specify colors in this way.
+:::
+
 ### Heatmaps
 
 Heatmaps visualize values associated with a grid of points $(x,y,z)$ as a grid
@@ -385,12 +402,385 @@ library(RColorBrewer)
 display.brewer.all()
 ```
 
-There are very many color palettes to choose from, and you may also specify your
-own palettes with as much detail and complexity as you desire. More discussion
-on how to choose colors is described in the next section.
+There are very many color palettes to choose from, and you may also create your
+own palettes. Creating color palettes is [somewhat
+complicated](https://www.r-bloggers.com/2016/07/creating-color-palettes-in-r/)
+in base R, but `ggplot()` provides [convenient
+functions](https://ggplot2.tidyverse.org/reference/scale_gradient.html)
+`scale_fill_gradient()` and `scale_fill_gradient2()` to produce gradient scales
+with 2 or 3 colors, respectively. More discussion on how to choose colors is
+described in the next section.
 
-#### How To Use Heatmaps Resonsibly .
+### How To Use Heatmaps Responsibly
 
 While heatmaps may seem intuitive, they are actually quite complicated and can
 be difficult to create in a way that accurately depicts the underlying matrix.
-More to come...
+As described in the [Human Visual Perception] section, our visual system
+estimates the hue and value of colors based on adjacent colors. For large
+heatmaps with many rows and columns, it is therefore very difficult to
+accurately estimate relationships across wide sections of the heatmap. This may
+not always be problematic, as heatmaps might only be needed to convey general
+patterns in a dataset. However, the designer has a large degree of control over
+how the heatmap utilizes hue and value when mapping to the underlying numbers,
+and those choices have a large impact on the interpretation of the chart. Before
+data can be effectively visualized in a heatmap, some preprocessing is usually
+required to yield a useful plot. 
+
+There are four major factors that influence how a dataset can be visualized as
+a heatmap:
+
+1. The type of features, i.e. whether the features are continuous or discrete
+2. The relative scales of the features
+3. The total range of the data
+4. Whether or not the data are centered
+
+#### The Type of the Features
+
+There are two broad types of features: discrete and continuous. The data
+elements of a discrete feature take on one of a finite set of values. For
+example, a discrete feature might include values like 0 and 1, `Case` and
+`Control` or only the integers between 1 and 6. In general, we are primarily
+interested to know whether samples with the same discrete value group together,
+so ideally all colors that are mapped to discrete features will be easily
+distinguishable from one another. As the number of possible values the feature
+may take increases, finding a set of colors that are all distinguishable from
+one another becomes increasingly difficult. Consider the following three
+heatmaps that show different discrete data:
+
+```{r viz discrete heatmap}
+library(patchwork)
+random_letters <- function(n) {
+  letters <- c('A','B','C','D','E','F','G','H','I','J')
+  sample(letters[1:n],10,replace=TRUE)
+}
+features <- paste0('F',seq(10))
+g_binary <- tibble(
+  feature=features,
+  a=random_letters(2),
+  b=random_letters(2),
+  c=random_letters(2)
+) %>%
+  pivot_longer(c(a,b,c))  %>%
+  ggplot(aes(x=name,y=feature,fill=value)) + geom_tile()
+  
+g_trinary <- tibble(
+  feature=paste0('F',seq(10)),
+  a=random_letters(3),
+  b=random_letters(3),
+  c=random_letters(3)
+) %>%
+  pivot_longer(c(a,b,c))  %>%
+  ggplot(aes(x=name,y=feature,fill=value)) + geom_tile()
+
+g_unmanageable <- tibble(
+  feature=paste0('F',seq(10)),
+  a=random_letters(10),
+  b=random_letters(10),
+  c=random_letters(10)
+) %>%
+  pivot_longer(c(a,b,c))  %>%
+  ggplot(aes(x=name,y=feature,fill=value)) + geom_tile()
+
+g_binary | g_trinary | g_unmanageable
+```
+
+The first and second heatmaps have 2 and 3 discrete values each, and the colors
+are easy to tell apart. The third heatmap has 10 discrete values and it is very
+difficult to distinguish between colors in different parts of the plot.
+
+Continuous features can take any of a (possibly infinite) range of real values,
+e.g. $-3.252$, $858,352$, or $0$. These values will be mapped to colors of a
+*gradient*, where two or more colors are blended together linearly from one
+color to another, and values are mapped within this range of colors in
+proportion to their relative magnitudes. Two gradients, one with two colors and
+one with three, are shown below:
+
+```{r viz heatmap continuous}
+g_two_up <- tibble(
+  ID='a',
+  x=seq(0,1,0.1),
+  val=x
+) %>%
+  ggplot(aes(x=x,y=ID,fill=val)) +
+  geom_tile() +
+  scale_fill_gradient(low="#990000", high="#ffdddd")
+
+g_two_down <- tibble(
+  ID='a',
+  x=seq(0,1,0.1),
+  val=x
+) %>%
+  ggplot(aes(x=x,y=ID,fill=val)) +
+  geom_tile() +
+  scale_fill_gradient(low="#ffdddd", high="#990000")
+
+g_three <- tibble(
+  ID='a',
+  x=seq(0,1,0.1),
+  val=x
+) %>%
+  ggplot(aes(x=x,y=ID,fill=val)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#990000", mid="#ffffff", high="#9999ff", midpoint=0.5)
+
+g_two_up / g_two_down / g_three
+```
+
+These three example gradients comprise the most common types of color mappings.
+The first two with one color differ in which color (i.e. lighter or darker) is
+mapped to the largest value. The third gradient is called a *diverging* palette,
+because the maximum and minimum values show divergence from some central value,
+which in this case is 0.5. For diverging color palettes,
+the value in the middle of the gradient is often very important, as it defines
+which values are visualized in which color. More on diverging color palettes is
+in the following sections.
+
+In general, the types of features, i.e. discrete or continuous, must all be the
+same for a heatmap to be meaningful. Once this has been determined, the values
+of each feature must be examined and possibly transformed, as described next.
+
+#### Scales of Features
+
+The second important consideration when plotting a heatmap is to understand the
+nature of the different features and how they relate to one another.
+Specifically, the features must all be on a comparable scale, or transformed
+appropriately to attain this, for the colors in the heatmap to be visible.
+Consider the following heatmap with three features plotted as columns and 10
+samples as rows:
+
+```{r viz heatmap mismatch scale}
+data <- tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,100,20),
+  c=rnorm(10,20,5)
+) %>%
+  pivot_longer(c(a,b,c))
+
+ggplot(data,aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+The scales of the different features $a$, $b$, and $c$ are different, namely
+they have means of 0, 100, and 20, respectively. This an be clearly seen when
+the data are plotted as a [beeswarm plot](beeswarm-plots):
+
+```{r viz heatmap violin}
+library(ggbeeswarm)
+ggplot(data) +
+  geom_beeswarm(aes(x=name,y=value,color=name))
+```
+
+As the data are on dramatically different scales, only the feature with the
+largest spread (b) can be distinguished in the heatmap.
+
+In order to visualize all these data meaningfully in the same plot, the features
+must be *scaled* so they are all comparable. Typically this is done by
+standardizing the features to have a mean of zero and a standard deviation of 1:
+
+```{r viz heatmap standard}
+data %>%
+  pivot_wider(id_cols='ID',names_from=name) %>%
+  mutate(
+    across(c(a,b,c),scale)
+  ) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+Now each feature has a mean of zero and standard deviation of one:
+
+```{r viz standard violin}
+data %>%
+  pivot_wider(id_cols='ID',names_from=name) %>%
+  mutate(
+    across(c(a,b,c),scale)
+  ) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot() +
+  geom_beeswarm(aes(x=name,y=value,color=name))
+
+```
+
+Now that the data are all on the same scale, each is mapped across the full
+range of the color palette. In this case, we explicitly scaled each feature, but
+it is possible to scale by each sample as well:
+
+```{r viz heatmap scale row}
+data %>%
+  pivot_wider(id_cols=name,names_from=ID) %>%
+  mutate(
+    across(starts_with('F'),scale)
+  ) %>%
+  pivot_longer(starts_with('F'),names_to="ID") %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+This result is dramatically different, and possibly not what you intended. In
+this case the effect is somewhat obvious - all the values in b are the largest,
+the values in c are the smallest, and c is in between. However, in general this
+may not be the case, and care should be taken to understand which dimension of
+the data has been scaled.
+
+:::{.box .warning}
+Because features are typically not assumed to be on the same scale, the base R
+`heatmap()` and `heatmap2()` functions **automatically scale the rows of the
+data prior to visualization**. 
+:::
+
+#### Total data range
+
+As we saw in the previous section on scaling features, the color mapping is
+highly sensitive to the range of all values in the data. Even if the features or
+samples have been properly scaled, extreme values in any of the features can
+render a heatmap uninformative. Consider the following heatmap that visualizes
+data that have a single extreme outlier:
+
+```{r viz outlier}
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,0,1),
+  c=c(rnorm(9,0,1),1e9)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+The single extreme value compressed all the other color values to the colors on
+the lowest end of the color palette. This anomalous value must be removed before
+differences between the other variables will be visible.
+
+The issue above is caused by the fact that the default color gradient scales
+assume there is a linear mapping between the values and the palette. This is
+equivalent to assuming the data are relatively well distributed across a linear
+range of values, as in a normal or uniform distribution. When the data do not
+follow this assumption, any resulting heatmaps may suffer the same issue as
+when there are extreme values. Consider the following heatmap with data randomly
+sampled from an exponential distribution:
+
+```{r viz exponential}
+data <- tibble(
+  ID=paste0('F',seq(10)),
+  a=10**rnorm(10,4,1),
+  b=10**rnorm(10,4,1),
+  c=10**rnorm(10,4,1)
+) %>%
+  pivot_longer(c(a,b,c))
+data %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+The data are similarly compressed toward the lower end of the scale due to the
+uneven distribution of data. In this case, we might consider taking a log
+transformation of the data prior to drawing the heatmap:
+
+```{r viz heatmap log}
+mutate(data,
+       value=log10(value)
+       ) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() 
+```
+
+On a log scale, the heatmap visualizes the range of values linearly across the
+gradient. In this case, we knew a log transform was appropriate to cast the
+data onto an approximately linear scale, though in general this will need to be
+explored for each dataset.
+
+#### Whether or not the data are centered
+
+The final important consideration when creating a heatmap with continuous values
+is determining if there is a meaningful center for each feature. For certain
+kinds of data, data points above and below a certain value have a particular
+meaning. For example, log2 fold change values from differential expression
+greater or less than zero indicate a gene is increased or decreased,
+respectively, in the comparison of interest. When visualizing these values as a
+heatmap, it is therefore important to indicate this central value with a color,
+usually white or black, appropriately, so that colors above and below this
+value can be set accordingly, e.g. above zero is red, below zero blue.
+
+To do this, first a 3-color diverging palette is required, i.e. a palette with
+one color on one side, a different color on the other side, and a third color in
+the middle, usually white or black. The following is a heatmap of normally
+distributed values with mean 0 and standard deviation of 1 visualized on a
+diverging color scale:
+
+```{r viz }
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,0,1),
+  c=rnorm(10,0,1)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#000099", mid="#ffffff", high="#990000", midpoint=0)
+```
+
+Note the `scale_fill_gradient2()` call, with `midpoint=0` argument. This
+argument instructs the gradient to set the value of 0 to the middle color, which
+is white. The midpoint of zero is default, but if your data are centered around
+some other value, failing to specify this midpoint will produce misleading
+visualizations:
+
+```{r viz improper midpoint}
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,1,1),
+  b=rnorm(10,1,1),
+  c=rnorm(10,1,1)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#000099", mid="#ffffff", high="#990000")
+```
+
+Here our data are centered with a mean of 1, but the midpoint is still at its
+default of zero. If we intend for 1 to be the midpoint corresponding to the
+color white, we must specify it explicitly:
+
+```{r viz correct midpoint}
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,1,1),
+  b=rnorm(10,1,1),
+  c=rnorm(10,1,1)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#000099", mid="#ffffff", high="#990000", midpoint=1)
+```
+
+If your features do not have a meaningful center, then the color palette scale
+should generally have only two colors that range from either light to dark or
+dark to light:
+
+```{r viz two color}
+data <- tibble(
+  ID=paste0('F',seq(10)),
+  a=runif(10,0,10),
+  b=runif(10,0,10),
+  c=runif(10,0,10)
+) %>%
+  pivot_longer(c(a,b,c))
+
+g_up <- ggplot(data, aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient(low="#000099",high="#eeeeff")
+
+g_dn <- ggplot(data, aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient(low="#ffffff",high="#000099")
+
+g_up | g_dn
+```
+
+The direction of the color palette depends on the meaning of the data, and is
+a subjective choice.
