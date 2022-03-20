@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A.3 Week 3 | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="A.3 Week 3 | BF591 - R for Biological Sciences" />
+  <title>10.2 Application Structure | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="10.2 Application Structure | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A.3 Week 3 | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="10.2 Application Structure | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A.3 Week 3 | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="10.2 Application Structure | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="week-2.html"/>
-<link rel="next" href="week-4.html"/>
+<link rel="prev" href="introduction-2.html"/>
+<link rel="next" href="reactivity.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -560,30 +560,226 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="week-3" class="section level2 hasAnchor" number="13.3">
-<h2><span class="header-section-number">A.3</span> Week 3<a href="week-3.html#week-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><a href="assignment-1.html#assignment-1">Assignment 1</a> Review</li>
-<li><a href="assignment-2.html#assignment-2">Assignment 2</a></li>
-<li>Data Sci: <a href="data-modeling.html#data-modeling">Data Modeling</a></li>
-<li>Data Sci: <a href="data-modeling.html#a-worked-modeling-example">A Worked Modeling Example</a></li>
-<li>Data Sci: <a href="data-modeling.html#data-summarization">Data Summarization</a></li>
-<li>Data Sci: <a href="data-modeling.html#linear-models">Linear Models</a></li>
-<li>Data Sci: <a href="data-modeling.html#flavors-of-linear-models">Flavors of Linear Models</a></li>
-<li>Bioinfo: <a href="gene-expression.html#gene-expression">Gene Expression</a></li>
-<li>Bioinfo: <a href="gene-expression.html#gene-expression-data-in-bioconductor">Gene Expression Data in Bioconductor</a></li>
-<li>Bioinfo: <a href="microarrays.html#microarrays">Microarrays</a></li>
-<li>Bioinfo: <a href="gene-expression.html#microarray-gene-expression-data">Microarray Gene Expression Data</a></li>
-<li>Bioinfo: <a href="gene-expression.html#differential-expression-microarrays-limma">Differential Expression: Microarrays (limma)</a></li>
-</ul>
+<div id="application-structure" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Application Structure<a href="application-structure.html#application-structure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R Shiny applications are split into two sections: the UI and the server. In web development, these are usually known as the <strong>front end</strong> and the <strong>back end</strong>. The front end is the portion of the application that deal with the users. This is the web page, the design, the login screen, the code that controls what the user can see and do. The back end is everything the user doesn’t see, the structure behind the web page that supports functionality: the database, processing data. One Shiny application controls both aspects of this paradigm. The UI creates a simple web page and allows for customizable inputs and control of displays, the server manages those inputs and transforms them into outputs the user can see.</p>
+<p>In many cases the front end runs on the user’s machine (web browser) and the back end lives on another computer, usually a server. In development of a Shiny app these will be on the same machine, but if you wish to actually publish your web page for others to use then the application will run on a server and communicate with a user elsewhere.</p>
+<div id="a-simple-example" class="section level4 unnumbered hasAnchor">
+<h4>A simple example<a href="application-structure.html#a-simple-example" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb447"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb447-1"><a href="application-structure.html#cb447-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb447-2"><a href="application-structure.html#cb447-2"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="st">&quot;Hello, worm!&quot;</span>)</span>
+<span id="cb447-3"><a href="application-structure.html#cb447-3"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) { }</span>
+<span id="cb447-4"><a href="application-structure.html#cb447-4"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<p>This is the simplest Shiny app structure, which displays the text we pass into UI (the front end) and then doing absolutely nothing else (relatable). The first line loads R Shiny as a package, the second creates our simple user interface and text output, line three controls the back end (which again, does nothing), and the final line launches our app using the objects created in lines two and three.</p>
+<p>In order to build some actual content in our app, we’ll first look at the UI, what the user sees.</p>
+</div>
+<div id="ui-design" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> UI Design<a href="application-structure.html#ui-design" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Much like the rest of the content in this course (and I’m sure you’re sick of hearing this), user interfaces and user design could be taught as its own course. There are innumerable ways for people to interact with software, and designing that software to make them the least angry possible is now your focus.</p>
+<p>R Shiny makes designing what a user sees fairly easy for us. Gone are the days of opening up a text editor to tweak HTML tags, we can just use built in functions like <code>span()</code> and <code>div()</code> to organize our page.</p>
+<p>For example, copying our above extra simple app, I could paste in a whole text block to get a new line of text:</p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb448-1"><a href="application-structure.html#cb448-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb448-2"><a href="application-structure.html#cb448-2"></a>  <span class="fu">paste</span>(<span class="st">&quot;Nothing beside remains. Round the decay&quot;</span>,</span>
+<span id="cb448-3"><a href="application-structure.html#cb448-3"></a>  <span class="st">&quot;Of that colossal wreck, boundless and bare&quot;</span>,</span>
+<span id="cb448-4"><a href="application-structure.html#cb448-4"></a>  <span class="st">&quot;The lone and level sands stretch far away.&quot;</span>)</span>
+<span id="cb448-5"><a href="application-structure.html#cb448-5"></a>)</span></code></pre></div>
+<p>But that’s all rather clunky. And what if I want to include some other elements in between? Or an image, a link? We can do better than just a big block of text next to some plots. Instead we can use <code>p()</code> tags, short for paragraph, to split things up more reasonably and add more convenient customization:</p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb449-1"><a href="application-structure.html#cb449-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb449-2"><a href="application-structure.html#cb449-2"></a>  <span class="fu">p</span>(<span class="st">&quot;Nothing beside remains. Round the decay&quot;</span>),</span>
+<span id="cb449-3"><a href="application-structure.html#cb449-3"></a>  <span class="fu">p</span>(<span class="st">&quot;Of that colossal wreck, boundless and bare&quot;</span>),</span>
+<span id="cb449-4"><a href="application-structure.html#cb449-4"></a>  <span class="fu">img</span>(<span class="at">src=</span><span class="st">&quot;https://coloringhome.com/coloring/RiA/yEj/RiAyEjzKT.gif&quot;</span>),</span>
+<span id="cb449-5"><a href="application-structure.html#cb449-5"></a>  <span class="fu">p</span>(<span class="st">&quot;The lone and level sands stretch far away.&quot;</span>),</span>
+<span id="cb449-6"><a href="application-structure.html#cb449-6"></a>  <span class="fu">markdown</span>(<span class="st">&quot;&gt;Percy Bysshe Shelley&quot;</span>)</span>
+<span id="cb449-7"><a href="application-structure.html#cb449-7"></a>)</span></code></pre></div>
+<div class="box note">
+<p>We still need to include commas at the end, since these tags are essentially <em>arguments</em> being passed to the <code>fluidPage()</code> function. This is <strong>not</strong> the case for the server side object, which is a normal function and will be split up by line breaks.</p>
+</div>
+<p>Much nicer! This Shelley tribute page is really coming together. Let’s talk about some specific interactive elements that we can use to actually work with the user!</p>
+<div id="inputs" class="section level4 hasAnchor" number="10.2.1.1">
+<h4><span class="header-section-number">10.2.1.1</span> Inputs<a href="application-structure.html#inputs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Built-in inputs are one of the major draws to Shiny. Instead of dealing with fickle JavaScript and the DOM (a.k.a. we get to skip half of BF768), we get to type one line of R code and it is all taken care of for us!</p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb450-1"><a href="application-structure.html#cb450-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb450-2"><a href="application-structure.html#cb450-2"></a>  <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;pyramids&quot;</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>, <span class="at">label =</span> <span class="st">&quot;How many pyramids are there?&quot;</span>, <span class="at">value =</span> <span class="dv">0</span>, <span class="at">step =</span> <span class="dv">1</span>)</span>
+<span id="cb450-3"><a href="application-structure.html#cb450-3"></a>)</span></code></pre></div>
+<p>Let’s break down this function very quickly:
+1. <strong>inputId = </strong> - The input ID is the string of text (unique, no numbers or special characters) that we can use inside the server function to identify this input. If I want to know how many pyramids the user selected, then I can call <code>input$pyramids</code>. More on this later.
+2. <strong>max =, min =</strong> - Controls the upper and lower bounds of the slider.
+3. <strong>label = </strong> - Text to display to the user about the slider.
+4. <strong>value = </strong> - What value should the slider start at?
+5. **step = * - The amount the slider can move by. Useful if more (or less) precise input is required.</p>
+<p>The most vital part, and something that all input functions share, is the inputId. This text is used to manage this bit of input data in the server function, and is there for the connection between what the user does and how our app manages it.</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb451-1"><a href="application-structure.html#cb451-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb451-2"><a href="application-structure.html#cb451-2"></a>  <span class="fu">dateInput</span>(<span class="st">&quot;birthday&quot;</span>, <span class="st">&quot;When is your birthday?&quot;</span>),</span>
+<span id="cb451-3"><a href="application-structure.html#cb451-3"></a>  <span class="fu">fileInput</span>(<span class="st">&quot;photo&quot;</span>, <span class="fu">paste0</span>(<span class="st">&quot;Please upload an embarassing photo of you at the &quot;</span>,</span>
+<span id="cb451-4"><a href="application-structure.html#cb451-4"></a>                            <span class="st">&quot;Christmas party&quot;</span>)),</span>
+<span id="cb451-5"><a href="application-structure.html#cb451-5"></a>  <span class="fu">radioButtons</span>(<span class="st">&quot;button&quot;</span>, <span class="st">&quot;Which is your favorite?&quot;</span>, </span>
+<span id="cb451-6"><a href="application-structure.html#cb451-6"></a>               <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Fall&quot;</span>, <span class="st">&quot;Winter&quot;</span>, <span class="st">&quot;Spring&quot;</span>, <span class="st">&quot;Pyramids&quot;</span>))</span>
+<span id="cb451-7"><a href="application-structure.html#cb451-7"></a>)</span></code></pre></div>
+<p>This generates multiple inputs I can get the results from using <code>input$birthday</code>, <code>input$photo</code>, and <code>input$button</code>.</p>
+<div class="box important">
+<p>The results of the file upload are nested. If I were to ask for a CSV, and needed to load that with <code>read.csv()</code>, I would need to use <code>input$csv$datapath</code> to point R at the uploaded object.</p>
+</div>
+<p>For a better idea of the common and useful input options, see the Shiny docs or the cheat sheet. For additional, cooler, fancier input options try <code>shinyWidgets::shinyWidgetsGallery()</code>.</p>
+</div>
+<div id="outputs" class="section level4 hasAnchor" number="10.2.1.2">
+<h4><span class="header-section-number">10.2.1.2</span> Outputs<a href="application-structure.html#outputs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Now that we have a beautiful UI page that takes user input we can figure out <em>where</em> on the page to put it. This part is also relatively easy, every kind of output has a corresponding output function. If I want to insert a base plot or ggplot, I use <code>plotOutput()</code>. A table or data frame or tibble would go through <code>tableOutput()</code>.</p>
+<p>One advanced option is to use <code>uiOutput()</code> to place input options and HTML <strong>back into</strong> the front end. This can be used to create some very nice effects, such as inserting results only when one option is selected or spawning a follow up question to an option. Here’s a small example:</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb452-1"><a href="application-structure.html#cb452-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb452-2"><a href="application-structure.html#cb452-2"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="fu">radioButtons</span>(<span class="st">&quot;button&quot;</span>, <span class="st">&quot;Peanut butter or jelly?&quot;</span>, </span>
+<span id="cb452-3"><a href="application-structure.html#cb452-3"></a>                             <span class="fu">c</span>(<span class="st">&quot;Peanut butter&quot;</span>, <span class="st">&quot;Jelly&quot;</span>)),</span>
+<span id="cb452-4"><a href="application-structure.html#cb452-4"></a>                <span class="fu">uiOutput</span>(<span class="st">&quot;choice&quot;</span>))</span>
+<span id="cb452-5"><a href="application-structure.html#cb452-5"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb452-6"><a href="application-structure.html#cb452-6"></a>  output<span class="sc">$</span>choice <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb452-7"><a href="application-structure.html#cb452-7"></a>    <span class="cf">if</span> (input<span class="sc">$</span>button <span class="sc">==</span> <span class="st">&quot;Peanut butter&quot;</span>) {</span>
+<span id="cb452-8"><a href="application-structure.html#cb452-8"></a>      <span class="fu">radioButtons</span>(<span class="st">&quot;pbChoice&quot;</span>, <span class="st">&quot;PB is great. Bread or english muffin?&quot;</span>,</span>
+<span id="cb452-9"><a href="application-structure.html#cb452-9"></a>                   <span class="fu">c</span>(<span class="st">&quot;Bread&quot;</span>, <span class="st">&quot;English Muffin&quot;</span>))</span>
+<span id="cb452-10"><a href="application-structure.html#cb452-10"></a>    } <span class="cf">else</span> {</span>
+<span id="cb452-11"><a href="application-structure.html#cb452-11"></a>      <span class="fu">radioButtons</span>(<span class="st">&quot;jellychoice&quot;</span>, <span class="st">&quot;What kind of jelly?&quot;</span>,</span>
+<span id="cb452-12"><a href="application-structure.html#cb452-12"></a>        <span class="fu">c</span>(<span class="st">&quot;Strawberry&quot;</span>, <span class="st">&quot;Raspberry&quot;</span>, <span class="st">&quot;Toxic sludge&quot;</span>))</span>
+<span id="cb452-13"><a href="application-structure.html#cb452-13"></a>    }</span>
+<span id="cb452-14"><a href="application-structure.html#cb452-14"></a>  })</span>
+<span id="cb452-15"><a href="application-structure.html#cb452-15"></a>}</span>
+<span id="cb452-16"><a href="application-structure.html#cb452-16"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<p>This is our first example of the server function…doing anything…but we’re gonna ignore exactly what or why it’s doing anything so I can comment on <code>uiOutput()</code>. Based on the if-else statement on line 7, our follow up question changes. This can be used to show/hide responses for users. A user hits a check box indicated they’re a veteran, you can insert more questions about their veteran status or info.</p>
+<p>We will figure out this whole server thing in more detail once we have made our page look as pretty as possible.</p>
+</div>
+<div id="sidebar-main" class="section level4 hasAnchor" number="10.2.1.3">
+<h4><span class="header-section-number">10.2.1.3</span> Sidebar-Main<a href="application-structure.html#sidebar-main" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Now that we have all these functions to populate our page with the most inane content possible, we’re gonna start running into issues with organization. Even with our mastery of HTML elements, it will prove difficult to fit everything we want into one blank page:</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb453-1"><a href="application-structure.html#cb453-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb453-2"><a href="application-structure.html#cb453-2"></a>  <span class="fu">HTML</span>(<span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">&quot;&lt;p&gt;All work and no play makes Jack a dull boy&lt;/p&gt;&quot;</span>, <span class="dv">1000</span>), </span>
+<span id="cb453-3"><a href="application-structure.html#cb453-3"></a>        <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb453-4"><a href="application-structure.html#cb453-4"></a>)</span></code></pre></div>
+<p>Instead, we can use the popular Sidebar layout to help organize our web page. This works by placing two functions inside the UI argument: <code>sidebarPanel()</code> and <code>mainPanel()</code>. This offers us nice compartmentalization of design without demanding too many arguments or details from us as we put it together. Very useful for quick apps that you don’t need to make look that good. We just need to nest our two panels inside <code>sidebarLayout()</code> like so:</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb454-1"><a href="application-structure.html#cb454-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb454-2"><a href="application-structure.html#cb454-2"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;I never get tired of these inane examples.&quot;</span>),</span>
+<span id="cb454-3"><a href="application-structure.html#cb454-3"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb454-4"><a href="application-structure.html#cb454-4"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb454-5"><a href="application-structure.html#cb454-5"></a>      <span class="fu">HTML</span>(<span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">&quot;&lt;p&gt;This is the sidebar&lt;/p&gt;&quot;</span>, <span class="dv">10</span>), <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>))),</span>
+<span id="cb454-6"><a href="application-structure.html#cb454-6"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb454-7"><a href="application-structure.html#cb454-7"></a>      <span class="fu">h1</span>(<span class="st">&quot;and this is the main panel!&quot;</span>))</span>
+<span id="cb454-8"><a href="application-structure.html#cb454-8"></a>    ))</span></code></pre></div>
+<p>We can add other elements, like <code>titlePanel()</code>, to bring the app together. Notice that the title panel is located <em>outside</em> of the <code>sidebarLayout()</code> call, since we don’t want it inside our sidebar or main panel elements. <strong>Nesting the functions is the same as the nesting of the layout.</strong></p>
+</div>
+<div id="fluidpage" class="section level4 hasAnchor" number="10.2.1.4">
+<h4><span class="header-section-number">10.2.1.4</span> FluidPage<a href="application-structure.html#fluidpage" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>There is an alternative to the sidebar-main panel layout, which is a little constricting if you don’t want this super big sidebar taking up everything. The FluidPage (which we have been using as our parent function this whole time! Woa!) can allow for a more grid-like customization of the application.</p>
+<p>While there are a lot of ways to control the height and width of your fluid rows, we’ll look at a quick example to see a comically bad example of doing so.</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb455-1"><a href="application-structure.html#cb455-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="at">style =</span> <span class="st">&#39;background-color: #007BA7&#39;</span>,</span>
+<span id="cb455-2"><a href="application-structure.html#cb455-2"></a>                <span class="fu">fluidRow</span>(<span class="at">style =</span> <span class="st">&#39;background-color: #F3A712&#39;</span>,</span>
+<span id="cb455-3"><a href="application-structure.html#cb455-3"></a>                         <span class="fu">p</span>(<span class="st">&quot;I&#39;m in the first row!&quot;</span>), </span>
+<span id="cb455-4"><a href="application-structure.html#cb455-4"></a>                         <span class="fu">column</span>(<span class="at">style =</span> <span class="st">&#39;background-color: #A8C686&#39;</span>,</span>
+<span id="cb455-5"><a href="application-structure.html#cb455-5"></a>                                <span class="at">width =</span> <span class="dv">4</span>,</span>
+<span id="cb455-6"><a href="application-structure.html#cb455-6"></a>                                <span class="fu">p</span>(<span class="st">&quot;Left columm!&quot;</span>)),</span>
+<span id="cb455-7"><a href="application-structure.html#cb455-7"></a>                         <span class="fu">column</span>(<span class="at">style =</span> <span class="st">&#39;background-color: #DB162F&#39;</span>,</span>
+<span id="cb455-8"><a href="application-structure.html#cb455-8"></a>                                <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb455-9"><a href="application-structure.html#cb455-9"></a>                                <span class="fu">p</span>(<span class="st">&quot;Right column!&quot;</span>))),</span>
+<span id="cb455-10"><a href="application-structure.html#cb455-10"></a>                <span class="fu">fluidRow</span>(<span class="at">style =</span> <span class="st">&#39;background-color: #E6BCCD&#39;</span>,</span>
+<span id="cb455-11"><a href="application-structure.html#cb455-11"></a>                         <span class="fu">p</span>(<span class="st">&quot;I&#39;m in the second row!&quot;</span>),</span>
+<span id="cb455-12"><a href="application-structure.html#cb455-12"></a>                         <span class="fu">column</span>(<span class="at">style =</span> <span class="st">&#39;background-color: #BEE3DB&#39;</span>,</span>
+<span id="cb455-13"><a href="application-structure.html#cb455-13"></a>                                <span class="at">width=</span><span class="dv">6</span>,</span>
+<span id="cb455-14"><a href="application-structure.html#cb455-14"></a>                                <span class="fu">p</span>(<span class="st">&quot;Left, lower&quot;</span>)),</span>
+<span id="cb455-15"><a href="application-structure.html#cb455-15"></a>                         <span class="fu">column</span>(<span class="at">style =</span> <span class="st">&#39;background-color: #9D44B5&#39;</span>,</span>
+<span id="cb455-16"><a href="application-structure.html#cb455-16"></a>                                <span class="at">width=</span><span class="dv">6</span>,</span>
+<span id="cb455-17"><a href="application-structure.html#cb455-17"></a>                                <span class="fu">p</span>(<span class="st">&quot;Right, lower!&quot;</span>))))</span></code></pre></div>
+<p>The main gist is that each <code>fluidRow()</code> creates a new row inside whatever function it is, and then you can use the <code>column</code> function inside each row to further split up the page. Then, you can use the same input and output functions inside each of these, along with whatever normal HTML you wish. The overall, standard width of the page is 12 unnamed shiny units, so keep ensure your widths don’t add up to more than 12.</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/15ea13e6dd0ba26014225718b5541abb983e0a45/7b30e/diagrams/action-layout/multirow.png" alt="" />
+<p class="caption">Splitting up a page with fluidRows.</p>
+</div>
+</div>
+</div>
+<div id="server-functionality" class="section level3 hasAnchor" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Server Functionality<a href="application-structure.html#server-functionality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once we have a place in the front end, we can start to manipulate the server side to control and run out application. The interface is nothing without the back end it controls; the back end is where we can start to write our R and manipulate data to inform the user.</p>
+<p>The server function has two components we worry about: the <code>input</code>, which delivers to us information from the user, and <code>output</code>, which we can pass data and objects to be rendered by our webpage.</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb456-1"><a href="application-structure.html#cb456-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb456-2"><a href="application-structure.html#cb456-2"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb456-3"><a href="application-structure.html#cb456-3"></a>  <span class="fu">radioButtons</span>(<span class="st">&quot;radio&quot;</span>, <span class="at">label =</span> <span class="st">&quot;Number of points&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>)),</span>
+<span id="cb456-4"><a href="application-structure.html#cb456-4"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb456-5"><a href="application-structure.html#cb456-5"></a>)</span>
+<span id="cb456-6"><a href="application-structure.html#cb456-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb456-7"><a href="application-structure.html#cb456-7"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb456-8"><a href="application-structure.html#cb456-8"></a>    <span class="fu">plot</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>radio), <span class="dv">1</span><span class="sc">:</span>input<span class="sc">$</span>radio)</span>
+<span id="cb456-9"><a href="application-structure.html#cb456-9"></a>  })</span>
+<span id="cb456-10"><a href="application-structure.html#cb456-10"></a>}</span>
+<span id="cb456-11"><a href="application-structure.html#cb456-11"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div id="input" class="section level4 hasAnchor" number="10.2.2.1">
+<h4><span class="header-section-number">10.2.2.1</span> Input<a href="application-structure.html#input" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can pick apart this teeny example application to see how inputs translate to the server function. When we create our radio buttons, we assign the input id “radio.” The application is started and the first choice, 10, is selected by default. That value is immediately entered into the <code>input</code> variable in the server. When a user selects a different option, the new value is updated inside the <code>input</code> variable.</p>
+<p>We can reference the <code>input</code> variable inside our server to change our plot in this case. If I select the button for 20 instead of 10, the random number of points put into <code>plot()</code> changes from 10 to 20. The variable is static, so I can use it multiple times in my server function.</p>
+</div>
+<div id="output" class="section level4 hasAnchor" number="10.2.2.2">
+<h4><span class="header-section-number">10.2.2.2</span> Output<a href="application-structure.html#output" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Finally, the server function delivers this output <em>back</em> to the web interface. In this example, we created a <code>plotOutput()</code> below the radio buttons to display our plot. Inside the server function, we use <code>output$plot</code> to match the output ID we created in <code>plotOutput()</code>. The rendered plot is then inserted into that part of the document. This process of matching IDs mirrors the input process.</p>
+<p>There are a number of base outputs types: tables, plots, UI (for additional elements), and so on. There are also additional libraries for elements like maps, networks, and even 3D objects. DataTables are especially useful for sharing data with users.</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb457-1"><a href="application-structure.html#cb457-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb457-2"><a href="application-structure.html#cb457-2"></a><span class="fu">library</span>(DT)</span>
+<span id="cb457-3"><a href="application-structure.html#cb457-3"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="fu">dataTableOutput</span>(<span class="st">&quot;dt&quot;</span>))</span>
+<span id="cb457-4"><a href="application-structure.html#cb457-4"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb457-5"><a href="application-structure.html#cb457-5"></a>  output<span class="sc">$</span>dt <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>(</span>
+<span id="cb457-6"><a href="application-structure.html#cb457-6"></a>    DT<span class="sc">::</span><span class="fu">datatable</span>(iris, <span class="at">extensions =</span> <span class="st">&#39;Buttons&#39;</span>, <span class="at">class =</span> <span class="st">&quot;display&quot;</span>,</span>
+<span id="cb457-7"><a href="application-structure.html#cb457-7"></a>                  <span class="at">options =</span> <span class="fu">list</span>(<span class="at">paging =</span> <span class="cn">TRUE</span>, <span class="at">searching =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb457-8"><a href="application-structure.html#cb457-8"></a>                                 <span class="at">fixedColumns =</span> <span class="cn">TRUE</span>, <span class="at">autoWidth =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb457-9"><a href="application-structure.html#cb457-9"></a>                                 <span class="at">ordering =</span> <span class="cn">TRUE</span>, <span class="at">dom =</span> <span class="st">&#39;Bfrtip&#39;</span>,</span>
+<span id="cb457-10"><a href="application-structure.html#cb457-10"></a>                                 <span class="at">buttons =</span> <span class="fu">c</span>(<span class="st">&#39;copy&#39;</span>, <span class="st">&#39;csv&#39;</span>))))</span>
+<span id="cb457-11"><a href="application-structure.html#cb457-11"></a>  }</span>
+<span id="cb457-12"><a href="application-structure.html#cb457-12"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<p>And here is a cool example using a package I’ve never tried before.</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb458-1"><a href="application-structure.html#cb458-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb458-2"><a href="application-structure.html#cb458-2"></a><span class="fu">library</span>(threejs)</span>
+<span id="cb458-3"><a href="application-structure.html#cb458-3"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb458-4"><a href="application-structure.html#cb458-4"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;maxz&quot;</span>, <span class="st">&quot;Height of graph&quot;</span>, <span class="dv">5</span>, <span class="dv">25</span>, <span class="dv">10</span>),</span>
+<span id="cb458-5"><a href="application-structure.html#cb458-5"></a>  <span class="fu">scatterplotThreeOutput</span>(<span class="st">&quot;scatterplot&quot;</span>)</span>
+<span id="cb458-6"><a href="application-structure.html#cb458-6"></a>)</span>
+<span id="cb458-7"><a href="application-structure.html#cb458-7"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb458-8"><a href="application-structure.html#cb458-8"></a>  output<span class="sc">$</span>scatterplot <span class="ot">&lt;-</span> <span class="fu">renderScatterplotThree</span>({</span>
+<span id="cb458-9"><a href="application-structure.html#cb458-9"></a>    z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, input<span class="sc">$</span>maxz, <span class="fl">0.01</span>)</span>
+<span id="cb458-10"><a href="application-structure.html#cb458-10"></a>    x <span class="ot">&lt;-</span> <span class="fu">cos</span>(z)</span>
+<span id="cb458-11"><a href="application-structure.html#cb458-11"></a>    y <span class="ot">&lt;-</span> <span class="fu">sin</span>(z)</span>
+<span id="cb458-12"><a href="application-structure.html#cb458-12"></a>    <span class="fu">scatterplot3js</span>(x,y,z, <span class="at">color=</span><span class="fu">rainbow</span>(<span class="fu">length</span>(z)))</span>
+<span id="cb458-13"><a href="application-structure.html#cb458-13"></a>  })</span>
+<span id="cb458-14"><a href="application-structure.html#cb458-14"></a>}</span>
+<span id="cb458-15"><a href="application-structure.html#cb458-15"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div id="traceback" class="section level5 hasAnchor" number="10.2.2.2.1">
+<h5><span class="header-section-number">10.2.2.2.1</span> Traceback<a href="application-structure.html#traceback" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>One essential feature for Shiny is determining why errors crop up. You may have some familiarity with this kind of troubleshooting in base R, but because Shiny is abstracting our R into an entire application, the errors can turn into edlritch horrors without compare.</p>
+<p>One main tool is automatic, and that is the traceback. When a shiny app fails in a specific way, the error printed lists how the application arrived at that issue. Each function used is listed, in reverse order, from when it was called. In this way, we can track down exactly where our problem lies.</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb459-1"><a href="application-structure.html#cb459-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb459-2"><a href="application-structure.html#cb459-2"></a></span>
+<span id="cb459-3"><a href="application-structure.html#cb459-3"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">g</span>(x)</span>
+<span id="cb459-4"><a href="application-structure.html#cb459-4"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">h</span>(x)</span>
+<span id="cb459-5"><a href="application-structure.html#cb459-5"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb459-6"><a href="application-structure.html#cb459-6"></a></span>
+<span id="cb459-7"><a href="application-structure.html#cb459-7"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb459-8"><a href="application-structure.html#cb459-8"></a>  <span class="fu">selectInput</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb459-9"><a href="application-structure.html#cb459-9"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb459-10"><a href="application-structure.html#cb459-10"></a>)</span>
+<span id="cb459-11"><a href="application-structure.html#cb459-11"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb459-12"><a href="application-structure.html#cb459-12"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb459-13"><a href="application-structure.html#cb459-13"></a>    n <span class="ot">&lt;-</span> <span class="fu">f</span>(input<span class="sc">$</span>n)</span>
+<span id="cb459-14"><a href="application-structure.html#cb459-14"></a>    <span class="fu">plot</span>(<span class="fu">head</span>(cars, n))</span>
+<span id="cb459-15"><a href="application-structure.html#cb459-15"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb459-16"><a href="application-structure.html#cb459-16"></a>}</span>
+<span id="cb459-17"><a href="application-structure.html#cb459-17"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<p>The above application fails because of the three functions at the beginning.</p>
+<p>Now that I know the error is limited to my <code>f()</code> function on line 13, I can do one of two things:
+1. I can use a <code>print()</code> statement to try and deduce why this is failing.
+2. I can enable the debugger to take a step by step approach to how my code is running.</p>
+<p>Debugging…well…you could write a course based on it. However, printing is often a useful quick and dirty technique for parsing your code troubles quickly. Because it sounds like my argument is a problem, and my only input right now is <code>input$n</code>, let me see what that looks like with <code>print(input$n)</code> and <code>print(typeof(input$n))</code>.</p>
+<p>A quick <code>as.numeric()</code> will fix my app right up and allow me to plot car data? 🚗 🏎️</p>
+</div>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="week-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="week-4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reactivity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
