@@ -21,6 +21,9 @@ Shiny is much easier to use thanks to its built-in shorthands for common web ele
 
 This chapter will bring you through the basics of constructing an app, and the nature of reactive programming. It is still R, it will still mostly feel like R, but Shiny is a veneer of utility that turns your average data scientist into a web developer fully equipped to impress any lab peer.
 
+### How does a web page work? 
+
+
 #### Getting started and development
 Getting start with Shiny is easy whether you're on SCC or your own computer. Simple select a new project, choose new directory, and select the Shiny option as seen below.
 
