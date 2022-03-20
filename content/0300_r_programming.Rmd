@@ -1443,4 +1443,19 @@ This is related to the previous question, but is distinct in that understanding
 what code does is just the first step in being able to make desired changes to
 it.
 
-### The `styler` package .
+### The `styler` package
+
+Consistently formatted code is generally much easier to read than inconsistently
+formatted code. Consistent formatting may also allow you to identify syntax and
+logic errors much more easily than it might be otherwise. The [`styler`
+package](https://cran.r-project.org/web/packages/styler/vignettes/introducing_styler.html)
+is an R package that can automatically format your code to make it consistent in
+a number of ways, including indentation, code block conventions and more. When
+you install styler with `install.packages("styler")` in RStudio, a new entry is
+available in the Addins menu:
+
+![styler Addin menu](styler.png)
+
+These Addins allow you to let styler format your code for you according to some
+reasonable (albeit arbitrary) conventions.
+
