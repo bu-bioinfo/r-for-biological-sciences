@@ -6,6 +6,7 @@ output:
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(eval = FALSE, attr.source='.numberLines') 
+library(shiny)
 ```
 
 # R Shiny
@@ -75,19 +76,16 @@ R Shiny makes designing what a user sees fairly easy for us. Gone are the days o
 
 For example, copying our above extra simple app, I could paste in a whole text block to get a new line of text:
 ```{r}
-...
 ui <- fluidPage(
   paste("Nothing beside remains. Round the decay",
   "Of that colossal wreck, boundless and bare",
   "The lone and level sands stretch far away.")
 )
-...
 ```
 ![Not great appearance-wise](img/shiny_05.png)
 
 But that's all rather clunky. And what if I want to include some other elements in between? Or an image, a link? We can do better than just a big block of text next to some plots. Instead we can use `p()` tags, short for paragraph, to split things up more reasonably and add more convenient customization:
 ```{r}
-...
 ui <- fluidPage(
   p("Nothing beside remains. Round the decay"),
   p("Of that colossal wreck, boundless and bare"),
@@ -96,7 +94,6 @@ ui <- fluidPage(
   p("The lone and level sands stretch far away."),
   markdown(">Percy Bysshe Shelley")
 )
-...
 ```
 ![Finally, some good poetry](img/shiny_06.png)
 
@@ -126,12 +123,10 @@ shinyApp(ui, server)
 Built-in inputs are one of the major draws to Shiny. Instead of dealing with fickle JavaScript and the DOM (a.k.a. we get to skip half of BF768), we get to type one line of R code and it is all taken care of for us! 
 
 ```{r}
-...
 ui <- fluidPage(
   sliderInput(inputId = "pyramids", min = 0, max = 10, 
               label = "How many pyramids are there?", value = 0, step = 1)
 )
-...
 ```
 Let's break down this function very quickly:
 1. **inputId = ** - The input ID is the string of text (unique, no numbers or special characters) that we can use inside the server function to identify this input. If I want to know how many pyramids the user selected, then I can call `input$pyramids`. More on this later.
@@ -145,7 +140,6 @@ Let's break down this function very quickly:
 The most vital part, and something that all input functions share, is the inputId. This text is used to manage this bit of input data in the server function, and is there for the connection between what the user does and how our app manages it.
 
 ```{r}
-...
 ui <- fluidPage(
   dateInput("birthday", "When is your birthday?"),
   fileInput("photo", paste0("Please upload an embarassing photo of you at the ",
@@ -153,7 +147,6 @@ ui <- fluidPage(
   radioButtons("button", "Which is your favorite?", 
                choices = c("Fall", "Winter", "Spring", "Pyramids"))
 )
-...
 ```
 This generates multiple inputs I can get the results from using `input$birthday`, `input$photo`, and `input$button`. 
 
@@ -196,18 +189,15 @@ We will figure out this whole server thing in more detail once we have made our 
 #### Sidebar-Main
 Now that we have all these functions to populate our page with the most inane content possible, we're gonna start running into issues with organization. Even with our mastery of HTML elements, it will prove difficult to fit everything we want into one blank page:
 ```{r}
-...
 ui <- fluidPage(
   HTML(paste(rep("<p>All work and no play makes Jack a dull boy</p>", 1000), 
         collapse = ""))
 )
-...
 ```
 ![Maybe I'll stay at a different hotel.](img/shiny_10.png)
 Instead, we can use the popular Sidebar layout to help organize our web page. This works by placing two functions inside the UI argument: `sidebarPanel()` and `mainPanel()`. This offers us nice compartmentalization of design without demanding too many arguments or details from us as we put it together. Very useful for quick apps that you don't need to make look that good. We just need to nest our two panels inside `sidebarLayout()` like so:
 
 ```{r}
-...
 ui <- fluidPage(
   titlePanel("I never get tired of these inane examples."),
   sidebarLayout(
@@ -216,7 +206,6 @@ ui <- fluidPage(
     mainPanel(
       h1("and this is the main panel!"))
     ))
-...
 ```
 ![Much better.](img/shiny_11.png)
 
@@ -228,7 +217,6 @@ There is an alternative to the sidebar-main panel layout, which is a little cons
 While there are a lot of ways to control the height and width of your fluid rows, we'll look at a quick example to see a comically bad example of doing so. 
 
 ```{r}
-...
 ui <- fluidPage(style = 'background-color: #007BA7',
                 fluidRow(style = 'background-color: #F3A712',
                          p("I'm in the first row!"), 
@@ -246,7 +234,6 @@ ui <- fluidPage(style = 'background-color: #007BA7',
                          column(style = 'background-color: #9D44B5',
                                 width=6,
                                 p("Right, lower!"))))
-...
 ```
 ![This was very fun lol.](img/shiny_12.png)
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A.3 Week 3 | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="A.3 Week 3 | BF591 - R for Biological Sciences" />
+  <title>10.1 Introduction | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="10.1 Introduction | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A.3 Week 3 | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="10.1 Introduction | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A.3 Week 3 | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="10.1 Introduction | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="week-2.html"/>
-<link rel="next" href="week-4.html"/>
+<link rel="prev" href="r-shiny.html"/>
+<link rel="next" href="application-structure.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -560,30 +560,40 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="week-3" class="section level2 hasAnchor" number="13.3">
-<h2><span class="header-section-number">A.3</span> Week 3<a href="week-3.html#week-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><a href="assignment-1.html#assignment-1">Assignment 1</a> Review</li>
-<li><a href="assignment-2.html#assignment-2">Assignment 2</a></li>
-<li>Data Sci: <a href="data-modeling.html#data-modeling">Data Modeling</a></li>
-<li>Data Sci: <a href="data-modeling.html#a-worked-modeling-example">A Worked Modeling Example</a></li>
-<li>Data Sci: <a href="data-modeling.html#data-summarization">Data Summarization</a></li>
-<li>Data Sci: <a href="data-modeling.html#linear-models">Linear Models</a></li>
-<li>Data Sci: <a href="data-modeling.html#flavors-of-linear-models">Flavors of Linear Models</a></li>
-<li>Bioinfo: <a href="gene-expression.html#gene-expression">Gene Expression</a></li>
-<li>Bioinfo: <a href="gene-expression.html#gene-expression-data-in-bioconductor">Gene Expression Data in Bioconductor</a></li>
-<li>Bioinfo: <a href="microarrays.html#microarrays">Microarrays</a></li>
-<li>Bioinfo: <a href="gene-expression.html#microarray-gene-expression-data">Microarray Gene Expression Data</a></li>
-<li>Bioinfo: <a href="gene-expression.html#differential-expression-microarrays-limma">Differential Expression: Microarrays (limma)</a></li>
-</ul>
+<div id="introduction-2" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Introduction<a href="introduction-2.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R Shiny is an R package that enables seamless creation of interactive web applications using exclusively R. This is quite the feat since R is very much <em>not</em> a web programming language like JavaScript. It allows for data scientists like us, who are much more comfortable creating scripts and analyses, to leverage their skills and make attractive, functional web apps to share with their collaborators and beyond.</p>
+<blockquote>
+<p>Image of basic Shiny app and script?
+Shiny gallery demo??</p>
+</blockquote>
+<p>Shiny is much easier to use thanks to its built-in shorthands for common web elements. A paragraph tab, used for normal text, can be types with <code>p("Text")</code> instead of HTML’s clunkier <code>&lt;p&gt;Text&lt;/p&gt;</code>. This applies to even more complicated objects like buttons, sliders, and outputting plots and tables.</p>
+<p>This chapter will bring you through the basics of constructing an app, and the nature of reactive programming. It is still R, it will still mostly feel like R, but Shiny is a veneer of utility that turns your average data scientist into a web developer fully equipped to impress any lab peer.</p>
+<div id="how-does-a-web-page-work" class="section level3 hasAnchor" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> How does a web page work?<a href="introduction-2.html#how-does-a-web-page-work" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="getting-started-and-development" class="section level4 hasAnchor" number="10.1.1.1">
+<h4><span class="header-section-number">10.1.1.1</span> Getting started and development<a href="introduction-2.html#getting-started-and-development" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Getting start with Shiny is easy whether you’re on SCC or your own computer. Simple select a new project, choose new directory, and select the Shiny option as seen below.</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/6f3bccc61698dce386b5650c4204d59ebcd66836/571c3/images/action-workflow/new-project.png" alt="" />
+<p class="caption">New Shiny App</p>
+</div>
+<div class="box tldr">
+<p>Further reading:<br />
+- Parts of this chapter are adapted from <a href="https://mastering-shiny.org/index.html">Hadley Wickham’s Book on Shiny</a><br />
+- The <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/shiny.pdf">Official R Shiny Cheat Sheet</a><br />
+- Further widgets for unique outputs: <a href="http://www.htmlwidgets.org/">HTML Widgets</a></p>
+</div>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="week-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="week-4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-shiny.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="application-structure.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
