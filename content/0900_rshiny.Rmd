@@ -75,7 +75,7 @@ Much like the rest of the content in this course (and I'm sure you're sick of he
 R Shiny makes designing what a user sees fairly easy for us. Gone are the days of opening up a text editor to tweak HTML tags, we can just use built in functions like `span()` and `div()` to organize our page.
 
 For example, copying our above extra simple app, I could paste in a whole text block to get a new line of text:
-```{r}
+```r
 ui <- fluidPage(
   paste("Nothing beside remains. Round the decay",
   "Of that colossal wreck, boundless and bare",
@@ -85,7 +85,7 @@ ui <- fluidPage(
 ![Not great appearance-wise](img/shiny_05.png)
 
 But that's all rather clunky. And what if I want to include some other elements in between? Or an image, a link? We can do better than just a big block of text next to some plots. Instead we can use `p()` tags, short for paragraph, to split things up more reasonably and add more convenient customization:
-```{r}
+```r
 ui <- fluidPage(
   p("Nothing beside remains. Round the decay"),
   p("Of that colossal wreck, boundless and bare"),
@@ -106,7 +106,7 @@ Much nicer! This Shelley tribute page is really coming together. Let's talk abou
 ::: {.box .important}
 ###### Exercise 1 - UI Functions {-}
 Let's try out some HTML tags. Go to [this link](https://shiny.rstudio.com/reference/shiny/1.6.0/builder.html) to see all of the options! Play around with trying to display some in your app. 
-```{r}
+```r
 library(shiny)
 ui <- fluidPage(
   p("This is an easy paragraph"),
@@ -122,7 +122,7 @@ shinyApp(ui, server)
 #### Inputs
 Built-in inputs are one of the major draws to Shiny. Instead of dealing with fickle JavaScript and the DOM (a.k.a. we get to skip half of BF768), we get to type one line of R code and it is all taken care of for us! 
 
-```{r}
+```r
 ui <- fluidPage(
   sliderInput(inputId = "pyramids", min = 0, max = 10, 
               label = "How many pyramids are there?", value = 0, step = 1)
@@ -139,7 +139,7 @@ Let's break down this function very quickly:
 
 The most vital part, and something that all input functions share, is the inputId. This text is used to manage this bit of input data in the server function, and is there for the connection between what the user does and how our app manages it.
 
-```{r}
+```r
 ui <- fluidPage(
   dateInput("birthday", "When is your birthday?"),
   fileInput("photo", paste0("Please upload an embarassing photo of you at the ",
@@ -162,7 +162,7 @@ For a better idea of the common and useful input options, see the Shiny docs or 
 Now that we have a beautiful UI page that takes user input we can figure out _where_ on the page to put it. This part is also relatively easy, every kind of output has a corresponding output function. If I want to insert a base plot or ggplot, I use `plotOutput()`. A table or data frame or tibble would go through `tableOutput()`.  
 
 One advanced option is to use `uiOutput()` to place input options and HTML **back into** the front end. This can be used to create some very nice effects, such as inserting results only when one option is selected or spawning a follow up question to an option. Here's a small example:
-```{r}
+```r
 library(shiny)
 ui <- fluidPage(radioButtons("button", "Peanut butter or jelly?", 
                              c("Peanut butter", "Jelly")),
@@ -188,7 +188,7 @@ We will figure out this whole server thing in more detail once we have made our 
 
 #### Sidebar-Main
 Now that we have all these functions to populate our page with the most inane content possible, we're gonna start running into issues with organization. Even with our mastery of HTML elements, it will prove difficult to fit everything we want into one blank page:
-```{r}
+```r
 ui <- fluidPage(
   HTML(paste(rep("<p>All work and no play makes Jack a dull boy</p>", 1000), 
         collapse = ""))
@@ -199,7 +199,7 @@ ui <- fluidPage(
 
 Instead, we can use the popular Sidebar layout to help organize our web page. This works by placing two functions inside the UI argument: `sidebarPanel()` and `mainPanel()`. This offers us nice compartmentalization of design without demanding too many arguments or details from us as we put it together. Very useful for quick apps that you don't need to make look _that_ good. We just need to nest our two panels inside `sidebarLayout()` like so:
 
-```{r}
+```r
 ui <- fluidPage(
   titlePanel("I never get tired of these inane examples."),
   sidebarLayout(
@@ -219,7 +219,7 @@ There is an alternative to the sidebar-main panel layout, which is a little cons
 
 While there are a lot of ways to control the height and width of your fluid rows, we'll look at a quick example to see a comically bad example of doing so. 
 
-```{r}
+```r
 ui <- fluidPage(style = 'background-color: #007BA7',
                 fluidRow(style = 'background-color: #F3A712',
                          p("I'm in the first row!"), 
@@ -247,7 +247,7 @@ The main gist is that each `fluidRow()` creates a new row inside whatever functi
 ::: {.box .important}
 ###### Exercise 2 - FluidPage Collage {-}
 Try using `fluidPage()`, `fluidRow()`, and `column()` to create a collage of images! You can easily include an image in your Shiny app using `img(src="img.url")`.
-```{r}
+```r
 library(shiny)
 ui <- fluidPage(
   fluidRow(
@@ -270,7 +270,7 @@ Once we have a place in the front end, we can start to manipulate the server sid
 
 The server function has two components we worry about: the `input`, which delivers to us information from the user, and `output`, which we can pass data and objects to be rendered by our webpage.
 
-```{r}
+```r
 library(shiny)
 ui <- fluidPage(
   radioButtons("radio", label = "Number of points", choices = c(10, 20)),
@@ -305,7 +305,7 @@ And outputs:
 - `plotOutput()`
 - `textOutput()`
 See the cheat sheet and docs for more! Here is a little example, try something else:
-```{r}
+```r
 library(shiny)
 ui <- fluidPage(
   textInput("text", "Enter some text"),
@@ -322,7 +322,7 @@ shinyApp(ui, server)
 :::
 
 There are a number of base outputs types: tables, plots, UI (for additional elements), and so on. There are also additional libraries for elements like maps, networks, and even 3D objects. DataTables are especially useful for sharing data with users.
-```{r}
+```r
 library(shiny)
 library(DT)
 ui <- fluidPage(dataTableOutput("dt"))
@@ -339,7 +339,7 @@ shinyApp(ui, server)
 ![Once I spent like a week trying to get this work and my old boss canned the project  ¯\\_(ツ)_/¯](img/shiny_14.png)
 
 And here is a cool example using a package I've never tried before.
-```{r}
+```r
 library(shiny)
 library(threejs)
 ui <- fluidPage(
@@ -363,7 +363,7 @@ shinyApp(ui, server)
 One essential feature for Shiny is determining why errors crop up. You may have some familiarity with this kind of troubleshooting in base R, but because Shiny is abstracting our R into an entire application, the errors can turn into edlritch horrors without compare.  
 
 One main tool is automatic, and that is the traceback. When a shiny app fails in a specific way, the error printed lists how the application arrived at that issue. Each function used is listed, in reverse order, from when it was called. In this way, we can track down exactly where our problem lies.
-```{r}
+```r
 library(shiny)
 
 f <- function(x) g(x)
@@ -397,7 +397,7 @@ A quick `as.numeric()` will fix my app right up and allow me to plot car data? �
 ::: {.box .important}
 ###### Exercise 4 - Print Output {-}
 While not the most nuanced debugging strategy, sliding a `print()` statement into your code is a tried and true method of figuring out what your code is doing. Can you figure out where we can put a `print()` statement here to see what our input is doing when a button is changed?
-```{r}
+```r
 library(shiny)
 ui <- fluidPage(radioButtons("hey",
                              "woa cool bugs",
@@ -429,7 +429,7 @@ With what we have learned in Shiny so far, I can only do these processes separat
 
 To solve this, in a Shiny way, we use a _reactive expression_. This is somewhat like a function that runs every time an input changes. The best part is that the results are _cached_, meaning they aren't re-run unless they absolutely must be. This means I can load the data once and plot and process it without loading anything again.
 
-```{r}
+```r
 server <- function(input, output, session) {
   dataset <- reactive({
     read.csv(input$data$datapath, header = TRUE)
@@ -463,7 +463,7 @@ Follow the sign up steps to log into shinyapps.io and then use rsconnect to setu
 If you thought this Shiny stuff was stuffy and boring, you might be right! But it can also make art, really easily!
 
 Try to get the following code working, and then visit [here](https://github.com/taytayp/aRt) to see what other functions are available and try to do your own! Uncomment line 1 to install the package, you may need to run `install.packages("devtools")` first.
-```{r}
+```r
 # devtools::install_github("taytayp/aRt")
 library(aRt)
 library(shiny)
