@@ -21,10 +21,10 @@ Shiny is much easier to use thanks to its built-in shorthands for common web ele
 This chapter will bring you through the basics of constructing an app, and the nature of reactive programming. It is still R, it will still mostly feel like R, but Shiny is a veneer of utility that turns your average data scientist into a web developer fully equipped to impress any lab peer.
 
 ### How does a web page work? 
-Before we get into the the nuts and bolts of Shiny's usefulness, we should first outline the need for this library. A typical, static (meaning it is the same every time you visit it) webpage has three components:
-1. **HTML** - hypertext markup language, the bones of the web page
-2. **CSS** - cascading style sheets, the design and aesthetic portions
-3. **JavaScript** - a programming language made for the web, used for making web pages interactive and adaptive.
+Before we get into the the nuts and bolts of Shiny's usefulness, we should first outline the need for this library. A typical, static (meaning it is the same every time you visit it) webpage has three components:  
+1. **HTML** - hypertext markup language, the bones of the web page  
+2. **CSS** - cascading style sheets, the design and aesthetic portions  
+3. **JavaScript** - a programming language made for the web, used for making web pages interactive and adaptive.  
 
 Normally, these elements are create separately in different files, placed onto a web server, and delivered to the user when they load that web page. You're probably with one or all three of these in one sense or another, and you can see how they work by opening up your browser's console.
 
@@ -128,12 +128,12 @@ ui <- fluidPage(
               label = "How many pyramids are there?", value = 0, step = 1)
 )
 ```
-Let's break down this function very quickly:
-1. **inputId = ** - The input ID is the string of text (unique, no numbers or special characters) that we can use inside the server function to identify this input. If I want to know how many pyramids the user selected, then I can call `input$pyramids`. More on this later.
-2. **max =, min =** - Controls the upper and lower bounds of the slider.
-3. **label = ** - Text to display to the user about the slider.
-4. **value = ** - What value should the slider start at?
-5. **step = * - The amount the slider can move by. Useful if more (or less) precise input is required.
+Let's break down this function very quickly:  
+1. **inputId = ** - The input ID is the string of text (unique, no numbers or special characters) that we can use inside the server function to identify this input. If I want to know how many pyramids the user selected, then I can call `input$pyramids`. More on this later.  
+2. **max =, min =** - Controls the upper and lower bounds of the slider.  
+3. **label = ** - Text to display to the user about the slider.  
+4. **value = ** - What value should the slider start at?  
+5. **step = * - The amount the slider can move by. Useful if more (or less) precise input is required.  
 
 ![The simplest of inputs](img/shiny_07.png)
 
@@ -180,7 +180,7 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 ```
-This is our first example of the server function...doing anything...but we're gonna ignore exactly what or why it's doing anything so I can comment on `uiOutput()`. Based on the if-else statement on line 7, our follow up question changes. This can be used to show/hide responses for users. A user hits a check box indicated they're a veteran, you can insert more questions about their veteran status or info.
+This is our first example of the server function...doing anything...but we're gonna ignore exactly what or why it's doing anything so I can comment on `uiOutput()`. Based on the if-else statement on line 7, our follow up question changes. This can be used to show/hide responses for users. A user hits a check box indicating they're a veteran, you can insert more questions about their veteran status or info.
 
 ![This works way better in RStudio](img/shiny_09.png)
 
@@ -194,8 +194,10 @@ ui <- fluidPage(
         collapse = ""))
 )
 ```
-![Maybe I'll stay at a different hotel.](img/shiny_10.png)
-Instead, we can use the popular Sidebar layout to help organize our web page. This works by placing two functions inside the UI argument: `sidebarPanel()` and `mainPanel()`. This offers us nice compartmentalization of design without demanding too many arguments or details from us as we put it together. Very useful for quick apps that you don't need to make look that good. We just need to nest our two panels inside `sidebarLayout()` like so:
+
+![Maybe I'll stay at a different hotel.](img/shiny_10.png)  
+
+Instead, we can use the popular Sidebar layout to help organize our web page. This works by placing two functions inside the UI argument: `sidebarPanel()` and `mainPanel()`. This offers us nice compartmentalization of design without demanding too many arguments or details from us as we put it together. Very useful for quick apps that you don't need to make look _that_ good. We just need to nest our two panels inside `sidebarLayout()` like so:
 
 ```{r}
 ui <- fluidPage(
@@ -207,7 +209,8 @@ ui <- fluidPage(
       h1("and this is the main panel!"))
     ))
 ```
-![Much better.](img/shiny_11.png)
+
+![Much better.](img/shiny_11.png)  
 
 We can add other elements, like `titlePanel()`, to bring the app together. Notice that the title panel is located _outside_ of the `sidebarLayout()` call, since we don't want it inside our sidebar or main panel elements. **Nesting the functions is the same as the nesting of the layout.**
 
@@ -249,9 +252,12 @@ library(shiny)
 ui <- fluidPage(
   fluidRow(
     column(width = 6,
-           img(src="https://extension.umn.edu/sites/extension.umn.edu/files/styles/caption_medium/public/big-spittlebug-fig3_0.jpg?itok=dQJIfJw4")),
+           img(src=paste0("https://extension.umn.edu/sites/extension.umn.edu/",
+                          "files/styles/caption_medium/public/big-spittle",
+                          "bug-fig3_0.jpg?itok=dQJIfJw4"))),
     column(width = 6,
-           img(src="https://www.gardeningknowhow.com/wp-content/uploads/2021/05/rhododendron-leafhopper-400x300.jpg"))
+           img(src=paste0("https://www.gardeningknowhow.com/wp-content/uploads",
+                          "/2021/05/rhododendron-leafhopper-400x300.jpg")))
   )
 )
 server <- function(input, output, session) { }
@@ -277,7 +283,9 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 ```
-![This isn't ggplot so the default theme is fine.](img/shiny_13.png)
+
+![This isn't ggplot so the default theme is fine.](img/shiny_13.png)  
+
 #### Input
 We can pick apart this teeny example application to see how inputs translate to the server function. When we create our radio buttons, we assign the input id "radio". The application is started and the first choice, 10, is selected by default. That value is immediately entered into the `input` variable in the server. When a user selects a different option, the new value is updated inside the `input` variable.
 
@@ -328,7 +336,7 @@ server <- function(input, output, session) {
   }
 shinyApp(ui, server)
 ```
-![Once I spent like a week trying to get this work and my old boss canned the project  ¯\_(ツ)_/¯](img/shiny_14.png)
+![Once I spent like a week trying to get this work and my old boss canned the project  ¯\\_(ツ)_/¯](img/shiny_14.png)
 
 And here is a cool example using a package I've never tried before.
 ```{r}
@@ -348,7 +356,9 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 ```
-![I think there was a toy like this at my doctor's once](img/shiny_15.png)
+
+![I think there was a toy like this at my doctor's once](img/shiny_15.png)  
+
 ##### Traceback
 One essential feature for Shiny is determining why errors crop up. You may have some familiarity with this kind of troubleshooting in base R, but because Shiny is abstracting our R into an entire application, the errors can turn into edlritch horrors without compare.  
 
@@ -376,9 +386,9 @@ shinyApp(ui, server)
 
 The above application fails because of the three functions at the beginning.
 
-Now that I know the error is limited to my `f()` function on line 13, I can do one of two things:
-1. I can use a `print()` statement to try and deduce why this is failing.
-2. I can enable the debugger to take a step by step approach to how my code is running.
+Now that I know the error is limited to my `f()` function on line 13, I can do one of two things:  
+1. I can use a `print()` statement to try and deduce why this is failing.  
+2. I can enable the debugger to take a step by step approach to how my code is running.  
 
 Debugging...well...you could write a course based on it. However, printing is often a useful quick and dirty technique for parsing your code troubles quickly. Because it sounds like my argument is a problem, and my only input right now is `input$n`, let me see what that looks like with `print(input$n)` and `print(typeof(input$n))`.
 
@@ -401,7 +411,6 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 :::
-
 
 ## Reactivity
 There is one final hurdle to understanding Shiny at an intermediate level. For the entirety of this course, and probably of your programming career the code you have written has been run sequentially. You start a script, load the library, load the data, execute the functions, and return the result. There's never any chance for code to be run out of order because it is only designed to go in one direction. The style of programming we are used to is called **imperative programming**.
@@ -447,7 +456,7 @@ Finally, we have our app ready, and we need to put it somewhere. We could host i
 
 One option is using [shinyapps.io](https://www.shinyapps.io/) to host our completed app on the cloud. We get like a few hours a month free for hosting, and there's a fun little button in RStudio that let's us do it automatically.
 
-Follow the sign up steps to log into shinyapps.io and then us rsconnect to setup the connection to your app.
+Follow the sign up steps to log into shinyapps.io and then use rsconnect to setup the connection to your app.
 
 ::: {.box .important}
 ###### Exercise 5 - Art {-}
