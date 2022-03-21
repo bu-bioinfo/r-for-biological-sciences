@@ -8,26 +8,40 @@ output:
 knitr::opts_chunk$set(eval = FALSE, attr.source='.numberLines') 
 ```
 
-
 # R Shiny
 
 ## Introduction
 R Shiny is an R package that enables seamless creation of interactive web applications using exclusively R. This is quite the feat since R is very much _not_ a web programming language like JavaScript. It allows for data scientists like us, who are much more comfortable creating scripts and analyses, to leverage their skills and make attractive, functional web apps to share with their collaborators and beyond.  
 
-> Image of basic Shiny app and script?
-> Shiny gallery demo??
+![A basic shiny app inside RStudio](img/shiny_01.png)
 
 Shiny is much easier to use thanks to its built-in shorthands for common web elements. A paragraph tab, used for normal text, can be types with `p("Text")` instead of HTML's clunkier `<p>Text</p>`. This applies to even more complicated objects like buttons, sliders, and outputting plots and tables.  
 
 This chapter will bring you through the basics of constructing an app, and the nature of reactive programming. It is still R, it will still mostly feel like R, but Shiny is a veneer of utility that turns your average data scientist into a web developer fully equipped to impress any lab peer.
 
 ### How does a web page work? 
+Before we get into the the nuts and bolts of Shiny's usefulness, we should first outline the need for this library. A typical, static (meaning it is the same every time you visit it) webpage has three components:
+1. **HTML** - hypertext markup language, the bones of the web page
+2. **CSS** - cascading style sheets, the design and aesthetic portions
+3. **JavaScript** - a programming language made for the web, used for making web pages interactive and adaptive.
 
+Normally, these elements are create separately in different files, placed onto a web server, and delivered to the user when they load that web page. You're probably with one or all three of these in one sense or another, and you can see how they work by opening up your browser's console.
+
+![The HTML that lives inside Google.com](img/shiny_02.png)
+
+Dealing with all of those HTML tags (things that look like this: `<p>Woa</p>`) is _far_ too much work, so we can use Shiny to not only put together the bones of our website, we can easily customize the CSS and JavaScript elements as well, which will give our applications a fully configurable R-like feel for our users who are hungry for pretty data science and bioinformatics.
+
+<img src="img/shiny_03.png" style="width:200px;text-align:center;display:block"/>
 
 #### Getting started and development
 Getting start with Shiny is easy whether you're on SCC or your own computer. Simple select a new project, choose new directory, and select the Shiny option as seen below.
 
 ![New Shiny App](https://d33wubrfki0l68.cloudfront.net/6f3bccc61698dce386b5650c4204d59ebcd66836/571c3/images/action-workflow/new-project.png)
+
+::: {.box .important}
+###### Exercise 0 - Exercises {-}
+This chapter has exercises! Woo! Launch R on your machine or on SCC or on both! Install Shiny using `install.packages("shiny")`, then load with `library(shiny)`. Follow along in these boxes!
+:::
 
 ::: {.box .tldr}
 Further reading:  
@@ -48,6 +62,8 @@ ui <- fluidPage("Hello, worm!")
 server <- function(input, output, session) { }
 shinyApp(ui, server)
 ```
+![Example app](img/shiny_04.png)
+
 This is the simplest Shiny app structure, which displays the text we pass into UI (the front end) and then doing absolutely nothing else (relatable). The first line loads R Shiny as a package, the second creates our simple user interface and text output, line three controls the back end (which again, does nothing), and the final line launches our app using the objects created in lines two and three.  
 
 In order to build some actual content in our app, we'll first look at the UI, what the user sees.
@@ -67,18 +83,22 @@ ui <- fluidPage(
 )
 ...
 ```
+![Not great appearance-wise](img/shiny_05.png)
+
 But that's all rather clunky. And what if I want to include some other elements in between? Or an image, a link? We can do better than just a big block of text next to some plots. Instead we can use `p()` tags, short for paragraph, to split things up more reasonably and add more convenient customization:
 ```{r}
 ...
 ui <- fluidPage(
   p("Nothing beside remains. Round the decay"),
   p("Of that colossal wreck, boundless and bare"),
-  img(src="https://coloringhome.com/coloring/RiA/yEj/RiAyEjzKT.gif"),
+  img(src="https://coloringhome.com/coloring/RiA/yEj/RiAyEjzKT.gif", 
+      style="width:300px;height:200px;"),
   p("The lone and level sands stretch far away."),
   markdown(">Percy Bysshe Shelley")
 )
 ...
 ```
+![Finally, some good poetry](img/shiny_06.png)
 
 ::: {.box .note}
 We still need to include commas at the end, since these tags are essentially _arguments_ being passed to the `fluidPage()` function. This is **not** the case for the server side object, which is a normal function and will be split up by line breaks.
@@ -86,13 +106,30 @@ We still need to include commas at the end, since these tags are essentially _ar
 
 Much nicer! This Shelley tribute page is really coming together. Let's talk about some specific interactive elements that we can use to actually work with the user!
 
+::: {.box .important}
+###### Exercise 1 - UI Functions {-}
+Let's try out some HTML tags. Go to [this link](https://shiny.rstudio.com/reference/shiny/1.6.0/builder.html) to see all of the options! Play around with trying to display some in your app. 
+```{r}
+library(shiny)
+ui <- fluidPage(
+  p("This is an easy paragraph"),
+  br(), # this is a line break
+  h1("A big heading"),
+  h6("A small heading")
+)
+server <- function(input, output, session) { }
+shinyApp(ui, server)
+```
+:::
+
 #### Inputs
 Built-in inputs are one of the major draws to Shiny. Instead of dealing with fickle JavaScript and the DOM (a.k.a. we get to skip half of BF768), we get to type one line of R code and it is all taken care of for us! 
 
 ```{r}
 ...
 ui <- fluidPage(
-  sliderInput(inputId = "pyramids", min = 0, max = 10, label = "How many pyramids are there?", value = 0, step = 1)
+  sliderInput(inputId = "pyramids", min = 0, max = 10, 
+              label = "How many pyramids are there?", value = 0, step = 1)
 )
 ...
 ```
@@ -102,6 +139,8 @@ Let's break down this function very quickly:
 3. **label = ** - Text to display to the user about the slider.
 4. **value = ** - What value should the slider start at?
 5. **step = * - The amount the slider can move by. Useful if more (or less) precise input is required.
+
+![The simplest of inputs](img/shiny_07.png)
 
 The most vital part, and something that all input functions share, is the inputId. This text is used to manage this bit of input data in the server function, and is there for the connection between what the user does and how our app manages it.
 
@@ -118,7 +157,9 @@ ui <- fluidPage(
 ```
 This generates multiple inputs I can get the results from using `input$birthday`, `input$photo`, and `input$button`. 
 
-::: {.box .important}
+![A couple more neat inputs](img/shiny_08.png)
+
+::: {.box .note}
 The results of the file upload are nested. If I were to ask for a CSV, and needed to load that with `read.csv()`, I would need to use `input$csv$datapath` to point R at the uploaded object.
 :::
 
@@ -148,6 +189,8 @@ shinyApp(ui, server)
 ```
 This is our first example of the server function...doing anything...but we're gonna ignore exactly what or why it's doing anything so I can comment on `uiOutput()`. Based on the if-else statement on line 7, our follow up question changes. This can be used to show/hide responses for users. A user hits a check box indicated they're a veteran, you can insert more questions about their veteran status or info.
 
+![This works way better in RStudio](img/shiny_09.png)
+
 We will figure out this whole server thing in more detail once we have made our page look as pretty as possible.
 
 #### Sidebar-Main
@@ -160,7 +203,7 @@ ui <- fluidPage(
 )
 ...
 ```
-
+![Maybe I'll stay at a different hotel.](img/shiny_10.png)
 Instead, we can use the popular Sidebar layout to help organize our web page. This works by placing two functions inside the UI argument: `sidebarPanel()` and `mainPanel()`. This offers us nice compartmentalization of design without demanding too many arguments or details from us as we put it together. Very useful for quick apps that you don't need to make look that good. We just need to nest our two panels inside `sidebarLayout()` like so:
 
 ```{r}
@@ -175,6 +218,8 @@ ui <- fluidPage(
     ))
 ...
 ```
+![Much better.](img/shiny_11.png)
+
 We can add other elements, like `titlePanel()`, to bring the app together. Notice that the title panel is located _outside_ of the `sidebarLayout()` call, since we don't want it inside our sidebar or main panel elements. **Nesting the functions is the same as the nesting of the layout.**
 
 #### FluidPage
@@ -203,9 +248,29 @@ ui <- fluidPage(style = 'background-color: #007BA7',
                                 p("Right, lower!"))))
 ...
 ```
+![This was very fun lol.](img/shiny_12.png)
+
 The main gist is that each `fluidRow()` creates a new row inside whatever function it is, and then you can use the `column` function inside each row to further split up the page. Then, you can use the same input and output functions inside each of these, along with whatever normal HTML you wish. The overall, standard width of the page is 12 unnamed shiny units, so keep ensure your widths don't add up to more than 12.
 
 ![Splitting up a page with fluidRows.](https://d33wubrfki0l68.cloudfront.net/15ea13e6dd0ba26014225718b5541abb983e0a45/7b30e/diagrams/action-layout/multirow.png)
+
+::: {.box .important}
+###### Exercise 2 - FluidPage Collage {-}
+Try using `fluidPage()`, `fluidRow()`, and `column()` to create a collage of images! You can easily include an image in your Shiny app using `img(src="img.url")`.
+```{r}
+library(shiny)
+ui <- fluidPage(
+  fluidRow(
+    column(width = 6,
+           img(src="https://extension.umn.edu/sites/extension.umn.edu/files/styles/caption_medium/public/big-spittlebug-fig3_0.jpg?itok=dQJIfJw4")),
+    column(width = 6,
+           img(src="https://www.gardeningknowhow.com/wp-content/uploads/2021/05/rhododendron-leafhopper-400x300.jpg"))
+  )
+)
+server <- function(input, output, session) { }
+shinyApp(ui, server)
+```
+:::
 
 ### Server Functionality
 Once we have a place in the front end, we can start to manipulate the server side to control and run out application. The interface is nothing without the back end it controls; the back end is where we can start to write our R and manipulate data to inform the user.
@@ -225,7 +290,7 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 ```
-
+![This isn't ggplot so the default theme is fine.](img/shiny_13.png)
 #### Input
 We can pick apart this teeny example application to see how inputs translate to the server function. When we create our radio buttons, we assign the input id "radio". The application is started and the first choice, 10, is selected by default. That value is immediately entered into the `input` variable in the server. When a user selects a different option, the new value is updated inside the `input` variable.
 
@@ -233,6 +298,33 @@ We can reference the `input` variable inside our server to change our plot in th
 
 #### Output
 Finally, the server function delivers this output _back_ to the web interface. In this example, we created a `plotOutput()` below the radio buttons to display our plot. Inside the server function, we use `output$plot` to match the output ID we created in `plotOutput()`. The rendered plot is then inserted into that part of the document. This process of matching IDs mirrors the input process.
+
+::: {.box .important}
+###### Exercise 3 - Inputs and Outputs {-}
+Now that you can connect inputs and outputs try to combine a couple! Here is a short list of inputs:
+- `dateInput()`
+- `radioButtons()`
+- `textInput()`
+And outputs:
+- `imageOutput()`
+- `plotOutput()`
+- `textOutput()`
+See the cheat sheet and docs for more! Here is a little example, try something else:
+```{r}
+library(shiny)
+ui <- fluidPage(
+  textInput("text", "Enter some text"),
+  plotOutput("plot")
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    plot(1, type="n", xlim=c(0, 2), ylim=c(0, 2))
+    text(input$text, x = 1, y = 1)
+    })
+}
+shinyApp(ui, server)
+```
+:::
 
 There are a number of base outputs types: tables, plots, UI (for additional elements), and so on. There are also additional libraries for elements like maps, networks, and even 3D objects. DataTables are especially useful for sharing data with users.
 ```{r}
@@ -249,6 +341,7 @@ server <- function(input, output, session) {
   }
 shinyApp(ui, server)
 ```
+![Once I spent like a week trying to get this work and my old boss canned the project  ¯\_(ツ)_/¯](img/shiny_14.png)
 
 And here is a cool example using a package I've never tried before.
 ```{r}
@@ -268,7 +361,7 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 ```
-
+![I think there was a toy like this at my doctor's once](img/shiny_15.png)
 ##### Traceback
 One essential feature for Shiny is determining why errors crop up. You may have some familiarity with this kind of troubleshooting in base R, but because Shiny is abstracting our R into an entire application, the errors can turn into edlritch horrors without compare.  
 
@@ -292,6 +385,8 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 ```
+![I swear this is more useful than it looks](img/shiny_16.png)
+
 The above application fails because of the three functions at the beginning.
 
 Now that I know the error is limited to my `f()` function on line 13, I can do one of two things:
@@ -301,6 +396,25 @@ Now that I know the error is limited to my `f()` function on line 13, I can do o
 Debugging...well...you could write a course based on it. However, printing is often a useful quick and dirty technique for parsing your code troubles quickly. Because it sounds like my argument is a problem, and my only input right now is `input$n`, let me see what that looks like with `print(input$n)` and `print(typeof(input$n))`.
 
 A quick `as.numeric()` will fix my app right up and allow me to plot car data? 🚗 🏎️
+
+::: {.box .important}
+###### Exercise 4 - Print Output {-}
+While not the most nuanced debugging strategy, sliding a `print()` statement into your code is a tried and true method of figuring out what your code is doing. Can you figure out where we can put a `print()` statement here to see what our input is doing when a button is changed?
+```{r}
+library(shiny)
+ui <- fluidPage(radioButtons("hey",
+                             "woa cool bugs",
+                             c("One", "Two")),
+                textOutput("out"))
+server <- function(input, output, session) {
+  output$out <- renderText({
+    # ?
+  })
+}
+shinyApp(ui, server)
+```
+:::
+
 
 ## Reactivity
 There is one final hurdle to understanding Shiny at an intermediate level. For the entirety of this course, and probably of your programming career the code you have written has been run sequentially. You start a script, load the library, load the data, execute the functions, and return the result. There's never any chance for code to be run out of order because it is only designed to go in one direction. The style of programming we are used to is called **imperative programming**.
@@ -340,6 +454,7 @@ Reactivity can be used to control the flow of data and actions through your appl
 
 I don't think you could teach a _whole_ class on reactivity in Shiny but maybe a little more than one or two lectures.
 
+
 ## Publishing
 Finally, we have our app ready, and we need to put it somewhere. We could host it ourselves, that's not too hard, but what if we want to share on the World Wide Web (www for short)? 
 
@@ -347,10 +462,28 @@ One option is using [shinyapps.io](https://www.shinyapps.io/) to host our comple
 
 Follow the sign up steps to log into shinyapps.io and then us rsconnect to setup the connection to your app.
 
-## Exercises
-- UI functions just output HTML
-- Experiment with inputs and outputs
-- fluid panel design, create a fun collage?
-- Server works like normal R, print some data into the console using buttons (cheap debug)
-- upload a file
-- Generative art
+::: {.box .important}
+###### Exercise 5 - Art {-}
+If you thought this Shiny stuff was stuffy and boring, you might be right! But it can also make art, really easily!
+
+Try to get the following code working, and then visit [here](https://github.com/taytayp/aRt) to see what other functions are available and try to do your own! Uncomment line 1 to install the package, you may need to run `install.packages("devtools")` first.
+```{r}
+# devtools::install_github("taytayp/aRt")
+library(aRt)
+library(shiny)
+
+ui <- fluidPage(
+  column(width=6,
+  sliderInput("slide", "How many hills?", 2, 20, 2),
+  radioButtons("pal", "What color?", 
+               c("ag_Sunset", "Earth", "Tropic", "Sunset", "SunsetDark"))),
+  column(width=6, plotOutput("plot", width = "400px", height = "400px"))
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot(
+    fading(n_layers=input$slide, n_points=1, col_palette=input$pal)
+  )
+}
+shinyApp(ui, server)
+```
+:::
