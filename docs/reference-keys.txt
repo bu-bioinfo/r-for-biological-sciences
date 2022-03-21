@@ -215,12 +215,12 @@ output
 traceback
 reactivity
 publishing
-exercises
 communicating-with-r
 rmarkdown-knitr
 bookdown
 contribution-guide
 custom-blocks
+tabs-and-outputs
 class-outlines
 week-1
 week-2

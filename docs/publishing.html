@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="reactivity.html"/>
-<link rel="next" href="exercises.html"/>
+<link rel="next" href="communicating-with-r.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -431,7 +431,6 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="10.3" data-path="reactivity.html"><a href="reactivity.html"><i class="fa fa-check"></i><b>10.3</b> Reactivity<span></span></a></li>
 <li class="chapter" data-level="10.4" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>10.4</b> Publishing<span></span></a></li>
-<li class="chapter" data-level="10.5" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>10.5</b> Exercises<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R<span></span></a>
 <ul>
@@ -524,6 +523,14 @@ div.csl-indent {
 <li><a href="assignment-6.html#instructions-3">Instructions<span></span></a></li>
 <li><a href="assignment-6.html#function-details-2">Function Details<span></span></a></li>
 </ul></li>
+<li><a href="assignment-7.html#assignment-7">Assignment 7<span></span></a>
+<ul>
+<li><a href="assignment-7.html#problem-statement-6">Problem Statement<span></span></a></li>
+<li><a href="assignment-7.html#learning-objectives-5">Learning Objectives<span></span></a></li>
+<li><a href="assignment-7.html#skill-list-5">Skill List<span></span></a></li>
+<li><a href="assignment-7.html#instructions-4">Instructions<span></span></a></li>
+<li><a href="assignment-7.html#function-details-3">“Function” Details<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix<span></span></b></span></li>
 <li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines<span></span></a>
@@ -564,15 +571,39 @@ div.csl-indent {
 <h2><span class="header-section-number">10.4</span> Publishing<a href="publishing.html#publishing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Finally, we have our app ready, and we need to put it somewhere. We could host it ourselves, that’s not too hard, but what if we want to share on the World Wide Web (www for short)?</p>
 <p>One option is using <a href="https://www.shinyapps.io/">shinyapps.io</a> to host our completed app on the cloud. We get like a few hours a month free for hosting, and there’s a fun little button in RStudio that let’s us do it automatically.</p>
-<p>Follow the sign up steps to log into shinyapps.io and then us rsconnect to setup the connection to your app.</p>
+<p>Follow the sign up steps to log into shinyapps.io and then use rsconnect to setup the connection to your app.</p>
+<div id="exercise-5---art" class="section level6 unnumbered hasAnchor box important">
+<h6>Exercise 5 - Art<a href="publishing.html#exercise-5---art" class="anchor-section" aria-label="Anchor link to header"></a></h6>
+<p>If you thought this Shiny stuff was stuffy and boring, you might be right! But it can also make art, really easily!</p>
+<p>Try to get the following code working, and then visit <a href="https://github.com/taytayp/aRt">here</a> to see what other functions are available and try to do your own! Uncomment line 1 to install the package, you may need to run <code>install.packages("devtools")</code> first.</p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="publishing.html#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;taytayp/aRt&quot;)</span></span>
+<span id="cb465-2"><a href="publishing.html#cb465-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(aRt)</span>
+<span id="cb465-3"><a href="publishing.html#cb465-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb465-4"><a href="publishing.html#cb465-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb465-5"><a href="publishing.html#cb465-5" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb465-6"><a href="publishing.html#cb465-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column</span>(<span class="at">width=</span><span class="dv">6</span>,</span>
+<span id="cb465-7"><a href="publishing.html#cb465-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;slide&quot;</span>, <span class="st">&quot;How many hills?&quot;</span>, <span class="dv">2</span>, <span class="dv">20</span>, <span class="dv">2</span>),</span>
+<span id="cb465-8"><a href="publishing.html#cb465-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">radioButtons</span>(<span class="st">&quot;pal&quot;</span>, <span class="st">&quot;What color?&quot;</span>, </span>
+<span id="cb465-9"><a href="publishing.html#cb465-9" aria-hidden="true" tabindex="-1"></a>               <span class="fu">c</span>(<span class="st">&quot;ag_Sunset&quot;</span>, <span class="st">&quot;Earth&quot;</span>, <span class="st">&quot;Tropic&quot;</span>, <span class="st">&quot;Sunset&quot;</span>, <span class="st">&quot;SunsetDark&quot;</span>))),</span>
+<span id="cb465-10"><a href="publishing.html#cb465-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column</span>(<span class="at">width=</span><span class="dv">6</span>, <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">width =</span> <span class="st">&quot;400px&quot;</span>, <span class="at">height =</span> <span class="st">&quot;400px&quot;</span>))</span>
+<span id="cb465-11"><a href="publishing.html#cb465-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb465-12"><a href="publishing.html#cb465-12" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb465-13"><a href="publishing.html#cb465-13" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(</span>
+<span id="cb465-14"><a href="publishing.html#cb465-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fading</span>(<span class="at">n_layers=</span>input<span class="sc">$</span>slide, <span class="at">n_points=</span><span class="dv">1</span>, <span class="at">col_palette=</span>input<span class="sc">$</span>pal)</span>
+<span id="cb465-15"><a href="publishing.html#cb465-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb465-16"><a href="publishing.html#cb465-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb465-17"><a href="publishing.html#cb465-17" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
 </div>
+
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
 <a href="reactivity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exercises.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="communicating-with-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

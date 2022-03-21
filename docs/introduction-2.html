@@ -431,7 +431,6 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="10.3" data-path="reactivity.html"><a href="reactivity.html"><i class="fa fa-check"></i><b>10.3</b> Reactivity<span></span></a></li>
 <li class="chapter" data-level="10.4" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>10.4</b> Publishing<span></span></a></li>
-<li class="chapter" data-level="10.5" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>10.5</b> Exercises<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R<span></span></a>
 <ul>
@@ -524,6 +523,14 @@ div.csl-indent {
 <li><a href="assignment-6.html#instructions-3">Instructions<span></span></a></li>
 <li><a href="assignment-6.html#function-details-2">Function Details<span></span></a></li>
 </ul></li>
+<li><a href="assignment-7.html#assignment-7">Assignment 7<span></span></a>
+<ul>
+<li><a href="assignment-7.html#problem-statement-6">Problem Statement<span></span></a></li>
+<li><a href="assignment-7.html#learning-objectives-5">Learning Objectives<span></span></a></li>
+<li><a href="assignment-7.html#skill-list-5">Skill List<span></span></a></li>
+<li><a href="assignment-7.html#instructions-4">Instructions<span></span></a></li>
+<li><a href="assignment-7.html#function-details-3">“Function” Details<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix<span></span></b></span></li>
 <li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines<span></span></a>
@@ -563,20 +570,35 @@ div.csl-indent {
 <div id="introduction-2" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Introduction<a href="introduction-2.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R Shiny is an R package that enables seamless creation of interactive web applications using exclusively R. This is quite the feat since R is very much <em>not</em> a web programming language like JavaScript. It allows for data scientists like us, who are much more comfortable creating scripts and analyses, to leverage their skills and make attractive, functional web apps to share with their collaborators and beyond.</p>
-<blockquote>
-<p>Image of basic Shiny app and script?
-Shiny gallery demo??</p>
-</blockquote>
+<div class="figure">
+<img src="img/shiny_01.png" alt="" />
+<p class="caption">A basic shiny app inside RStudio</p>
+</div>
 <p>Shiny is much easier to use thanks to its built-in shorthands for common web elements. A paragraph tab, used for normal text, can be types with <code>p("Text")</code> instead of HTML’s clunkier <code>&lt;p&gt;Text&lt;/p&gt;</code>. This applies to even more complicated objects like buttons, sliders, and outputting plots and tables.</p>
 <p>This chapter will bring you through the basics of constructing an app, and the nature of reactive programming. It is still R, it will still mostly feel like R, but Shiny is a veneer of utility that turns your average data scientist into a web developer fully equipped to impress any lab peer.</p>
 <div id="how-does-a-web-page-work" class="section level3 hasAnchor" number="10.1.1">
 <h3><span class="header-section-number">10.1.1</span> How does a web page work?<a href="introduction-2.html#how-does-a-web-page-work" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before we get into the the nuts and bolts of Shiny’s usefulness, we should first outline the need for this library. A typical, static (meaning it is the same every time you visit it) webpage has three components:<br />
+1. <strong>HTML</strong> - hypertext markup language, the bones of the web page<br />
+2. <strong>CSS</strong> - cascading style sheets, the design and aesthetic portions<br />
+3. <strong>JavaScript</strong> - a programming language made for the web, used for making web pages interactive and adaptive.</p>
+<p>Normally, these elements are create separately in different files, placed onto a web server, and delivered to the user when they load that web page. You’re probably with one or all three of these in one sense or another, and you can see how they work by opening up your browser’s console.</p>
+<div class="figure">
+<img src="img/shiny_02.png" alt="" />
+<p class="caption">The HTML that lives inside Google.com</p>
+</div>
+<p>Dealing with all of those HTML tags (things that look like this: <code>&lt;p&gt;Woa&lt;/p&gt;</code>) is <em>far</em> too much work, so we can use Shiny to not only put together the bones of our website, we can easily customize the CSS and JavaScript elements as well, which will give our applications a fully configurable R-like feel for our users who are hungry for pretty data science and bioinformatics.</p>
+<p><img src="img/shiny_03.png" style="width:200px;text-align:center;display:block"/></p>
 <div id="getting-started-and-development" class="section level4 hasAnchor" number="10.1.1.1">
 <h4><span class="header-section-number">10.1.1.1</span> Getting started and development<a href="introduction-2.html#getting-started-and-development" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Getting start with Shiny is easy whether you’re on SCC or your own computer. Simple select a new project, choose new directory, and select the Shiny option as seen below.</p>
 <div class="figure">
 <img src="https://d33wubrfki0l68.cloudfront.net/6f3bccc61698dce386b5650c4204d59ebcd66836/571c3/images/action-workflow/new-project.png" alt="" />
 <p class="caption">New Shiny App</p>
+</div>
+<div id="exercise-0---exercises" class="section level6 unnumbered hasAnchor box important">
+<h6>Exercise 0 - Exercises<a href="introduction-2.html#exercise-0---exercises" class="anchor-section" aria-label="Anchor link to header"></a></h6>
+<p>This chapter has exercises! Woo! Launch R on your machine or on SCC or on both! Install Shiny using <code>install.packages("shiny")</code>, then load with <code>library(shiny)</code>. Follow along in these boxes!</p>
 </div>
 <div class="box tldr">
 <p>Further reading:<br />

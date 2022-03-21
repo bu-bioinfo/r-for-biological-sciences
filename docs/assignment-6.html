@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="assignment-5.html"/>
-<link rel="next" href="class-outlines.html"/>
+<link rel="next" href="assignment-7.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -431,7 +431,6 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="10.3" data-path="reactivity.html"><a href="reactivity.html"><i class="fa fa-check"></i><b>10.3</b> Reactivity<span></span></a></li>
 <li class="chapter" data-level="10.4" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>10.4</b> Publishing<span></span></a></li>
-<li class="chapter" data-level="10.5" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>10.5</b> Exercises<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R<span></span></a>
 <ul>
@@ -524,6 +523,14 @@ div.csl-indent {
 <li><a href="assignment-6.html#instructions-3">Instructions<span></span></a></li>
 <li><a href="assignment-6.html#function-details-2">Function Details<span></span></a></li>
 </ul></li>
+<li><a href="assignment-7.html#assignment-7">Assignment 7<span></span></a>
+<ul>
+<li><a href="assignment-7.html#problem-statement-6">Problem Statement<span></span></a></li>
+<li><a href="assignment-7.html#learning-objectives-5">Learning Objectives<span></span></a></li>
+<li><a href="assignment-7.html#skill-list-5">Skill List<span></span></a></li>
+<li><a href="assignment-7.html#instructions-4">Instructions<span></span></a></li>
+<li><a href="assignment-7.html#function-details-3">“Function” Details<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix<span></span></b></span></li>
 <li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines<span></span></a>
@@ -600,22 +607,22 @@ div.csl-indent {
 <p>We want to return a data frame that is essentially identical to our input file (always a good idea to use the command line to see what you’re working with). Ensure the gene names are stored as <code>row.names</code> and <em>not</em> as a separate column, data frames have a distinction between the two. This function should also reduce the columns to just those of interest (P0 and Adult).</p>
 <div class="box hint">
 <p>Row names can be changed using the <code>row.names()</code> function. The new row names must be a character vector of exactly the same length.</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb476-1"><a href="assignment-6.html#cb476-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb476-2"><a href="assignment-6.html#cb476-2"></a><span class="fu">row.names</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Row1&quot;</span>, <span class="st">&quot;Row2&quot;</span>, <span class="st">&quot;Row3&quot;</span>)</span>
-<span id="cb476-3"><a href="assignment-6.html#cb476-3"></a><span class="fu">print</span>(df)</span>
-<span id="cb476-4"><a href="assignment-6.html#cb476-4"></a>     a b</span>
-<span id="cb476-5"><a href="assignment-6.html#cb476-5"></a>Row1 <span class="dv">0</span> <span class="dv">1</span></span>
-<span id="cb476-6"><a href="assignment-6.html#cb476-6"></a>Row2 <span class="dv">0</span> <span class="dv">3</span></span>
-<span id="cb476-7"><a href="assignment-6.html#cb476-7"></a>Row3 <span class="dv">0</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="assignment-6.html#cb484-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb484-2"><a href="assignment-6.html#cb484-2" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Row1&quot;</span>, <span class="st">&quot;Row2&quot;</span>, <span class="st">&quot;Row3&quot;</span>)</span>
+<span id="cb484-3"><a href="assignment-6.html#cb484-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df)</span>
+<span id="cb484-4"><a href="assignment-6.html#cb484-4" aria-hidden="true" tabindex="-1"></a>     a b</span>
+<span id="cb484-5"><a href="assignment-6.html#cb484-5" aria-hidden="true" tabindex="-1"></a>Row1 <span class="dv">0</span> <span class="dv">1</span></span>
+<span id="cb484-6"><a href="assignment-6.html#cb484-6" aria-hidden="true" tabindex="-1"></a>Row2 <span class="dv">0</span> <span class="dv">3</span></span>
+<span id="cb484-7"><a href="assignment-6.html#cb484-7" aria-hidden="true" tabindex="-1"></a>Row3 <span class="dv">0</span> <span class="dv">5</span></span></code></pre></div>
 </div>
 <div id="tests-4" class="section level5 unnumbered hasAnchor">
 <h5>Tests<a href="assignment-6.html#tests-4" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb477"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb477-1"><a href="assignment-6.html#cb477-1"></a><span class="fu">test_that</span>(<span class="st">&quot;test data is loading correctly and reduced&quot;</span>, {</span>
-<span id="cb477-2"><a href="assignment-6.html#cb477-2"></a>  test_df <span class="ot">&lt;-</span> <span class="fu">load_n_trim</span>(csv)</span>
-<span id="cb477-3"><a href="assignment-6.html#cb477-3"></a>  <span class="fu">expect_equal</span>(<span class="fu">names</span>(test_df), <span class="fu">c</span>(<span class="st">&quot;vP0_1&quot;</span>, <span class="st">&quot;vP0_2&quot;</span>, <span class="st">&quot;vAd_1&quot;</span>, <span class="st">&quot;vAd_2&quot;</span>))</span>
-<span id="cb477-4"><a href="assignment-6.html#cb477-4"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(test_df), <span class="fu">c</span>(<span class="dv">55416</span>, <span class="dv">4</span>))</span>
-<span id="cb477-5"><a href="assignment-6.html#cb477-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">class</span>(test_df), <span class="st">&quot;data.frame&quot;</span>)</span>
-<span id="cb477-6"><a href="assignment-6.html#cb477-6"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="assignment-6.html#cb485-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;test data is loading correctly and reduced&quot;</span>, {</span>
+<span id="cb485-2"><a href="assignment-6.html#cb485-2" aria-hidden="true" tabindex="-1"></a>  test_df <span class="ot">&lt;-</span> <span class="fu">load_n_trim</span>(csv)</span>
+<span id="cb485-3"><a href="assignment-6.html#cb485-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">names</span>(test_df), <span class="fu">c</span>(<span class="st">&quot;vP0_1&quot;</span>, <span class="st">&quot;vP0_2&quot;</span>, <span class="st">&quot;vAd_1&quot;</span>, <span class="st">&quot;vAd_2&quot;</span>))</span>
+<span id="cb485-4"><a href="assignment-6.html#cb485-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(test_df), <span class="fu">c</span>(<span class="dv">55416</span>, <span class="dv">4</span>))</span>
+<span id="cb485-5"><a href="assignment-6.html#cb485-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">class</span>(test_df), <span class="st">&quot;data.frame&quot;</span>)</span>
+<span id="cb485-6"><a href="assignment-6.html#cb485-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>The tests for this assignment are relatively straightforward, mostly ensuring that data is loaded and ends up in the right shape and format. The first test ensures the columns were filtered, the second ensures the size is correct, and the final ensures it is a data frame and <em>not</em> a tibble. No tibbles. Tibble-less?</p>
 </div>
 </div>
@@ -624,18 +631,18 @@ div.csl-indent {
 <p>This is the first of three functions that technically do identical things (but in different ways). One of the most popular Bioconductor packages, DESeq2 has a number of options available for differential expression analysis. We will load in the counts data, select our variables of interest, and use <code>DESeq()</code> to process them. Links are included in the function description to DESeq2 documentation, you will find answers to most questions there, especially since those were the documents used to <em>write</em> this assignment. This function will return the results of the analysis.</p>
 <div id="tests-5" class="section level5 unnumbered hasAnchor">
 <h5>Tests<a href="assignment-6.html#tests-5" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb478"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb478-1"><a href="assignment-6.html#cb478-1"></a><span class="fu">test_that</span>(<span class="st">&quot;deseq2 function is returning correct results&quot;</span>, {</span>
-<span id="cb478-2"><a href="assignment-6.html#cb478-2"></a>  <span class="fu">load</span>(<span class="st">&quot;mock_counts_df.RData&quot;</span>) <span class="co"># loads the counts_df object into env</span></span>
-<span id="cb478-3"><a href="assignment-6.html#cb478-3"></a>  coldata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">condition =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;day4&quot;</span>, <span class="st">&quot;day7&quot;</span>), <span class="at">each=</span><span class="dv">2</span>),</span>
-<span id="cb478-4"><a href="assignment-6.html#cb478-4"></a>                        <span class="at">type=</span><span class="st">&quot;paired-end&quot;</span>)</span>
-<span id="cb478-5"><a href="assignment-6.html#cb478-5"></a>  <span class="fu">row.names</span>(coldata) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;vP4_1&quot;</span>, <span class="st">&quot;vP4_2&quot;</span>, <span class="st">&quot;vP7_1&quot;</span>, <span class="st">&quot;vP7_2&quot;</span>)</span>
-<span id="cb478-6"><a href="assignment-6.html#cb478-6"></a>  <span class="fu">expect_warning</span>(deseq <span class="ot">&lt;-</span> <span class="fu">run_deseq</span>(counts_df,</span>
-<span id="cb478-7"><a href="assignment-6.html#cb478-7"></a>                                    coldata,</span>
-<span id="cb478-8"><a href="assignment-6.html#cb478-8"></a>                                    <span class="dv">10</span>, <span class="st">&quot;condition_day7_vs_day4&quot;</span>))</span>
-<span id="cb478-9"><a href="assignment-6.html#cb478-9"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(deseq), <span class="fu">c</span>(<span class="dv">19127</span>, <span class="dv">6</span>))</span>
-<span id="cb478-10"><a href="assignment-6.html#cb478-10"></a>  <span class="fu">expect_equal</span>(<span class="fu">class</span>(deseq)[<span class="dv">1</span>], <span class="st">&quot;DESeqResults&quot;</span>)</span>
-<span id="cb478-11"><a href="assignment-6.html#cb478-11"></a>  <span class="fu">expect_equal</span>(<span class="fu">c</span>(<span class="st">&quot;pvalue&quot;</span>, <span class="st">&quot;padj&quot;</span>) <span class="sc">%in%</span> <span class="fu">names</span>(deseq), <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>))</span>
-<span id="cb478-12"><a href="assignment-6.html#cb478-12"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="assignment-6.html#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;deseq2 function is returning correct results&quot;</span>, {</span>
+<span id="cb486-2"><a href="assignment-6.html#cb486-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">&quot;mock_counts_df.RData&quot;</span>) <span class="co"># loads the counts_df object into env</span></span>
+<span id="cb486-3"><a href="assignment-6.html#cb486-3" aria-hidden="true" tabindex="-1"></a>  coldata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">condition =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;day4&quot;</span>, <span class="st">&quot;day7&quot;</span>), <span class="at">each=</span><span class="dv">2</span>),</span>
+<span id="cb486-4"><a href="assignment-6.html#cb486-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">type=</span><span class="st">&quot;paired-end&quot;</span>)</span>
+<span id="cb486-5"><a href="assignment-6.html#cb486-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row.names</span>(coldata) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;vP4_1&quot;</span>, <span class="st">&quot;vP4_2&quot;</span>, <span class="st">&quot;vP7_1&quot;</span>, <span class="st">&quot;vP7_2&quot;</span>)</span>
+<span id="cb486-6"><a href="assignment-6.html#cb486-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_warning</span>(deseq <span class="ot">&lt;-</span> <span class="fu">run_deseq</span>(counts_df,</span>
+<span id="cb486-7"><a href="assignment-6.html#cb486-7" aria-hidden="true" tabindex="-1"></a>                                    coldata,</span>
+<span id="cb486-8"><a href="assignment-6.html#cb486-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="dv">10</span>, <span class="st">&quot;condition_day7_vs_day4&quot;</span>))</span>
+<span id="cb486-9"><a href="assignment-6.html#cb486-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(deseq), <span class="fu">c</span>(<span class="dv">19127</span>, <span class="dv">6</span>))</span>
+<span id="cb486-10"><a href="assignment-6.html#cb486-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">class</span>(deseq)[<span class="dv">1</span>], <span class="st">&quot;DESeqResults&quot;</span>)</span>
+<span id="cb486-11"><a href="assignment-6.html#cb486-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">c</span>(<span class="st">&quot;pvalue&quot;</span>, <span class="st">&quot;padj&quot;</span>) <span class="sc">%in%</span> <span class="fu">names</span>(deseq), <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb486-12"><a href="assignment-6.html#cb486-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>Less concerning for you all but writing tests for larger data sets and more complicated functions like this is…tricky. The problem is it can’t be written like a script, we can’t use the results from <code>load_n_trim()</code> to test <em>this</em> function, because what if one fails independently of the other? So in this case, we create an RData object of correctly loaded data that works <em>even if</em> <code>load_n_trim()</code> is absolutely broken. Also, in this case, we are using different sets to test this (days 4 and 7 instead of 0 and adult) so you can’t just load the test data and say you wrote the code! That would be disingenuous of you, and being disingenuous is for after you graduate.</p>
 <p>This test loads the sample data (a data frame of counts) and creates the <code>coldata</code> object according to DESeq2 specifications. We wrap the <code>run_deseq()</code> in <code>expect_warning()</code> because DESeq throws a warning when it performs an expected behavior: converting strings to factors (this is bad programming! this is not what warnings are for, the package is functioning as expected). We then do a similar series of tests: ensure the dimensions are correct, ensure the results object are from DESeq, and ensure that the column names we need are present.</p>
 </div>
@@ -645,41 +652,41 @@ div.csl-indent {
 <p>As mentioned in the previous function, this is the EdgeR implementation of running the differential expression analysis based on our counts file. Again, this function should follow roughly the portion of the documentation mentioned in the function description. EdgeR has a number of additional plotting functions (such as <code>plotMDS()</code>) you may like to include. These are optional but pretty fun to see if your data is working out as expected (similar days clustered close together and so on). You will return the <em>entire</em> results object, no filtering necessary yet.</p>
 <div id="tests-6" class="section level5 unnumbered hasAnchor">
 <h5>Tests<a href="assignment-6.html#tests-6" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb479"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb479-1"><a href="assignment-6.html#cb479-1"></a><span class="fu">test_that</span>(<span class="st">&quot;edger function is returning correct results&quot;</span>, {</span>
-<span id="cb479-2"><a href="assignment-6.html#cb479-2"></a>  <span class="fu">load</span>(<span class="st">&quot;mock_counts_df.RData&quot;</span>)</span>
-<span id="cb479-3"><a href="assignment-6.html#cb479-3"></a>  group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">each=</span><span class="dv">2</span>))</span>
-<span id="cb479-4"><a href="assignment-6.html#cb479-4"></a>  edger_res <span class="ot">&lt;-</span> <span class="fu">run_edger</span>(counts_df, group)</span>
-<span id="cb479-5"><a href="assignment-6.html#cb479-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">names</span>(edger_res), <span class="fu">c</span>(<span class="st">&quot;logFC&quot;</span>, <span class="st">&quot;logCPM&quot;</span>, <span class="st">&quot;PValue&quot;</span>))</span>
-<span id="cb479-6"><a href="assignment-6.html#cb479-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(edger_res), <span class="fu">c</span>(<span class="dv">15026</span>, <span class="dv">3</span>))</span>
-<span id="cb479-7"><a href="assignment-6.html#cb479-7"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="assignment-6.html#cb487-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;edger function is returning correct results&quot;</span>, {</span>
+<span id="cb487-2"><a href="assignment-6.html#cb487-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">&quot;mock_counts_df.RData&quot;</span>)</span>
+<span id="cb487-3"><a href="assignment-6.html#cb487-3" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">each=</span><span class="dv">2</span>))</span>
+<span id="cb487-4"><a href="assignment-6.html#cb487-4" aria-hidden="true" tabindex="-1"></a>  edger_res <span class="ot">&lt;-</span> <span class="fu">run_edger</span>(counts_df, group)</span>
+<span id="cb487-5"><a href="assignment-6.html#cb487-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">names</span>(edger_res), <span class="fu">c</span>(<span class="st">&quot;logFC&quot;</span>, <span class="st">&quot;logCPM&quot;</span>, <span class="st">&quot;PValue&quot;</span>))</span>
+<span id="cb487-6"><a href="assignment-6.html#cb487-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(edger_res), <span class="fu">c</span>(<span class="dv">15026</span>, <span class="dv">3</span>))</span>
+<span id="cb487-7"><a href="assignment-6.html#cb487-7" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>Similar to the DESeq2 tests, we aren’t necessarily looking for a carbon copy of the results. While the process <em>should</em> be entirely deterministic, it is better to allow some wiggle room and merely look that the columns we’re interested in are present and that the data has the right shape. Note that EdgeR doesn’t perform a BH correction (the p-adjusted column is non-existant). It’s either an option that’s off by default or just not a feature! Not a problem, we have the p-values so we can do it ourselves (see the markdown).</p>
 </div>
 </div>
 <div id="run_limma-and-run_voom" class="section level4 unnumbered hasAnchor">
 <h4>4. <code>run_limma()</code> and <code>run_voom()</code><a href="assignment-6.html#run_limma-and-run_voom" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Our final in this set of three, we’re testing two related functions in the Limma package. While you can create an analysis that <em>only</em> uses Limma, in our case we can apply the <strong>voom</strong> workflow to refine our data a little more. More info on how these work in the cited documentation. A little technique that can be useful for optional workflows like this is including a boolean flag in the parameters of the function. If I am running a function <code>add_numbers(1, -4, abs=TRUE)</code>, the parameter <code>abs</code> might change the functions operation so that it takes the absolute value of numbers before adding them together. I could create this behavior like so:</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb480-1"><a href="assignment-6.html#cb480-1"></a>add_numbers <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">abs=</span><span class="cn">FALSE</span>) {</span>
-<span id="cb480-2"><a href="assignment-6.html#cb480-2"></a>  <span class="cf">if</span> (abs) { <span class="co"># code enters here if abs is TRUE</span></span>
-<span id="cb480-3"><a href="assignment-6.html#cb480-3"></a>    <span class="fu">return</span>(<span class="fu">abs</span>(x) <span class="sc">+</span> <span class="fu">abs</span>(y)) <span class="co"># return means function exits, doesn&#39;t go to &quot;else {}&quot;</span></span>
-<span id="cb480-4"><a href="assignment-6.html#cb480-4"></a>  } <span class="cf">else</span> { <span class="co"># code enters here if abs was false</span></span>
-<span id="cb480-5"><a href="assignment-6.html#cb480-5"></a>    <span class="fu">return</span>(x <span class="sc">+</span> y)</span>
-<span id="cb480-6"><a href="assignment-6.html#cb480-6"></a>  }</span>
-<span id="cb480-7"><a href="assignment-6.html#cb480-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="assignment-6.html#cb488-1" aria-hidden="true" tabindex="-1"></a>add_numbers <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">abs=</span><span class="cn">FALSE</span>) {</span>
+<span id="cb488-2"><a href="assignment-6.html#cb488-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (abs) { <span class="co"># code enters here if abs is TRUE</span></span>
+<span id="cb488-3"><a href="assignment-6.html#cb488-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">abs</span>(x) <span class="sc">+</span> <span class="fu">abs</span>(y)) <span class="co"># return means function exits, doesn&#39;t go to &quot;else {}&quot;</span></span>
+<span id="cb488-4"><a href="assignment-6.html#cb488-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># code enters here if abs was false</span></span>
+<span id="cb488-5"><a href="assignment-6.html#cb488-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x <span class="sc">+</span> y)</span>
+<span id="cb488-6"><a href="assignment-6.html#cb488-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb488-7"><a href="assignment-6.html#cb488-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>This is a very useful technique for re-using functions, meaning I don’t need to write two functions that do similar things when I can change their behavior with that boolean parameter.</p>
 <div id="tests-7" class="section level5 unnumbered hasAnchor">
 <h5>Tests<a href="assignment-6.html#tests-7" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb481"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb481-1"><a href="assignment-6.html#cb481-1"></a><span class="fu">test_that</span>(<span class="st">&quot;test limma + voom work + work together&quot;</span>, {</span>
-<span id="cb481-2"><a href="assignment-6.html#cb481-2"></a>  <span class="fu">load</span>(<span class="st">&quot;data/mock_counts_df.RData&quot;</span>)</span>
-<span id="cb481-3"><a href="assignment-6.html#cb481-3"></a>  group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">each=</span><span class="dv">2</span>))</span>
-<span id="cb481-4"><a href="assignment-6.html#cb481-4"></a>  <span class="co"># design</span></span>
-<span id="cb481-5"><a href="assignment-6.html#cb481-5"></a>  design <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">day4=</span><span class="dv">1</span>, <span class="at">day4vsday7=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb481-6"><a href="assignment-6.html#cb481-6"></a>  <span class="fu">row.names</span>(design) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;vP4_1&quot;</span>, <span class="st">&quot;vP4_2&quot;</span>, <span class="st">&quot;vP7_1&quot;</span>, <span class="st">&quot;vP7_2&quot;</span>)</span>
-<span id="cb481-7"><a href="assignment-6.html#cb481-7"></a>  <span class="co"># limma + voom</span></span>
-<span id="cb481-8"><a href="assignment-6.html#cb481-8"></a>  <span class="fu">expect_warning</span>(voom_res <span class="ot">&lt;-</span> <span class="fu">run_limma</span>(counts_df, design, group)) <span class="co"># voom yelling, ignore</span></span>
-<span id="cb481-9"><a href="assignment-6.html#cb481-9"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(voom_res), <span class="fu">c</span>(<span class="dv">15026</span>, <span class="dv">6</span>))</span>
-<span id="cb481-10"><a href="assignment-6.html#cb481-10"></a>  <span class="fu">expect_equal</span>(<span class="fu">names</span>(voom_res), <span class="fu">c</span>(<span class="st">&quot;logFC&quot;</span>, <span class="st">&quot;AveExpr&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;P.Value&quot;</span>, </span>
-<span id="cb481-11"><a href="assignment-6.html#cb481-11"></a>                                  <span class="st">&quot;adj.P.Val&quot;</span>, <span class="st">&quot;B&quot;</span>))</span>
-<span id="cb481-12"><a href="assignment-6.html#cb481-12"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="assignment-6.html#cb489-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;test limma + voom work + work together&quot;</span>, {</span>
+<span id="cb489-2"><a href="assignment-6.html#cb489-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">&quot;data/mock_counts_df.RData&quot;</span>)</span>
+<span id="cb489-3"><a href="assignment-6.html#cb489-3" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">each=</span><span class="dv">2</span>))</span>
+<span id="cb489-4"><a href="assignment-6.html#cb489-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># design</span></span>
+<span id="cb489-5"><a href="assignment-6.html#cb489-5" aria-hidden="true" tabindex="-1"></a>  design <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">day4=</span><span class="dv">1</span>, <span class="at">day4vsday7=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb489-6"><a href="assignment-6.html#cb489-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row.names</span>(design) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;vP4_1&quot;</span>, <span class="st">&quot;vP4_2&quot;</span>, <span class="st">&quot;vP7_1&quot;</span>, <span class="st">&quot;vP7_2&quot;</span>)</span>
+<span id="cb489-7"><a href="assignment-6.html#cb489-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># limma + voom</span></span>
+<span id="cb489-8"><a href="assignment-6.html#cb489-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_warning</span>(voom_res <span class="ot">&lt;-</span> <span class="fu">run_limma</span>(counts_df, design, group)) <span class="co"># voom yelling, ignore</span></span>
+<span id="cb489-9"><a href="assignment-6.html#cb489-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(voom_res), <span class="fu">c</span>(<span class="dv">15026</span>, <span class="dv">6</span>))</span>
+<span id="cb489-10"><a href="assignment-6.html#cb489-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">names</span>(voom_res), <span class="fu">c</span>(<span class="st">&quot;logFC&quot;</span>, <span class="st">&quot;AveExpr&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;P.Value&quot;</span>, </span>
+<span id="cb489-11"><a href="assignment-6.html#cb489-11" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&quot;adj.P.Val&quot;</span>, <span class="st">&quot;B&quot;</span>))</span>
+<span id="cb489-12"><a href="assignment-6.html#cb489-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>This ultimately functions similarly to the first two series of tests: load test data, apply the function to it, make sure the results are the right size, shape, and type. This includes the voom procedure, so using <em>only</em> limma results will yield failures.</p>
 <div class="box note">
 <p>Note that Limma uses EdgeR to input data, so your first couple steps will look pretty familiar.</p>
@@ -694,22 +701,22 @@ div.csl-indent {
 <div id="tests-8" class="section level5 unnumbered hasAnchor">
 <h5>Tests<a href="assignment-6.html#tests-8" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>These tests are organized into one larger testing function because they use the same, randomly generated input data (a bunch of data frames with uniform distributions but with ranges that approximate actual data). If you would like to test only parts of this testing function, use an octothorpe (<code>#</code>) to comment out tests you haven’t reached yet.</p>
-<div class="sourceCode" id="cb482"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb482-1"><a href="assignment-6.html#cb482-1"></a><span class="fu">test_that</span>(<span class="st">&quot;ggplot and data formatting works&quot;</span>, {</span>
-<span id="cb482-2"><a href="assignment-6.html#cb482-2"></a>  deseq <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pvalue =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-100</span>, <span class="fl">1e-5</span>),</span>
-<span id="cb482-3"><a href="assignment-6.html#cb482-3"></a>                      <span class="at">log2FoldChange =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">9</span>),</span>
-<span id="cb482-4"><a href="assignment-6.html#cb482-4"></a>                      <span class="at">padj =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-300</span>, <span class="fl">1e-15</span>))</span>
-<span id="cb482-5"><a href="assignment-6.html#cb482-5"></a>  edger <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PValue =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-100</span>, <span class="fl">1e-5</span>),</span>
-<span id="cb482-6"><a href="assignment-6.html#cb482-6"></a>                      <span class="at">logFC =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">9</span>),</span>
-<span id="cb482-7"><a href="assignment-6.html#cb482-7"></a>                      <span class="at">padj =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-100</span>, <span class="fl">1e-14</span>))</span>
-<span id="cb482-8"><a href="assignment-6.html#cb482-8"></a>  limma <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">P.Value =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-100</span>, <span class="fl">1e-5</span>),</span>
-<span id="cb482-9"><a href="assignment-6.html#cb482-9"></a>                      <span class="at">logFC =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">9</span>),</span>
-<span id="cb482-10"><a href="assignment-6.html#cb482-10"></a>                      <span class="at">adj.P.Val =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-6</span>, <span class="fl">1e-4</span>))</span>
-<span id="cb482-11"><a href="assignment-6.html#cb482-11"></a>  <span class="co"># combine_pval</span></span>
-<span id="cb482-12"><a href="assignment-6.html#cb482-12"></a>  res <span class="ot">&lt;-</span> <span class="fu">combine_pval</span>(deseq, edger, limma)</span>
-<span id="cb482-13"><a href="assignment-6.html#cb482-13"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(res), <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">2</span>))</span>
-<span id="cb482-14"><a href="assignment-6.html#cb482-14"></a>  <span class="fu">expect_true</span>(<span class="fu">mean</span>(res<span class="sc">$</span>pval) <span class="sc">&lt;</span> <span class="fl">5e-5</span> <span class="sc">&amp;&amp;</span> <span class="fu">mean</span>(res<span class="sc">$</span>pval) <span class="sc">&gt;</span> <span class="fl">5e-7</span>)</span>
-<span id="cb482-15"><a href="assignment-6.html#cb482-15"></a>  <span class="fu">expect_equal</span>(<span class="fu">table</span>(res<span class="sc">$</span>package)[[<span class="dv">1</span>]], <span class="dv">1000</span>)</span>
-<span id="cb482-16"><a href="assignment-6.html#cb482-16"></a>  ...</span></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="assignment-6.html#cb490-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;ggplot and data formatting works&quot;</span>, {</span>
+<span id="cb490-2"><a href="assignment-6.html#cb490-2" aria-hidden="true" tabindex="-1"></a>  deseq <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pvalue =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-100</span>, <span class="fl">1e-5</span>),</span>
+<span id="cb490-3"><a href="assignment-6.html#cb490-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">log2FoldChange =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">9</span>),</span>
+<span id="cb490-4"><a href="assignment-6.html#cb490-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">padj =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-300</span>, <span class="fl">1e-15</span>))</span>
+<span id="cb490-5"><a href="assignment-6.html#cb490-5" aria-hidden="true" tabindex="-1"></a>  edger <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PValue =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-100</span>, <span class="fl">1e-5</span>),</span>
+<span id="cb490-6"><a href="assignment-6.html#cb490-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">logFC =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">9</span>),</span>
+<span id="cb490-7"><a href="assignment-6.html#cb490-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">padj =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-100</span>, <span class="fl">1e-14</span>))</span>
+<span id="cb490-8"><a href="assignment-6.html#cb490-8" aria-hidden="true" tabindex="-1"></a>  limma <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">P.Value =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-100</span>, <span class="fl">1e-5</span>),</span>
+<span id="cb490-9"><a href="assignment-6.html#cb490-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">logFC =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">9</span>),</span>
+<span id="cb490-10"><a href="assignment-6.html#cb490-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">adj.P.Val =</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="fl">1e-6</span>, <span class="fl">1e-4</span>))</span>
+<span id="cb490-11"><a href="assignment-6.html#cb490-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># combine_pval</span></span>
+<span id="cb490-12"><a href="assignment-6.html#cb490-12" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">combine_pval</span>(deseq, edger, limma)</span>
+<span id="cb490-13"><a href="assignment-6.html#cb490-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(res), <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">2</span>))</span>
+<span id="cb490-14"><a href="assignment-6.html#cb490-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">mean</span>(res<span class="sc">$</span>pval) <span class="sc">&lt;</span> <span class="fl">5e-5</span> <span class="sc">&amp;&amp;</span> <span class="fu">mean</span>(res<span class="sc">$</span>pval) <span class="sc">&gt;</span> <span class="fl">5e-7</span>)</span>
+<span id="cb490-15"><a href="assignment-6.html#cb490-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">table</span>(res<span class="sc">$</span>package)[[<span class="dv">1</span>]], <span class="dv">1000</span>)</span>
+<span id="cb490-16"><a href="assignment-6.html#cb490-16" aria-hidden="true" tabindex="-1"></a>  ...</span></code></pre></div>
 <p>The first nine lines establish the test data frames. While random, they will let us test if functions are working correctly.</p>
 <div class="box important">
 <p>The test data frames do not mimic the normal results exactly. The rows we are interested in have the same name, but have different numbers of columns. For that reason, I suggest your function uses <code>$</code>-notation when referencing columns, instead of position. <code>deseq$pvalue</code> will work more better than <code>deseq[,1]</code> for this test data.</p>
@@ -722,12 +729,12 @@ div.csl-indent {
 <p>Now that we have examined the p-values, we can look at the adjusted p-values. We’ll be constructing volcano plots, which compare the log<sub>2</sub> fold-change and the adjusted p-value, so the <code>create_facets()</code> function will be somewhat more complicated. Rather than use <code>gather()</code> again, it may be easier to create three tibbles or data frames of the variables of interest and combine them with <code>rbind()</code>.</p>
 <div id="tests-9" class="section level5 unnumbered hasAnchor">
 <h5>Tests<a href="assignment-6.html#tests-9" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb483"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb483-1"><a href="assignment-6.html#cb483-1"></a>  ...</span>
-<span id="cb483-2"><a href="assignment-6.html#cb483-2"></a>  <span class="co"># create_facets</span></span>
-<span id="cb483-3"><a href="assignment-6.html#cb483-3"></a>  facets <span class="ot">&lt;-</span> <span class="fu">create_facets</span>(deseq, edger, limma)</span>
-<span id="cb483-4"><a href="assignment-6.html#cb483-4"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(facets), <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">3</span>))</span>
-<span id="cb483-5"><a href="assignment-6.html#cb483-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">table</span>(facets<span class="sc">$</span>package)[[<span class="dv">2</span>]], <span class="dv">1000</span>)</span>
-<span id="cb483-6"><a href="assignment-6.html#cb483-6"></a>  ...</span></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="assignment-6.html#cb491-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb491-2"><a href="assignment-6.html#cb491-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create_facets</span></span>
+<span id="cb491-3"><a href="assignment-6.html#cb491-3" aria-hidden="true" tabindex="-1"></a>  facets <span class="ot">&lt;-</span> <span class="fu">create_facets</span>(deseq, edger, limma)</span>
+<span id="cb491-4"><a href="assignment-6.html#cb491-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(facets), <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">3</span>))</span>
+<span id="cb491-5"><a href="assignment-6.html#cb491-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">table</span>(facets<span class="sc">$</span>package)[[<span class="dv">2</span>]], <span class="dv">1000</span>)</span>
+<span id="cb491-6"><a href="assignment-6.html#cb491-6" aria-hidden="true" tabindex="-1"></a>  ...</span></code></pre></div>
 <p>Another simple set of tests, this time we want to ensure there are 3,000 rows and <em>3</em> columns. We also want to ensure there aren’t more than 1,000 rows of any package type.</p>
 </div>
 </div>
@@ -736,16 +743,16 @@ div.csl-indent {
 <p>Finally, we have all of our data in the right shape and we can do some plotting. There is a lot to learn about ggplot, and I mention a few resources in the function description, but don’t be afraid to experiment! Try different colors, themes, and styles. The easiest part is getting your data on the plot, the hard part is making it look attractive.</p>
 <div id="tests-10" class="section level5 unnumbered hasAnchor">
 <h5>Tests<a href="assignment-6.html#tests-10" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb484"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb484-1"><a href="assignment-6.html#cb484-1"></a>  ...</span>
-<span id="cb484-2"><a href="assignment-6.html#cb484-2"></a>  <span class="co"># theme_plot</span></span>
-<span id="cb484-3"><a href="assignment-6.html#cb484-3"></a>  <span class="fu">tibble</span>(<span class="at">logFC =</span> <span class="fu">runif</span>(<span class="dv">3000</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">9</span>),</span>
-<span id="cb484-4"><a href="assignment-6.html#cb484-4"></a>         <span class="at">padj =</span> <span class="fu">runif</span>(<span class="dv">3000</span>, <span class="fl">1e-300</span>, <span class="fl">1e-5</span>),</span>
-<span id="cb484-5"><a href="assignment-6.html#cb484-5"></a>         <span class="at">package =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;DESeq2&quot;</span>, <span class="st">&quot;edgeR&quot;</span>, <span class="st">&quot;Limma&quot;</span>), <span class="at">each=</span><span class="dv">1000</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb484-6"><a href="assignment-6.html#cb484-6"></a>  <span class="fu">theme_plot</span>() <span class="ot">-&gt;</span> volc_plot</span>
-<span id="cb484-7"><a href="assignment-6.html#cb484-7"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(volc_plot<span class="sc">$</span>data), <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">3</span>))</span>
-<span id="cb484-8"><a href="assignment-6.html#cb484-8"></a>  <span class="fu">expect_equal</span>(<span class="fu">class</span>(volc_plot<span class="sc">$</span>layers[[<span class="dv">1</span>]]<span class="sc">$</span>geom)[<span class="dv">1</span>], <span class="st">&quot;GeomPoint&quot;</span>)</span>
-<span id="cb484-9"><a href="assignment-6.html#cb484-9"></a>  <span class="fu">expect_equal</span>(<span class="fu">class</span>(volc_plot<span class="sc">$</span>facet<span class="sc">$</span>params), <span class="st">&quot;list&quot;</span>)</span>
-<span id="cb484-10"><a href="assignment-6.html#cb484-10"></a><span class="er">})</span></span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="assignment-6.html#cb492-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb492-2"><a href="assignment-6.html#cb492-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme_plot</span></span>
+<span id="cb492-3"><a href="assignment-6.html#cb492-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">logFC =</span> <span class="fu">runif</span>(<span class="dv">3000</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">9</span>),</span>
+<span id="cb492-4"><a href="assignment-6.html#cb492-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">padj =</span> <span class="fu">runif</span>(<span class="dv">3000</span>, <span class="fl">1e-300</span>, <span class="fl">1e-5</span>),</span>
+<span id="cb492-5"><a href="assignment-6.html#cb492-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">package =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;DESeq2&quot;</span>, <span class="st">&quot;edgeR&quot;</span>, <span class="st">&quot;Limma&quot;</span>), <span class="at">each=</span><span class="dv">1000</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb492-6"><a href="assignment-6.html#cb492-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_plot</span>() <span class="ot">-&gt;</span> volc_plot</span>
+<span id="cb492-7"><a href="assignment-6.html#cb492-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(volc_plot<span class="sc">$</span>data), <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">3</span>))</span>
+<span id="cb492-8"><a href="assignment-6.html#cb492-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">class</span>(volc_plot<span class="sc">$</span>layers[[<span class="dv">1</span>]]<span class="sc">$</span>geom)[<span class="dv">1</span>], <span class="st">&quot;GeomPoint&quot;</span>)</span>
+<span id="cb492-9"><a href="assignment-6.html#cb492-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">class</span>(volc_plot<span class="sc">$</span>facet<span class="sc">$</span>params), <span class="st">&quot;list&quot;</span>)</span>
+<span id="cb492-10"><a href="assignment-6.html#cb492-10" aria-hidden="true" tabindex="-1"></a><span class="er">})</span></span></code></pre></div>
 <p>We create a little more fake data, and then pipe it into our <code>theme_plot()</code> function, and save that ggplot object. Our tests simply look inside the ggplot object to confirm the data is the right shape, that you’re plotting using <code>geom_point()</code>, and that facets are present.</p>
 <p>Once your tests are passing, take a look at the report and see how everything can work together!</p>
 
@@ -753,18 +760,13 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<!-- </div> -->
-
-
-
-</div>
             </section>
 
           </div>
         </div>
       </div>
 <a href="assignment-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="class-outlines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="assignment-7.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
