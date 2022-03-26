@@ -18,7 +18,11 @@ names <- c("Opal", "Tourmaline", "Emerald", "Citrine", "Jasper", "Moonstone", "A
 Use `sample_gnm()` to generate a random graph.  
 ```{r}
 set.seed(10)
-samp_g <- sample_gnm(n = 15, m = 20)
+samp_g <- sample_gnm(
+  n = 15, # number of vertices
+  m = 20, # total number of edges
+  directed = FALSE # if it's a directed network
+)
 ```
 
 To assign color to vertices, use `vertex_attr()`. `gorder()` returns the number of vertices.  
@@ -26,7 +30,7 @@ To assign color to vertices, use `vertex_attr()`. `gorder()` returns the number 
 vertex_attr(samp_g) <- list(name = names, color = rep("slategray1", gorder(samp_g)))
 ```
 
-To assign color to edges, use `vertex_attr()`. `gsize()` returns the total number of edges. 
+To assign color to edges, use `vertex_attr()`. `gsize()` returns the total number of edges. Here I am assigning random colors. 
 ```{r}
 edge_attr(samp_g) <- list(color = sample(
   x = c("slateblue1", "lightpink1", "steelblue1", "palegreen3"),
@@ -34,15 +38,25 @@ edge_attr(samp_g) <- list(color = sample(
 ))
 ```
 
-To visualize the network, there's just... one simple function!  
+In real case, when you want to modify the color of a specific edge, you need to first find which edge you want to modify...
+```{r}
+edges(samp_g)
+```
+
+Then modify it. For example, modify the 1st edge, which is "Emerald--Citrine".  
+```{r}
+edge_attr(samp_g, name = "color")[1] <- "red"
+```
+
+To visualize the network, just use `plot()`!  
 ```{r}
 plot(samp_g)
 ```
 
-But, in real-world, we don't want a random network. Now let's create our network from scratch.  
+In real-world, we don't want a random network. Now let's create our network from scratch.  
 
 There are many different ways to create a network. One of the most basic (and easy) ways is using `graph_from_data_frame()` function in `igraph`.  
-1. Create 2 columns in the data frame: `from` and `to`. Each row represents an edge, and the entries are vertex names. For instance, as indicated in row 1, there is an edge "from Crystal to Moonstone". In an undirected graph, you can put the two vertices in either way.  
+1. Create 2 columns in the data frame: `from` and `to`. Each row represents an edge, and the entries are vertex names. For instance, as indicated in row 1 below, there is an edge "from Crystal to Moonstone". In an undirected graph, you can put the two vertices in either way.  
 2. (optional) Add another column `color` to represent the color to plot the edge.  
 3. (optional) You can also add additional information for each edge. For example, add a column `weight` to specify the weight of this edge. The `weight` will become useful when you do network analysis later, for example, find the shortest path between two vertices. You can also add other attributes you want, like the "connection_type" here. 
 ```{r}
@@ -60,8 +74,12 @@ my_gem_df
 Now create an igraph object from the data frame, and assign vertex color. 
 ```{r}
 g <- graph_from_data_frame(my_gem_df, directed = FALSE)
-vertex_attr(g) <- list(name = vertex_attr(g, "name"), color = rep("slategray1", gorder(g)))
+vertex_attr(g) <- list(
+  name = c("Crystal", "Topaz", "Obsidian", "Agate", "Moonstone", "Citrine"),
+  color = c("slategray1", "slategray1", "slategray1", "lightpink", "slategray1", "lightpink")
+)
 ```
+
 
 Again, simply use `plot(g)` to plot the network. We can also do some fancy customization to play around with the labels! *(Remember the `connection_type` I specified above in the data frame? In `edge.lty`, 1 is a solid line, and 2 is a dash line)* 
 ```{r}
@@ -82,7 +100,10 @@ To see the whole list of available arguments available when plotting your networ
 In the case of an directed graph, simply put `directed = TRUE` when creating the igraph object, and you will see the cute arrows.  
 ```{r}
 g <- graph_from_data_frame(my_gem_df, directed = TRUE)
-vertex_attr(g) <- list(name = vertex_attr(g, "name"), color = rep("slategray1", gorder(g)))
+vertex_attr(g) <- list(
+  name = c("Crystal", "Topaz", "Obsidian", "Agate", "Moonstone", "Citrine"),
+  color = c("slategray1", "slategray1", "slategray1", "lightpink", "slategray1", "lightpink")
+)
 set.seed(4)
 plot(g,
   edge.width = 1.5,
