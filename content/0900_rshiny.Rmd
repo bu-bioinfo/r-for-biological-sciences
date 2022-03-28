@@ -1,17 +1,17 @@
 ---
-output: 
+output:
   html_document:
     highlight: tango
 ---
 
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(eval = FALSE, attr.source='.numberLines') 
+knitr::opts_chunk$set(eval = FALSE, attr.source='.numberLines')
 library(shiny)
 ```
 
-# R Shiny
+# RShiny
 
-## Introduction
+## RShiny Introduction
 R Shiny is an R package that enables seamless creation of interactive web applications using exclusively R. This is quite the feat since R is very much _not_ a web programming language like JavaScript. It allows for data scientists like us, who are much more comfortable creating scripts and analyses, to leverage their skills and make attractive, functional web apps to share with their collaborators and beyond.  
 
 ![A basic shiny app inside RStudio](img/shiny_01.png)
@@ -20,7 +20,7 @@ Shiny is much easier to use thanks to its built-in shorthands for common web ele
 
 This chapter will bring you through the basics of constructing an app, and the nature of reactive programming. It is still R, it will still mostly feel like R, but Shiny is a veneer of utility that turns your average data scientist into a web developer fully equipped to impress any lab peer.
 
-### How does a web page work? 
+### How does a web page work?
 Before we get into the the nuts and bolts of Shiny's usefulness, we should first outline the need for this library. A typical, static (meaning it is the same every time you visit it) webpage has three components:  
 1. **HTML** - hypertext markup language, the bones of the web page  
 2. **CSS** - cascading style sheets, the design and aesthetic portions  
@@ -70,7 +70,7 @@ This is the simplest Shiny app structure, which displays the text we pass into U
 In order to build some actual content in our app, we'll first look at the UI, what the user sees.
 
 ### UI Design
-Much like the rest of the content in this course (and I'm sure you're sick of hearing this), user interfaces and user design could be taught as its own course. There are innumerable ways for people to interact with software, and designing that software to make them the least angry possible is now your focus. 
+Much like the rest of the content in this course (and I'm sure you're sick of hearing this), user interfaces and user design could be taught as its own course. There are innumerable ways for people to interact with software, and designing that software to make them the least angry possible is now your focus.
 
 R Shiny makes designing what a user sees fairly easy for us. Gone are the days of opening up a text editor to tweak HTML tags, we can just use built in functions like `span()` and `div()` to organize our page.
 
@@ -89,7 +89,7 @@ But that's all rather clunky. And what if I want to include some other elements 
 ui <- fluidPage(
   p("Nothing beside remains. Round the decay"),
   p("Of that colossal wreck, boundless and bare"),
-  img(src="https://coloringhome.com/coloring/RiA/yEj/RiAyEjzKT.gif", 
+  img(src="https://coloringhome.com/coloring/RiA/yEj/RiAyEjzKT.gif",
       style="width:300px;height:200px;"),
   p("The lone and level sands stretch far away."),
   markdown(">Percy Bysshe Shelley")
@@ -105,7 +105,7 @@ Much nicer! This Shelley tribute page is really coming together. Let's talk abou
 
 ::: {.box .important}
 ###### Exercise 1 - UI Functions {-}
-Let's try out some HTML tags. Go to [this link](https://shiny.rstudio.com/reference/shiny/1.6.0/builder.html) to see all of the options! Play around with trying to display some in your app. 
+Let's try out some HTML tags. Go to [this link](https://shiny.rstudio.com/reference/shiny/1.6.0/builder.html) to see all of the options! Play around with trying to display some in your app.
 ```r
 library(shiny)
 ui <- fluidPage(
@@ -120,11 +120,11 @@ shinyApp(ui, server)
 :::
 
 #### Inputs
-Built-in inputs are one of the major draws to Shiny. Instead of dealing with fickle JavaScript and the DOM (a.k.a. we get to skip half of BF768), we get to type one line of R code and it is all taken care of for us! 
+Built-in inputs are one of the major draws to Shiny. Instead of dealing with fickle JavaScript and the DOM (a.k.a. we get to skip half of BF768), we get to type one line of R code and it is all taken care of for us!
 
 ```r
 ui <- fluidPage(
-  sliderInput(inputId = "pyramids", min = 0, max = 10, 
+  sliderInput(inputId = "pyramids", min = 0, max = 10,
               label = "How many pyramids are there?", value = 0, step = 1)
 )
 ```
@@ -144,11 +144,11 @@ ui <- fluidPage(
   dateInput("birthday", "When is your birthday?"),
   fileInput("photo", paste0("Please upload an embarassing photo of you at the ",
                             "Christmas party")),
-  radioButtons("button", "Which is your favorite?", 
+  radioButtons("button", "Which is your favorite?",
                choices = c("Fall", "Winter", "Spring", "Pyramids"))
 )
 ```
-This generates multiple inputs I can get the results from using `input$birthday`, `input$photo`, and `input$button`. 
+This generates multiple inputs I can get the results from using `input$birthday`, `input$photo`, and `input$button`.
 
 ![A couple more neat inputs](img/shiny_08.png)
 
@@ -164,7 +164,7 @@ Now that we have a beautiful UI page that takes user input we can figure out _wh
 One advanced option is to use `uiOutput()` to place input options and HTML **back into** the front end. This can be used to create some very nice effects, such as inserting results only when one option is selected or spawning a follow up question to an option. Here's a small example:
 ```r
 library(shiny)
-ui <- fluidPage(radioButtons("button", "Peanut butter or jelly?", 
+ui <- fluidPage(radioButtons("button", "Peanut butter or jelly?",
                              c("Peanut butter", "Jelly")),
                 uiOutput("choice"))
 server <- function(input, output, session) {
@@ -190,7 +190,7 @@ We will figure out this whole server thing in more detail once we have made our 
 Now that we have all these functions to populate our page with the most inane content possible, we're gonna start running into issues with organization. Even with our mastery of HTML elements, it will prove difficult to fit everything we want into one blank page:
 ```r
 ui <- fluidPage(
-  HTML(paste(rep("<p>All work and no play makes Jack a dull boy</p>", 1000), 
+  HTML(paste(rep("<p>All work and no play makes Jack a dull boy</p>", 1000),
         collapse = ""))
 )
 ```
@@ -215,14 +215,14 @@ ui <- fluidPage(
 We can add other elements, like `titlePanel()`, to bring the app together. Notice that the title panel is located _outside_ of the `sidebarLayout()` call, since we don't want it inside our sidebar or main panel elements. **Nesting the functions is the same as the nesting of the layout.**
 
 #### FluidPage
-There is an alternative to the sidebar-main panel layout, which is a little constricting if you don't want this super big sidebar taking up everything. The FluidPage (which we have been using as our parent function this whole time! Woa!) can allow for a more grid-like customization of the application. 
+There is an alternative to the sidebar-main panel layout, which is a little constricting if you don't want this super big sidebar taking up everything. The FluidPage (which we have been using as our parent function this whole time! Woa!) can allow for a more grid-like customization of the application.
 
-While there are a lot of ways to control the height and width of your fluid rows, we'll look at a quick example to see a comically bad example of doing so. 
+While there are a lot of ways to control the height and width of your fluid rows, we'll look at a quick example to see a comically bad example of doing so.
 
 ```r
 ui <- fluidPage(style = 'background-color: #007BA7',
                 fluidRow(style = 'background-color: #F3A712',
-                         p("I'm in the first row!"), 
+                         p("I'm in the first row!"),
                          column(style = 'background-color: #A8C686',
                                 width = 4,
                                 p("Left columm!")),
@@ -329,7 +329,7 @@ ui <- fluidPage(dataTableOutput("dt"))
 server <- function(input, output, session) {
   output$dt <- DT::renderDataTable(
     DT::datatable(iris, extensions = 'Buttons', class = "display",
-                  options = list(paging = TRUE, searching = TRUE, 
+                  options = list(paging = TRUE, searching = TRUE,
                                  fixedColumns = TRUE, autoWidth = TRUE,
                                  ordering = TRUE, dom = 'Bfrtip',
                                  buttons = c('copy', 'csv'))))
@@ -438,7 +438,7 @@ server <- function(input, output, session) {
   output$plot <- renderPlot({
     ggplot(dataset(), aes(x = Toads, y = cm_rain_week))
   })
-  
+
   output$stats <- renderTable({
     csv <- dataset()
     data.frame(mean = mean(csv$Toads))
@@ -452,7 +452,7 @@ I don't think you could teach a _whole_ class on reactivity in Shiny but maybe a
 
 
 ## Publishing
-Finally, we have our app ready, and we need to put it somewhere. We could host it ourselves, that's not too hard, but what if we want to share on the World Wide Web (www for short)? 
+Finally, we have our app ready, and we need to put it somewhere. We could host it ourselves, that's not too hard, but what if we want to share on the World Wide Web (www for short)?
 
 One option is using [shinyapps.io](https://www.shinyapps.io/) to host our completed app on the cloud. We get like a few hours a month free for hosting, and there's a fun little button in RStudio that let's us do it automatically.
 
@@ -471,7 +471,7 @@ library(shiny)
 ui <- fluidPage(
   column(width=6,
   sliderInput("slide", "How many hills?", 2, 20, 2),
-  radioButtons("pal", "What color?", 
+  radioButtons("pal", "What color?",
                c("ag_Sunset", "Earth", "Tropic", "Sunset", "SunsetDark"))),
   column(width=6, plotOutput("plot", width = "400px", height = "400px"))
 )
