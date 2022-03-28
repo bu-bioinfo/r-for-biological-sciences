@@ -29,7 +29,6 @@ rmd_files:
     - "0704_bioinfo_gene_expression.Rmd"
     - "0705_bioinfo_gsea.Rmd"
     - "0707_bioinfo_networks.Rmd"
-    - "0708_bioinfo_single_cell.Rmd"
     - "0800_engineeRing.Rmd"
     - "0900_rshiny.Rmd"
     - "1000_communication.Rmd"

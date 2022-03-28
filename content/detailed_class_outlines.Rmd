@@ -127,37 +127,43 @@ output: html_document
 
 ## Week 8
 * [Assignment 7]
-* Rshiny: [Rshiny]
+* RShiny: [Rshiny]
+* RShiny: [Introduction]
+* RShiny: [Application Structure]
 * [Assignment 6] Review
+* RShiny: [Reactivity]
+* RShiny: [Publishing]
 
 ## Week 9
 * [Assignment 7] Checkin
-* Bioinfo: [Single Cell Sequencing]
-* Bioinfo: [Single Cell Clustering Methods]
-* Bioinfo: [tSNE & UMAP]
-* Bioinfo: [Seurat]
+* EngineeRing: [Toolification]
+* EngineeRing: [The R Interpreter]
+* EngineeRing: [`Rscript`]
+* EngineeRing: [`commandArgs()`]
+* EngineeRing: [Parallel Processing]
+* EngineeRing: [Brief Introduction to Parallelization]
+* EngineeRing: [`apply` and Friends Are Pleasingly Parallel]
+* EngineeRing: [The `parallel` package]
+* EngineeRing: [Object Orientated Programming in R]
+* EngineeRing: [Building R Packages]
 
 ## Week 10
 * Bioinfo: [Biological Pathways]
 * Bioinfo: [Gene Regulatory Networks]
 * Bioinfo: [Protein-Protein Networks]
 * Bioinfo: [WGCNA]
+* [Assignment 7] Review
 * Data Sci: [Network Analysis]
 * Data Viz: [Network visualization]
 
 ## Week 11
-* [Assignment 7] Review
-* EngineeRing: [Toolification]
-* EngineeRing: [Parallel Processing]
-* EngineeRing: [Workflow Managers]
+* Project work, no class
 
 ## Week 12
-* EngineeRing: [Object Orientated Programming in R]
-* EngineeRing: [Building R Packages]
+* Project work, no class
 
 ## Week 13
-* Comm: [Sharing and Documenting Project Code]
-* Comm: [Reproducible Analysis in R]
-* Comm: [Data Documentation and Publishing]
+* Project work, no class
 
-## Week 14 - no class for project work
+## Week 14
+* Wrap up & feedback
