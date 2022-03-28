@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <title>10.1 RShiny Introduction | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="10.1 RShiny Introduction | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="10.1 RShiny Introduction | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="10.1 RShiny Introduction | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="network-visualization.html"/>
-<link rel="next" href="bio-r.html"/>
+<link rel="prev" href="rshiny.html"/>
+<link rel="next" href="application-structure.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -567,16 +567,55 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="biology-bioinformatics" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">8</span> Biology &amp; Bioinformatics<a href="biology-bioinformatics.html#biology-bioinformatics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="rshiny-introduction" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> RShiny Introduction<a href="rshiny-introduction.html#rshiny-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R Shiny is an R package that enables seamless creation of interactive web applications using exclusively R. This is quite the feat since R is very much <em>not</em> a web programming language like JavaScript. It allows for data scientists like us, who are much more comfortable creating scripts and analyses, to leverage their skills and make attractive, functional web apps to share with their collaborators and beyond.</p>
+<div class="figure">
+<img src="img/shiny_01.png" alt="" />
+<p class="caption">A basic shiny app inside RStudio</p>
+</div>
+<p>Shiny is much easier to use thanks to its built-in shorthands for common web elements. A paragraph tab, used for normal text, can be types with <code>p("Text")</code> instead of HTML’s clunkier <code>&lt;p&gt;Text&lt;/p&gt;</code>. This applies to even more complicated objects like buttons, sliders, and outputting plots and tables.</p>
+<p>This chapter will bring you through the basics of constructing an app, and the nature of reactive programming. It is still R, it will still mostly feel like R, but Shiny is a veneer of utility that turns your average data scientist into a web developer fully equipped to impress any lab peer.</p>
+<div id="how-does-a-web-page-work" class="section level3 hasAnchor" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> How does a web page work?<a href="rshiny-introduction.html#how-does-a-web-page-work" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before we get into the the nuts and bolts of Shiny’s usefulness, we should first outline the need for this library. A typical, static (meaning it is the same every time you visit it) webpage has three components:<br />
+1. <strong>HTML</strong> - hypertext markup language, the bones of the web page<br />
+2. <strong>CSS</strong> - cascading style sheets, the design and aesthetic portions<br />
+3. <strong>JavaScript</strong> - a programming language made for the web, used for making web pages interactive and adaptive.</p>
+<p>Normally, these elements are create separately in different files, placed onto a web server, and delivered to the user when they load that web page. You’re probably with one or all three of these in one sense or another, and you can see how they work by opening up your browser’s console.</p>
+<div class="figure">
+<img src="img/shiny_02.png" alt="" />
+<p class="caption">The HTML that lives inside Google.com</p>
+</div>
+<p>Dealing with all of those HTML tags (things that look like this: <code>&lt;p&gt;Woa&lt;/p&gt;</code>) is <em>far</em> too much work, so we can use Shiny to not only put together the bones of our website, we can easily customize the CSS and JavaScript elements as well, which will give our applications a fully configurable R-like feel for our users who are hungry for pretty data science and bioinformatics.</p>
+<p><img src="img/shiny_03.png" style="width:200px;text-align:center;display:block"/></p>
+<div id="getting-started-and-development" class="section level4 hasAnchor" number="10.1.1.1">
+<h4><span class="header-section-number">10.1.1.1</span> Getting started and development<a href="rshiny-introduction.html#getting-started-and-development" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Getting start with Shiny is easy whether you’re on SCC or your own computer. Simple select a new project, choose new directory, and select the Shiny option as seen below.</p>
+<div class="figure">
+<img src="https://d33wubrfki0l68.cloudfront.net/6f3bccc61698dce386b5650c4204d59ebcd66836/571c3/images/action-workflow/new-project.png" alt="" />
+<p class="caption">New Shiny App</p>
+</div>
+<div id="exercise-0---exercises" class="section level6 unnumbered hasAnchor box important">
+<h6>Exercise 0 - Exercises<a href="rshiny-introduction.html#exercise-0---exercises" class="anchor-section" aria-label="Anchor link to header"></a></h6>
+<p>This chapter has exercises! Woo! Launch R on your machine or on SCC or on both! Install Shiny using <code>install.packages("shiny")</code>, then load with <code>library(shiny)</code>. Follow along in these boxes!</p>
+</div>
+<div class="box tldr">
+<p>Further reading:<br />
+- Parts of this chapter are adapted from <a href="https://mastering-shiny.org/index.html">Hadley Wickham’s Book on Shiny</a><br />
+- The <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/shiny.pdf">Official R Shiny Cheat Sheet</a><br />
+- Further widgets for unique outputs: <a href="http://www.htmlwidgets.org/">HTML Widgets</a></p>
+</div>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="network-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bio-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rshiny.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="application-structure.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

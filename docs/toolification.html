@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <title>9.2 Toolification | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="9.2 Toolification | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="9.2 Toolification | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="9.2 Toolification | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="network-visualization.html"/>
-<link rel="next" href="bio-r.html"/>
+<link rel="prev" href="unit-testing.html"/>
+<link rel="next" href="parallel-processing.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -567,16 +567,333 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="biology-bioinformatics" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">8</span> Biology &amp; Bioinformatics<a href="biology-bioinformatics.html#biology-bioinformatics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="toolification" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Toolification<a href="toolification.html#toolification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>RStudio is a highly effective tool for developing R code, and most analyses we
+conduct are suitable for running in its interactive environment. However, there
+are certain circumstances where running R scripts in this interactive manner is
+not optimal or even suitable:</p>
+<ol style="list-style-type: decimal">
+<li>The same script must be run on many different inputs</li>
+<li>The data that is to be analyzed is stored on a system where interactive
+RStudio session are not available</li>
+<li>The script takes a very long time to run (e.g. days to weeks)</li>
+<li>The computational demands of the analysis exceed the resources available on
+the computer where RStudio is being run (e.g. a personal laptop has limited
+memory)</li>
+</ol>
+<p>In these cases, it is necessary to run R scripts outside of RStudio, often on
+a command line interface (CLI) like that found on linux clusters and cloud based
+virtual machines. While most scripts can be run in an R interpreter on the
+CLI and produce the same behavior, there are some steps that help
+convert an R script into a tool that can be run in this way. This process of
+transforming an R script in to a more generally usable tool that is run on the
+CLI is termed <em>toolification</em> in this text. The following sections describe some
+strategies for <em>toolifying</em> and running R scripts developed in RStudio on the
+CLI.</p>
+<div id="the-r-interpreter" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> The R Interpreter<a href="toolification.html#the-r-interpreter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It bears mentioning that RStudio and R are related but independent programs.
+Specifically, RStudio runs the R program behind its interface using what is
+called the <a href="https://www.oreilly.com/library/view/r-in-a/9781449358204/ch05s09.html"><em>R interpreter</em></a>.
+When you run R on a CLI, you are given an interactive interface where commands
+written in the R language can be evaluated. In RStudio, the interpreter that is
+running behind the scenes can be accessed in the Console tab at the bottom right:</p>
+<div class="figure">
+<img src="r_interpreter.png" alt="" />
+<p class="caption">R Interpreter in both RStudio and a linux terminal</p>
+</div>
+<p>The interpreter by itself is not very useful, since most meaningful analyses
+require many lines of code be run sequentially as a unit. The interpreter can be
+helpful to test out individual lines of code and examine help documentation for
+R functions.</p>
+<p>The simplest way to run an R script from the command line is to first run an R
+interpreter and then use the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/source"><code>source()</code> function</a>,
+which accepts a filename for an R script as its first argument an executes all
+lines of code in the script.</p>
+<pre><code>$ cat simple_script.R
+print(&#39;hello moon&#39;)
+print(1+2)
+print(str(c(1,2,3,4)))
+$ R
+&gt; source(&quot;simple_script.R&quot;)
+[1] &quot;hello moon&quot;
+[1] 3
+ num [1:4] 1 2 3 4</code></pre>
+<p>However, this method requires some interactivity, namely by running an R
+interpreter first, so it is not sufficient to run in a non-interactive fashion.
+We may need to run our script without any interactivity, for example when it is
+a part of a computational pipeline.</p>
+</div>
+<div id="rscript" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> <code>Rscript</code><a href="toolification.html#rscript" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The R program also includes the <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/Rscript"><code>Rscript</code> command</a>
+that can be run on the command line:</p>
+<pre><code>$ Rscript
+Usage: /path/to/Rscript [--options] [-e expr [-e expr2 ...] | file] [args]
+
+--options accepted are
+  --help              Print usage and exit
+  --version           Print version and exit
+  --verbose           Print information on progress
+  --default-packages=list
+                      Where &#39;list&#39; is a comma-separated set
+                        of package names, or &#39;NULL&#39;
+or options to R, in addition to --no-echo --no-restore, such as
+  --save              Do save workspace at the end of the session
+  --no-environ        Don&#39;t read the site and user environment files
+  --no-site-file      Don&#39;t read the site-wide Rprofile
+  --no-init-file      Don&#39;t read the user R profile
+  --restore           Do restore previously saved objects at startup
+  --vanilla           Combine --no-save, --no-restore, --no-site-file
+                        --no-init-file and --no-environ
+
+&#39;file&#39; may contain spaces but not shell metacharacters
+Expressions (one or more &#39;-e &lt;expr&gt;&#39;) may be used *instead* of &#39;file&#39;
+See also  ?Rscript  from within R</code></pre>
+<p>This CLI command accepts an R script as an input and executes the commands in
+the file as if they had been passed to <code>source()</code>, for example:</p>
+<pre><code>$ cat simple_script.R
+print(&#39;hello moon&#39;)
+print(1+2)
+print(str(c(1,2,3,4)))
+$ Rscript simple_script.R
+[1] &quot;hello moon&quot;
+[1] 3
+ num [1:4] 1 2 3 4
+$</code></pre>
+<p>This is the simplest way to toolify an R script; simply run it on the command
+line with <code>Rscript</code>. Toolifying simple R scripts that do not need to accept
+inputs to execute on different data generally require no changes.</p>
+<div class="box note">
+<p><code>Rscript</code> is a convenience function that runs the following <code>R</code> command:</p>
+<pre><code>$ Rscript simple_script.R # is equivalent to:
+$ R --no-echo --no-restore --file=simple_script.R</code></pre>
+<p>If for some reason you cannot run <code>Rscript</code> directly, you can use these
+arguments with the <code>R</code> command to attain the same result.</p>
+</div>
+</div>
+<div id="commandargs" class="section level3 hasAnchor" number="9.2.3">
+<h3><span class="header-section-number">9.2.3</span> <code>commandArgs()</code><a href="toolification.html#commandargs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>However, sometimes we may wish to control the behavior of a script directly from
+the command line, rather than editing the script directly for every different
+execution. To pass information into the script when it is run, we can pass
+arguments with the <code>Rscript</code> command:</p>
+<pre><code>$ Rscript simple_script.R abc
+[1] &quot;hello moon&quot;
+[1] 3
+ num [1:4] 1 2 3 4</code></pre>
+<p>Although we passed in the argument <code>abc</code>, the output of the script didn’t change
+because the script wasn’t written to receive it. In order for a script to gain
+access to the command line arguments, we must call the <a href="https://www.rdocumentation.org/packages/R.utils/versions/2.11.0/topics/commandArgs"><code>commandArgs()</code>
+function</a>:</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="toolification.html#cb452-1" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>(<span class="at">trailingOnly=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Now when we execute the script, the arguments passed in are available in the
+<code>args</code> variable:</p>
+<pre><code>$ cat echo_args.R
+print(commandArgs(trailingOnly=TRUE))
+$ Rscript echo_args.R abc
+[1] &quot;abc&quot;
+$ Rscript echo_args.R abc 123
+[1] &quot;abc&quot; &quot;123&quot;
+$ Rscript echo_args.R # no args
+character(0)</code></pre>
+<p>In the last case when no arguments were passed, R is telling us the <code>args</code>
+variable is a character vector of length zero.</p>
+<div class="box note">
+<p>By default, the <code>commandArgs()</code> function will return the full command that was
+run, including the <code>Rscript</code> command itself and any additional arguments:</p>
+<pre><code>$ Rscript -e &quot;commandArgs()&quot; abc 123
+[1] &quot;/usr/bin/R&quot;
+[2] &quot;--no-echo&quot;
+[3] &quot;--no-restore&quot;
+[4] &quot;-e&quot;
+[5] &quot;commandArgs()&quot;
+[6] &quot;--args&quot;
+[7] &quot;abc&quot;
+[8] &quot;123&quot;</code></pre>
+<p>The <code>trailingOnly=TRUE</code> argument returns only the arguments provided at the end
+of the command, after the <code>Rscript</code> portion:</p>
+<pre><code>$ Rscript -e &quot;commandArgs(trailingOnly=TRUE)&quot; abc 123
+[1] &quot;abc&quot; &quot;123&quot;</code></pre>
+<p>Note you can provide individual commands instead of a script to <code>Rscript</code> with
+the <code>-e</code> argument.</p>
+</div>
+<p>The <code>commandArgs()</code> function is all that is needed to toolify a R script.
+Consider a simple script named <code>inspect_csv.R</code> that loads in any CSV file and
+summarizes it as a tibble:</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="toolification.html#cb456-1" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>(<span class="at">trailingOnly=</span><span class="cn">TRUE</span>)</span>
+<span id="cb456-2"><a href="toolification.html#cb456-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(args) <span class="sc">!=</span> <span class="dv">1</span>) {</span>
+<span id="cb456-3"><a href="toolification.html#cb456-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Usage: simple_script.R &lt;csv file&gt;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="co"># cat() writes characters to the screen</span></span>
+<span id="cb456-4"><a href="toolification.html#cb456-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Provide exactly one argument that is a CSV filename</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb456-5"><a href="toolification.html#cb456-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quit</span>(<span class="at">save=</span><span class="st">&quot;no&quot;</span>, <span class="at">status=</span><span class="dv">1</span>)</span>
+<span id="cb456-6"><a href="toolification.html#cb456-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb456-7"><a href="toolification.html#cb456-7" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">&lt;-</span> args[<span class="dv">1</span>]</span>
+<span id="cb456-8"><a href="toolification.html#cb456-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb456-9"><a href="toolification.html#cb456-9" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(fn)</span></code></pre></div>
+<p>We can now run the script with <code>Rscript</code> and give it the filename of a CSV file:</p>
+<pre><code>$ cat data.csv
+gene,sampleA,sampleB,sampleC
+g1,1,35,20
+g2,32,56,99
+g3,392,583,444
+g4,39853,16288,66928
+$ Rscript inspect_csv.R data.csv
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+✔ ggplot2 3.3.5     ✔ purrr   0.3.4
+✔ tibble  3.1.6     ✔ dplyr   1.0.7
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Rows: 4 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (1): gene
+dbl (3): sampleA, sampleB, sampleC
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message   .
+# A tibble: 4 × 4
+  gene  sampleA sampleB sampleC
+  &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 g1          1      35      20
+2 g2         32      56      99
+3 g3        392     583     444
+4 g4      39853   16288   66928</code></pre>
+<p>Note the input handling of the arguments, where the usage of the script and a
+helpful error message is printed out before the script quits if there was not
+exactly one argument provided.</p>
+<p>In the example above, a filename was passed into the script as an argument. A
+filename is encoded as a character string in this case, and <code>commandArgs()</code>
+always produces a vector of strings. If we need to pass in arguments to control
+numerical values, we will need to parse the arguments first. Consider the
+following R implementation of the linux command <code>head</code>, which prints only the
+top <span class="math inline">\(n\)</span> lines of a file to the screen:</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="toolification.html#cb458-1" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>(<span class="at">trailingOnly=</span><span class="cn">TRUE</span>)</span>
+<span id="cb458-2"><a href="toolification.html#cb458-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(args) <span class="sc">!=</span> <span class="dv">2</span>) {</span>
+<span id="cb458-3"><a href="toolification.html#cb458-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;Usage: head.R &lt;filename&gt; &lt;N&gt;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb458-4"><a href="toolification.html#cb458-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Provide exactly two arguments: a CSV filename and an integer N</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb458-5"><a href="toolification.html#cb458-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">quit</span>(<span class="at">save=</span><span class="st">&quot;no&quot;</span>, <span class="at">status=</span><span class="dv">1</span>)</span>
+<span id="cb458-6"><a href="toolification.html#cb458-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb458-7"><a href="toolification.html#cb458-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb458-8"><a href="toolification.html#cb458-8" aria-hidden="true" tabindex="-1"></a><span class="co"># read in arguments</span></span>
+<span id="cb458-9"><a href="toolification.html#cb458-9" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">&lt;-</span> args[<span class="dv">1</span>]</span>
+<span id="cb458-10"><a href="toolification.html#cb458-10" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(args[<span class="dv">2</span>])</span>
+<span id="cb458-11"><a href="toolification.html#cb458-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb458-12"><a href="toolification.html#cb458-12" aria-hidden="true" tabindex="-1"></a><span class="co"># the csv output will include a header row, so reduce n by 1</span></span>
+<span id="cb458-13"><a href="toolification.html#cb458-13" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> n<span class="dv">-1</span></span>
+<span id="cb458-14"><a href="toolification.html#cb458-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb458-15"><a href="toolification.html#cb458-15" aria-hidden="true" tabindex="-1"></a><span class="co"># suppressMessages() prevents messages like library loading text from being printed to the screen</span></span>
+<span id="cb458-16"><a href="toolification.html#cb458-16" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(</span>
+<span id="cb458-17"><a href="toolification.html#cb458-17" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb458-18"><a href="toolification.html#cb458-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">library</span>(tidyverse, <span class="at">quietly=</span><span class="cn">TRUE</span>)</span>
+<span id="cb458-19"><a href="toolification.html#cb458-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">read_csv</span>(fn) <span class="sc">%&gt;%</span></span>
+<span id="cb458-20"><a href="toolification.html#cb458-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">slice_head</span>(<span class="at">n=</span>n) <span class="sc">%&gt;%</span></span>
+<span id="cb458-21"><a href="toolification.html#cb458-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">write_csv</span>(<span class="fu">stdout</span>())</span>
+<span id="cb458-22"><a href="toolification.html#cb458-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb458-23"><a href="toolification.html#cb458-23" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>We again tested the number of arguments passed in for correct usage, and then
+assigned the arguments to variables. The <code>n</code> argument is cast from a character
+string to an integer in the process, enabling its use in the
+<code>dplyr::slice_head()</code> function. We can print out the first three lines of a file
+as follows:</p>
+<pre><code>$ Rscript head.R data.csv 3
+gene,sampleA,sampleB,sampleC
+g1,1,35,20
+g2,32,56,99</code></pre>
+<p>Reading command line arguments into variables in a script can become tedious if
+your script has a large number of arguments. Fortunately, the <a href="https://www.rdocumentation.org/packages/argparser/versions/0.7.1"><code>argparser</code>
+package</a> can help handle many of the
+repetitive operations, including specifying arguments, providing default values,
+automatically casting to appropriate types like numbers, and printing out usage
+information:</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="toolification.html#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(argparser, <span class="at">quietly=</span><span class="cn">TRUE</span>)</span>
+<span id="cb460-2"><a href="toolification.html#cb460-2" aria-hidden="true" tabindex="-1"></a>parser <span class="ot">&lt;-</span> <span class="fu">arg_parser</span>(<span class="st">&quot;R implementation of GNU coreutils head command&quot;</span>)</span>
+<span id="cb460-3"><a href="toolification.html#cb460-3" aria-hidden="true" tabindex="-1"></a>parser <span class="ot">&lt;-</span> <span class="fu">add_argument</span>(parser, <span class="st">&quot;filename&quot;</span>, <span class="at">help=</span><span class="st">&quot;file to print lines from&quot;</span>)</span>
+<span id="cb460-4"><a href="toolification.html#cb460-4" aria-hidden="true" tabindex="-1"></a>parser <span class="ot">&lt;-</span> <span class="fu">add_argument</span>(parser, <span class="st">&quot;-n&quot;</span>, <span class="at">help=</span><span class="st">&quot;number of lines to print&quot;</span>, <span class="at">type=</span><span class="st">&quot;numeric&quot;</span>, <span class="at">default=</span><span class="dv">10</span>)</span>
+<span id="cb460-5"><a href="toolification.html#cb460-5" aria-hidden="true" tabindex="-1"></a>parser <span class="ot">&lt;-</span> <span class="fu">parse_args</span>(parser, <span class="fu">c</span>(<span class="st">&quot;-n&quot;</span>,<span class="dv">3</span>,<span class="st">&quot;data.csv&quot;</span>))</span>
+<span id="cb460-6"><a href="toolification.html#cb460-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;printing from file:&quot;</span>,parser<span class="sc">$</span>filename))</span></code></pre></div>
+<pre><code>## [1] &quot;printing from file: data.csv&quot;</code></pre>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="toolification.html#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;printing top n:&quot;</span>,parser<span class="sc">$</span>n))</span></code></pre></div>
+<pre><code>## [1] &quot;printing top n: 3&quot;</code></pre>
+<p>With this library, we can rewrite our <code>head.R</code> script to be more concise:</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="toolification.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(argparser, <span class="at">quietly=</span><span class="cn">TRUE</span>)</span>
+<span id="cb464-2"><a href="toolification.html#cb464-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-3"><a href="toolification.html#cb464-3" aria-hidden="true" tabindex="-1"></a><span class="co"># instantiate parser</span></span>
+<span id="cb464-4"><a href="toolification.html#cb464-4" aria-hidden="true" tabindex="-1"></a>parser <span class="ot">&lt;-</span> <span class="fu">arg_parser</span>(<span class="st">&quot;R implementation of GNU coreutils head command&quot;</span>)</span>
+<span id="cb464-5"><a href="toolification.html#cb464-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-6"><a href="toolification.html#cb464-6" aria-hidden="true" tabindex="-1"></a><span class="co"># add arguments</span></span>
+<span id="cb464-7"><a href="toolification.html#cb464-7" aria-hidden="true" tabindex="-1"></a>parser <span class="ot">&lt;-</span> <span class="fu">add_argument</span>(</span>
+<span id="cb464-8"><a href="toolification.html#cb464-8" aria-hidden="true" tabindex="-1"></a>  parser,</span>
+<span id="cb464-9"><a href="toolification.html#cb464-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">arg=</span><span class="st">&quot;filename&quot;</span>,</span>
+<span id="cb464-10"><a href="toolification.html#cb464-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">help=</span><span class="st">&quot;file to print lines from&quot;</span></span>
+<span id="cb464-11"><a href="toolification.html#cb464-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb464-12"><a href="toolification.html#cb464-12" aria-hidden="true" tabindex="-1"></a>parser <span class="ot">&lt;-</span> <span class="fu">add_argument</span>(</span>
+<span id="cb464-13"><a href="toolification.html#cb464-13" aria-hidden="true" tabindex="-1"></a>  parser,</span>
+<span id="cb464-14"><a href="toolification.html#cb464-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">arg=</span><span class="st">&quot;--top&quot;</span>,</span>
+<span id="cb464-15"><a href="toolification.html#cb464-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">help=</span><span class="st">&quot;number of lines to print&quot;</span>,</span>
+<span id="cb464-16"><a href="toolification.html#cb464-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="st">&quot;numeric&quot;</span>,</span>
+<span id="cb464-17"><a href="toolification.html#cb464-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">default=</span><span class="dv">10</span>,</span>
+<span id="cb464-18"><a href="toolification.html#cb464-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">short=</span><span class="st">&#39;-n&#39;</span></span>
+<span id="cb464-19"><a href="toolification.html#cb464-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb464-20"><a href="toolification.html#cb464-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-21"><a href="toolification.html#cb464-21" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">parse_args</span>(parser)</span>
+<span id="cb464-22"><a href="toolification.html#cb464-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-23"><a href="toolification.html#cb464-23" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">&lt;-</span> args<span class="sc">$</span>filename</span>
+<span id="cb464-24"><a href="toolification.html#cb464-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-25"><a href="toolification.html#cb464-25" aria-hidden="true" tabindex="-1"></a><span class="co"># the csv output will include a header row, so reduce n by 1</span></span>
+<span id="cb464-26"><a href="toolification.html#cb464-26" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> args<span class="sc">$</span>top<span class="dv">-1</span></span>
+<span id="cb464-27"><a href="toolification.html#cb464-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-28"><a href="toolification.html#cb464-28" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(</span>
+<span id="cb464-29"><a href="toolification.html#cb464-29" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb464-30"><a href="toolification.html#cb464-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">library</span>(tidyverse, <span class="at">quietly=</span><span class="cn">TRUE</span>)</span>
+<span id="cb464-31"><a href="toolification.html#cb464-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">read_csv</span>(fn) <span class="sc">%&gt;%</span></span>
+<span id="cb464-32"><a href="toolification.html#cb464-32" aria-hidden="true" tabindex="-1"></a>            <span class="fu">slice_head</span>(<span class="at">n=</span>n) <span class="sc">%&gt;%</span></span>
+<span id="cb464-33"><a href="toolification.html#cb464-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">write_csv</span>(<span class="fu">stdout</span>())</span>
+<span id="cb464-34"><a href="toolification.html#cb464-34" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb464-35"><a href="toolification.html#cb464-35" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Note we didn’t have to explicitly parse the <code>top</code> argument as an integer because
+<code>type="numeric"</code> handled this for us. We can print out the top three lines of
+our file like we did above using the new parser and arguments:</p>
+<pre><code>$ Rscript head.R -n 3 data.csv
+gene,sampleA,sampleB,sampleC
+g1,1,35,20
+g2,32,56,99</code></pre>
+<p>We can also inspect the usage by passing the <code>-h</code> flag:</p>
+<pre><code>$ Rscript head.R -h
+usage: head.R [--] [--help] [--opts OPTS] [--top TOP] filename
+
+R implementation of GNU coreutils head command
+
+positional arguments:
+  filename    file to print lines from
+
+flags:
+  -h, --help  show this help message and exit
+
+optional arguments:
+  -x, --opts  RDS file containing argument values
+  -n, --top   number of lines to print [default: 10]</code></pre>
+<p>These are the only tools required to toolify our R script.</p>
+<div class="box important">
+<p>Note that scripts developed in RStudio can be run on the command line, but
+scripts written for CLI use with the strategies above cannot be easily run
+inside RStudio! However, if you followed good practices and implemented your
+script as a set of functions, you can easily write a CLI wapper script that
+calls those functions, thereby enabling you to continue developing your code in
+RStudio and maintain CLI tool functionality.</p>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="network-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bio-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="unit-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="parallel-processing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

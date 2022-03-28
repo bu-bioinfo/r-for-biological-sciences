@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <title>9.3 Parallel Processing | BF591 - R for Biological Sciences</title>
+  <meta name="description" content="9.3 Parallel Processing | BF591 - R for Biological Sciences" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <meta property="og:title" content="9.3 Parallel Processing | BF591 - R for Biological Sciences" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Biology &amp; Bioinformatics | BF591 - R for Biological Sciences" />
+  <meta name="twitter:title" content="9.3 Parallel Processing | BF591 - R for Biological Sciences" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="network-visualization.html"/>
-<link rel="next" href="bio-r.html"/>
+<link rel="prev" href="toolification.html"/>
+<link rel="next" href="object-orientation-in-r-..html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -567,16 +567,169 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="biology-bioinformatics" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">8</span> Biology &amp; Bioinformatics<a href="biology-bioinformatics.html#biology-bioinformatics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="parallel-processing" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Parallel Processing<a href="parallel-processing.html#parallel-processing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Most modern computers have multiple processing or CPU cores, e.g. a 4-core or
+8-core processor. This principally means that these computers can execute
+multiple processes simultaneously thereby dividing the wall clock time required
+to run the computations on a one core machine by a factor equal to the number of
+cores the machine has. This can be a very meaningful performance improvement,
+e.g. an 8 core machine could reduce the running time of a computation from a
+week to less than a day. Some data centers possess compute nodes with 28 or even
+64 cores, meaning a computation that would normally run for two months could
+complete in a single day if all cores are used! Processes that are running at
+the same time on different cores are said to be running <em>in parallel</em>, while
+a computation that is not parallelized runs <em>serially</em>.</p>
+<div id="brief-introduction-to-parallelization" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Brief Introduction to Parallelization<a href="parallel-processing.html#brief-introduction-to-parallelization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Not all computations can be parallelized, and some can only be made parallel by
+using sophisticated mathematical models and algorithms. However, certain classes
+of problems are <a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel"><em>pleasingly
+parallel</em></a>, meaning their
+structure makes it easy if not trivial to divide into parts that can be run in
+parallel. In general, how “parallelizeable” a computation is depends on how the
+subparts of the computation relate to one another.</p>
+<p>Consider the problem of mapping <a href="high-throughput-sequencing.html#high-throughput-sequencing">high throughput sequencing
+reads</a> against a reference genome. If the task is
+to identify the location(s) in the genome where each read matches, the locations
+of one read do not influence the locations of another read; they are independent
+of each other. Since they are independent, in principle they can be done in
+parallel, meaning that, again <em>in priniple</em>, every one of the millions of reads
+could be aligned against the genome at the same time. This would mean the wall
+clock time required to align all the reads in a multi-million read dataset would
+take as long as it takes to align a single read. This makes short read alignment
+a pleasingly parallel problem. Unfortunately, in practice there are technical
+constraints preventing this increase in performance, but most modern alignment
+programs like <a href="http://bio-bwa.sourceforge.net/bwa.shtml"><code>bwa</code></a> and
+<a href="https://github.com/alexdobin/STAR"><code>STAR</code></a> exploit this inherently parallel
+structure to improve performance by using multiple cores at the same time.</p>
+<p>In general, splitting up a computation into pieces that can run in parallel does
+not always lead to performance improvements. There are several ways computations
+are constrained based on which aspects of the algorithm or program require the
+most time to run. Briefly, an algorithm can be:</p>
+<ul>
+<li><em>compute-bound</em> - the computations take the largest amount of time</li>
+<li><em>memory-bound</em> - the amount of main memory (i.e. RAM) on the machine determines how quickly the computation can complete</li>
+<li><em>input/output (IO)-bound</em> - writing to and from hard disk takes the most time</li>
+<li><em>network-bound</em> - transfering data over a network, usually between processes running in parallel, takes the most time</li>
+</ul>
+<p>These concepts are covered in the field of <a href="https://en.wikipedia.org/wiki/High-performance_computing">high-performance computing</a> and are
+beyond the scope of this class. However, for the purposes of this section, the
+problems we are concerned with when parallelizing computations are
+<strong>compute-bound</strong> computations.</p>
+<div class="box note">
+<p>Parallelism can be attained on both the multiprocessor and the distributed
+computing level. In distributed computing, different subtasks of a
+parallelizable computation are executed on different physical computers. Each
+of these subtasks could possibly be further parallelized using multiple cores on
+each system. In cluster computing or cloud environments, enormous performance
+improvements can be attained by utilizing both levels of parallelization. For
+example, if you submit 100 jobs via <code>qsub</code> to a compute cluster and they all run
+at the same time, and each job uses 16 cores on its local machine, that amounts
+to a 1,600x speedup. This parallelism would reduce a computation taking over 4
+years to run in a single day!</p>
+</div>
+</div>
+<div id="apply-and-friends-are-pleasingly-parallel" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> <code>apply</code> and Friends Are Pleasingly Parallel<a href="parallel-processing.html#apply-and-friends-are-pleasingly-parallel" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In R, loops are most efficiently expressed using the <a href="iteration.html#apply-and-friends"><code>apply</code>
+function</a> and its variants <code>lapply</code> and <code>vapply</code>. Recall
+that these functions accept a function and a collection of inputs, usually a
+list. The <code>apply</code> function iterates over the input collection and executes the
+function on each of them. In general, the inputs are assumed to be independent,
+and the function does not have any outside dependencies. This is precisely the
+pattern needed for pleasantly parallel tasks. In general, any iteration using an
+<code>apply</code> function can be parallelized in R.</p>
+</div>
+<div id="the-parallel-package" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> The <code>parallel</code> package<a href="parallel-processing.html#the-parallel-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R can leverage multiple core architectures to execute processes in parallel with
+the [<code>parallel</code> package], which is installed as a base R package. The main
+function in this package that enables parallelism is
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/html/mclapply.html"><code>mclapply()</code></a>,
+or <code>m</code>ulti<code>c</code>ore <code>apply</code>. <code>mclapply</code> accepts all of the same arguments as
+<code>lapply</code> and a few additional starting with <code>mc.</code>. The argument to <code>mclapply</code>
+that enables parallelism is <code>mc.cores</code>, which specifies the number of cores to
+use when executing tasks in parallel.</p>
+<div class="box important">
+<p><code>mclapply</code> is <em>not</em> available on Windows, only Mac and linux.</p>
+</div>
+<p>Consider the following script <code>mclapply.R</code> which runs a function that prints out
+its input with the current time and then waits (i.e. sleeps) for three seconds:</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="parallel-processing.html#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallel)</span>
+<span id="cb467-2"><a href="parallel-processing.html#cb467-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb467-3"><a href="parallel-processing.html#cb467-3" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>(<span class="at">trailingOnly=</span><span class="cn">TRUE</span>)</span>
+<span id="cb467-4"><a href="parallel-processing.html#cb467-4" aria-hidden="true" tabindex="-1"></a>cores <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(args[<span class="dv">1</span>])</span>
+<span id="cb467-5"><a href="parallel-processing.html#cb467-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb467-6"><a href="parallel-processing.html#cb467-6" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">mclapply</span>(</span>
+<span id="cb467-7"><a href="parallel-processing.html#cb467-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb467-8"><a href="parallel-processing.html#cb467-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">function</span>(x) {</span>
+<span id="cb467-9"><a href="parallel-processing.html#cb467-9" aria-hidden="true" tabindex="-1"></a>         <span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">Sys.time</span>(),<span class="st">&#39;process&#39;</span>,x))</span>
+<span id="cb467-10"><a href="parallel-processing.html#cb467-10" aria-hidden="true" tabindex="-1"></a>         <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb467-11"><a href="parallel-processing.html#cb467-11" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb467-12"><a href="parallel-processing.html#cb467-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">mc.cores=</span>cores</span>
+<span id="cb467-13"><a href="parallel-processing.html#cb467-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Note the number of cores to be used is passed in as a command line argument. If
+we run the script with one core, we can see the functions run serially:</p>
+<pre><code>$ Rscript mclapply.R 1
+[1] &quot;2022-03-23 20:33:09 process 1&quot;
+[1] &quot;2022-03-23 20:33:12 process 2&quot;
+[1] &quot;2022-03-23 20:33:15 process 3&quot;
+[1] &quot;2022-03-23 20:33:18 process 4&quot;
+[1] &quot;2022-03-23 20:33:21 process 5&quot;
+[1] &quot;2022-03-23 20:33:24 process 6&quot;
+[1] &quot;2022-03-23 20:33:27 process 7&quot;
+[1] &quot;2022-03-23 20:33:30 process 8&quot;
+[1] &quot;2022-03-23 20:33:33 process 9&quot;
+[1] &quot;2022-03-23 20:33:36 process 10&quot;
+</code></pre>
+<p>If we instead run the script with three cores, we can see from the printed times
+that the functions are executed in groups of 3:</p>
+<pre><code>$ Rscript mclapply.R 3
+[1] &quot;2022-03-23 20:29:56 process 1&quot;
+[1] &quot;2022-03-23 20:29:56 process 2&quot;
+[1] &quot;2022-03-23 20:29:56 process 3&quot;
+[1] &quot;2022-03-23 20:29:59 process 4&quot;
+[1] &quot;2022-03-23 20:29:59 process 5&quot;
+[1] &quot;2022-03-23 20:29:59 process 6&quot;
+[1] &quot;2022-03-23 20:30:02 process 7&quot;
+[1] &quot;2022-03-23 20:30:02 process 8&quot;
+[1] &quot;2022-03-23 20:30:02 process 9&quot;
+[1] &quot;2022-03-23 20:30:05 process 10&quot;</code></pre>
+<p>Finally, if we use 10 cores (and the machine we are using has at least 10
+cores), all the functions execute simultaneously:</p>
+<pre><code>- Rscript mclapply.R 10
+[1] &quot;2022-03-23 20:34:59 process 1&quot;
+[1] &quot;2022-03-23 20:34:59 process 2&quot;
+[1] &quot;2022-03-23 20:34:59 process 3&quot;
+[1] &quot;2022-03-23 20:34:59 process 4&quot;
+[1] &quot;2022-03-23 20:34:59 process 5&quot;
+[1] &quot;2022-03-23 20:34:59 process 6&quot;
+[1] &quot;2022-03-23 20:34:59 process 7&quot;
+[1] &quot;2022-03-23 20:34:59 process 8&quot;
+[1] &quot;2022-03-23 20:34:59 process 9&quot;
+[1] &quot;2022-03-23 20:34:59 process 10&quot;</code></pre>
+<p>This introduction to parallelization in R will likely be sufficient for most
+simple parallel tasks, but there are many details that we won’t cover here. For
+more in-depth explanation of how parallelism in R works refer to the links in
+the read more box below.</p>
+<div class="box readmore">
+<ul>
+<li><a href="https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html">Parallel Computation</a> section of R Programming for Data Science, by Roger Peng</li>
+<li><a href="https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html">Quick Intro to Parallel Computing in R</a>, National Center for Ecological Analysis &amp; Synthesis</li>
+<li><a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/html/mclapply.html">mclapply documentation</a></li>
+<li><a href="https://waterprogramming.wordpress.com/2020/03/16/parallel-processing-with-r-on-windows/">Parallel processing with R on Windows</a>, Water Programming Blog, Reed Lab, Cornell</li>
+</ul>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="network-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bio-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="toolification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="object-orientation-in-r-..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
