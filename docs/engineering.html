@@ -1,637 +1,803 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 EngineeRing | BF591 - R for Biological Sciences</title>
-  <meta name="description" content="9 EngineeRing | BF591 - R for Biological Sciences" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="9 EngineeRing | BF591 - R for Biological Sciences" />
-  <meta property="og:type" content="book" />
-  
-  
-  
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 EngineeRing | BF591 - R for Biological Sciences" />
-  
-  
-  
-
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="biological-networks-..html"/>
-<link rel="next" href="unit-testing.html"/>
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>9 EngineeRing | BF591 - R for Biological Sciences</title>
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="9 EngineeRing | BF591 - R for Biological Sciences">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="9 EngineeRing | BF591 - R for Biological Sciences">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+<meta name="description" content="9.1 Unit Testing Writing code that does what you mean for it to do is often harder than it might seem, especially in R. Also, as your code grows in size and complexity, and you use good...">
+<meta property="og:description" content="9.1 Unit Testing Writing code that does what you mean for it to do is often harder than it might seem, especially in R. Also, as your code grows in size and complexity, and you use good...">
+<meta name="twitter:description" content="9.1 Unit Testing Writing code that does what you mean for it to do is often harder than it might seem, especially in R. Also, as your code grows in size and complexity, and you use good...">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">BF591 - R for Biological Sciences</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
 
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
 
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="index.html#syllabus">Syllabus<span></span></a>
-<ul>
-<li><a href="course-schedule.html#course-schedule">Course Schedule<span></span></a></li>
-<li><a href="instructors.html#instructors">Instructors<span></span></a></li>
-<li><a href="office-hours.html#office-hours">Office Hours<span></span></a></li>
-<li><a href="course-values-and-policies.html#course-values-and-policies">Course Values and Policies<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="who-this-book-is-for.html"><a href="who-this-book-is-for.html"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="a-note-about-reinventing-the-wheel.html"><a href="a-note-about-reinventing-the-wheel.html"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel<span></span></a></li>
-<li class="chapter" data-level="1.3" data-path="sources-and-references.html"><a href="sources-and-references.html"><i class="fa fa-check"></i><b>1.3</b> Sources and References<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="data-bio.html"><a href="data-bio.html"><i class="fa fa-check"></i><b>2</b> Data in Biology<span></span></a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="a-brief-history-of-data-in-molecular-biology.html"><a href="a-brief-history-of-data-in-molecular-biology.html"><i class="fa fa-check"></i><b>2.1</b> A Brief History of Data in Molecular Biology<span></span></a></li>
-<li class="chapter" data-level="2.2" data-path="biology-as-a-mature-data-science.html"><a href="biology-as-a-mature-data-science.html"><i class="fa fa-check"></i><b>2.2</b> Biology as a Mature Data Science<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>3</b> Preliminaries<span></span></a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="prelim-r.html"><a href="prelim-r.html"><i class="fa fa-check"></i><b>3.1</b> The R Language<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="prelim-rstudio.html"><a href="prelim-rstudio.html"><i class="fa fa-check"></i><b>3.2</b> RStudio<span></span></a></li>
-<li class="chapter" data-level="3.3" data-path="prog-the-r-script.html"><a href="prog-the-r-script.html"><i class="fa fa-check"></i><b>3.3</b> The R Script<span></span></a></li>
-<li class="chapter" data-level="3.4" data-path="prog-workflow.html"><a href="prog-workflow.html"><i class="fa fa-check"></i><b>3.4</b> The Scripting Workflow<span></span></a></li>
-<li class="chapter" data-level="3.5" data-path="prelim-git.html"><a href="prelim-git.html"><i class="fa fa-check"></i><b>3.5</b> git + github<span></span></a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="prelim-git.html"><a href="prelim-git.html#motivation"><i class="fa fa-check"></i><b>3.5.1</b> Motivation<span></span></a></li>
-<li class="chapter" data-level="3.5.2" data-path="prelim-git.html"><a href="prelim-git.html#git"><i class="fa fa-check"></i><b>3.5.2</b> git<span></span></a></li>
-<li class="chapter" data-level="3.5.3" data-path="prelim-git.html"><a href="prelim-git.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>3.5.3</b> Git hosting platforms (GitHub)<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="prog-basics.html"><a href="prog-basics.html"><i class="fa fa-check"></i><b>4</b> R Programming<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="before-you-begin.html"><a href="before-you-begin.html"><i class="fa fa-check"></i><b>4.1</b> Before you begin<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>4.2</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="prog-r-syntax.html"><a href="prog-r-syntax.html"><i class="fa fa-check"></i><b>4.3</b> R Syntax Basics<span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="prog-types.html"><a href="prog-types.html"><i class="fa fa-check"></i><b>4.4</b> Basic Types of Values<span></span></a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="prog-types.html"><a href="prog-types.html#factors"><i class="fa fa-check"></i><b>4.4.1</b> Factors<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="prog-struct.html"><a href="prog-struct.html"><i class="fa fa-check"></i><b>4.5</b> Data Structures<span></span></a>
-<ul>
-<li class="chapter" data-level="4.5.1" data-path="prog-struct.html"><a href="prog-struct.html#vectors"><i class="fa fa-check"></i><b>4.5.1</b> Vectors<span></span></a></li>
-<li class="chapter" data-level="4.5.2" data-path="prog-struct.html"><a href="prog-struct.html#matrices"><i class="fa fa-check"></i><b>4.5.2</b> Matrices<span></span></a></li>
-<li class="chapter" data-level="4.5.3" data-path="prog-struct.html"><a href="prog-struct.html#lists-and-data-frames"><i class="fa fa-check"></i><b>4.5.3</b> Lists and data frames<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.6" data-path="logical-tests-and-comparators.html"><a href="logical-tests-and-comparators.html"><i class="fa fa-check"></i><b>4.6</b> Logical Tests and Comparators<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>4.7</b> Functions<span></span></a>
-<ul>
-<li class="chapter" data-level="4.7.1" data-path="functions.html"><a href="functions.html#prog-dry"><i class="fa fa-check"></i><b>4.7.1</b> DRY: Don’t Repeat Yourself<span></span></a></li>
-<li class="chapter" data-level="4.7.2" data-path="functions.html"><a href="functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>4.7.2</b> Writing your own functions<span></span></a></li>
-<li class="chapter" data-level="4.7.3" data-path="functions.html"><a href="functions.html#scope"><i class="fa fa-check"></i><b>4.7.3</b> Scope<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.8</b> Iteration<span></span></a>
-<ul>
-<li class="chapter" data-level="4.8.1" data-path="iteration.html"><a href="iteration.html#vectorized-operations"><i class="fa fa-check"></i><b>4.8.1</b> Vectorized operations<span></span></a></li>
-<li class="chapter" data-level="4.8.2" data-path="iteration.html"><a href="iteration.html#functional-programming"><i class="fa fa-check"></i><b>4.8.2</b> Functional programming<span></span></a></li>
-<li class="chapter" data-level="4.8.3" data-path="iteration.html"><a href="iteration.html#apply-and-friends"><i class="fa fa-check"></i><b>4.8.3</b> <code>apply()</code> and friends<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.9" data-path="installing-packages.html"><a href="installing-packages.html"><i class="fa fa-check"></i><b>4.9</b> Installing Packages<span></span></a></li>
-<li class="chapter" data-level="4.10" data-path="saving-and-loading-r-data.html"><a href="saving-and-loading-r-data.html"><i class="fa fa-check"></i><b>4.10</b> Saving and Loading R Data<span></span></a></li>
-<li class="chapter" data-level="4.11" data-path="prog-debugging.html"><a href="prog-debugging.html"><i class="fa fa-check"></i><b>4.11</b> Troubleshooting and Debugging<span></span></a></li>
-<li class="chapter" data-level="4.12" data-path="prog-style.html"><a href="prog-style.html"><i class="fa fa-check"></i><b>4.12</b> Coding Style and Conventions<span></span></a>
-<ul>
-<li class="chapter" data-level="4.12.1" data-path="prog-style.html"><a href="prog-style.html#is-my-code-correct"><i class="fa fa-check"></i><b>4.12.1</b> Is my code correct?<span></span></a></li>
-<li class="chapter" data-level="4.12.2" data-path="prog-style.html"><a href="prog-style.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>4.12.2</b> Does my code follow the <span>DRY principle</span>?<span></span></a></li>
-<li class="chapter" data-level="4.12.3" data-path="prog-style.html"><a href="prog-style.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>4.12.3</b> Did I choose concise but descriptive variable and function names?<span></span></a></li>
-<li class="chapter" data-level="4.12.4" data-path="prog-style.html"><a href="prog-style.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>4.12.4</b> Did I use indentation and naming conventions consistently throughout my code?<span></span></a></li>
-<li class="chapter" data-level="4.12.5" data-path="prog-style.html"><a href="prog-style.html#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><i class="fa fa-check"></i><b>4.12.5</b> Did I write comments, especially when what the code does is not obvious?<span></span></a></li>
-<li class="chapter" data-level="4.12.6" data-path="prog-style.html"><a href="prog-style.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>4.12.6</b> How easy would it be for someone else to understand my code?<span></span></a></li>
-<li class="chapter" data-level="4.12.7" data-path="prog-style.html"><a href="prog-style.html#is-my-code-easy-to-maintainchange"><i class="fa fa-check"></i><b>4.12.7</b> Is my code easy to maintain/change?<span></span></a></li>
-<li class="chapter" data-level="4.12.8" data-path="prog-style.html"><a href="prog-style.html#the-styler-package"><i class="fa fa-check"></i><b>4.12.8</b> The <code>styler</code> package<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling<span></span></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="the-tidyverse.html"><a href="the-tidyverse.html"><i class="fa fa-check"></i><b>5.1</b> The Tidyverse<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="dw-basics.html"><a href="dw-basics.html"><i class="fa fa-check"></i><b>5.2</b> Tidyverse Basics<span></span></a></li>
-<li class="chapter" data-level="5.3" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>5.3</b> Importing Data<span></span></a></li>
-<li class="chapter" data-level="5.4" data-path="data-tibble.html"><a href="data-tibble.html"><i class="fa fa-check"></i><b>5.4</b> The tibble<span></span></a></li>
-<li class="chapter" data-level="5.5" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>5.5</b> Tidy Data<span></span></a></li>
-<li class="chapter" data-level="5.6" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>5.6</b> pipes<span></span></a></li>
-<li class="chapter" data-level="5.7" data-path="arranging-data.html"><a href="arranging-data.html"><i class="fa fa-check"></i><b>5.7</b> Arranging Data<span></span></a>
-<ul>
-<li class="chapter" data-level="5.7.1" data-path="arranging-data.html"><a href="arranging-data.html#dplyrmutate---create-new-columns-using-other-columns"><i class="fa fa-check"></i><b>5.7.1</b> <code>dplyr::mutate()</code> - Create new columns using other columns<span></span></a></li>
-<li class="chapter" data-level="5.7.2" data-path="arranging-data.html"><a href="arranging-data.html#stringr---working-with-character-values"><i class="fa fa-check"></i><b>5.7.2</b> <code>stringr</code> - Working with character values<span></span></a></li>
-<li class="chapter" data-level="5.7.3" data-path="arranging-data.html"><a href="arranging-data.html#dplyrselect---subset-columns-by-name"><i class="fa fa-check"></i><b>5.7.3</b> <code>dplyr::select()</code> - Subset Columns by Name<span></span></a></li>
-<li class="chapter" data-level="5.7.4" data-path="arranging-data.html"><a href="arranging-data.html#dplyrfilter---pick-rows-out-of-a-data-set"><i class="fa fa-check"></i><b>5.7.4</b> <code>dplyr::filter()</code> - Pick rows out of a data set<span></span></a></li>
-<li class="chapter" data-level="5.7.5" data-path="arranging-data.html"><a href="arranging-data.html#dplyrarrange---order-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.7.5</b> <code>dplyr::arrange()</code> - Order rows based on their values<span></span></a></li>
-<li class="chapter" data-level="5.7.6" data-path="arranging-data.html"><a href="arranging-data.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.7.6</b> Putting it all together<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.8" data-path="grouping-data.html"><a href="grouping-data.html"><i class="fa fa-check"></i><b>5.8</b> Grouping Data<span></span></a></li>
-<li class="chapter" data-level="5.9" data-path="rearranging-data.html"><a href="rearranging-data.html"><i class="fa fa-check"></i><b>5.9</b> Rearranging Data<span></span></a></li>
-<li class="chapter" data-level="5.10" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>5.10</b> Relational Data<span></span></a>
-<ul>
-<li class="chapter" data-level="5.10.1" data-path="relational-data.html"><a href="relational-data.html#dealing-with-multiple-matches"><i class="fa fa-check"></i><b>5.10.1</b> Dealing with multiple matches<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>6</b> Data Science<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="data-modeling.html"><a href="data-modeling.html"><i class="fa fa-check"></i><b>6.1</b> Data Modeling<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="data-modeling.html"><a href="data-modeling.html#a-worked-modeling-example"><i class="fa fa-check"></i><b>6.1.1</b> A Worked Modeling Example<span></span></a></li>
-<li class="chapter" data-level="6.1.2" data-path="data-modeling.html"><a href="data-modeling.html#data-summarization"><i class="fa fa-check"></i><b>6.1.2</b> Data Summarization<span></span></a></li>
-<li class="chapter" data-level="6.1.3" data-path="data-modeling.html"><a href="data-modeling.html#linear-models"><i class="fa fa-check"></i><b>6.1.3</b> Linear Models<span></span></a></li>
-<li class="chapter" data-level="6.1.4" data-path="data-modeling.html"><a href="data-modeling.html#flavors-of-linear-models"><i class="fa fa-check"></i><b>6.1.4</b> Flavors of Linear Models<span></span></a></li>
-<li class="chapter" data-level="6.1.5" data-path="data-modeling.html"><a href="data-modeling.html#assessing-model-accuracy-."><i class="fa fa-check"></i><b>6.1.5</b> Assessing Model Accuracy .<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="statistical-distributions.html"><a href="statistical-distributions.html"><i class="fa fa-check"></i><b>6.2</b> Statistical Distributions<span></span></a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="statistical-distributions.html"><a href="statistical-distributions.html#random-variables"><i class="fa fa-check"></i><b>6.2.1</b> Random Variables<span></span></a></li>
-<li class="chapter" data-level="6.2.2" data-path="statistical-distributions.html"><a href="statistical-distributions.html#statistical-distribution-basics"><i class="fa fa-check"></i><b>6.2.2</b> Statistical Distribution Basics<span></span></a></li>
-<li class="chapter" data-level="6.2.3" data-path="statistical-distributions.html"><a href="statistical-distributions.html#distributions-in-r"><i class="fa fa-check"></i><b>6.2.3</b> Distributions in R<span></span></a></li>
-<li class="chapter" data-level="6.2.4" data-path="statistical-distributions.html"><a href="statistical-distributions.html#discrete-distributions"><i class="fa fa-check"></i><b>6.2.4</b> Discrete Distributions<span></span></a></li>
-<li class="chapter" data-level="6.2.5" data-path="statistical-distributions.html"><a href="statistical-distributions.html#continuous-distributions"><i class="fa fa-check"></i><b>6.2.5</b> Continuous Distributions<span></span></a></li>
-<li class="chapter" data-level="6.2.6" data-path="statistical-distributions.html"><a href="statistical-distributions.html#empirical-distributions"><i class="fa fa-check"></i><b>6.2.6</b> Empirical Distributions<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="statistical-tests.html"><a href="statistical-tests.html"><i class="fa fa-check"></i><b>6.3</b> Statistical Tests<span></span></a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test<span></span></a></li>
-<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests<span></span></a></li>
-<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test<span></span></a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.4</b> P-values<span></span></a></li>
-<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .<span></span></a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.6</b> Statistical power<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis<span></span></a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#principal-component-analysis"><i class="fa fa-check"></i><b>6.4.1</b> Principal Component Analysis<span></span></a></li>
-<li class="chapter" data-level="6.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#cluster-analysis"><i class="fa fa-check"></i><b>6.4.2</b> Cluster Analysis<span></span></a></li>
-<li class="chapter" data-level="6.4.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#k-means-."><i class="fa fa-check"></i><b>6.4.3</b> k-means .<span></span></a></li>
-<li class="chapter" data-level="6.4.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#others"><i class="fa fa-check"></i><b>6.4.4</b> Others<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="network-analysis-..html"><a href="network-analysis-..html"><i class="fa fa-check"></i><b>6.5</b> Network Analysis .<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>7</b> Data Visualization<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="responsible-plotting.html"><a href="responsible-plotting.html"><i class="fa fa-check"></i><b>7.1</b> Responsible Plotting<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="responsible-plotting.html"><a href="responsible-plotting.html#visualization-principles"><i class="fa fa-check"></i><b>7.1.1</b> Visualization Principles<span></span></a></li>
-<li class="chapter" data-level="7.1.2" data-path="responsible-plotting.html"><a href="responsible-plotting.html#human-visual-perception"><i class="fa fa-check"></i><b>7.1.2</b> Human Visual Perception<span></span></a></li>
-<li class="chapter" data-level="7.1.3" data-path="responsible-plotting.html"><a href="responsible-plotting.html#visual-encodings"><i class="fa fa-check"></i><b>7.1.3</b> Visual Encodings<span></span></a></li>
-<li class="chapter" data-level="7.1.4" data-path="responsible-plotting.html"><a href="responsible-plotting.html#some-opinionated-rules-of-thumb"><i class="fa fa-check"></i><b>7.1.4</b> Some Opinionated Rules of Thumb<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="dv-gg.html"><a href="dv-gg.html"><i class="fa fa-check"></i><b>7.2</b> Grammar of Graphics<span></span></a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="dv-gg.html"><a href="dv-gg.html#ggplot-mechanics"><i class="fa fa-check"></i><b>7.2.1</b> <code>ggplot</code> mechanics<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html"><i class="fa fa-check"></i><b>7.3</b> Plotting One Dimension<span></span></a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#dv-bar"><i class="fa fa-check"></i><b>7.3.1</b> Bar chart<span></span></a></li>
-<li class="chapter" data-level="7.3.2" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#lollipop-plots"><i class="fa fa-check"></i><b>7.3.2</b> Lollipop plots<span></span></a></li>
-<li class="chapter" data-level="7.3.3" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#stacked-area-charts"><i class="fa fa-check"></i><b>7.3.3</b> Stacked Area charts<span></span></a></li>
-<li class="chapter" data-level="7.3.4" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#parallel-coordinate-plots"><i class="fa fa-check"></i><b>7.3.4</b> Parallel Coordinate plots<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html"><i class="fa fa-check"></i><b>7.4</b> Visualizing Distributions<span></span></a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#histogram"><i class="fa fa-check"></i><b>7.4.1</b> Histogram<span></span></a></li>
-<li class="chapter" data-level="7.4.2" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#density"><i class="fa fa-check"></i><b>7.4.2</b> Density<span></span></a></li>
-<li class="chapter" data-level="7.4.3" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#boxplot"><i class="fa fa-check"></i><b>7.4.3</b> Boxplot<span></span></a></li>
-<li class="chapter" data-level="7.4.4" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#violin-plot"><i class="fa fa-check"></i><b>7.4.4</b> Violin plot<span></span></a></li>
-<li class="chapter" data-level="7.4.5" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#beeswarm-plot"><i class="fa fa-check"></i><b>7.4.5</b> Beeswarm plot<span></span></a></li>
-<li class="chapter" data-level="7.4.6" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#ridgeline"><i class="fa fa-check"></i><b>7.4.6</b> Ridgeline<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html"><i class="fa fa-check"></i><b>7.5</b> Plotting Two or More Dimensions<span></span></a>
-<ul>
-<li class="chapter" data-level="7.5.1" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#scatter-plots"><i class="fa fa-check"></i><b>7.5.1</b> Scatter Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.2" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#bubble-plots"><i class="fa fa-check"></i><b>7.5.2</b> Bubble Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.3" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#connected-scatter-plots"><i class="fa fa-check"></i><b>7.5.3</b> Connected Scatter Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.4" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#line-plots"><i class="fa fa-check"></i><b>7.5.4</b> Line Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.5" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#parallel-coordinate-plots-1"><i class="fa fa-check"></i><b>7.5.5</b> Parallel Coordinate Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.6" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#heatmaps"><i class="fa fa-check"></i><b>7.5.6</b> Heatmaps<span></span></a></li>
-<li class="chapter" data-level="7.5.7" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#how-to-use-heatmaps-responsibly"><i class="fa fa-check"></i><b>7.5.7</b> How To Use Heatmaps Responsibly<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html"><i class="fa fa-check"></i><b>7.6</b> Other Kind of Plots<span></span></a>
-<ul>
-<li class="chapter" data-level="7.6.1" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html#dendrograms"><i class="fa fa-check"></i><b>7.6.1</b> Dendrograms<span></span></a></li>
-<li class="chapter" data-level="7.6.2" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html#chord-diagrams-and-circos-plots"><i class="fa fa-check"></i><b>7.6.2</b> Chord Diagrams and Circos Plots<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="multiple-plots.html"><a href="multiple-plots.html"><i class="fa fa-check"></i><b>7.7</b> Multiple Plots<span></span></a>
-<ul>
-<li class="chapter" data-level="7.7.1" data-path="multiple-plots.html"><a href="multiple-plots.html#facet-wrapping"><i class="fa fa-check"></i><b>7.7.1</b> Facet wrapping<span></span></a></li>
-<li class="chapter" data-level="7.7.2" data-path="multiple-plots.html"><a href="multiple-plots.html#multipanel-figures"><i class="fa fa-check"></i><b>7.7.2</b> Multipanel Figures<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.8" data-path="publication-ready-plots.html"><a href="publication-ready-plots.html"><i class="fa fa-check"></i><b>7.8</b> Publication Ready Plots<span></span></a>
-<ul>
-<li class="chapter" data-level="7.8.1" data-path="publication-ready-plots.html"><a href="publication-ready-plots.html#ggplot-themes"><i class="fa fa-check"></i><b>7.8.1</b> <code>ggplot</code> Themes<span></span></a></li>
-<li class="chapter" data-level="7.8.2" data-path="publication-ready-plots.html"><a href="publication-ready-plots.html#exporting-to-svg"><i class="fa fa-check"></i><b>7.8.2</b> Exporting to SVG<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.9" data-path="network-visualization.html"><a href="network-visualization.html"><i class="fa fa-check"></i><b>7.9</b> Network visualization<span></span></a>
-<ul>
-<li class="chapter" data-level="7.9.1" data-path="network-visualization.html"><a href="network-visualization.html#interactive-network-plots"><i class="fa fa-check"></i><b>7.9.1</b> Interactive network plots<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>8</b> Biology &amp; Bioinformatics<span></span></a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="bio-r.html"><a href="bio-r.html"><i class="fa fa-check"></i><b>8.1</b> R in Biology<span></span></a></li>
-<li class="chapter" data-level="8.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html"><i class="fa fa-check"></i><b>8.2</b> Biological Data Overview<span></span></a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="biological-data-overview.html"><a href="biological-data-overview.html#bio-data-types"><i class="fa fa-check"></i><b>8.2.1</b> Types of Biological Data<span></span></a></li>
-<li class="chapter" data-level="8.2.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html#csv-files"><i class="fa fa-check"></i><b>8.2.2</b> CSV Files<span></span></a></li>
-<li class="chapter" data-level="8.2.3" data-path="biological-data-overview.html"><a href="biological-data-overview.html#biological-data-is-not-tidy"><i class="fa fa-check"></i><b>8.2.3</b> Biological data is NOT Tidy!<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="bio-bioconductor.html"><a href="bio-bioconductor.html"><i class="fa fa-check"></i><b>8.3</b> Bioconductor<span></span></a></li>
-<li class="chapter" data-level="8.4" data-path="microarrays.html"><a href="microarrays.html"><i class="fa fa-check"></i><b>8.4</b> Microarrays<span></span></a></li>
-<li class="chapter" data-level="8.5" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html"><i class="fa fa-check"></i><b>8.5</b> High Throughput Sequencing<span></span></a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#raw-hts-data"><i class="fa fa-check"></i><b>8.5.1</b> Raw HTS Data<span></span></a></li>
-<li class="chapter" data-level="8.5.2" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#preliminary-hts-data-analysis"><i class="fa fa-check"></i><b>8.5.2</b> Preliminary HTS Data Analysis<span></span></a></li>
-<li class="chapter" data-level="8.5.3" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#count-data"><i class="fa fa-check"></i><b>8.5.3</b> Count Data<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="gene-identifiers.html"><a href="gene-identifiers.html"><i class="fa fa-check"></i><b>8.6</b> Gene Identifiers<span></span></a>
-<ul>
-<li class="chapter" data-level="8.6.1" data-path="gene-identifiers.html"><a href="gene-identifiers.html#gene-identifier-systems"><i class="fa fa-check"></i><b>8.6.1</b> Gene Identifier Systems<span></span></a></li>
-<li class="chapter" data-level="8.6.2" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-between-identifier-systems"><i class="fa fa-check"></i><b>8.6.2</b> Mapping Between Identifier Systems<span></span></a></li>
-<li class="chapter" data-level="8.6.3" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-homologs"><i class="fa fa-check"></i><b>8.6.3</b> Mapping Homologs<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.7" data-path="gene-expression.html"><a href="gene-expression.html"><i class="fa fa-check"></i><b>8.7</b> Gene Expression<span></span></a>
-<ul>
-<li class="chapter" data-level="8.7.1" data-path="gene-expression.html"><a href="gene-expression.html#gene-expression-data-in-bioconductor"><i class="fa fa-check"></i><b>8.7.1</b> Gene Expression Data in Bioconductor<span></span></a></li>
-<li class="chapter" data-level="8.7.2" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-analysis"><i class="fa fa-check"></i><b>8.7.2</b> Differential Expression Analysis<span></span></a></li>
-<li class="chapter" data-level="8.7.3" data-path="gene-expression.html"><a href="gene-expression.html#microarray-gene-expression-data"><i class="fa fa-check"></i><b>8.7.3</b> Microarray Gene Expression Data<span></span></a></li>
-<li class="chapter" data-level="8.7.4" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-microarrays-limma"><i class="fa fa-check"></i><b>8.7.4</b> Differential Expression: Microarrays (limma)<span></span></a></li>
-<li class="chapter" data-level="8.7.5" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq"><i class="fa fa-check"></i><b>8.7.5</b> RNASeq<span></span></a></li>
-<li class="chapter" data-level="8.7.6" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq-gene-expression-data"><i class="fa fa-check"></i><b>8.7.6</b> RNASeq Gene Expression Data<span></span></a></li>
-<li class="chapter" data-level="8.7.7" data-path="gene-expression.html"><a href="gene-expression.html#filtering-counts"><i class="fa fa-check"></i><b>8.7.7</b> Filtering Counts<span></span></a></li>
-<li class="chapter" data-level="8.7.8" data-path="gene-expression.html"><a href="gene-expression.html#count-distributions"><i class="fa fa-check"></i><b>8.7.8</b> Count Distributions<span></span></a></li>
-<li class="chapter" data-level="8.7.9" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-rnaseq"><i class="fa fa-check"></i><b>8.7.9</b> Differential Expression: RNASeq<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.8" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html"><i class="fa fa-check"></i><b>8.8</b> Gene Set Enrichment Analysis<span></span></a>
-<ul>
-<li class="chapter" data-level="8.8.1" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#gene-sets"><i class="fa fa-check"></i><b>8.8.1</b> Gene Sets<span></span></a></li>
-<li class="chapter" data-level="8.8.2" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#working-with-gene-sets-in-r"><i class="fa fa-check"></i><b>8.8.2</b> Working with gene sets in R<span></span></a></li>
-<li class="chapter" data-level="8.8.3" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#over-representation-analysis"><i class="fa fa-check"></i><b>8.8.3</b> Over-representation Analysis<span></span></a></li>
-<li class="chapter" data-level="8.8.4" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#rank-based-analysis"><i class="fa fa-check"></i><b>8.8.4</b> Rank-based Analysis<span></span></a></li>
-<li class="chapter" data-level="8.8.5" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#fgsea"><i class="fa fa-check"></i><b>8.8.5</b> fgsea<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.9" data-path="biological-networks-..html"><a href="biological-networks-..html"><i class="fa fa-check"></i><b>8.9</b> Biological Networks .<span></span></a>
-<ul>
-<li class="chapter" data-level="8.9.1" data-path="biological-networks-..html"><a href="biological-networks-..html#biological-pathways-."><i class="fa fa-check"></i><b>8.9.1</b> Biological Pathways .<span></span></a></li>
-<li class="chapter" data-level="8.9.2" data-path="biological-networks-..html"><a href="biological-networks-..html#gene-regulatory-networks-."><i class="fa fa-check"></i><b>8.9.2</b> Gene Regulatory Networks .<span></span></a></li>
-<li class="chapter" data-level="8.9.3" data-path="biological-networks-..html"><a href="biological-networks-..html#protein-protein-interaction-network-."><i class="fa fa-check"></i><b>8.9.3</b> Protein-Protein Interaction Network .<span></span></a></li>
-<li class="chapter" data-level="8.9.4" data-path="biological-networks-..html"><a href="biological-networks-..html#wgcna-."><i class="fa fa-check"></i><b>8.9.4</b> WGCNA .<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>9</b> EngineeRing<span></span></a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="unit-testing.html"><a href="unit-testing.html"><i class="fa fa-check"></i><b>9.1</b> Unit Testing<span></span></a></li>
-<li class="chapter" data-level="9.2" data-path="toolification.html"><a href="toolification.html"><i class="fa fa-check"></i><b>9.2</b> Toolification<span></span></a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="toolification.html"><a href="toolification.html#the-r-interpreter"><i class="fa fa-check"></i><b>9.2.1</b> The R Interpreter<span></span></a></li>
-<li class="chapter" data-level="9.2.2" data-path="toolification.html"><a href="toolification.html#rscript"><i class="fa fa-check"></i><b>9.2.2</b> <code>Rscript</code><span></span></a></li>
-<li class="chapter" data-level="9.2.3" data-path="toolification.html"><a href="toolification.html#commandargs"><i class="fa fa-check"></i><b>9.2.3</b> <code>commandArgs()</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="parallel-processing.html"><a href="parallel-processing.html"><i class="fa fa-check"></i><b>9.3</b> Parallel Processing<span></span></a>
-<ul>
-<li class="chapter" data-level="9.3.1" data-path="parallel-processing.html"><a href="parallel-processing.html#brief-introduction-to-parallelization"><i class="fa fa-check"></i><b>9.3.1</b> Brief Introduction to Parallelization<span></span></a></li>
-<li class="chapter" data-level="9.3.2" data-path="parallel-processing.html"><a href="parallel-processing.html#apply-and-friends-are-pleasingly-parallel"><i class="fa fa-check"></i><b>9.3.2</b> <code>apply</code> and Friends Are Pleasingly Parallel<span></span></a></li>
-<li class="chapter" data-level="9.3.3" data-path="parallel-processing.html"><a href="parallel-processing.html#the-parallel-package"><i class="fa fa-check"></i><b>9.3.3</b> The <code>parallel</code> package<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.4" data-path="object-orientation-in-r-..html"><a href="object-orientation-in-r-..html"><i class="fa fa-check"></i><b>9.4</b> Object Orientation in R .<span></span></a></li>
-<li class="chapter" data-level="9.5" data-path="r-packages-..html"><a href="r-packages-..html"><i class="fa fa-check"></i><b>9.5</b> R Packages .<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="rshiny.html"><a href="rshiny.html"><i class="fa fa-check"></i><b>10</b> RShiny<span></span></a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="rshiny-introduction.html"><a href="rshiny-introduction.html"><i class="fa fa-check"></i><b>10.1</b> RShiny Introduction<span></span></a>
-<ul>
-<li class="chapter" data-level="10.1.1" data-path="rshiny-introduction.html"><a href="rshiny-introduction.html#how-does-a-web-page-work"><i class="fa fa-check"></i><b>10.1.1</b> How does a web page work?<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="application-structure.html"><a href="application-structure.html"><i class="fa fa-check"></i><b>10.2</b> Application Structure<span></span></a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="application-structure.html"><a href="application-structure.html#ui-design"><i class="fa fa-check"></i><b>10.2.1</b> UI Design<span></span></a></li>
-<li class="chapter" data-level="10.2.2" data-path="application-structure.html"><a href="application-structure.html#server-functionality"><i class="fa fa-check"></i><b>10.2.2</b> Server Functionality<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="reactivity.html"><a href="reactivity.html"><i class="fa fa-check"></i><b>10.3</b> Reactivity<span></span></a></li>
-<li class="chapter" data-level="10.4" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>10.4</b> Publishing<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R<span></span></a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="rmarkdown-knitr.html"><a href="rmarkdown-knitr.html"><i class="fa fa-check"></i><b>11.1</b> RMarkdown &amp; knitr<span></span></a></li>
-<li class="chapter" data-level="11.2" data-path="bookdown.html"><a href="bookdown.html"><i class="fa fa-check"></i><b>11.2</b> bookdown<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>12</b> Contribution Guide<span></span></a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="custom-blocks.html"><a href="custom-blocks.html"><i class="fa fa-check"></i><b>12.1</b> Custom blocks<span></span></a></li>
-</ul></li>
-<li><a href="assignments.html#assignments">Assignments<span></span></a>
-<ul>
-<li><a href="assignment-format.html#assignment-format">Assignment Format<span></span></a></li>
-<li><a href="starting-an-assignment.html#starting-an-assignment">Starting an Assignment<span></span></a>
-<ul>
-<li><a href="starting-an-assignment.html#starting-your-own-git-repository-and-cloning-it">Starting your own <code>git</code> repository and cloning it<span></span></a></li>
-<li><a href="starting-an-assignment.html#contents">Contents<span></span></a></li>
-<li><a href="starting-an-assignment.html#github-tutorial">GitHub tutorial<span></span></a></li>
-<li><a href="starting-an-assignment.html#committing-and-pushing-with-r-and-without">Committing and Pushing with R (and without)<span></span></a></li>
-<li><a href="starting-an-assignment.html#using-rstudio">Using RStudio<span></span></a></li>
-<li><a href="starting-an-assignment.html#using-the-command-line">Using the command line<span></span></a></li>
-</ul></li>
-<li><a href="assignment-1.html#assignment-1">Assignment 1<span></span></a>
-<ul>
-<li><a href="assignment-1.html#problem-statement">Problem Statement<span></span></a></li>
-<li><a href="assignment-1.html#learning-objectives-and-skill-list">Learning Objectives and Skill List<span></span></a></li>
-<li><a href="assignment-1.html#instructions">Instructions<span></span></a></li>
-<li><a href="assignment-1.html#hints">Hints<span></span></a></li>
-</ul></li>
-<li><a href="assignment-2.html#assignment-2">Assignment 2<span></span></a>
-<ul>
-<li><a href="assignment-2.html#problem-statement-1">Problem Statement<span></span></a></li>
-<li><a href="assignment-2.html#learning-objectives">Learning Objectives<span></span></a></li>
-<li><a href="assignment-2.html#skill-list">Skill List<span></span></a></li>
-<li><a href="assignment-2.html#instructions-1">Instructions<span></span></a></li>
-<li><a href="assignment-2.html#function-details">Function Details<span></span></a></li>
-</ul></li>
-<li><a href="assignment-3.html#assignment-3">Assignment 3<span></span></a>
-<ul>
-<li><a href="assignment-3.html#problem-statement-2">Problem Statement<span></span></a></li>
-<li><a href="assignment-3.html#learning-objectives-1">Learning Objectives<span></span></a></li>
-<li><a href="assignment-3.html#skill-list-1">Skill List<span></span></a></li>
-<li><a href="assignment-3.html#background-on-microarrays">Background on Microarrays<span></span></a></li>
-<li><a href="assignment-3.html#background-on-principal-component-analysis">Background on Principal Component Analysis<span></span></a></li>
-<li><a href="assignment-3.html#marisa-et-al.-gene-expression-classification-of-colon-cancer-into-molecular-subtypes-characterization-validation-and-prognostic-value.-plos-medicine-may-2013.-pmid-23700391">Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391<span></span></a></li>
-<li><a href="assignment-3.html#scaling-data-using-r-scale">Scaling data using R <code>scale()</code><span></span></a></li>
-<li><a href="assignment-3.html#proportion-of-variance-explained">Proportion of variance explained<span></span></a></li>
-<li><a href="assignment-3.html#plotting-and-visualization-of-pca">Plotting and visualization of PCA<span></span></a></li>
-<li><a href="assignment-3.html#hierarchical-clustering-and-heatmaps">Hierarchical Clustering and Heatmaps<span></span></a></li>
-<li><a href="assignment-3.html#references">References<span></span></a></li>
-</ul></li>
-<li><a href="assignment-4.html#assignment-4">Assignment 4<span></span></a>
-<ul>
-<li><a href="assignment-4.html#problem-statement-3">Problem Statement<span></span></a></li>
-<li><a href="assignment-4.html#learning-objectives-2">Learning Objectives<span></span></a></li>
-<li><a href="assignment-4.html#skill-list-2">Skill List<span></span></a></li>
-<li><a href="assignment-4.html#instructions-2">Instructions<span></span></a></li>
-<li><a href="assignment-4.html#deliverables">Deliverables<span></span></a></li>
-<li><a href="assignment-4.html#function-details-1">Function Details<span></span></a></li>
-<li><a href="assignment-4.html#hints-1">Hints<span></span></a></li>
-</ul></li>
-<li><a href="assignment-5.html#assignment-5">Assignment 5<span></span></a>
-<ul>
-<li><a href="assignment-5.html#problem-statement-4">Problem Statement<span></span></a></li>
-<li><a href="assignment-5.html#learning-objectives-3">Learning Objectives<span></span></a></li>
-<li><a href="assignment-5.html#skill-list-3">Skill List<span></span></a></li>
-<li><a href="assignment-5.html#deseq2-background">DESeq2 Background<span></span></a></li>
-<li><a href="assignment-5.html#generating-a-counts-matrix">Generating a counts matrix<span></span></a></li>
-<li><a href="assignment-5.html#prefiltering-counts-matrix">Prefiltering Counts matrix<span></span></a></li>
-<li><a href="assignment-5.html#median-of-ratios-normalization">Median-of-ratios normalization<span></span></a></li>
-<li><a href="assignment-5.html#deseq2-preparation">DESeq2 preparation<span></span></a></li>
-<li><a href="assignment-5.html#omeara-et-al.-transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration.-circ-res.-feb-2015.-pmid-25477501l">O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l<span></span></a></li>
-<li><a href="assignment-5.html#reading-and-subsetting-the-data-from-verse_counts.tsv-and-sample_metadata.csv">1. Reading and subsetting the data from verse_counts.tsv and sample_metadata.csv<span></span></a></li>
-<li><a href="assignment-5.html#running-deseq2">2. Running DESeq2<span></span></a></li>
-<li><a href="assignment-5.html#annotating-results-to-construct-a-labeled-volcano-plot">3. Annotating results to construct a labeled volcano plot<span></span></a></li>
-<li><a href="assignment-5.html#diagnostic-plot-of-the-raw-p-values-for-all-genes">4. Diagnostic plot of the raw p-values for all genes<span></span></a></li>
-<li><a href="assignment-5.html#plotting-the-logfoldchanges-for-differentially-expressed-genes">5. Plotting the LogFoldChanges for differentially expressed genes<span></span></a></li>
-<li><a href="assignment-5.html#the-choice-of-fdr-cutoff-depends-on-cost">The choice of FDR cutoff depends on cost<span></span></a></li>
-<li><a href="assignment-5.html#plotting-the-normalized-counts-of-differentially-expressed-genes">6. Plotting the normalized counts of differentially expressed genes<span></span></a></li>
-<li><a href="assignment-5.html#volcano-plot-to-visualize-differential-expression-results">7. Volcano Plot to visualize differential expression results<span></span></a></li>
-<li><a href="assignment-5.html#running-fgsea-vignette">8. Running fgsea <span>vignette</span><span></span></a></li>
-<li><a href="assignment-5.html#plotting-the-top-ten-positive-nes-and-top-ten-negative-nes-pathways">9. Plotting the top ten positive NES and top ten negative NES pathways<span></span></a></li>
-<li><a href="assignment-5.html#references-1">References<span></span></a></li>
-</ul></li>
-<li><a href="assignment-6.html#assignment-6">Assignment 6<span></span></a>
-<ul>
-<li><a href="assignment-6.html#problem-statement-5">Problem Statement<span></span></a></li>
-<li><a href="assignment-6.html#learning-objectives-4">Learning Objectives<span></span></a></li>
-<li><a href="assignment-6.html#skill-list-4">Skill List<span></span></a></li>
-<li><a href="assignment-6.html#instructions-3">Instructions<span></span></a></li>
-<li><a href="assignment-6.html#function-details-2">Function Details<span></span></a></li>
-</ul></li>
-<li><a href="assignment-7.html#assignment-7">Assignment 7<span></span></a>
-<ul>
-<li><a href="assignment-7.html#problem-statement-6">Problem Statement<span></span></a></li>
-<li><a href="assignment-7.html#learning-objectives-5">Learning Objectives<span></span></a></li>
-<li><a href="assignment-7.html#skill-list-5">Skill List<span></span></a></li>
-<li><a href="assignment-7.html#instructions-4">Instructions<span></span></a></li>
-<li><a href="assignment-7.html#function-details-3">“Function” Details<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix<span></span></b></span></li>
-<li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines<span></span></a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="week-1.html"><a href="week-1.html"><i class="fa fa-check"></i><b>A.1</b> Week 1<span></span></a></li>
-<li class="chapter" data-level="A.2" data-path="week-2.html"><a href="week-2.html"><i class="fa fa-check"></i><b>A.2</b> Week 2<span></span></a></li>
-<li class="chapter" data-level="A.3" data-path="week-3.html"><a href="week-3.html"><i class="fa fa-check"></i><b>A.3</b> Week 3<span></span></a></li>
-<li class="chapter" data-level="A.4" data-path="week-4.html"><a href="week-4.html"><i class="fa fa-check"></i><b>A.4</b> Week 4<span></span></a></li>
-<li class="chapter" data-level="A.5" data-path="week-5.html"><a href="week-5.html"><i class="fa fa-check"></i><b>A.5</b> Week 5<span></span></a></li>
-<li class="chapter" data-level="A.6" data-path="week-6.html"><a href="week-6.html"><i class="fa fa-check"></i><b>A.6</b> Week 6<span></span></a></li>
-<li class="chapter" data-level="A.7" data-path="week-7.html"><a href="week-7.html"><i class="fa fa-check"></i><b>A.7</b> Week 7<span></span></a></li>
-<li class="chapter" data-level="A.8" data-path="week-8.html"><a href="week-8.html"><i class="fa fa-check"></i><b>A.8</b> Week 8<span></span></a></li>
-<li class="chapter" data-level="A.9" data-path="week-9.html"><a href="week-9.html"><i class="fa fa-check"></i><b>A.9</b> Week 9<span></span></a></li>
-<li class="chapter" data-level="A.10" data-path="week-10.html"><a href="week-10.html"><i class="fa fa-check"></i><b>A.10</b> Week 10<span></span></a></li>
-<li class="chapter" data-level="A.11" data-path="week-11.html"><a href="week-11.html"><i class="fa fa-check"></i><b>A.11</b> Week 11<span></span></a></li>
-<li class="chapter" data-level="A.12" data-path="week-12.html"><a href="week-12.html"><i class="fa fa-check"></i><b>A.12</b> Week 12<span></span></a></li>
-<li class="chapter" data-level="A.13" data-path="week-13.html"><a href="week-13.html"><i class="fa fa-check"></i><b>A.13</b> Week 13<span></span></a></li>
-<li class="chapter" data-level="A.14" data-path="week-14.html"><a href="week-14.html"><i class="fa fa-check"></i><b>A.14</b> Week 14<span></span></a></li>
-</ul></li>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Syllabus</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="data-bio.html"><span class="header-section-number">2</span> Data in Biology</a></li>
+<li><a class="" href="preliminaries.html"><span class="header-section-number">3</span> Preliminaries</a></li>
+<li><a class="" href="prog-basics.html"><span class="header-section-number">4</span> R Programming</a></li>
+<li><a class="" href="data-wrangling.html"><span class="header-section-number">5</span> Data Wrangling</a></li>
+<li><a class="" href="data-science.html"><span class="header-section-number">6</span> Data Science</a></li>
+<li><a class="" href="data-visualization.html"><span class="header-section-number">7</span> Data Visualization</a></li>
+<li><a class="" href="biology-bioinformatics.html"><span class="header-section-number">8</span> Biology &amp; Bioinformatics</a></li>
+<li><a class="active" href="engineering.html"><span class="header-section-number">9</span> EngineeRing</a></li>
+<li><a class="" href="rshiny.html"><span class="header-section-number">10</span> RShiny</a></li>
+<li><a class="" href="communicating-with-r.html"><span class="header-section-number">11</span> Communicating with R</a></li>
+<li><a class="" href="contribution-guide.html"><span class="header-section-number">12</span> Contribution Guide</a></li>
+<li><a class="" href="assignments.html">Assignments</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="class-outlines.html"><span class="header-section-number">A</span> Class Outlines</a></li>
 </ul>
 
+        <div class="book-extra">
+          
+        </div>
       </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">BF591 - R for Biological Sciences</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="engineering" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">9</span> EngineeRing<a href="engineering.html#engineering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 </div>
-            </section>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="engineering" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> EngineeRing<a class="anchor" aria-label="anchor" href="#engineering"><i class="fas fa-link"></i></a>
+</h1>
+<div id="unit-testing" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Unit Testing<a class="anchor" aria-label="anchor" href="#unit-testing"><i class="fas fa-link"></i></a>
+</h2>
+<p>Writing code that does what you mean for it to do is often harder than it might
+seem, especially in R. Also, as your code grows in size and complexity, and you
+use good programming practice like <a href="#prog-functions">writing functions</a>,
+changing one part of your code may have unexpected effects on other parts that
+you didn’t change. Unless you are using a programming language that has support
+for proof-based <a href="https://en.wikipedia.org/wiki/Correctness_(computer_science)">correctness
+guarantees</a>, it
+may be impossible to determine if your code is <em>always</em> correct. As you might
+imagine, so-called “total correctness” is very difficult to attain, and often
+requires more time to implement than is practical (unless you’re programming
+something where correctness is very important, e.g. for a self-driving car).
+However, there is a collection of approaches that can give us reasonable
+assurances that our code does what we mean for it to do. These approaches are
+called <em>software testing frameworks</em> that explicitly test our code for
+correctness.</p>
+<p>There are many different testing frameworks, but they all employ the general
+principle that we test our codes correctness by passing it inputs for which we
+we know what the output should be. For example, consider the following function
+that sums two numbers:</p>
+<pre><code>add &lt;- function(x,y) {
+  return(x+y)
+}</code></pre>
+<p>We can test this function using a known set of inputs and explicitly comparing
+the result with the expected output:</p>
+<pre><code>result &lt;- add(1,2)
+result == 3
+[1] TRUE</code></pre>
+<p>Our test instance in this case is input <code>x=1,y=2</code> and the expected output is
+<code>3</code>. By comparing the result of this input with the expected output, we have
+showed that at least for these specific inputs the function behaves as intended.
+The testing terminology used in this case is <em>the test passed</em>. If the result
+had been anything other than 3, the test would have <em>failed</em>.</p>
+<p>The above is an example of a test, but it is an <em>informal test</em>; it is not yet
+integrated into a framework since we have to manually inspect the result as
+passing or failing. In a testing framework, you as the developer of your code
+also write tests for your code and runs those tests frequently as your code
+evolves to make sure it continues to behave as you expect over time.</p>
+<p>The R package <a href="https://testthat.r-lib.org/">testthat</a> provides such a testing
+framework that “tries to make testing as fun as possible, so that you get a
+visceral satisfaction from writing tests.” It’s true that writing tests for your
+own code may feel tedious and very not fun, but the tradeoff is that tested code
+is more likely to be correct, saving you from potentially embarrassing (or
+worse) errors!</p>
+<p>Writing tests using <code>testthat</code> is very easy, using the example test written
+above (remember to install the package using <code>install.packages("testthat")</code>
+first).</p>
+<pre><code>library(testthat)
+test_that("add() correctly adds things", {
+    expect_equal(add(1,2),3)
+    expect_equal(add(5,6),11)
+  }
+)
+Test passed</code></pre>
+<p><code>Test passed</code>! How satisfying! The <code>test_that</code> function accepts two arguments:</p>
+<ol style="list-style-type: decimal">
+<li>a concise, human readable description of the test</li>
+<li>one or more tests enclosed by <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> written using <a href="https://testthat.r-lib.org/reference/index.html"><code>expect_X</code>
+functions</a> from the testthat
+package</li>
+</ol>
+<p>In the example above, we are explicitly testing that the result of <code>add(1,2)</code> is
+equal to <code>3</code> and <code>add(5,6)</code> is equal to <code>11</code>; specifically, we called
+<code>expect_equal</code>, which accepts two arguments that it uses to test equality. We
+have written two explicit <em>test cases</em> (i.e. 1+2 == 3 and 5+6 == 11) under the
+same test heading.</p>
+<p>If we had a mistake in our test such that the expected output was wrong,
+<code>testthat</code> would inform us not only of the failure, but more details about what
+happened compared to what we asked it to expect:</p>
+<pre><code>test_that("add() correctly adds things", {
+    expect_equal(add(1,2),3)
+    expect_equal(add(5,6),10)
+  }
+)
+-- Failure (Line 3): add() correctly adds things -------------------------------
+add(5, 6) not equal to 10.
+1/1 mismatches
+[1] 11 - 10 == 1
 
-          </div>
-        </div>
-      </div>
-<a href="biological-networks-..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="unit-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
-  </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
+Error: Test failed</code></pre>
+<p>In this case, our test case was incorrect, but this would be very helpful
+information to have if we had correctly specified input and expected output and
+the test failed! It means we did something wrong, but now we are aware of it and
+can fix it.</p>
+<p>The general testing strategy usually involves writing an R script that only
+contains tests like the example above <em>and not analysis code</em>; the tests
+in your test script call the functions you have written in your other scripts
+to check for their correctness exactly like above. Then, whenever you make
+substantial changes to your analysis code, you can simply run your test script
+to check whether everything went ok. Of course, as you add more functions to
+your analysis script you need to add new tests for that code. If we had put our
+test above in a script file called <code>test_functions.R</code> we could run them on our
+analysis code like the following:</p>
+<pre><code>add &lt;- function(x,y) {
+return(x+y)
 }
-});
-});
-</script>
+testthat::test_file("test_functions.R")
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+== Testing test_functions.R =======================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ] Done!</code></pre>
+<div class="box note">
+<p>The ultimate testing strategy is called <a href="https://en.wikipedia.org/wiki/Test-driven_development"><em>test driven
+development</em></a> where you
+write your tests before developing <em>any</em> analysis code, even for functions that
+don’t exist yet. Imagine we decide we need a new function that multiplies two
+numbers together and haven’t written it yet. <code>testtthat</code> can handle the
+situation where you call a function that isn’t defined yet:</p>
+<pre><code>test_that("mul() correctly multiplies things",{
+expect_equal(mul(1,2),2)
+})
+-- Error (Line 1): new function ------------------------------------------------
+Error in `mul(1, 2)`: could not find function "mul"
+Backtrace:
+ 1. testthat::expect_equal(mul(1, 2), 2)
+ 2. testthat::quasi_label(enquo(object), label, arg = "object")
+ 3. rlang::eval_bare(expr, quo_get_env(quo))
+
+Error: Test failed</code></pre>
+<p>In this case, the test failed because <code>mul()</code> is not defined yet, but you have
+already done the hard part of writing the test! Now all you have to do is write
+the <code>mul()</code> function and keep working on it until the tests pass. Writing tests
+first and analysis code later is a great way to be thoughtful about how your
+code is structured, along with the usual benefit of testing that it means your
+code is more likely to be correct.</p>
+</div>
+<div class="box readmore">
+<ul>
+<li><a href="https://r-pkgs.org/tests.html">Testing - R packages</a></li>
+<li><a href="https://testthat.r-lib.org/reference/index.html">testthat Reference</a></li>
+</ul>
+</div>
+</div>
+<div id="toolification" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Toolification<a class="anchor" aria-label="anchor" href="#toolification"><i class="fas fa-link"></i></a>
+</h2>
+<p>RStudio is a highly effective tool for developing R code, and most analyses we
+conduct are suitable for running in its interactive environment. However, there
+are certain circumstances where running R scripts in this interactive manner is
+not optimal or even suitable:</p>
+<ol style="list-style-type: decimal">
+<li>The same script must be run on many different inputs</li>
+<li>The data that is to be analyzed is stored on a system where interactive
+RStudio session are not available</li>
+<li>The script takes a very long time to run (e.g. days to weeks)</li>
+<li>The computational demands of the analysis exceed the resources available on
+the computer where RStudio is being run (e.g. a personal laptop has limited
+memory)</li>
+</ol>
+<p>In these cases, it is necessary to run R scripts outside of RStudio, often on
+a command line interface (CLI) like that found on linux clusters and cloud based
+virtual machines. While most scripts can be run in an R interpreter on the
+CLI and produce the same behavior, there are some steps that help
+convert an R script into a tool that can be run in this way. This process of
+transforming an R script in to a more generally usable tool that is run on the
+CLI is termed <em>toolification</em> in this text. The following sections describe some
+strategies for <em>toolifying</em> and running R scripts developed in RStudio on the
+CLI.</p>
+<div id="the-r-interpreter" class="section level3" number="9.2.1">
+<h3>
+<span class="header-section-number">9.2.1</span> The R Interpreter<a class="anchor" aria-label="anchor" href="#the-r-interpreter"><i class="fas fa-link"></i></a>
+</h3>
+<p>It bears mentioning that RStudio and R are related but independent programs.
+Specifically, RStudio runs the R program behind its interface using what is
+called the <a href="https://www.oreilly.com/library/view/r-in-a/9781449358204/ch05s09.html"><em>R interpreter</em></a>.
+When you run R on a CLI, you are given an interactive interface where commands
+written in the R language can be evaluated. In RStudio, the interpreter that is
+running behind the scenes can be accessed in the Console tab at the bottom right:</p>
+<div class="figure">
+<img src="r_interpreter.png" alt=""><p class="caption">R Interpreter in both RStudio and a linux terminal</p>
+</div>
+<p>The interpreter by itself is not very useful, since most meaningful analyses
+require many lines of code be run sequentially as a unit. The interpreter can be
+helpful to test out individual lines of code and examine help documentation for
+R functions.</p>
+<p>The simplest way to run an R script from the command line is to first run an R
+interpreter and then use the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/source"><code>source()</code> function</a>,
+which accepts a filename for an R script as its first argument an executes all
+lines of code in the script.</p>
+<pre><code>$ cat simple_script.R
+print('hello moon')
+print(1+2)
+print(str(c(1,2,3,4)))
+$ R
+&gt; source("simple_script.R")
+[1] "hello moon"
+[1] 3
+ num [1:4] 1 2 3 4</code></pre>
+<p>However, this method requires some interactivity, namely by running an R
+interpreter first, so it is not sufficient to run in a non-interactive fashion.
+We may need to run our script without any interactivity, for example when it is
+a part of a computational pipeline.</p>
+</div>
+<div id="rscript" class="section level3" number="9.2.2">
+<h3>
+<span class="header-section-number">9.2.2</span> <code>Rscript</code><a class="anchor" aria-label="anchor" href="#rscript"><i class="fas fa-link"></i></a>
+</h3>
+<p>The R program also includes the <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/Rscript"><code>Rscript</code> command</a>
+that can be run on the command line:</p>
+<pre><code>$ Rscript
+Usage: /path/to/Rscript [--options] [-e expr [-e expr2 ...] | file] [args]
+
+--options accepted are
+  --help              Print usage and exit
+  --version           Print version and exit
+  --verbose           Print information on progress
+  --default-packages=list
+                      Where 'list' is a comma-separated set
+                        of package names, or 'NULL'
+or options to R, in addition to --no-echo --no-restore, such as
+  --save              Do save workspace at the end of the session
+  --no-environ        Don't read the site and user environment files
+  --no-site-file      Don't read the site-wide Rprofile
+  --no-init-file      Don't read the user R profile
+  --restore           Do restore previously saved objects at startup
+  --vanilla           Combine --no-save, --no-restore, --no-site-file
+                        --no-init-file and --no-environ
+
+'file' may contain spaces but not shell metacharacters
+Expressions (one or more '-e &lt;expr&gt;') may be used *instead* of 'file'
+See also  ?Rscript  from within R</code></pre>
+<p>This CLI command accepts an R script as an input and executes the commands in
+the file as if they had been passed to <code><a href="https://rdrr.io/r/base/source.html">source()</a></code>, for example:</p>
+<pre><code>$ cat simple_script.R
+print('hello moon')
+print(1+2)
+print(str(c(1,2,3,4)))
+$ Rscript simple_script.R
+[1] "hello moon"
+[1] 3
+ num [1:4] 1 2 3 4
+$</code></pre>
+<p>This is the simplest way to toolify an R script; simply run it on the command
+line with <code>Rscript</code>. Toolifying simple R scripts that do not need to accept
+inputs to execute on different data generally require no changes.</p>
+<div class="box note">
+<p><code>Rscript</code> is a convenience function that runs the following <code>R</code> command:</p>
+<pre><code>$ Rscript simple_script.R # is equivalent to:
+$ R --no-echo --no-restore --file=simple_script.R</code></pre>
+<p>If for some reason you cannot run <code>Rscript</code> directly, you can use these
+arguments with the <code>R</code> command to attain the same result.</p>
+</div>
+</div>
+<div id="commandargs" class="section level3" number="9.2.3">
+<h3>
+<span class="header-section-number">9.2.3</span> <code>commandArgs()</code><a class="anchor" aria-label="anchor" href="#commandargs"><i class="fas fa-link"></i></a>
+</h3>
+<p>However, sometimes we may wish to control the behavior of a script directly from
+the command line, rather than editing the script directly for every different
+execution. To pass information into the script when it is run, we can pass
+arguments with the <code>Rscript</code> command:</p>
+<pre><code>$ Rscript simple_script.R abc
+[1] "hello moon"
+[1] 3
+ num [1:4] 1 2 3 4</code></pre>
+<p>Although we passed in the argument <code>abc</code>, the output of the script didn’t change
+because the script wasn’t written to receive it. In order for a script to gain
+access to the command line arguments, we must call the <a href="https://www.rdocumentation.org/packages/R.utils/versions/2.11.0/topics/commandArgs"><code>commandArgs()</code>
+function</a>:</p>
+<div class="sourceCode" id="cb472"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span>trailingOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>Now when we execute the script, the arguments passed in are available in the
+<code>args</code> variable:</p>
+<pre><code>$ cat echo_args.R
+print(commandArgs(trailingOnly=TRUE))
+$ Rscript echo_args.R abc
+[1] "abc"
+$ Rscript echo_args.R abc 123
+[1] "abc" "123"
+$ Rscript echo_args.R # no args
+character(0)</code></pre>
+<p>In the last case when no arguments were passed, R is telling us the <code>args</code>
+variable is a character vector of length zero.</p>
+<div class="box note">
+<p>By default, the <code><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs()</a></code> function will return the full command that was
+run, including the <code>Rscript</code> command itself and any additional arguments:</p>
+<pre><code>$ Rscript -e "commandArgs()" abc 123
+[1] "/usr/bin/R"
+[2] "--no-echo"
+[3] "--no-restore"
+[4] "-e"
+[5] "commandArgs()"
+[6] "--args"
+[7] "abc"
+[8] "123"</code></pre>
+<p>The <code>trailingOnly=TRUE</code> argument returns only the arguments provided at the end
+of the command, after the <code>Rscript</code> portion:</p>
+<pre><code>$ Rscript -e "commandArgs(trailingOnly=TRUE)" abc 123
+[1] "abc" "123"</code></pre>
+<p>Note you can provide individual commands instead of a script to <code>Rscript</code> with
+the <code>-e</code> argument.</p>
+</div>
+<p>The <code><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs()</a></code> function is all that is needed to toolify a R script.
+Consider a simple script named <code>inspect_csv.R</code> that loads in any CSV file and
+summarizes it as a tibble:</p>
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span>trailingOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">args</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Usage: simple_script.R &lt;csv file&gt;\n"</span><span class="op">)</span> <span class="co"># cat() writes characters to the screen</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Provide exactly one argument that is a CSV filename\n"</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/quit.html">quit</a></span><span class="op">(</span>save<span class="op">=</span><span class="st">"no"</span>, status<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">fn</span> <span class="op">&lt;-</span> <span class="va">args</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></code></pre></div>
+<p>We can now run the script with <code>Rscript</code> and give it the filename of a CSV file:</p>
+<pre><code>$ cat data.csv
+gene,sampleA,sampleB,sampleC
+g1,1,35,20
+g2,32,56,99
+g3,392,583,444
+g4,39853,16288,66928
+$ Rscript inspect_csv.R data.csv
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+✔ ggplot2 3.3.5     ✔ purrr   0.3.4
+✔ tibble  3.1.6     ✔ dplyr   1.0.7
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Rows: 4 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): gene
+dbl (3): sampleA, sampleB, sampleC
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message   .
+# A tibble: 4 × 4
+  gene  sampleA sampleB sampleC
+  &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 g1          1      35      20
+2 g2         32      56      99
+3 g3        392     583     444
+4 g4      39853   16288   66928</code></pre>
+<p>Note the input handling of the arguments, where the usage of the script and a
+helpful error message is printed out before the script quits if there was not
+exactly one argument provided.</p>
+<p>In the example above, a filename was passed into the script as an argument. A
+filename is encoded as a character string in this case, and <code><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs()</a></code>
+always produces a vector of strings. If we need to pass in arguments to control
+numerical values, we will need to parse the arguments first. Consider the
+following R implementation of the linux command <code>head</code>, which prints only the
+top <span class="math inline">\(n\)</span> lines of a file to the screen:</p>
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span>trailingOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">args</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Usage: head.R &lt;filename&gt; &lt;N&gt;\n"</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Provide exactly two arguments: a CSV filename and an integer N\n"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/quit.html">quit</a></span><span class="op">(</span>save<span class="op">=</span><span class="st">"no"</span>, status<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co"># read in arguments</span>
+<span class="va">fn</span> <span class="op">&lt;-</span> <span class="va">args</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">args</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+
+<span class="co"># the csv output will include a header row, so reduce n by 1</span>
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span>
+
+<span class="co"># suppressMessages() prevents messages like library loading text from being printed to the screen</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span>
+    <span class="op">{</span>
+        <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+        <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+            <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/showConnections.html">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+    <span class="op">}</span>
+<span class="op">)</span></code></pre></div>
+<p>We again tested the number of arguments passed in for correct usage, and then
+assigned the arguments to variables. The <code>n</code> argument is cast from a character
+string to an integer in the process, enabling its use in the
+<code><a href="https://dplyr.tidyverse.org/reference/slice.html">dplyr::slice_head()</a></code> function. We can print out the first three lines of a file
+as follows:</p>
+<pre><code>$ Rscript head.R data.csv 3
+gene,sampleA,sampleB,sampleC
+g1,1,35,20
+g2,32,56,99</code></pre>
+<p>Reading command line arguments into variables in a script can become tedious if
+your script has a large number of arguments. Fortunately, the <a href="https://www.rdocumentation.org/packages/argparser/versions/0.7.1"><code>argparser</code>
+package</a> can help handle many of the
+repetitive operations, including specifying arguments, providing default values,
+automatically casting to appropriate types like numbers, and printing out usage
+information:</p>
+<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bitbucket.org/djhshih/argparser">argparser</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/arg_parser.html">arg_parser</a></span><span class="op">(</span><span class="st">"R implementation of GNU coreutils head command"</span><span class="op">)</span>
+<span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/add_argument.html">add_argument</a></span><span class="op">(</span><span class="va">parser</span>, <span class="st">"filename"</span>, help<span class="op">=</span><span class="st">"file to print lines from"</span><span class="op">)</span>
+<span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/add_argument.html">add_argument</a></span><span class="op">(</span><span class="va">parser</span>, <span class="st">"-n"</span>, help<span class="op">=</span><span class="st">"number of lines to print"</span>, type<span class="op">=</span><span class="st">"numeric"</span>, default<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
+<span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/parse_args.html">parse_args</a></span><span class="op">(</span><span class="va">parser</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"-n"</span>,<span class="fl">3</span>,<span class="st">"data.csv"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="st">"printing from file:"</span>,<span class="va">parser</span><span class="op">$</span><span class="va">filename</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "printing from file: data.csv"</code></pre>
+<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="st">"printing top n:"</span>,<span class="va">parser</span><span class="op">$</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "printing top n: 3"</code></pre>
+<p>With this library, we can rewrite our <code>head.R</code> script to be more concise:</p>
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bitbucket.org/djhshih/argparser">argparser</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># instantiate parser</span>
+<span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/arg_parser.html">arg_parser</a></span><span class="op">(</span><span class="st">"R implementation of GNU coreutils head command"</span><span class="op">)</span>
+
+<span class="co"># add arguments</span>
+<span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/add_argument.html">add_argument</a></span><span class="op">(</span>
+  <span class="va">parser</span>,
+  arg<span class="op">=</span><span class="st">"filename"</span>,
+  help<span class="op">=</span><span class="st">"file to print lines from"</span>
+<span class="op">)</span>
+<span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/add_argument.html">add_argument</a></span><span class="op">(</span>
+  <span class="va">parser</span>,
+  arg<span class="op">=</span><span class="st">"--top"</span>,
+  help<span class="op">=</span><span class="st">"number of lines to print"</span>,
+  type<span class="op">=</span><span class="st">"numeric"</span>,
+  default<span class="op">=</span><span class="fl">10</span>,
+  short<span class="op">=</span><span class="st">'-n'</span>
+<span class="op">)</span>
+
+<span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/parse_args.html">parse_args</a></span><span class="op">(</span><span class="va">parser</span><span class="op">)</span>
+
+<span class="va">fn</span> <span class="op">&lt;-</span> <span class="va">args</span><span class="op">$</span><span class="va">filename</span>
+
+<span class="co"># the csv output will include a header row, so reduce n by 1</span>
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="va">args</span><span class="op">$</span><span class="va">top</span><span class="op">-</span><span class="fl">1</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span>
+    <span class="op">{</span>
+        <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+        <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+            <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/showConnections.html">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+    <span class="op">}</span>
+<span class="op">)</span></code></pre></div>
+<p>Note we didn’t have to explicitly parse the <code>top</code> argument as an integer because
+<code>type="numeric"</code> handled this for us. We can print out the top three lines of
+our file like we did above using the new parser and arguments:</p>
+<pre><code>$ Rscript head.R -n 3 data.csv
+gene,sampleA,sampleB,sampleC
+g1,1,35,20
+g2,32,56,99</code></pre>
+<p>We can also inspect the usage by passing the <code>-h</code> flag:</p>
+<pre><code>$ Rscript head.R -h
+usage: head.R [--] [--help] [--opts OPTS] [--top TOP] filename
+
+R implementation of GNU coreutils head command
+
+positional arguments:
+  filename    file to print lines from
+
+flags:
+  -h, --help  show this help message and exit
+
+optional arguments:
+  -x, --opts  RDS file containing argument values
+  -n, --top   number of lines to print [default: 10]</code></pre>
+<p>These are the only tools required to toolify our R script.</p>
+<div class="box important">
+<p>Note that scripts developed in RStudio can be run on the command line, but
+scripts written for CLI use with the strategies above cannot be easily run
+inside RStudio! However, if you followed good practices and implemented your
+script as a set of functions, you can easily write a CLI wapper script that
+calls those functions, thereby enabling you to continue developing your code in
+RStudio and maintain CLI tool functionality.</p>
+</div>
+</div>
+</div>
+<div id="parallel-processing" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> Parallel Processing<a class="anchor" aria-label="anchor" href="#parallel-processing"><i class="fas fa-link"></i></a>
+</h2>
+<p>Most modern computers have multiple processing or CPU cores, e.g. a 4-core or
+8-core processor. This principally means that these computers can execute
+multiple processes simultaneously thereby dividing the wall clock time required
+to run the computations on a one core machine by a factor equal to the number of
+cores the machine has. This can be a very meaningful performance improvement,
+e.g. an 8 core machine could reduce the running time of a computation from a
+week to less than a day. Some data centers possess compute nodes with 28 or even
+64 cores, meaning a computation that would normally run for two months could
+complete in a single day if all cores are used! Processes that are running at
+the same time on different cores are said to be running <em>in parallel</em>, while
+a computation that is not parallelized runs <em>serially</em>.</p>
+<div id="brief-introduction-to-parallelization" class="section level3" number="9.3.1">
+<h3>
+<span class="header-section-number">9.3.1</span> Brief Introduction to Parallelization<a class="anchor" aria-label="anchor" href="#brief-introduction-to-parallelization"><i class="fas fa-link"></i></a>
+</h3>
+<p>Not all computations can be parallelized, and some can only be made parallel by
+using sophisticated mathematical models and algorithms. However, certain classes
+of problems are <a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel"><em>pleasingly
+parallel</em></a>, meaning their
+structure makes it easy if not trivial to divide into parts that can be run in
+parallel. In general, how “parallelizeable” a computation is depends on how the
+subparts of the computation relate to one another.</p>
+<p>Consider the problem of mapping <a href="biology-bioinformatics.html#high-throughput-sequencing">high throughput sequencing
+reads</a> against a reference genome. If the task is
+to identify the location(s) in the genome where each read matches, the locations
+of one read do not influence the locations of another read; they are independent
+of each other. Since they are independent, in principle they can be done in
+parallel, meaning that, again <em>in priniple</em>, every one of the millions of reads
+could be aligned against the genome at the same time. This would mean the wall
+clock time required to align all the reads in a multi-million read dataset would
+take as long as it takes to align a single read. This makes short read alignment
+a pleasingly parallel problem. Unfortunately, in practice there are technical
+constraints preventing this increase in performance, but most modern alignment
+programs like <a href="http://bio-bwa.sourceforge.net/bwa.shtml"><code>bwa</code></a> and
+<a href="https://github.com/alexdobin/STAR"><code>STAR</code></a> exploit this inherently parallel
+structure to improve performance by using multiple cores at the same time.</p>
+<p>In general, splitting up a computation into pieces that can run in parallel does
+not always lead to performance improvements. There are several ways computations
+are constrained based on which aspects of the algorithm or program require the
+most time to run. Briefly, an algorithm can be:</p>
+<ul>
+<li>
+<em>compute-bound</em> - the computations take the largest amount of time</li>
+<li>
+<em>memory-bound</em> - the amount of main memory (i.e. RAM) on the machine determines how quickly the computation can complete</li>
+<li>
+<em>input/output (IO)-bound</em> - writing to and from hard disk takes the most time</li>
+<li>
+<em>network-bound</em> - transfering data over a network, usually between processes running in parallel, takes the most time</li>
+</ul>
+<p>These concepts are covered in the field of <a href="https://en.wikipedia.org/wiki/High-performance_computing">high-performance computing</a> and are
+beyond the scope of this class. However, for the purposes of this section, the
+problems we are concerned with when parallelizing computations are
+<strong>compute-bound</strong> computations.</p>
+<div class="box note">
+<p>Parallelism can be attained on both the multiprocessor and the distributed
+computing level. In distributed computing, different subtasks of a
+parallelizable computation are executed on different physical computers. Each
+of these subtasks could possibly be further parallelized using multiple cores on
+each system. In cluster computing or cloud environments, enormous performance
+improvements can be attained by utilizing both levels of parallelization. For
+example, if you submit 100 jobs via <code>qsub</code> to a compute cluster and they all run
+at the same time, and each job uses 16 cores on its local machine, that amounts
+to a 1,600x speedup. This parallelism would reduce a computation taking over 4
+years to run in a single day!</p>
+</div>
+</div>
+<div id="apply-and-friends-are-pleasingly-parallel" class="section level3" number="9.3.2">
+<h3>
+<span class="header-section-number">9.3.2</span> <code>apply</code> and Friends Are Pleasingly Parallel<a class="anchor" aria-label="anchor" href="#apply-and-friends-are-pleasingly-parallel"><i class="fas fa-link"></i></a>
+</h3>
+<p>In R, loops are most efficiently expressed using the <a href="prog-basics.html#apply-and-friends"><code>apply</code>
+function</a> and its variants <code>lapply</code> and <code>vapply</code>. Recall
+that these functions accept a function and a collection of inputs, usually a
+list. The <code>apply</code> function iterates over the input collection and executes the
+function on each of them. In general, the inputs are assumed to be independent,
+and the function does not have any outside dependencies. This is precisely the
+pattern needed for pleasantly parallel tasks. In general, any iteration using an
+<code>apply</code> function can be parallelized in R.</p>
+</div>
+<div id="the-parallel-package" class="section level3" number="9.3.3">
+<h3>
+<span class="header-section-number">9.3.3</span> The <code>parallel</code> package<a class="anchor" aria-label="anchor" href="#the-parallel-package"><i class="fas fa-link"></i></a>
+</h3>
+<p>R can leverage multiple core architectures to execute processes in parallel with
+the [<code>parallel</code> package], which is installed as a base R package. The main
+function in this package that enables parallelism is
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/html/mclapply.html"><code>mclapply()</code></a>,
+or <code>m</code>ulti<code>c</code>ore <code>apply</code>. <code>mclapply</code> accepts all of the same arguments as
+<code>lapply</code> and a few additional starting with <code>mc.</code>. The argument to <code>mclapply</code>
+that enables parallelism is <code>mc.cores</code>, which specifies the number of cores to
+use when executing tasks in parallel.</p>
+<div class="box important">
+<p><code>mclapply</code> is <em>not</em> available on Windows, only Mac and linux.</p>
+</div>
+<p>Consider the following script <code>mclapply.R</code> which runs a function that prints out
+its input with the current time and then waits (i.e. sleeps) for three seconds:</p>
+<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
+
+<span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span>trailingOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">cores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">args</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+
+<span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mcdummies.html">mclapply</a></span><span class="op">(</span>
+    <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,
+    <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+         <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'process'</span>,<span class="va">x</span><span class="op">)</span><span class="op">)</span>
+         <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
+    <span class="op">}</span>,
+    mc.cores<span class="op">=</span><span class="va">cores</span>
+<span class="op">)</span></code></pre></div>
+<p>Note the number of cores to be used is passed in as a command line argument. If
+we run the script with one core, we can see the functions run serially:</p>
+<pre><code>$ Rscript mclapply.R 1
+[1] "2022-03-23 20:33:09 process 1"
+[1] "2022-03-23 20:33:12 process 2"
+[1] "2022-03-23 20:33:15 process 3"
+[1] "2022-03-23 20:33:18 process 4"
+[1] "2022-03-23 20:33:21 process 5"
+[1] "2022-03-23 20:33:24 process 6"
+[1] "2022-03-23 20:33:27 process 7"
+[1] "2022-03-23 20:33:30 process 8"
+[1] "2022-03-23 20:33:33 process 9"
+[1] "2022-03-23 20:33:36 process 10"
+</code></pre>
+<p>If we instead run the script with three cores, we can see from the printed times
+that the functions are executed in groups of 3:</p>
+<pre><code>$ Rscript mclapply.R 3
+[1] "2022-03-23 20:29:56 process 1"
+[1] "2022-03-23 20:29:56 process 2"
+[1] "2022-03-23 20:29:56 process 3"
+[1] "2022-03-23 20:29:59 process 4"
+[1] "2022-03-23 20:29:59 process 5"
+[1] "2022-03-23 20:29:59 process 6"
+[1] "2022-03-23 20:30:02 process 7"
+[1] "2022-03-23 20:30:02 process 8"
+[1] "2022-03-23 20:30:02 process 9"
+[1] "2022-03-23 20:30:05 process 10"</code></pre>
+<p>Finally, if we use 10 cores (and the machine we are using has at least 10
+cores), all the functions execute simultaneously:</p>
+<pre><code>- Rscript mclapply.R 10
+[1] "2022-03-23 20:34:59 process 1"
+[1] "2022-03-23 20:34:59 process 2"
+[1] "2022-03-23 20:34:59 process 3"
+[1] "2022-03-23 20:34:59 process 4"
+[1] "2022-03-23 20:34:59 process 5"
+[1] "2022-03-23 20:34:59 process 6"
+[1] "2022-03-23 20:34:59 process 7"
+[1] "2022-03-23 20:34:59 process 8"
+[1] "2022-03-23 20:34:59 process 9"
+[1] "2022-03-23 20:34:59 process 10"</code></pre>
+<p>This introduction to parallelization in R will likely be sufficient for most
+simple parallel tasks, but there are many details that we won’t cover here. For
+more in-depth explanation of how parallelism in R works refer to the links in
+the read more box below.</p>
+<div class="box readmore">
+<ul>
+<li>
+<a href="https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html">Parallel Computation</a> section of R Programming for Data Science, by Roger Peng</li>
+<li>
+<a href="https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html">Quick Intro to Parallel Computing in R</a>, National Center for Ecological Analysis &amp; Synthesis</li>
+<li><a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/html/mclapply.html">mclapply documentation</a></li>
+<li>
+<a href="https://waterprogramming.wordpress.com/2020/03/16/parallel-processing-with-r-on-windows/">Parallel processing with R on Windows</a>, Water Programming Blog, Reed Lab, Cornell</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="object-oriented-programming-in-r" class="section level2" number="9.4">
+<h2>
+<span class="header-section-number">9.4</span> Object Oriented Programming in R<a class="anchor" aria-label="anchor" href="#object-oriented-programming-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object-orietned programming</a>
+(OOP) is a programming paradigm that encapsulates related code and data into
+conceptual “objects.” These objects generally are used to organize code and make
+it easier to write by passing these encapsulated data and code together as a
+unit. There are several different styles of OOP, and a programming language my
+implement more than one style, or none at all.</p>
+<p>Although R is primarily a <a href="prog-basics.html#functional-programming">functional programming
+language</a> it does support OOP in several different
+ways. Hadley Wickham has written an <a href="https://adv-r.hadley.nz/oo.html">excellent book chapter on OOP in
+R</a> and thus is not replicated here.</p>
+<div class="box readmore">
+<ul>
+<li>
+<a href="https://adv-r.hadley.nz/oo.html">OOP in R</a> by Hadley Wickam</li>
+</ul>
+</div>
+</div>
+<div id="building-r-packages" class="section level2" number="9.5">
+<h2>
+<span class="header-section-number">9.5</span> Building R Packages<a class="anchor" aria-label="anchor" href="#building-r-packages"><i class="fas fa-link"></i></a>
+</h2>
+<p>Packages are the fundamental unit of reproducible code in R. Most of the time,
+we as practitioners simply use packages that have been provided by others.
+However, sometimes, when we have developed a methodology that others might find
+useful, it may be advantageous to write our own R packages and share them with
+the community. Writing an R package involves creating a directory with a
+specific structure and adding code, documentation, and package metadata in a
+way that allows it to be distributed.</p>
+<p>Hadley Wickham and Jenny Bryan have written an excellent book on how to write
+<a href="https://r-pkgs.org/">R packages</a>. If ever you need to write your own R package,
+this should be the only place you need to go.</p>
+<div class="box readmore">
+<ul>
+<li>
+<a href="https://r-pkgs.org/index.html">R packages</a> by Hadley Wickam and Jenny Bryan</li>
+</ul>
+</div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="biology-bioinformatics.html"><span class="header-section-number">8</span> Biology &amp; Bioinformatics</a></div>
+<div class="next"><a href="rshiny.html"><span class="header-section-number">10</span> RShiny</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#engineering"><span class="header-section-number">9</span> EngineeRing</a></li>
+<li><a class="nav-link" href="#unit-testing"><span class="header-section-number">9.1</span> Unit Testing</a></li>
+<li>
+<a class="nav-link" href="#toolification"><span class="header-section-number">9.2</span> Toolification</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-r-interpreter"><span class="header-section-number">9.2.1</span> The R Interpreter</a></li>
+<li><a class="nav-link" href="#rscript"><span class="header-section-number">9.2.2</span> Rscript</a></li>
+<li><a class="nav-link" href="#commandargs"><span class="header-section-number">9.2.3</span> commandArgs()</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#parallel-processing"><span class="header-section-number">9.3</span> Parallel Processing</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#brief-introduction-to-parallelization"><span class="header-section-number">9.3.1</span> Brief Introduction to Parallelization</a></li>
+<li><a class="nav-link" href="#apply-and-friends-are-pleasingly-parallel"><span class="header-section-number">9.3.2</span> apply and Friends Are Pleasingly Parallel</a></li>
+<li><a class="nav-link" href="#the-parallel-package"><span class="header-section-number">9.3.3</span> The parallel package</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#object-oriented-programming-in-r"><span class="header-section-number">9.4</span> Object Oriented Programming in R</a></li>
+<li><a class="nav-link" href="#building-r-packages"><span class="header-section-number">9.5</span> Building R Packages</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>BF591 - R for Biological Sciences</strong>" was written by . </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -643,7 +809,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>

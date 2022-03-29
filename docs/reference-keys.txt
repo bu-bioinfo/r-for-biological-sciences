@@ -98,6 +98,10 @@ hierarchical-clustering
 k-means-.
 others
 network-analysis-.
+basic-network-analysis
+shortest-path
+vertex-centrality
+create-your-own
 data-visualization
 responsible-plotting
 visualization-principles
@@ -195,8 +199,8 @@ parallel-processing
 brief-introduction-to-parallelization
 apply-and-friends-are-pleasingly-parallel
 the-parallel-package
-object-orientation-in-r-.
-r-packages-.
+object-oriented-programming-in-r
+building-r-packages
 rshiny
 rshiny-introduction
 how-does-a-web-page-work

@@ -1,586 +1,78 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>BF591 - R for Biological Sciences</title>
-  <meta name="description" content="BF591 - R for Biological Sciences" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="BF591 - R for Biological Sciences" />
-  <meta property="og:type" content="book" />
-  
-  
-  
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="BF591 - R for Biological Sciences" />
-  
-  
-  
-
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-
-<link rel="next" href="course-schedule.html"/>
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Syllabus | BF591 - R for Biological Sciences</title>
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Syllabus | BF591 - R for Biological Sciences">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Syllabus | BF591 - R for Biological Sciences">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+<meta name="description" content="A book created with bookdown.">
+<meta property="og:description" content="A book created with bookdown.">
+<meta name="twitter:description" content="A book created with bookdown.">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="index.html#syllabus">Syllabus<span></span></a>
-<ul>
-<li><a href="course-schedule.html#course-schedule">Course Schedule<span></span></a></li>
-<li><a href="instructors.html#instructors">Instructors<span></span></a></li>
-<li><a href="office-hours.html#office-hours">Office Hours<span></span></a></li>
-<li><a href="course-values-and-policies.html#course-values-and-policies">Course Values and Policies<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="who-this-book-is-for.html"><a href="who-this-book-is-for.html"><i class="fa fa-check"></i><b>1.1</b> Who This Book Is For<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="a-note-about-reinventing-the-wheel.html"><a href="a-note-about-reinventing-the-wheel.html"><i class="fa fa-check"></i><b>1.2</b> A Note About Reinventing the Wheel<span></span></a></li>
-<li class="chapter" data-level="1.3" data-path="sources-and-references.html"><a href="sources-and-references.html"><i class="fa fa-check"></i><b>1.3</b> Sources and References<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="data-bio.html"><a href="data-bio.html"><i class="fa fa-check"></i><b>2</b> Data in Biology<span></span></a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="a-brief-history-of-data-in-molecular-biology.html"><a href="a-brief-history-of-data-in-molecular-biology.html"><i class="fa fa-check"></i><b>2.1</b> A Brief History of Data in Molecular Biology<span></span></a></li>
-<li class="chapter" data-level="2.2" data-path="biology-as-a-mature-data-science.html"><a href="biology-as-a-mature-data-science.html"><i class="fa fa-check"></i><b>2.2</b> Biology as a Mature Data Science<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>3</b> Preliminaries<span></span></a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="prelim-r.html"><a href="prelim-r.html"><i class="fa fa-check"></i><b>3.1</b> The R Language<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="prelim-rstudio.html"><a href="prelim-rstudio.html"><i class="fa fa-check"></i><b>3.2</b> RStudio<span></span></a></li>
-<li class="chapter" data-level="3.3" data-path="prog-the-r-script.html"><a href="prog-the-r-script.html"><i class="fa fa-check"></i><b>3.3</b> The R Script<span></span></a></li>
-<li class="chapter" data-level="3.4" data-path="prog-workflow.html"><a href="prog-workflow.html"><i class="fa fa-check"></i><b>3.4</b> The Scripting Workflow<span></span></a></li>
-<li class="chapter" data-level="3.5" data-path="prelim-git.html"><a href="prelim-git.html"><i class="fa fa-check"></i><b>3.5</b> git + github<span></span></a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="prelim-git.html"><a href="prelim-git.html#motivation"><i class="fa fa-check"></i><b>3.5.1</b> Motivation<span></span></a></li>
-<li class="chapter" data-level="3.5.2" data-path="prelim-git.html"><a href="prelim-git.html#git"><i class="fa fa-check"></i><b>3.5.2</b> git<span></span></a></li>
-<li class="chapter" data-level="3.5.3" data-path="prelim-git.html"><a href="prelim-git.html#git-hosting-platforms-github"><i class="fa fa-check"></i><b>3.5.3</b> Git hosting platforms (GitHub)<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="prog-basics.html"><a href="prog-basics.html"><i class="fa fa-check"></i><b>4</b> R Programming<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="before-you-begin.html"><a href="before-you-begin.html"><i class="fa fa-check"></i><b>4.1</b> Before you begin<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>4.2</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="prog-r-syntax.html"><a href="prog-r-syntax.html"><i class="fa fa-check"></i><b>4.3</b> R Syntax Basics<span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="prog-types.html"><a href="prog-types.html"><i class="fa fa-check"></i><b>4.4</b> Basic Types of Values<span></span></a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="prog-types.html"><a href="prog-types.html#factors"><i class="fa fa-check"></i><b>4.4.1</b> Factors<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="prog-struct.html"><a href="prog-struct.html"><i class="fa fa-check"></i><b>4.5</b> Data Structures<span></span></a>
-<ul>
-<li class="chapter" data-level="4.5.1" data-path="prog-struct.html"><a href="prog-struct.html#vectors"><i class="fa fa-check"></i><b>4.5.1</b> Vectors<span></span></a></li>
-<li class="chapter" data-level="4.5.2" data-path="prog-struct.html"><a href="prog-struct.html#matrices"><i class="fa fa-check"></i><b>4.5.2</b> Matrices<span></span></a></li>
-<li class="chapter" data-level="4.5.3" data-path="prog-struct.html"><a href="prog-struct.html#lists-and-data-frames"><i class="fa fa-check"></i><b>4.5.3</b> Lists and data frames<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.6" data-path="logical-tests-and-comparators.html"><a href="logical-tests-and-comparators.html"><i class="fa fa-check"></i><b>4.6</b> Logical Tests and Comparators<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>4.7</b> Functions<span></span></a>
-<ul>
-<li class="chapter" data-level="4.7.1" data-path="functions.html"><a href="functions.html#prog-dry"><i class="fa fa-check"></i><b>4.7.1</b> DRY: Don’t Repeat Yourself<span></span></a></li>
-<li class="chapter" data-level="4.7.2" data-path="functions.html"><a href="functions.html#writing-your-own-functions"><i class="fa fa-check"></i><b>4.7.2</b> Writing your own functions<span></span></a></li>
-<li class="chapter" data-level="4.7.3" data-path="functions.html"><a href="functions.html#scope"><i class="fa fa-check"></i><b>4.7.3</b> Scope<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.8</b> Iteration<span></span></a>
-<ul>
-<li class="chapter" data-level="4.8.1" data-path="iteration.html"><a href="iteration.html#vectorized-operations"><i class="fa fa-check"></i><b>4.8.1</b> Vectorized operations<span></span></a></li>
-<li class="chapter" data-level="4.8.2" data-path="iteration.html"><a href="iteration.html#functional-programming"><i class="fa fa-check"></i><b>4.8.2</b> Functional programming<span></span></a></li>
-<li class="chapter" data-level="4.8.3" data-path="iteration.html"><a href="iteration.html#apply-and-friends"><i class="fa fa-check"></i><b>4.8.3</b> <code>apply()</code> and friends<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.9" data-path="installing-packages.html"><a href="installing-packages.html"><i class="fa fa-check"></i><b>4.9</b> Installing Packages<span></span></a></li>
-<li class="chapter" data-level="4.10" data-path="saving-and-loading-r-data.html"><a href="saving-and-loading-r-data.html"><i class="fa fa-check"></i><b>4.10</b> Saving and Loading R Data<span></span></a></li>
-<li class="chapter" data-level="4.11" data-path="prog-debugging.html"><a href="prog-debugging.html"><i class="fa fa-check"></i><b>4.11</b> Troubleshooting and Debugging<span></span></a></li>
-<li class="chapter" data-level="4.12" data-path="prog-style.html"><a href="prog-style.html"><i class="fa fa-check"></i><b>4.12</b> Coding Style and Conventions<span></span></a>
-<ul>
-<li class="chapter" data-level="4.12.1" data-path="prog-style.html"><a href="prog-style.html#is-my-code-correct"><i class="fa fa-check"></i><b>4.12.1</b> Is my code correct?<span></span></a></li>
-<li class="chapter" data-level="4.12.2" data-path="prog-style.html"><a href="prog-style.html#does-my-code-follow-the-dry-principle"><i class="fa fa-check"></i><b>4.12.2</b> Does my code follow the <span>DRY principle</span>?<span></span></a></li>
-<li class="chapter" data-level="4.12.3" data-path="prog-style.html"><a href="prog-style.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><i class="fa fa-check"></i><b>4.12.3</b> Did I choose concise but descriptive variable and function names?<span></span></a></li>
-<li class="chapter" data-level="4.12.4" data-path="prog-style.html"><a href="prog-style.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><i class="fa fa-check"></i><b>4.12.4</b> Did I use indentation and naming conventions consistently throughout my code?<span></span></a></li>
-<li class="chapter" data-level="4.12.5" data-path="prog-style.html"><a href="prog-style.html#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><i class="fa fa-check"></i><b>4.12.5</b> Did I write comments, especially when what the code does is not obvious?<span></span></a></li>
-<li class="chapter" data-level="4.12.6" data-path="prog-style.html"><a href="prog-style.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><i class="fa fa-check"></i><b>4.12.6</b> How easy would it be for someone else to understand my code?<span></span></a></li>
-<li class="chapter" data-level="4.12.7" data-path="prog-style.html"><a href="prog-style.html#is-my-code-easy-to-maintainchange"><i class="fa fa-check"></i><b>4.12.7</b> Is my code easy to maintain/change?<span></span></a></li>
-<li class="chapter" data-level="4.12.8" data-path="prog-style.html"><a href="prog-style.html#the-styler-package"><i class="fa fa-check"></i><b>4.12.8</b> The <code>styler</code> package<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling<span></span></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="the-tidyverse.html"><a href="the-tidyverse.html"><i class="fa fa-check"></i><b>5.1</b> The Tidyverse<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="dw-basics.html"><a href="dw-basics.html"><i class="fa fa-check"></i><b>5.2</b> Tidyverse Basics<span></span></a></li>
-<li class="chapter" data-level="5.3" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>5.3</b> Importing Data<span></span></a></li>
-<li class="chapter" data-level="5.4" data-path="data-tibble.html"><a href="data-tibble.html"><i class="fa fa-check"></i><b>5.4</b> The tibble<span></span></a></li>
-<li class="chapter" data-level="5.5" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>5.5</b> Tidy Data<span></span></a></li>
-<li class="chapter" data-level="5.6" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>5.6</b> pipes<span></span></a></li>
-<li class="chapter" data-level="5.7" data-path="arranging-data.html"><a href="arranging-data.html"><i class="fa fa-check"></i><b>5.7</b> Arranging Data<span></span></a>
-<ul>
-<li class="chapter" data-level="5.7.1" data-path="arranging-data.html"><a href="arranging-data.html#dplyrmutate---create-new-columns-using-other-columns"><i class="fa fa-check"></i><b>5.7.1</b> <code>dplyr::mutate()</code> - Create new columns using other columns<span></span></a></li>
-<li class="chapter" data-level="5.7.2" data-path="arranging-data.html"><a href="arranging-data.html#stringr---working-with-character-values"><i class="fa fa-check"></i><b>5.7.2</b> <code>stringr</code> - Working with character values<span></span></a></li>
-<li class="chapter" data-level="5.7.3" data-path="arranging-data.html"><a href="arranging-data.html#dplyrselect---subset-columns-by-name"><i class="fa fa-check"></i><b>5.7.3</b> <code>dplyr::select()</code> - Subset Columns by Name<span></span></a></li>
-<li class="chapter" data-level="5.7.4" data-path="arranging-data.html"><a href="arranging-data.html#dplyrfilter---pick-rows-out-of-a-data-set"><i class="fa fa-check"></i><b>5.7.4</b> <code>dplyr::filter()</code> - Pick rows out of a data set<span></span></a></li>
-<li class="chapter" data-level="5.7.5" data-path="arranging-data.html"><a href="arranging-data.html#dplyrarrange---order-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.7.5</b> <code>dplyr::arrange()</code> - Order rows based on their values<span></span></a></li>
-<li class="chapter" data-level="5.7.6" data-path="arranging-data.html"><a href="arranging-data.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.7.6</b> Putting it all together<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.8" data-path="grouping-data.html"><a href="grouping-data.html"><i class="fa fa-check"></i><b>5.8</b> Grouping Data<span></span></a></li>
-<li class="chapter" data-level="5.9" data-path="rearranging-data.html"><a href="rearranging-data.html"><i class="fa fa-check"></i><b>5.9</b> Rearranging Data<span></span></a></li>
-<li class="chapter" data-level="5.10" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>5.10</b> Relational Data<span></span></a>
-<ul>
-<li class="chapter" data-level="5.10.1" data-path="relational-data.html"><a href="relational-data.html#dealing-with-multiple-matches"><i class="fa fa-check"></i><b>5.10.1</b> Dealing with multiple matches<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>6</b> Data Science<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="data-modeling.html"><a href="data-modeling.html"><i class="fa fa-check"></i><b>6.1</b> Data Modeling<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="data-modeling.html"><a href="data-modeling.html#a-worked-modeling-example"><i class="fa fa-check"></i><b>6.1.1</b> A Worked Modeling Example<span></span></a></li>
-<li class="chapter" data-level="6.1.2" data-path="data-modeling.html"><a href="data-modeling.html#data-summarization"><i class="fa fa-check"></i><b>6.1.2</b> Data Summarization<span></span></a></li>
-<li class="chapter" data-level="6.1.3" data-path="data-modeling.html"><a href="data-modeling.html#linear-models"><i class="fa fa-check"></i><b>6.1.3</b> Linear Models<span></span></a></li>
-<li class="chapter" data-level="6.1.4" data-path="data-modeling.html"><a href="data-modeling.html#flavors-of-linear-models"><i class="fa fa-check"></i><b>6.1.4</b> Flavors of Linear Models<span></span></a></li>
-<li class="chapter" data-level="6.1.5" data-path="data-modeling.html"><a href="data-modeling.html#assessing-model-accuracy-."><i class="fa fa-check"></i><b>6.1.5</b> Assessing Model Accuracy .<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="statistical-distributions.html"><a href="statistical-distributions.html"><i class="fa fa-check"></i><b>6.2</b> Statistical Distributions<span></span></a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="statistical-distributions.html"><a href="statistical-distributions.html#random-variables"><i class="fa fa-check"></i><b>6.2.1</b> Random Variables<span></span></a></li>
-<li class="chapter" data-level="6.2.2" data-path="statistical-distributions.html"><a href="statistical-distributions.html#statistical-distribution-basics"><i class="fa fa-check"></i><b>6.2.2</b> Statistical Distribution Basics<span></span></a></li>
-<li class="chapter" data-level="6.2.3" data-path="statistical-distributions.html"><a href="statistical-distributions.html#distributions-in-r"><i class="fa fa-check"></i><b>6.2.3</b> Distributions in R<span></span></a></li>
-<li class="chapter" data-level="6.2.4" data-path="statistical-distributions.html"><a href="statistical-distributions.html#discrete-distributions"><i class="fa fa-check"></i><b>6.2.4</b> Discrete Distributions<span></span></a></li>
-<li class="chapter" data-level="6.2.5" data-path="statistical-distributions.html"><a href="statistical-distributions.html#continuous-distributions"><i class="fa fa-check"></i><b>6.2.5</b> Continuous Distributions<span></span></a></li>
-<li class="chapter" data-level="6.2.6" data-path="statistical-distributions.html"><a href="statistical-distributions.html#empirical-distributions"><i class="fa fa-check"></i><b>6.2.6</b> Empirical Distributions<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="statistical-tests.html"><a href="statistical-tests.html"><i class="fa fa-check"></i><b>6.3</b> Statistical Tests<span></span></a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="statistical-tests.html"><a href="statistical-tests.html#what-is-a-statistical-test"><i class="fa fa-check"></i><b>6.3.1</b> What is a statistical test<span></span></a></li>
-<li class="chapter" data-level="6.3.2" data-path="statistical-tests.html"><a href="statistical-tests.html#common-statistical-tests"><i class="fa fa-check"></i><b>6.3.2</b> Common Statistical Tests<span></span></a></li>
-<li class="chapter" data-level="6.3.3" data-path="statistical-tests.html"><a href="statistical-tests.html#choosing-a-test"><i class="fa fa-check"></i><b>6.3.3</b> Choosing a Test<span></span></a></li>
-<li class="chapter" data-level="6.3.4" data-path="statistical-tests.html"><a href="statistical-tests.html#p-values"><i class="fa fa-check"></i><b>6.3.4</b> P-values<span></span></a></li>
-<li class="chapter" data-level="6.3.5" data-path="statistical-tests.html"><a href="statistical-tests.html#multiple-hypothesis-testing-."><i class="fa fa-check"></i><b>6.3.5</b> Multiple Hypothesis Testing .<span></span></a></li>
-<li class="chapter" data-level="6.3.6" data-path="statistical-tests.html"><a href="statistical-tests.html#statistical-power"><i class="fa fa-check"></i><b>6.3.6</b> Statistical power<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Exploratory Data Analysis<span></span></a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#principal-component-analysis"><i class="fa fa-check"></i><b>6.4.1</b> Principal Component Analysis<span></span></a></li>
-<li class="chapter" data-level="6.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#cluster-analysis"><i class="fa fa-check"></i><b>6.4.2</b> Cluster Analysis<span></span></a></li>
-<li class="chapter" data-level="6.4.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#k-means-."><i class="fa fa-check"></i><b>6.4.3</b> k-means .<span></span></a></li>
-<li class="chapter" data-level="6.4.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#others"><i class="fa fa-check"></i><b>6.4.4</b> Others<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="network-analysis-..html"><a href="network-analysis-..html"><i class="fa fa-check"></i><b>6.5</b> Network Analysis .<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>7</b> Data Visualization<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="responsible-plotting.html"><a href="responsible-plotting.html"><i class="fa fa-check"></i><b>7.1</b> Responsible Plotting<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="responsible-plotting.html"><a href="responsible-plotting.html#visualization-principles"><i class="fa fa-check"></i><b>7.1.1</b> Visualization Principles<span></span></a></li>
-<li class="chapter" data-level="7.1.2" data-path="responsible-plotting.html"><a href="responsible-plotting.html#human-visual-perception"><i class="fa fa-check"></i><b>7.1.2</b> Human Visual Perception<span></span></a></li>
-<li class="chapter" data-level="7.1.3" data-path="responsible-plotting.html"><a href="responsible-plotting.html#visual-encodings"><i class="fa fa-check"></i><b>7.1.3</b> Visual Encodings<span></span></a></li>
-<li class="chapter" data-level="7.1.4" data-path="responsible-plotting.html"><a href="responsible-plotting.html#some-opinionated-rules-of-thumb"><i class="fa fa-check"></i><b>7.1.4</b> Some Opinionated Rules of Thumb<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="dv-gg.html"><a href="dv-gg.html"><i class="fa fa-check"></i><b>7.2</b> Grammar of Graphics<span></span></a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="dv-gg.html"><a href="dv-gg.html#ggplot-mechanics"><i class="fa fa-check"></i><b>7.2.1</b> <code>ggplot</code> mechanics<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html"><i class="fa fa-check"></i><b>7.3</b> Plotting One Dimension<span></span></a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#dv-bar"><i class="fa fa-check"></i><b>7.3.1</b> Bar chart<span></span></a></li>
-<li class="chapter" data-level="7.3.2" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#lollipop-plots"><i class="fa fa-check"></i><b>7.3.2</b> Lollipop plots<span></span></a></li>
-<li class="chapter" data-level="7.3.3" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#stacked-area-charts"><i class="fa fa-check"></i><b>7.3.3</b> Stacked Area charts<span></span></a></li>
-<li class="chapter" data-level="7.3.4" data-path="plotting-one-dimension.html"><a href="plotting-one-dimension.html#parallel-coordinate-plots"><i class="fa fa-check"></i><b>7.3.4</b> Parallel Coordinate plots<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html"><i class="fa fa-check"></i><b>7.4</b> Visualizing Distributions<span></span></a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#histogram"><i class="fa fa-check"></i><b>7.4.1</b> Histogram<span></span></a></li>
-<li class="chapter" data-level="7.4.2" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#density"><i class="fa fa-check"></i><b>7.4.2</b> Density<span></span></a></li>
-<li class="chapter" data-level="7.4.3" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#boxplot"><i class="fa fa-check"></i><b>7.4.3</b> Boxplot<span></span></a></li>
-<li class="chapter" data-level="7.4.4" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#violin-plot"><i class="fa fa-check"></i><b>7.4.4</b> Violin plot<span></span></a></li>
-<li class="chapter" data-level="7.4.5" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#beeswarm-plot"><i class="fa fa-check"></i><b>7.4.5</b> Beeswarm plot<span></span></a></li>
-<li class="chapter" data-level="7.4.6" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html#ridgeline"><i class="fa fa-check"></i><b>7.4.6</b> Ridgeline<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html"><i class="fa fa-check"></i><b>7.5</b> Plotting Two or More Dimensions<span></span></a>
-<ul>
-<li class="chapter" data-level="7.5.1" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#scatter-plots"><i class="fa fa-check"></i><b>7.5.1</b> Scatter Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.2" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#bubble-plots"><i class="fa fa-check"></i><b>7.5.2</b> Bubble Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.3" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#connected-scatter-plots"><i class="fa fa-check"></i><b>7.5.3</b> Connected Scatter Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.4" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#line-plots"><i class="fa fa-check"></i><b>7.5.4</b> Line Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.5" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#parallel-coordinate-plots-1"><i class="fa fa-check"></i><b>7.5.5</b> Parallel Coordinate Plots<span></span></a></li>
-<li class="chapter" data-level="7.5.6" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#heatmaps"><i class="fa fa-check"></i><b>7.5.6</b> Heatmaps<span></span></a></li>
-<li class="chapter" data-level="7.5.7" data-path="plotting-two-or-more-dimensions.html"><a href="plotting-two-or-more-dimensions.html#how-to-use-heatmaps-responsibly"><i class="fa fa-check"></i><b>7.5.7</b> How To Use Heatmaps Responsibly<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html"><i class="fa fa-check"></i><b>7.6</b> Other Kind of Plots<span></span></a>
-<ul>
-<li class="chapter" data-level="7.6.1" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html#dendrograms"><i class="fa fa-check"></i><b>7.6.1</b> Dendrograms<span></span></a></li>
-<li class="chapter" data-level="7.6.2" data-path="other-kind-of-plots.html"><a href="other-kind-of-plots.html#chord-diagrams-and-circos-plots"><i class="fa fa-check"></i><b>7.6.2</b> Chord Diagrams and Circos Plots<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="multiple-plots.html"><a href="multiple-plots.html"><i class="fa fa-check"></i><b>7.7</b> Multiple Plots<span></span></a>
-<ul>
-<li class="chapter" data-level="7.7.1" data-path="multiple-plots.html"><a href="multiple-plots.html#facet-wrapping"><i class="fa fa-check"></i><b>7.7.1</b> Facet wrapping<span></span></a></li>
-<li class="chapter" data-level="7.7.2" data-path="multiple-plots.html"><a href="multiple-plots.html#multipanel-figures"><i class="fa fa-check"></i><b>7.7.2</b> Multipanel Figures<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.8" data-path="publication-ready-plots.html"><a href="publication-ready-plots.html"><i class="fa fa-check"></i><b>7.8</b> Publication Ready Plots<span></span></a>
-<ul>
-<li class="chapter" data-level="7.8.1" data-path="publication-ready-plots.html"><a href="publication-ready-plots.html#ggplot-themes"><i class="fa fa-check"></i><b>7.8.1</b> <code>ggplot</code> Themes<span></span></a></li>
-<li class="chapter" data-level="7.8.2" data-path="publication-ready-plots.html"><a href="publication-ready-plots.html#exporting-to-svg"><i class="fa fa-check"></i><b>7.8.2</b> Exporting to SVG<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.9" data-path="network-visualization.html"><a href="network-visualization.html"><i class="fa fa-check"></i><b>7.9</b> Network visualization<span></span></a>
-<ul>
-<li class="chapter" data-level="7.9.1" data-path="network-visualization.html"><a href="network-visualization.html#interactive-network-plots"><i class="fa fa-check"></i><b>7.9.1</b> Interactive network plots<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="biology-bioinformatics.html"><a href="biology-bioinformatics.html"><i class="fa fa-check"></i><b>8</b> Biology &amp; Bioinformatics<span></span></a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="bio-r.html"><a href="bio-r.html"><i class="fa fa-check"></i><b>8.1</b> R in Biology<span></span></a></li>
-<li class="chapter" data-level="8.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html"><i class="fa fa-check"></i><b>8.2</b> Biological Data Overview<span></span></a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="biological-data-overview.html"><a href="biological-data-overview.html#bio-data-types"><i class="fa fa-check"></i><b>8.2.1</b> Types of Biological Data<span></span></a></li>
-<li class="chapter" data-level="8.2.2" data-path="biological-data-overview.html"><a href="biological-data-overview.html#csv-files"><i class="fa fa-check"></i><b>8.2.2</b> CSV Files<span></span></a></li>
-<li class="chapter" data-level="8.2.3" data-path="biological-data-overview.html"><a href="biological-data-overview.html#biological-data-is-not-tidy"><i class="fa fa-check"></i><b>8.2.3</b> Biological data is NOT Tidy!<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="bio-bioconductor.html"><a href="bio-bioconductor.html"><i class="fa fa-check"></i><b>8.3</b> Bioconductor<span></span></a></li>
-<li class="chapter" data-level="8.4" data-path="microarrays.html"><a href="microarrays.html"><i class="fa fa-check"></i><b>8.4</b> Microarrays<span></span></a></li>
-<li class="chapter" data-level="8.5" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html"><i class="fa fa-check"></i><b>8.5</b> High Throughput Sequencing<span></span></a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#raw-hts-data"><i class="fa fa-check"></i><b>8.5.1</b> Raw HTS Data<span></span></a></li>
-<li class="chapter" data-level="8.5.2" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#preliminary-hts-data-analysis"><i class="fa fa-check"></i><b>8.5.2</b> Preliminary HTS Data Analysis<span></span></a></li>
-<li class="chapter" data-level="8.5.3" data-path="high-throughput-sequencing.html"><a href="high-throughput-sequencing.html#count-data"><i class="fa fa-check"></i><b>8.5.3</b> Count Data<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="gene-identifiers.html"><a href="gene-identifiers.html"><i class="fa fa-check"></i><b>8.6</b> Gene Identifiers<span></span></a>
-<ul>
-<li class="chapter" data-level="8.6.1" data-path="gene-identifiers.html"><a href="gene-identifiers.html#gene-identifier-systems"><i class="fa fa-check"></i><b>8.6.1</b> Gene Identifier Systems<span></span></a></li>
-<li class="chapter" data-level="8.6.2" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-between-identifier-systems"><i class="fa fa-check"></i><b>8.6.2</b> Mapping Between Identifier Systems<span></span></a></li>
-<li class="chapter" data-level="8.6.3" data-path="gene-identifiers.html"><a href="gene-identifiers.html#mapping-homologs"><i class="fa fa-check"></i><b>8.6.3</b> Mapping Homologs<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.7" data-path="gene-expression.html"><a href="gene-expression.html"><i class="fa fa-check"></i><b>8.7</b> Gene Expression<span></span></a>
-<ul>
-<li class="chapter" data-level="8.7.1" data-path="gene-expression.html"><a href="gene-expression.html#gene-expression-data-in-bioconductor"><i class="fa fa-check"></i><b>8.7.1</b> Gene Expression Data in Bioconductor<span></span></a></li>
-<li class="chapter" data-level="8.7.2" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-analysis"><i class="fa fa-check"></i><b>8.7.2</b> Differential Expression Analysis<span></span></a></li>
-<li class="chapter" data-level="8.7.3" data-path="gene-expression.html"><a href="gene-expression.html#microarray-gene-expression-data"><i class="fa fa-check"></i><b>8.7.3</b> Microarray Gene Expression Data<span></span></a></li>
-<li class="chapter" data-level="8.7.4" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-microarrays-limma"><i class="fa fa-check"></i><b>8.7.4</b> Differential Expression: Microarrays (limma)<span></span></a></li>
-<li class="chapter" data-level="8.7.5" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq"><i class="fa fa-check"></i><b>8.7.5</b> RNASeq<span></span></a></li>
-<li class="chapter" data-level="8.7.6" data-path="gene-expression.html"><a href="gene-expression.html#rnaseq-gene-expression-data"><i class="fa fa-check"></i><b>8.7.6</b> RNASeq Gene Expression Data<span></span></a></li>
-<li class="chapter" data-level="8.7.7" data-path="gene-expression.html"><a href="gene-expression.html#filtering-counts"><i class="fa fa-check"></i><b>8.7.7</b> Filtering Counts<span></span></a></li>
-<li class="chapter" data-level="8.7.8" data-path="gene-expression.html"><a href="gene-expression.html#count-distributions"><i class="fa fa-check"></i><b>8.7.8</b> Count Distributions<span></span></a></li>
-<li class="chapter" data-level="8.7.9" data-path="gene-expression.html"><a href="gene-expression.html#differential-expression-rnaseq"><i class="fa fa-check"></i><b>8.7.9</b> Differential Expression: RNASeq<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.8" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html"><i class="fa fa-check"></i><b>8.8</b> Gene Set Enrichment Analysis<span></span></a>
-<ul>
-<li class="chapter" data-level="8.8.1" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#gene-sets"><i class="fa fa-check"></i><b>8.8.1</b> Gene Sets<span></span></a></li>
-<li class="chapter" data-level="8.8.2" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#working-with-gene-sets-in-r"><i class="fa fa-check"></i><b>8.8.2</b> Working with gene sets in R<span></span></a></li>
-<li class="chapter" data-level="8.8.3" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#over-representation-analysis"><i class="fa fa-check"></i><b>8.8.3</b> Over-representation Analysis<span></span></a></li>
-<li class="chapter" data-level="8.8.4" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#rank-based-analysis"><i class="fa fa-check"></i><b>8.8.4</b> Rank-based Analysis<span></span></a></li>
-<li class="chapter" data-level="8.8.5" data-path="gene-set-enrichment-analysis.html"><a href="gene-set-enrichment-analysis.html#fgsea"><i class="fa fa-check"></i><b>8.8.5</b> fgsea<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.9" data-path="biological-networks-..html"><a href="biological-networks-..html"><i class="fa fa-check"></i><b>8.9</b> Biological Networks .<span></span></a>
-<ul>
-<li class="chapter" data-level="8.9.1" data-path="biological-networks-..html"><a href="biological-networks-..html#biological-pathways-."><i class="fa fa-check"></i><b>8.9.1</b> Biological Pathways .<span></span></a></li>
-<li class="chapter" data-level="8.9.2" data-path="biological-networks-..html"><a href="biological-networks-..html#gene-regulatory-networks-."><i class="fa fa-check"></i><b>8.9.2</b> Gene Regulatory Networks .<span></span></a></li>
-<li class="chapter" data-level="8.9.3" data-path="biological-networks-..html"><a href="biological-networks-..html#protein-protein-interaction-network-."><i class="fa fa-check"></i><b>8.9.3</b> Protein-Protein Interaction Network .<span></span></a></li>
-<li class="chapter" data-level="8.9.4" data-path="biological-networks-..html"><a href="biological-networks-..html#wgcna-."><i class="fa fa-check"></i><b>8.9.4</b> WGCNA .<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="engineering.html"><a href="engineering.html"><i class="fa fa-check"></i><b>9</b> EngineeRing<span></span></a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="unit-testing.html"><a href="unit-testing.html"><i class="fa fa-check"></i><b>9.1</b> Unit Testing<span></span></a></li>
-<li class="chapter" data-level="9.2" data-path="toolification.html"><a href="toolification.html"><i class="fa fa-check"></i><b>9.2</b> Toolification<span></span></a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="toolification.html"><a href="toolification.html#the-r-interpreter"><i class="fa fa-check"></i><b>9.2.1</b> The R Interpreter<span></span></a></li>
-<li class="chapter" data-level="9.2.2" data-path="toolification.html"><a href="toolification.html#rscript"><i class="fa fa-check"></i><b>9.2.2</b> <code>Rscript</code><span></span></a></li>
-<li class="chapter" data-level="9.2.3" data-path="toolification.html"><a href="toolification.html#commandargs"><i class="fa fa-check"></i><b>9.2.3</b> <code>commandArgs()</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="parallel-processing.html"><a href="parallel-processing.html"><i class="fa fa-check"></i><b>9.3</b> Parallel Processing<span></span></a>
-<ul>
-<li class="chapter" data-level="9.3.1" data-path="parallel-processing.html"><a href="parallel-processing.html#brief-introduction-to-parallelization"><i class="fa fa-check"></i><b>9.3.1</b> Brief Introduction to Parallelization<span></span></a></li>
-<li class="chapter" data-level="9.3.2" data-path="parallel-processing.html"><a href="parallel-processing.html#apply-and-friends-are-pleasingly-parallel"><i class="fa fa-check"></i><b>9.3.2</b> <code>apply</code> and Friends Are Pleasingly Parallel<span></span></a></li>
-<li class="chapter" data-level="9.3.3" data-path="parallel-processing.html"><a href="parallel-processing.html#the-parallel-package"><i class="fa fa-check"></i><b>9.3.3</b> The <code>parallel</code> package<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.4" data-path="object-orientation-in-r-..html"><a href="object-orientation-in-r-..html"><i class="fa fa-check"></i><b>9.4</b> Object Orientation in R .<span></span></a></li>
-<li class="chapter" data-level="9.5" data-path="r-packages-..html"><a href="r-packages-..html"><i class="fa fa-check"></i><b>9.5</b> R Packages .<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="rshiny.html"><a href="rshiny.html"><i class="fa fa-check"></i><b>10</b> RShiny<span></span></a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="rshiny-introduction.html"><a href="rshiny-introduction.html"><i class="fa fa-check"></i><b>10.1</b> RShiny Introduction<span></span></a>
-<ul>
-<li class="chapter" data-level="10.1.1" data-path="rshiny-introduction.html"><a href="rshiny-introduction.html#how-does-a-web-page-work"><i class="fa fa-check"></i><b>10.1.1</b> How does a web page work?<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="application-structure.html"><a href="application-structure.html"><i class="fa fa-check"></i><b>10.2</b> Application Structure<span></span></a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="application-structure.html"><a href="application-structure.html#ui-design"><i class="fa fa-check"></i><b>10.2.1</b> UI Design<span></span></a></li>
-<li class="chapter" data-level="10.2.2" data-path="application-structure.html"><a href="application-structure.html#server-functionality"><i class="fa fa-check"></i><b>10.2.2</b> Server Functionality<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="reactivity.html"><a href="reactivity.html"><i class="fa fa-check"></i><b>10.3</b> Reactivity<span></span></a></li>
-<li class="chapter" data-level="10.4" data-path="publishing.html"><a href="publishing.html"><i class="fa fa-check"></i><b>10.4</b> Publishing<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="communicating-with-r.html"><a href="communicating-with-r.html"><i class="fa fa-check"></i><b>11</b> Communicating with R<span></span></a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="rmarkdown-knitr.html"><a href="rmarkdown-knitr.html"><i class="fa fa-check"></i><b>11.1</b> RMarkdown &amp; knitr<span></span></a></li>
-<li class="chapter" data-level="11.2" data-path="bookdown.html"><a href="bookdown.html"><i class="fa fa-check"></i><b>11.2</b> bookdown<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="contribution-guide.html"><a href="contribution-guide.html"><i class="fa fa-check"></i><b>12</b> Contribution Guide<span></span></a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="custom-blocks.html"><a href="custom-blocks.html"><i class="fa fa-check"></i><b>12.1</b> Custom blocks<span></span></a></li>
-</ul></li>
-<li><a href="assignments.html#assignments">Assignments<span></span></a>
-<ul>
-<li><a href="assignment-format.html#assignment-format">Assignment Format<span></span></a></li>
-<li><a href="starting-an-assignment.html#starting-an-assignment">Starting an Assignment<span></span></a>
-<ul>
-<li><a href="starting-an-assignment.html#starting-your-own-git-repository-and-cloning-it">Starting your own <code>git</code> repository and cloning it<span></span></a></li>
-<li><a href="starting-an-assignment.html#contents">Contents<span></span></a></li>
-<li><a href="starting-an-assignment.html#github-tutorial">GitHub tutorial<span></span></a></li>
-<li><a href="starting-an-assignment.html#committing-and-pushing-with-r-and-without">Committing and Pushing with R (and without)<span></span></a></li>
-<li><a href="starting-an-assignment.html#using-rstudio">Using RStudio<span></span></a></li>
-<li><a href="starting-an-assignment.html#using-the-command-line">Using the command line<span></span></a></li>
-</ul></li>
-<li><a href="assignment-1.html#assignment-1">Assignment 1<span></span></a>
-<ul>
-<li><a href="assignment-1.html#problem-statement">Problem Statement<span></span></a></li>
-<li><a href="assignment-1.html#learning-objectives-and-skill-list">Learning Objectives and Skill List<span></span></a></li>
-<li><a href="assignment-1.html#instructions">Instructions<span></span></a></li>
-<li><a href="assignment-1.html#hints">Hints<span></span></a></li>
-</ul></li>
-<li><a href="assignment-2.html#assignment-2">Assignment 2<span></span></a>
-<ul>
-<li><a href="assignment-2.html#problem-statement-1">Problem Statement<span></span></a></li>
-<li><a href="assignment-2.html#learning-objectives">Learning Objectives<span></span></a></li>
-<li><a href="assignment-2.html#skill-list">Skill List<span></span></a></li>
-<li><a href="assignment-2.html#instructions-1">Instructions<span></span></a></li>
-<li><a href="assignment-2.html#function-details">Function Details<span></span></a></li>
-</ul></li>
-<li><a href="assignment-3.html#assignment-3">Assignment 3<span></span></a>
-<ul>
-<li><a href="assignment-3.html#problem-statement-2">Problem Statement<span></span></a></li>
-<li><a href="assignment-3.html#learning-objectives-1">Learning Objectives<span></span></a></li>
-<li><a href="assignment-3.html#skill-list-1">Skill List<span></span></a></li>
-<li><a href="assignment-3.html#background-on-microarrays">Background on Microarrays<span></span></a></li>
-<li><a href="assignment-3.html#background-on-principal-component-analysis">Background on Principal Component Analysis<span></span></a></li>
-<li><a href="assignment-3.html#marisa-et-al.-gene-expression-classification-of-colon-cancer-into-molecular-subtypes-characterization-validation-and-prognostic-value.-plos-medicine-may-2013.-pmid-23700391">Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391<span></span></a></li>
-<li><a href="assignment-3.html#scaling-data-using-r-scale">Scaling data using R <code>scale()</code><span></span></a></li>
-<li><a href="assignment-3.html#proportion-of-variance-explained">Proportion of variance explained<span></span></a></li>
-<li><a href="assignment-3.html#plotting-and-visualization-of-pca">Plotting and visualization of PCA<span></span></a></li>
-<li><a href="assignment-3.html#hierarchical-clustering-and-heatmaps">Hierarchical Clustering and Heatmaps<span></span></a></li>
-<li><a href="assignment-3.html#references">References<span></span></a></li>
-</ul></li>
-<li><a href="assignment-4.html#assignment-4">Assignment 4<span></span></a>
-<ul>
-<li><a href="assignment-4.html#problem-statement-3">Problem Statement<span></span></a></li>
-<li><a href="assignment-4.html#learning-objectives-2">Learning Objectives<span></span></a></li>
-<li><a href="assignment-4.html#skill-list-2">Skill List<span></span></a></li>
-<li><a href="assignment-4.html#instructions-2">Instructions<span></span></a></li>
-<li><a href="assignment-4.html#deliverables">Deliverables<span></span></a></li>
-<li><a href="assignment-4.html#function-details-1">Function Details<span></span></a></li>
-<li><a href="assignment-4.html#hints-1">Hints<span></span></a></li>
-</ul></li>
-<li><a href="assignment-5.html#assignment-5">Assignment 5<span></span></a>
-<ul>
-<li><a href="assignment-5.html#problem-statement-4">Problem Statement<span></span></a></li>
-<li><a href="assignment-5.html#learning-objectives-3">Learning Objectives<span></span></a></li>
-<li><a href="assignment-5.html#skill-list-3">Skill List<span></span></a></li>
-<li><a href="assignment-5.html#deseq2-background">DESeq2 Background<span></span></a></li>
-<li><a href="assignment-5.html#generating-a-counts-matrix">Generating a counts matrix<span></span></a></li>
-<li><a href="assignment-5.html#prefiltering-counts-matrix">Prefiltering Counts matrix<span></span></a></li>
-<li><a href="assignment-5.html#median-of-ratios-normalization">Median-of-ratios normalization<span></span></a></li>
-<li><a href="assignment-5.html#deseq2-preparation">DESeq2 preparation<span></span></a></li>
-<li><a href="assignment-5.html#omeara-et-al.-transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration.-circ-res.-feb-2015.-pmid-25477501l">O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l<span></span></a></li>
-<li><a href="assignment-5.html#reading-and-subsetting-the-data-from-verse_counts.tsv-and-sample_metadata.csv">1. Reading and subsetting the data from verse_counts.tsv and sample_metadata.csv<span></span></a></li>
-<li><a href="assignment-5.html#running-deseq2">2. Running DESeq2<span></span></a></li>
-<li><a href="assignment-5.html#annotating-results-to-construct-a-labeled-volcano-plot">3. Annotating results to construct a labeled volcano plot<span></span></a></li>
-<li><a href="assignment-5.html#diagnostic-plot-of-the-raw-p-values-for-all-genes">4. Diagnostic plot of the raw p-values for all genes<span></span></a></li>
-<li><a href="assignment-5.html#plotting-the-logfoldchanges-for-differentially-expressed-genes">5. Plotting the LogFoldChanges for differentially expressed genes<span></span></a></li>
-<li><a href="assignment-5.html#the-choice-of-fdr-cutoff-depends-on-cost">The choice of FDR cutoff depends on cost<span></span></a></li>
-<li><a href="assignment-5.html#plotting-the-normalized-counts-of-differentially-expressed-genes">6. Plotting the normalized counts of differentially expressed genes<span></span></a></li>
-<li><a href="assignment-5.html#volcano-plot-to-visualize-differential-expression-results">7. Volcano Plot to visualize differential expression results<span></span></a></li>
-<li><a href="assignment-5.html#running-fgsea-vignette">8. Running fgsea <span>vignette</span><span></span></a></li>
-<li><a href="assignment-5.html#plotting-the-top-ten-positive-nes-and-top-ten-negative-nes-pathways">9. Plotting the top ten positive NES and top ten negative NES pathways<span></span></a></li>
-<li><a href="assignment-5.html#references-1">References<span></span></a></li>
-</ul></li>
-<li><a href="assignment-6.html#assignment-6">Assignment 6<span></span></a>
-<ul>
-<li><a href="assignment-6.html#problem-statement-5">Problem Statement<span></span></a></li>
-<li><a href="assignment-6.html#learning-objectives-4">Learning Objectives<span></span></a></li>
-<li><a href="assignment-6.html#skill-list-4">Skill List<span></span></a></li>
-<li><a href="assignment-6.html#instructions-3">Instructions<span></span></a></li>
-<li><a href="assignment-6.html#function-details-2">Function Details<span></span></a></li>
-</ul></li>
-<li><a href="assignment-7.html#assignment-7">Assignment 7<span></span></a>
-<ul>
-<li><a href="assignment-7.html#problem-statement-6">Problem Statement<span></span></a></li>
-<li><a href="assignment-7.html#learning-objectives-5">Learning Objectives<span></span></a></li>
-<li><a href="assignment-7.html#skill-list-5">Skill List<span></span></a></li>
-<li><a href="assignment-7.html#instructions-4">Instructions<span></span></a></li>
-<li><a href="assignment-7.html#function-details-3">“Function” Details<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix<span></span></b></span></li>
-<li class="chapter" data-level="A" data-path="class-outlines.html"><a href="class-outlines.html"><i class="fa fa-check"></i><b>A</b> Class Outlines<span></span></a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="week-1.html"><a href="week-1.html"><i class="fa fa-check"></i><b>A.1</b> Week 1<span></span></a></li>
-<li class="chapter" data-level="A.2" data-path="week-2.html"><a href="week-2.html"><i class="fa fa-check"></i><b>A.2</b> Week 2<span></span></a></li>
-<li class="chapter" data-level="A.3" data-path="week-3.html"><a href="week-3.html"><i class="fa fa-check"></i><b>A.3</b> Week 3<span></span></a></li>
-<li class="chapter" data-level="A.4" data-path="week-4.html"><a href="week-4.html"><i class="fa fa-check"></i><b>A.4</b> Week 4<span></span></a></li>
-<li class="chapter" data-level="A.5" data-path="week-5.html"><a href="week-5.html"><i class="fa fa-check"></i><b>A.5</b> Week 5<span></span></a></li>
-<li class="chapter" data-level="A.6" data-path="week-6.html"><a href="week-6.html"><i class="fa fa-check"></i><b>A.6</b> Week 6<span></span></a></li>
-<li class="chapter" data-level="A.7" data-path="week-7.html"><a href="week-7.html"><i class="fa fa-check"></i><b>A.7</b> Week 7<span></span></a></li>
-<li class="chapter" data-level="A.8" data-path="week-8.html"><a href="week-8.html"><i class="fa fa-check"></i><b>A.8</b> Week 8<span></span></a></li>
-<li class="chapter" data-level="A.9" data-path="week-9.html"><a href="week-9.html"><i class="fa fa-check"></i><b>A.9</b> Week 9<span></span></a></li>
-<li class="chapter" data-level="A.10" data-path="week-10.html"><a href="week-10.html"><i class="fa fa-check"></i><b>A.10</b> Week 10<span></span></a></li>
-<li class="chapter" data-level="A.11" data-path="week-11.html"><a href="week-11.html"><i class="fa fa-check"></i><b>A.11</b> Week 11<span></span></a></li>
-<li class="chapter" data-level="A.12" data-path="week-12.html"><a href="week-12.html"><i class="fa fa-check"></i><b>A.12</b> Week 12<span></span></a></li>
-<li class="chapter" data-level="A.13" data-path="week-13.html"><a href="week-13.html"><i class="fa fa-check"></i><b>A.13</b> Week 13<span></span></a></li>
-<li class="chapter" data-level="A.14" data-path="week-14.html"><a href="week-14.html"><i class="fa fa-check"></i><b>A.14</b> Week 14<span></span></a></li>
-</ul></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">BF591 - R for Biological Sciences</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">BF591 - R for Biological Sciences</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html">Syllabus</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="data-bio.html"><span class="header-section-number">2</span> Data in Biology</a></li>
+<li><a class="" href="preliminaries.html"><span class="header-section-number">3</span> Preliminaries</a></li>
+<li><a class="" href="prog-basics.html"><span class="header-section-number">4</span> R Programming</a></li>
+<li><a class="" href="data-wrangling.html"><span class="header-section-number">5</span> Data Wrangling</a></li>
+<li><a class="" href="data-science.html"><span class="header-section-number">6</span> Data Science</a></li>
+<li><a class="" href="data-visualization.html"><span class="header-section-number">7</span> Data Visualization</a></li>
+<li><a class="" href="biology-bioinformatics.html"><span class="header-section-number">8</span> Biology &amp; Bioinformatics</a></li>
+<li><a class="" href="engineering.html"><span class="header-section-number">9</span> EngineeRing</a></li>
+<li><a class="" href="rshiny.html"><span class="header-section-number">10</span> RShiny</a></li>
+<li><a class="" href="communicating-with-r.html"><span class="header-section-number">11</span> Communicating with R</a></li>
+<li><a class="" href="contribution-guide.html"><span class="header-section-number">12</span> Contribution Guide</a></li>
+<li><a class="" href="assignments.html">Assignments</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="class-outlines.html"><span class="header-section-number">A</span> Class Outlines</a></li>
+</ul>
+
+        <div class="book-extra">
+          
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">BF591 - R for Biological Sciences</h1>
+      </nav>
 </div>
-<div id="syllabus" class="section level1 unnumbered hasAnchor">
-<h1>Syllabus<a href="index.html#syllabus" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="syllabus" class="section level1 unnumbered">
+<h1>Syllabus<a class="anchor" aria-label="anchor" href="#syllabus"><i class="fas fa-link"></i></a>
+</h1>
 <p><strong>Semester: Spring 2022</strong></p>
 <p><strong>Location: EPC 209 and zoom</strong></p>
 <p><strong>Time: M/W 8:00AM - 9:45AM</strong></p>
 <p>Contents:</p>
 <ul>
-<li><a href="course-schedule.html#course-schedule">Course Schedule</a></li>
-<li><a href="instructors.html#instructors">Instructors</a></li>
-<li><a href="office-hours.html#office-hours">Office Hours</a></li>
-<li><a href="course-values-and-policies.html#course-values-and-policies">Course Values and Policies</a></li>
+<li><a href="index.html#course-schedule">Course Schedule</a></li>
+<li><a href="index.html#instructors">Instructors</a></li>
+<li><a href="index.html#office-hours">Office Hours</a></li>
+<li><a href="index.html#course-values-and-policies">Course Values and Policies</a></li>
 </ul>
 <p>This course introduces the R programming language through the lens of
 practitioners in the biological sciences, particularly biology and
@@ -612,69 +104,306 @@ it, and allows interaction with an RShiny app.</p>
 <p>The course materials are aligned with <a href="https://bf528.rtfd.io">BF528 Applications in Translational
 Bioinformatics</a> and are intended to be taken in tandem,
 but the materials also stand alone as an independent class.</p>
+<div id="course-schedule" class="section level2 unnumbered">
+<h2>Course Schedule<a class="anchor" aria-label="anchor" href="#course-schedule"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Key:</strong></p>
+<ul>
+<li>
+<strong>bold</strong> - class held over zoom</li>
+<li>
+<del>struckout</del> - class not held, reserved for project work</li>
+<li>Follow <a href="class-outlines.html#class-outlines">Week N</a> links for detailed list of topic sections.</li>
+<li>Assignments are assigned and due on the first day of class each week unless
+mentioned otherwise</li>
+</ul>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="12%">
+<col width="20%">
+<col width="48%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th>Week</th>
+<th>Dates</th>
+<th>Topics</th>
+<th>Assignment</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Week 0</td>
+<td>Prior to class</td>
+<td><ul>
+<li>Github configuration</li>
+</ul></td>
+<td>[Assignment 0]</td>
+</tr>
+<tr class="even">
+<td><a href="class-outlines.html#week-1">Week 1</a></td>
+<td>1/24 &amp; 1/26</td>
+<td><ul>
+<li>Preliminaries</li>
+<li>Data in Biology</li>
+<li>R Programming Basics</li>
+<li>Data Wrangling &amp; tidyverse Basics</li>
+</ul></td>
+<td><a href="assignments.html#assignment-1">Assignment 1</a></td>
+</tr>
+<tr class="odd">
+<td><a href="class-outlines.html#week-2">Week 2</a></td>
+<td>1/31 &amp; 2/2</td>
+<td><ul>
+<li>R in Biology</li>
+<li>Bio: Bioconductor Basics</li>
+<li>Data Viz: Grammar of Graphics</li>
+</ul></td>
+<td><a href="assignments.html#assignment-1">Assignment 1</a></td>
+</tr>
+<tr class="even">
+<td><a href="class-outlines.html#week-3">Week 3</a></td>
+<td>
+<strong>2/7</strong> &amp; 2/9</td>
+<td><ul>
+<li>Data Sci: Data Modeling</li>
+<li>Bio: Gene Expression</li>
+<li>Bio: Microarrays</li>
+<li>Bio: Differential Expression: Microarrays</li>
+</ul></td>
+<td><a href="assignments.html#assignment-2">Assignment 2</a></td>
+</tr>
+<tr class="odd">
+<td><a href="class-outlines.html#week-4">Week 4</a></td>
+<td>
+<strong>2/14</strong> &amp; 2/16</td>
+<td><ul>
+<li>Data Sci: PCA &amp; Clustering</li>
+<li>Data Vis: Heatmaps &amp; Dendrograms</li>
+<li>R Programming: Structures &amp; Iteration</li>
+</ul></td>
+<td><a href="assignments.html#assignment-3">Assignment 3</a></td>
+</tr>
+<tr class="even">
+<td><a href="class-outlines.html#week-5">Week 5</a></td>
+<td>2/22 &amp; 2/23
+<strong>Note: 2/22 is a
+Tuesday</strong>
+</td>
+<td><ul>
+<li>Bio: High Throughput Sequencing</li>
+<li>Bio: RNASeq</li>
+<li>Bio: Count Data</li>
+<li>Bio: Differential Expression: RNASeq</li>
+<li>Bio: Gene Set Enrichment Analysis</li>
+</ul></td>
+<td><a href="assignments.html#assignment-4">Assignment 4</a></td>
+</tr>
+<tr class="odd">
+<td><a href="class-outlines.html#week-6">Week 6</a></td>
+<td>
+<strong>2/28</strong> &amp; 3/2</td>
+<td><ul>
+<li>Data Sci: Distributions</li>
+<li>Data Sci: Statistical Tests</li>
+<li>R Programming: Style &amp; Conventions</li>
+</ul></td>
+<td><a href="assignments.html#assignment-5">Assignment 5</a></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>3/7 &amp; 3/9</td>
+<td>Spring Break</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="class-outlines.html#week-7">Week 7</a></td>
+<td>
+<strong>3/14</strong> &amp; 3/16</td>
+<td><ul>
+<li>Data Viz: Responsible Plotting</li>
+</ul></td>
+<td><a href="assignments.html#assignment-6">Assignment 6</a></td>
+</tr>
+<tr class="even">
+<td><a href="class-outlines.html#week-8">Week 8</a></td>
+<td>3/21 &amp; 3/23</td>
+<td><ul>
+<li>RShiny</li>
+</ul></td>
+<td><a href="assignments.html#assignment-7">Assignment 7</a></td>
+</tr>
+<tr class="odd">
+<td><a href="class-outlines.html#week-9">Week 9</a></td>
+<td>
+<strong>3/28</strong> &amp; 3/30</td>
+<td><ul>
+<li>EngineeRing</li>
+</ul></td>
+<td><a href="assignments.html#assignment-7">Assignment 7</a></td>
+</tr>
+<tr class="even">
+<td><a href="class-outlines.html#week-10">Week 10</a></td>
+<td>
+<strong>4/4</strong> &amp; 4/6</td>
+<td><ul>
+<li>Bio: Biological Networks</li>
+<li>Data Sci: Network Analysis</li>
+<li>Data Viz: Network Viz</li>
+</ul></td>
+<td>[Project]</td>
+</tr>
+<tr class="odd">
+<td><a href="class-outlines.html#week-11">Week 11</a></td>
+<td><del>4/11 &amp; 4/13</del></td>
+<td><ul>
+<li>Project work, no class</li>
+</ul></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="class-outlines.html#week-12">Week 12</a></td>
+<td><del>4/20</del></td>
+<td><ul>
+<li>Project work, no class</li>
+</ul></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="class-outlines.html#week-13">Week 13</a></td>
+<td><del>4/25 &amp; 4/27</del></td>
+<td><ul>
+<li>Project work, no class</li>
+</ul></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="class-outlines.html#week-14">Week 14</a></td>
+<td>
+<del>5/2</del> &amp; 5/4</td>
+<td><ul>
+<li>Course wrap up &amp; feedback</li>
+</ul></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>5/9</td>
+<td><ul>
+<li>First day of exam period</li>
+</ul></td>
+<td>Project due</td>
+</tr>
+</tbody>
+</table></div>
 </div>
-            </section>
+<div id="instructors" class="section level2 unnumbered">
+<h2>Instructors<a class="anchor" aria-label="anchor" href="#instructors"><i class="fas fa-link"></i></a>
+</h2>
+<p>Primary instructor: Adam Labadorf (labadorf AT bu DOT edu)</p>
+<p>We have three staff members helping with the course, in no particular order (ok,
+I guess it’s alphabetical):</p>
+<ul>
+<li>
+<strong>Taylor Falk</strong> (BU BF MS Alumnus ’21) is a Bioinformatics Developer working
+with the VA PTSD Brain Bank, developing infrastructure to support data
+generated out of our brains. He is championing the assignment strategy and
+will be available to help with issues.</li>
+<li>
+<strong>Mae Rose Gott</strong> (BU BF MS Alumna ’21) is a Research Staff member working
+on a number of different projects across many different areas. She will be
+helping organize the course materials as we go forward.</li>
+<li>
+<strong>Vanessa Li</strong> (BU BF PhD Candidate) is a PhD candidate in Dr. Stefano Monti’s
+lab in Computational Biomedicine. She will primarily be helping with grading
+of your assignments.</li>
+<li>
+<strong>Joey Orofino</strong> (BU BF MS Alumnus ’18) is a Research Scientist working on
+identifying small RNA based biomarkers of Parkinson’s Disease</li>
+</ul>
+</div>
+<div id="office-hours" class="section level2 unnumbered">
+<h2>Office Hours<a class="anchor" aria-label="anchor" href="#office-hours"><i class="fas fa-link"></i></a>
+</h2>
+<p>We hold the following office hours via Zoom:</p>
+<ul>
+<li>Joey - Mondays 3:30-4:30</li>
+<li>Vanessa - Tuesdays 10-11AM</li>
+<li>Mae Rose - Wednesdays 8-9PM</li>
+<li>Taylor - Fridays 2-3PM</li>
+</ul>
+<p>The zoom link is pinned in the #announcements channel in slack.</p>
+</div>
+<div id="course-values-and-policies" class="section level2 unnumbered">
+<h2>Course Values and Policies<a class="anchor" aria-label="anchor" href="#course-values-and-policies"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Everyone is welcome.</strong> Every background, race, color, creed, religion, ethnic
+origin, age, sex, sexual orientation, gender identity, nationality is welcome
+and celebrated in this course. Everyone deserves respect, patience, and
+kindness. Disrespectful language, discrimination, or harassment of any kind are
+not tolerated, and may result in removal from class or the University. This is
+not merely <a href="http://www.bu.edu/policies/policy-category/harassment-discrimination/">BU policy</a>.
+The instructors deem these principles to be inviolable human rights. Students
+should feel safe reporting any and all instances of discrimination or
+harassment to the instructor, to any of the Bioinformatics Program leadership,
+or the <a href="http://www.bu.edu/eoo/">BU Equal Opportunity Office</a>.</p>
+<p><strong>Everyone brings value.</strong> Each of us brings unique experiences, skills, and
+creativity to this course. Our diversity is our greatest asset.</p>
+<p><strong>Collaboration is highly encouraged.</strong> All students are encouraged to work
+together and seek out any and all available resources when completing projects
+in all aspects of the course, including sharing coding ideas and strategies with
+each other as well as those found on the internet. Any and all available
+resources may be brought to bear. However, consistent with BU policy, the bulk
+of your code and your final reports should be written in your own words and
+represent your own work and understanding of the material. Copying/pasting large
+sections of code is not acceptable and will be investigated as cheating (we check).</p>
+<p><strong>A safe space for dissent.</strong> For complex topics such as those covered in this
+class, there is seldom one correct answer, approach, or solution. Disagreement
+fosters innovation. All in the course, including students and TAs, are
+encouraged to express constructive criticism and alternative ideas on any
+aspect of the content.</p>
+<p><strong>We are always learning.</strong> Our knowledge and understanding is always
+incomplete. Even experts are fallible. The bioinformatics field evolves
+rapidly, and Rome was not built in a day. Be kind to yourself and to others.
+You are always smarter and more knowledgable today than you were yesterday.</p>
 
-          </div>
-        </div>
-      </div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="introduction.html"><span class="header-section-number">1</span> Introduction</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#syllabus">Syllabus</a></li>
+<li><a class="nav-link" href="#course-schedule">Course Schedule</a></li>
+<li><a class="nav-link" href="#instructors">Instructors</a></li>
+<li><a class="nav-link" href="#office-hours">Office Hours</a></li>
+<li><a class="nav-link" href="#course-values-and-policies">Course Values and Policies</a></li>
+</ul>
 
-<a href="course-schedule.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>BF591 - R for Biological Sciences</strong>" was written by . </p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -686,7 +415,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>
