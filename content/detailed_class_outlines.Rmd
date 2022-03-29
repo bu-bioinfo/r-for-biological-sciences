@@ -4,6 +4,8 @@ output: html_document
 
 # Class Outlines
 
+These are the specific topics covered in each week.
+
 ## Week 1
 * Course Intro & Details
 * Intro: [Data in Biology]
@@ -135,7 +137,6 @@ output: html_document
 * RShiny: [Publishing]
 
 ## Week 9
-* [Assignment 7] Checkin
 * EngineeRing: [Toolification]
 * EngineeRing: [The R Interpreter]
 * EngineeRing: [`Rscript`]
@@ -144,7 +145,8 @@ output: html_document
 * EngineeRing: [Brief Introduction to Parallelization]
 * EngineeRing: [`apply` and Friends Are Pleasingly Parallel]
 * EngineeRing: [The `parallel` package]
-* EngineeRing: [Object Orientated Programming in R]
+* [Assignment 7] Checkin
+* EngineeRing: [Object Oriented Programming in R]
 * EngineeRing: [Building R Packages]
 
 ## Week 10

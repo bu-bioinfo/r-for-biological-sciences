@@ -735,10 +735,38 @@ the read more box below.
 * [Parallel processing with R on Windows](https://waterprogramming.wordpress.com/2020/03/16/parallel-processing-with-r-on-windows/), Water Programming Blog, Reed Lab, Cornell
 :::
 
-## Object Orientation in R .
+## Object Oriented Programming in R
 
-## R Packages .
+[Object-orietned programming](https://en.wikipedia.org/wiki/Object-oriented_programming)
+(OOP) is a programming paradigm that encapsulates related code and data into
+conceptual "objects". These objects generally are used to organize code and make
+it easier to write by passing these encapsulated data and code together as a
+unit. There are several different styles of OOP, and a programming language my
+implement more than one style, or none at all.
+
+Although R is primarily a [functional programming
+language](#functional-programming) it does support OOP in several different
+ways. Hadley Wickham has written an [excellent book chapter on OOP in
+R](https://adv-r.hadley.nz/oo.html) and thus is not replicated here.
 
 ::: {.box .readmore}
-* [R packages](https://r-pkgs.org/index.html) by Hadley Wickam
+* [OOP in R](https://adv-r.hadley.nz/oo.html) by Hadley Wickam
+:::
+
+## Building R Packages
+
+Packages are the fundamental unit of reproducible code in R. Most of the time,
+we as practitioners simply use packages that have been provided by others.
+However, sometimes, when we have developed a methodology that others might find
+useful, it may be advantageous to write our own R packages and share them with
+the community. Writing an R package involves creating a directory with a
+specific structure and adding code, documentation, and package metadata in a
+way that allows it to be distributed.
+
+Hadley Wickham and Jenny Bryan have written an excellent book on how to write
+[R packages](https://r-pkgs.org/). If ever you need to write your own R package,
+this should be the only place you need to go.
+
+::: {.box .readmore}
+* [R packages](https://r-pkgs.org/index.html) by Hadley Wickam and Jenny Bryan
 :::
