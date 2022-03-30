@@ -1,3 +1,6 @@
+img {
+  width: 100%;
+}
 div.figure {
   text-align: center;
   background: rgba(240, 240, 240, 0.6);

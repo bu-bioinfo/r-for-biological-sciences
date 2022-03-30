@@ -13,7 +13,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 knitr::opts_chunk$set(cache = TRUE)
 ```
 
-# Syllabus {-}
+# R for Biological Sciences {-}
 
 **Semester: Spring 2022**
 
