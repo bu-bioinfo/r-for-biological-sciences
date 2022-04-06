@@ -4,9 +4,9 @@ output:
     css: style.css
 ---
 
-## Assignment 4 {-}
+# Assignment 4 {-}
 
-### Problem Statement {-}
+## Problem Statement {-}
 
 When dealing with gene counts in an mRNA-seq dataset, it is important to
 normalize the data before performing any analyses so you can make accurate
@@ -33,19 +33,19 @@ outputs you generate, they are still interacting with the display by viewing it
 and therefore the lines of code that call the functions to create these outputs
 belong in your "front end."
 
-### Learning Objectives {-}
+## Learning Objectives {-}
 - Data normalization methods (CPM, DESeq2)
 - Plotting data in Tidyverse
 - Displaying results and compiling reports in R Markdown
 - Application of Tidyverse functions
 
-### Skill List {-}
+## Skill List {-}
 - DESeq normalization, referencing the linked Bioconductor vignette if needed
 - Tibble manipulation
 - Creating different types of graphs in ggplot2
 - Running PCA
 
-### Instructions {-}
+## Instructions {-}
 An empty project repo can be found here:
 
 [https://github.com/BF591-R/bf591-assignment-4](https://github.com/BF591-R/bf591-assignment-4)
@@ -75,23 +75,23 @@ the sample report does not display any code, it is okay and- preferred, really-
 for your report to _display the code blocks_ like they have done in previous
 assignments.
 
-#### Tasks {-}
+### Tasks {-}
 
 1. Implement the functions as described in `main.R`.  
 2. [optional but highly recommended] Test your functions using `test_main.R
 3. Fill in `report.Rmd` as instructed. You will need the functions you implemented in `main.R`
 4. Knit `report.Rmd` and create your `report.html`
 
-### Deliverables {-}
+## Deliverables {-}
 
 1. `main.R` with all of the functions completed
 2. `report.Rmd` filled in as instructed
 2. `report.html` knitted from your `report.Rmd`
 
 
-### Function Details {-}
+## Function Details {-}
 
-#### 1. `read_data()` {-}
+### 1. `read_data()` {-}
 
 Load a tsv located at a specified location
 
@@ -105,7 +105,7 @@ located in the first column, and output type tibble. Your test_main will include
 additional testing of output column types and lack of row names for your
 reference, to help catch errors early on.
 
-#### 2. `filter_zero_var_genes()` {-}
+### 2. `filter_zero_var_genes()` {-}
 
 Filter out genes with zero variance
 
@@ -120,7 +120,7 @@ will include additional testing for row consistency- ensuring that the sample
 data still correlates with the gene names- for your reference and to help catch
 errors early on
 
-#### 3. `timepoint_from_sample()` {-}
+### 3. `timepoint_from_sample()` {-}
 
 Extract time point information from sample name
 
@@ -135,7 +135,7 @@ Details: This function will be tested for handling various strings of length 5
 in the form `v[A-Z][a-z,1-9]_[1-9]` and outputting the proper string, preserving
 letter case where letter case is provided.
 
-#### 4. `sample_replicate()` {-}
+### 4. `sample_replicate()` {-}
 
 Grab sample replicate number from sample name
 
@@ -150,7 +150,7 @@ Output: string (length 1 of substring `[1-9]` from sample name:
 Details: This function will be tested for handling various strings of length 5
 in the form `v[A-Z][a-z,1-9]_[1-9]` and outputting the proper character string.
 
-#### 5. `meta_info_from_labels()` {-}
+### 5. `meta_info_from_labels()` {-}
 
 Generate sample-level metadata from sample names and stores the data into a
 tibble. Will include columns named "sample", "timepoint", and "replicate" that
@@ -170,7 +170,7 @@ testing for the order of elements in column 'sample''s correspondence with the
 order of elements in the input vector for your reference. The column types of
 your output tibble will not be tested.
 
-#### 6. `get_library_size()` {-}
+### 6. `get_library_size()` {-}
 
 Calculate total read counts for each sample in a counts dataset.
 
@@ -184,7 +184,7 @@ second column
 Details: This function will be tested for the return of a tibble or named vector
 that have sample names which correspond with the appropriate library size.
 
-#### 7. `normalize_by_cpm()` {-}
+### 7. `normalize_by_cpm()` {-}
 
 Normalize raw counts data to counts per million using (counts) /
 (sample_library_size) * 10^6
@@ -198,7 +198,7 @@ will be tested for dimensions, column names, location of string and numeric
 column(s), performance of the desired equation on numeric columns, and that gene
 names still correspond to their rows.
 
-#### 8. `deseq_normalize()` {-}
+### 8. `deseq_normalize()` {-}
 
 Normalize raw counts data using DESeq2
 
@@ -211,7 +211,7 @@ be tested for dimensions, column names, location of string and numeric
 column(s), performance of the desired equation on numeric columns, and that gene
 names still correspond to their rows.
 
-#### 9. `plot_pca()` {-}
+### 9. `plot_pca()` {-}
 
 Input (3): a `(n x _S_)` tibble of data, a `(_S_ x 3)` tibble of sample-level
 meta information, and a string
@@ -221,18 +221,18 @@ Output: a ggplot scatter plot showing each sample, with PC1 on x-axis and PC2 on
 Details: The output of this will be tested for the appropriate test run and PCs
 used to plot. It may be visually inspected as part of your grade
 
-#### 10. `plot_sample_distributions()` {-}
+### 10. `plot_sample_distributions()` {-}
 
 Input (3): a `(n x _S_)` tibble of data, a boolean to determine whether to scale
 the 'y' axis to log10 values, and a string
 
 Output: a ggplot boxplot that shows gene count distributions
 
-Details: This function will be tested on a `(n x _S_)` tibble. It will be tested 
-for functionality of its inputs, handling of data, expected graph elements, and 
+Details: This function will be tested on a `(n x _S_)` tibble. It will be tested
+for functionality of its inputs, handling of data, expected graph elements, and
 graph type. It may also be visually inspected as part of your grade
 
-#### 11. `plot_variance_vs_mean()` {-}
+### 11. `plot_variance_vs_mean()` {-}
 
 Input (3): a `(n x _S_)` tibble of data, a boolean to determine whether to scale
 the 'y' axis to log10 values, and a string
@@ -244,11 +244,11 @@ should also be accompanied by a line representing the average mean and variance
 values
 
 
-Details: This function will be tested on a `(n x _S_)` tibble. It will be tested 
-for functionality of its inputs, handling of data, expected graph elements, and 
+Details: This function will be tested on a `(n x _S_)` tibble. It will be tested
+for functionality of its inputs, handling of data, expected graph elements, and
 graph type. It may also be visually inspected as part of your grade
 
-### Hints {-}
+## Hints {-}
 
 - Make sure you don't have any rownames on any of the tibbles your function(s)
 - return. You should get a warning in your R console if you do.

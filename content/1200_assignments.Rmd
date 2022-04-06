@@ -2,8 +2,5 @@
 output: html_document
 ---
 
-# Assignments {-}
 
-## Assignment Format {-}
-
-GitHub repo templates here
+# (PART) Assignments {-}

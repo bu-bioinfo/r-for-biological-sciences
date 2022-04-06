@@ -2,15 +2,15 @@
 output: html_document
 ---
 
-## Starting an Assignment {-}
+# Starting an Assignment {-}
 > :^) good luck
 
 When starting a project there are a small number of steps to get things set up _just_ right in order to have a smooth and seamless experience. While it is absolutely possible to complete these projects on your own machine and your own installation of R and RStudio, it will be easier and faster to do your work on BU's SCC. The experience will be more straightforward and basically identical to doing it on your own.
 
-### Starting your own `git` repository and cloning it {-}
+## Starting your own `git` repository and cloning it {-}
 In our development of these assignments we used git and [github.com](github.com) to manage our updates and allow for easy sharing. We can now pass these repositories (repos) along to you using GitHub classroom so you can follow the steps within.
 
-### Contents {-}
+## Contents {-}
 Each assignment will have these following files within, roughly:  
 ```
 ├── reference_report.html
@@ -29,7 +29,7 @@ Each assignment will have these following files within, roughly:
 Most assignments beyond assignment 1 have a complementary guide hosted on the website page. These go into more background about how functions and tests work so use them if you're feeling stuck or would like more context. [https://bu-bioinfo.github.io/r_for_biological_sciences/assignment-format.html](Assignment Format)
 :::
 
-### GitHub tutorial {-}
+## GitHub tutorial {-}
 1. Find your assignment link
 2. Clone your repository, you will see a new repo in the form: `myusername/assignment-X`
 3. Inside this repo, click the big <font color="green">**g r e e n**</font> button and copy the HTTP link to your repository.
@@ -41,12 +41,12 @@ Most assignments beyond assignment 1 have a complementary guide hosted on the we
 8. R will download all of the repository contents, and add an `.RProj` file to the directory. This RProject file is useful for switching between R assignments in RStudio. This context menu is in the top right of the RStudio interface:  
 ![](img/how_to_3-switch-proj.png)
 
-### Committing and Pushing with R (and without) {-}
+## Committing and Pushing with R (and without) {-}
 With the RProject set up, you now have a directory on SCC that has cloned your remote repository in GitHub. At this moment all of the files are the same, since you have made no progress on your assignment (depressing, I know). In a burst of productive energy, you will start to make changes to `main.R` and write your beautiful, buggy functions. Once you're done for a little bit, what next? You could leave it on SCC and it would probably be pretty safe, but what if you want to share this code easily? Or if a cataclysm strikes Western Massachusetts? Your changes are gone and life will have lost all meaning.  
 
 To prevent this cataclysm, you must **add**, **commit**, and **push** your code back to GitHub.
 
-### Using RStudio {-}
+## Using RStudio {-}
 1. Save the files you want to commit, and select the Git tab in the top right viewer (by default).  
 ![](img/how_to_4-git_tab.png)
 2. You'll notice the files you changed are listed here, along with varying symbols. A question mark **?** means the file is untracked, an **M** means a tracked file has been modified. A **D** means a tracked file has been deleted. If I select a file I want to add back to GitHub, I can tick the checkbox and it will switch to the left column. This is called **staging** a file.  
@@ -57,7 +57,7 @@ To prevent this cataclysm, you must **add**, **commit**, and **push** your code 
 ![](img/how_to_7-push.png)
 5. In the same vein, the **pull** button is useful if your GitHub has been updated more recently than your current SCC directory. This can happen if you're editing these files from another computer or on [GitHub.com](GitHub.com) directly.
 
-### Using the command line {-}
+## Using the command line {-}
 That was kind of a lot of clicking and funny little menus, and my doctor says I am at high risk for a repetitive stress injury, so can't I just use my keyboard instead? Yes, of course. We'll use the terminal, which is also built-in to RStudio but really just emulates the standard bash terminal that you would use to interact with SCC normally.
 
 1. Click on the terminal tab at the bottom of your layout (default).  
