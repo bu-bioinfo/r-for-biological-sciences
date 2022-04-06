@@ -51,7 +51,16 @@
 <li><a class="" href="rshiny.html"><span class="header-section-number">10</span> RShiny</a></li>
 <li><a class="" href="communicating-with-r.html"><span class="header-section-number">11</span> Communicating with R</a></li>
 <li><a class="" href="contribution-guide.html"><span class="header-section-number">12</span> Contribution Guide</a></li>
-<li><a class="" href="assignments.html">Assignments</a></li>
+<li class="book-part">Assignments</li>
+<li><a class="" href="starting-an-assignment.html">Starting an Assignment</a></li>
+<li><a class="" href="assignment-1.html">Assignment 1</a></li>
+<li><a class="" href="assignment-2.html">Assignment 2</a></li>
+<li><a class="" href="assignment-3.html">Assignment 3</a></li>
+<li><a class="" href="assignment-4.html">Assignment 4</a></li>
+<li><a class="" href="assignment-5.html">Assignment 5</a></li>
+<li><a class="" href="assignment-6.html">Assignment 6</a></li>
+<li><a class="" href="assignment-7.html">Assignment 7</a></li>
+<li><a class="" href="final-project.html">Final Project</a></li>
 <li class="book-part">Appendix</li>
 <li><a class="" href="class-outlines.html"><span class="header-section-number">A</span> Class Outlines</a></li>
 </ul>
@@ -272,7 +281,7 @@ earlier example, we wish to group all of our measurements by probeset and
 compute the variance of each, then possibly filter out probesets based on low
 variance. We can therefore combine <code>pivot_longer()</code>, <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>,
 <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>, and finally <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> to perform this operation. Exactly
-how to do this is left as an exercise in <a href="assignments.html#assignment-1">Assignment 1</a>.</p></li>
+how to do this is left as an exercise in <a href="assignment-1.html#assignment-1">Assignment 1</a>.</p></li>
 <li>
 <p><strong>Compute row-wise statistics using <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>.</strong> As described in <a href="prog-basics.html#iteration">Iteration</a>,
 R is a functional programming language and implements iteration in a
@@ -2525,7 +2534,7 @@ Diego as Gene Set Enrichment Analysis (note the capitalization). This specific
 methodology should not be confused with gene set enrichment analysis, which we
 use as an umbrella term covering the many statistical methodologies used to
 analyze gene sets.</p>
-<p><a href="biology-bioinformatics.html#gene-set-enrichment-analysis">Gene Set Enrichment Analysis</a> (<a href="https://www.gsea-msigdb.org/gsea/index.jsp" class="uri">https://www.gsea-msigdb.org/gsea/index.jsp</a>) was
+<p><a href="final-project.html#gene-set-enrichment-analysis-1">Gene Set Enrichment Analysis</a> (<a href="https://www.gsea-msigdb.org/gsea/index.jsp" class="uri">https://www.gsea-msigdb.org/gsea/index.jsp</a>) was
 a method developed to facilitate the biological analysis of genome-wide
 expression experiments. It is a rank-based method which utilizes all of the
 information from an expression dataset instead of relying on pre-determined
@@ -2881,36 +2890,76 @@ depending upon your interests.</p>
 
 </div>
 </div>
-<div id="biological-networks-." class="section level2" number="8.9">
+<div id="biological-networks" class="section level2" number="8.9">
 <h2>
-<span class="header-section-number">8.9</span> Biological Networks .<a class="anchor" aria-label="anchor" href="#biological-networks-."><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9</span> Biological Networks<a class="anchor" aria-label="anchor" href="#biological-networks"><i class="fas fa-link"></i></a>
 </h2>
-<p>What are biological networks? What do they represent (networks encode
-relationships between entities)? Why are biological networks useful and what can
-we learn from them?</p>
-<div id="biological-pathways-." class="section level3" number="8.9.1">
+<p>Biological systems are made up of many components that work together in spatial,
+temporal, and chemical ways to maintain biological fidelity. These components
+may be molecular components like metabolites, transcripts, or proteins, entire
+organisms as in the case of microbial ecologies, or even abstract concepts like
+genes and metabolic reactions. While studying individual components is a
+necessary part of biological research, understanding how those components
+interact and influence each other can help gain a greater understanding of
+biological systems as a whole. In biology, mathematics, and other fields, we
+can conceptualize a set of these components and their relationships as
+<em>network</em>.</p>
+<p>In general terms, a <em>network</em> is defined as a set of components (or <em>entities</em>)
+and the relationships between them. Some networks are physical, like computer
+networks where different hardware devices are connected together with wires.
+However, most networks are more abstract, like social networks of friendships
+between people, and ecological networks like forests or soil where different
+organisms influence each other by predation, synergistic interactions, etc.</p>
+<p>Biological networks in molecular biology are similarly abstract, where an
+interaction between entities can represent many different types of
+relationships. The primary entities of molecular networks are genes,
+macromolecules (DNA, RNA transcripts, proteins, etc), metabolites and other
+small molecules, cellular organelles and components, and entire cells
+themselves. Relationships between these entities may include spatial colocality,
+direct physical association, shared molecular functions, genetic and
+evolutionary relationships, chemical interactions like biochemical and
+structural modifications, modulation of the anabolic or catabolic rates (e.g.
+rate of transcription, translation, etc), and many more. In reality, entities
+may have all of these types of relationships with other entities, all
+potentially occuring simultaneously at any moment in time.</p>
+<p>It is a substantial challenge to incorporate all possible types of interactions
+between all entities in mind at the same time, so we will typically express only
+subsets of any holistic network. These subnetworks reflect different aspects of
+the system, e.g. which genes control the transcription of which other genes, or
+which proteins physically complex with one another. Fortunately, the concept of
+the network is generic, so we may generally use the same tools and techniques to
+express and analyze networks for any network type.</p>
+<p>This section first describes some of the different types of biological networks
+found in molecular biology, and then covers some of the basics of the
+mathematical and computational expressions, properties, and algorithms used to
+analyze networks.</p>
+<div id="biological-pathways" class="section level3" number="8.9.1">
 <h3>
-<span class="header-section-number">8.9.1</span> Biological Pathways .<a class="anchor" aria-label="anchor" href="#biological-pathways-."><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.1</span> Biological Pathways<a class="anchor" aria-label="anchor" href="#biological-pathways"><i class="fas fa-link"></i></a>
 </h3>
-<p>What is a biological pathway? Why are they important, and how are they useful?</p>
+<p>Biological pathways, or just pathways, are groups of genes that work together to
+create some product or cause a change in a cell. Most of the coordinated
+activites of a cell are performed by pathways that are induced or repressed
+based on conditions within and without the cell. Hundreds of biological pathways
+have been characterized and organized into publicly available databases.</p>
 </div>
-<div id="gene-regulatory-networks-." class="section level3" number="8.9.2">
+<div id="protein-protein-interaction-network-." class="section level3" number="8.9.2">
 <h3>
-<span class="header-section-number">8.9.2</span> Gene Regulatory Networks .<a class="anchor" aria-label="anchor" href="#gene-regulatory-networks-."><i class="fas fa-link"></i></a>
-</h3>
-<p>What are gene regulatory networks? Why are they important? How do we identify
-them (data driven correlation, wetlab experiments, others?)? How are they
-useful?</p>
-</div>
-<div id="protein-protein-interaction-network-." class="section level3" number="8.9.3">
-<h3>
-<span class="header-section-number">8.9.3</span> Protein-Protein Interaction Network .<a class="anchor" aria-label="anchor" href="#protein-protein-interaction-network-."><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.2</span> Protein-Protein Interaction Network .<a class="anchor" aria-label="anchor" href="#protein-protein-interaction-network-."><i class="fas fa-link"></i></a>
 </h3>
 <p>What are protein-protein interaction (PPI) networks? What information do they
 represent (direct association, functional association, etc)? Where does PPI
 information come from (datasets, databases, etc)? What are some ways we can use
 PPI information when interpreting other biological data (like differential
 expression? not sure)?</p>
+</div>
+<div id="gene-regulatory-networks-." class="section level3" number="8.9.3">
+<h3>
+<span class="header-section-number">8.9.3</span> Gene Regulatory Networks .<a class="anchor" aria-label="anchor" href="#gene-regulatory-networks-."><i class="fas fa-link"></i></a>
+</h3>
+<p>What are gene regulatory networks? Why are they important? How do we identify
+them (data driven correlation, wetlab experiments, others?)? How are they
+useful?</p>
 </div>
 <div id="wgcna-." class="section level3" number="8.9.4">
 <h3>
@@ -3138,10 +3187,10 @@ We can summarize the module information in a data frame:</p>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#biological-networks-."><span class="header-section-number">8.9</span> Biological Networks .</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#biological-pathways-."><span class="header-section-number">8.9.1</span> Biological Pathways .</a></li>
-<li><a class="nav-link" href="#gene-regulatory-networks-."><span class="header-section-number">8.9.2</span> Gene Regulatory Networks .</a></li>
-<li><a class="nav-link" href="#protein-protein-interaction-network-."><span class="header-section-number">8.9.3</span> Protein-Protein Interaction Network .</a></li>
+<a class="nav-link" href="#biological-networks"><span class="header-section-number">8.9</span> Biological Networks</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#biological-pathways"><span class="header-section-number">8.9.1</span> Biological Pathways</a></li>
+<li><a class="nav-link" href="#protein-protein-interaction-network-."><span class="header-section-number">8.9.2</span> Protein-Protein Interaction Network .</a></li>
+<li><a class="nav-link" href="#gene-regulatory-networks-."><span class="header-section-number">8.9.3</span> Gene Regulatory Networks .</a></li>
 <li><a class="nav-link" href="#wgcna-."><span class="header-section-number">8.9.4</span> WGCNA .</a></li>
 </ul>
 </li>

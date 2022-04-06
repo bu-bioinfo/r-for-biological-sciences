@@ -1,594 +1,88 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Assignment 2 | BF591 - R for Biological Sciences" />
-<meta property="og:type" content="book" />
-
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<meta name="description" content="Assignment 2 | BF591 - R for Biological Sciences">
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Assignment 2 | BF591 - R for Biological Sciences</title>
-
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="libs/navigation-1.1/tabsets.js"></script>
-
-
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-
-
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-/* show arrow before summary tag as in bootstrap
-TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
-details > summary {
-  display: list-item;
-  cursor: pointer;
-}
-</style>
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Assignment 2 | BF591 - R for Biological Sciences">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Assignment 2 | BF591 - R for Biological Sciences">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+<meta name="description" content="Problem Statement Arranging the structure of our data inputs is vital to using R, as is creating the correct environment for analysis by installing packages. It is also important to share data and...">
+<meta property="og:description" content="Problem Statement Arranging the structure of our data inputs is vital to using R, as is creating the correct environment for analysis by installing packages. It is also important to share data and...">
+<meta name="twitter:description" content="Problem Statement Arranging the structure of our data inputs is vital to using R, as is creating the correct environment for analysis by installing packages. It is also important to share data and...">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
-
-<div class="container-fluid main-container">
-
-
+<div class="container-fluid">
 <div class="row">
-<div class="col-sm-12">
-<div id="TOC">
-<ul>
-<li><a href="index.html#syllabus">Syllabus</a>
-<ul>
-<li><a href="course-schedule.html#course-schedule">Course Schedule</a></li>
-<li><a href="instructors.html#instructors">Instructors</a></li>
-<li><a href="office-hours.html#office-hours">Office Hours</a></li>
-<li><a href="course-values-and-policies.html#course-values-and-policies">Course Values and Policies</a></li>
-</ul></li>
-<li><a href="introduction.html#introduction"><span class="toc-section-number">1</span> Introduction</a>
-<ul>
-<li><a href="who-this-book-is-for.html#who-this-book-is-for"><span class="toc-section-number">1.1</span> Who This Book Is For</a></li>
-<li><a href="a-note-about-reinventing-the-wheel.html#a-note-about-reinventing-the-wheel"><span class="toc-section-number">1.2</span> A Note About Reinventing the Wheel</a></li>
-<li><a href="sources-and-references.html#sources-and-references"><span class="toc-section-number">1.3</span> Sources and References</a></li>
-</ul></li>
-<li><a href="data-bio.html#data-bio"><span class="toc-section-number">2</span> Data in Biology</a>
-<ul>
-<li><a href="a-brief-history-of-data-in-molecular-biology.html#a-brief-history-of-data-in-molecular-biology"><span class="toc-section-number">2.1</span> A Brief History of Data in Molecular Biology</a></li>
-<li><a href="biology-as-a-mature-data-science.html#biology-as-a-mature-data-science"><span class="toc-section-number">2.2</span> Biology as a Mature Data Science</a></li>
-</ul></li>
-<li><a href="preliminaries.html#preliminaries"><span class="toc-section-number">3</span> Preliminaries</a>
-<ul>
-<li><a href="prelim-r.html#prelim-r"><span class="toc-section-number">3.1</span> The R Language</a></li>
-<li><a href="prelim-rstudio.html#prelim-rstudio"><span class="toc-section-number">3.2</span> RStudio</a></li>
-<li><a href="prog-the-r-script.html#prog-the-r-script"><span class="toc-section-number">3.3</span> The R Script</a></li>
-<li><a href="prog-workflow.html#prog-workflow"><span class="toc-section-number">3.4</span> The Scripting Workflow</a></li>
-<li><a href="prelim-git.html#prelim-git"><span class="toc-section-number">3.5</span> git + github</a>
-<ul>
-<li><a href="prelim-git.html#motivation"><span class="toc-section-number">3.5.1</span> Motivation</a></li>
-<li><a href="prelim-git.html#git"><span class="toc-section-number">3.5.2</span> git</a></li>
-<li><a href="prelim-git.html#git-hosting-platforms-github"><span class="toc-section-number">3.5.3</span> Git hosting platforms (GitHub)</a></li>
-</ul></li>
-</ul></li>
-<li><a href="prog-basics.html#prog-basics"><span class="toc-section-number">4</span> R Programming</a>
-<ul>
-<li><a href="before-you-begin.html#before-you-begin"><span class="toc-section-number">4.1</span> Before you begin</a></li>
-<li><a href="introduction-1.html#introduction-1"><span class="toc-section-number">4.2</span> Introduction</a></li>
-<li><a href="prog-r-syntax.html#prog-r-syntax"><span class="toc-section-number">4.3</span> R Syntax Basics</a></li>
-<li><a href="prog-types.html#prog-types"><span class="toc-section-number">4.4</span> Basic Types of Values</a>
-<ul>
-<li><a href="prog-types.html#factors"><span class="toc-section-number">4.4.1</span> Factors</a></li>
-</ul></li>
-<li><a href="prog-struct.html#prog-struct"><span class="toc-section-number">4.5</span> Data Structures</a>
-<ul>
-<li><a href="prog-struct.html#vectors"><span class="toc-section-number">4.5.1</span> Vectors</a></li>
-<li><a href="prog-struct.html#matrices"><span class="toc-section-number">4.5.2</span> Matrices</a></li>
-<li><a href="prog-struct.html#lists-and-data-frames"><span class="toc-section-number">4.5.3</span> Lists and data frames</a></li>
-</ul></li>
-<li><a href="logical-tests-and-comparators.html#logical-tests-and-comparators"><span class="toc-section-number">4.6</span> Logical Tests and Comparators</a></li>
-<li><a href="functions.html#functions"><span class="toc-section-number">4.7</span> Functions</a>
-<ul>
-<li><a href="functions.html#prog-dry"><span class="toc-section-number">4.7.1</span> DRY: Don’t Repeat Yourself</a></li>
-<li><a href="functions.html#writing-your-own-functions"><span class="toc-section-number">4.7.2</span> Writing your own functions</a></li>
-<li><a href="functions.html#scope"><span class="toc-section-number">4.7.3</span> Scope</a></li>
-</ul></li>
-<li><a href="iteration.html#iteration"><span class="toc-section-number">4.8</span> Iteration</a>
-<ul>
-<li><a href="iteration.html#vectorized-operations"><span class="toc-section-number">4.8.1</span> Vectorized operations</a></li>
-<li><a href="iteration.html#functional-programming"><span class="toc-section-number">4.8.2</span> Functional programming</a></li>
-<li><a href="iteration.html#apply-and-friends"><span class="toc-section-number">4.8.3</span> <code>apply()</code> and friends</a></li>
-</ul></li>
-<li><a href="installing-packages.html#installing-packages"><span class="toc-section-number">4.9</span> Installing Packages</a></li>
-<li><a href="saving-and-loading-r-data.html#saving-and-loading-r-data"><span class="toc-section-number">4.10</span> Saving and Loading R Data</a></li>
-<li><a href="prog-debugging.html#prog-debugging"><span class="toc-section-number">4.11</span> Troubleshooting and Debugging</a></li>
-<li><a href="prog-style.html#prog-style"><span class="toc-section-number">4.12</span> Coding Style and Conventions</a>
-<ul>
-<li><a href="prog-style.html#is-my-code-correct"><span class="toc-section-number">4.12.1</span> Is my code correct?</a></li>
-<li><a href="prog-style.html#does-my-code-follow-the-dry-principle"><span class="toc-section-number">4.12.2</span> Does my code follow the <span>DRY principle</span>?</a></li>
-<li><a href="prog-style.html#did-i-choose-concise-but-descriptive-variable-and-function-names"><span class="toc-section-number">4.12.3</span> Did I choose concise but descriptive variable and function names?</a></li>
-<li><a href="prog-style.html#did-i-use-indentation-and-naming-conventions-consistently-throughout-my-code"><span class="toc-section-number">4.12.4</span> Did I use indentation and naming conventions consistently throughout my code?</a></li>
-<li><a href="prog-style.html#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><span class="toc-section-number">4.12.5</span> Did I write comments, especially when what the code does is not obvious?</a></li>
-<li><a href="prog-style.html#how-easy-would-it-be-for-someone-else-to-understand-my-code"><span class="toc-section-number">4.12.6</span> How easy would it be for someone else to understand my code?</a></li>
-<li><a href="prog-style.html#is-my-code-easy-to-maintainchange"><span class="toc-section-number">4.12.7</span> Is my code easy to maintain/change?</a></li>
-<li><a href="prog-style.html#the-styler-package"><span class="toc-section-number">4.12.8</span> The <code>styler</code> package</a></li>
-</ul></li>
-</ul></li>
-<li><a href="data-wrangling.html#data-wrangling"><span class="toc-section-number">5</span> Data Wrangling</a>
-<ul>
-<li><a href="the-tidyverse.html#the-tidyverse"><span class="toc-section-number">5.1</span> The Tidyverse</a></li>
-<li><a href="dw-basics.html#dw-basics"><span class="toc-section-number">5.2</span> Tidyverse Basics</a></li>
-<li><a href="importing-data.html#importing-data"><span class="toc-section-number">5.3</span> Importing Data</a></li>
-<li><a href="data-tibble.html#data-tibble"><span class="toc-section-number">5.4</span> The tibble</a></li>
-<li><a href="tidy-data.html#tidy-data"><span class="toc-section-number">5.5</span> Tidy Data</a></li>
-<li><a href="pipes.html#pipes"><span class="toc-section-number">5.6</span> pipes</a></li>
-<li><a href="arranging-data.html#arranging-data"><span class="toc-section-number">5.7</span> Arranging Data</a>
-<ul>
-<li><a href="arranging-data.html#dplyrmutate---create-new-columns-using-other-columns"><span class="toc-section-number">5.7.1</span> <code>dplyr::mutate()</code> - Create new columns using other columns</a></li>
-<li><a href="arranging-data.html#stringr---working-with-character-values"><span class="toc-section-number">5.7.2</span> <code>stringr</code> - Working with character values</a></li>
-<li><a href="arranging-data.html#dplyrselect---subset-columns-by-name"><span class="toc-section-number">5.7.3</span> <code>dplyr::select()</code> - Subset Columns by Name</a></li>
-<li><a href="arranging-data.html#dplyrfilter---pick-rows-out-of-a-data-set"><span class="toc-section-number">5.7.4</span> <code>dplyr::filter()</code> - Pick rows out of a data set</a></li>
-<li><a href="arranging-data.html#dplyrarrange---order-rows-based-on-their-values"><span class="toc-section-number">5.7.5</span> <code>dplyr::arrange()</code> - Order rows based on their values</a></li>
-<li><a href="arranging-data.html#putting-it-all-together"><span class="toc-section-number">5.7.6</span> Putting it all together</a></li>
-</ul></li>
-<li><a href="grouping-data.html#grouping-data"><span class="toc-section-number">5.8</span> Grouping Data</a></li>
-<li><a href="rearranging-data.html#rearranging-data"><span class="toc-section-number">5.9</span> Rearranging Data</a></li>
-<li><a href="relational-data.html#relational-data"><span class="toc-section-number">5.10</span> Relational Data</a>
-<ul>
-<li><a href="relational-data.html#dealing-with-multiple-matches"><span class="toc-section-number">5.10.1</span> Dealing with multiple matches</a></li>
-</ul></li>
-</ul></li>
-<li><a href="data-science.html#data-science"><span class="toc-section-number">6</span> Data Science</a>
-<ul>
-<li><a href="data-modeling.html#data-modeling"><span class="toc-section-number">6.1</span> Data Modeling</a>
-<ul>
-<li><a href="data-modeling.html#a-worked-modeling-example"><span class="toc-section-number">6.1.1</span> A Worked Modeling Example</a></li>
-<li><a href="data-modeling.html#data-summarization"><span class="toc-section-number">6.1.2</span> Data Summarization</a></li>
-<li><a href="data-modeling.html#linear-models"><span class="toc-section-number">6.1.3</span> Linear Models</a></li>
-<li><a href="data-modeling.html#flavors-of-linear-models"><span class="toc-section-number">6.1.4</span> Flavors of Linear Models</a></li>
-<li><a href="data-modeling.html#assessing-model-accuracy-."><span class="toc-section-number">6.1.5</span> Assessing Model Accuracy .</a></li>
-</ul></li>
-<li><a href="statistical-distributions.html#statistical-distributions"><span class="toc-section-number">6.2</span> Statistical Distributions</a>
-<ul>
-<li><a href="statistical-distributions.html#random-variables"><span class="toc-section-number">6.2.1</span> Random Variables</a></li>
-<li><a href="statistical-distributions.html#statistical-distribution-basics"><span class="toc-section-number">6.2.2</span> Statistical Distribution Basics</a></li>
-<li><a href="statistical-distributions.html#distributions-in-r"><span class="toc-section-number">6.2.3</span> Distributions in R</a></li>
-<li><a href="statistical-distributions.html#discrete-distributions"><span class="toc-section-number">6.2.4</span> Discrete Distributions</a></li>
-<li><a href="statistical-distributions.html#continuous-distributions"><span class="toc-section-number">6.2.5</span> Continuous Distributions</a></li>
-<li><a href="statistical-distributions.html#empirical-distributions"><span class="toc-section-number">6.2.6</span> Empirical Distributions</a></li>
-</ul></li>
-<li><a href="statistical-tests.html#statistical-tests"><span class="toc-section-number">6.3</span> Statistical Tests</a>
-<ul>
-<li><a href="statistical-tests.html#what-is-a-statistical-test"><span class="toc-section-number">6.3.1</span> What is a statistical test</a></li>
-<li><a href="statistical-tests.html#common-statistical-tests"><span class="toc-section-number">6.3.2</span> Common Statistical Tests</a></li>
-<li><a href="statistical-tests.html#choosing-a-test"><span class="toc-section-number">6.3.3</span> Choosing a Test</a></li>
-<li><a href="statistical-tests.html#p-values"><span class="toc-section-number">6.3.4</span> P-values</a></li>
-<li><a href="statistical-tests.html#multiple-hypothesis-testing-."><span class="toc-section-number">6.3.5</span> Multiple Hypothesis Testing .</a></li>
-<li><a href="statistical-tests.html#statistical-power"><span class="toc-section-number">6.3.6</span> Statistical power</a></li>
-</ul></li>
-<li><a href="exploratory-data-analysis.html#exploratory-data-analysis"><span class="toc-section-number">6.4</span> Exploratory Data Analysis</a>
-<ul>
-<li><a href="exploratory-data-analysis.html#principal-component-analysis"><span class="toc-section-number">6.4.1</span> Principal Component Analysis</a></li>
-<li><a href="exploratory-data-analysis.html#cluster-analysis"><span class="toc-section-number">6.4.2</span> Cluster Analysis</a></li>
-<li><a href="exploratory-data-analysis.html#k-means-."><span class="toc-section-number">6.4.3</span> k-means .</a></li>
-<li><a href="exploratory-data-analysis.html#others"><span class="toc-section-number">6.4.4</span> Others</a></li>
-</ul></li>
-<li><a href="network-analysis-..html#network-analysis-."><span class="toc-section-number">6.5</span> Network Analysis .</a>
-<ul>
-<li><a href="network-analysis-..html#basic-network-analysis"><span class="toc-section-number">6.5.1</span> Basic network analysis</a></li>
-<li><a href="network-analysis-..html#create-your-own"><span class="toc-section-number">6.5.2</span> Create your own</a></li>
-</ul></li>
-</ul></li>
-<li><a href="data-visualization.html#data-visualization"><span class="toc-section-number">7</span> Data Visualization</a>
-<ul>
-<li><a href="responsible-plotting.html#responsible-plotting"><span class="toc-section-number">7.1</span> Responsible Plotting</a>
-<ul>
-<li><a href="responsible-plotting.html#visualization-principles"><span class="toc-section-number">7.1.1</span> Visualization Principles</a></li>
-<li><a href="responsible-plotting.html#human-visual-perception"><span class="toc-section-number">7.1.2</span> Human Visual Perception</a></li>
-<li><a href="responsible-plotting.html#visual-encodings"><span class="toc-section-number">7.1.3</span> Visual Encodings</a></li>
-<li><a href="responsible-plotting.html#some-opinionated-rules-of-thumb"><span class="toc-section-number">7.1.4</span> Some Opinionated Rules of Thumb</a></li>
-</ul></li>
-<li><a href="dv-gg.html#dv-gg"><span class="toc-section-number">7.2</span> Grammar of Graphics</a>
-<ul>
-<li><a href="dv-gg.html#ggplot-mechanics"><span class="toc-section-number">7.2.1</span> <code>ggplot</code> mechanics</a></li>
-</ul></li>
-<li><a href="plotting-one-dimension.html#plotting-one-dimension"><span class="toc-section-number">7.3</span> Plotting One Dimension</a>
-<ul>
-<li><a href="plotting-one-dimension.html#dv-bar"><span class="toc-section-number">7.3.1</span> Bar chart</a></li>
-<li><a href="plotting-one-dimension.html#lollipop-plots"><span class="toc-section-number">7.3.2</span> Lollipop plots</a></li>
-<li><a href="plotting-one-dimension.html#stacked-area-charts"><span class="toc-section-number">7.3.3</span> Stacked Area charts</a></li>
-<li><a href="plotting-one-dimension.html#parallel-coordinate-plots"><span class="toc-section-number">7.3.4</span> Parallel Coordinate plots</a></li>
-</ul></li>
-<li><a href="visualizing-distributions.html#visualizing-distributions"><span class="toc-section-number">7.4</span> Visualizing Distributions</a>
-<ul>
-<li><a href="visualizing-distributions.html#histogram"><span class="toc-section-number">7.4.1</span> Histogram</a></li>
-<li><a href="visualizing-distributions.html#density"><span class="toc-section-number">7.4.2</span> Density</a></li>
-<li><a href="visualizing-distributions.html#boxplot"><span class="toc-section-number">7.4.3</span> Boxplot</a></li>
-<li><a href="visualizing-distributions.html#violin-plot"><span class="toc-section-number">7.4.4</span> Violin plot</a></li>
-<li><a href="visualizing-distributions.html#beeswarm-plot"><span class="toc-section-number">7.4.5</span> Beeswarm plot</a></li>
-<li><a href="visualizing-distributions.html#ridgeline"><span class="toc-section-number">7.4.6</span> Ridgeline</a></li>
-</ul></li>
-<li><a href="plotting-two-or-more-dimensions.html#plotting-two-or-more-dimensions"><span class="toc-section-number">7.5</span> Plotting Two or More Dimensions</a>
-<ul>
-<li><a href="plotting-two-or-more-dimensions.html#scatter-plots"><span class="toc-section-number">7.5.1</span> Scatter Plots</a></li>
-<li><a href="plotting-two-or-more-dimensions.html#bubble-plots"><span class="toc-section-number">7.5.2</span> Bubble Plots</a></li>
-<li><a href="plotting-two-or-more-dimensions.html#connected-scatter-plots"><span class="toc-section-number">7.5.3</span> Connected Scatter Plots</a></li>
-<li><a href="plotting-two-or-more-dimensions.html#line-plots"><span class="toc-section-number">7.5.4</span> Line Plots</a></li>
-<li><a href="plotting-two-or-more-dimensions.html#parallel-coordinate-plots-1"><span class="toc-section-number">7.5.5</span> Parallel Coordinate Plots</a></li>
-<li><a href="plotting-two-or-more-dimensions.html#heatmaps"><span class="toc-section-number">7.5.6</span> Heatmaps</a></li>
-<li><a href="plotting-two-or-more-dimensions.html#how-to-use-heatmaps-responsibly"><span class="toc-section-number">7.5.7</span> How To Use Heatmaps Responsibly</a></li>
-</ul></li>
-<li><a href="other-kind-of-plots.html#other-kind-of-plots"><span class="toc-section-number">7.6</span> Other Kind of Plots</a>
-<ul>
-<li><a href="other-kind-of-plots.html#dendrograms"><span class="toc-section-number">7.6.1</span> Dendrograms</a></li>
-<li><a href="other-kind-of-plots.html#chord-diagrams-and-circos-plots"><span class="toc-section-number">7.6.2</span> Chord Diagrams and Circos Plots</a></li>
-</ul></li>
-<li><a href="multiple-plots.html#multiple-plots"><span class="toc-section-number">7.7</span> Multiple Plots</a>
-<ul>
-<li><a href="multiple-plots.html#facet-wrapping"><span class="toc-section-number">7.7.1</span> Facet wrapping</a></li>
-<li><a href="multiple-plots.html#multipanel-figures"><span class="toc-section-number">7.7.2</span> Multipanel Figures</a></li>
-</ul></li>
-<li><a href="publication-ready-plots.html#publication-ready-plots"><span class="toc-section-number">7.8</span> Publication Ready Plots</a>
-<ul>
-<li><a href="publication-ready-plots.html#ggplot-themes"><span class="toc-section-number">7.8.1</span> <code>ggplot</code> Themes</a></li>
-<li><a href="publication-ready-plots.html#exporting-to-svg"><span class="toc-section-number">7.8.2</span> Exporting to SVG</a></li>
-</ul></li>
-<li><a href="network-visualization.html#network-visualization"><span class="toc-section-number">7.9</span> Network visualization</a>
-<ul>
-<li><a href="network-visualization.html#interactive-network-plots"><span class="toc-section-number">7.9.1</span> Interactive network plots</a></li>
-</ul></li>
-</ul></li>
-<li><a href="biology-bioinformatics.html#biology-bioinformatics"><span class="toc-section-number">8</span> Biology &amp; Bioinformatics</a>
-<ul>
-<li><a href="bio-r.html#bio-r"><span class="toc-section-number">8.1</span> R in Biology</a></li>
-<li><a href="biological-data-overview.html#biological-data-overview"><span class="toc-section-number">8.2</span> Biological Data Overview</a>
-<ul>
-<li><a href="biological-data-overview.html#bio-data-types"><span class="toc-section-number">8.2.1</span> Types of Biological Data</a></li>
-<li><a href="biological-data-overview.html#csv-files"><span class="toc-section-number">8.2.2</span> CSV Files</a></li>
-<li><a href="biological-data-overview.html#biological-data-is-not-tidy"><span class="toc-section-number">8.2.3</span> Biological data is NOT Tidy!</a></li>
-</ul></li>
-<li><a href="bio-bioconductor.html#bio-bioconductor"><span class="toc-section-number">8.3</span> Bioconductor</a></li>
-<li><a href="microarrays.html#microarrays"><span class="toc-section-number">8.4</span> Microarrays</a></li>
-<li><a href="high-throughput-sequencing.html#high-throughput-sequencing"><span class="toc-section-number">8.5</span> High Throughput Sequencing</a>
-<ul>
-<li><a href="high-throughput-sequencing.html#raw-hts-data"><span class="toc-section-number">8.5.1</span> Raw HTS Data</a></li>
-<li><a href="high-throughput-sequencing.html#preliminary-hts-data-analysis"><span class="toc-section-number">8.5.2</span> Preliminary HTS Data Analysis</a></li>
-<li><a href="high-throughput-sequencing.html#count-data"><span class="toc-section-number">8.5.3</span> Count Data</a></li>
-</ul></li>
-<li><a href="gene-identifiers.html#gene-identifiers"><span class="toc-section-number">8.6</span> Gene Identifiers</a>
-<ul>
-<li><a href="gene-identifiers.html#gene-identifier-systems"><span class="toc-section-number">8.6.1</span> Gene Identifier Systems</a></li>
-<li><a href="gene-identifiers.html#mapping-between-identifier-systems"><span class="toc-section-number">8.6.2</span> Mapping Between Identifier Systems</a></li>
-<li><a href="gene-identifiers.html#mapping-homologs"><span class="toc-section-number">8.6.3</span> Mapping Homologs</a></li>
-</ul></li>
-<li><a href="gene-expression.html#gene-expression"><span class="toc-section-number">8.7</span> Gene Expression</a>
-<ul>
-<li><a href="gene-expression.html#gene-expression-data-in-bioconductor"><span class="toc-section-number">8.7.1</span> Gene Expression Data in Bioconductor</a></li>
-<li><a href="gene-expression.html#differential-expression-analysis"><span class="toc-section-number">8.7.2</span> Differential Expression Analysis</a></li>
-<li><a href="gene-expression.html#microarray-gene-expression-data"><span class="toc-section-number">8.7.3</span> Microarray Gene Expression Data</a></li>
-<li><a href="gene-expression.html#differential-expression-microarrays-limma"><span class="toc-section-number">8.7.4</span> Differential Expression: Microarrays (limma)</a></li>
-<li><a href="gene-expression.html#rnaseq"><span class="toc-section-number">8.7.5</span> RNASeq</a></li>
-<li><a href="gene-expression.html#rnaseq-gene-expression-data"><span class="toc-section-number">8.7.6</span> RNASeq Gene Expression Data</a></li>
-<li><a href="gene-expression.html#filtering-counts"><span class="toc-section-number">8.7.7</span> Filtering Counts</a></li>
-<li><a href="gene-expression.html#count-distributions"><span class="toc-section-number">8.7.8</span> Count Distributions</a></li>
-<li><a href="gene-expression.html#differential-expression-rnaseq"><span class="toc-section-number">8.7.9</span> Differential Expression: RNASeq</a></li>
-</ul></li>
-<li><a href="gene-set-enrichment-analysis.html#gene-set-enrichment-analysis"><span class="toc-section-number">8.8</span> Gene Set Enrichment Analysis</a>
-<ul>
-<li><a href="gene-set-enrichment-analysis.html#gene-sets"><span class="toc-section-number">8.8.1</span> Gene Sets</a></li>
-<li><a href="gene-set-enrichment-analysis.html#working-with-gene-sets-in-r"><span class="toc-section-number">8.8.2</span> Working with gene sets in R</a></li>
-<li><a href="gene-set-enrichment-analysis.html#over-representation-analysis"><span class="toc-section-number">8.8.3</span> Over-representation Analysis</a></li>
-<li><a href="gene-set-enrichment-analysis.html#rank-based-analysis"><span class="toc-section-number">8.8.4</span> Rank-based Analysis</a></li>
-<li><a href="gene-set-enrichment-analysis.html#fgsea"><span class="toc-section-number">8.8.5</span> fgsea</a></li>
-</ul></li>
-<li><a href="biological-networks-..html#biological-networks-."><span class="toc-section-number">8.9</span> Biological Networks .</a>
-<ul>
-<li><a href="biological-networks-..html#biological-pathways-."><span class="toc-section-number">8.9.1</span> Biological Pathways .</a></li>
-<li><a href="biological-networks-..html#gene-regulatory-networks-."><span class="toc-section-number">8.9.2</span> Gene Regulatory Networks .</a></li>
-<li><a href="biological-networks-..html#protein-protein-interaction-network-."><span class="toc-section-number">8.9.3</span> Protein-Protein Interaction Network .</a></li>
-<li><a href="biological-networks-..html#wgcna-."><span class="toc-section-number">8.9.4</span> WGCNA .</a></li>
-</ul></li>
-</ul></li>
-<li><a href="engineering.html#engineering"><span class="toc-section-number">9</span> EngineeRing</a>
-<ul>
-<li><a href="unit-testing.html#unit-testing"><span class="toc-section-number">9.1</span> Unit Testing</a></li>
-<li><a href="toolification.html#toolification"><span class="toc-section-number">9.2</span> Toolification</a>
-<ul>
-<li><a href="toolification.html#the-r-interpreter"><span class="toc-section-number">9.2.1</span> The R Interpreter</a></li>
-<li><a href="toolification.html#rscript"><span class="toc-section-number">9.2.2</span> <code>Rscript</code></a></li>
-<li><a href="toolification.html#commandargs"><span class="toc-section-number">9.2.3</span> <code>commandArgs()</code></a></li>
-</ul></li>
-<li><a href="parallel-processing.html#parallel-processing"><span class="toc-section-number">9.3</span> Parallel Processing</a>
-<ul>
-<li><a href="parallel-processing.html#brief-introduction-to-parallelization"><span class="toc-section-number">9.3.1</span> Brief Introduction to Parallelization</a></li>
-<li><a href="parallel-processing.html#apply-and-friends-are-pleasingly-parallel"><span class="toc-section-number">9.3.2</span> <code>apply</code> and Friends Are Pleasingly Parallel</a></li>
-<li><a href="parallel-processing.html#the-parallel-package"><span class="toc-section-number">9.3.3</span> The <code>parallel</code> package</a></li>
-</ul></li>
-<li><a href="object-orientation-in-r.html#object-orientation-in-r"><span class="toc-section-number">9.4</span> Object Orientation in R</a></li>
-<li><a href="r-packages.html#r-packages"><span class="toc-section-number">9.5</span> R Packages</a></li>
-</ul></li>
-<li><a href="rshiny.html#rshiny"><span class="toc-section-number">10</span> RShiny</a>
-<ul>
-<li><a href="rshiny-introduction.html#rshiny-introduction"><span class="toc-section-number">10.1</span> RShiny Introduction</a>
-<ul>
-<li><a href="rshiny-introduction.html#how-does-a-web-page-work"><span class="toc-section-number">10.1.1</span> How does a web page work?</a></li>
-</ul></li>
-<li><a href="application-structure.html#application-structure"><span class="toc-section-number">10.2</span> Application Structure</a>
-<ul>
-<li><a href="application-structure.html#ui-design"><span class="toc-section-number">10.2.1</span> UI Design</a></li>
-<li><a href="application-structure.html#server-functionality"><span class="toc-section-number">10.2.2</span> Server Functionality</a></li>
-</ul></li>
-<li><a href="reactivity.html#reactivity"><span class="toc-section-number">10.3</span> Reactivity</a></li>
-<li><a href="publishing.html#publishing"><span class="toc-section-number">10.4</span> Publishing</a></li>
-</ul></li>
-<li><a href="communicating-with-r.html#communicating-with-r"><span class="toc-section-number">11</span> Communicating with R</a>
-<ul>
-<li><a href="rmarkdown-knitr.html#rmarkdown-knitr"><span class="toc-section-number">11.1</span> RMarkdown &amp; knitr</a></li>
-<li><a href="bookdown.html#bookdown"><span class="toc-section-number">11.2</span> bookdown</a></li>
-</ul></li>
-<li><a href="contribution-guide.html#contribution-guide"><span class="toc-section-number">12</span> Contribution Guide</a>
-<ul>
-<li><a href="custom-blocks.html#custom-blocks"><span class="toc-section-number">12.1</span> Custom blocks</a></li>
-</ul></li>
-<li><a href="assignments.html#assignments">Assignments</a>
-<ul>
-<li><a href="assignment-format.html#assignment-format">Assignment Format</a></li>
-<li><a href="starting-an-assignment.html#starting-an-assignment">Starting an Assignment</a>
-<ul>
-<li><a href="starting-an-assignment.html#starting-your-own-git-repository-and-cloning-it">Starting your own <code>git</code> repository and cloning it</a></li>
-<li><a href="starting-an-assignment.html#contents">Contents</a></li>
-<li><a href="starting-an-assignment.html#github-tutorial">GitHub tutorial</a></li>
-<li><a href="starting-an-assignment.html#committing-and-pushing-with-r-and-without">Committing and Pushing with R (and without)</a></li>
-<li><a href="starting-an-assignment.html#using-rstudio">Using RStudio</a></li>
-<li><a href="starting-an-assignment.html#using-the-command-line">Using the command line</a></li>
-</ul></li>
-<li><a href="assignment-1.html#assignment-1">Assignment 1</a>
-<ul>
-<li><a href="assignment-1.html#problem-statement">Problem Statement</a></li>
-<li><a href="assignment-1.html#learning-objectives-and-skill-list">Learning Objectives and Skill List</a></li>
-<li><a href="assignment-1.html#instructions">Instructions</a></li>
-<li><a href="assignment-1.html#hints">Hints</a></li>
-</ul></li>
-<li><a href="assignment-2.html#assignment-2">Assignment 2</a>
-<ul>
-<li><a href="assignment-2.html#problem-statement-1">Problem Statement</a></li>
-<li><a href="assignment-2.html#learning-objectives">Learning Objectives</a></li>
-<li><a href="assignment-2.html#skill-list">Skill List</a></li>
-<li><a href="assignment-2.html#instructions-1">Instructions</a></li>
-<li><a href="assignment-2.html#function-details">Function Details</a></li>
-</ul></li>
-<li><a href="assignment-3.html#assignment-3">Assignment 3</a>
-<ul>
-<li><a href="assignment-3.html#problem-statement-2">Problem Statement</a></li>
-<li><a href="assignment-3.html#learning-objectives-1">Learning Objectives</a></li>
-<li><a href="assignment-3.html#skill-list-1">Skill List</a></li>
-<li><a href="assignment-3.html#background-on-microarrays">Background on Microarrays</a></li>
-<li><a href="assignment-3.html#background-on-principal-component-analysis">Background on Principal Component Analysis</a></li>
-<li><a href="assignment-3.html#marisa-et-al.-gene-expression-classification-of-colon-cancer-into-molecular-subtypes-characterization-validation-and-prognostic-value.-plos-medicine-may-2013.-pmid-23700391">Marisa et al. Gene Expression Classification of Colon Cancer into Molecular Subtypes: Characterization, Validation, and Prognostic Value. PLoS Medicine, May 2013. PMID: 23700391</a></li>
-<li><a href="assignment-3.html#scaling-data-using-r-scale">Scaling data using R <code>scale()</code></a></li>
-<li><a href="assignment-3.html#proportion-of-variance-explained">Proportion of variance explained</a></li>
-<li><a href="assignment-3.html#plotting-and-visualization-of-pca">Plotting and visualization of PCA</a></li>
-<li><a href="assignment-3.html#hierarchical-clustering-and-heatmaps">Hierarchical Clustering and Heatmaps</a></li>
-<li><a href="assignment-3.html#references">References</a></li>
-</ul></li>
-<li><a href="assignment-4.html#assignment-4">Assignment 4</a>
-<ul>
-<li><a href="assignment-4.html#problem-statement-3">Problem Statement</a></li>
-<li><a href="assignment-4.html#learning-objectives-2">Learning Objectives</a></li>
-<li><a href="assignment-4.html#skill-list-2">Skill List</a></li>
-<li><a href="assignment-4.html#instructions-2">Instructions</a></li>
-<li><a href="assignment-4.html#deliverables">Deliverables</a></li>
-<li><a href="assignment-4.html#function-details-1">Function Details</a></li>
-<li><a href="assignment-4.html#hints-1">Hints</a></li>
-</ul></li>
-<li><a href="assignment-5.html#assignment-5">Assignment 5</a>
-<ul>
-<li><a href="assignment-5.html#problem-statement-4">Problem Statement</a></li>
-<li><a href="assignment-5.html#learning-objectives-3">Learning Objectives</a></li>
-<li><a href="assignment-5.html#skill-list-3">Skill List</a></li>
-<li><a href="assignment-5.html#deseq2-background">DESeq2 Background</a></li>
-<li><a href="assignment-5.html#generating-a-counts-matrix">Generating a counts matrix</a></li>
-<li><a href="assignment-5.html#prefiltering-counts-matrix">Prefiltering Counts matrix</a></li>
-<li><a href="assignment-5.html#median-of-ratios-normalization">Median-of-ratios normalization</a></li>
-<li><a href="assignment-5.html#deseq2-preparation">DESeq2 preparation</a></li>
-<li><a href="assignment-5.html#omeara-et-al.-transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration.-circ-res.-feb-2015.-pmid-25477501l">O’Meara et al. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration. Circ Res. Feb 2015. PMID: 25477501l</a></li>
-<li><a href="assignment-5.html#reading-and-subsetting-the-data-from-verse_counts.tsv-and-sample_metadata.csv">1. Reading and subsetting the data from verse_counts.tsv and sample_metadata.csv</a></li>
-<li><a href="assignment-5.html#running-deseq2">2. Running DESeq2</a></li>
-<li><a href="assignment-5.html#annotating-results-to-construct-a-labeled-volcano-plot">3. Annotating results to construct a labeled volcano plot</a></li>
-<li><a href="assignment-5.html#diagnostic-plot-of-the-raw-p-values-for-all-genes">4. Diagnostic plot of the raw p-values for all genes</a></li>
-<li><a href="assignment-5.html#plotting-the-logfoldchanges-for-differentially-expressed-genes">5. Plotting the LogFoldChanges for differentially expressed genes</a></li>
-<li><a href="assignment-5.html#the-choice-of-fdr-cutoff-depends-on-cost">The choice of FDR cutoff depends on cost</a></li>
-<li><a href="assignment-5.html#plotting-the-normalized-counts-of-differentially-expressed-genes">6. Plotting the normalized counts of differentially expressed genes</a></li>
-<li><a href="assignment-5.html#volcano-plot-to-visualize-differential-expression-results">7. Volcano Plot to visualize differential expression results</a></li>
-<li><a href="assignment-5.html#running-fgsea-vignette">8. Running fgsea <span>vignette</span></a></li>
-<li><a href="assignment-5.html#plotting-the-top-ten-positive-nes-and-top-ten-negative-nes-pathways">9. Plotting the top ten positive NES and top ten negative NES pathways</a></li>
-<li><a href="assignment-5.html#references-1">References</a></li>
-</ul></li>
-<li><a href="assignment-6.html#assignment-6">Assignment 6</a>
-<ul>
-<li><a href="assignment-6.html#problem-statement-5">Problem Statement</a></li>
-<li><a href="assignment-6.html#learning-objectives-4">Learning Objectives</a></li>
-<li><a href="assignment-6.html#skill-list-4">Skill List</a></li>
-<li><a href="assignment-6.html#instructions-3">Instructions</a></li>
-<li><a href="assignment-6.html#function-details-2">Function Details</a></li>
-</ul></li>
-<li><a href="assignment-7.html#assignment-7">Assignment 7</a>
-<ul>
-<li><a href="assignment-7.html#problem-statement-6">Problem Statement</a></li>
-<li><a href="assignment-7.html#learning-objectives-5">Learning Objectives</a></li>
-<li><a href="assignment-7.html#skill-list-5">Skill List</a></li>
-<li><a href="assignment-7.html#instructions-4">Instructions</a></li>
-<li><a href="assignment-7.html#function-details-3">“Function” Details</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li><a href="class-outlines.html#class-outlines"><span class="toc-section-number">A</span> Class Outlines</a>
-<ul>
-<li><a href="week-1.html#week-1"><span class="toc-section-number">A.1</span> Week 1</a></li>
-<li><a href="week-2.html#week-2"><span class="toc-section-number">A.2</span> Week 2</a></li>
-<li><a href="week-3.html#week-3"><span class="toc-section-number">A.3</span> Week 3</a></li>
-<li><a href="week-4.html#week-4"><span class="toc-section-number">A.4</span> Week 4</a></li>
-<li><a href="week-5.html#week-5"><span class="toc-section-number">A.5</span> Week 5</a></li>
-<li><a href="week-6.html#week-6"><span class="toc-section-number">A.6</span> Week 6</a></li>
-<li><a href="week-7.html#week-7"><span class="toc-section-number">A.7</span> Week 7</a></li>
-<li><a href="week-8.html#week-8"><span class="toc-section-number">A.8</span> Week 8</a></li>
-<li><a href="week-9.html#week-9"><span class="toc-section-number">A.9</span> Week 9</a></li>
-<li><a href="week-10.html#week-10"><span class="toc-section-number">A.10</span> Week 10</a></li>
-<li><a href="week-11.html#week-11"><span class="toc-section-number">A.11</span> Week 11</a></li>
-<li><a href="week-12.html#week-12"><span class="toc-section-number">A.12</span> Week 12</a></li>
-<li><a href="week-13.html#week-13"><span class="toc-section-number">A.13</span> Week 13</a></li>
-<li><a href="week-14.html#week-14"><span class="toc-section-number">A.14</span> Week 14</a></li>
-</ul></li>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">BF591 - R for Biological Sciences</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">R for Biological Sciences</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="data-bio.html"><span class="header-section-number">2</span> Data in Biology</a></li>
+<li><a class="" href="preliminaries.html"><span class="header-section-number">3</span> Preliminaries</a></li>
+<li><a class="" href="prog-basics.html"><span class="header-section-number">4</span> R Programming</a></li>
+<li><a class="" href="data-wrangling.html"><span class="header-section-number">5</span> Data Wrangling</a></li>
+<li><a class="" href="data-science.html"><span class="header-section-number">6</span> Data Science</a></li>
+<li><a class="" href="data-visualization.html"><span class="header-section-number">7</span> Data Visualization</a></li>
+<li><a class="" href="biology-bioinformatics.html"><span class="header-section-number">8</span> Biology &amp; Bioinformatics</a></li>
+<li><a class="" href="engineering.html"><span class="header-section-number">9</span> EngineeRing</a></li>
+<li><a class="" href="rshiny.html"><span class="header-section-number">10</span> RShiny</a></li>
+<li><a class="" href="communicating-with-r.html"><span class="header-section-number">11</span> Communicating with R</a></li>
+<li><a class="" href="contribution-guide.html"><span class="header-section-number">12</span> Contribution Guide</a></li>
+<li class="book-part">Assignments</li>
+<li><a class="" href="starting-an-assignment.html">Starting an Assignment</a></li>
+<li><a class="" href="assignment-1.html">Assignment 1</a></li>
+<li><a class="active" href="assignment-2.html">Assignment 2</a></li>
+<li><a class="" href="assignment-3.html">Assignment 3</a></li>
+<li><a class="" href="assignment-4.html">Assignment 4</a></li>
+<li><a class="" href="assignment-5.html">Assignment 5</a></li>
+<li><a class="" href="assignment-6.html">Assignment 6</a></li>
+<li><a class="" href="assignment-7.html">Assignment 7</a></li>
+<li><a class="" href="final-project.html">Final Project</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="class-outlines.html"><span class="header-section-number">A</span> Class Outlines</a></li>
 </ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
 </div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-12">
-<div id="assignment-2" class="section level2 unnumbered">
-<h2>Assignment 2</h2>
-<div id="problem-statement-1" class="section level3 unnumbered">
-<h3>Problem Statement</h3>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="assignment-2" class="section level1 unnumbered">
+<h1>Assignment 2<a class="anchor" aria-label="anchor" href="#assignment-2"><i class="fas fa-link"></i></a>
+</h1>
+<div id="problem-statement-1" class="section level2 unnumbered">
+<h2>Problem Statement<a class="anchor" aria-label="anchor" href="#problem-statement-1"><i class="fas fa-link"></i></a>
+</h2>
 <p>Arranging the structure of our data inputs is vital to using R, as is creating
 the correct environment for analysis by installing packages. It is also
 important to share data and results easily using R markdown.</p>
 </div>
-<div id="learning-objectives" class="section level3 unnumbered">
-<h3>Learning Objectives</h3>
+<div id="learning-objectives" class="section level2 unnumbered">
+<h2>Learning Objectives<a class="anchor" aria-label="anchor" href="#learning-objectives"><i class="fas fa-link"></i></a>
+</h2>
 <ul>
 <li>Install various packages needed for analysis</li>
 <li>Load data, filter that data, and retrieve HGNC ids for the data</li>
@@ -596,20 +90,22 @@ important to share data and results easily using R markdown.</p>
 <li>Utilize R Markdown to create an attractive format for sharing data.</li>
 </ul>
 </div>
-<div id="skill-list" class="section level3 unnumbered">
-<h3>Skill List</h3>
+<div id="skill-list" class="section level2 unnumbered">
+<h2>Skill List<a class="anchor" aria-label="anchor" href="#skill-list"><i class="fas fa-link"></i></a>
+</h2>
 <ul>
 <li>How to utilize R markdown to create a report of data analysis</li>
 <li>Installing and loading packages in R</li>
 <li>Utilizing Bioconductor to equate affy ids to HGNC ids (gene names)</li>
 </ul>
 </div>
-<div id="instructions-1" class="section level3 unnumbered">
-<h3>Instructions</h3>
+<div id="instructions-1" class="section level2 unnumbered">
+<h2>Instructions<a class="anchor" aria-label="anchor" href="#instructions-1"><i class="fas fa-link"></i></a>
+</h2>
 <p>Our main focus for this assignment are installing packages, manipulating data,
 and plotting our manipulated data. We will be borrowing from the same CSV of
 expression data from BF528’s Project 1, available
-<a href="https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html">here</a>.<br />
+<a href="https://bf528.readthedocs.io/en/latest/content/projects/project_1_microarrays/project_1_microarrays.html">here</a>.<br>
 An empty project repo can be found here:</p>
 <p><a href="https://github.com/bu-bioinfo/bf591-assignment-2">https://github.com/bu-bioinfo/bf591-assignment-2</a></p>
 <p>The project is laid out as such:</p>
@@ -623,11 +119,11 @@ Markdown, which for this assignment is <code>report.Rmd</code>. The document its
 into greater detail, but you will:</p>
 <ol style="list-style-type: decimal">
 <li>Complete the functions in <code>main.R</code> and use
-<code>testthat:test_file('test_main.R')</code> to ensure they work correctly.<br />
+<code>testthat:test_file('test_main.R')</code> to ensure they work correctly.<br>
 </li>
 <li>Read the R Markdown file and complete the section called <strong>“Assignment”</strong>. To
 do this, you can <code>source('main.R')</code> to bring over the functions you wrote in
-step one.<br />
+step one.<br>
 </li>
 <li>Finally, annotate the functions you wrote and <strong>Knit</strong> the R Markdown report,
 complete with your additional comments and code execution.</li>
@@ -635,12 +131,14 @@ complete with your additional comments and code execution.</li>
 <p>This page will go into detail on how the functions and their associated tests
 should work.</p>
 </div>
-<div id="function-details" class="section level3 unnumbered">
-<h3>Function Details</h3>
-<div id="bioconductor" class="section level4 unnumbered">
-<h4>1. Bioconductor</h4>
+<div id="function-details" class="section level2 unnumbered">
+<h2>Function Details<a class="anchor" aria-label="anchor" href="#function-details"><i class="fas fa-link"></i></a>
+</h2>
+<div id="bioconductor" class="section level3 unnumbered">
+<h3>1. Bioconductor<a class="anchor" aria-label="anchor" href="#bioconductor"><i class="fas fa-link"></i></a>
+</h3>
 <p>While many useful R packages can be loaded through
-<a href="https://cran.r-project.org/">CRAN</a> using the <code>install.packages()</code> syntax, a lot
+<a href="https://cran.r-project.org/">CRAN</a> using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> syntax, a lot
 of specifically bioinformatics packages are exclusively released on
 <a href="https://bioconductor.org/install/">Bioconductor</a>. For this assignment we only
 need the package called
@@ -649,13 +147,14 @@ R programmers fancy themselves very clever, so <strong>R</strong>s show up a lot
 <p>Naturally, we want to load our packages at the beginning of our script so all of
 the code we write beneath can access it as it runs. However, if a user or
 ourselves <em>already</em> has this package installed we don’t want to waste their time
-installing it again. The function <code>require()</code> can help us avoid unnecessary
+installing it again. The function <code><a href="https://rdrr.io/r/base/library.html">require()</a></code> can help us avoid unnecessary
 installation time and will help us develop faster. The Bioconductor link above
 has an example of this method.</p>
 <p>This section is untested.</p>
 </div>
-<div id="load_expression" class="section level4 unnumbered">
-<h4>2. <code>load_expression()</code></h4>
+<div id="load_expression" class="section level3 unnumbered">
+<h3>2. <code>load_expression()</code><a class="anchor" aria-label="anchor" href="#load_expression"><i class="fas fa-link"></i></a>
+</h3>
 <p>Perhaps the most integral part of using the many data wrangling abilities of R
 is actually entering your data into the R environment. While there are many ways
 to do this in R, we ultimately want this data to be in a <strong>tibble</strong>, which means
@@ -664,14 +163,16 @@ This is because tibbles don’t support row names very well, and the first colum
 of our data doesn’t have a name. Try to use the <code>load_expression()</code> data to load
 data from a <code>filename</code> parameter and <strong>return</strong> a tibble of that information. I
 called my firs column “probeids.”</p>
-<div id="tests" class="section level5 unnumbered">
-<h5>Tests</h5>
+<div id="tests" class="section level4 unnumbered">
+<h4>Tests<a class="anchor" aria-label="anchor" href="#tests"><i class="fas fa-link"></i></a>
+</h4>
 <p>The tests for this function are:</p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="assignment-2.html#cb519-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;loading csv correctly&quot;</span>, {</span>
-<span id="cb519-2"><a href="assignment-2.html#cb519-2" aria-hidden="true" tabindex="-1"></a>  result_tib <span class="ot">&lt;-</span> <span class="fu">load_expression</span>(<span class="st">&quot;/project/bf528/project_1/data/example_intensity_data.csv&quot;</span>)</span>
-<span id="cb519-3"><a href="assignment-2.html#cb519-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(result_tib), <span class="fu">c</span>(<span class="dv">54675</span>, <span class="dv">36</span>))</span>
-<span id="cb519-4"><a href="assignment-2.html#cb519-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">is_tibble</span>(result_tib))</span>
-<span id="cb519-5"><a href="assignment-2.html#cb519-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">test_that</span><span class="op">(</span><span class="st">"loading csv correctly"</span>, <span class="op">{</span>
+  <span class="va">result_tib</span> <span class="op">&lt;-</span> <span class="fu">load_expression</span><span class="op">(</span><span class="st">"/project/bf528/project_1/data/example_intensity_data.csv"</span><span class="op">)</span>
+  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">result_tib</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="fl">54675</span>, <span class="fl">36</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">expect_true</span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/is_tibble.html">is_tibble</a></span><span class="op">(</span><span class="va">result_tib</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>This test uses the <code>load_expression()</code> you write to store the returned tibble in <code>result_tib</code>.</p>
 <div class="box important">
 <p>While this test is using the same file for data input as you are, this may not always be the case.</p>
@@ -681,8 +182,9 @@ and 36 columns. These are the dimensions of the input CSV. It also checks to
 confirm it is a tibble object (because tibbles are better than dataframes).</p>
 </div>
 </div>
-<div id="filter_15" class="section level4 unnumbered">
-<h4>3. <code>filter_15()</code></h4>
+<div id="filter_15" class="section level3 unnumbered">
+<h3>3. <code>filter_15()</code><a class="anchor" aria-label="anchor" href="#filter_15"><i class="fas fa-link"></i></a>
+</h3>
 <p>In order to filter the numerous rows we have for this data, we introduce a
 function that filters the probe IDs in the tibble our data is stored in. We want
 to capture probes that have a suitably high level of expression, so we are
@@ -695,22 +197,24 @@ our code. Built-ins are functions and packages that are optimized to process
 data in a certain way. Since we’re looking at each row of a table, we could
 simply use a for loop to iterate one row at a time. This is slow, though, and
 for this function might take 5-10 seconds to run (a long time for a program like
-this!). Instead, you could use a function like <code>apply()</code> or <code>lapply()</code> to filter
+this!). Instead, you could use a function like <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> or <code><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html">lapply()</a></code> to filter
 every row at once. This solution takes mere moments.</p>
-<div id="tests-1" class="section level5 unnumbered">
-<h5>Tests</h5>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="assignment-2.html#cb520-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb520-2"><a href="assignment-2.html#cb520-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;the correct rows are filtered out in filter_15()&quot;</span>, {</span>
-<span id="cb520-3"><a href="assignment-2.html#cb520-3" aria-hidden="true" tabindex="-1"></a>  test_tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids=</span><span class="fu">c</span>(<span class="st">&#39;1_s_at&#39;</span>, <span class="st">&#39;2_s_at&#39;</span>, <span class="st">&#39;3_s_at&#39;</span>, <span class="st">&#39;4_s_at&#39;</span>),</span>
-<span id="cb520-4"><a href="assignment-2.html#cb520-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1=</span><span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span>),</span>
-<span id="cb520-5"><a href="assignment-2.html#cb520-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2=</span><span class="fu">rep</span>(<span class="fl">1.6</span>, <span class="dv">4</span>),</span>
-<span id="cb520-6"><a href="assignment-2.html#cb520-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3=</span><span class="fu">rep</span>(<span class="fl">2.5</span>, <span class="dv">4</span>),</span>
-<span id="cb520-7"><a href="assignment-2.html#cb520-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM4=</span><span class="fu">rep</span>(<span class="fl">3.99</span>, <span class="dv">4</span>),</span>
-<span id="cb520-8"><a href="assignment-2.html#cb520-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM5=</span><span class="fu">rep</span>(<span class="fl">3.0</span>, <span class="dv">4</span>),</span>
-<span id="cb520-9"><a href="assignment-2.html#cb520-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM6=</span><span class="fu">rep</span>(<span class="fl">1.0</span>, <span class="dv">4</span>),</span>
-<span id="cb520-10"><a href="assignment-2.html#cb520-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM7=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
-<span id="cb520-11"><a href="assignment-2.html#cb520-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">pull</span>(<span class="fu">filter_15</span>(test_tib)), <span class="fu">c</span>(<span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>))</span>
-<span id="cb520-12"><a href="assignment-2.html#cb520-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div id="tests-1" class="section level4 unnumbered">
+<h4>Tests<a class="anchor" aria-label="anchor" href="#tests-1"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb520"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
+<span class="fu">test_that</span><span class="op">(</span><span class="st">"the correct rows are filtered out in filter_15()"</span>, <span class="op">{</span>
+  <span class="va">test_tib</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probeids<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">'1_s_at'</span>, <span class="st">'2_s_at'</span>, <span class="st">'3_s_at'</span>, <span class="st">'4_s_at'</span><span class="op">)</span>,
+                     GSM1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span><span class="op">)</span>,
+                     GSM2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">rep</a></span><span class="op">(</span><span class="fl">1.6</span>, <span class="fl">4</span><span class="op">)</span>,
+                     GSM3<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">rep</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">4</span><span class="op">)</span>,
+                     GSM4<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">rep</a></span><span class="op">(</span><span class="fl">3.99</span>, <span class="fl">4</span><span class="op">)</span>,
+                     GSM5<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">rep</a></span><span class="op">(</span><span class="fl">3.0</span>, <span class="fl">4</span><span class="op">)</span>,
+                     GSM6<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">rep</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">4</span><span class="op">)</span>,
+                     GSM7<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">rep</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="fu">filter_15</span><span class="op">(</span><span class="va">test_tib</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>In order to test this function, we create a small sample tibble of expression
 data containing only seven samples and four IDs. Two of the rows <em>do</em> have more
 than 15% of their values exceeding <code>log2(15)</code>, the other two do not. This test
@@ -719,8 +223,9 @@ table like this can be very useful when testing your own code since you don’t
 need to look at a large amount of data to see if it’s working correctly or not.</p>
 </div>
 </div>
-<div id="affy_to_hgnc" class="section level4 unnumbered">
-<h4>4. <code>affy_to_hgnc()</code></h4>
+<div id="affy_to_hgnc" class="section level3 unnumbered">
+<h3>4. <code>affy_to_hgnc()</code><a class="anchor" aria-label="anchor" href="#affy_to_hgnc"><i class="fas fa-link"></i></a>
+</h3>
 <p>This is an important, but sometimes painful, part of using R. There is a great
 built-in package for connecting to Ensembl (a database of genomic information
 for many species) called <code>biomaRt</code>. We will use <code>biomaRt</code> to connect the
@@ -740,27 +245,29 @@ The <code>biomart</code> you should use is <code>ENSEMBL_MART_ENSEMBL</code>, th
 <code>filter_15()</code> returns a list of <code>affy_hg_u133_plus_2</code> probe IDs, and the gene
 names we’re interested in are stored in <code>hgnc_symbol</code>.</p>
 <p>This function should return a tibble, but <code>biomaRt</code>’s <code>getBM()</code> will only accept
-and return a <code>data.frame</code>. You can use <code>dplyr::pull()</code> to turn a tibble into a
-simple character vector, and <code>dplyr::as_tibble()</code> to go from a data frame to a
+and return a <code>data.frame</code>. You can use <code><a href="https://dplyr.tidyverse.org/reference/pull.html">dplyr::pull()</a></code> to turn a tibble into a
+simple character vector, and <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">dplyr::as_tibble()</a></code> to go from a data frame to a
 tibble.</p>
-<div id="tests-2" class="section level5 unnumbered">
-<h5>Tests</h5>
-<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="assignment-2.html#cb521-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;affy ids can be converted to HGNC names properly using affy_to_hgnc()&quot;</span>, {</span>
-<span id="cb521-2"><a href="assignment-2.html#cb521-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
-<span id="cb521-3"><a href="assignment-2.html#cb521-3" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">affy_to_hgnc</span>(<span class="fu">tibble</span>(<span class="st">&#39;1553551_s_at&#39;</span>)), <span class="cn">TRUE</span>)</span>
-<span id="cb521-4"><a href="assignment-2.html#cb521-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">&quot;Error&quot;</span>, response[<span class="dv">1</span>])) {</span>
-<span id="cb521-5"><a href="assignment-2.html#cb521-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_warning</span>(<span class="fu">warning</span>(<span class="st">&quot;Could not connect to ENSEMBL.&quot;</span>))</span>
-<span id="cb521-6"><a href="assignment-2.html#cb521-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb521-7"><a href="assignment-2.html#cb521-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
-<span id="cb521-8"><a href="assignment-2.html#cb521-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(response<span class="sc">$</span>hgnc_symbol, <span class="fu">c</span>(<span class="st">&quot;MT-ND1&quot;</span>, <span class="st">&quot;MT-TI&quot;</span>, <span class="st">&quot;MT-TM&quot;</span>, <span class="st">&quot;MT-ND2&quot;</span>))</span>
-<span id="cb521-9"><a href="assignment-2.html#cb521-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb521-10"><a href="assignment-2.html#cb521-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div id="tests-2" class="section level4 unnumbered">
+<h4>Tests<a class="anchor" aria-label="anchor" href="#tests-2"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb521"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">test_that</span><span class="op">(</span><span class="st">"affy ids can be converted to HGNC names properly using affy_to_hgnc()"</span>, <span class="op">{</span>
+  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span>
+  <span class="va">response</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">affy_to_hgnc</span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="st">'1553551_s_at'</span><span class="op">)</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/grep.html">grepl</a></span><span class="op">(</span><span class="st">"Error"</span>, <span class="va">response</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">expect_warning</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Could not connect to ENSEMBL."</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="kw">else</span> <span class="op">{</span>
+    <span class="fu">expect_equal</span><span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">hgnc_symbol</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"MT-ND1"</span>, <span class="st">"MT-TI"</span>, <span class="st">"MT-TM"</span>, <span class="st">"MT-ND2"</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>As fun as it is to try to get <code>biomaRt</code> function to connect correctly, it is
 even more fun to test them. Since a failure to connect doesn’t indicate an
-actual failure in <em>our</em> code we must use a <code>try()</code> block in order to capture if
+actual failure in <em>our</em> code we must use a <code><a href="https://rdrr.io/r/base/try.html">try()</a></code> block in order to capture if
 there is a connection error.</p>
 <div class="box note">
-<p><strong>Note</strong> that the <code>try()</code> function is a part of programming called
+<p><strong>Note</strong> that the <code><a href="https://rdrr.io/r/base/try.html">try()</a></code> function is a part of programming called
 <em><strong>error-handling</strong> which extends to many other languages. We often expect
 </em>errors when running our programs (such as right now) but don’t want to shut
 <em>down our entire operation if it’s an error we can expect. Using <code>try</code>,
@@ -770,16 +277,17 @@ there is a connection error.</p>
 generate errors. If you can avoid an error in the first place, that is far
 better than using error-handling.</p>
 </div>
-<p>In this case we <code>try()</code> to use <code>affy_to_hgnc()</code> to connect to Ensembl and store
+<p>In this case we <code><a href="https://rdrr.io/r/base/try.html">try()</a></code> to use <code>affy_to_hgnc()</code> to connect to Ensembl and store
 the resulting error in <code>response</code>. We then check: if there is an “Error” then we
-throw a <code>warning()</code> to our testing output. This doesn’t stop further testing
+throw a <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code> to our testing output. This doesn’t stop further testing
 from happening, but it ensures we know that something isn’t quite right. If the
 <code>response</code> does not contain an error, we simply test that it returned the
 correct gene symbols for our random affy probe ID of choice.</p>
 </div>
 </div>
-<div id="reduce_data" class="section level4 unnumbered">
-<h4>5. <code>reduce_data()</code></h4>
+<div id="reduce_data" class="section level3 unnumbered">
+<h3>5. <code>reduce_data()</code><a class="anchor" aria-label="anchor" href="#reduce_data"><i class="fas fa-link"></i></a>
+</h3>
 <p>We have one final step in manipulating our data before we plot it. We have our
 original data, the probe IDs and their associated HGNC symbols, and a list of
 good gene names and bad gene names. <code>reduce_data</code> takes these four inputs and
@@ -791,42 +299,46 @@ using <code>ggplot</code> to plot data, having data in
 <a href="https://www.datacamp.com/community/tutorials/long-wide-data-R">long</a> format is
 typically ideal.</p>
 <p>Once again, there are multiple ways to reorganize data in this way. We used the
-base function <code>match()</code> to connect our probe IDs to with our HGNC IDs in
-<code>name_ids</code>. We then used <code>tibble::add_column()</code> to insert the new data in the
+base function <code><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html">match()</a></code> to connect our probe IDs to with our HGNC IDs in
+<code>name_ids</code>. We then used <code><a href="https://tibble.tidyverse.org/reference/add_column.html">tibble::add_column()</a></code> to insert the new data in the
 correct location. Finally, we created two tibbles of good and bad genes using
-<code>which()</code> and the <code>%in%</code> modifier. Which evaluates true conditions across a
+<code><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which()</a></code> and the <code>%in%</code> modifier. Which evaluates true conditions across a
 range of data, so we can pass the list of genes we want and select the correct
 ones. For instance:</p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="assignment-2.html#cb522-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb522-2"><a href="assignment-2.html#cb522-2" aria-hidden="true" tabindex="-1"></a>tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gene =</span> <span class="fu">c</span>(<span class="st">&quot;gene1&quot;</span>, <span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>, <span class="st">&quot;gene4&quot;</span>),</span>
-<span id="cb522-3"><a href="assignment-2.html#cb522-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">affy =</span> <span class="fu">c</span>(<span class="st">&quot;a_s_1&quot;</span>, <span class="st">&quot;a_s_2&quot;</span>, <span class="st">&quot;a_s_3&quot;</span>, <span class="st">&quot;a_s_4&quot;</span>))</span>
-<span id="cb522-4"><a href="assignment-2.html#cb522-4" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>)) <span class="co"># returns the index of the TRUE rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
+<span class="va">tib</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"gene1"</span>, <span class="st">"gene2"</span>, <span class="st">"gene3"</span>, <span class="st">"gene4"</span><span class="op">)</span>,
+              affy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"a_s_1"</span>, <span class="st">"a_s_2"</span>, <span class="st">"a_s_3"</span>, <span class="st">"a_s_4"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="va">tib</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"gene2"</span>, <span class="st">"gene3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># returns the index of the TRUE rows</span></code></pre></div>
 <pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="assignment-2.html#cb524-1" aria-hidden="true" tabindex="-1"></a>tib<span class="sc">$</span>affy[<span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;gene2&quot;</span>, <span class="st">&quot;gene3&quot;</span>))] <span class="co"># use [] to get data back</span></span></code></pre></div>
-<pre><code>## [1] &quot;a_s_2&quot; &quot;a_s_3&quot;</code></pre>
+<div class="sourceCode" id="cb524"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tib</span><span class="op">$</span><span class="va">affy</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="va">tib</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"gene2"</span>, <span class="st">"gene3"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co"># use [] to get data back</span></code></pre></div>
+<pre><code>## [1] "a_s_2" "a_s_3"</code></pre>
 <p>Once again, there are many ways to reshape this data (some maybe more elegant
 than this!) and all we need is the data to be correctly shaped when it is
 returned.</p>
-<div id="tests-3" class="section level5 unnumbered">
-<h5>Tests</h5>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="assignment-2.html#cb526-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;reduce_data() is correctly changing the size and shape of the tibble&quot;</span>, {</span>
-<span id="cb526-2"><a href="assignment-2.html#cb526-2" aria-hidden="true" tabindex="-1"></a>  t_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
-<span id="cb526-3"><a href="assignment-2.html#cb526-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span>),</span>
-<span id="cb526-4"><a href="assignment-2.html#cb526-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span>),</span>
-<span id="cb526-5"><a href="assignment-2.html#cb526-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span>))</span>
-<span id="cb526-6"><a href="assignment-2.html#cb526-6" aria-hidden="true" tabindex="-1"></a>  names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">affy_hg_u133_plus_2 =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>, <span class="st">&quot;3_s_at&quot;</span>),</span>
-<span id="cb526-7"><a href="assignment-2.html#cb526-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>, <span class="st">&quot;UTWPU&quot;</span>))</span>
-<span id="cb526-8"><a href="assignment-2.html#cb526-8" aria-hidden="true" tabindex="-1"></a>  good <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>)</span>
-<span id="cb526-9"><a href="assignment-2.html#cb526-9" aria-hidden="true" tabindex="-1"></a>  bad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SONIC&quot;</span>)</span>
-<span id="cb526-10"><a href="assignment-2.html#cb526-10" aria-hidden="true" tabindex="-1"></a>  reduce_test <span class="ot">&lt;-</span> <span class="fu">reduce_data</span>(t_tibble, names, good, bad)</span>
-<span id="cb526-11"><a href="assignment-2.html#cb526-11" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">&quot;1_s_at&quot;</span>, <span class="st">&quot;2_s_at&quot;</span>),</span>
-<span id="cb526-12"><a href="assignment-2.html#cb526-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">&quot;A-REAL-GENE&quot;</span>, <span class="st">&quot;SONIC&quot;</span>),</span>
-<span id="cb526-13"><a href="assignment-2.html#cb526-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">gene_set =</span> <span class="fu">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>),</span>
-<span id="cb526-14"><a href="assignment-2.html#cb526-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>),</span>
-<span id="cb526-15"><a href="assignment-2.html#cb526-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>),</span>
-<span id="cb526-16"><a href="assignment-2.html#cb526-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>))</span>
-<span id="cb526-17"><a href="assignment-2.html#cb526-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(reduce_test, result)</span>
-<span id="cb526-18"><a href="assignment-2.html#cb526-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div id="tests-3" class="section level4 unnumbered">
+<h4>Tests<a class="anchor" aria-label="anchor" href="#tests-3"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb526"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">test_that</span><span class="op">(</span><span class="st">"reduce_data() is correctly changing the size and shape of the tibble"</span>, <span class="op">{</span>
+  <span class="va">t_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probeids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span>,
+                     GSM1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span><span class="op">)</span>,
+                     GSM2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span><span class="op">)</span>,
+                     GSM3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>affy_hg_u133_plus_2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span>,
+                  hgnc_symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"A-REAL-GENE"</span>, <span class="st">"SONIC"</span>, <span class="st">"UTWPU"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">good</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"A-REAL-GENE"</span><span class="op">)</span>
+  <span class="va">bad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"SONIC"</span><span class="op">)</span>
+  <span class="va">reduce_test</span> <span class="op">&lt;-</span> <span class="fu">reduce_data</span><span class="op">(</span><span class="va">t_tibble</span>, <span class="va">names</span>, <span class="va">good</span>, <span class="va">bad</span><span class="op">)</span>
+  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probeids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span><span class="op">)</span>,
+                   hgnc_symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"A-REAL-GENE"</span>, <span class="st">"SONIC"</span><span class="op">)</span>,
+                   gene_set <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"bad"</span><span class="op">)</span>,
+                   GSM1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="fl">9.5</span>, <span class="fl">7.6</span><span class="op">)</span>,
+                   GSM2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="fl">9.7</span>, <span class="fl">7.2</span><span class="op">)</span>,
+                   GSM3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">c</a></span><span class="op">(</span><span class="fl">6.9</span>, <span class="fl">4.3</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">expect_equal</span><span class="op">(</span><span class="va">reduce_test</span>, <span class="va">result</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>In order to test a function that changes a tibble, we need to use a tibble. We
 only create a test table that is three rows by four columns, but that is enough
 to get the gist of the function. We simply pass the four parameters to
@@ -839,24 +351,78 @@ multiple data transformations is an important skill.</p>
 </div>
 </div>
 </div>
-<p style="text-align: center;">
-<a href="assignment-1.html"><button class="btn btn-default">Previous</button></a>
-<a href="assignment-3.html"><button class="btn btn-default">Next</button></a>
-</p>
+  <div class="chapter-nav">
+<div class="prev"><a href="assignment-1.html">Assignment 1</a></div>
+<div class="next"><a href="assignment-3.html">Assignment 3</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#assignment-2">Assignment 2</a></li>
+<li><a class="nav-link" href="#problem-statement-1">Problem Statement</a></li>
+<li><a class="nav-link" href="#learning-objectives">Learning Objectives</a></li>
+<li><a class="nav-link" href="#skill-list">Skill List</a></li>
+<li><a class="nav-link" href="#instructions-1">Instructions</a></li>
+<li>
+<a class="nav-link" href="#function-details">Function Details</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bioconductor">1. Bioconductor</a></li>
+<li><a class="nav-link" href="#load_expression">2. load_expression()</a></li>
+<li><a class="nav-link" href="#filter_15">3. filter_15()</a></li>
+<li><a class="nav-link" href="#affy_to_hgnc">4. affy_to_hgnc()</a></li>
+<li><a class="nav-link" href="#reduce_data">5. reduce_data()</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
 </div>
+    </nav>
 </div>
 
-
 </div>
+</div> <!-- .container -->
 
-<script>
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
-// add bootstrap table styles to pandoc tables
-$(document).ready(function () {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-});
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>BF591 - R for Biological Sciences</strong>" was written by . </p>
+  </div>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
-
 </body>
 </html>
