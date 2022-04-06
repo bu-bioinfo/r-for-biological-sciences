@@ -6,21 +6,59 @@ output: html_document
 source("0700_bioinfo.R")
 ```
 
-## Biological Networks .
+## Biological Networks
 
-What are biological networks? What do they represent (networks encode
-relationships between entities)? Why are biological networks useful and what can
-we learn from them?
+Biological systems are made up of many components that work together in spatial,
+temporal, and chemical ways to maintain biological fidelity. These components
+may be molecular components like metabolites, transcripts, or proteins, entire
+organisms as in the case of microbial ecologies, or even abstract concepts like
+genes and metabolic reactions. While studying individual components is a
+necessary part of biological research, understanding how those components
+interact and influence each other can help gain a greater understanding of
+biological systems as a whole. In biology, mathematics, and other fields, we
+can conceptualize a set of these components and their relationships as
+*network*.
 
-### Biological Pathways .
+In general terms, a *network* is defined as a set of components (or *entities*)
+and the relationships between them. Some networks are physical, like computer
+networks where different hardware devices are connected together with wires.
+However, most networks are more abstract, like social networks of friendships
+between people, and ecological networks like forests or soil where different
+organisms influence each other by predation, synergistic interactions, etc.
 
-What is a biological pathway? Why are they important, and how are they useful?
+Biological networks in molecular biology are similarly abstract, where an
+interaction between entities can represent many different types of
+relationships. The primary entities of molecular networks are genes,
+macromolecules (DNA, RNA transcripts, proteins, etc), metabolites and other
+small molecules, cellular organelles and components, and entire cells
+themselves. Relationships between these entities may include spatial colocality,
+direct physical association, shared molecular functions, genetic and
+evolutionary relationships, chemical interactions like biochemical and
+structural modifications, modulation of the anabolic or catabolic rates (e.g.
+rate of transcription, translation, etc), and many more. In reality, entities
+may have all of these types of relationships with other entities, all
+potentially occuring simultaneously at any moment in time.
 
-### Gene Regulatory Networks .
+It is a substantial challenge to incorporate all possible types of interactions
+between all entities in mind at the same time, so we will typically express only
+subsets of any holistic network. These subnetworks reflect different aspects of
+the system, e.g. which genes control the transcription of which other genes, or
+which proteins physically complex with one another. Fortunately, the concept of
+the network is generic, so we may generally use the same tools and techniques to
+express and analyze networks for any network type.
 
-What are gene regulatory networks? Why are they important? How do we identify
-them (data driven correlation, wetlab experiments, others?)? How are they
-useful?
+This section first describes some of the different types of biological networks
+found in molecular biology, and then covers some of the basics of the
+mathematical and computational expressions, properties, and algorithms used to
+analyze networks.
+
+### Biological Pathways
+
+Biological pathways, or just pathways, are groups of genes that work together to
+create some product or cause a change in a cell. Most of the coordinated
+activites of a cell are performed by pathways that are induced or repressed
+based on conditions within and without the cell. Hundreds of biological pathways
+have been characterized and organized into publicly available databases.
 
 ### Protein-Protein Interaction Network .
 
@@ -30,23 +68,29 @@ information come from (datasets, databases, etc)? What are some ways we can use
 PPI information when interpreting other biological data (like differential
 expression? not sure)?
 
+### Gene Regulatory Networks .
+
+What are gene regulatory networks? Why are they important? How do we identify
+them (data driven correlation, wetlab experiments, others?)? How are they
+useful?
+
 ### WGCNA .
 Weighted correlation network analysis (WGCNA) identifies genes (or other biology features) that are highly correlated with each other, and group them into clusters / modules.  
 Typical inputs of WGCNA is the expression matrix of genes, proteins or other biology features. Then, WGCNA will construct a undirected and weighted co-expression network. The nodes will be genes (or other features), and the edges connecting them will be the pairwise correlation value of their expression level. Modules are simply the clusters of highly connected genes. After the modules are detected, down stream analyses may include summarizing the module by its "eigengenes", inferring the functionality of a gene from genes in the same module, or compare different modules.  
 For more information, you may refer to this [article](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-9-559) or the [manual of WGCNA R package](https://cran.r-project.org/web/packages/WGCNA/WGCNA.pdf).  
 
-#### How to run WGCNA in R 
-First, install package `WGCNA`. 
+#### How to run WGCNA in R
+First, install package `WGCNA`.
 ```
 BiocManager::install("WGCNA")
 library(WGCNA)
 ```
-note: if you receive error message saying some dependencies are not available, it's probably because you used to try to install it using standard method `install.package("WGCNA")`. If that's the case, try the following to re-install WGCNA: 
+note: if you receive error message saying some dependencies are not available, it's probably because you used to try to install it using standard method `install.package("WGCNA")`. If that's the case, try the following to re-install WGCNA:
 ```
 BiocManager::install("WGCNA",force = T)
 ```
 
-Let's load a toy gene expression matrix. We have 15 samples and 7 genes. 
+Let's load a toy gene expression matrix. We have 15 samples and 7 genes.
 ```{r echo=FALSE}
 set.seed(1)
 nsamp <- 50
@@ -69,7 +113,7 @@ allowWGCNAThreads(4)
 ```
 
 Now we will choose a "soft-thresholding power" to construct the network. There is no single answer in the power to choose.  
-If you refer to [WGCNA faq](https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/faq.html), there are more details for power choosing. 
+If you refer to [WGCNA faq](https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/faq.html), there are more details for power choosing.
 ```{r}
 # A set of soft-thresholding powers to choose from:
 powers <- seq(1, 10)
@@ -142,7 +186,7 @@ netwk <- blockwiseModules(
 )
 ```
 
-Now we can see the module membership assignment: 
+Now we can see the module membership assignment:
 ```{r}
 netwk$colors
 ```
@@ -153,7 +197,7 @@ We can use function labels2colors() to conveniently convert the module membershi
 mergedColors <- labels2colors(netwk$colors)
 ```
 
-Plot the dendrogram and the module colors: 
+Plot the dendrogram and the module colors:
 ```{r}
 plotDendroAndColors(
   netwk$dendrograms[[1]],
