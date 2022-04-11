@@ -84,6 +84,11 @@ layout like the following:</p>
 <div class="figure">
 <img src="final_project_structure.png" alt=""><p class="caption">Example final project app layout with nested tabs</p>
 </div>
+<p>Note some components have subcomponents with their own input controls. You might
+consider organizing those components as follows:</p>
+<div class="figure">
+<img src="final_project_nested_tabs.png" alt=""><p class="caption">Nested tab input controls</p>
+</div>
 <p>Part of this project is to identify the data necessary to be loaded into this
 application. We will provide sets of starting information, but you will need to
 use the R code you’ve written for assignments one through seven to process the
@@ -119,7 +124,8 @@ automatically load the results from the differential expression tab.</li>
 <span class="header-section-number">12.3</span> Video Presentation Guidelines<a class="anchor" aria-label="anchor" href="#video-presentation-guidelines"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
-<li>A screen recorded presentation detailing the ins and outs of the Shiny application (Zoom can be used to record)</li>
+<li>A screen recorded presentation detailing the ins and outs of the Shiny
+application (Zoom can be used to record)</li>
 <li>Narrate all steps of your presentation as you go</li>
 <li>Presentations should be no more than 5 minutes and should include:
 <ul>
@@ -166,42 +172,27 @@ using when describing your dataset and demonstrating your app.</li>
 </ul>
 <p>You may choose from the following datasets when building and demonstrating your
 app:</p>
-<div id="soybean-cotyledon-gene-expression-across-development" class="section level3" number="12.4.1">
-<h3>
-<span class="header-section-number">12.4.1</span> Soybean cotyledon gene expression across development<a class="anchor" aria-label="anchor" href="#soybean-cotyledon-gene-expression-across-development"><i class="fas fa-link"></i></a>
-</h3>
+<p><strong>1. Soybean cotyledon gene expression across development</strong></p>
 <p>This experiment assayed gene expression in the cotyledons, or embryonic
 leaves, for soybean plants at different ages after planting.</p>
 <ul>
 <li><a href="https://rdrr.io/bioc/bigPint/man/se_soybean_cn_sub.html">bigPint R package</a></li>
 </ul>
-</div>
-<div id="post-mortem-huntingtons-disease-prefrontal-cortex-compared-with-neurologically-healthy-controls" class="section level3" number="12.4.2">
-<h3>
-<span class="header-section-number">12.4.2</span> Post-mortem Huntington’s Disease prefrontal cortex compared with neurologically healthy controls<a class="anchor" aria-label="anchor" href="#post-mortem-huntingtons-disease-prefrontal-cortex-compared-with-neurologically-healthy-controls"><i class="fas fa-link"></i></a>
-</h3>
+<p><strong>2. Post-mortem Huntington’s Disease prefrontal cortex compared with neurologically healthy controls</strong></p>
 <p>This dataset profiled gene expression with RNASeq in post-mortem human
 dorsolateral prefrontal cortex from patients who died from Huntington’s
 Disease and age- and sex-matched neurologically healthy controls.</p>
 <ul>
 <li><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64810">mRNA-Seq Expression profiling of human post-mortem BA9 brain tissue for Huntington’s Disease and neurologically normal individuals</a></li>
 </ul>
-</div>
-<div id="transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration" class="section level3" number="12.4.3">
-<h3>
-<span class="header-section-number">12.4.3</span> Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration<a class="anchor" aria-label="anchor" href="#transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration"><i class="fas fa-link"></i></a>
-</h3>
+<p><strong>3. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration</strong></p>
 <p>This dataset profiled gene expression with RNASeq in murine cardiac tissue
 across different stages of development to identify genes associated with
 the loss of these cell’s capacity to regenerate.</p>
 <ul>
 <li><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64403">Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration</a></li>
 </ul>
-</div>
-<div id="molecular-mechanisms-underlying-plasticity-in-a-thermally-varying-environment" class="section level3" number="12.4.4">
-<h3>
-<span class="header-section-number">12.4.4</span> Molecular mechanisms underlying plasticity in a thermally varying environment<a class="anchor" aria-label="anchor" href="#molecular-mechanisms-underlying-plasticity-in-a-thermally-varying-environment"><i class="fas fa-link"></i></a>
-</h3>
+<p><strong>4. Molecular mechanisms underlying plasticity in a thermally varying environment</strong></p>
 <p>This dataset profiled gene expression with RNASeq in drosophila melanogaster
 at different stages of development exposed to constant or fluctuating
 temperatures.</p>
@@ -211,11 +202,7 @@ temperatures.</p>
 </ul>
 <p><strong>Note:</strong> This article is not open; you will need to find the article through
 the library of your academic institution</p>
-</div>
-<div id="your-own-idea" class="section level3" number="12.4.5">
-<h3>
-<span class="header-section-number">12.4.5</span> Your own idea<a class="anchor" aria-label="anchor" href="#your-own-idea"><i class="fas fa-link"></i></a>
-</h3>
+<p><strong>5. Your own idea</strong></p>
 <p>You may identify a gene expression dataset of your own interest. The dataset
 must have:</p>
 <ul>
@@ -227,7 +214,6 @@ expression analysis</li>
 </ul>
 <p>Be sure to explain the background of the dataset in your demonstration video.</p>
 </div>
-</div>
 <div id="required-components" class="section level2" number="12.5">
 <h2>
 <span class="header-section-number">12.5</span> Required Components<a class="anchor" aria-label="anchor" href="#required-components"><i class="fas fa-link"></i></a>
@@ -236,6 +222,9 @@ expression analysis</li>
 <h3>
 <span class="header-section-number">12.5.1</span> Sample Information Exploration<a class="anchor" aria-label="anchor" href="#sample-information-exploration"><i class="fas fa-link"></i></a>
 </h3>
+<p>The distinct values and distributions of sample information are important to
+understand before conducting analysis of corresponding sample data. This
+component allows the user to load and examine a sample information matrix.</p>
 <p><strong>Inputs</strong>:</p>
 <ul>
 <li>Sample information matrix in CSV format</li>
@@ -290,19 +279,62 @@ and another column to group by!</li>
 <h3>
 <span class="header-section-number">12.5.2</span> Counts Matrix Exploration<a class="anchor" aria-label="anchor" href="#counts-matrix-exploration"><i class="fas fa-link"></i></a>
 </h3>
+<p>Exploring and visualizing counts matrices can aid in selecting gene count
+filtering strategies and understanding counts data structure. This component
+allows the user to choose different gene filtering thresholds and assess their
+effects using diagnostic plots of the counts matrix.</p>
 <p><strong>Inputs</strong>:</p>
 <ul>
 <li>Normalized counts matrix, by some method or other, in CSV format</li>
+<li>Input controls that filter out genes based on their statistical properties:
+<ul>
+<li>Slider to include genes with at least X percentile of variance</li>
+<li>Slider to include genes with at least X samples that are non-zero</li>
+</ul>
+</li>
 </ul>
 <p><strong>Shiny Functionalities</strong>:</p>
 <ul>
-<li>
+<li>Tab with text or a table summarizing the effect of the filtering, including:
+<ul>
+<li>number of samples</li>
+<li>total number of genes</li>
+<li>number and % of genes passing current filter</li>
+<li>number and % of genes not passing current filter</li>
+</ul>
+</li>
+<li>Tab with diagnostic scatter plots, where genes passing filters are marked in
+a darker color, and genes filtered out are lighter:
+<ul>
+<li>median count vs variance (consider log scale for plot)</li>
+<li>median count vs number of zeros</li>
+</ul>
+</li>
+<li>Tab with a clustered heatmap of counts remaining after filtering
+<ul>
+<li>consider enabling log-transforming counts for visualization</li>
+<li>be sure to include a color bar in the legend</li>
+</ul>
+</li>
+<li>Tab with a scatter plot of <a href="data-science.html#principal-component-analysis">principal component
+analysis</a> projections. You may either:
+<ul>
+<li>allow the user to select which principal components to plot in a scatter
+plot (e.g. PC1 vs PC2)</li>
+<li>allow the user to plot the top <span class="math inline">\(N\)</span> principal components as a beeswarm plot</li>
+<li>be sure to include the % variance explained by each component in the plot
+labels</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="differential-expression" class="section level3" number="12.5.3">
 <h3>
 <span class="header-section-number">12.5.3</span> Differential Expression<a class="anchor" aria-label="anchor" href="#differential-expression"><i class="fas fa-link"></i></a>
 </h3>
+<p>Differential expression identifies which genes, if any, are implicated in a
+specific biological comparison. This component allows the user to load and
+explore a differential expression dataset.</p>
 <p><strong>Inputs</strong>:</p>
 <ul>
 <li>Results of a differential expression analysis in CSV format.
@@ -315,24 +347,12 @@ edgeR from the provided counts file</li>
 </ul>
 <p><strong>Shiny Functionalities</strong>:</p>
 <ul>
-<li>You must include a filtering step as a part of your analysis. All differential
-expression libraries have filtering capabilities.</li>
-<li>Create a tab in your shiny application that can load the counts file, analyze
-it, and create a relevant plot or table to illustrate the differential
-expression results. You may use a volcano plot or choose other relevant ways
-to plot differentially expressed genes (such as the bigPint library).</li>
-<li>In this tab, design a user interface to control the level of filtering that
-your analysis performs on the count data.</li>
-<li>Plots and or tables should be used to illustrate how this filtering can impact
-the results of a dataset
+<li>Tab with sortable table displaying differential expression results
 <ul>
-<li>Recommendation: Use a slide bar input to specify a FDR p-value cutoff, and
-another slide bar input to specify another filter criteria, for example,
-absolute log2 FC. After clicking a button, show the table of the top X
-genes (ranked by p-value), and a volcano plot containing all the genes
-with the significant genes (identified by the filter criteria selected)
-colored differently.</li>
+<li>Optional: enable gene name search functionality to filter rows of table</li>
 </ul>
+</li>
+<li>Tab with content similar to that described in <a href="assignment-7.html#assignment-7">Assignment 7</a>
 </li>
 </ul>
 </div>
@@ -341,30 +361,40 @@ colored differently.</li>
 <h2>
 <span class="header-section-number">12.6</span> Choose-your-own Adventure<a class="anchor" aria-label="anchor" href="#choose-your-own-adventure"><i class="fas fa-link"></i></a>
 </h2>
+<p>Implement one or more of the following components as part of your app.</p>
 <div id="gene-set-enrichment-analysis-1" class="section level3" number="12.6.1">
 <h3>
 <span class="header-section-number">12.6.1</span> Gene Set Enrichment Analysis<a class="anchor" aria-label="anchor" href="#gene-set-enrichment-analysis-1"><i class="fas fa-link"></i></a>
 </h3>
+<p>Use your differential gene expression results to compute <a href="biology-bioinformatics.html#gene-set-enrichment-analysis">gene set enrichment
+analysis</a> with <a href="biology-bioinformatics.html#fgsea">fgsea</a>. You will need to identify
+an appropriate gene set database that matches the organism studied in your
+dataset.</p>
 <p><strong>Input</strong>:</p>
-<p>Create a table of fgsea results from the differential expression data.</p>
-<p>Choose an appropriate ranking metric (S2N, LogFoldChange, signed log(pvalue), etc.
-Run fgsea with appropriate parameters (minsize and maxsize for gene sets, they already did it this way in assignment #5) against gene set of their choice
-Unnest leading edge column (leading edge genes stored as list), save each in column delimited by something other than comma or tab.
-Save the results to a CSV/TSV</p>
+<ul>
+<li>a table of fgsea results from the differential expression data.
+<ul>
+<li>choose an appropriate ranking metric (log fold change, -log(pvalue), etc)
+from your differential expression results</li>
+<li>run fgsea with appropriate parameters against gene set database of your choice</li>
+<li>save the results to a CSV/TSV</li>
+</ul>
+</li>
+<li>file upload button</li>
+</ul>
 <p><strong>Shiny Functionalities</strong>:</p>
 <ul>
 <li>Tab 1
 <ul>
 <li>Sidebar
 <ul>
-<li>Upload from file (FileInput) - simple validation of CSV/TSV</li>
-<li>Slider to adjust number of top pathways to plot (Reactive)</li>
+<li>Slider to adjust number of top pathways to plot by adjusted p-value</li>
 </ul>
 </li>
 <li>Main Panel
 <ul>
 <li>Barplot of fgsea NES for top pathways selected by slider</li>
-<li>Click on barplot for pathway to display table entry (On Click)</li>
+<li>Optional: Click on barplot for pathway to display table entry</li>
 </ul>
 </li>
 </ul>
@@ -373,69 +403,79 @@ Save the results to a CSV/TSV</p>
 <ul>
 <li>Sidebar
 <ul>
-<li>Slider to filter table by padj (Reactive)</li>
+<li>Slider to filter table by adjusted p-value (Reactive)</li>
+<li>Radio buttons to select all, positive or negative NES pathways</li>
 <li>Download button to export current filtered and displayed table results</li>
-<li>Radio buttons to select all, positive or negative NES pathways (Reactive)</li>
 </ul>
 </li>
 <li>Main panel
 <ul>
-<li>Sortable DT table</li>
+<li>Sortable data table displaying the results</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Tab 3
+<ul>
+<li>Sidebar
+<ul>
+<li>Slider to filter table by adjusted p-value (Reactive)</li>
+</ul>
+</li>
+<li>Main panel
+<ul>
+<li>Scatter plot of NES on x-axis and -log10 adjusted p-value on y-axis, with
+gene sets below threshold in grey color</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </div>
-<div id="network-analysis-1" class="section level3" number="12.6.2">
+<div id="correlation-network-analysis" class="section level3" number="12.6.2">
 <h3>
-<span class="header-section-number">12.6.2</span> Network Analysis<a class="anchor" aria-label="anchor" href="#network-analysis-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.2</span> Correlation Network Analysis<a class="anchor" aria-label="anchor" href="#correlation-network-analysis"><i class="fas fa-link"></i></a>
 </h3>
+<p>Create an app that computes pairwise gene expression correlation for a specific
+set of input genes. The genes could be all genes in a particular pathway,
+associated with disease, or perhaps the top <span class="math inline">\(N\)</span> differentially expressed genes.
+Subset the gene expression matrix to include only the genes specified in the
+input text area and compute all pairwise correlations. Your app should report if
+any of the input genes are not found in the matrix. Also provide a slider input
+that allows the user to set a minimum threshold for an edge between two genes to
+be included (e.g. only draw edges for genes with a correlation &gt; 0.9). The
+slider should be reactive, so the tables and plots update appropriately. Use the
+[igraph] package as described in the <a href="data-science.html#network-analysis">Network Analysis</a> section to construct
+your graph and to compute network statistics on each node.</p>
 <p><strong>Input</strong>:</p>
-<p>Create a table (not in your Shiny app. do it in a general R session) that you
-can draw a network from</p>
-<p>Example: gene-gene correlation matrix (draw an edge between two vertices when
-their correlation value reaches a certain threshold), top significantly
-differentially expressed genes for several different phenotypes, or any other
-matrices you like.</p>
-<p>The number of vertices should be at least 10. Recommendation: around 15-30
-vertices with a total number of edges around 2 to 5 times of the number of
-vertices may be a good one to work with.</p>
+<ul>
+<li>Normalized counts matrix, by some method or other, in CSV format</li>
+<li>A multi-line text box (hint: <a href="https://shiny.rstudio.com/reference/shiny/1.0.5/textAreaInput.html">textAreaInput</a>)
+that accepts one gene name per line</li>
+<li>A slider setting the minimum correlation for drawing an edge</li>
+</ul>
 <p><strong>Shiny Functionalities</strong>:</p>
 <ul>
-<li>Upload the table containing the information to draw a network.
-<ul>
-<li>Hint: there’s no requirement of the format of the table, but one of the
-easiest way is to make it to have two columns named “from” and “to” which
-are vertices to be used, and a column “weight” to indicate edge weight</li>
-</ul>
-</li>
-<li>After clicking a button, draw the network. Basic igraph plot is okay.
+<li>Tab with a clustered heatmap of normalized counts corresponding to the genes
+entered in the text area</li>
+<li>Tab with a visualization of the correlation network
 <ul>
 <li>Vertices should be colored NOT by the default color in igraph</li>
-<li>Labels on vertices are optional. Make your own choice depending on the
-density of your network.</li>
-<li>(Optional) You can also explore other interactive plotting packages</li>
+<li>Vertices should be labeled with gene names</li>
+<li>(Optional) The user can select two vertices, click a button, and show the shortest path
+between them. What required in this question are:
+<ul>
+<li>Two drop down menus (selectizeInput) to select two vertices</li>
+<li>Show the shortest path as text output</li>
 </ul>
 </li>
-<li>Choose at least one in this question. After clicking a button, show a table
-output of the top 5 vertices with the highest… (one of the following) and
-their value.
+</ul>
+</li>
+<li>Tab with a table with the following metrics calculated for each gene in the input:
 <ul>
 <li>Degree</li>
 <li>Closeness centrality</li>
 <li>Betweenness centrality</li>
-</ul>
-</li>
-<li>The user can select two vertices, click a button, and show the shortest path
-between them. What required in this question are:
-<ul>
-<li>Two drop down menus (selectizeInput) to select two vertices</li>
-<li>(Optional) It would be great if it prevents the user from selecting the same
-vertices. You can either use ​updateSelectizeInput, or, implement a checking
-step to make sure the two vertices are not the same.</li>
-<li>A button</li>
-<li>Show the shortest path as text output</li>
 </ul>
 </li>
 </ul>
@@ -457,67 +497,42 @@ inputs and outputs of your application (so at least 15 total).</p>
 <p>Tests should be relevant and should test parts of the application relevant to
 the app’s running. For instance, a test confirming a counts file was filtered
 correctly would be acceptable. Tests can measure the output of functions inside
-your application or the output$
-of the app itself.</p>
+your application or the <code>output$</code> of the app itself.</p>
 <p>Spend a portion of your presentation video running the test to show what is
 working (or what doesn’t) and discuss briefly your approach to writing and
 running the tests. Your test file will be reviewed with your project submission.</p>
 </div>
-<div id="differential-expression-exploratory-analysis" class="section level3" number="12.6.4">
+<div id="visualization-of-individual-gene-expressions" class="section level3" number="12.6.4">
 <h3>
-<span class="header-section-number">12.6.4</span> Differential Expression Exploratory Analysis<a class="anchor" aria-label="anchor" href="#differential-expression-exploratory-analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.4</span> Visualization of Individual Gene Expression(s)<a class="anchor" aria-label="anchor" href="#visualization-of-individual-gene-expressions"><i class="fas fa-link"></i></a>
 </h3>
-<p><strong>Input</strong>:
-Differential Expression results
-[Optional] Allow the program to access your previous differential expression results from the earlier section
-Allow user to choose which kind of exploratory analysis to perform. Must have at
-least 3 exploratory analysis options (PCA, heatmapping, clustering, sample
-scatterplot, sample difference… Or any other appropriate plot. If you choose
-analyses to perform outside of the aforementioned options, please explain what
-they are and what they do on your app)</p>
-<p>Appropriate interface which allows the user to set plot options. Suggestions
-include filtering cutoffs, color options, plot title…</p>
+<p>Visualizing individual gene counts is sometimes useful for examining or
+verifying patterns identified by differential expression analysis. There are
+many different ways of visualizing counts for a single gene. This app allows
+counts from an arbitrary gene to be selected and visualized broken out by a
+desired sample information variable.</p>
+<p><strong>Input</strong>:</p>
+<ul>
+<li>Normalized counts matrix, by some method or other, in CSV format</li>
+<li>Sample information matrix in CSV format</li>
+<li>Input control that allows the user to choose one of the categorical fields
+found in the sample information matrix file</li>
+<li>Input control that allows the user to choose one of the genes found in the
+counts matrix (hint: try implementing a <a href="https://stackoverflow.com/questions/47336114/searchbox-in-r-shiny">search box</a>)</li>
+<li>Input control allowing the user to select one of <a href="#bar-chart">bar plot</a>,
+<a href="data-visualization.html#boxplot">boxplot</a>, <a href="data-visualization.html#violin-plot">violin plot</a>, or <a href="data-visualization.html#beeswarm-plot">beeswarm plot</a>
+</li>
+<li>A button that makes the thing go</li>
+</ul>
 <p><strong>Shiny Functionalities</strong>:</p>
 <ul>
-<li>Import data</li>
-<li>Analysis selection with an appropriate method of selection</li>
-<li>Once the analysis option has been selected, allow the user to edit the
-analysis-relevant parameters in a way that is user friendly. Points will be
-deducted if you try to emulate any of these in spirit or in exact
-<ul>
-<li>[Optional] If you allowed your user to select a subset of the data, display
-the table of data used [in a different tab or otherwise]</li>
-</ul>
-</li>
-<li>When parameters have been set, allow the user to click a button to enable
-display of the desired plot</li>
+<li>Content displaying a plot of the selected type with the normalized gene counts
+for the selected gene split out by the categorical variable chosen</li>
 </ul>
 </div>
-<div id="visualization-of-individual-gene-expressions" class="section level3" number="12.6.5">
+<div id="custom-option" class="section level3" number="12.6.5">
 <h3>
-<span class="header-section-number">12.6.5</span> Visualization of Individual Gene Expression(s)<a class="anchor" aria-label="anchor" href="#visualization-of-individual-gene-expressions"><i class="fas fa-link"></i></a>
-</h3>
-<p><strong>Input</strong>:</p>
-<p>Upload data of gene expression
-Allow user to filter genes by specific criteria to find them easier (search/filter by name, p-value, id…
-Allow user to select samples if necessary
-[optional] Allow user to adjust format so they can display multiple genes across
-a sample, specific gene expression across multiple samples, display multiple
-genes in multiple samples…</p>
-<p>Choosing to stick to one format instead is okay.</p>
-<p><strong>Shiny Functionalities</strong>:
-* Data upload and processing where necessary
-* Upon completion of upload and processing, display a table of gene, sample
-names with relevant information.
-* Allow the user to filter, search, and select gene(s), sample(s) in a way that
-makes sense to produce your desired output.
-* Allow the user to edit display parameters for visual elements like colors.</p>
-<p>Example usage from a journal article: (taken from Koch et al (2018) doi:
-10.1165/rcmb.2017-0430TR )</p>
-</div>
-<div id="custom-option" class="section level3" number="12.6.6">
-<h3>
-<span class="header-section-number">12.6.6</span> Custom Option<a class="anchor" aria-label="anchor" href="#custom-option"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.5</span> Custom Option<a class="anchor" aria-label="anchor" href="#custom-option"><i class="fas fa-link"></i></a>
 </h3>
 <p>We have explored a number of different bioinformatics topics in this class and
 BF528, but there are many more. If you would like to create your own fourth
@@ -550,15 +565,7 @@ modifications (e.g. a different types of plot)</p>
 <li><a class="nav-link" href="#final-project">Final Project</a></li>
 <li><a class="nav-link" href="#general-guidelines"><span class="header-section-number">12.2</span> General Guidelines</a></li>
 <li><a class="nav-link" href="#video-presentation-guidelines"><span class="header-section-number">12.3</span> Video Presentation Guidelines</a></li>
-<li>
-<a class="nav-link" href="#input-data-sets"><span class="header-section-number">12.4</span> Input Data Sets</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#soybean-cotyledon-gene-expression-across-development"><span class="header-section-number">12.4.1</span> Soybean cotyledon gene expression across development</a></li>
-<li><a class="nav-link" href="#post-mortem-huntingtons-disease-prefrontal-cortex-compared-with-neurologically-healthy-controls"><span class="header-section-number">12.4.2</span> Post-mortem Huntington’s Disease prefrontal cortex compared with neurologically healthy controls</a></li>
-<li><a class="nav-link" href="#transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration"><span class="header-section-number">12.4.3</span> Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration</a></li>
-<li><a class="nav-link" href="#molecular-mechanisms-underlying-plasticity-in-a-thermally-varying-environment"><span class="header-section-number">12.4.4</span> Molecular mechanisms underlying plasticity in a thermally varying environment</a></li>
-<li><a class="nav-link" href="#your-own-idea"><span class="header-section-number">12.4.5</span> Your own idea</a></li>
-</ul>
-</li>
+<li><a class="nav-link" href="#input-data-sets"><span class="header-section-number">12.4</span> Input Data Sets</a></li>
 <li>
 <a class="nav-link" href="#required-components"><span class="header-section-number">12.5</span> Required Components</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#sample-information-exploration"><span class="header-section-number">12.5.1</span> Sample Information Exploration</a></li>
@@ -569,11 +576,10 @@ modifications (e.g. a different types of plot)</p>
 <li>
 <a class="nav-link" href="#choose-your-own-adventure"><span class="header-section-number">12.6</span> Choose-your-own Adventure</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#gene-set-enrichment-analysis-1"><span class="header-section-number">12.6.1</span> Gene Set Enrichment Analysis</a></li>
-<li><a class="nav-link" href="#network-analysis-1"><span class="header-section-number">12.6.2</span> Network Analysis</a></li>
+<li><a class="nav-link" href="#correlation-network-analysis"><span class="header-section-number">12.6.2</span> Correlation Network Analysis</a></li>
 <li><a class="nav-link" href="#rshiny-test-suite"><span class="header-section-number">12.6.3</span> RShiny Test Suite</a></li>
-<li><a class="nav-link" href="#differential-expression-exploratory-analysis"><span class="header-section-number">12.6.4</span> Differential Expression Exploratory Analysis</a></li>
-<li><a class="nav-link" href="#visualization-of-individual-gene-expressions"><span class="header-section-number">12.6.5</span> Visualization of Individual Gene Expression(s)</a></li>
-<li><a class="nav-link" href="#custom-option"><span class="header-section-number">12.6.6</span> Custom Option</a></li>
+<li><a class="nav-link" href="#visualization-of-individual-gene-expressions"><span class="header-section-number">12.6.4</span> Visualization of Individual Gene Expression(s)</a></li>
+<li><a class="nav-link" href="#custom-option"><span class="header-section-number">12.6.5</span> Custom Option</a></li>
 </ul>
 </li>
 </ul>
