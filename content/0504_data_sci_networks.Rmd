@@ -2,40 +2,57 @@
 output: html_document
 ---
 
-## Network Analysis .
+## Network Analysis
 
-What is a network? What is network analysis? What are some example network
-analysis applications in biology and bioinformatics (there is a full ksection on
-[Biological Networks] in the bio chapter, these are just illustrative examples)?
-How do we represent networks in R, and how do we analyze them? ([Network
-visualization] is covered in the data viz chapter, might be helpful to write
-these two sections together)
+The basic components of a network are **vertex (or node)**, which is the
+features or subjects we are interested in. The **edges** are connections between
+the vertices. In a general context, one example is the relationship network. The
+vertices are people. If two people are friends, we draw an edge to connect them.
+In a biology context, the vertices may be genes, and edges represent whether
+there are any correlations between two genes.  
+
+Vertices and edges can have attributes. For example, in a social interaction
+network, we may assign different colors to the vertices according to a student's
+major. When connect two students when they know each other, we can also assign
+weights to the edges to represent how often they interact with each other.  
+
+The [`igraph` package](https://igraph.org/) provides functions to represent and
+analyze networks in several language, [including R](https://igraph.org/r/). In
+the examples below, we will use the igraph package to demonstrate the concepts
+described in this section.
 
 ```{r}
 library(igraph)
 ```
 
-The basic components of a network are **vertex (or node)**, which is the features or subjects we are interested in. The **edges** are connections between the vertices. In a general context, one example is the relationship network. The vertices are people. If two people are friends, we draw an edge to connect them. In a biology context, the vertices may be genes, and edges represent whether there are any correlations between two genes.  
+The [`sample_gnm(n,m)` function](https://igraph.org/r/doc/sample_gnm.html)
+generates a random network with $n$ nodes and $m$ edges between them. We will
+use this function below to generate random networks of different types.
 
-Vertices and edges can have attributes. For example, in a social interaction network, we may assign different colors to the vertices according to a student's major. When connect two students when they know each other, we can also assign weights to the edges to represent how often they interact with each other.  
+A **cyclic network** has at least one directed path that starts and ends in the
+same node.
 
-A **cyclic network** has at least one directed path that starts and ends in the same node. 
 ```{r}
 set.seed(2)
-samp_g <- sample_gnm(n = 4, m = 4)
+samp_g <- igraph::sample_gnm(n = 4, m = 4)
 vertex_attr(samp_g) <- list(color = rep("slategray1", gorder(samp_g)))
 plot(samp_g)
 ```
 
-An **acyclic network** , on the other hand, does not have any cycle path. 
+An **acyclic network** , on the other hand, does not have any cycle path.
+
 ```{r}
 set.seed(1)
-samp_g <- sample_gnm(n = 5, m = 4)
+samp_g <- igraph::sample_gnm(n = 5, m = 4)
 vertex_attr(samp_g) <- list(color = rep("slategray1", gorder(samp_g)))
 plot(samp_g)
 ```
 
-The edges in a **directed network** point to one specific direction. (But, there can be double-headed arrows!) One common example is a network representing cell metabolic process.  
+The edges in a **directed network** point to one specific direction (but, edges
+can point in both directions, which are equivalent to undirected edges). One
+common example is a network representing cell metabolic process, where certain
+proteins biochemically modify, e.g. phosphorylate, other proteins.
+
 ```{r}
 set.seed(2)
 samp_g <- sample_gnm(n = 5, m = 7, directed = TRUE)
@@ -43,7 +60,9 @@ vertex_attr(samp_g) <- list(color = rep("slategray1", gorder(samp_g)))
 plot(samp_g)
 ```
 
-The edges in a **indirect network** do not have direction. Common examples include social interaction network and gene correlation network.  
+The edges in a **indirect network** do not have direction. Common examples
+include social interaction network and gene correlation network.  
+
 ```{r}
 set.seed(3)
 samp_g <- sample_gnm(n = 5, m = 7, directed = FALSE)
@@ -51,8 +70,10 @@ vertex_attr(samp_g) <- list(color = rep("slategray1", gorder(samp_g)))
 plot(samp_g)
 ```
 
-### Basic network analysis 
-#### Shortest path 
+### Basic network analysis
+
+#### Shortest path
+
 The **shortest path** between two vertices is... yes, the shortest path you can go from one vertex to the other. There may be more than one shortest paths between two vertices.  
 
 In the following network, there are many ways to go from "Moon_Capital" to "Crystal_Corridor", but there's only one shortest path, which is "Moon_Capital" -> "Gryphon's_Nest" -> "Crystal_Corridor". On the other hand, when you want to go from "Moon_Capital" to "Icy_Turret", there are two possible ways: one through "Gryphon's_Nest", one through "Agate_Trademart".  
@@ -68,7 +89,7 @@ plot(samp_g,
 )
 ```
 
-In `igraph`, this can be calculated using `shortest_paths()`. 
+In `igraph`, this can be calculated using `shortest_paths()`.
 ```{r}
 shortest_paths(samp_g, from = "Moon_Capital", to = "Crystal_Corridor")$vpath
 ```
@@ -92,7 +113,7 @@ plot(samp_g,
 )
 ```
 
-We can conveniently find the shortest path with weights assigned! 
+We can conveniently find the shortest path with weights assigned!
 ```{r}
 shortest_paths(samp_g,
   from = "Moon_Capital", to = "Crystal_Corridor",
@@ -103,7 +124,7 @@ shortest_paths(samp_g,
 
 #### Vertex centrality
 
-The **degree of a vertex** is the number of edges connected to it. In `igraph`, this can be calculated using `degree()`. 
+The **degree of a vertex** is the number of edges connected to it. In `igraph`, this can be calculated using `degree()`.
 ```{r}
 g <- graph_from_data_frame(data.frame(
   "from" = c("A", "A", "A", "A", "A", "B", "C", "A", "G", "H", "H", "H", "H", "H", "M", "I", "G", "N", "N"),
@@ -122,18 +143,18 @@ The **centrality** of a vertex indicates how important it is in a network. For i
 
 To some extent, the degree can be used to evaluate the importance of a vertex. When a vertex is connected to a lot of other vertices, it naturally appears to be more important and has more ability to pass down information to other vertices. Assume you just opened a new on-line shop and you want to attract new customers as many as possible, you start by reaching out to the person you know has the largest number of friends.  
 
-But, sometimes, people with the largest number of friends may not necessarily be the one who can "spread the word" to the whole community the most efficiently. In the example above, although A and H have a lot of connections, in fact, it seems like if we pass an information to G, the whole community will be influenced the most quickly. 
+But, sometimes, people with the largest number of friends may not necessarily be the one who can "spread the word" to the whole community the most efficiently. In the example above, although A and H have a lot of connections, in fact, it seems like if we pass an information to G, the whole community will be influenced the most quickly.
 
-This leads us to **closeness centrality**, which is the sum of the length of the shortest paths between a node and all the other nodes in the graph. Although A and H have a lot of friends, it takes too long to reach the other side of the graph. When we calculating the closeness centrality using `closeness()` function to calculate closeness centrality. 
+This leads us to **closeness centrality**, which is the sum of the length of the shortest paths between a node and all the other nodes in the graph. Although A and H have a lot of friends, it takes too long to reach the other side of the graph. When we calculating the closeness centrality using `closeness()` function to calculate closeness centrality.
 
 ```{r}
 closeness(g)
 ```
 
-**Betweenness centrality** is the number of shortest paths that pass through the vertex. In this example, G is the also the one with the highest betweenness centrality. 
+**Betweenness centrality** is the number of shortest paths that pass through the vertex. In this example, G is the also the one with the highest betweenness centrality.
 ```{r}
 betweenness(g)
 ```
 
 ### Create your own
-Check the network visualization section to see a more detailed illustration about how to create your own network from scratch, and how to customize it! 
+Check the network visualization section to see a more detailed illustration about how to create your own network from scratch, and how to customize it!
