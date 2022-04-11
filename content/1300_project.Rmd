@@ -8,14 +8,20 @@ For the final project you will develop an R Shiny application that features
 multiple bioinformatics processes implemented in R. Your application must
 contain three mandatory components followed by a fourth component of your
 choice, as described below. You may organize your application however you wish,
-but it must exist as one singular application. Four separate applications will
-not be acceptable. (Recommendation: put the four components in four different
-tabs)
+but it must be integrated into one singular application; four separate
+applications will not be acceptable. However, it may be helpful to develop each
+component as its own app, and then combine when all are complete. We suggest a
+layout like the following:
 
-Part of this project is to create the data necessary to be loaded into this
+![Example final project app layout with nested tabs](final_project_structure.png)
+
+Part of this project is to identify the data necessary to be loaded into this
 application. We will provide sets of starting information, but you will need to
 use the R code you’ve written for assignments one through seven to process the
 raw data into an appropriate format to be loaded into your Shiny application.
+Different processing steps and analyses will be required for each dataset, so
+you must investigate each dataset closely to understand what is available and
+what must be done yourself.
 
 Collaboration is encouraged but sharing code is forbidden. Your final submission
 will include a GitHub repository containing the app and data as well as a five
@@ -56,6 +62,81 @@ We recommend writing a script first to use during your presentation. The average
 number of spoken words per minute in English is ~140, so you might use that as a
 guide for length.
 
+## Input Data Sets
+
+We have identified several different datasets that you may use for your
+projects. Each is a gene expression dataset generated with RNASeq data, and has
+both sample information and a counts matrix available. You will need to identify
+the data files containing this information with the references provided below
+and perform any necessary pre-processing (e.g. counts normalization,
+differential expression, etc.) to make the data suitable for your app. Each
+dataset has a slightly different way of obtaining the data, so this should be
+your first step. The app components described later on this page indicate what
+the input should be using the language provided here.
+
+Some hints:
+
+* You will need to investigate the data available in each of the provided
+  sources to find sample info. For some of the datasets, it might be easier to
+  simply create a sample info matrix based on filenames, but others will need
+  more detailed (e.g. covariate) information that you will need to find and use.
+* You will need to closely examine the available counts matrices to understand
+  what they are and how they have been processed.
+* Some of the datasets have precomputed differential expression statistics. You
+  may use these analyses, but be sure you understand what comparison you are
+  using when describing your dataset and demonstrating your app.
+
+You may choose from the following datasets when building and demonstrating your
+app:
+
+### Soybean cotyledon gene expression across development
+
+  This experiment assayed gene expression in the cotyledons, or embryonic
+  leaves, for soybean plants at different ages after planting.
+
+  * [bigPint R package](https://rdrr.io/bioc/bigPint/man/se_soybean_cn_sub.html)
+
+### Post-mortem Huntington's Disease prefrontal cortex compared with neurologically healthy controls
+
+This dataset profiled gene expression with RNASeq in post-mortem human
+dorsolateral prefrontal cortex from patients who died from Huntington's
+Disease and age- and sex-matched neurologically healthy controls.
+
+* [mRNA-Seq Expression profiling of human post-mortem BA9 brain tissue for Huntington's Disease and neurologically normal individuals](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64810)
+
+### Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration
+
+This dataset profiled gene expression with RNASeq in murine cardiac tissue
+across different stages of development to identify genes associated with
+the loss of these cell's capacity to regenerate.
+
+* [Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64403)
+
+### Molecular mechanisms underlying plasticity in a thermally varying environment
+
+This dataset profiled gene expression with RNASeq in drosophila melanogaster
+at different stages of development exposed to constant or fluctuating
+temperatures.
+
+* [Molecular mechanisms underlying plasticity in a thermally varying environment](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE150450)
+* [Salachan, Paul Vinu, and Jesper Givskov Sørensen. 2022. “Molecular Mechanisms Underlying Plasticity in a Thermally Varying Environment.” Molecular Ecology, April. https://doi.org/10.1111/mec.16463.](https://onlinelibrary.wiley.com/doi/10.1111/mec.16463)
+
+**Note:** This article is not open; you will need to find the article through
+the library of your academic institution
+
+### Your own idea
+
+You may identify a gene expression dataset of your own interest. The dataset
+must have:
+
+* A publication associated with it
+* A publicly available raw or normalized gene counts matrix with at least 6
+  samples and 5,000 genes
+* Available sample information that allows you to compute a differential
+expression analysis
+
+Be sure to explain the background of the dataset in your demonstration video.
+
 ## Required Components
 
 ### Sample Information Exploration
@@ -86,15 +167,20 @@ guide for length.
 
 **Inputs**:
 
-* Normalized counts matrix, by some method or other in CSV format
+* Normalized counts matrix, by some method or other, in CSV format
+
+**Shiny Functionalities**:
+
+*
 
 ### Differential Expression
 
 **Inputs**:
 
-* Perform a differential expression analysis on RNA seq data using DESeq2,
-  limma, or edgeR from the provided counts file. You may use the package of your
-  choice to perform this analysis.
+* Results of a differential expression analysis in CSV format.
+  - If results are already made available, you may use those
+  - Otherwise perform a differential expression analysis using DESeq2, limma, or
+    edgeR from the provided counts file
 
 **Shiny Functionalities**:
 
@@ -284,13 +370,3 @@ General requirements:
 * You may also adopt one of the pre-defined optional tab above (Gene Set
   Enrichment Analysis, Network Analysis, RShiny Test Suite) with some slight
   modifications (e.g. a different types of plot)
-
-
-
-
-
-
-Input Data Sets
-BF528 Project 2 fileset
-Vanessa: I can provide an example matrix to be used for the network tab. My idea is to provide a pseudo gene-gene correlation matrix
-bigPint soybean RNAseq?
