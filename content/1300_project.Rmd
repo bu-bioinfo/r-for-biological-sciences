@@ -15,6 +15,11 @@ layout like the following:
 
 ![Example final project app layout with nested tabs](final_project_structure.png)
 
+Note some components have subcomponents with their own input controls. You might
+consider organizing those components as follows:
+
+![Nested tab input controls](final_project_nested_tabs.png)
+
 Part of this project is to identify the data necessary to be loaded into this
 application. We will provide sets of starting information, but you will need to
 use the R code you’ve written for assignments one through seven to process the
@@ -45,7 +50,8 @@ automatically load the results from the differential expression tab.
 
 ## Video Presentation Guidelines
 
-* A screen recorded presentation detailing the ins and outs of the Shiny application (Zoom can be used to record)
+* A screen recorded presentation detailing the ins and outs of the Shiny
+  application (Zoom can be used to record)
 * Narrate all steps of your presentation as you go
 * Presentations should be no more than 5 minutes and should include:
   - A brief introduction, tour, and demonstration of each tab in your application
@@ -89,57 +95,61 @@ Some hints:
 You may choose from the following datasets when building and demonstrating your
 app:
 
-### Soybean cotyledon gene expression across development
+**1. Soybean cotyledon gene expression across development**
 
   This experiment assayed gene expression in the cotyledons, or embryonic
   leaves, for soybean plants at different ages after planting.
 
   * [bigPint R package](https://rdrr.io/bioc/bigPint/man/se_soybean_cn_sub.html)
 
-### Post-mortem Huntington's Disease prefrontal cortex compared with neurologically healthy controls
+**2. Post-mortem Huntington's Disease prefrontal cortex compared with neurologically healthy controls**
 
-This dataset profiled gene expression with RNASeq in post-mortem human
-dorsolateral prefrontal cortex from patients who died from Huntington's
-Disease and age- and sex-matched neurologically healthy controls.
+  This dataset profiled gene expression with RNASeq in post-mortem human
+  dorsolateral prefrontal cortex from patients who died from Huntington's
+  Disease and age- and sex-matched neurologically healthy controls.
 
-* [mRNA-Seq Expression profiling of human post-mortem BA9 brain tissue for Huntington's Disease and neurologically normal individuals](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64810)
+  * [mRNA-Seq Expression profiling of human post-mortem BA9 brain tissue for Huntington's Disease and neurologically normal individuals](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64810)
 
-### Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration
+**3. Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration**
 
-This dataset profiled gene expression with RNASeq in murine cardiac tissue
-across different stages of development to identify genes associated with
-the loss of these cell's capacity to regenerate.
+  This dataset profiled gene expression with RNASeq in murine cardiac tissue
+  across different stages of development to identify genes associated with
+  the loss of these cell's capacity to regenerate.
 
-* [Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64403)
+  * [Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64403)
 
-### Molecular mechanisms underlying plasticity in a thermally varying environment
+**4. Molecular mechanisms underlying plasticity in a thermally varying environment**
 
-This dataset profiled gene expression with RNASeq in drosophila melanogaster
-at different stages of development exposed to constant or fluctuating
-temperatures.
+  This dataset profiled gene expression with RNASeq in drosophila melanogaster
+  at different stages of development exposed to constant or fluctuating
+  temperatures.
 
-* [Molecular mechanisms underlying plasticity in a thermally varying environment](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE150450)
-* [Salachan, Paul Vinu, and Jesper Givskov Sørensen. 2022. “Molecular Mechanisms Underlying Plasticity in a Thermally Varying Environment.” Molecular Ecology, April. https://doi.org/10.1111/mec.16463.](https://onlinelibrary.wiley.com/doi/10.1111/mec.16463)
+  * [Molecular mechanisms underlying plasticity in a thermally varying environment](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE150450)
+  * [Salachan, Paul Vinu, and Jesper Givskov Sørensen. 2022. “Molecular Mechanisms Underlying Plasticity in a Thermally Varying Environment.” Molecular Ecology, April. https://doi.org/10.1111/mec.16463.](https://onlinelibrary.wiley.com/doi/10.1111/mec.16463)
 
-**Note:** This article is not open; you will need to find the article through
-the library of your academic institution
+  **Note:** This article is not open; you will need to find the article through
+  the library of your academic institution
 
-### Your own idea
+**5. Your own idea**
 
-You may identify a gene expression dataset of your own interest. The dataset
-must have:
+  You may identify a gene expression dataset of your own interest. The dataset
+  must have:
 
-* A publication associated with it
-* A publicly available raw or normalized gene counts matrix with at least 6
-  samples and 5,000 genes
-* Available sample information that allows you to compute a differential
-expression analysis
+  * A publication associated with it
+  * A publicly available raw or normalized gene counts matrix with at least 6
+    samples and 5,000 genes
+  * Available sample information that allows you to compute a differential
+  expression analysis
 
-Be sure to explain the background of the dataset in your demonstration video.
+  Be sure to explain the background of the dataset in your demonstration video.
 
 ## Required Components
 
 ### Sample Information Exploration
+
+The distinct values and distributions of sample information are important to
+understand before conducting analysis of corresponding sample data. This
+component allows the user to load and examine a sample information matrix.
 
 **Inputs**:
 
@@ -165,15 +175,45 @@ Be sure to explain the background of the dataset in your demonstration video.
 
 ### Counts Matrix Exploration
 
+Exploring and visualizing counts matrices can aid in selecting gene count
+filtering strategies and understanding counts data structure. This component
+allows the user to choose different gene filtering thresholds and assess their
+effects using diagnostic plots of the counts matrix.
+
 **Inputs**:
 
 * Normalized counts matrix, by some method or other, in CSV format
+* Input controls that filter out genes based on their statistical properties:
+  - Slider to include genes with at least X percentile of variance
+  - Slider to include genes with at least X samples that are non-zero
 
 **Shiny Functionalities**:
 
-*
+* Tab with text or a table summarizing the effect of the filtering, including:
+  - number of samples
+  - total number of genes
+  - number and % of genes passing current filter
+  - number and % of genes not passing current filter
+* Tab with diagnostic scatter plots, where genes passing filters are marked in
+a darker color, and genes filtered out are lighter:
+  - median count vs variance (consider log scale for plot)
+  - median count vs number of zeros
+* Tab with a clustered heatmap of counts remaining after filtering
+  - consider enabling log-transforming counts for visualization
+  - be sure to include a color bar in the legend
+* Tab with a scatter plot of [principal component
+analysis](#principal-component-analysis) projections. You may either:
+  - allow the user to select which principal components to plot in a scatter
+  plot (e.g. PC1 vs PC2)
+  - allow the user to plot the top $N$ principal components as a beeswarm plot
+  - be sure to include the % variance explained by each component in the plot
+  labels
 
 ### Differential Expression
+
+Differential expression identifies which genes, if any, are implicated in a
+specific biological comparison. This component allows the user to load and
+explore a differential expression dataset.
 
 **Inputs**:
 
@@ -184,98 +224,93 @@ Be sure to explain the background of the dataset in your demonstration video.
 
 **Shiny Functionalities**:
 
-* You must include a filtering step as a part of your analysis. All differential
-  expression libraries have filtering capabilities.
-* Create a tab in your shiny application that can load the counts file, analyze
-  it, and create a relevant plot or table to illustrate the differential
-  expression results. You may use a volcano plot or choose other relevant ways
-  to plot differentially expressed genes (such as the bigPint library).
-* In this tab, design a user interface to control the level of filtering that
-  your analysis performs on the count data.
-* Plots and or tables should be used to illustrate how this filtering can impact
-  the results of a dataset
-    - Recommendation: Use a slide bar input to specify a FDR p-value cutoff, and
-      another slide bar input to specify another filter criteria, for example,
-      absolute log2 FC. After clicking a button, show the table of the top X
-      genes (ranked by p-value), and a volcano plot containing all the genes
-      with the significant genes (identified by the filter criteria selected)
-      colored differently.
+* Tab with sortable table displaying differential expression results
+  - Optional: enable gene name search functionality to filter rows of table
+* Tab with content similar to that described in [Assignment 7]
 
 ## Choose-your-own Adventure
 
+Implement one or more of the following components as part of your app.
+
 ### Gene Set Enrichment Analysis
+
+Use your differential gene expression results to compute [gene set enrichment
+analysis](#gene-set-enrichment-analysis) with [fgsea]. You will need to identify
+an appropriate gene set database that matches the organism studied in your
+dataset.
 
 **Input**:
 
-Create a table of fgsea results from the differential expression data.
-
-Choose an appropriate ranking metric (S2N, LogFoldChange, signed log(pvalue), etc.
-Run fgsea with appropriate parameters (minsize and maxsize for gene sets, they already did it this way in assignment #5) against gene set of their choice
-Unnest leading edge column (leading edge genes stored as list), save each in column delimited by something other than comma or tab.
-Save the results to a CSV/TSV
+* a table of fgsea results from the differential expression data.
+  - choose an appropriate ranking metric (log fold change, -log(pvalue), etc)
+    from your differential expression results
+  - run fgsea with appropriate parameters against gene set database of your choice
+  - save the results to a CSV/TSV
+* file upload button
 
 **Shiny Functionalities**:
 
 * Tab 1
   - Sidebar
-    + Upload from file (FileInput) - simple validation of CSV/TSV
-    + Slider to adjust number of top pathways to plot (Reactive)
+    + Slider to adjust number of top pathways to plot by adjusted p-value
 
   - Main Panel
     + Barplot of fgsea NES for top pathways selected by slider
-    + Click on barplot for pathway to display table entry (On Click)
+    + Optional: Click on barplot for pathway to display table entry
 
 * Tab 2
   - Sidebar
-      + Slider to filter table by padj (Reactive)
+      + Slider to filter table by adjusted p-value (Reactive)
+      + Radio buttons to select all, positive or negative NES pathways
       + Download button to export current filtered and displayed table results
-      + Radio buttons to select all, positive or negative NES pathways (Reactive)
 
   - Main panel
-      + Sortable DT table
+      + Sortable data table displaying the results
 
+* Tab 3
+  - Sidebar
+    + Slider to filter table by adjusted p-value (Reactive)
 
-### Network Analysis
+  - Main panel
+    + Scatter plot of NES on x-axis and -log10 adjusted p-value on y-axis, with
+    gene sets below threshold in grey color
+
+### Correlation Network Analysis
+
+Create an app that computes pairwise gene expression correlation for a specific
+set of input genes. The genes could be all genes in a particular pathway,
+associated with disease, or perhaps the top $N$ differentially expressed genes.
+Subset the gene expression matrix to include only the genes specified in the
+input text area and compute all pairwise correlations. Your app should report if
+any of the input genes are not found in the matrix. Also provide a slider input
+that allows the user to set a minimum threshold for an edge between two genes to
+be included (e.g. only draw edges for genes with a correlation > 0.9). The
+slider should be reactive, so the tables and plots update appropriately. Use the
+[igraph] package as described in the [Network Analysis] section to construct
+your graph and to compute network statistics on each node.
 
 **Input**:
 
-Create a table (not in your Shiny app. do it in a general R session) that you
-can draw a network from
-
-Example: gene-gene correlation matrix (draw an edge between two vertices when
-their correlation value reaches a certain threshold), top significantly
-differentially expressed genes for several different phenotypes, or any other
-matrices you like.
-
-The number of vertices should be at least 10. Recommendation: around 15-30
-vertices with a total number of edges around 2 to 5 times of the number of
-vertices may be a good one to work with.
+* Normalized counts matrix, by some method or other, in CSV format
+* A multi-line text box (hint: [textAreaInput](https://shiny.rstudio.com/reference/shiny/1.0.5/textAreaInput.html))
+  that accepts one gene name per line
+* A slider setting the minimum correlation for drawing an edge
 
 **Shiny Functionalities**:
 
-* Upload the table containing the information to draw a network.
-  - Hint: there’s no requirement of the format of the table, but one of the
-    easiest way is to make it to have two columns named “from” and “to” which
-    are vertices to be used, and a column “weight” to indicate edge weight
-* After clicking a button, draw the network. Basic igraph plot is okay.
+* Tab with a clustered heatmap of normalized counts corresponding to the genes
+entered in the text area
+* Tab with a visualization of the correlation network
   - Vertices should be colored NOT by the default color in igraph
-  - Labels on vertices are optional. Make your own choice depending on the
-    density of your network.
-  - (Optional) You can also explore other interactive plotting packages
-* Choose at least one in this question. After clicking a button, show a table
-  output of the top 5 vertices with the highest… (one of the following) and
-  their value.
+  - Vertices should be labeled with gene names
+  - (Optional) The user can select two vertices, click a button, and show the shortest path
+    between them. What required in this question are:
+    - Two drop down menus (selectizeInput) to select two vertices
+    - Show the shortest path as text output
+* Tab with a table with the following metrics calculated for each gene in the input:
   - Degree
   - Closeness centrality
   - Betweenness centrality
-* The user can select two vertices, click a button, and show the shortest path
-  between them. What required in this question are:
-  - Two drop down menus (selectizeInput) to select two vertices
-  - (Optional) It would be great if it prevents the user from selecting the same
-    vertices. You can either use ​updateSelectizeInput, or, implement a checking
-    step to make sure the two vertices are not the same.
-  - A button
-  - Show the shortest path as text output
 
 ### RShiny Test Suite
 
@@ -295,62 +330,36 @@ inputs and outputs of your application (so at least 15 total).
 Tests should be relevant and should test parts of the application relevant to
 the app’s running. For instance, a test confirming a counts file was filtered
 correctly would be acceptable. Tests can measure the output of functions inside
-your application or the output$
-of the app itself.
+your application or the `output$` of the app itself.
 
 Spend a portion of your presentation video running the test to show what is
 working (or what doesn’t) and discuss briefly your approach to writing and
 running the tests. Your test file will be reviewed with your project submission.
 
-### Differential Expression Exploratory Analysis
-
-**Input**:
-Differential Expression results
-[Optional] Allow the program to access your previous differential expression results from the earlier section
-Allow user to choose which kind of exploratory analysis to perform. Must have at
-least 3 exploratory analysis options (PCA, heatmapping, clustering, sample
-scatterplot, sample difference… Or any other appropriate plot. If you choose
-analyses to perform outside of the aforementioned options, please explain what
-they are and what they do on your app)
-
-Appropriate interface which allows the user to set plot options. Suggestions
-include filtering cutoffs, color options, plot title…
-
-**Shiny Functionalities**:
-
-* Import data
-* Analysis selection with an appropriate method of selection
-* Once the analysis option has been selected, allow the user to edit the
-  analysis-relevant parameters in a way that is user friendly. Points will be
-  deducted if you try to emulate any of these in spirit or in exact
-  - [Optional] If you allowed your user to select a subset of the data, display
-    the table of data used [in a different tab or otherwise]
-* When parameters have been set, allow the user to click a button to enable
-  display of the desired plot
-
 ### Visualization of Individual Gene Expression(s)
 
+Visualizing individual gene counts is sometimes useful for examining or
+verifying patterns identified by differential expression analysis. There are
+many different ways of visualizing counts for a single gene. This app allows
+counts from an arbitrary gene to be selected and visualized broken out by a
+desired sample information variable.
+
 **Input**:
 
-Upload data of gene expression
-Allow user to filter genes by specific criteria to find them easier (search/filter by name, p-value, id…
-Allow user to select samples if necessary
-[optional] Allow user to adjust format so they can display multiple genes across
-a sample, specific gene expression across multiple samples, display multiple
-genes in multiple samples…
-
-Choosing to stick to one format instead is okay.
+* Normalized counts matrix, by some method or other, in CSV format
+* Sample information matrix in CSV format
+* Input control that allows the user to choose one of the categorical fields
+found in the sample information matrix file
+* Input control that allows the user to choose one of the genes found in the
+counts matrix (hint: try implementing a [search box](https://stackoverflow.com/questions/47336114/searchbox-in-r-shiny))
+* Input control allowing the user to select one of [bar plot](#bar-chart),
+[boxplot](#boxplot), [violin plot](#violin-plot), or [beeswarm plot](#beeswarm-plot)
+* A button that makes the thing go
 
 **Shiny Functionalities**:
-* Data upload and processing where necessary
-* Upon completion of upload and processing, display a table of gene, sample
-  names with relevant information.
-* Allow the user to filter, search, and select gene(s), sample(s) in a way that
-  makes sense to produce your desired output.
-* Allow the user to edit display parameters for visual elements like colors.
 
-Example usage from a journal article: (taken from Koch et al (2018) doi:
-10.1165/rcmb.2017-0430TR )
+* Content displaying a plot of the selected type with the normalized gene counts
+for the selected gene split out by the categorical variable chosen
 
 ### Custom Option
 
