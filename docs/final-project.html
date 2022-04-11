@@ -77,13 +77,20 @@
 multiple bioinformatics processes implemented in R. Your application must
 contain three mandatory components followed by a fourth component of your
 choice, as described below. You may organize your application however you wish,
-but it must exist as one singular application. Four separate applications will
-not be acceptable. (Recommendation: put the four components in four different
-tabs)</p>
-<p>Part of this project is to create the data necessary to be loaded into this
+but it must be integrated into one singular application; four separate
+applications will not be acceptable. However, it may be helpful to develop each
+component as its own app, and then combine when all are complete. We suggest a
+layout like the following:</p>
+<div class="figure">
+<img src="final_project_structure.png" alt=""><p class="caption">Example final project app layout with nested tabs</p>
+</div>
+<p>Part of this project is to identify the data necessary to be loaded into this
 application. We will provide sets of starting information, but you will need to
 use the R code you’ve written for assignments one through seven to process the
-raw data into an appropriate format to be loaded into your Shiny application.</p>
+raw data into an appropriate format to be loaded into your Shiny application.
+Different processing steps and analyses will be required for each dataset, so
+you must investigate each dataset closely to understand what is available and
+what must be done yourself.</p>
 <p>Collaboration is encouraged but sharing code is forbidden. Your final submission
 will include a GitHub repository containing the app and data as well as a five
 minute pre-recorded screen grab video presentation offering a demonstration of
@@ -132,19 +139,108 @@ considered genes to be significant with a FDR &lt; .15”</li>
 number of spoken words per minute in English is ~140, so you might use that as a
 guide for length.</p>
 </div>
-<div id="required-components" class="section level2" number="12.4">
+<div id="input-data-sets" class="section level2" number="12.4">
 <h2>
-<span class="header-section-number">12.4</span> Required Components<a class="anchor" aria-label="anchor" href="#required-components"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.4</span> Input Data Sets<a class="anchor" aria-label="anchor" href="#input-data-sets"><i class="fas fa-link"></i></a>
 </h2>
-<div id="sample-information-exploration" class="section level3" number="12.4.1">
+<p>We have identified several different datasets that you may use for your
+projects. Each is a gene expression dataset generated with RNASeq data, and has
+both sample information and a counts matrix available. You will need to identify
+the data files containing this information with the references provided below
+and perform any necessary pre-processing (e.g. counts normalization,
+differential expression, etc.) to make the data suitable for your app. Each
+dataset has a slightly different way of obtaining the data, so this should be
+your first step. The app components described later on this page indicate what
+the input should be using the language provided here.</p>
+<p>Some hints:</p>
+<ul>
+<li>You will need to investigate the data available in each of the provided
+sources to find sample info. For some of the datasets, it might be easier to
+simply create a sample info matrix based on filenames, but others will need
+more detailed (e.g. covariate) information that you will need to find and use.</li>
+<li>You will need to closely examine the available counts matrices to understand
+what they are and how they have been processed.</li>
+<li>Some of the datasets have precomputed differential expression statistics. You
+may use these analyses, but be sure you understand what comparison you are
+using when describing your dataset and demonstrating your app.</li>
+</ul>
+<p>You may choose from the following datasets when building and demonstrating your
+app:</p>
+<div id="soybean-cotyledon-gene-expression-across-development" class="section level3" number="12.4.1">
 <h3>
-<span class="header-section-number">12.4.1</span> Sample Information Exploration<a class="anchor" aria-label="anchor" href="#sample-information-exploration"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.4.1</span> Soybean cotyledon gene expression across development<a class="anchor" aria-label="anchor" href="#soybean-cotyledon-gene-expression-across-development"><i class="fas fa-link"></i></a>
+</h3>
+<p>This experiment assayed gene expression in the cotyledons, or embryonic
+leaves, for soybean plants at different ages after planting.</p>
+<ul>
+<li><a href="https://rdrr.io/bioc/bigPint/man/se_soybean_cn_sub.html">bigPint R package</a></li>
+</ul>
+</div>
+<div id="post-mortem-huntingtons-disease-prefrontal-cortex-compared-with-neurologically-healthy-controls" class="section level3" number="12.4.2">
+<h3>
+<span class="header-section-number">12.4.2</span> Post-mortem Huntington’s Disease prefrontal cortex compared with neurologically healthy controls<a class="anchor" aria-label="anchor" href="#post-mortem-huntingtons-disease-prefrontal-cortex-compared-with-neurologically-healthy-controls"><i class="fas fa-link"></i></a>
+</h3>
+<p>This dataset profiled gene expression with RNASeq in post-mortem human
+dorsolateral prefrontal cortex from patients who died from Huntington’s
+Disease and age- and sex-matched neurologically healthy controls.</p>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64810">mRNA-Seq Expression profiling of human post-mortem BA9 brain tissue for Huntington’s Disease and neurologically normal individuals</a></li>
+</ul>
+</div>
+<div id="transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration" class="section level3" number="12.4.3">
+<h3>
+<span class="header-section-number">12.4.3</span> Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration<a class="anchor" aria-label="anchor" href="#transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration"><i class="fas fa-link"></i></a>
+</h3>
+<p>This dataset profiled gene expression with RNASeq in murine cardiac tissue
+across different stages of development to identify genes associated with
+the loss of these cell’s capacity to regenerate.</p>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE64403">Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration</a></li>
+</ul>
+</div>
+<div id="molecular-mechanisms-underlying-plasticity-in-a-thermally-varying-environment" class="section level3" number="12.4.4">
+<h3>
+<span class="header-section-number">12.4.4</span> Molecular mechanisms underlying plasticity in a thermally varying environment<a class="anchor" aria-label="anchor" href="#molecular-mechanisms-underlying-plasticity-in-a-thermally-varying-environment"><i class="fas fa-link"></i></a>
+</h3>
+<p>This dataset profiled gene expression with RNASeq in drosophila melanogaster
+at different stages of development exposed to constant or fluctuating
+temperatures.</p>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE150450">Molecular mechanisms underlying plasticity in a thermally varying environment</a></li>
+<li><a href="https://onlinelibrary.wiley.com/doi/10.1111/mec.16463">Salachan, Paul Vinu, and Jesper Givskov Sørensen. 2022. “Molecular Mechanisms Underlying Plasticity in a Thermally Varying Environment.” Molecular Ecology, April. https://doi.org/10.1111/mec.16463.</a></li>
+</ul>
+<p><strong>Note:</strong> This article is not open; you will need to find the article through
+the library of your academic institution</p>
+</div>
+<div id="your-own-idea" class="section level3" number="12.4.5">
+<h3>
+<span class="header-section-number">12.4.5</span> Your own idea<a class="anchor" aria-label="anchor" href="#your-own-idea"><i class="fas fa-link"></i></a>
+</h3>
+<p>You may identify a gene expression dataset of your own interest. The dataset
+must have:</p>
+<ul>
+<li>A publication associated with it</li>
+<li>A publicly available raw or normalized gene counts matrix with at least 6
+samples and 5,000 genes</li>
+<li>Available sample information that allows you to compute a differential
+expression analysis</li>
+</ul>
+<p>Be sure to explain the background of the dataset in your demonstration video.</p>
+</div>
+</div>
+<div id="required-components" class="section level2" number="12.5">
+<h2>
+<span class="header-section-number">12.5</span> Required Components<a class="anchor" aria-label="anchor" href="#required-components"><i class="fas fa-link"></i></a>
+</h2>
+<div id="sample-information-exploration" class="section level3" number="12.5.1">
+<h3>
+<span class="header-section-number">12.5.1</span> Sample Information Exploration<a class="anchor" aria-label="anchor" href="#sample-information-exploration"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Inputs</strong>:</p>
 <ul>
 <li>Sample information matrix in CSV format</li>
 </ul>
-<p><strong>Shiny Functionality</strong>:</p>
+<p><strong>Shiny Functionalities</strong>:</p>
 <ul>
 <li>
 <p>Tab with a summary of the table that includes a summary of the type and values in each column, e.g.:
@@ -190,35 +286,43 @@ and another column to group by!</li>
 </li>
 </ul>
 </div>
-<div id="counts-matrix-exploration" class="section level3" number="12.4.2">
+<div id="counts-matrix-exploration" class="section level3" number="12.5.2">
 <h3>
-<span class="header-section-number">12.4.2</span> Counts Matrix Exploration<a class="anchor" aria-label="anchor" href="#counts-matrix-exploration"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.5.2</span> Counts Matrix Exploration<a class="anchor" aria-label="anchor" href="#counts-matrix-exploration"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Inputs</strong>:</p>
 <ul>
-<li>Normalized counts matrix, by some method or other in CSV format</li>
+<li>Normalized counts matrix, by some method or other, in CSV format</li>
+</ul>
+<p><strong>Shiny Functionalities</strong>:</p>
+<ul>
+<li>
 </ul>
 </div>
-<div id="differential-expression" class="section level3" number="12.4.3">
+<div id="differential-expression" class="section level3" number="12.5.3">
 <h3>
-<span class="header-section-number">12.4.3</span> Differential Expression<a class="anchor" aria-label="anchor" href="#differential-expression"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.5.3</span> Differential Expression<a class="anchor" aria-label="anchor" href="#differential-expression"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Inputs</strong>:</p>
-<p>An RNA seq data set of soybeans with varying iron contamination levels from
-bigPint library, reduced to 10% size.</p>
-<p><strong>Shiny Functionality</strong>:</p>
 <ul>
-<li>Perform a differential expression analysis on RNA seq data using deseq2,
-limma, edgeR from the provided counts file. You may use the package of your
-choice to perform this analysis.</li>
+<li>Results of a differential expression analysis in CSV format.
+<ul>
+<li>If results are already made available, you may use those</li>
+<li>Otherwise perform a differential expression analysis using DESeq2, limma, or
+edgeR from the provided counts file</li>
+</ul>
+</li>
+</ul>
+<p><strong>Shiny Functionalities</strong>:</p>
+<ul>
 <li>You must include a filtering step as a part of your analysis. All differential
 expression libraries have filtering capabilities.</li>
 <li>Create a tab in your shiny application that can load the counts file, analyze
 it, and create a relevant plot or table to illustrate the differential
-expression results. You may use a volcano plot or choose other relevant ways to
-plot differentially expressed genes (such as the bigPint library).</li>
-<li>In this tab, design a user interface to control the level of filtering that your
-analysis performs on the count data.</li>
+expression results. You may use a volcano plot or choose other relevant ways
+to plot differentially expressed genes (such as the bigPint library).</li>
+<li>In this tab, design a user interface to control the level of filtering that
+your analysis performs on the count data.</li>
 <li>Plots and or tables should be used to illustrate how this filtering can impact
 the results of a dataset
 <ul>
@@ -233,13 +337,13 @@ colored differently.</li>
 </ul>
 </div>
 </div>
-<div id="choose-your-own-adventure" class="section level2" number="12.5">
+<div id="choose-your-own-adventure" class="section level2" number="12.6">
 <h2>
-<span class="header-section-number">12.5</span> Choose-your-own Adventure<a class="anchor" aria-label="anchor" href="#choose-your-own-adventure"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6</span> Choose-your-own Adventure<a class="anchor" aria-label="anchor" href="#choose-your-own-adventure"><i class="fas fa-link"></i></a>
 </h2>
-<div id="gene-set-enrichment-analysis-1" class="section level3" number="12.5.1">
+<div id="gene-set-enrichment-analysis-1" class="section level3" number="12.6.1">
 <h3>
-<span class="header-section-number">12.5.1</span> Gene Set Enrichment Analysis<a class="anchor" aria-label="anchor" href="#gene-set-enrichment-analysis-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.1</span> Gene Set Enrichment Analysis<a class="anchor" aria-label="anchor" href="#gene-set-enrichment-analysis-1"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Input</strong>:</p>
 <p>Create a table of fgsea results from the differential expression data.</p>
@@ -283,9 +387,9 @@ Save the results to a CSV/TSV</p>
 </li>
 </ul>
 </div>
-<div id="network-analysis" class="section level3" number="12.5.2">
+<div id="network-analysis-1" class="section level3" number="12.6.2">
 <h3>
-<span class="header-section-number">12.5.2</span> Network Analysis<a class="anchor" aria-label="anchor" href="#network-analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.2</span> Network Analysis<a class="anchor" aria-label="anchor" href="#network-analysis-1"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Input</strong>:</p>
 <p>Create a table (not in your Shiny app. do it in a general R session) that you
@@ -336,9 +440,9 @@ step to make sure the two vertices are not the same.</li>
 </li>
 </ul>
 </div>
-<div id="rshiny-test-suite" class="section level3" number="12.5.3">
+<div id="rshiny-test-suite" class="section level3" number="12.6.3">
 <h3>
-<span class="header-section-number">12.5.3</span> RShiny Test Suite<a class="anchor" aria-label="anchor" href="#rshiny-test-suite"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.3</span> RShiny Test Suite<a class="anchor" aria-label="anchor" href="#rshiny-test-suite"><i class="fas fa-link"></i></a>
 </h3>
 <p>Instead of creating a fourth tab as a part of this project, you will instead
 create a test application file for use with the “testthat” or “shinytest”
@@ -359,9 +463,9 @@ of the app itself.</p>
 working (or what doesn’t) and discuss briefly your approach to writing and
 running the tests. Your test file will be reviewed with your project submission.</p>
 </div>
-<div id="differential-expression-exploratory-analysis" class="section level3" number="12.5.4">
+<div id="differential-expression-exploratory-analysis" class="section level3" number="12.6.4">
 <h3>
-<span class="header-section-number">12.5.4</span> Differential Expression Exploratory Analysis<a class="anchor" aria-label="anchor" href="#differential-expression-exploratory-analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.4</span> Differential Expression Exploratory Analysis<a class="anchor" aria-label="anchor" href="#differential-expression-exploratory-analysis"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Input</strong>:
 Differential Expression results
@@ -389,9 +493,9 @@ the table of data used [in a different tab or otherwise]</li>
 display of the desired plot</li>
 </ul>
 </div>
-<div id="visualization-of-individual-gene-expressions" class="section level3" number="12.5.5">
+<div id="visualization-of-individual-gene-expressions" class="section level3" number="12.6.5">
 <h3>
-<span class="header-section-number">12.5.5</span> Visualization of Individual Gene Expression(s)<a class="anchor" aria-label="anchor" href="#visualization-of-individual-gene-expressions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.5</span> Visualization of Individual Gene Expression(s)<a class="anchor" aria-label="anchor" href="#visualization-of-individual-gene-expressions"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Input</strong>:</p>
 <p>Upload data of gene expression
@@ -411,9 +515,9 @@ makes sense to produce your desired output.
 <p>Example usage from a journal article: (taken from Koch et al (2018) doi:
 10.1165/rcmb.2017-0430TR )</p>
 </div>
-<div id="custom-option" class="section level3" number="12.5.6">
+<div id="custom-option" class="section level3" number="12.6.6">
 <h3>
-<span class="header-section-number">12.5.6</span> Custom Option<a class="anchor" aria-label="anchor" href="#custom-option"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.6</span> Custom Option<a class="anchor" aria-label="anchor" href="#custom-option"><i class="fas fa-link"></i></a>
 </h3>
 <p>We have explored a number of different bioinformatics topics in this class and
 BF528, but there are many more. If you would like to create your own fourth
@@ -430,10 +534,6 @@ the amount of pre-processing required.
 * You may also adopt one of the pre-defined optional tab above (Gene Set
 Enrichment Analysis, Network Analysis, RShiny Test Suite) with some slight
 modifications (e.g. a different types of plot)</p>
-<p>Input Data Sets
-BF528 Project 2 fileset
-Vanessa: I can provide an example matrix to be used for the network tab. My idea is to provide a pseudo gene-gene correlation matrix
-bigPint soybean RNAseq?</p>
 
 </div>
 </div>
@@ -451,20 +551,29 @@ bigPint soybean RNAseq?</p>
 <li><a class="nav-link" href="#general-guidelines"><span class="header-section-number">12.2</span> General Guidelines</a></li>
 <li><a class="nav-link" href="#video-presentation-guidelines"><span class="header-section-number">12.3</span> Video Presentation Guidelines</a></li>
 <li>
-<a class="nav-link" href="#required-components"><span class="header-section-number">12.4</span> Required Components</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#sample-information-exploration"><span class="header-section-number">12.4.1</span> Sample Information Exploration</a></li>
-<li><a class="nav-link" href="#counts-matrix-exploration"><span class="header-section-number">12.4.2</span> Counts Matrix Exploration</a></li>
-<li><a class="nav-link" href="#differential-expression"><span class="header-section-number">12.4.3</span> Differential Expression</a></li>
+<a class="nav-link" href="#input-data-sets"><span class="header-section-number">12.4</span> Input Data Sets</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#soybean-cotyledon-gene-expression-across-development"><span class="header-section-number">12.4.1</span> Soybean cotyledon gene expression across development</a></li>
+<li><a class="nav-link" href="#post-mortem-huntingtons-disease-prefrontal-cortex-compared-with-neurologically-healthy-controls"><span class="header-section-number">12.4.2</span> Post-mortem Huntington’s Disease prefrontal cortex compared with neurologically healthy controls</a></li>
+<li><a class="nav-link" href="#transcriptional-reversion-of-cardiac-myocyte-fate-during-mammalian-cardiac-regeneration"><span class="header-section-number">12.4.3</span> Transcriptional Reversion of Cardiac Myocyte Fate During Mammalian Cardiac Regeneration</a></li>
+<li><a class="nav-link" href="#molecular-mechanisms-underlying-plasticity-in-a-thermally-varying-environment"><span class="header-section-number">12.4.4</span> Molecular mechanisms underlying plasticity in a thermally varying environment</a></li>
+<li><a class="nav-link" href="#your-own-idea"><span class="header-section-number">12.4.5</span> Your own idea</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#choose-your-own-adventure"><span class="header-section-number">12.5</span> Choose-your-own Adventure</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#gene-set-enrichment-analysis-1"><span class="header-section-number">12.5.1</span> Gene Set Enrichment Analysis</a></li>
-<li><a class="nav-link" href="#network-analysis"><span class="header-section-number">12.5.2</span> Network Analysis</a></li>
-<li><a class="nav-link" href="#rshiny-test-suite"><span class="header-section-number">12.5.3</span> RShiny Test Suite</a></li>
-<li><a class="nav-link" href="#differential-expression-exploratory-analysis"><span class="header-section-number">12.5.4</span> Differential Expression Exploratory Analysis</a></li>
-<li><a class="nav-link" href="#visualization-of-individual-gene-expressions"><span class="header-section-number">12.5.5</span> Visualization of Individual Gene Expression(s)</a></li>
-<li><a class="nav-link" href="#custom-option"><span class="header-section-number">12.5.6</span> Custom Option</a></li>
+<a class="nav-link" href="#required-components"><span class="header-section-number">12.5</span> Required Components</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sample-information-exploration"><span class="header-section-number">12.5.1</span> Sample Information Exploration</a></li>
+<li><a class="nav-link" href="#counts-matrix-exploration"><span class="header-section-number">12.5.2</span> Counts Matrix Exploration</a></li>
+<li><a class="nav-link" href="#differential-expression"><span class="header-section-number">12.5.3</span> Differential Expression</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#choose-your-own-adventure"><span class="header-section-number">12.6</span> Choose-your-own Adventure</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#gene-set-enrichment-analysis-1"><span class="header-section-number">12.6.1</span> Gene Set Enrichment Analysis</a></li>
+<li><a class="nav-link" href="#network-analysis-1"><span class="header-section-number">12.6.2</span> Network Analysis</a></li>
+<li><a class="nav-link" href="#rshiny-test-suite"><span class="header-section-number">12.6.3</span> RShiny Test Suite</a></li>
+<li><a class="nav-link" href="#differential-expression-exploratory-analysis"><span class="header-section-number">12.6.4</span> Differential Expression Exploratory Analysis</a></li>
+<li><a class="nav-link" href="#visualization-of-individual-gene-expressions"><span class="header-section-number">12.6.5</span> Visualization of Individual Gene Expression(s)</a></li>
+<li><a class="nav-link" href="#custom-option"><span class="header-section-number">12.6.6</span> Custom Option</a></li>
 </ul>
 </li>
 </ul>

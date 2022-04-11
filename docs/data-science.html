@@ -2018,42 +2018,56 @@ cluster by construction. Real data are seldom so well behaved.</p>
 
 </div>
 </div>
-<div id="network-analysis-." class="section level2" number="6.5">
+<div id="network-analysis" class="section level2" number="6.5">
 <h2>
-<span class="header-section-number">6.5</span> Network Analysis .<a class="anchor" aria-label="anchor" href="#network-analysis-."><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.5</span> Network Analysis<a class="anchor" aria-label="anchor" href="#network-analysis"><i class="fas fa-link"></i></a>
 </h2>
-<p>What is a network? What is network analysis? What are some example network
-analysis applications in biology and bioinformatics (there is a full ksection on
-<a href="biology-bioinformatics.html#biological-networks">Biological Networks</a> in the bio chapter, these are just illustrative examples)?
-How do we represent networks in R, and how do we analyze them? (<a href="data-visualization.html#network-visualization">Network
-visualization</a> is covered in the data viz chapter, might be helpful to write
-these two sections together)</p>
+<p>The basic components of a network are <strong>vertex (or node)</strong>, which is the
+features or subjects we are interested in. The <strong>edges</strong> are connections between
+the vertices. In a general context, one example is the relationship network. The
+vertices are people. If two people are friends, we draw an edge to connect them.
+In a biology context, the vertices may be genes, and edges represent whether
+there are any correlations between two genes.</p>
+<p>Vertices and edges can have attributes. For example, in a social interaction
+network, we may assign different colors to the vertices according to a student’s
+major. When connect two students when they know each other, we can also assign
+weights to the edges to represent how often they interact with each other.</p>
+<p>The <a href="https://igraph.org/"><code>igraph</code> package</a> provides functions to represent and
+analyze networks in several language, <a href="https://igraph.org/r/">including R</a>. In
+the examples below, we will use the igraph package to demonstrate the concepts
+described in this section.</p>
 <div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span></code></pre></div>
-<p>The basic components of a network are <strong>vertex (or node)</strong>, which is the features or subjects we are interested in. The <strong>edges</strong> are connections between the vertices. In a general context, one example is the relationship network. The vertices are people. If two people are friends, we draw an edge to connect them. In a biology context, the vertices may be genes, and edges represent whether there are any correlations between two genes.</p>
-<p>Vertices and edges can have attributes. For example, in a social interaction network, we may assign different colors to the vertices according to a student’s major. When connect two students when they know each other, we can also assign weights to the edges to represent how often they interact with each other.</p>
-<p>A <strong>cyclic network</strong> has at least one directed path that starts and ends in the same node.</p>
+<p>The <a href="https://igraph.org/r/doc/sample_gnm.html"><code>sample_gnm(n,m)</code> function</a>
+generates a random network with <span class="math inline">\(n\)</span> nodes and <span class="math inline">\(m\)</span> edges between them. We will
+use this function below to generate random networks of different types.</p>
+<p>A <strong>cyclic network</strong> has at least one directed path that starts and ends in the
+same node.</p>
 <div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-<span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-81-1.png" width="672"></div>
 <p>An <strong>acyclic network</strong> , on the other hand, does not have any cycle path.</p>
 <div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-82-1.png" width="672"></div>
-<p>The edges in a <strong>directed network</strong> point to one specific direction. (But, there can be double-headed arrows!) One common example is a network representing cell metabolic process.</p>
+<p>The edges in a <strong>directed network</strong> point to one specific direction (but, edges
+can point in both directions, which are equivalent to undirected edges). One
+common example is a network representing cell metabolic process, where certain
+proteins biochemically modify, e.g. phosphorylate, other proteins.</p>
 <div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-83-1.png" width="672"></div>
-<p>The edges in a <strong>indirect network</strong> do not have direction. Common examples include social interaction network and gene correlation network.</p>
+<p>The edges in a <strong>indirect network</strong> do not have direction. Common examples
+include social interaction network and gene correlation network.</p>
 <div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
 <span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -2193,7 +2207,7 @@ these two sections together)</p>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#network-analysis-."><span class="header-section-number">6.5</span> Network Analysis .</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#network-analysis"><span class="header-section-number">6.5</span> Network Analysis</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#basic-network-analysis"><span class="header-section-number">6.5.1</span> Basic network analysis</a></li>
 <li><a class="nav-link" href="#create-your-own"><span class="header-section-number">6.5.2</span> Create your own</a></li>
 </ul>
