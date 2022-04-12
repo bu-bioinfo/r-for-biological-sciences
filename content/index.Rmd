@@ -193,4 +193,9 @@ aspect of the content.
 **We are always learning.** Our knowledge and understanding is always
 incomplete. Even experts are fallible. The bioinformatics field evolves
 rapidly, and Rome was not built in a day. Be kind to yourself and to others.
-You are always smarter and more knowledgable today than you were yesterday.
+You are always smarter and more knowledgeable today than you were yesterday.
+
+## Acknowledgements & Contributions
+
+These materials would not have been possible without the contributions of
+Dakota Hawkins, Vanessa Li, Taylor Falk, and Mae Rose Gott.
