@@ -28,12 +28,13 @@ Different processing steps and analyses will be required for each dataset, so
 you must investigate each dataset closely to understand what is available and
 what must be done yourself.
 
-Collaboration is encouraged but sharing code is forbidden. Your final submission
-will include a GitHub repository containing the app and data as well as a five
-minute pre-recorded screen grab video presentation offering a demonstration of
-your application. We will view this presentation and grade your project based on
-how well it fits the following criteria and the contents and quality of your
-coding.
+**You must submit your own individual app. This is not a group project.**
+However, you are encouraged to share ideas, troubleshoot and brainstorm together
+but sharing code is forbidden. Your final submission will include a GitHub
+repository containing the app and data as well as a five minute pre-recorded
+screen grab video presentation offering a demonstration of your application. We
+will view this presentation and grade your project based on how well it fits the
+following criteria and the contents and quality of your coding.
 
 ## General Guidelines
 
