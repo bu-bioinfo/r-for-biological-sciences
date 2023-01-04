@@ -5,15 +5,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>4 R Programming | BF591 - R for Biological Sciences</title>
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="4 R Programming | BF591 - R for Biological Sciences">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4 R Programming | BF591 - R for Biological Sciences">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
 <meta name="description" content="4.1 Before you begin If you have not done so already, be sure to follow the R Language, RStudio, and The R Script, and The Scripting Workflow sections before working through this chapter. The...">
 <meta property="og:description" content="4.1 Before you begin If you have not done so already, be sure to follow the R Language, RStudio, and The R Script, and The Scripting Workflow sections before working through this chapter. The...">
 <meta name="twitter:description" content="4.1 Before you begin If you have not done so already, be sure to follow the R Language, RStudio, and The R Script, and The Scripting Workflow sections before working through this chapter. The...">
@@ -125,7 +151,7 @@ by R.</p>
 <em>objects</em>. An expression like those above can be assigned into a variable with a
 name using the <code>&lt;-</code> operator:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">new_var</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">new_var</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span></span></code></pre></div>
 <p>Variables that have been assigned a value can be placed in subsequent
 expressions anywhere where their value is evaluated:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="prog-basics.html#cb5-1" aria-hidden="true" tabindex="-1"></a>new_var <span class="sc">-</span> <span class="dv">2</span></span>
@@ -136,7 +162,7 @@ expressions anywhere where their value is evaluated:</p>
 unlike many other programming languages which use <code>=</code>. However, although the <code>=</code>
 assignment syntax does work in R:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">new_var</span> <span class="op">=</span> <span class="fl">2</span> <span class="co"># works, but is not common convention!</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">new_var</span> <span class="op">=</span> <span class="fl">2</span> <span class="co"># works, but is not common convention!</span></span></code></pre></div>
 <p>this is considered bad practice and may cause confusion later. You should always
 use the <code>&lt;-</code> syntax when assigning values to variables!</p>
 </div>
@@ -256,7 +282,7 @@ vector of integers where each level has the same value:</p>
 <span id="cb9-3"><a href="prog-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(case_status)</span>
 <span id="cb9-4"><a href="prog-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Control"</span>,<span class="st">"Disease"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></span></code></pre></div>
 <p>By default, R assigns integers to levels in alphanumeric order; since “Control”
-comes lexicographically before “Disease,” the <code>Control</code> level is assigned the
+comes lexicographically before “Disease”, the <code>Control</code> level is assigned the
 integer <code>1</code> and <code>Disease</code> is assigned <code>2</code>. Each value of the factor corresponds
 to these integers, and since <code>Disease</code> came before <code>Control</code>, the numeric values
 of the factor are (2, 2, 2, 1, 1, 1). The integer values assigned to each level
@@ -597,8 +623,8 @@ programming languages for this is the function must <em>accept</em> or allow you
 <em>pass it arguments.</em> In R, functions accept arguments using the following
 *pattern:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># a basic function signature</span>
-<span class="fu">function_name</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span> <span class="co"># function accepts exactly 2 arguments</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># a basic function signature</span></span>
+<span><span class="fu">function_name</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span> <span class="co"># function accepts exactly 2 arguments</span></span></code></pre></div>
 <p>Here, <code>arg1</code> and <code>arg2</code> are <em>formal arguments</em> or <em>named arguments</em>, indicating
 this function accepts two arguments. The name of the function (i.e.
 <code>function_name</code>) and the pattern of arguments it accepts is called the
@@ -611,7 +637,7 @@ will raise an error if you try otherwise:</p>
 <span id="cb29-2"><a href="prog-basics.html#cb29-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean.default</span>() <span class="sc">:</span> argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
 <p>How do you know what arguments a function requires? All functions provided by
 base R and many other packages include detailed documentation that can be
-accessed directly through RStudio using either the <code>?</code> or <code>help()</code>:</p>
+accessed directly through RStudio using either the <code>?</code> or <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code>:</p>
 <div class="figure">
 <img src="rstudio_help_fn_sigs.png" alt=""><p class="caption">RStudio - help and function signatures</p>
 </div>
@@ -728,10 +754,10 @@ opportunity to write your own function and avoid repeating yourself!</p>
 </h3>
 <p>R allows you to define your own function using the following syntax:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># code that does something with arg1, arg2, etc</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">some_result</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># code that does something with arg1, arg2, etc</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">some_result</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>You define the name of your function, the number of arguments it accepts and
 their names, and the code within the function, which is also called the function
 <em>body</em>. Taking the example above, I would define a function named <code>standardize</code>
@@ -904,8 +930,8 @@ dependent upon the values of <span class="math inline">\(\mathbf{x}\)</span>. If
 standard deviation, we have defined the standardization transformation mentioned
 in earlier examples:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, mean<span class="op">=</span><span class="fl">20</span>, sd<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
-<span class="va">x_zscore</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, mean<span class="op">=</span><span class="fl">20</span>, sd<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">x_zscore</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <p>However, there are many different ways to define the central value of a set of
 numbers:</p>
 <ul>
@@ -929,10 +955,10 @@ for each combination when trying out different transformation techniques.</p>
 <p>In R and other functional languages, we can easily accomplish this by <em>passing
 functions as arguments to other functions</em>. Consider the following R function:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># note R already has a built in function named "transform"</span>
-<span class="va">my_transform</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">t_r</span>, <span class="va">s</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu">t_r</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># note R already has a built in function named "transform"</span></span>
+<span><span class="va">my_transform</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">t_r</span>, <span class="va">s</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu">t_r</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>This should look familiar to the equation presented earlier, except now in code
 the arguments <code>t_r</code> and <code>s</code> are passed as arguments. If we wished to transform
 using a <a href="https://en.wikipedia.org/wiki/Standard_score">Z-score normalization</a>,
@@ -1000,7 +1026,7 @@ style using the <code>apply</code> function.</p>
 <p>This is the signature of the <code>apply</code> function, from the RStudio <code><a href="https://rdrr.io/r/base/apply.html">help(apply)</a></code>
 page:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">MARGIN</span>, <span class="va">FUN</span>, <span class="va">...</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">MARGIN</span>, <span class="va">FUN</span>, <span class="va">...</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Here, <code>X</code> is a matrix (i.e. a rectangle of numbers) that we wish to perform a
 computation on for either each row or each column. <code>MARGIN</code> indicates whether
 the matrix should be traversed by rows (<code>MARGIN=1</code>) or columns (<code>MARGIN=2</code>).
@@ -1029,7 +1055,7 @@ result. For example:</p>
 matrix using the <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function (hint: the <code>l</code> in <code>lapply</code> stands for
 “list”). Here is the function signature for <code>lapply</code>:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
 <p>Recall that lists and data frames can be thought of as vectors where each
 element can be its own vector. Therefore, there is only one axis along which to
 iterate on the elements and there is not <code>MARGIN</code> argument as in <code>apply</code>. This
@@ -1064,10 +1090,10 @@ packages</a> hosted on CRAN
 that you can install. To install a package from CRAN, use the <code>install.packages</code>
 function in the R console:</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install one package</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
-<span class="co"># install multiple packages</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"readr"</span>,<span class="st">"dplyr"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install one package</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span>
+<span><span class="co"># install multiple packages</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"readr"</span>,<span class="st">"dplyr"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="box note">
 <p>As mentioned above, many packages used in biological data analysis are not
 hosted on CRAN, but in <a href="biology-bioinformatics.html#bio-bioconductor">Bioconductor</a>. The Bioconductor
@@ -1089,18 +1115,18 @@ like lists to a file that can be read back into R easily. This can be done with
 the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/readRDS.html"><code>saveRDS()</code> and <code>readRDS()</code></a>
 functions:</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a_complicated_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    categories <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span><span class="op">)</span>,
-    data_matrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>,nrows<span class="op">=</span><span class="fl">2</span>,ncols<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,
-    nested_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-      a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,
-      b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>
-    <span class="op">)</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">a_complicated_list</span>, <span class="st">"a_complicated_list.rda"</span><span class="op">)</span>
-
-<span class="co"># later, possibly in a different script</span>
-<span class="va">a_complicated_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"a_complicated_list.rda"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">a_complicated_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    categories <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span><span class="op">)</span>,</span>
+<span>    data_matrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>,nrows<span class="op">=</span><span class="fl">2</span>,ncols<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,</span>
+<span>    nested_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>      a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,</span>
+<span>      b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">a_complicated_list</span>, <span class="st">"a_complicated_list.rda"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># later, possibly in a different script</span></span>
+<span><span class="va">a_complicated_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"a_complicated_list.rda"</span><span class="op">)</span></span></code></pre></div>
 <p>These functions are very convenient for saving results of complicated analyses
 and reading them back in later, especially if those analyses were time
 consuming.</p>
@@ -1113,10 +1139,10 @@ loading individual objects into new variables. Instead, <code>save</code> accept
 more variable names that are in the global namespace and saves them all to a
 file:</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">var_a</span> <span class="op">&lt;-</span> <span class="st">"a string"</span>
-<span class="va">var_b</span> <span class="op">&lt;-</span> <span class="fl">1.234</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">var_a</span>, <span class="va">var_b</span>, file<span class="op">=</span><span class="st">"saved_variables.rda"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">var_a</span> <span class="op">&lt;-</span> <span class="st">"a string"</span></span>
+<span><span class="va">var_b</span> <span class="op">&lt;-</span> <span class="fl">1.234</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">var_a</span>, <span class="va">var_b</span>, file<span class="op">=</span><span class="st">"saved_variables.rda"</span><span class="op">)</span></span></code></pre></div>
 <p>Then later when the file <code>saved_variables.rda</code> is <code><a href="https://rdrr.io/r/base/load.html">load()</a></code>ed, the all the
 variables saved into the file are loaded into the namespace with their saved
 values:</p>
@@ -1251,7 +1277,7 @@ description of these tools.</p>
 <span class="header-section-number">4.12</span> Coding Style and Conventions<a class="anchor" aria-label="anchor" href="#prog-style"><i class="fas fa-link"></i></a>
 </h2>
 <p>Some very common worries among new programmers is: “Is my code terrible? How do
-I write good code?” There is no gold standard for what makes code “good,” but
+I write good code?” There is no gold standard for what makes code “good”, but
 there are some questions you can ask of your code as a guide:</p>
 <div id="is-my-code-correct" class="section level3" number="4.12.1">
 <h3>
@@ -1288,10 +1314,10 @@ buy a friend a coffee in return for them looking at it!</p>
 <p>Consistently formatted code is much easier to read (and possibly understand)
 than inconsistent code. Consider the following code example:</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">calcVal</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">arg</span><span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">{</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">a</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span><span class="op">)</span><span class="op">}</span>
-<span class="va">calc_val_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">arg</span><span class="op">)</span> <span class="op">{</span>
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">b</span><span class="op">+</span><span class="va">a</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">**</span><span class="va">arg</span>
-<span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">calcVal</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">arg</span><span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">{</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">a</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span><span class="op">)</span><span class="op">}</span></span>
+<span><span class="va">calc_val_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">arg</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">b</span><span class="op">+</span><span class="va">a</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">**</span><span class="va">arg</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <p>This code is inconsistent in several ways:</p>
 <ul>
 <li>naming conventions - <code>calcVal</code> is camel case, <code>calc_val_2</code> is snake case</li>
@@ -1309,9 +1335,9 @@ simpler using a default argument</li>
 </ul>
 <p>A more consistent version of this code might look like:</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">exponent_product</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">offset</span><span class="op">=</span><span class="fl">0</span>, <span class="va">arg</span><span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">offset</span><span class="op">+</span><span class="va">a</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">**</span><span class="va">arg</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">exponent_product</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">offset</span><span class="op">=</span><span class="fl">0</span>, <span class="va">arg</span><span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">offset</span><span class="op">+</span><span class="va">a</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">**</span><span class="va">arg</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>This code is much cleaner, more consistent, and easier to read.</p>
 </div>
 <div id="did-i-write-comments-especially-when-what-the-code-does-is-not-obvious" class="section level3" number="4.12.5">
@@ -1320,14 +1346,14 @@ simpler using a default argument</li>
 </h3>
 <p>Sometimes what a piece of code does is obvious from looking at it:</p>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
 <p>Clearly this line of code takes the value of <code>x</code>, whatever it is, and adds 1 to
 it. However, it may not be obvious <em>why</em> a piece of code does what it does. In
 these cases, it may be very helpful to record your thinking about a line of code
 as a comment:</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># add 1 as a pseudocount</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># add 1 as a pseudocount</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
 <p>Then when you or someone else reads the code, it will be obvious what you were
 thinking when you wrote it. In your career, you <em>will</em> encounter situations
 where you need to figure out what you were thinking when you wrote a piece of
@@ -1448,7 +1474,7 @@ reasonable (albeit arbitrary) conventions.</p>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

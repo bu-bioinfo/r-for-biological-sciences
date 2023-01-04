@@ -5,15 +5,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>5 Data Wrangling | BF591 - R for Biological Sciences</title>
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="5 Data Wrangling | BF591 - R for Biological Sciences">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="5 Data Wrangling | BF591 - R for Biological Sciences">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
 <meta name="description" content="5.1 The Tidyverse The tidyverse is “an opinionated collection of R packages designed for data science.” The packages are all designed to work together with a unified approach that helps code look...">
 <meta property="og:description" content="5.1 The Tidyverse The tidyverse is “an opinionated collection of R packages designed for data science.” The packages are all designed to work together with a unified approach that helps code look...">
 <meta name="twitter:description" content="5.1 The Tidyverse The tidyverse is “an opinionated collection of R packages designed for data science.” The packages are all designed to work together with a unified approach that helps code look...">
@@ -192,13 +218,13 @@ you may still access it using the <code>::</code> namespace operator. This opera
 you “look inside” a loaded package, for example <code>dplyr</code>, and access a function
 within the namespace of that package:</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="co"># the filter() function definition is now from the dplyr package, and not from the stats package</span>
-<span class="co"># the following two lines of code execute the same function</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
-<span class="co"># to access the stats definition of the filter function, use the namespace operator</span>
-<span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co"># the filter() function definition is now from the dplyr package, and not from the stats package</span></span>
+<span><span class="co"># the following two lines of code execute the same function</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co"># to access the stats definition of the filter function, use the namespace operator</span></span>
+<span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <p>Most functions defined by a package can be accessed using the <code>::</code> operator, and
 it is often a good idea to do so, to ensure you are calling the right function.</p>
 </div>
@@ -353,13 +379,13 @@ as a normal column.</p>
 manually with the <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code> function, which stands for “<code>tr</code>ansposed
 t<code>ibble</code>”:</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-    <span class="op">~</span><span class="va">gene</span>, <span class="op">~</span><span class="va">test1_stat</span>, <span class="op">~</span><span class="va">test1_p</span>, <span class="op">~</span><span class="va">test2_stat</span>, <span class="op">~</span><span class="va">test2_p</span>,
-   <span class="st">"apoe"</span>, <span class="fl">12.509293</span>,   <span class="fl">0.1032</span>,   <span class="fl">34.239521</span>,   <span class="fl">1.3e-5</span>,
-   <span class="st">"hoxd1"</span>,  <span class="fl">4.399211</span>,   <span class="fl">0.6323</span>,   <span class="fl">16.332318</span>,   <span class="fl">0.0421</span>,
-   <span class="st">"snca"</span>, <span class="fl">45.748431</span>,   <span class="fl">4.2e-9</span>,    <span class="fl">0.757188</span>,   <span class="fl">0.9146</span>,
-<span class="op">)</span>
-<span class="va">gene_stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span><span class="va">gene</span>, <span class="op">~</span><span class="va">test1_stat</span>, <span class="op">~</span><span class="va">test1_p</span>, <span class="op">~</span><span class="va">test2_stat</span>, <span class="op">~</span><span class="va">test2_p</span>,</span>
+<span>   <span class="st">"apoe"</span>, <span class="fl">12.509293</span>,   <span class="fl">0.1032</span>,   <span class="fl">34.239521</span>,   <span class="fl">1.3e-5</span>,</span>
+<span>   <span class="st">"hoxd1"</span>,  <span class="fl">4.399211</span>,   <span class="fl">0.6323</span>,   <span class="fl">16.332318</span>,   <span class="fl">0.0421</span>,</span>
+<span>   <span class="st">"snca"</span>, <span class="fl">45.748431</span>,   <span class="fl">4.2e-9</span>,    <span class="fl">0.757188</span>,   <span class="fl">0.9146</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="va">gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -380,7 +406,7 @@ example below in the <a href="data-wrangling.html#arranging-data">Arranging Data
 <h2>
 <span class="header-section-number">5.5</span> Tidy Data<a class="anchor" aria-label="anchor" href="#tidy-data"><i class="fas fa-link"></i></a>
 </h2>
-<p>The tidyverse packages are designed to operate with so-called “tidy data.” From
+<p>The tidyverse packages are designed to operate with so-called “tidy data”. From
 the <a href="https://r4ds.had.co.nz/tidy-data.html">tidy data section</a> of the R for Data
 Science book, the following rules make data tidy:</p>
 <ol style="list-style-type: decimal">
@@ -392,10 +418,10 @@ Science book, the following rules make data tidy:</p>
 has, and each observation is a separate instance of those variable (e.g. a
 different sample, subject, etc). In our <code>gene_stats</code> example tibble above, the
 columns referring to different test statistics are the variables, and each gene
-in each row is an “observation,” and each cell has a value; we can therefore say
+in each row is an “observation”, and each cell has a value; we can therefore say
 that the dataset is tidy:</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -487,7 +513,7 @@ package worth knowing.</p>
 <p>In the examples below, we will make use of the following made-up tibble that
 contains fake statistics and p-values for three human genes:</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -524,9 +550,9 @@ of different ways, but the most common procedure in biological analysis is the
 (FDR)</a> procedure. In R, the
 <code>p.adjust</code> function can perform several of these procedures, including FDR:</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 6
 ##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
@@ -538,11 +564,11 @@ effect of the multiple testing procedure. Since we have two sets of p-values,
 we must compute the FDR on each of them, which we can do in the same call to
 <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>:</p>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats_mutated</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">gene_stats_mutated</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats_mutated</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">gene_stats_mutated</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 7
 ##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
@@ -557,10 +583,10 @@ genes down to just ones that might be interesting in tools like Excel. We can
 create new columns from multiple columns just as easily using the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>
 function:</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>,
-  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>,</span>
+<span>  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 9
 ##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
@@ -576,12 +602,12 @@ in <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a
 columns. In the following example, note that <code>test1_padj</code> is created first and
 then used to create the <code>signif</code> columns:</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>, <span class="co"># test1_padj created</span>
-  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>, <span class="co">#test1_padj used</span>
-  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>, <span class="co"># test1_padj created</span></span>
+<span>  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>, <span class="co">#test1_padj used</span></span>
+<span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 9
 ##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
@@ -631,9 +657,9 @@ case while official gene symbols are in upper case. We can use the stringr
 function <code><a href="https://stringr.tidyverse.org/reference/case.html">stringr::str_to_upper()</a></code> with the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code> function to
 perform this adjustment easily:</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -658,7 +684,7 @@ flexibility of the patterns that can be found.</p>
 <p>A simple example will be helpful. Let’s say we have a tibble containing the
 result of a (made-up) statistical test for all the genes in a genome:</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">de_genes</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">de_genes</span></span></code></pre></div>
 <pre><code>## # A tibble: 39,535 x 4
 ##    hgnc_symbol  mean        p    padj
 ##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
@@ -677,7 +703,7 @@ result of a (made-up) statistical test for all the genes in a genome:</p>
 genes, BRCA1 and BRCA2. We can use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> on the data frame to look for them
 individually:</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">de_genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">hgnc_symbol</span> <span class="op">==</span> <span class="st">"BRCA1"</span> <span class="op">|</span> <span class="va">hgnc_symbol</span> <span class="op">==</span> <span class="st">"BRCA2"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">de_genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">hgnc_symbol</span> <span class="op">==</span> <span class="st">"BRCA1"</span> <span class="op">|</span> <span class="va">hgnc_symbol</span> <span class="op">==</span> <span class="st">"BRCA2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   hgnc_symbol  mean      p   padj
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -689,7 +715,7 @@ individually:</p>
 otherwise, a regular expression, and the [<code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> function], which is
 described in greater detail in a later section:</p>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^BRCA[12]$"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^BRCA[12]$"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   hgnc_symbol  mean      p   padj
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -727,8 +753,8 @@ depicts the human HOX gene clusters:</p>
 <p>Let’s say we want to extract out all the HOX genes from our gene statistics. We
 can write a regular expression that matches the pattern described above:</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^HOX[A-D][0-9]+$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">hgnc_symbol</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^HOX[A-D][0-9]+$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">hgnc_symbol</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 39 x 4
 ##    hgnc_symbol  mean        p    padj
 ##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
@@ -748,7 +774,7 @@ can write a regular expression that matches the pattern described above:</p>
 <li>within the <code>[]</code> we specified a range of characters <code>A-D</code> and <code>0-9</code> which will
 match any of the characters between A and D (i.e. A, B, C, or D) and 0 and 9
 respectively</li>
-<li>the <code>+</code> character means “match one or more of the preceding expression,” which
+<li>the <code>+</code> character means “match one or more of the preceding expression”, which
 in our case is the <code>[0-9]</code>. This allows us to match genes with only a single
 number (e.g. <code>HOXA1</code>) as well as double digit numbers (e.g. <code>HOXA10</code>).</li>
 </ul>
@@ -756,8 +782,8 @@ number (e.g. <code>HOXA1</code>) as well as double digit numbers (e.g. <code>H
 <code>[A-D]</code> part) is exactly one character long, we could alternatively write the
 regular expression as follows, using the special <code>.</code> character:</p>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^HOX.[0-9]+$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">hgnc_symbol</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^HOX.[0-9]+$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">hgnc_symbol</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 39 x 4
 ##    hgnc_symbol  mean        p    padj
 ##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
@@ -781,17 +807,17 @@ to the <code>.</code>, but no number remains to match to the <code>[0-9]+</code>
 <p>Sometimes you want to search text for characters that are considered special in
 the regular expression language. For example, if you had a list of filenames:</p>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">filenames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">name</span>,
-  <span class="st">"annotation.csv"</span>,
-  <span class="st">"file1.txt"</span>,
-  <span class="st">"file2.txt"</span>,
-  <span class="st">"results.csv"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">filenames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">name</span>,</span>
+<span>  <span class="st">"annotation.csv"</span>,</span>
+<span>  <span class="st">"file1.txt"</span>,</span>
+<span>  <span class="st">"file2.txt"</span>,</span>
+<span>  <span class="st">"results.csv"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>and wanted to limit to just those with the <code>.txt</code> extension, you need to match
 using a literal <code>.</code> character:</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">filenames</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">name</span>,<span class="st">"[.]txt$"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">filenames</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">name</span>,<span class="st">"[.]txt$"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 1
 ##   name     
 ##   &lt;chr&gt;    
@@ -802,7 +828,7 @@ and therefore <code>[.]</code> will match a literal <code>.</code> character. In
 <code>[]</code> syntax, you may also escape these literal characters using two back
 slashes:</p>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">filenames</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">name</span>,<span class="st">"\\.txt$"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">filenames</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">name</span>,<span class="st">"\\.txt$"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 1
 ##   name     
 ##   &lt;chr&gt;    
@@ -832,13 +858,13 @@ cheatsheet</a></li>
 but we did not specify where in the tibble the new columns should go. Let’s
 consider the mutated tibble we created with all four new columns:</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 9
 ##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
@@ -853,8 +879,8 @@ the tibble to find them.</p>
 function</a> allows you to pick
 specific columns out of a larger <code>tibble</code> in whatever order you choose:</p>
 <div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="va">test1_stat</span>, <span class="va">test2_stat</span><span class="op">)</span>
-<span class="va">stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="va">test1_stat</span>, <span class="va">test2_stat</span><span class="op">)</span></span>
+<span><span class="va">stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   test1_stat test2_stat
 ##        &lt;dbl&gt;      &lt;dbl&gt;
@@ -867,8 +893,8 @@ for more flexible selection of columns. For example, if all of the columns we
 wished to select ended with <code>_stat</code>, we could use the <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with()</a></code> helper
 function:</p>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"_stat"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"_stat"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   test1_stat test2_stat
 ##        &lt;dbl&gt;      &lt;dbl&gt;
@@ -877,11 +903,11 @@ function:</p>
 ## 3      45.7       0.757</code></pre>
 <p>If you so desire, <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> allows for the renaming of selected columns:</p>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  t<span class="op">=</span><span class="va">test1_stat</span>,
-  chisq<span class="op">=</span><span class="va">test2_stat</span>
-<span class="op">)</span>
-<span class="va">stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  t<span class="op">=</span><span class="va">test1_stat</span>,</span>
+<span>  chisq<span class="op">=</span><span class="va">test2_stat</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##       t  chisq
 ##   &lt;dbl&gt;  &lt;dbl&gt;
@@ -893,20 +919,20 @@ t-test and a <span class="math inline">\(\chi\)</span>-squared test, naming the 
 may help others (and possibly you) understand your code better.</p>
 <p>We can use the <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code> function to obtain our desired column order:</p>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
-    <span class="va">gene</span>,
-    <span class="va">test1_stat</span>, <span class="va">test1_p</span>, <span class="va">test1_padj</span>,
-    <span class="va">test2_stat</span>, <span class="va">test2_p</span>, <span class="va">test2_padj</span>,
-    <span class="va">signif_either</span>,
-    <span class="va">signif_both</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">gene</span>,</span>
+<span>    <span class="va">test1_stat</span>, <span class="va">test1_p</span>, <span class="va">test1_padj</span>,</span>
+<span>    <span class="va">test2_stat</span>, <span class="va">test2_p</span>, <span class="va">test2_padj</span>,</span>
+<span>    <span class="va">signif_either</span>,</span>
+<span>    <span class="va">signif_both</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 9
 ##   gene  test1_stat      test1_p   test1_padj test2_stat  test2_p test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
@@ -933,31 +959,31 @@ this makes the code easier to read and understand.</p>
 that are significant at some adjusted p-value threshold. First we will
 save our mutated tibble to another variable, to aid in demonstration:</p>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats_mutated</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
-    <span class="va">gene</span>,
-    <span class="va">test1_stat</span>, <span class="va">test1_p</span>, <span class="va">test1_padj</span>,
-    <span class="va">test2_stat</span>, <span class="va">test2_p</span>, <span class="va">test2_padj</span>,
-    <span class="va">signif_either</span>,
-    <span class="va">signif_both</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats_mutated</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">gene</span>,</span>
+<span>    <span class="va">test1_stat</span>, <span class="va">test1_p</span>, <span class="va">test1_padj</span>,</span>
+<span>    <span class="va">test2_stat</span>, <span class="va">test2_p</span>, <span class="va">test2_padj</span>,</span>
+<span>    <span class="va">signif_either</span>,</span>
+<span>    <span class="va">signif_both</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Now we can use the <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> function to select rows based on whether
 they are significant in either test this with our above example.</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 x 9
 ##   gene  test1_stat      test1_p   test1_padj test2_stat test2_p test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
 ## 1 SNCA        45.7 0.0000000042 0.0000000126      0.757   0.915      0.915
 ## # ... with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 x 9
 ##   gene  test1_stat test1_p test1_padj test2_stat  test2_p test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
@@ -969,8 +995,8 @@ combine these tests using <a href="https://r4ds.had.co.nz/transform.html#logical
 operators</a> to achieve
 different results:</p>
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># | means "logical or", meaning the row is retained if either condition is true</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># | means "logical or", meaning the row is retained if either condition is true</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 9
 ##   gene  test1_stat      test1_p   test1_padj test2_stat  test2_p test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
@@ -979,8 +1005,8 @@ different results:</p>
 ## # ... with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <p>Only APOE and SCNA are significant in at least one of the tests.</p>
 <div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># &amp; means "logical and", meaning the row is retained only if both conditions are true</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># &amp; means "logical and", meaning the row is retained only if both conditions are true</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 0 x 9
 ## # ... with 9 variables: gene &lt;chr&gt;, test1_stat &lt;dbl&gt;, test1_p &lt;dbl&gt;,
 ## #   test1_padj &lt;dbl&gt;, test2_stat &lt;dbl&gt;, test2_p &lt;dbl&gt;, test2_padj &lt;dbl&gt;,
@@ -1004,8 +1030,8 @@ ordering them by some meaningful value. Like above, p-values are often used to
 prioritize results by simply sorting them in ascending order. The <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>
 function is how to perform this sorting in tidyverse:</p>
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stats_sorted_by_test1_p</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="va">test1_p</span><span class="op">)</span>
-<span class="va">stats_sorted_by_test1_p</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">stats_sorted_by_test1_p</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="va">test1_p</span><span class="op">)</span></span>
+<span><span class="va">stats_sorted_by_test1_p</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1026,9 +1052,9 @@ adjusted p-value.</p>
 (for two-tailed tests), so if we so desired we could induce a similar ranking by
 arranging the data by the statistic in descending order:</p>
 <div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># desc() is a helper function that causes the results to be sorted in descending</span>
-<span class="co"># order for the given column</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">test1_stat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># desc() is a helper function that causes the results to be sorted in descending</span></span>
+<span><span class="co"># order for the given column</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">test1_stat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1074,27 +1100,27 @@ for either and both statistical tests using <code><a href="https://dplyr.tidyver
 together they represent a single unit of data processing and thus might
 profitably be done in the same R command using <code>%&gt;%</code>:</p>
 <div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,
-  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,
-  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,
-  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
-    <span class="va">gene</span>,
-    <span class="va">test1_stat</span>, <span class="va">test1_p</span>, <span class="va">test1_padj</span>,
-    <span class="va">test2_stat</span>, <span class="va">test2_p</span>, <span class="va">test2_padj</span>,
-    <span class="va">signif_either</span>,
-    <span class="va">signif_both</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-  <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>
-  <span class="va">test1_p</span>
-<span class="op">)</span>
-<span class="va">gene_stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gene_stats</span>,</span>
+<span>  test1_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test1_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  test2_padj<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">test2_p</span>,method<span class="op">=</span><span class="st">"fdr"</span><span class="op">)</span>,</span>
+<span>  signif_either<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">gene</span>,</span>
+<span>    <span class="va">test1_stat</span>, <span class="va">test1_p</span>, <span class="va">test1_padj</span>,</span>
+<span>    <span class="va">test2_stat</span>, <span class="va">test2_p</span>, <span class="va">test2_padj</span>,</span>
+<span>    <span class="va">signif_either</span>,</span>
+<span>    <span class="va">signif_both</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
+<span>  <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span></span>
+<span>  <span class="va">test1_p</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 9
 ##   gene  test1_stat      test1_p   test1_padj test2_stat  test2_p test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
@@ -1113,15 +1139,15 @@ tibble can be passed on to downstream analysis or collaborators.</p>
 grouping variable. Consider the following made-up sample metadata for a set of
 individuals in an Alzheimer’s disease (AD) study:</p>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-    <span class="op">~</span><span class="va">ID</span>, <span class="op">~</span><span class="va">condition</span>, <span class="op">~</span><span class="va">age_at_death</span>, <span class="op">~</span><span class="va">Braak_stage</span>, <span class="op">~</span><span class="va">APOE_genotype</span>,
-  <span class="st">"A01"</span>,        <span class="st">"AD"</span>,            <span class="fl">78</span>,            <span class="fl">5</span>,       <span class="st">"e4/e4"</span>,
-  <span class="st">"A02"</span>,        <span class="st">"AD"</span>,            <span class="fl">81</span>,            <span class="fl">6</span>,       <span class="st">"e3/e4"</span>,
-  <span class="st">"A03"</span>,        <span class="st">"AD"</span>,            <span class="fl">90</span>,            <span class="fl">5</span>,       <span class="st">"e4/e4"</span>,
-  <span class="st">"A04"</span>,   <span class="st">"Control"</span>,            <span class="fl">80</span>,            <span class="fl">1</span>,       <span class="st">"e3/e4"</span>,
-  <span class="st">"A05"</span>,   <span class="st">"Control"</span>,            <span class="fl">79</span>,            <span class="fl">0</span>,       <span class="st">"e3/e3"</span>,
-  <span class="st">"A06"</span>,   <span class="st">"Control"</span>,            <span class="fl">81</span>,            <span class="fl">0</span>,       <span class="st">"e2/e3"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span><span class="va">ID</span>, <span class="op">~</span><span class="va">condition</span>, <span class="op">~</span><span class="va">age_at_death</span>, <span class="op">~</span><span class="va">Braak_stage</span>, <span class="op">~</span><span class="va">APOE_genotype</span>,</span>
+<span>  <span class="st">"A01"</span>,        <span class="st">"AD"</span>,            <span class="fl">78</span>,            <span class="fl">5</span>,       <span class="st">"e4/e4"</span>,</span>
+<span>  <span class="st">"A02"</span>,        <span class="st">"AD"</span>,            <span class="fl">81</span>,            <span class="fl">6</span>,       <span class="st">"e3/e4"</span>,</span>
+<span>  <span class="st">"A03"</span>,        <span class="st">"AD"</span>,            <span class="fl">90</span>,            <span class="fl">5</span>,       <span class="st">"e4/e4"</span>,</span>
+<span>  <span class="st">"A04"</span>,   <span class="st">"Control"</span>,            <span class="fl">80</span>,            <span class="fl">1</span>,       <span class="st">"e3/e4"</span>,</span>
+<span>  <span class="st">"A05"</span>,   <span class="st">"Control"</span>,            <span class="fl">79</span>,            <span class="fl">0</span>,       <span class="st">"e3/e3"</span>,</span>
+<span>  <span class="st">"A06"</span>,   <span class="st">"Control"</span>,            <span class="fl">81</span>,            <span class="fl">0</span>,       <span class="st">"e2/e3"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>This is a typical setup for metadata in these types of experiments. There is a
 sample ID column which uniquely identifies each subject, a condition variable
 indicating which group each subject is in, and clinical information like age at
@@ -1136,9 +1162,9 @@ Control groups, it would be better to check explicitly. We can do this using
 <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code> to group the rows together based on condition and
 <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarize()</a></code> to compute the mean age at death for each group:</p>
 <div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">metadata</span>,
-  <span class="va">condition</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">metadata</span>,</span>
+<span>  <span class="va">condition</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   condition mean_age_at_death
 ##   &lt;chr&gt;                 &lt;dbl&gt;
@@ -1154,14 +1180,14 @@ defined as a function of values for columns in for each group.</p>
 between the two groups, but not by much. We can go one step further and compute
 the standard deviation age range to further investigate:</p>
 <div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">metadata</span>,
-  <span class="va">condition</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
-  mean_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span>,
-  sd_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span>,
-  lower_age <span class="op">=</span> <span class="va">mean_age_at_death</span><span class="op">-</span><span class="va">sd_age_at_death</span>,
-  upper_age <span class="op">=</span> <span class="va">mean_age_at_death</span><span class="op">+</span><span class="va">sd_age_at_death</span>,
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">metadata</span>,</span>
+<span>  <span class="va">condition</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
+<span>  mean_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span>,</span>
+<span>  sd_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span>,</span>
+<span>  lower_age <span class="op">=</span> <span class="va">mean_age_at_death</span><span class="op">-</span><span class="va">sd_age_at_death</span>,</span>
+<span>  upper_age <span class="op">=</span> <span class="va">mean_age_at_death</span><span class="op">+</span><span class="va">sd_age_at_death</span>,</span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   condition mean_age_at_death sd_age_at_death lower_age upper_age
 ##   &lt;chr&gt;                 &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -1183,15 +1209,15 @@ which is defined as the number of records within each group. We will add one
 more column to our summarized sample metadata from above that reports the number
 of subjects within each condition:</p>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">metadata</span>,
-  <span class="va">condition</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
-  num_subjects <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,
-  mean_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span>,
-  sd_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span>,
-  lower_age <span class="op">=</span> <span class="va">mean_age_at_death</span><span class="op">-</span><span class="va">sd_age_at_death</span>,
-  upper_age <span class="op">=</span> <span class="va">mean_age_at_death</span><span class="op">+</span><span class="va">sd_age_at_death</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">metadata</span>,</span>
+<span>  <span class="va">condition</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
+<span>  num_subjects <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  mean_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span>,</span>
+<span>  sd_age_at_death <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age_at_death</span><span class="op">)</span>,</span>
+<span>  lower_age <span class="op">=</span> <span class="va">mean_age_at_death</span><span class="op">-</span><span class="va">sd_age_at_death</span>,</span>
+<span>  upper_age <span class="op">=</span> <span class="va">mean_age_at_death</span><span class="op">+</span><span class="va">sd_age_at_death</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 6
 ##   condition num_subjects mean_age_at_death sd_age_at_death lower_age upper_age
 ##   &lt;chr&gt;            &lt;int&gt;             &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -1221,13 +1247,13 @@ genes in the <code>gene_stats</code> tibble, and wanted to compute the average s
 over all genes for both tests. Recall our tibble has separate columns for each
 test:</p>
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-    <span class="op">~</span><span class="va">gene</span>, <span class="op">~</span><span class="va">test1_stat</span>, <span class="op">~</span><span class="va">test1_p</span>, <span class="op">~</span><span class="va">test2_stat</span>, <span class="op">~</span><span class="va">test2_p</span>,
-   <span class="st">"APOE"</span>,   <span class="fl">12.509293</span>,   <span class="fl">0.1032</span>,   <span class="fl">34.239521</span>,   <span class="fl">1.3e-5</span>,
-  <span class="st">"HOXD1"</span>,    <span class="fl">4.399211</span>,   <span class="fl">0.6323</span>,   <span class="fl">16.332318</span>,   <span class="fl">0.0421</span>,
-   <span class="st">"SNCA"</span>,   <span class="fl">45.748431</span>,   <span class="fl">4.2e-9</span>,    <span class="fl">0.757188</span>,   <span class="fl">0.9146</span>,
-<span class="op">)</span>
-<span class="va">gene_stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span><span class="va">gene</span>, <span class="op">~</span><span class="va">test1_stat</span>, <span class="op">~</span><span class="va">test1_p</span>, <span class="op">~</span><span class="va">test2_stat</span>, <span class="op">~</span><span class="va">test2_p</span>,</span>
+<span>   <span class="st">"APOE"</span>,   <span class="fl">12.509293</span>,   <span class="fl">0.1032</span>,   <span class="fl">34.239521</span>,   <span class="fl">1.3e-5</span>,</span>
+<span>  <span class="st">"HOXD1"</span>,    <span class="fl">4.399211</span>,   <span class="fl">0.6323</span>,   <span class="fl">16.332318</span>,   <span class="fl">0.0421</span>,</span>
+<span>   <span class="st">"SNCA"</span>,   <span class="fl">45.748431</span>,   <span class="fl">4.2e-9</span>,    <span class="fl">0.757188</span>,   <span class="fl">0.9146</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="va">gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1237,11 +1263,11 @@ test:</p>
 <p>For convenience, we desire our output to be in table form, with one row per test
 and the statistics for each test as columns. We could do this manually like so:</p>
 <div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-   <span class="op">~</span><span class="va">test_name</span>, <span class="op">~</span><span class="va">min</span>, <span class="op">~</span><span class="va">mean</span>, <span class="op">~</span><span class="va">max</span>,
-   <span class="st">"test1_stat"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test1_stat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test1_stat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test1_stat</span><span class="op">)</span>,
-   <span class="st">"test2_stat"</span>,  <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test2_stat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test2_stat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test2_stat</span><span class="op">)</span>,
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>   <span class="op">~</span><span class="va">test_name</span>, <span class="op">~</span><span class="va">min</span>, <span class="op">~</span><span class="va">mean</span>, <span class="op">~</span><span class="va">max</span>,</span>
+<span>   <span class="st">"test1_stat"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test1_stat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test1_stat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test1_stat</span><span class="op">)</span>,</span>
+<span>   <span class="st">"test2_stat"</span>,  <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test2_stat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test2_stat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">gene_stats</span><span class="op">$</span><span class="va">test2_stat</span><span class="op">)</span>,</span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   test_name    min  mean   max
 ##   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1267,13 +1293,13 @@ This process of pivoting transforms the tibble into so called “long” form.</
 tibble to easily perform the summarization we did above in a much more
 expressive manner:</p>
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">long_gene_stats</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
-  <span class="va">gene_stats</span>,
-  <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"_stat"</span><span class="op">)</span>,
-  names_to<span class="op">=</span><span class="st">"test"</span>,
-  values_to<span class="op">=</span><span class="st">"stat"</span>
-<span class="op">)</span>
-<span class="va">long_gene_stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">long_gene_stats</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>  <span class="va">gene_stats</span>,</span>
+<span>  <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"_stat"</span><span class="op">)</span>,</span>
+<span>  names_to<span class="op">=</span><span class="st">"test"</span>,</span>
+<span>  values_to<span class="op">=</span><span class="st">"stat"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">long_gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
 ##   gene       test1_p  test2_p test         stat
 ##   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
@@ -1288,9 +1314,9 @@ values have been put into the <code>test</code> and <code>stat</code> columns, r
 summarize the statistics for each test, we simply do a <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> on the
 <code>test</code> column and compute summaries on the <code>stat</code> column:</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">long_gene_stats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">test</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">stat</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">stat</span><span class="op">)</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">stat</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">long_gene_stats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">test</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">stat</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">stat</span><span class="op">)</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">stat</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   test         min  mean   max
 ##   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1323,13 +1349,13 @@ often need to combine different sources of data together to aid in
 interpretation of our results. Below we redefine the tibble of gene statistics
 from above to have properly capitalized gene symbols:</p>
 <div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-    <span class="op">~</span><span class="va">gene</span>, <span class="op">~</span><span class="va">test1_stat</span>, <span class="op">~</span><span class="va">test1_p</span>, <span class="op">~</span><span class="va">test2_stat</span>, <span class="op">~</span><span class="va">test2_p</span>,
-   <span class="st">"APOE"</span>,   <span class="fl">12.509293</span>,   <span class="fl">0.1032</span>,   <span class="fl">34.239521</span>,   <span class="fl">1.3e-5</span>,
-  <span class="st">"HOXD1"</span>,    <span class="fl">4.399211</span>,   <span class="fl">0.6323</span>,   <span class="fl">16.332318</span>,   <span class="fl">0.0421</span>,
-   <span class="st">"SNCA"</span>,   <span class="fl">45.748431</span>,   <span class="fl">4.2e-9</span>,    <span class="fl">0.757188</span>,   <span class="fl">0.9146</span>,
-<span class="op">)</span>
-<span class="va">gene_stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span><span class="va">gene</span>, <span class="op">~</span><span class="va">test1_stat</span>, <span class="op">~</span><span class="va">test1_p</span>, <span class="op">~</span><span class="va">test2_stat</span>, <span class="op">~</span><span class="va">test2_p</span>,</span>
+<span>   <span class="st">"APOE"</span>,   <span class="fl">12.509293</span>,   <span class="fl">0.1032</span>,   <span class="fl">34.239521</span>,   <span class="fl">1.3e-5</span>,</span>
+<span>  <span class="st">"HOXD1"</span>,    <span class="fl">4.399211</span>,   <span class="fl">0.6323</span>,   <span class="fl">16.332318</span>,   <span class="fl">0.0421</span>,</span>
+<span>   <span class="st">"SNCA"</span>,   <span class="fl">45.748431</span>,   <span class="fl">4.2e-9</span>,    <span class="fl">0.757188</span>,   <span class="fl">0.9146</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="va">gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1353,14 +1379,14 @@ preferable when working with genes in code.</p>
 tibble as a new column. Now suppose we have obtained another file with cross
 referenced gene identifiers like the following:</p>
 <div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-    <span class="op">~</span><span class="va">symbol</span>,            <span class="op">~</span><span class="va">ENSGID</span>,                    <span class="op">~</span><span class="va">gene_name</span>,
-     <span class="st">"APOE"</span>,  <span class="st">"ENSG00000130203"</span>,            <span class="st">"apolipoprotein E"</span>,
-     <span class="st">"BRCA1"</span>,  <span class="st">"ENSG00000012048"</span>, <span class="st">"BRCA1 DNA repair associated"</span>,
-    <span class="st">"HOXD1"</span>,  <span class="st">"ENSG00000128645"</span>,                 <span class="st">"homeobox D1"</span>,
-     <span class="st">"SNCA"</span>,  <span class="st">"ENSG00000145335"</span>,             <span class="st">"synuclein alpha"</span>,
-<span class="op">)</span>
-<span class="va">gene_map</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span><span class="va">symbol</span>,            <span class="op">~</span><span class="va">ENSGID</span>,                    <span class="op">~</span><span class="va">gene_name</span>,</span>
+<span>     <span class="st">"APOE"</span>,  <span class="st">"ENSG00000130203"</span>,            <span class="st">"apolipoprotein E"</span>,</span>
+<span>     <span class="st">"BRCA1"</span>,  <span class="st">"ENSG00000012048"</span>, <span class="st">"BRCA1 DNA repair associated"</span>,</span>
+<span>    <span class="st">"HOXD1"</span>,  <span class="st">"ENSG00000128645"</span>,                 <span class="st">"homeobox D1"</span>,</span>
+<span>     <span class="st">"SNCA"</span>,  <span class="st">"ENSG00000145335"</span>,             <span class="st">"synuclein alpha"</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="va">gene_map</span></span></code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##   symbol ENSGID          gene_name                  
 ##   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                      
@@ -1374,11 +1400,11 @@ annotate manually, it is easier to ask <code>dplyr</code> to do it for us. We ca
 using the <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">dplyr::left_join()</a></code> function which accepts two data frames and the
 names of columns in each that share common values:</p>
 <div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>
-    x<span class="op">=</span><span class="va">gene_stats</span>,
-    y<span class="op">=</span><span class="va">gene_map</span>,
-    by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene"</span> <span class="op">=</span> <span class="st">"symbol"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
+<span>    x<span class="op">=</span><span class="va">gene_stats</span>,</span>
+<span>    y<span class="op">=</span><span class="va">gene_map</span>,</span>
+<span>    by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene"</span> <span class="op">=</span> <span class="st">"symbol"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 7
 ##   gene  test1_stat      test1_p test2_stat  test2_p ENSGID          gene_name   
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;       
@@ -1389,10 +1415,10 @@ names of columns in each that share common values:</p>
 join (i.e. <code>ENSG</code> and <code>gene_name</code>) are appended to the <code>gene_stats</code> tibble. If
 we wanted to use pipes, we could implement the same join above as follows:</p>
 <div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>
-  <span class="va">gene_map</span>,
-  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene"</span> <span class="op">=</span> <span class="st">"symbol"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">gene_map</span>,</span>
+<span>  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene"</span> <span class="op">=</span> <span class="st">"symbol"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 7
 ##   gene  test1_stat      test1_p test2_stat  test2_p ENSGID          gene_name   
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;       
@@ -1415,10 +1441,10 @@ there is an additional gene, <a href="https://en.wikipedia.org/wiki/BRCA1">BRCA1
 is not in our gene statistics tibble. If we reverse the order of the join,
 observe what happens:</p>
 <div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_map</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>
-  <span class="va">gene_stats</span>,
-  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"symbol"</span> <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_map</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">gene_stats</span>,</span>
+<span>  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"symbol"</span> <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 4 x 7
 ##   symbol ENSGID          gene_name       test1_stat  test1_p test2_stat  test2_p
 ##   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -1433,10 +1459,10 @@ value was found in <code>gene_stats</code>.</p>
 <p>There are additional types of joins besides left joins. Right joins are simply
 the opposite of left joins:</p>
 <div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_stats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span>
-  <span class="va">gene_map</span>,
-  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene"</span> <span class="op">=</span> <span class="st">"symbol"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_stats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">gene_map</span>,</span>
+<span>  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene"</span> <span class="op">=</span> <span class="st">"symbol"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 4 x 7
 ##   gene  test1_stat       test1_p test2_stat   test2_p ENSGID          gene_name 
 ##   &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     
@@ -1451,10 +1477,10 @@ Recall our left join on <code>gene_map</code> included BRCA1 even though it was 
 in <code>gene_stats</code>. An inner join will not include this row, because no match in
 <code>gene_stats</code> was found:</p>
 <div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_map</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>
-  <span class="va">gene_stats</span>,
-  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"symbol"</span> <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_map</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span></span>
+<span>  <span class="va">gene_stats</span>,</span>
+<span>  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"symbol"</span> <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 x 7
 ##   symbol ENSGID          gene_name        test1_stat  test1_p test2_stat test2_p
 ##   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
@@ -1479,11 +1505,11 @@ common to have multiple Ensembl genes associated with a single gene symbol. The
 following takes a gene mapping of Ensembl IDs to gene symbols and identifies
 cases where multiple Ensembl IDs map to a single gene symbol:</p>
 <div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv</a></span><span class="op">(</span><span class="st">"mart_export.tsv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-    <span class="va">`HGNC symbol`</span> <span class="op">!=</span> <span class="st">"NA"</span> <span class="op">&amp;</span> <span class="co"># many unstudied genes have Ensembl IDs but no official symbol</span>
-    <span class="va">`HGNC symbol`</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">`HGNC symbol`</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">`HGNC symbol`</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">`HGNC symbol`</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv</a></span><span class="op">(</span><span class="st">"mart_export.tsv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">`HGNC symbol`</span> <span class="op">!=</span> <span class="st">"NA"</span> <span class="op">&amp;</span> <span class="co"># many unstudied genes have Ensembl IDs but no official symbol</span></span>
+<span>    <span class="va">`HGNC symbol`</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">`HGNC symbol`</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">`HGNC symbol`</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">`HGNC symbol`</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 7,268 x 3
 ##    `Gene stable ID` `HGNC symbol` `Gene name`                                
 ##    &lt;chr&gt;            &lt;chr&gt;         &lt;chr&gt;                                      
@@ -1503,15 +1529,15 @@ Ensembl ID. That is more than 10% of all Ensembl IDs. So now let’s create a ne
 <code>gene_stats</code> tibble with one of these gene symbols and join with the map to
 see what happens:</p>
 <div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gene_map</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv</a></span><span class="op">(</span><span class="st">"mart_export.tsv"</span><span class="op">)</span>
-<span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-    <span class="op">~</span><span class="va">gene</span>, <span class="op">~</span><span class="va">test1_stat</span>, <span class="op">~</span><span class="va">test1_p</span>, <span class="op">~</span><span class="va">test2_stat</span>, <span class="op">~</span><span class="va">test2_p</span>,
-   <span class="st">"APOE"</span>,   <span class="fl">12.509293</span>,   <span class="fl">0.1032</span>,   <span class="fl">34.239521</span>,   <span class="fl">1.3e-5</span>,
-  <span class="st">"HOXD1"</span>,    <span class="fl">4.399211</span>,   <span class="fl">0.6323</span>,   <span class="fl">16.332318</span>,   <span class="fl">0.0421</span>,
-   <span class="st">"SNCA"</span>,   <span class="fl">45.748431</span>,   <span class="fl">4.2e-9</span>,    <span class="fl">0.757188</span>,   <span class="fl">0.9146</span>,
-  <span class="st">"DEAF1"</span>,    <span class="fl">0.000000</span>,      <span class="fl">1.0</span>,           <span class="fl">0</span>,      <span class="fl">1.0</span>
-<span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">gene_map</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene"</span> <span class="op">=</span> <span class="st">"HGNC symbol"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">gene_stats</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gene_map</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv</a></span><span class="op">(</span><span class="st">"mart_export.tsv"</span><span class="op">)</span></span>
+<span><span class="va">gene_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span><span class="va">gene</span>, <span class="op">~</span><span class="va">test1_stat</span>, <span class="op">~</span><span class="va">test1_p</span>, <span class="op">~</span><span class="va">test2_stat</span>, <span class="op">~</span><span class="va">test2_p</span>,</span>
+<span>   <span class="st">"APOE"</span>,   <span class="fl">12.509293</span>,   <span class="fl">0.1032</span>,   <span class="fl">34.239521</span>,   <span class="fl">1.3e-5</span>,</span>
+<span>  <span class="st">"HOXD1"</span>,    <span class="fl">4.399211</span>,   <span class="fl">0.6323</span>,   <span class="fl">16.332318</span>,   <span class="fl">0.0421</span>,</span>
+<span>   <span class="st">"SNCA"</span>,   <span class="fl">45.748431</span>,   <span class="fl">4.2e-9</span>,    <span class="fl">0.757188</span>,   <span class="fl">0.9146</span>,</span>
+<span>  <span class="st">"DEAF1"</span>,    <span class="fl">0.000000</span>,      <span class="fl">1.0</span>,           <span class="fl">0</span>,      <span class="fl">1.0</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">gene_map</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene"</span> <span class="op">=</span> <span class="st">"HGNC symbol"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 x 7
 ##   gene  test1_stat      test1_p test2_stat  test2_p `Gene stable ID` `Gene name`
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;      
@@ -1531,7 +1557,7 @@ the same, effectively it doesn’t matter which duplicate rows we eliminate. We
 can do this using the <code><a href="https://rdrr.io/r/base/duplicated.html">duplicated()</a></code> function, which returns <code>TRUE</code> for all but
 the first row of a set of duplicated values:</p>
 <div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 4 x 7
 ##   gene  test1_stat      test1_p test2_stat  test2_p `Gene stable ID` `Gene name`
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;      
@@ -1608,7 +1634,7 @@ one-to-many mapping issues and also about how you mitigate them.</p>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

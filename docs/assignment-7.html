@@ -5,15 +5,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Assignment 7 | BF591 - R for Biological Sciences</title>
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Assignment 7 | BF591 - R for Biological Sciences">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Assignment 7 | BF591 - R for Biological Sciences">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
 <meta name="description" content="Now working on my companion package: R Dully  Problem Statement Communicating data and results is one of the most nefariously troubling aspects of data science. In bioinformatics we often have...">
 <meta property="og:description" content="Now working on my companion package: R Dully  Problem Statement Communicating data and results is one of the most nefariously troubling aspects of data science. In bioinformatics we often have...">
 <meta name="twitter:description" content="Now working on my companion package: R Dully  Problem Statement Communicating data and results is one of the most nefariously troubling aspects of data science. In bioinformatics we often have...">
@@ -111,25 +137,25 @@
 <div id="function-details-3" class="section level2 unnumbered">
 <h2>“Function” Details<a class="anchor" aria-label="anchor" href="#function-details-3"><i class="fas fa-link"></i></a>
 </h2>
-<p>Without writing an entire treatise on R Shiny (see the book), a Shiny application is broken into two components: the UI function and the Server function. In web development parlance, these represent the “front end” and the “back end,” respectively. The front end is all the code that controls what a user sees and does (the goop that is in the web browser), and the back end is what connects that front end to the server where most of the code, processing power, and data will live.</p>
+<p>Without writing an entire treatise on R Shiny (see the book), a Shiny application is broken into two components: the UI function and the Server function. In web development parlance, these represent the “front end” and the “back end”, respectively. The front end is all the code that controls what a user sees and does (the goop that is in the web browser), and the back end is what connects that front end to the server where most of the code, processing power, and data will live.</p>
 <p>You can use two files for this, but we have set it up for <code>app.R</code> to contain the entire Shiny application. It’s general format is like so:</p>
 <div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span>
-  <span class="co"># front end</span>
-<span class="op">)</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-   <span class="co"># back end</span>
-<span class="op">}</span>
-<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span> <span class="co"># run app</span></code></pre></div>
-<p>After loading the Shiny library, we create the front end parameters with the <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage()</a></code> function. Fluid page is a simple wrapper for designing a Shiny page, and inside we can use functions like <code><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel()</a></code>, <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout()</a></code>, and <code><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel()</a></code> to organize what is displayed.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="co"># front end</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="co"># back end</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span> <span class="co"># run app</span></span></code></pre></div>
+<p>After loading the Shiny library, we create the front end parameters with the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage()</a></code> function. Fluid page is a simple wrapper for designing a Shiny page, and inside we can use functions like <code><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel()</a></code>, <code><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout()</a></code>, and <code><a href="https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html">tabPanel()</a></code> to organize what is displayed.</p>
 <p>Next, we create the <code>server</code> function which is much more similar to writing base R. <code>input</code>, <code>output</code>, and <code>server</code> are automatically handled by Shiny, and we use these objects to pass data between front end (UI) and back end (server). A user can select a color for their graph, we can store that color in <code>input$color1</code>, read that <code>input</code> inside server, and pass the resulting graph to <code>output</code> to place onto the page.</p>
-<p>Finally, the <code><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp()</a></code> is called to run everything. It does most of the heavy lifting so we can worry more about themes and pretty colors for our app (<code><a href="https://rstudio.github.io/bslib/">library(bslib)</a></code>, themeing will not be graded). It goes without saying, much like working on the fonts and headers in an essay, you should wait until your app is mostly complete before you start changing the aesthetics.</p>
+<p>Finally, the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp()</a></code> is called to run everything. It does most of the heavy lifting so we can worry more about themes and pretty colors for our app (<code><a href="https://rstudio.github.io/bslib/">library(bslib)</a></code>, themeing will not be graded). It goes without saying, much like working on the fonts and headers in an essay, you should wait until your app is mostly complete before you start changing the aesthetics.</p>
 <div id="ui---fluidpage..." class="section level3 unnumbered">
 <h3>1. <code>ui &lt;- fluidPage(...)</code><a class="anchor" aria-label="anchor" href="#ui---fluidpage..."><i class="fas fa-link"></i></a>
 </h3>
-<p>R Shiny is a <em>highly</em> customization package, so we will describe what inputs and outputs we’re expecting, but leave the theme, placement, arrangement, and design of these elements up to you. R Shiny’s default layout is the very usable <code>sidebayLayout()</code>, but if you want more control feel free to use <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow()</a></code>.</p>
-<p>In our sidebar, we have six elements for user input. There is the <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html">fileInput()</a></code>, followed by two <code><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons()</a></code>, followed by two <code>colourInputs()</code>, and finally a <code><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput()</a></code>. The most important part for these inputs is the <code>inputId</code> argument, which later is used inside the server function’s <code>input</code>. If I make my <code>inputId=fileupload</code>, then I can access that upload using <code>input$fileupload</code> later on.</p>
+<p>R Shiny is a <em>highly</em> customization package, so we will describe what inputs and outputs we’re expecting, but leave the theme, placement, arrangement, and design of these elements up to you. R Shiny’s default layout is the very usable <code>sidebayLayout()</code>, but if you want more control feel free to use <code><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidRow()</a></code>.</p>
+<p>In our sidebar, we have six elements for user input. There is the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/fileInput.html">fileInput()</a></code>, followed by two <code><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons()</a></code>, followed by two <code>colourInputs()</code>, and finally a <code><a href="https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html">sliderInput()</a></code>. The most important part for these inputs is the <code>inputId</code> argument, which later is used inside the server function’s <code>input</code>. If I make my <code>inputId=fileupload</code>, then I can access that upload using <code>input$fileupload</code> later on.</p>
 <div id="file-input" class="section level4 unnumbered">
 <h4>File Input<a class="anchor" aria-label="anchor" href="#file-input"><i class="fas fa-link"></i></a>
 </h4>
@@ -153,15 +179,15 @@
 <div id="the-button" class="section level4 unnumbered">
 <h4>The Button<a class="anchor" aria-label="anchor" href="#the-button"><i class="fas fa-link"></i></a>
 </h4>
-<p>Finally, there is a button to hit when everything is ready. You can use a <code><a href="https://rdrr.io/pkg/shiny/man/submitButton.html">submitButton()</a></code> or an <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton()</a></code>. Both work slightly differently but having a button just lets us control when a plot is created. You can use <code>icon = icon()</code> to choose a different icon for the button.</p>
+<p>Finally, there is a button to hit when everything is ready. You can use a <code><a href="https://shiny.rstudio.com/reference/shiny/latest/submitButton.html">submitButton()</a></code> or an <code><a href="https://shiny.rstudio.com/reference/shiny/latest/actionButton.html">actionButton()</a></code>. Both work slightly differently but having a button just lets us control when a plot is created. You can use <code>icon = icon()</code> to choose a different icon for the button.</p>
 </div>
 </div>
 <div id="tabs-and-outputs" class="section level3" number="12.1.1">
 <h3>
 <span class="header-section-number">12.1.1</span> 2. Tabs and Outputs<a class="anchor" aria-label="anchor" href="#tabs-and-outputs"><i class="fas fa-link"></i></a>
 </h3>
-<p>Once the inputs are established on the page, we want somewhere to put everything once it’s done being run! This is accomplished by the <code>*Output()</code> functions. We have two outputs to consider, a plot and a table, so we can use <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> respectively, using the names inside <code>output</code> from the server function. These can be placed simply on the <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel()</a></code>.</p>
-<p>There is one additional step if you would like to use tabs instead, which lets us create more space for our outputs. Instead of using the output functions directly, we can first use <code><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel()</a></code> and place two <code><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel()</a></code> functions inside. We then finally place our outputs. A tab setup will look something like this:</p>
+<p>Once the inputs are established on the page, we want somewhere to put everything once it’s done being run! This is accomplished by the <code>*Output()</code> functions. We have two outputs to consider, a plot and a table, so we can use <code><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput()</a></code> and <code><a href="https://shiny.rstudio.com/reference/shiny/latest/renderTable.html">tableOutput()</a></code> respectively, using the names inside <code>output</code> from the server function. These can be placed simply on the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel()</a></code>.</p>
+<p>There is one additional step if you would like to use tabs instead, which lets us create more space for our outputs. Instead of using the output functions directly, we can first use <code><a href="https://shiny.rstudio.com/reference/shiny/latest/tabsetPanel.html">tabsetPanel()</a></code> and place two <code><a href="https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html">tabPanel()</a></code> functions inside. We then finally place our outputs. A tab setup will look something like this:</p>
 <div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="assignment-7.html#cb538-1" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
 <span id="cb538-2"><a href="assignment-7.html#cb538-2" aria-hidden="true" tabindex="-1"></a>  ...</span>
 <span id="cb538-3"><a href="assignment-7.html#cb538-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mainPanel</span>(</span>
@@ -180,7 +206,7 @@
 <div id="server---function..." class="section level3 unnumbered">
 <h3>2. <code>server &lt;- function(...</code><a class="anchor" aria-label="anchor" href="#server---function..."><i class="fas fa-link"></i></a>
 </h3>
-<p>Our second main component, and where we will be doing a lot of the “work,” is the server function. This is written like a normal function in R, with three specific parameters or arguments. These arguments can be used <em>inside</em> server to communicate with the elements we wrote above. The <code>input</code> object can be used to take in user selections, such as what color was chosen. The <code>output</code> object is then use to assign results to the output functions we included above.</p>
+<p>Our second main component, and where we will be doing a lot of the “work”, is the server function. This is written like a normal function in R, with three specific parameters or arguments. These arguments can be used <em>inside</em> server to communicate with the elements we wrote above. The <code>input</code> object can be used to take in user selections, such as what color was chosen. The <code>output</code> object is then use to assign results to the output functions we included above.</p>
 <div id="load_data" class="section level4 unnumbered">
 <h4>
 <code>load_data()</code><a class="anchor" aria-label="anchor" href="#load_data"><i class="fas fa-link"></i></a>
@@ -188,7 +214,7 @@
 <p>Much like a normal R script, we can save ourselves some trouble by splitting our code blocks into functions. In this case, we can load the user select data into different parts of our app, like displaying a plot and then a table.</p>
 <p>This <code>load_data()</code> function should be written as a reactive expression, covered in more detail in the book chapter. Because the user is being asked to upload data we do not want to process that data twice, which would slow down our application.</p>
 <p>This reaction function will update when the inputs inside it change, in our case the file name from our file uploader. Ultimately, we just want this function to return the data frame from loading whatever is in the upload box.</p>
-<p><span style="color:red">Note</span> You will need to specify the <strong>datapath</strong> from the <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html">fileInput()</a></code> function’s input ID. If my input ID was “taylorsfile” then my actual input will be <code>input$taylorsfile$datapath</code>.</p>
+<p><span style="color:red">Note</span> You will need to specify the <strong>datapath</strong> from the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/fileInput.html">fileInput()</a></code> function’s input ID. If my input ID was “taylorsfile” then my actual input will be <code>input$taylorsfile$datapath</code>.</p>
 </div>
 <div id="volcano_plot" class="section level4 unnumbered">
 <h4>
@@ -209,7 +235,7 @@
 <h4>
 <code>output$...</code><a class="anchor" aria-label="anchor" href="#output..."><i class="fas fa-link"></i></a>
 </h4>
-<p>Finally we will cram our results onto the web page. Use the functions <code><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable()</a></code> to <strong>return</strong> your volcano plot and filtered data table using the above two functions. These outputs <em>are</em> checked by the testing script, so there is a bare minimum as to what we are looking for. Please reference the test file <code>test_app.R</code> to see what is being tested. The table’s p-values should have a magnitude, not just <code>0</code>.</p>
+<p>Finally we will cram our results onto the web page. Use the functions <code><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot()</a></code> and <code><a href="https://shiny.rstudio.com/reference/shiny/latest/renderTable.html">renderTable()</a></code> to <strong>return</strong> your volcano plot and filtered data table using the above two functions. These outputs <em>are</em> checked by the testing script, so there is a bare minimum as to what we are looking for. Please reference the test file <code>test_app.R</code> to see what is being tested. The table’s p-values should have a magnitude, not just <code>0</code>.</p>
 <p>If the outputs show up correctly when you load the CSV file, congrats! You’ve built your app correctly. If it didn’t work, I am so sorry. R Shiny can be difficult to troubleshoot so do not be afraid to look up the strange errors you see or ask for help.</p>
 
 </div>
@@ -263,7 +289,7 @@
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
