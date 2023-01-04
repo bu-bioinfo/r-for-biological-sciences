@@ -76,21 +76,21 @@ current information about a gene which are continually updated over time.
 ::: {.box .note}
 Ensembl maintains annotations for many different organisms, and the gene
 identifiers for each genome contain codes that indicate which organism the gene
-is for. Here are the codes for genes in several different species:
+is for. Here are the codes for orthologs of the body plan developmental gene
+[HOXA1](https://www.genecards.org/cgi-bin/carddisp.pl?gene=HOXA1) in several
+different species:
 
-+----------------+-------------------------+----------------------+
-| Gene ID Prefix | Organism                |  Example             |
-+================+=========================+======================+
-| `ENSG`         | Homo sapiens            | [ENSG00000139618](https://useast.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=ENSG00000139618;r=13:32315086-32400268)    |
-+----------------+-------------------------+----------------------+
-| `ENSMUSG`      | Mus musculus (mouse)    | [ENSMUSG00000017167](https://useast.ensembl.org/Mus_musculus/Gene/Summary?db=core;g=ENSMUSG00000017167;r=11:101061349-101081550) |
-+----------------+-------------------------+----------------------+
-| `ENSDARG`      | Danio rerio (zebrafish) | [ENSDARG00000024771](https://useast.ensembl.org/Danio_rerio/Gene/Summary?db=core;g=ENSDARG00000024771;r=18:5213338-5227420;t=ENSDART00000033574) |
-+----------------+-------------------------+----------------------+
-| `ENSMMUG`      | Macaca mulata (Macaque) | [ENSMMUG00000020312](https://useast.ensembl.org/Macaca_mulatta/Gene/Summary?db=core;g=ENSMMUG00000020312;r=5:65376507-65505566) |
-+----------------+-------------------------+----------------------+
-| `ENSVPAG`      | Vicugna pacos (Alpaca)  | [ENSVPAG00000001990](https://useast.ensembl.org/Vicugna_pacos/Gene/Summary?db=core;g=ENSVPAG00000001990;r=GeneScaffold_2392:178775-179671;t=ENSVPAT00000001989) |
-+----------------+-------------------------+----------------------+
+```{r ensprefix, echo=FALSE, results='asis'}
+library(knitr)
+kable(tribble(
+  ~`Gene ID Prefix`, ~Organism, ~Symbol, ~Example,
+  "`ENSG`", "Homo sapiens", "HOXA1", "ENSG00000105991",
+  "`ENSMUSG`", "Mus musculus (mouse)", "Hoxa1", "ENSMUSG00000029844",
+  "`ENSDARG`", "Danio rario (zebrafish)", "hoxa1a", "ENSDARG00000104307",
+  "`ENSFCAG`", "Felis catus (cat)", "HOXA1",  "ENSFCAG00000007937",
+  "`ENSMMUG`", "Macaca mulata (macaque)", "HOXA1", "ENSMMUG00000012807",
+))
+```
 :::
 
 Ensembl Gene IDs and gene symbols are the most commonly used gene identifiers.
