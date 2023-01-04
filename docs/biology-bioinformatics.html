@@ -773,13 +773,13 @@ different species:</p>
 </tr>
 <tr class="even">
 <td align="left"><code>ENSFCAG</code></td>
-<td align="left">Felis catus (Cat)</td>
+<td align="left">Felis catus (cat)</td>
 <td align="left">HOXA1</td>
 <td align="left">ENSFCAG00000007937</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>ENSMMUG</code></td>
-<td align="left">Macaca mulata (Macaque)</td>
+<td align="left">Macaca mulata (macaque)</td>
 <td align="left">HOXA1</td>
 <td align="left">ENSMMUG00000012807</td>
 </tr>
@@ -858,7 +858,7 @@ function:</p>
 <div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="biology-bioinformatics.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a tibble with ensembl gene ID, HGNC gene symbol, and gene description</span></span>
 <span id="cb365-2"><a href="biology-bioinformatics.html#cb365-2" aria-hidden="true" tabindex="-1"></a>gene_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
 <span id="cb365-3"><a href="biology-bioinformatics.html#cb365-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getBM</span>(</span>
-<span id="cb365-4"><a href="biology-bioinformatics.html#cb365-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">attributes=</span><span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"hgnc_gene_symbol"</span>, <span class="st">"description"</span>),</span>
+<span id="cb365-4"><a href="biology-bioinformatics.html#cb365-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">attributes=</span><span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"hgnc_symbol"</span>, <span class="st">"description"</span>),</span>
 <span id="cb365-5"><a href="biology-bioinformatics.html#cb365-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mart=</span>ensembl</span>
 <span id="cb365-6"><a href="biology-bioinformatics.html#cb365-6" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb365-7"><a href="biology-bioinformatics.html#cb365-7" aria-hidden="true" tabindex="-1"></a>)</span>
