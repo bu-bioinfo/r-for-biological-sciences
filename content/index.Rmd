@@ -181,14 +181,14 @@ incomplete. Even experts are fallible. The bioinformatics field evolves
 rapidly, and Rome was not built in a day. Be kind to yourself and to others.
 You are always smarter and more knowledgeable today than you were yesterday.
 
-## Acknowledgements & Contributions
+## Acknowledgements & Contributions {-}
 
 These materials would not have been possible without the contributions of
-Dakota Hawkins, Vanessa Li, Taylor Falk, and Mae Rose Gott.
+Dakota Hawkins, Vanessa Li, Taylor Falk, and Mae Rose Gott, and Joey Orofino.
 
 Former valiant and (probably still) attractive TAs:
 
-### 2022
+### 2022 {-}
 
 * **Taylor Falk** (BU BF MS Alumnus '21) is a Bioinformatics Developer working
   with the VA PTSD Brain Bank, developing infrastructure to support data
