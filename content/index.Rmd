@@ -15,11 +15,13 @@ knitr::opts_chunk$set(cache = TRUE)
 
 # R for Biological Sciences {-}
 
-**Semester: Spring 2022**
+**Semester: Spring 2023**
 
-**Location: EPC 209 and zoom**
+**Location: HAR 211 and zoom**
 
-**Time: M/W 8:00AM - 9:45AM**
+**Time: M/W 2:30PM - 4:15PM**
+
+Site last updated 1/4/2023
 
 Contents:
 
@@ -76,55 +78,55 @@ mentioned otherwise
 +===========+===================+==============================================+=================+
 |  Week 0   | Prior to class    | - Github configuration                       | [Assignment 0]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 1]  | 1/24 & 1/26       | - Preliminaries                              |                 |
+| [Week 1]  | 1/23 & 1/25       | - Preliminaries                              |                 |
 |           |                   | - Data in Biology                            | [Assignment 1]  |
 |           |                   | - R Programming Basics                       |                 |
 |           |                   | - Data Wrangling & tidyverse Basics          |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 2]  | 1/31 & 2/2        | - R in Biology                               |                 |
+| [Week 2]  | 1/30 & 2/1        | - R in Biology                               |                 |
 |           |                   | - Bio: Bioconductor Basics                   | [Assignment 1]  |
 |           |                   | - Data Viz: Grammar of Graphics              |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 3]  | **2/7**  & 2/9    | - Data Sci: Data Modeling                    |                 |
+| [Week 3]  | 2/6  & 2/8        | - Data Sci: Data Modeling                    |                 |
 |           |                   | - Bio: Gene Expression                       | [Assignment 2]  |
 |           |                   | - Bio: Microarrays                           |                 |
 |           |                   | - Bio: Differential Expression: Microarrays  |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 4]  | **2/14** & 2/16   | - Data Sci: PCA & Clustering                 |                 |
+| [Week 4]  | 2/13 & 2/15       | - Data Sci: PCA & Clustering                 |                 |
 |           |                   | - Data Vis: Heatmaps & Dendrograms           | [Assignment 3]  |
 |           |                   | - R Programming: Structures & Iteration      |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 5]  | 2/22 & 2/23       | - Bio: High Throughput Sequencing            |                 |
-|           | **Note: 2/22 is a | - Bio: RNASeq                                |                 |
+| [Week 5]  | 2/21 & 2/22       | - Bio: High Throughput Sequencing            |                 |
+|           | **Note: 2/21 is a | - Bio: RNASeq                                |                 |
 |           | Tuesday**         | - Bio: Count Data                            | [Assignment 4]  |
 |           |                   | - Bio: Differential Expression: RNASeq       |                 |
 |           |                   | - Bio: Gene Set Enrichment Analysis          |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 6]  | **2/28** & 3/2    | - Data Sci: Distributions                    |                 |
+| [Week 6]  | 2/27 & 3/1        | - Data Sci: Distributions                    |                 |
 |           |                   | - Data Sci: Statistical Tests                | [Assignment 5]  |
 |           |                   | - R Programming: Style & Conventions         |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-|           | 3/7 & 3/9         |  Spring Break                                |                 |
+|           | 3/6 & 3/8         |  Spring Break                                |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 7]  | **3/14** & 3/16   | - Data Viz: Responsible Plotting             | [Assignment 6]  |
+| [Week 7]  | 3/13 & 3/15       | - Data Viz: Responsible Plotting             | [Assignment 6]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 8]  | 3/21 & 3/23       | - RShiny                                     | [Assignment 7]  |
+| [Week 8]  | 3/20 & 3/22       | - RShiny                                     | [Assignment 7]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 9]  | **3/28** & 3/30   | - EngineeRing                                | [Assignment 7]  |
+| [Week 9]  | 3/27 & 3/29       | - EngineeRing                                | [Assignment 7]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 10] | **4/4** & 4/6     | - Bio: Biological Networks                   |                 |
+| [Week 10] | 4/3 & 4/5         | - Bio: Biological Networks                   |                 |
 |           |                   | - Data Sci: Network Analysis                 | [Project]       |
 |           |                   | - Data Viz: Network Viz                      |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 11] | ~~4/11 & 4/13~~   | - Project work, no class                     |                 |
+| [Week 11] | ~~4/10 & 4/12~~   | - Project work, no class                     |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 12] | ~~4/20~~          | - Project work, no class                     |                 |
+| [Week 12] | ~~4/19~~          | - Project work, no class                     |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 13] | ~~4/25 & 4/27~~   | - Project work, no class                     |                 |
+| [Week 13] | ~~4/24 & 4/26~~   | - Project work, no class                     |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 14] | ~~5/2~~ & 5/4     | - Course wrap up & feedback                  |                 |
+| [Week 14] | ~~5/1~~ & 5/3     | - Course wrap up & feedback                  |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-|           | 5/9               | - First day of exam period                   | Project due     |
+|           | 5/8               | - First day of exam period                   | Project due     |
 |           |                   |                                              |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 
@@ -132,32 +134,16 @@ mentioned otherwise
 
 Primary instructor: Adam Labadorf (labadorf AT bu DOT edu)
 
-We have three staff members helping with the course, in no particular order (ok,
-I guess it's alphabetical):
+The following lovely people will be helping with the course, in no particular
+order (ok, I guess it's alphabetical):
 
-* **Taylor Falk** (BU BF MS Alumnus '21) is a Bioinformatics Developer working
-  with the VA PTSD Brain Bank, developing infrastructure to support data
-  generated out of our brains. He is championing the assignment strategy and
-  will be available to help with issues.
-* **Mae Rose Gott** (BU BF MS Alumna '21) is a Research Staff member working
-  on a number of different projects across many different areas. She will be
-  helping organize the course materials as we go forward.
-* **Vanessa Li** (BU BF PhD Candidate) is a PhD candidate in Dr. Stefano Monti's
-  lab in Computational Biomedicine. She will primarily be helping with grading
-  of your assignments.
-* **Joey Orofino** (BU BF MS Alumnus '18) is a Research Scientist working on
-  identifying small RNA based biomarkers of Parkinson's Disease
+* **Regan Conrad** (BU BF PhD Candidate)
+* **Aubrey (Brie) Odom-Mabey** (BU BF PhD Candidate)
 
 ## Office Hours {-}
 
-We hold the following office hours via Zoom:
-
-* Joey - Mondays 3:30-4:30
-* Vanessa - Tuesdays 10-11AM
-* Mae Rose - Wednesdays 8-9PM
-* Taylor - Fridays 2-3PM
-
-The zoom link is pinned in the #announcements channel in slack.
+Arranged as needed. If consistent need is required, fixed hours will be
+established.
 
 ## Course Values and Policies {-}
 
@@ -199,3 +185,20 @@ You are always smarter and more knowledgeable today than you were yesterday.
 
 These materials would not have been possible without the contributions of
 Dakota Hawkins, Vanessa Li, Taylor Falk, and Mae Rose Gott.
+
+Former valiant and (probably still) attractive TAs:
+
+### 2022
+
+* **Taylor Falk** (BU BF MS Alumnus '21) is a Bioinformatics Developer working
+  with the VA PTSD Brain Bank, developing infrastructure to support data
+  generated out of our brains. He is championing the assignment strategy and
+  will be available to help with issues.
+* **Mae Rose Gott** (BU BF MS Alumna '21) is a Research Staff member working
+  on a number of different projects across many different areas. She will be
+  helping organize the course materials as we go forward.
+* **Vanessa Li** (BU BF PhD Candidate) is a PhD candidate in Dr. Stefano Monti's
+  lab in Computational Biomedicine. She will primarily be helping with grading
+  of your assignments.
+* **Joey Orofino** (BU BF MS Alumnus '18) is a Research Scientist working on
+  identifying small RNA based biomarkers of Parkinson's Disease
