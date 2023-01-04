@@ -172,7 +172,7 @@ function:
 # create a tibble with ensembl gene ID, HGNC gene symbol, and gene description
 gene_map <- as_tibble(
   getBM(
-    attributes=c("ensembl_gene_id", "hgnc_gene_symbol", "description"),
+    attributes=c("ensembl_gene_id", "hgnc_symbol", "description"),
     mart=ensembl
   )
 )
