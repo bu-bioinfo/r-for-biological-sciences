@@ -1,12 +1,19 @@
 ---
-output: html_document
+title: "R for Biological Science"
+subtitle: "Introduction"
+output: ioslides_presentation
+author: "Adam Labadorf"
+company: "Boston University"
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
 
-# Introduction
 
-[Slides](slides/0000_introduction.html)
+# Introduction | The Beginning
 
+<div class="notes">
 Since the publication of the first draft human genome in 2001, data has driven
 biological discovery at an exponential rate. Rapid technological innovations in
 data-generating biochemical instruments, computational resource availability,
@@ -16,7 +23,11 @@ to enable advances in our understanding of biological systems by orders of
 magnitude. As the rate of development of these technologies has increased, so
 are practitioners of biological inquiry expected to keep up with the rapidly
 expanding set of knowledge, skills, and tools required to use them.
+</div>
 
+# Introduction | Domains
+
+<div class="notes">
 Modern biological data analysis entails combining knowledge and skills from
 many domains, including not only biological concepts like molecular biology,
 genetics, genomics, and biochemistry, but also in computational and quantitative
@@ -25,13 +36,21 @@ high performance and cloud computing, data visualization, and computer science.
 No one person can be expert in all of these areas, but modern software tools and
 packages made available by subject matter experts enable us to perform cutting
 edge analysis with a conceptual understanding of the topics.
+</div>
 
+# Introduction | The R Programming Language
+
+<div class="notes">
 One such tool is the [R programming language](https://www.r-project.org), a
 statistical programming language and environment specifically designed to run
 statistical analyses and visualize data. Today
 R is one of the two most popular programming languages in biological data
 analysis and bioinformatics (the other being [python](https://python.org)).
+</div>
 
+# Introduction | tidyverse
+
+<div class="notes">
 A major innovation in the R language came with the introduction of the
 [tidyverse](https://www.tidyverse.org/), as set of open-source data manipulation and
 visualization packages, first developed by [Hadley Wickham](http://hadley.nz/)
@@ -45,46 +64,37 @@ and patterns that are tailored to the types of manipulations required to make
 data "tidy" and, therefore, easier and more consistent to work with. The
 tidyverse therefore is something of its own "language" that is compatible with
 but distinct in convention from the base R language.
+</div>
 
+# Introduction | This Class
+
+<div class="notes">
 This book and accompanying course focus on how to use R and its related package
 ecosystems to analyze, visualize, and communicate biological data analyses. As
 noted above, effective biological data analysis employs skills that span several
 knowledge domains. This book covers many of these topics in relatively shallow
 depth, but with the intent of presenting just enough in each to enable the
 learner to become proficient in most day-to-day biological analysis tasks.
+</div>
 
 ## Who This Book Is For
 
-[Slides](slides/0000_introduction.html#who-this-book-is-for)
+You are: a practicing biologist wishing to learn how to use R to analyze
+biological data
 
-This book was written for the practicing biologist wishing to learn how to use
-R to analyze biological data. A basic working knowledge of genetics, genomics,
-molecular biology, and biochemistry is assumed, but we endeavored to include
-enough pertinent background to understand the analysis concepts presented in the
-text. Basic knowledge of statistics is assumed, but again some background is
-provided as necessary to understand the analyses and concepts in the text. No
-further knowledge is assumed.
+We assume a basic working knowledge of:
 
-## A Note About Reinventing the Wheel
+* genetics
+* genomics
+* molecular biology
+* biochemistry
+* statistics
 
-Many topics in this book are covered elsewhere in greater detail and depth. The
-content in each section is intended to stand alone, but may not provide a high
-level of detail that has been done better by others in online materials. These
-sections provide links to these other resources that provide more information,
-in case the instructions in this book are too terse or unclear.
+We endeavor to explain required background whenever possible to relax these
+assumptions
 
-::: {.box .readmore}
-* [Wikipedia - Reinventing the Wheel](https://en.wikipedia.org/wiki/Reinventing_the_wheel)
-:::
+## Sources and References | R Materials
 
-## Sources and References
-
-The materials of this book were inspired and informed by a large number of
-sources, including books and freely available online materials. The authors
-would like to thank the creators and maintainers of these resources for their
-generosity in making their valuable contributions:
-
-**R Materials**
 * [Hands-On Programming with R](https://rstudio-education.github.io/hopr/), by Garrett Grolemund
 * [R for Data Science](https://r4ds.had.co.nz/), by Hadley Wickam, Garrett Grolemund, et al
 * [Advanced R](https://adv-r.hadley.nz/), by Hadley Wickam
@@ -93,7 +103,8 @@ generosity in making their valuable contributions:
 * [Reproducible Analysis with R](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/), by State of Alaska's Salmon and People Project, NCEAS
 * [Data Science for Psychologists](https://bookdown.org/hneth/ds4psy/), by Hansjörg Neth
 
-**Data visualization**
+## Sources and References | Data visualization
+
 * [How Charts Lie: Getting Smarter about Visual Information](https://wwnorton.com/books/9781324001560/about-the-book), by Alberto Cairo
 * [The Functional Art - An Introduction to Information Graphics and Visualization](http://www.thefunctionalart.com/), by Alberto Cairo
 * [The Truthful Art - Data, Charts, and Maps for Communication](http://www.thefunctionalart.com/p/the-truthful-art-book.html), by Alberto Cairo

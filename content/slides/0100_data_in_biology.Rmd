@@ -1,0 +1,23 @@
+---
+title: "R for Biological Science"
+subtitle: "[Data in Biology](../data-bio.html)"
+output: ioslides_presentation
+author: "Adam Labadorf"
+company: "Boston University"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Biological Data Timeline
+
+<img src="../biology_data_timeline_1.png" style="width: 100%"/>
+
+## Biological Data Timeline | Human Genome Era
+
+<img src="../biology_data_timeline_2.png" style="width: 100%"/>
+
+## The Biologist's Tools
+
+<img src="../biologists_tools.png" style="width: 100%"/>
