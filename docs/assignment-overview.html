@@ -4,12 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>12 Contribution Guide | BF591 - R for Biological Sciences</title>
+<title>Assignment Overview | BF591 - R for Biological Sciences</title>
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
-<meta property="og:title" content="12 Contribution Guide | BF591 - R for Biological Sciences">
+<meta property="og:title" content="Assignment Overview | BF591 - R for Biological Sciences">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="12 Contribution Guide | BF591 - R for Biological Sciences">
+<meta name="twitter:title" content="Assignment Overview | BF591 - R for Biological Sciences">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -40,9 +40,9 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="This page contains some conventions and tips for writing material for this book.  12.1 Custom blocks There are a number of custom blocks that can be used for highlighting salient information...">
-<meta property="og:description" content="This page contains some conventions and tips for writing material for this book.  12.1 Custom blocks There are a number of custom blocks that can be used for highlighting salient information...">
-<meta name="twitter:description" content="This page contains some conventions and tips for writing material for this book.  12.1 Custom blocks There are a number of custom blocks that can be used for highlighting salient information...">
+<meta name="description" content="Each assignment has a similar format and follows a similar workflow. The following figure describes how the files in the repos interact. Each assignment repo has the following files within: ├──...">
+<meta property="og:description" content="Each assignment has a similar format and follows a similar workflow. The following figure describes how the files in the repos interact. Each assignment repo has the following files within: ├──...">
+<meta name="twitter:description" content="Each assignment has a similar format and follows a similar workflow. The following figure describes how the files in the repos interact. Each assignment repo has the following files within: ├──...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -76,10 +76,10 @@
 <li><a class="" href="engineering.html"><span class="header-section-number">9</span> EngineeRing</a></li>
 <li><a class="" href="rshiny.html"><span class="header-section-number">10</span> RShiny</a></li>
 <li><a class="" href="communicating-with-r.html"><span class="header-section-number">11</span> Communicating with R</a></li>
-<li><a class="active" href="contribution-guide.html"><span class="header-section-number">12</span> Contribution Guide</a></li>
+<li><a class="" href="contribution-guide.html"><span class="header-section-number">12</span> Contribution Guide</a></li>
 <li class="book-part">Assignments</li>
 <li><a class="" href="starting-an-assignment.html">Starting an Assignment</a></li>
-<li><a class="" href="assignment-overview.html">Assignment Overview</a></li>
+<li><a class="active" href="assignment-overview.html">Assignment Overview</a></li>
 <li><a class="" href="assignment-1.html">Assignment 1</a></li>
 <li><a class="" href="assignment-2.html">Assignment 2</a></li>
 <li><a class="" href="assignment-3.html">Assignment 3</a></li>
@@ -97,58 +97,54 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="contribution-guide" class="section level1" number="12">
-<h1>
-<span class="header-section-number">12</span> Contribution Guide<a class="anchor" aria-label="anchor" href="#contribution-guide"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="assignment-overview" class="section level1 unnumbered">
+<h1>Assignment Overview<a class="anchor" aria-label="anchor" href="#assignment-overview"><i class="fas fa-link"></i></a>
 </h1>
-<p>This page contains some conventions and tips for writing material for this book.</p>
-<div id="custom-blocks" class="section level2" number="12.1">
-<h2>
-<span class="header-section-number">12.1</span> Custom blocks<a class="anchor" aria-label="anchor" href="#custom-blocks"><i class="fas fa-link"></i></a>
-</h2>
-<p>There are a number of custom blocks that can be used for highlighting salient
-information throughout the text. The code inside the corresponding block below
-can be used to insert different standout boxes:</p>
-<div class="box tldr">
-<pre><code>::: {.box .tldr}
-This is a tl;dr
-:::</code></pre>
-</div>
-<div class="box note">
-<pre><code>::: {.box .note}
-This is a note
-:::</code></pre>
-</div>
-<div class="box hint">
-<pre><code>::: {.box .hint}
-This is a hint
-:::</code></pre>
-</div>
+<p>Each assignment has a similar format and follows a similar workflow. The
+following figure describes how the files in the repos interact.</p>
+<div class="inline-figure"><img src="assignment_workflow.png"></div>
+<p>Each assignment repo has the following files within:</p>
+<pre><code>├── reference_report.html
+├── main.R
+├── README.md
+├── report.Rmd
+└── test_main.R</code></pre>
+<ul>
+<li><p><strong>reference_report.html</strong> - This is the completed “report” of the assignment.
+You will be endeavoring to replicate this while completing the assignment,
+with some room for creative differences in elements like plotting.</p></li>
+<li><p><strong>main.R</strong> - This is the main R script in the assignment, where you will be
+doing a lot of your <em>programming</em>. This script contains function definitions
+and descriptions, but with functions that are empty. Complete the functions as
+described in the script and ensure they pass the tests.</p></li>
+<li><p><strong>README.md</strong> - Every repository <em>should</em> have a README. Usually it contains
+useful information about installation, usage, and licensing. In this case, it
+will have helpful links back to assignment instructions.</p></li>
+<li><p><strong>report.Rmd</strong> - Another empty file, this markdown script will <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> your
+<code>main.R</code> script, loading the functions into its environment. There will be
+empty code blocks throughout this document, use the functions you developed in
+<code>main.R</code> to replicate the figures or match the captions seen in
+<code>finalized_report.pdf</code>.</p></li>
+<li><p><strong>test_main.R</strong> - This is a completed testing script produced by us to help
+you quickly determine how will your code is running. This file <strong>sources</strong>
+your <code>main.R</code> file, meaning it runs it to completion and stores any functions
+and variables in the active environment. It then runs tests to ensure your
+functions are working in a predictable way. Tests are incredibly valuable
+tools, and potentially one of the strongest in a programmer’s toolkit.</p></li>
+</ul>
 <div class="box important">
-<pre><code>::: {.box .important}
-This is an important
-:::</code></pre>
-</div>
-<div class="box warning">
-<pre><code>::: {.box .warning}
-This is a warning
-:::</code></pre>
+<p>Most assignments beyond assignment 1 have a complementary guide hosted on the
+website page. These go into more background about how functions and tests work
+so use them if you’re feeling stuck or would like more context.</p>
 </div>
 
 </div>
-</div>
-
-
-
-<div class="chapter-nav">
-<div class="prev"><a href="communicating-with-r.html"><span class="header-section-number">11</span> Communicating with R</a></div>
-<div class="next"><a href="starting-an-assignment.html">Starting an Assignment</a></div>
+  <div class="chapter-nav">
+<div class="prev"><a href="starting-an-assignment.html">Starting an Assignment</a></div>
+<div class="next"><a href="assignment-1.html">Assignment 1</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#contribution-guide"><span class="header-section-number">12</span> Contribution Guide</a></li>
-<li><a class="nav-link" href="#custom-blocks"><span class="header-section-number">12.1</span> Custom blocks</a></li>
-</ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#assignment-overview">Assignment Overview</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -157,13 +153,9 @@ This is a warning
 </div>
     </nav>
 </div>
-</div>
-  
-
-  
 
 </div>
- <!-- .container -->
+</div> <!-- .container -->
 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 

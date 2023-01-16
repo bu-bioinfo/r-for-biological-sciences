@@ -79,6 +79,7 @@
 <li><a class="" href="contribution-guide.html"><span class="header-section-number">12</span> Contribution Guide</a></li>
 <li class="book-part">Assignments</li>
 <li><a class="" href="starting-an-assignment.html">Starting an Assignment</a></li>
+<li><a class="" href="assignment-overview.html">Assignment Overview</a></li>
 <li><a class="" href="assignment-1.html">Assignment 1</a></li>
 <li><a class="" href="assignment-2.html">Assignment 2</a></li>
 <li><a class="" href="assignment-3.html">Assignment 3</a></li>
@@ -407,7 +408,7 @@ summarizes it as a tibble:</p>
 <span><span class="op">}</span></span>
 <span><span class="va">fn</span> <span class="op">&lt;-</span> <span class="va">args</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/readr/man/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></span></code></pre></div>
 <p>We can now run the script with <code>Rscript</code> and give it the filename of a CSV file:</p>
 <pre><code>$ cat data.csv
 gene,sampleA,sampleB,sampleC
@@ -467,15 +468,15 @@ top <span class="math inline">\(n\)</span> lines of a file to the screen:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span></span>
 <span>    <span class="op">{</span></span>
 <span>        <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/readr/man/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>            <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>            <span class="fu"><a href="https://rdrr.io/pkg/readr/man/write_delim.html">write_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/showConnections.html">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>            <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/showConnections.html">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>We again tested the number of arguments passed in for correct usage, and then
 assigned the arguments to variables. The <code>n</code> argument is cast from a character
 string to an integer in the process, enabling its use in the
-<code><a href="https://rdrr.io/pkg/dplyr/man/slice.html">dplyr::slice_head()</a></code> function. We can print out the first three lines of a file
+<code><a href="https://dplyr.tidyverse.org/reference/slice.html">dplyr::slice_head()</a></code> function. We can print out the first three lines of a file
 as follows:</p>
 <pre><code>$ Rscript head.R data.csv 3
 gene,sampleA,sampleB,sampleC
@@ -530,9 +531,9 @@ information:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span></span>
 <span>    <span class="op">{</span></span>
 <span>        <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/readr/man/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>            <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>            <span class="fu"><a href="https://rdrr.io/pkg/readr/man/write_delim.html">write_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/showConnections.html">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>            <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/showConnections.html">stdout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Note we didn’t have to explicitly parse the <code>top</code> argument as an integer because

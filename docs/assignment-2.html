@@ -79,6 +79,7 @@
 <li><a class="" href="contribution-guide.html"><span class="header-section-number">12</span> Contribution Guide</a></li>
 <li class="book-part">Assignments</li>
 <li><a class="" href="starting-an-assignment.html">Starting an Assignment</a></li>
+<li><a class="" href="assignment-overview.html">Assignment Overview</a></li>
 <li><a class="" href="assignment-1.html">Assignment 1</a></li>
 <li><a class="active" href="assignment-2.html">Assignment 2</a></li>
 <li><a class="" href="assignment-3.html">Assignment 3</a></li>
@@ -239,7 +240,7 @@ every row at once. This solution takes mere moments.</p>
 <span>                     GSM5<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">3.0</span>, <span class="fl">4</span><span class="op">)</span>,</span>
 <span>                     GSM6<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">4</span><span class="op">)</span>,</span>
 <span>                     GSM7<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/pull.html">pull</a></span><span class="op">(</span><span class="fu">filter_15</span><span class="op">(</span><span class="va">test_tib</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="fu">filter_15</span><span class="op">(</span><span class="va">test_tib</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>In order to test this function, we create a small sample tibble of expression
 data containing only seven samples and four IDs. Two of the rows <em>do</em> have more
@@ -271,7 +272,7 @@ The <code>biomart</code> you should use is <code>ENSEMBL_MART_ENSEMBL</code>, th
 <code>filter_15()</code> returns a list of <code>affy_hg_u133_plus_2</code> probe IDs, and the gene
 names we’re interested in are stored in <code>hgnc_symbol</code>.</p>
 <p>This function should return a tibble, but <code>biomaRt</code>’s <code>getBM()</code> will only accept
-and return a <code>data.frame</code>. You can use <code><a href="https://rdrr.io/pkg/dplyr/man/pull.html">dplyr::pull()</a></code> to turn a tibble into a
+and return a <code>data.frame</code>. You can use <code><a href="https://dplyr.tidyverse.org/reference/pull.html">dplyr::pull()</a></code> to turn a tibble into a
 simple character vector, and <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">dplyr::as_tibble()</a></code> to go from a data frame to a
 tibble.</p>
 <div id="tests-2" class="section level4 unnumbered">
