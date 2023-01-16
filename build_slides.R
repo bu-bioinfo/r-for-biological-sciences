@@ -8,7 +8,11 @@ output_format <- ioslides_presentation(
 #output_format$pandoc$args <- c(head(output_format$pandoc$args,-1), template_path)
 
 #rmd_list <- list.files("content/slides", pattern="*.Rmd", full.names=TRUE)
-rmd_list <- c("0000_introduction.Rmd", "0100_data_in_biology.Rmd")
+rmd_list <- c(
+  "0000_introduction.Rmd",
+  "0100_data_in_biology.Rmd",
+  "0200_preliminaries.Rmd"
+)
 
 for(rmd in rmd_list) {
   rmarkdown::render(

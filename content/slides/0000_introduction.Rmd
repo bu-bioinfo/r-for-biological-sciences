@@ -11,71 +11,77 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-# Introduction | The Beginning
+## Biology as Data Science {.flexbox .vcenter}
 
-<div class="notes">
-Since the publication of the first draft human genome in 2001, data has driven
-biological discovery at an exponential rate. Rapid technological innovations in
-data-generating biochemical instruments, computational resource availability,
-data storage, and analytical approaches including artificial intelligence,
-machine learning, and data science more generally have combined and synergized
-to enable advances in our understanding of biological systems by orders of
-magnitude. As the rate of development of these technologies has increased, so
-are practitioners of biological inquiry expected to keep up with the rapidly
-expanding set of knowledge, skills, and tools required to use them.
+The sequencing of the human genome ushered in the "post-genome" biological
+revolution
+
+<div class="centered">
+**Biology is now a data science**
+
+<img src="hgp.jpg" style="width: 40%"/>
 </div>
 
-# Introduction | Domains
+## Domains of Biological Data Analysis
 
-<div class="notes">
-Modern biological data analysis entails combining knowledge and skills from
-many domains, including not only biological concepts like molecular biology,
-genetics, genomics, and biochemistry, but also in computational and quantitative
-skills including statistics, mathematics, programming and software engineering,
-high performance and cloud computing, data visualization, and computer science.
-No one person can be expert in all of these areas, but modern software tools and
-packages made available by subject matter experts enable us to perform cutting
-edge analysis with a conceptual understanding of the topics.
+Modern biological data analysis requires skills and knowledge from many domains:
+
+* molecular biology, genetics, biochemistry
+* statistics, mathematics
+* computer science
+* programming & software engineering
+* data visualization
+* high performance & cloud computing
+
+**No one person can be expert in all these areas!**
+
+Experts create tools and techniques that we can use.
+
+## The R Programming Language
+
+* R is a *statistical programming language*
+* [https://www.r-project.org/](https://www.r-project.org/)
+* Designed to conduct statistical analyses and visualize data
+* **NOT** a general purpose programming language!
+
+<img src="Rlogo.png" class="center" style="width: 40%"/>
+
+## tidyverse {.flexbox .vcenter}
+
+<div class="columns-2">
+
+<img src="r4ds_cover.png" class="center" height="450px"/>
+
+* `tidyverse` is a set of R packages first developed by [Hadley Wickham](http://hadley.nz/)
+* [https://www.tidyverse.org/](https://www.tidyverse.org/)
+* Transforms R into a data science language
+* Adds functionality and avoids some pitfalls of base R
+
 </div>
 
-# Introduction | The R Programming Language
+## Book & Course Objectives {.build .larger}
 
-<div class="notes">
-One such tool is the [R programming language](https://www.r-project.org), a
-statistical programming language and environment specifically designed to run
-statistical analyses and visualize data. Today
-R is one of the two most popular programming languages in biological data
-analysis and bioinformatics (the other being [python](https://python.org)).
-</div>
+> **Learn R and its related packages to analyze biological data**
 
-# Introduction | tidyverse
+> **Communicate results of R analyses with effective visualizations and notebooks**
 
-<div class="notes">
-A major innovation in the R language came with the introduction of the
-[tidyverse](https://www.tidyverse.org/), as set of open-source data manipulation and
-visualization packages, first developed by [Hadley Wickham](http://hadley.nz/)
-and now improved, supported, and maintained by his team of data scientists and
-software engineers and other individuals. The tidyverse is a collection of
-packages that specialize in different aspects of data manipulation with the goal
-of enabling powerful, consistent, and accurate data operations in the broad
-field of data science. While not changing the structure of the language *per
-se*, the tidyverse packages define a set of consistent programming conventions
-and patterns that are tailored to the types of manipulations required to make
-data "tidy" and, therefore, easier and more consistent to work with. The
-tidyverse therefore is something of its own "language" that is compatible with
-but distinct in convention from the base R language.
-</div>
+> **Learn how to use the RStudio development environment**
 
-# Introduction | This Class
+> **Write correct and reproducible code using formal testing strategies**
 
-<div class="notes">
-This book and accompanying course focus on how to use R and its related package
-ecosystems to analyze, visualize, and communicate biological data analyses. As
-noted above, effective biological data analysis employs skills that span several
-knowledge domains. This book covers many of these topics in relatively shallow
-depth, but with the intent of presenting just enough in each to enable the
-learner to become proficient in most day-to-day biological analysis tasks.
-</div>
+> **Share analyses with others using RShiny applications**
+
+## Course Topics
+
+* [Base R programming](../prog-basics.html)
+* [Data wrangling with `tidyverse`](../data-wrangling.html)
+* [RStudio](../preliminaries.html#prelim-rstudio)
+* [Data visualization](../data-visualization.html)
+* [Core biological data analysis packages (Bioconductor, etc)](../biology-bioinformatics.html)
+* [Communicating results (R Notebooks)](../communicating-with-r.html)
+* [Version control (git+github)](../preliminaries.html#prelim-git)
+* [Software testing](../engineering.html#unit-testing)
+* [Rshiny](../rshiny.html)
 
 ## Who This Book Is For
 
@@ -108,3 +114,22 @@ assumptions
 * [How Charts Lie: Getting Smarter about Visual Information](https://wwnorton.com/books/9781324001560/about-the-book), by Alberto Cairo
 * [The Functional Art - An Introduction to Information Graphics and Visualization](http://www.thefunctionalart.com/), by Alberto Cairo
 * [The Truthful Art - Data, Charts, and Maps for Communication](http://www.thefunctionalart.com/p/the-truthful-art-book.html), by Alberto Cairo
+
+## The Course | Structure
+
+* Weekly lectures
+* 7 assignments, roughly one per week
+* [Final project: RShiny application](../final-project.html) combining the techniques you learned in the assignments
+* Grading:
+
+  + Assignments 5% each (35% total)
+  + Final project 60%
+  + Class attendance/participation 5%
+
+* Will have zoom on for lectures, but recordings will not be made available
+
+## The Course | Assignments
+
+* Assignments hosted on GitHub
+* We will use GitHub Classroom to make them available
+* 
