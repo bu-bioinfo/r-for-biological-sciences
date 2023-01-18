@@ -6,6 +6,8 @@ output: html_document
 
 ## A Brief History of Data in Molecular Biology
 
+[Slides](slides/0100_data_in_biology.html#a-brief-history-of-data-in-molecular-biology)
+
 Molecular biology became a data science in 1953 when the structure of DNA was
 determined. Prior to this advance, biochemical assays of biological systems
 could make general statements about the characteristics and composition of
@@ -79,6 +81,8 @@ Project](https://www.genome.gov/human-genome-project) and the present modern
 ![Biological Data Timeline - Setting the Stage](biology_data_timeline_1.png)
 
 ## Biology as a Mature Data Science
+
+[Slides](slides/0100_data_in_biology.html#biology-as-a-mature-data-science)
 
 The completion of the first draft human genome ushered in a revolution in how we
 understand ourselves as humans, from our evolutionary history, our ancestry, our

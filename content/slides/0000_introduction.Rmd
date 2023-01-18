@@ -115,7 +115,7 @@ assumptions
 * [The Functional Art - An Introduction to Information Graphics and Visualization](http://www.thefunctionalart.com/), by Alberto Cairo
 * [The Truthful Art - Data, Charts, and Maps for Communication](http://www.thefunctionalart.com/p/the-truthful-art-book.html), by Alberto Cairo
 
-## The Course | Structure
+## Course Structure
 
 * Weekly lectures
 * 7 assignments, roughly one per week
@@ -128,8 +128,29 @@ assumptions
 
 * Will have zoom on for lectures, but recordings will not be made available
 
-## The Course | Assignments
+## Assignments
 
+* Detailed instructions are in the book
+
+  - [Getting started](../starting-an-assignment.html)
+  - [Assignment Overview](../assignment-overview.html)
+  
 * Assignments hosted on GitHub
 * We will use GitHub Classroom to make them available
-* 
+* Each assignment has similar format and workflow, files:
+  
+  ```
+  ├── reference_report.html
+  ├── main.R
+  ├── README.md
+  ├── report.Rmd
+  └── test_main.R
+  ```
+
+## Assignment Repository Structure
+
+<img src="../assignment_files.png" class="center" width="100%"/>
+
+## Assignment Workflow
+
+<img src="../assignment_workflow.png" class="center" width="90%"/>

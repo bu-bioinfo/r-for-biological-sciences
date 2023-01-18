@@ -8,6 +8,8 @@ output:
 
 ## The R Language {#prelim-r}
 
+[Slides](slides/0200_preliminaries.html#the-r-language)
+
 R is a free programming language and environment where that language can be
 used. More specifically, R is a *statistical* programming language, designed
 for the express and exclusive purpose of conducting statistical analyses and
@@ -38,6 +40,8 @@ servers, etc) are likely more suitable  for other languages and software.
 :::
 
 ## RStudio {#prelim-rstudio}
+
+[Slides](slides/0200_preliminaries.html#rstudio)
 
 This course assumes the learner is using the [RStudio](https://www.rstudio.com/)
 software platform for all analyses, unless otherwise noted. RStudio is a freely
@@ -79,6 +83,8 @@ this is a problem and how to change the RStudio setting to avoid it.
 :::
 
 ## The R Script {#prog-the-r-script}
+
+[Slides](slides/0200_preliminaries.html#the-r-script)
 
 Before we cover the R language itself, we should talk about how you should run
 your code and where it should live. [As mentioned](#prelim-r), R is both a
@@ -122,6 +128,8 @@ You are now nearly ready to start coding in R!
 :::
 
 ## The Scripting Workflow {#prog-workflow}
+
+[Slides](slides/0200_preliminaries.html#the-scripting-workflow)
 
 But hold on, we're still not quite ready to start coding. As mentioned above,
 **all important R code should be written and saved in a file before you run
@@ -190,7 +198,11 @@ slate](https://rstats.wtf/save-source.html#always-start-r-with-a-blank-slate)
 
 ## git + github {#prelim-git}
 
+[Slides](slides/0200_preliminaries.html#git-github)
+
 ### Motivation
+
+[Slides](slides/0200_preliminaries.html#git-motivation)
 
 Biological analysis entails writing code, which changes over time as you
 develop it, gain insight from your data, and identify new questions and
@@ -253,6 +265,8 @@ if needed, but don't clutter your analytical workspace with unneeded files.
 
 ### git
 
+[Slides](slides/0200_preliminaries.html#git-concepts)
+
 [git](https://git-scm.com/) is a free, open source [version
 control](https://en.wikipedia.org/wiki/Version_control) software program.
 Version control software is used to track and record changes to code over time,
@@ -295,6 +309,8 @@ sharing your code with others as described in the next section.
 :::
 
 ### Git hosting platforms (GitHub)
+
+[Slides](slides/0200_preliminaries.html#git-hosting-platforms-github)
 
 The basic git software only works on your local computer with local
 repositories. To share this code with others, and receive others' contributions,

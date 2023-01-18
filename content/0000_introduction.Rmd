@@ -85,6 +85,7 @@ would like to thank the creators and maintainers of these resources for their
 generosity in making their valuable contributions:
 
 **R Materials**
+
 * [Hands-On Programming with R](https://rstudio-education.github.io/hopr/), by Garrett Grolemund
 * [R for Data Science](https://r4ds.had.co.nz/), by Hadley Wickam, Garrett Grolemund, et al
 * [Advanced R](https://adv-r.hadley.nz/), by Hadley Wickam
@@ -94,6 +95,7 @@ generosity in making their valuable contributions:
 * [Data Science for Psychologists](https://bookdown.org/hneth/ds4psy/), by Hansjörg Neth
 
 **Data visualization**
+
 * [How Charts Lie: Getting Smarter about Visual Information](https://wwnorton.com/books/9781324001560/about-the-book), by Alberto Cairo
 * [The Functional Art - An Introduction to Information Graphics and Visualization](http://www.thefunctionalart.com/), by Alberto Cairo
 * [The Truthful Art - Data, Charts, and Maps for Communication](http://www.thefunctionalart.com/p/the-truthful-art-book.html), by Alberto Cairo

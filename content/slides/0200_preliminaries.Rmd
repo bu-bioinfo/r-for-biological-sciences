@@ -1,366 +1,202 @@
 ---
-title: "R for Biological Science"
-subtitle: "Preliminaries"
+title: "Preliminaries"
+subtitle: "R for Biological Science"
 output: ioslides_presentation
 author: "Adam Labadorf"
 company: "Boston University"
 ---
 
-# Preliminaries
+## The R Language
 
-## The R Language {#prelim-r}
+* R is a free, open source programming language and computing environment
+* R is a *statistical* programming language
+  - **not** a general purpose programming language (like python)!
+* Designed for data manipulation, analysis, and visualization  
+* Download for free from [Comprehensive R Archive Network (CRAN)](https://cloud.r-project.org/)
 
-R is a free programming language and environment where that language can be
-used. More specifically, R is a *statistical* programming language, designed
-for the express and exclusive purpose of conducting statistical analyses and
-visualizing data. Said differently, *R is not a general purpose programming
-language* unlike other languages such as python, Java, C, etc. As such, the
-language's real strengths are in the manipulation, analysis, and visualization
-of data and statistical procedures, though it is often used for other purposes
-(for example, web applications with [RShiny], or writing books like this one
-with [bookdown](https://bookdown.org/yihui/bookdown/)). You may download R for
-free from the [Comprehensive R Archive Network](https://cloud.r-project.org/).
+## Effective bioinformatics
 
-::: {.box .note}
 
-The effective biological analysis practitioner knows how to use multiple tools
-for their appropriate purposes. The most common programming languages in this
-field are [python](https://www.python.org), R, and scripting languages like
-[The Bourne Again Shell - bash](https://www.gnu.org/software/bash/). While it is
-beyond the scope of this book to cover which tools are best used where, R is
-appropriate wherever data analysis and visualization are needed. Any operations
-that do not involve these aspects (e.g. manipulating text files, programming web
-servers, etc) are likely more suitable  for other languages and software.
-:::
+* Many tools are required in a complete bioinformatics analysis
 
-::: {.box .readmore}
-* [R Project Home Page](https://www.r-project.org/)
-* [Hands-On Programming with R - Installing R and RStudio](https://rstudio-education.github.io/hopr/starting.html)
-* [Section on R from R for Data Science](https://r4ds.had.co.nz/introduction.html#r)
-:::
+  - General purpose languages e.g. `python`
+  - Purpose specific languages e.g. `R`, `nextflow`/`snakemake`
+  - File/text manipulation tools e.g. `cat`, `grep`, etc
+  - Bioinformatics specific tools e.g. aligners (`bowtie`, `STAR`)
+  - Scripting languages a.k.a. "glue code" e.g. `bash`
+  
+* Learning which tools are appropriate for which steps in an analysis are learned with time!
 
-## RStudio {#prelim-rstudio}
+## RStudio
 
-This course assumes the learner is using the [RStudio](https://www.rstudio.com/)
-software platform for all analyses, unless otherwise noted. RStudio is a freely
-available and fully featured integrated development environment (IDE) for R, and
-has many convenient capabilities when learning R. RStudio may be downloaded and
-installed for free from the site above.
+* [RStudio](https://www.rstudio.com/) is an [integrated development environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) for R
 
-All the examples and instructions in this book assume you have [installed
-R](#prelim-r) are using [RStudio]. Be sure to [turn off automatic environment
-saving in RStudio][Rstudio]! Because this is so important, here it is again:
+<div class="centered">
+<img src="rstudio_screenshot.png" style="width: 100%"/>
+</div>
 
-::: {.box .important}
-By default, RStudio preserves your R environment when you shut it down and
-restores it when you start it again. **This is very bad practice!**
+## RStudio Basic Interface
 
-The state of your R environment, which includes the values stored in variables,
-the R packages loaded, etc. from previously executed code is transient and may
-not reflect the results your code produces when run alone.
+<div class="centered">
+<img src="../rstudio_basic_interface.png" style="width: 80%"/>
+</div>
 
-Open the Tools > Global Options... menu and:
+## Turn Off Environment Restore in RStudio!
 
-1. Uncheck "Restore .RData into workspace at startup"
-2. Set "Save workspace to .RData on exit:" to "Never"
+* By default, RStudio preserves your R environment when you shut it down and
+  restores it when you start it again.
+* **This is very bad practice!** Turn it off right away!
+* Open the Tools > Global Options... menu and:
 
-![Never save workspace](rstudio_no_workspace_save.png){width=75%}
+  1. Uncheck "Restore .RData into workspace at startup"
+  2. Set "Save workspace to .RData on exit:" to "Never"
 
-The book R for Data Science has an [excellent
-chapter](https://r4ds.had.co.nz/workflow-projects.html#workflow-projects) on why
-this is a problem and how to change the RStudio setting to avoid it.
-:::
+## Turn Off Environment Restore!
 
-::: {.box .readmore}
-* [Hands-On Programming with R - Installing R and RStudio](https://rstudio-education.github.io/hopr/starting.html)
-* [RStudio Education - Beginners Guide](https://education.rstudio.com/learn/beginner/)
-* [ModernDrive R Series - Getting Started](https://moderndive.netlify.app/1-getting-started.html)
-* [R for Data Science - What is real, and where does your analysis "live"?](https://r4ds.had.co.nz/workflow-projects.html)
-* [What They Forgot To Teach You About R - Always start R with a blank slate](https://rstats.wtf/save-source.html#always-start-r-with-a-blank-slate)
-* [R for Data Science - RStudio](https://r4ds.had.co.nz/introduction.html#rstudio)
-:::
+<div class="centered">
+<img src="../rstudio_no_workspace_save.png" style="width: 80%"/>
+</div>
 
-## The R Script {#prog-the-r-script}
+## The R Script
 
-Before we cover the R language itself, we should talk about how you should run
-your code and where it should live. [As mentioned](#prelim-r), R is both a
-programming language and an environment where you can run code written in that
-language. The environment is a program (confusingly also called R) that allows
-you to interact with it and run simple lines of code one at a time. This
-environment is very useful for learning how the language works and
-troubleshooting, but it is not suitable for recording and running large, complex
-analyses that require many lines of code. Therefore, **all important R code
-should be written and saved in a file before you run it!** The code may not be
-correct, and the interactive R environment is helpful for debugging and
-troubleshooting, but as soon as the code works it should be saved to the file
-and rerun from there.
+* R is both a programming language and a computing environment
+* A R program contains many lines of code that are executed in sequence
+* A *R script* is a file that contains lines of R code
+* Name your R script names to be descriptive but concise:
 
-With this in mind, the basic unit of an R analysis is the **R script**. An R
-script is a file that contains lines of R code that run sequentially as a unit
-to complete one or more tasks. Every R script file has a name, which you choose
-and should be descriptive but concise about what the script does; ``script.R``,
-``do_it.R``, and
-``a_script_that_implements_my_very_cool_but_complicated_analysis_and_plots.R``
-are generally poor names for scripts, whereas `analyze_gene_expression.R` might
-be more suitable.
+  - Bad: `do_it.R`
+  - Better but still bad: `a_script_with_very_cool_analysis_and_plots.R`
+  - Better: `analyze_gene_expression.R`
+  
+## Create a new R Script in RStudio
 
-In RStudio, you can create a new script file in the current directory using the
-`File -> New File -> R Script` menu item or the new R Script button at the top
-of the screen:
+<div class="columns-2">
 
-![New R Script](rstudio_new_r_script.png){width=25%}
+<img src="../rstudio_new_r_script.png" class="center" height="450px"/>
 
-Your RStudio configuration should now enable you to write R code into the
-(currently unsaved) file in the top left portion of the screen (labeled in the
-figure as "File Editor").
+* `File -> New File -> R Script`
 
-![Basic RStudio Interface](rstudio_basic_interface.png){width=75%}
+</div>
 
-You are now nearly ready to start coding in R!
+## The Scripting Workflow 
 
-::: {.box .readmore}
-* [How to name files](https://speakerdeck.com/jennybc/how-to-name-files) Some
-  useful and advanced tips on how to name files
-:::
+* Common workflow:
 
-## The Scripting Workflow {#prog-workflow}
+  1. Write and save code into your R script
+  2. Execute the lines of code you are working on with:
+     * `Control-Enter` on Windows
+     * `Command-Enter` on Mac
+  3. Code will execute in Console window, where you may execute other commands
+     to examine results
+  4. You may inspect the variables you have defined in the Environment pane
+  5. Make adjustments to your R script if needed 
+  6. Go to step 1
+  
 
-But hold on, we're still not quite ready to start coding. As mentioned above,
-**all important R code should be written and saved in a file before you run
-it!** Your scripts will very quickly contain many lines of code that are meant
-to be run in sequential order. While developing your code it is very helpful to
-run each individual line separately, building up your script incrementally over
-time. To illustrate how to do this, we will begin with a simple R code that
-stores the result of an arithmetic expression to a new variable:
+## Example script
+
 
 ```{r}
 # stores the result of 1+1 into a variable named 'a'
 a <- 1+1
 ```
 
-The concepts in this line of code will be covered in greater depth later, but
-for now an intuitive understanding will suffice to explain the development
-workflow in RStudio.
+## The Scripting Workflow
 
-When developing, this is the suggested sequence of operations:
+<div class="center">
 
-1. Save your file (naming if necessary on the first save) with `Ctrl-s` on
-   Windows or `Cmd-s` on Mac
-2. Execute the line or lines of code in your script you wish to evaluate using
-   `Ctrl-Enter` on Windows or `Cmd-Enter` on Mac. By default only the line with
-   the cursor is executed; you may click and drag with the mouse to select
-   multiple lines to execute if needed. *NB: you can press the up arrow key to
-   recall previously run commands on the console.*
-3. The executed code will be evaluated in the Console window, where you may
-   inspect the result and modify the code if necessary.
-4. You may inspect the definitions of any variables you have declared in the
-   Environment tab at the upper right.
-5. When you have verified that the code you executed does what you intend,
-   ensure the code in the file you started from is updated appropriately.
-6. Go to step 1
+<img src="../rstudio_workflow_1.png" width="80%"/>
 
-The above steps are depicted in the following figure:
+</div>
 
-![RStudio workflow](rstudio_workflow_1.png){width=75%}
+# git + github
 
-Over time, you will gain comfort with this workflow and become more flexible
-with how you use RStudio.
+## git motivation
 
-::: {.box .important}
-If you followed the [instructions][Before you begin] above and prevented RStudio
-from saving your environment when you exit the program (which you should! Did I
-mention you should?!), none of the results of code you previously ran will be
-available upon starting a new RStudio session. Although this may seem
-inconvenient, this is an excellent opportunity to verify that your script in its
-current state does what you intend for it to do.
+* Code you write changes over time
+* We would like to maintain previous versions of code, in case new changes break the code
+* Simple approach: make copies of scripts and rename them:
+  
+  - Original script: `my_R_script.R`
+  - New analysis is required: `my_R_script_v2.R`
+  - Found bug in new analysis: `my_R_script_v2_BAD.R`
+  - Script with fixed bug: `my_R_script_v2_final.R`
+  - Changes after manuscript revision: `my_R_script_v2_final_revision.R`
+  - And so on...
 
-**It is extremely easy to ask R to do things you don't mean for it to do!**
+## A note on bugs...
 
-Rerunning your scripts from the beginning in a new RStudio session is an
-excellent way to guard against this kind of error. This short page summarizes
-this very well, you should read it:
+* A *bug* is a piece of code that produces an incorrect or undesirable result
+* **Bugs are normal!** You're not a bad programmer if your code has bugs.
+* There are two types of bugs:
 
-* [What They Forgot To Teach You About R - Always start R with a blank
-slate](https://rstats.wtf/save-source.html#always-start-r-with-a-blank-slate)
-:::
+  1. Syntax bugs: bugs due to incorrect language usage, which R will tell you
+     about and can (usually) be easily identified and fixed
+  2. Logic bugs: the code you write is syntactically correct, but does something
+     other than what you intend
 
-::: {.box .readmore}
-* [R for Data Science - Workflow: scripts](https://r4ds.had.co.nz/workflow-scripts.html)
-* [RStudio IDE cheatsheet](https://www.rstudio.com/resources/cheatsheets/)
-  (scroll down the page to find the cheatsheet entitled "RStudio IDE cheatsheet")
-:::
+## Enter `git`
 
-## git + github {#prelim-git}
+* We want to preserve old versions of code
+* We **don't** want to clutter our directories with out dated files
+* [git](https://git-scm.com/) is a free, open source [version control](https://en.wikipedia.org/wiki/Version_control) software program.
+* Version control software is used to track and record changes to code over time
+* Many developers may work on the same software project concurrently from different parts of the world
+* Can be used on the command line, or with [graphical user interface applications](https://git-scm.com/downloads/guis) for popular operating systems.
 
-### Motivation
+## `git` concepts
 
-Biological analysis entails writing code, which changes over time as you
-develop it, gain insight from your data, and identify new questions and
-hypotheses. A common pattern when developing scripts is to make copies of older
-code files to preserve them before making new changes to them. While it is a
-good idea to maintain a record of all the code you previously ran, over time
-this practice often leads to disorganized, cluttered, untidy analysis
-directories.
-
-For example, say you are working on a script named ``my_R_script.R`` and decide
-you want to add a new analysis that substantially changes the code. You might be
-tempted to make a copy of the current version of the code into a new file
-named ``my_R_script_v2.R`` that you then make changes to, leaving your original
-script intact and untouched going forward. You make your changes to your new
-script, produce some stunning and fascinating plots, present the analysis at a
-group meeting, only to discover later there was a critical bug in your code that
-made the plots misleading and requires substantial redevelopment.
-
-::: {.box .note}
-**Bugs happen.** There are two types of bugs:
-
-1. Syntax bugs: bugs due to incorrect language usage, which R will tell you
-   about and can (usually) be easily identified and fixed
-2. Logic bugs: the code you write is syntactically correct, but does something
-   other than what you intend
-
-**Bugs are normal.** The scenario described above, where you present results only to
-discover your code wasn't doing what you thought it was doing, is extremely
-common and *it will happen to you*. This is normal, and finding a bug in your
-code does not mean you are a bad programmer.
-:::
-
-Rather than edit your version 2 of your script directly, you decide it is
-sensible to copy the file to ``my_R_script_v2_BAD.R`` and edit the version 2
-script to fix the bug. You are satisfied with your new version 2 script, and so
-make a new copy ``my_R_script_v2_final.R``. Upon review of your analysis, you
-are asked to implement new changes to the script based on reviewer feedback. You
-make a new copy of your script to ``my_R_script_v2_final_revision.R`` and make
-the requested changes. Perhaps now your script is final, but in your directory
-you now have five different versions of your analysis:
-
-```
-my_R_script.R
-my_R_script_v2.R
-my_R_script_v2_BAD.R
-my_R_script_v2_final.R
-my_R_script_v2_final_revision.R
-```
-
-When you write your code, you may know which scripts are which, and if you
-follow [good programming practice](#prog-style) and carefully commented your
-code you or your successors may be able to sleuth what was done. However, as
-time passes, the intimate knowledge you thought you had about your code will be
-replaced by other more immediately important things; eventually you may not even
-understand or even recognize your own code, let alone someone else trying to
-understand it. Not an ideal situation in any case. A better solution involves
-recording changes to code over time in such a way that you can recover old code
-if needed, but don't clutter your analytical workspace with unneeded files.
-``git`` provides an efficient solution to this problem.
-
-### git
-
-[git](https://git-scm.com/) is a free, open source [version
-control](https://en.wikipedia.org/wiki/Version_control) software program.
-Version control software is used to track and record changes to code over time,
-potentially by many developers working on the same software project
-concurrently from different parts of the world. The base git software can be
-used on the command line, or with [graphical user interface
-applications](https://git-scm.com/downloads/guis) for popular operating systems.
-
-There are many excellent tutorials online (some linked below) that teach how to
-use ``git`` but the basic concepts are described below. The command line
-commands are listed, but the same operations apply in the graphical clients.
-
-* A **repository (or repo)** is a collection of files in a directory that you
+* **repository (or repo)**: a collection of files in a directory that you
   have asked git to track (run ``git init`` in a new directory)
-* Each file you wish to track must be explicitly added to the repo (run
-  ``git add <filename>`` from within the git repo directory)
-* When you modify a tracked file, git will notice those differences and show
-  them to you with ``git status``
-* You may tell git to track the changes to the explicit files that changed (also
-  run ``git add <filename>`` to record changes)
-* A set of tracked changes is stored in the repo by making a **commit**.
-  A commit takes a snapshot of all the tracked files in the repo at the
-  time the commit is made (run ``git commit -c <commit message>`` with a concise
+* Each file you wish to track must be explicitly added to the repo
+* When you modify a tracked file, git will notice those differences
+* Tracked changes by making a **commit** 
+  - A commit takes a snapshot of all the tracked files in the repo at the
+  time the commit is made
   commit message that describes what was done)
 * Each commit has a date and time associated with it. The files in the
   repo can be reset to exactly the state they were in at any commit,
   thus preserving all previous versions of code.
 
-For the vast majority of use cases, the ``git init``, ``git status``, ``git
-add``, and ``git commit`` operations are all you will need to use git
-effectively. Two more commands, ``git push`` and ``git pull`` are needed when
-sharing your code with others as described in the next section.
+##  Basic `git` workflow
 
-::: {.box .readmore}
-* [Official git tutorial videos](https://git-scm.com/videos)
-* [Official git book](https://git-scm.com/book/en/v2)
-* [Git Immersion](https://gitimmersion.com/) - a guided tour through git
-  commands
-* [DataCamp - Git for data scientists](https://www.datacamp.com/courses/introduction-to-git)
-:::
+At the beginning, create new repo `git init .` or with graphical interface
 
-### Git hosting platforms (GitHub)
+1. Create/modify files
+2. Add changes with `git add <filename>...`
+3. Check changes with `git status`, verify changes are as intended
+4. Commit changes with `git commit -m "<commit message"`
+5. Go to 1
 
-The basic git software only works on your local computer with local
-repositories. To share this code with others, and receive others' contributions,
-a copy of the repo must be made available in a centralized location that
-everyone can access. One such place is [github.com](https://github.com), which
-is a free web application that hosts git repos.
-[bitbucket.org](https://bitbucket.org) is another popular free git repo hosting
-service. These two services are practically the same, so we will focus on
-GitHub.
+## Git hosting platforms (GitHub)
 
-::: {.box .note}
-There is no formal relationship between git and GitHub. git is an open source
-software project maintained by hundreds of developers around the world (and is
-[hosted on GitHub](https://github.com/git/git)). GitHub is an independently
-provided web service and application. The only connection between GitHub and git
+* `git` software only works on your local computer with local
+repositories
+* To share this code with others, and receive others' contributions, repo must be made available in a centralized location
+* [github.com](https://github.com) is a free web application that hosts git repos
+* Note: There is no formal relationship between git and GitHub - the only connection between GitHub and git
 is that GitHub hosts git repos.
-:::
 
-As with git, there are many excellent tutorials on how to use GitHub, but the
-basic concepts are described below.
+## GitHub Basics
 
-* First you must create an account on GitHub if you don't have one already
-* Then, create a new repo on GitHub that you wish to contain your code
+* First you must have an account on GitHub
+* Create a new repo on GitHub
+* Then:
 
-The next step depends on whether you have an existing local repo or not:
+  - *If you do not already have a local git repo:* ``clone`` your GitHub repo to create a local copy connected
+    to GitHub
+  - *If you already have a local git repo:* Follow the instructions on the GitHub
+    to connect your local repo to the GitHub as a `remote`
 
-* *If you do not already have a local git repo:* Follow the instructions on
-  GitHub to ``clone`` your GitHub repo and create a local copy that is connected
-  to the one on GitHub
-* *If you already have a local git repo:* Follow the instructions on the GitHub
-  to connect your local repo to the GitHub one (this is called "adding a
-  remote")
+* Now your local repo is connected to the same repo on GitHub
+* Changes you make to your local files can be sent, or ``push``ed to the repo on GitHub
 
-Now, your local repo is connected to the same repo on GitHub, and the changes
-you make to your local files can be sent, or ``push``ed to the repo on GitHub:
+## `git`+GitHub Workflow
 
-* Make changes to your local files, and ``git add`` and ``git commit`` them as
-  above
-* Update the remote repo on GitHub by pushing your local commits with ``git
-  push``
-* Running ``git status`` will indicate whether your local repo is up to date
-  with your remote GitHub repo
-
-When you are working on a team of contributors to a GitHub repo, your local
-files will become out of date as others push their changes. To ensure your local
-repo is up to date with the GitHub repo, you must ``pull`` your changes from
-GitHub with ``git pull``.
-
-::: {.box .note}
-git was designed to automatically combine changes made to a code base by
-different developers whenever possible. However, if two people make changes to
-the same parts of the same file, git may not be able to resolve those changes
-on its own and the developers must communicate and decide what the code should
-be. These instances are called *merge conflicts* and can be challenging to
-resolve. Dealing with merge conflicts is beyond the scope of this book, but
-some resources are linked below for further reading.
-:::
-
-All the content and code for this book are [stored and available on
-GitHub](https://github.com/bu-bioinfo/r_for_biological_sciences), as are the
-[assignment code templates](#assignments).
-
-::: {.box .readmore}
-* [Official GitHub Tutorial](https://docs.github.com/en/get-started/quickstart/hello-world)
-* [FreeCodeCamp - Git and GitHub For Beginners](https://www.freecodecamp.org/news/git-and-github-for-beginners/)
-* [Official GitHub Tutorial on Merge Conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/about-merge-conflicts)
-:::
+1. Get (pull) any changes from GitHub with `git pull`
+2. Create/modify files
+3. Add changes with `git add <filename>...`
+4. Check changes with `git status`, verify changes are as intended
+5. Commit changes with `git commit -m "<commit message"`
+6. Send (push) changes to GitHub with `git push`
+7. Go to 1

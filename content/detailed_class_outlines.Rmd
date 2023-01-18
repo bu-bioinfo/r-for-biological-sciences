@@ -7,11 +7,12 @@ output: html_document
 These are the specific topics covered in each week.
 
 ## Week 1
-* Course Intro & Details
-* Intro: [Data in Biology]
-* Prelim: [RStudio] on SCC
-* Prelim: [The R Script]
-* Prelim: [The Scripting Workflow]
+* Course Intro & Details [slides](slides/0000_introduction.html)
+* Intro: [Data in Biology] [slides](slides/0100_data_in_biology.html)
+* Prelim: [The R Language] [slides](slides/0200_preliminaries.html)
+* Prelim: [RStudio] on SCC [slides](slides/0200_preliminaries.html#rstudio)
+* Prelim: [The R Script] [slides](slides/0200_preliminaries.html#the-r-script)
+* Prelim: [The Scripting Workflow] [slides](slides/0200_preliminaries.html#the-scripting-workflow)
 * Comm: [RMarkdown & knitr]
 * Prelim: [Git + github]
 * R Prog: [R Syntax Basics]

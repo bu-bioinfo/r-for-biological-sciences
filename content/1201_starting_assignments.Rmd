@@ -183,7 +183,7 @@ Easier than clicking around RStudio but both ways are super valid!
 Each assignment has a similar format and follows a similar workflow. The
 following figure describes how the files in the repos interact.
 
-![](assignment_workflow.png)
+![](assignment_files_workflow.png)
 
 Each assignment repo has the following files within:
 
