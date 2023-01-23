@@ -4,6 +4,8 @@ output: html_document
 
 # Communicating with R
 
+[Slides](slides/1000_communication.html)
+
 No matter what your job is, you will at some point need to communicate the
 findings of your analysis with others. This will usually entail a combination of
 different forms of communication, including text, tables, and visualizations
