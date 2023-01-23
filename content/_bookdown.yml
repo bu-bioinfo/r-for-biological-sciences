@@ -35,6 +35,7 @@ rmd_files:
     - "1100_contribution_guide.Rmd"
     - "1200_assignments.Rmd"
     - "1201_starting_assignments.Rmd"
+    - "1202_assignment_0.Rmd"
     - "1202_assignment_1.Rmd"
     - "1203_assignment_2.Rmd"
     - "1204_assignment_3.Rmd"

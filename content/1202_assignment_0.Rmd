@@ -1,0 +1,39 @@
+---
+output:
+  html_document:
+    css: style.css
+  split_by: chapter
+---
+
+# Assignment 0 {-}
+
+### Problem Statement {-}
+This "assignment" will walk you thruogh getting your RStudio environment
+connected to GitHub so you can do later assignments. There is no coding in this
+assignment.
+
+### Learning Objectives and Skill List {-}
+- Run RStudio, on the cluster or your personal computer
+- Create a GitHub account if required
+- Connect RStudio to GitHub
+- `git clone` the [Assignment 0 repo](https://github.com/BF591-R/bf591-setup-repo)
+  into RStudio using the provided GitHub Classroom link
+
+### Instructions {-}
+Follow the instructions on the [Starting an Assignment] page with the GitHub
+Classroom link you have been given through class communication.
+
+If you have never used git before, follow these instructions to make your first
+commit and push to GitHub! When you have successfully cloned your GitHub
+Classroom repo to RStudio:
+
+1. Make an edit to the README.md file, for instance write your name in it or a
+  poem you like, or whatever
+2. Stage (i.e. add) the change
+3. Commit it with a brief commit message, e.g. "added name to readme"
+4. Push to GitHub
+5. Confirm your changes by examining your repo on GitHub in a web browser
+
+### Hints {-}
+
+* Will add as needed
