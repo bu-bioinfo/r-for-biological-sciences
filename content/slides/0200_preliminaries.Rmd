@@ -1,5 +1,5 @@
 ---
-title: "Preliminaries"
+title: "[Preliminaries](../preliminaries.html)"
 subtitle: "R for Biological Science"
 output: ioslides_presentation
 author: "Adam Labadorf"
@@ -24,7 +24,7 @@ company: "Boston University"
   - File/text manipulation tools e.g. `cat`, `grep`, etc
   - Bioinformatics specific tools e.g. aligners (`bowtie`, `STAR`)
   - Scripting languages a.k.a. "glue code" e.g. `bash`
-  
+
 * Learning which tools are appropriate for which steps in an analysis are learned with time!
 
 ## RStudio
@@ -67,7 +67,7 @@ company: "Boston University"
   - Bad: `do_it.R`
   - Better but still bad: `a_script_with_very_cool_analysis_and_plots.R`
   - Better: `analyze_gene_expression.R`
-  
+
 ## Create a new R Script in RStudio
 
 <div class="columns-2">
@@ -78,7 +78,7 @@ company: "Boston University"
 
 </div>
 
-## The Scripting Workflow 
+## The Scripting Workflow
 
 * Common workflow:
 
@@ -89,9 +89,9 @@ company: "Boston University"
   3. Code will execute in Console window, where you may execute other commands
      to examine results
   4. You may inspect the variables you have defined in the Environment pane
-  5. Make adjustments to your R script if needed 
+  5. Make adjustments to your R script if needed
   6. Go to step 1
-  
+
 
 ## Example script
 
@@ -116,7 +116,7 @@ a <- 1+1
 * Code you write changes over time
 * We would like to maintain previous versions of code, in case new changes break the code
 * Simple approach: make copies of scripts and rename them:
-  
+
   - Original script: `my_R_script.R`
   - New analysis is required: `my_R_script_v2.R`
   - Found bug in new analysis: `my_R_script_v2_BAD.R`
@@ -150,7 +150,7 @@ a <- 1+1
   have asked git to track (run ``git init`` in a new directory)
 * Each file you wish to track must be explicitly added to the repo
 * When you modify a tracked file, git will notice those differences
-* Tracked changes by making a **commit** 
+* Tracked changes by making a **commit**
   - A commit takes a snapshot of all the tracked files in the repo at the
   time the commit is made
   commit message that describes what was done)

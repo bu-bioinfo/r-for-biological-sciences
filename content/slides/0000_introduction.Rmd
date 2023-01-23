@@ -1,6 +1,6 @@
 ---
-title: "R for Biological Science"
-subtitle: "Introduction"
+title: "[Introduction](../introduction.html)"
+subtitle: "R for Biological Science"
 output: ioslides_presentation
 author: "Adam Labadorf"
 company: "Boston University"
@@ -134,11 +134,14 @@ assumptions
 
   - [Getting started](../starting-an-assignment.html)
   - [Assignment Overview](../assignment-overview.html)
-  
+
 * Assignments hosted on GitHub
 * We will use GitHub Classroom to make them available
+
+## Assignment Structure
+
 * Each assignment has similar format and workflow, files:
-  
+
   ```
   ├── reference_report.html
   ├── main.R

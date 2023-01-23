@@ -1,5 +1,5 @@
 ---
-title: "R Programming"
+title: "[R Programming](../prog-basics.html)"
 subtitle: "R for Biological Science"
 output: ioslides_presentation
 author: "Adam Labadorf"
@@ -1231,168 +1231,145 @@ explicit about what you are saving and loading.
 * [`readRDS()` and `saveRDS()` official documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/readRDS)
 :::
 
-## Troubleshooting and Debugging {#prog-debugging}
+# Troubleshooting and Debugging
 
-**Bugs in code are normal.** You are not a bad programmer if your code has bugs
-(thank goodness!). However, some bugs can be very difficult to fix, and some are
-even difficult to find. You will spend a substantial amount of time debugging
-your code in R, especially as you are learning the language and its many quirks.
-You will encounter R error and warning messages routinely during development,
-and not all of them are straightforward to understand. It is important that you
-learn how to seek the answers to the problems R reports on your own; your
-colleagues (and instructors!) will thank you for it.
+## Troubleshooting and Debugging
 
-There is no standard approach to debugging, but here we borrow ideas from
-[Hadley Wickam's excellent section on debugging in his Advanced R
-book](https://adv-r.hadley.nz/debugging.html#debugging-strategy):
+* **Bugs in code are normal**
+* Two kinds of bugs:
+  - Syntax errors - code will not run, R will tell you about it
+  - Logic errors - code does run, but produces incorrect results
+* You are not a bad programmer if your code has bugs
+* Some bugs can be very difficult to fix, and some are even difficult to find
+* You will spend a substantial amount of time debugging your code in R, especially as you are learning
+* Be patient with yourself and others
 
-1. **Google!** - copy and paste the error into google and see what comes back.
-   Especially when starting out, the errors you receive have been encountered
-   countless times by others before you, and solutions/explanations of them are
-   already out there. If you aren't already familiar with [Stack
-   Overflow](https://stackoverflow.com/), you will be very soon.
-2. **Make it repeatable** - When you encounter an error, don't change anything
-   in your code and try again to make sure you get the same error again. This
-   may require you to isolate the code with the error in a different setting to
-   make it more easy to run. If you do, this means the error is repeatable, or
-   replicable, and you can now try modifying the code in question to see if and
-   how the error changes.
-3. **Find out where the bug is*** - Most bugs involve multiple lines of code,
-   only a subset of which contains the actual error. Sometimes the exact line
-   where the error occurs is obvious, but other times the error is a consequence
-   of a mistake assumption made earlier in the code.
-4. **Fix it and test it** - When you have identified the specific issue causing
-   the bug, modify the code so it produces the correct result and then
-   rigorously test your fix to make sure it is correct. Sometimes making one
-   change to code causes side effects elsewhere in your code in ways that are
-   difficult to predict. Ideally, you have already written [unit
-   tests](#prog-testing) that explicitly test parts of your code, but if not you
-   will need to use other means of convincing yourself that your fix worked.
+## Finding questions and answers
 
-This debugging process will become second nature as you work more in R.
+* "It's always ok to ask for help, but it's always to your advantage to figure it out yourself."
+* You will encounter R error and warning messages routinely during development,
+and not all of them are straightforward to understand.
+* It is important that you learn how to seek the answers to the problems R reports on your own
+* Your colleagues (and instructors!) will thank you for it.
 
-Practically speaking, the most basic debugging method is to run code that isn't
-working the way it should, print out intermediate results to inspect the state
-of your variables, and make adjustments accordingly. In RStudio, the Environment
-Inspector in the top right of the interface makes inspecting the current values
-of your variables very easy. You can also easily execute lines of code from your
-script in the interpreter at the bottom right using `Cntl-Enter` and test out
-modifications there.
+## Debugging Strategies
 
-Sometimes you will be working with highly nested data structures like lists of
-lists. These objects can be difficult to inspect due to their size. The `str()`
-function, which stands for `str`ucture, will pretty print an object with its
-values and its structure:
+* There is no standard approach to debugging
+* Ideas borrowed from [Hadley Wickam's excellent section on debugging in his Advanced R book](https://adv-r.hadley.nz/debugging.html#debugging-strategy)
 
-```r
-nested_lists <- list(
-  a=list(
-      item1=c(1,2,3),
-      item2=c('A','B','C')
-  ),
-  b=list(
-      var1=1:10,
-      var2=100:110,
-      var3=1000:1010
-  ),  
-  c=c(10,9,8,7,6,5)
-)
-nested_lists
-$a
-$a$item1
-[1] 1 2 3
+## Debugging strategy 1: Google!
 
-$a$item2
-[1] "A" "B" "C"
+* Copy and paste the error into google and see what comes back
+*  Especially when starting out, the errors you receive have been encountered
+   countless times by others before you
+* Solutions/explanations of them are already out there
+* If you aren't already familiar with [Stack Overflow](https://stackoverflow.com/), you will be very soon
 
+## Debugging strategy 2: Make it repeatable
 
-$b
-$b$var1
- [1]  1  2  3  4  5  6  7  8  9 10
+* When you encounter an error, don't change anything in your code right away
+* Try again to make sure you get the same error again
+* This may require you to isolate the code with the error in a different setting to make it easier to run
+* If you do, this means the error is repeatable, or replicable, and you can now try modifying the code in question to see if and how the error changes.
 
-$b$var2
- [1] 100 101 102 103 104 105 106 107 108 109 110
+## Debugging strategy 3: Where is the bug?
 
-$b$var3
- [1] 1000 1001 1002 1003 1004 1005 1006 1007 1008 1009 1010
-str(nested_lists)
-List of 3
- $ a:List of 2
-  ..$ item1: num [1:3] 1 2 3
-  ..$ item2: chr [1:3] "A" "B" "C"
- $ b:List of 3
-  ..$ var1: int [1:10] 1 2 3 4 5 6 7 8 9 10
-  ..$ var2: int [1:11] 100 101 102 103 104 105 106 107 108 109 ...
-  ..$ var3: int [1:11] 1000 1001 1002 1003 1004 1005 1006 1007 1008 1009 ...
- $ c: num [1:6] 10 9 8 7 6 5
-```
+* **Finding out where the bug is can be hard!**
+* Most bugs involve multiple lines of code,
+* Only a subset of which contains the actual error
+* Sometimes the exact line where the error occurs is obvious, but other times the error is a consequence of a mistake assumption made earlier in the code.
 
-The output `str` is more concise and descriptive than simply printing out the
-object.
+## Debugging strategy 4: Fix it, test it
 
-RStudio has many more debugging tools you can use. Check out the section on
-debugging in Hadley Wickam's Advanced R book in the Read More box for
-description of these tools.
+* When you have identified the specific issue causing
+   the bug, modify the code so it produces the correct result
+* Then rigorously test your fix to make sure it is correct
+* Sometimes making one change to code causes side effects elsewhere in your code in ways that are difficult to predict
+* Ideally, you have already written [unit tests](#prog-testing) that explicitly test parts of your code
+* If not you will need to use other means of convincing yourself that your fix worked.
 
-::: {.box .readmore}
-[Hands-On Programming with R - Debugging R Code](https://rstudio-education.github.io/hopr/debug.html)
-[Advanced R - Debugging](https://adv-r.hadley.nz/debugging.html)
-:::
+## Debugging tools in RStudio
+
+* The most basic debugging loop is:
+
+  1. Write code
+  2. Run code
+  3. Print out results
+  4. Compare to expected result
+  5. Go to 1
+
+* RStudio, the Environment Inspector in the top right of the interface makes inspecting the current values of your variables very easy
+* You can also easily execute lines of code from your script in the interpreter at the bottom right
+* The `str()` function can be helpful when in an interpreter and not in RStudio
+* RStudio has many more debugging tools you can use
+* Check out the section on [Debugging](https://adv-r.hadley.nz/debugging.html) in Hadley Wickam's Advanced R book
 
 ## Coding Style and Conventions {#prog-style}
 
-Some very common worries among new programmers is: "Is my code terrible? How do
-I write good code?" There is no gold standard for what makes code "good", but
-there are some questions you can ask of your code as a guide:
+* Common worries I get from students:
+  * "Is my code terrible?"
+  *"How do I write good code?"
+* There is no gold standard for what makes code "good"
+* BUT there are some questions you can ask of your code as a guide
 
-### Is my code correct?
+## Is my code correct?
 
-Does it produce the desired output? This is pretty obviously important in
-principle, but it can be difficult to be sure that your code is correct. This is
-especially difficult if your codebase is large and complicated as it tends to
-become over time. While simple [trial and error](#prog-debugging) is an effective
-first approach, a more reliable albeit time- and thought-intensive strategy is
-to write [explicit tests](#prog-testing) for your code and run them regularly.
+* Does it produce the desired output?
+* It can be harder to be sure of this than you might think, especially as your code becomes more complicated
+* Simple trial and error is an effective first approach
+* A more reliable albeit time- and thought-intensive strategy is
+  to write explicit tests for your code and run them regularly
+* **The homework assignments use explicit tests**
 
-### Does my code follow the [DRY principle](#prog-dry)?
+## Does my code follow the DRY principle
 
-Don't Repeat Yourself (DRY) is a powerful and helpful strategy to make your
-code more reliable. This typically involves identifying common patterns in your
-code and moving them to functions or objects.
+* Don't Repeat Yourself (DRY) is a powerful and helpful strategy to make your
+  code more reliable
+* This typically involves identifying common patterns in your code and moving
+them to functions or objects
 
-### Did I choose concise but descriptive variable and function names?
+## Did I choose concise but descriptive variable and function names?
 
-Variable and function names should be descriptive when necessary and not too
-long. Try to put yourself in the shoes of someone who is reading your code for
-the first time and see if you can figure out what it does. Better yet, offer to
-buy a friend a coffee in return for them looking at it!
+* Variable and function names should be descriptive when necessary and not too
+long
+* Try to put yourself in the shoes of someone who is reading your code for
+the first time
+* Can you can figure out what it does?
+* Better yet, offer to buy a friend food/a beverage in return for them looking at it!
 
-### Did I use indentation and naming conventions consistently throughout my code?
+## Coding Convention Consistency
 
-Consistently formatted code is much easier to read (and possibly understand)
-than inconsistent code. Consider the following code example:
+* Did I use indentation and naming conventions consistently throughout my code?
+* Consistently formatted code is much easier to read (and possibly understand)
+than inconsistent code
 
-```r
-calcVal <- function(x, a, arg=2) { return(sum(x*a)**2)}
-calc_val_2 <- function(x, a, b, arg) {
-res <- sum(b+a*x)**arg
-return(res)}
-```
+## Poor Consistency Example
+
+* Consider the code:
+
+  ```r
+  calcVal <- function(x, a, arg=2) { return(sum(x*a)**2)}
+  calc_val_2 <- function(x, a, b, arg) {
+  res <- sum(b+a*x)**arg
+  return(res)}
+  ```
+
+## Issues With This Code
 
 This code is inconsistent in several ways:
 
-* naming conventions - `calcVal` is camel case, `calc_val_2` is snake case
+* naming conventions - `calcVal` camel case, `calc_val_2` snake case
 * new lines and whitespace - `calcVal` is all on one line, `calc_val_2` is on
   multiple lines
-* unhelpful indentation - `calc_val_2` has a function body that is not indented,
-  and the close curly brace is appended to the last line of the body
-* unhelpful function and argument names - the function names describe very
-  little about what the functions do, and the argument names `x`, `a`, etc are
-  not very descriptive about what they represent
+* unhelpful indentation - `calc_val_2` function body not indented,
+  close curly brace is appended to the last line
+* unhelpful function and argument names - the function/parameter names don't describe what they do/mean
 * unused function arguments - the `arg` argument in `calcVal` isn't used
   anywhere in the function
 * the two functions appear to do something very similar and could be made
   simpler using a default argument
+
+## Better Consistency Example
 
 A more consistent version of this code might look like:
 
@@ -1404,52 +1381,48 @@ exponent_product <- function(x, a, offset=0, arg=2) {
 
 This code is much cleaner, more consistent, and easier to read.
 
-### Did I write comments, especially when what the code does is not obvious?
+## Did I write comments, especially when what the code does is not obvious?
 
-Sometimes what a piece of code does is obvious from looking at it:
+* Sometimes what a piece of code does is obvious from looking at it:
 
-```r
-x <- x + 1
-```
+  ```r
+  x <- x + 1
+  ```
 
-Clearly this line of code takes the value of `x`, whatever it is, and adds 1 to
-it. However, it may not be obvious *why* a piece of code does what it does. In
-these cases, it may be very helpful to record your thinking about a line of code
-as a comment:
+* However, it may not be obvious *why* a piece of code does what it does
+* Consider recording your thinking about a line of code as a comment:
 
 ```r
 # add 1 as a pseudocount
 x <- x + 1
 ```
 
-Then when you or someone else reads the code, it will be obvious what you were
-thinking when you wrote it. In your career, you *will* encounter situations
-where you need to figure out what you were thinking when you wrote a piece of
-code. **Endeavor to make future you proud of current you!**
+* Then when you or someone else reads the code, it will be obvious what you were
+  thinking when you wrote it
+* You *will* encounter situations where **you need to figure out what you yourself were thinking** when you wrote a piece of code
+* **Endeavor to make future you proud of current you!**
 
-### How easy would it be for someone else to understand my code?
+## How easy would it be for someone else to understand my code?
 
-If someone else who has never seen my code before is asked to run and understand
-it, how easy would it be for them to do so?
+* If someone else who has never seen my code before is asked to run and understand it...
+* How easy would it be for them to do so?
 
-### Is my code easy to maintain/change?
+## Is my code easy to maintain/change?
 
-This is related to the previous question, but is distinct in that understanding
-what code does is just the first step in being able to make desired changes to
-it.
+* Well written code is easier to understand
+* Code that is easy to understand is easier to modify than abstruse code
+* You will gain a sense for this over time
 
-### The `styler` package
+## The `styler` package
 
-Consistently formatted code is generally much easier to read than inconsistently
-formatted code. Consistent formatting may also allow you to identify syntax and
-logic errors much more easily than it might be otherwise. The [`styler`
+* Consistently formatted code is generally much easier to read than inconsistently formatted code
+* Consistent formatting may also allow you to identify syntax and
+logic errors much more easily than it might be otherwise
+* The [`styler`
 package](https://cran.r-project.org/web/packages/styler/vignettes/introducing_styler.html)
-is an R package that can automatically format your code to make it consistent in
-a number of ways, including indentation, code block conventions and more. When
-you install styler with `install.packages("styler")` in RStudio, a new entry is
-available in the Addins menu:
+is an R package that can automatically format your code to make it consistent in a number of ways
+* When you install styler with `install.packages("styler")` in RStudio, a new entry is available in the Addins menu:
 
-![styler Addin menu](styler.png)
+  ![styler Addin menu](../styler.png)
 
-These Addins allow you to let styler format your code for you according to some
-reasonable (albeit arbitrary) conventions.
+* These Addins allow you to let styler format your code for you according to some reasonable (albeit arbitrary) conventions.

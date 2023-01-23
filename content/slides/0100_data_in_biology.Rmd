@@ -1,6 +1,6 @@
 ---
-title: "R for Biological Science"
-subtitle: "[Data in Biology](../data-bio.html)"
+title: "[Data in Biology](../data-bio.html)"
+subtitle: "R for Biological Science"
 output: ioslides_presentation
 author: "Adam Labadorf"
 company: "Boston University"
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = FALSE)
 * *bioinformatics* defined by Pauline Hogeweg and Ben Hesper in 1970:
 
   > "the study of informatic processes in biotic systems"
-  
+
 * Expanded in early 1980s as the volume of sequence data grew
 * Human genome project was formally launched in 1990
 
