@@ -7,25 +7,26 @@ output: html_document
 These are the specific topics covered in each week.
 
 ## Week 1
-* Course Intro & Details [slides](slides/0000_introduction.html)
-* Intro: [Data in Biology] [slides](slides/0100_data_in_biology.html)
-* Prelim: [The R Language] [slides](slides/0200_preliminaries.html)
-* Prelim: [RStudio] on SCC [slides](slides/0200_preliminaries.html#rstudio)
-* Prelim: [The R Script] [slides](slides/0200_preliminaries.html#the-r-script)
-* Prelim: [The Scripting Workflow] [slides](slides/0200_preliminaries.html#the-scripting-workflow)
-* Comm: [RMarkdown & knitr]
-* Prelim: [Git + github]
-* R Prog: [R Syntax Basics]
-* R Prog: [Functions]
-* R Prog: [Troubleshooting and Debugging]
-* Data Wrangle: [The Tidyverse]
-* Data Wrangle: [Tidyverse Basics]
-* Data Wrangle: [Importing Data]
-* Bioinfo: [CSV Files]
-* Data Wrangle: [The tibble]
-* Data Wrangle: [pipes]
-* Data Wrangle: [Arranging Data]
-* Data Wrangle: [Rearranging Data]
+* Course Intro & Details ([slides](slides/0000_introduction.html))
+* [Assignment 0]
+* Intro: [Data in Biology] ([slides](slides/0100_data_in_biology.html))
+* Prelim: [The R Language] ([slides](slides/0200_preliminaries.html))
+* Prelim: [RStudio] on SCC ([slides](slides/0200_preliminaries.html#rstudio))
+* Prelim: [The R Script] ([slides](slides/0200_preliminaries.html#the-r-script))
+* Prelim: [The Scripting Workflow] ([slides](slides/0200_preliminaries.html#the-scripting-workflow))
+* Comm: [RMarkdown & knitr] ([slides](slides/1000_communication.html))
+* Prelim: [Git + github] ([slides](slides/0200_preliminaries.html#git-github))
+* R Prog: [R Syntax Basics] ([slides](slides/0300_r_programming.html))
+* R Prog: [Functions] ([slides](slides/0300_r_programming.html#functions))
+* R Prog: [Troubleshooting and Debugging] ([slides](slides/0300_r_programming.html#troubleshooting-and-debugging))
+* Data Wrangle: [The Tidyverse] ([slides](slides/0400_data_wrangling.html#the-tidyverse))
+* Data Wrangle: [Tidyverse Basics] ([slides](slides/0400_data_wrangling.html#tidyverse-basics))
+* Data Wrangle: [Importing Data] ([slides](slides/0400_data_wrangling.html#importing-data))
+* Bioinfo: [CSV Files] ([slides](slides/0700_bioinfo.html#csv-files))
+* Data Wrangle: [The tibble] ([slides](slides/0400_data_wrangling.html#the-tibble))
+* Data Wrangle: [pipes] ([slides](slides/0400_data_wrangling.html#pipes))
+* Data Wrangle: [Arranging Data] ([slides](slides/0400_data_wrangling.html#arranging-data))
+* Data Wrangle: [Rearranging Data] ([slides](slides/0400_data_wrangling.html#rearranging-data))
 * [Assignment 1]
 
 ## Week 2
