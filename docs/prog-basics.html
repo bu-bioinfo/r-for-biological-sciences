@@ -255,74 +255,6 @@ there are one of these values in your input, and need to be handled explicitly.<
 <li><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/complex.html">Complex numbers in R</a></li>
 </ul>
 </div>
-<div id="factors" class="section level3" number="4.4.1">
-<h3>
-<span class="header-section-number">4.4.1</span> Factors<a class="anchor" aria-label="anchor" href="#factors"><i class="fas fa-link"></i></a>
-</h3>
-<p>Factors are objects that R uses to handle categorical variables, i.e. variables
-that can take one of a distinct set of values for each sample. For example,
-a variable indicating whether a subject had a disease or was a control could be
-encoded using a factor with values <code>Disease</code> or <code>Control</code>. Consider an example
-dataset with six subjects where three are disease and three are control, and
-we create a factor from a corresponding variable of character strings using the
-<a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/factor"><code>factor()</code> function</a>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="prog-basics.html#cb8-1" aria-hidden="true" tabindex="-1"></a>case_status <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
-<span id="cb8-2"><a href="prog-basics.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">'Disease'</span>,<span class="st">'Disease'</span>,<span class="st">'Disease'</span>,</span>
-<span id="cb8-3"><a href="prog-basics.html#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Control'</span>,<span class="st">'Control'</span>,<span class="st">'Control'</span></span>
-<span id="cb8-4"><a href="prog-basics.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-5"><a href="prog-basics.html#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-6"><a href="prog-basics.html#cb8-6" aria-hidden="true" tabindex="-1"></a>case_status</span>
-<span id="cb8-7"><a href="prog-basics.html#cb8-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] Disease Disease Disease Control Control Control</span>
-<span id="cb8-8"><a href="prog-basics.html#cb8-8" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> Control Disease</span></code></pre></div>
-<p>The factor <code>case_status</code> prints as a vector of labels, either <code>Disease</code> or
-<code>Control</code>. The distinct values in the factor are called <em>levels</em>, and this
-factor has two: <code>Control</code> and <code>Disease</code>. Internally, a factor is stored as a
-vector of integers where each level has the same value:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="prog-basics.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(case_status)</span>
-<span id="cb9-2"><a href="prog-basics.html#cb9-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></span>
-<span id="cb9-3"><a href="prog-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(case_status)</span>
-<span id="cb9-4"><a href="prog-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Control"</span>,<span class="st">"Disease"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></span></code></pre></div>
-<p>By default, R assigns integers to levels in alphanumeric order; since “Control”
-comes lexicographically before “Disease”, the <code>Control</code> level is assigned the
-integer <code>1</code> and <code>Disease</code> is assigned <code>2</code>. Each value of the factor corresponds
-to these integers, and since <code>Disease</code> came before <code>Control</code>, the numeric values
-of the factor are (2, 2, 2, 1, 1, 1). The integer values assigned to each level
-allow the factor to be sorted:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="prog-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(case_status)</span>
-<span id="cb10-2"><a href="prog-basics.html#cb10-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] Control Control Control Disease Disease Disease</span>
-<span id="cb10-3"><a href="prog-basics.html#cb10-3" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> Control Disease</span></code></pre></div>
-<p>Note the order of the factor levels has changed so that controls, which have a
-value of 1, precede disease, which have a value of 2. The integers assigned to
-each level can be specified explicitly when creating the factor:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="prog-basics.html#cb11-1" aria-hidden="true" tabindex="-1"></a>case_status <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
-<span id="cb11-2"><a href="prog-basics.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">'Disease'</span>,<span class="st">'Disease'</span>,<span class="st">'Disease'</span>,<span class="st">'Control'</span>,<span class="st">'Control'</span>,<span class="st">'Control'</span>),</span>
-<span id="cb11-3"><a href="prog-basics.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels=</span><span class="fu">c</span>(<span class="st">'Disease'</span>,<span class="st">'Control'</span>)</span>
-<span id="cb11-4"><a href="prog-basics.html#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-5"><a href="prog-basics.html#cb11-5" aria-hidden="true" tabindex="-1"></a>case_status</span>
-<span id="cb11-6"><a href="prog-basics.html#cb11-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] Disease Disease Disease Control Control Control</span>
-<span id="cb11-7"><a href="prog-basics.html#cb11-7" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> Control Disease</span>
-<span id="cb11-8"><a href="prog-basics.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(case_status)</span>
-<span id="cb11-9"><a href="prog-basics.html#cb11-9" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Disease"</span>,<span class="st">"Control"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span></span></code></pre></div>
-<p>The base R functions for reading in <a href="biology-bioinformatics.html#csv-files">CSV Files</a> load columns with character
-values as factors by default (you may turn this off with
-<code>stringsAsFactors=FALSE</code> to <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>), and in other situations you may have
-factors created by other functions that need to have their integer values
-changed. This process is called <em>releveling</em> the factor, and may be accomplished
-by passing a factor into the <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function and specifying new levels:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="prog-basics.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(case_status)</span>
-<span id="cb12-2"><a href="prog-basics.html#cb12-2" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Disease"</span>,<span class="st">"Control"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span></span>
-<span id="cb12-3"><a href="prog-basics.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(case_status, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Control"</span>,<span class="st">"Disease"</span>))</span>
-<span id="cb12-4"><a href="prog-basics.html#cb12-4" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Control"</span>,<span class="st">"Disease"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></span></code></pre></div>
-<p>Controlling the order of levels in a factor is important in a number of
-situations. One is when specifying the reference category for categorical
-variables when constructing model matrices to pass to statistical models, the
-details of which are beyond the scope of this book. A second is when the order
-of categorical variables when passed to ggplot, which is
-covered in greater detail in [Reordering 1-D Data Elements] in the
-<a href="data-visualization.html#dv-gg">Grammar of Graphics</a> chapter. The <a href="https://forcats.tidyverse.org/">forcats</a>
-tidyverse package provides more powerful functions for working with categorical
-variables stored in factors.</p>
-</div>
 </div>
 <div id="prog-struct" class="section level2" number="4.5">
 <h2>
@@ -336,67 +268,131 @@ variables stored in factors.</p>
 more than one value together. The most basic data structure in R is a one
 dimensional sequence of values called a
 <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/vector">vector</a>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="prog-basics.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the c() function creates a vector</span></span>
-<span id="cb13-2"><a href="prog-basics.html#cb13-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb13-3"><a href="prog-basics.html#cb13-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="prog-basics.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the c() function creates a vector</span></span>
+<span id="cb8-2"><a href="prog-basics.html#cb8-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb8-3"><a href="prog-basics.html#cb8-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span></code></pre></div>
 <p>The vector in R has a special property that all values contained in the vector
 must have the same type, from the list <a href="prog-basics.html#prog-types">described above</a>. When
 constructing a vector, R will <a href="https://rstudio-education.github.io/hopr/r-objects.html#coercion">coerce
 values</a> to the
 most general type if it encounters values of different types:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="prog-basics.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="st">"3"</span>)</span>
-<span id="cb14-2"><a href="prog-basics.html#cb14-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"1"</span> <span class="st">"2"</span> <span class="st">"3"</span></span>
-<span id="cb14-3"><a href="prog-basics.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>)</span>
-<span id="cb14-4"><a href="prog-basics.html#cb14-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">0</span></span>
-<span id="cb14-5"><a href="prog-basics.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>) <span class="co"># note missing values stay missing</span></span>
-<span id="cb14-6"><a href="prog-basics.html#cb14-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="cn">NA</span></span>
-<span id="cb14-7"><a href="prog-basics.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"1"</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="cn">NaN</span>) <span class="co"># NA stays, NaN is cast to a character type</span></span>
-<span id="cb14-8"><a href="prog-basics.html#cb14-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"1"</span> <span class="st">"2"</span> <span class="cn">NA</span> <span class="st">"NaN"</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="prog-basics.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="st">"3"</span>)</span>
+<span id="cb9-2"><a href="prog-basics.html#cb9-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"1"</span> <span class="st">"2"</span> <span class="st">"3"</span></span>
+<span id="cb9-3"><a href="prog-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>)</span>
+<span id="cb9-4"><a href="prog-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">0</span></span>
+<span id="cb9-5"><a href="prog-basics.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>) <span class="co"># note missing values stay missing</span></span>
+<span id="cb9-6"><a href="prog-basics.html#cb9-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="cn">NA</span></span>
+<span id="cb9-7"><a href="prog-basics.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"1"</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="cn">NaN</span>) <span class="co"># NA stays, NaN is cast to a character type</span></span>
+<span id="cb9-8"><a href="prog-basics.html#cb9-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"1"</span> <span class="st">"2"</span> <span class="cn">NA</span> <span class="st">"NaN"</span></span></code></pre></div>
 <p>In addition to having a single type, vectors also have a length, which is
 defined as the number of elements in the vector:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="prog-basics.html#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb15-2"><a href="prog-basics.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span>
-<span id="cb15-3"><a href="prog-basics.html#cb15-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="prog-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb10-2"><a href="prog-basics.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span>
+<span id="cb10-3"><a href="prog-basics.html#cb10-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
 <p>Internally, R is much more efficient at operating on vectors than individual
 elements separately. With numeric vectors, you can perform arithmetic operations
 on vectors of compatible size just as easily as individual values:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="prog-basics.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb16-2"><a href="prog-basics.html#cb16-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span> <span class="dv">6</span></span>
-<span id="cb16-3"><a href="prog-basics.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb16-4"><a href="prog-basics.html#cb16-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span></span>
-<span id="cb16-5"><a href="prog-basics.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># operating on vectors of different lengths raises warning, but still works</span></span>
-<span id="cb16-6"><a href="prog-basics.html#cb16-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span> <span class="dv">5</span></span>
-<span id="cb16-7"><a href="prog-basics.html#cb16-7" aria-hidden="true" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
-<span id="cb16-8"><a href="prog-basics.html#cb16-8" aria-hidden="true" tabindex="-1"></a>In <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">:</span></span>
-<span id="cb16-9"><a href="prog-basics.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  longer object length is not a multiple of shorter object length</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="prog-basics.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb11-2"><a href="prog-basics.html#cb11-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span> <span class="dv">6</span></span>
+<span id="cb11-3"><a href="prog-basics.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb11-4"><a href="prog-basics.html#cb11-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span></span>
+<span id="cb11-5"><a href="prog-basics.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># operating on vectors of different lengths raises warning, but still works</span></span>
+<span id="cb11-6"><a href="prog-basics.html#cb11-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span> <span class="dv">5</span></span>
+<span id="cb11-7"><a href="prog-basics.html#cb11-7" aria-hidden="true" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
+<span id="cb11-8"><a href="prog-basics.html#cb11-8" aria-hidden="true" tabindex="-1"></a>In <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">:</span></span>
+<span id="cb11-9"><a href="prog-basics.html#cb11-9" aria-hidden="true" tabindex="-1"></a>  longer object length is not a multiple of shorter object length</span></code></pre></div>
 <div class="box warning">
 <p>In the example above, we multiplied a vector of length 2 with a vector of length
 3:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="prog-basics.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># operating on vectors of different lengths raises warning, but still works</span></span>
-<span id="cb17-2"><a href="prog-basics.html#cb17-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span> <span class="dv">5</span></span>
-<span id="cb17-3"><a href="prog-basics.html#cb17-3" aria-hidden="true" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
-<span id="cb17-4"><a href="prog-basics.html#cb17-4" aria-hidden="true" tabindex="-1"></a>In <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">:</span></span>
-<span id="cb17-5"><a href="prog-basics.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  longer object length is not a multiple of shorter object length</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="prog-basics.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># operating on vectors of different lengths raises warning, but still works</span></span>
+<span id="cb12-2"><a href="prog-basics.html#cb12-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span> <span class="dv">5</span></span>
+<span id="cb12-3"><a href="prog-basics.html#cb12-3" aria-hidden="true" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
+<span id="cb12-4"><a href="prog-basics.html#cb12-4" aria-hidden="true" tabindex="-1"></a>In <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">:</span></span>
+<span id="cb12-5"><a href="prog-basics.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  longer object length is not a multiple of shorter object length</span></code></pre></div>
 <p>Rather than raise an error and aborting, R merely emits a warning message about
 the vectors not having divisible lengths. So how did R decide the third value
 should be 5? Because R cycles through each vector and multiplies the values
 element-wise until the longest vector has had an operation performed on all its
 values:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="prog-basics.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># yields: 1*3 2*4 1*5</span></span>
-<span id="cb18-2"><a href="prog-basics.html#cb18-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span> <span class="dv">5</span></span>
-<span id="cb18-3"><a href="prog-basics.html#cb18-3" aria-hidden="true" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
-<span id="cb18-4"><a href="prog-basics.html#cb18-4" aria-hidden="true" tabindex="-1"></a>In <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">:</span></span>
-<span id="cb18-5"><a href="prog-basics.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  longer object length is not a multiple of shorter object length</span>
-<span id="cb18-6"><a href="prog-basics.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>) <span class="co"># yields: 1*3 2*4 1*5 2*6</span></span>
-<span id="cb18-7"><a href="prog-basics.html#cb18-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">12</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="prog-basics.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># yields: 1*3 2*4 1*5</span></span>
+<span id="cb13-2"><a href="prog-basics.html#cb13-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span> <span class="dv">5</span></span>
+<span id="cb13-3"><a href="prog-basics.html#cb13-3" aria-hidden="true" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
+<span id="cb13-4"><a href="prog-basics.html#cb13-4" aria-hidden="true" tabindex="-1"></a>In <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">:</span></span>
+<span id="cb13-5"><a href="prog-basics.html#cb13-5" aria-hidden="true" tabindex="-1"></a>  longer object length is not a multiple of shorter object length</span>
+<span id="cb13-6"><a href="prog-basics.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>) <span class="co"># yields: 1*3 2*4 1*5 2*6</span></span>
+<span id="cb13-7"><a href="prog-basics.html#cb13-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">12</span></span></code></pre></div>
 <p>R will sometimes work in ways you don’t expect. Be careful to read warnings and
 check that your code does what you expect!</p>
 </div>
 </div>
-<div id="matrices" class="section level3" number="4.5.2">
+<div id="factors" class="section level3" number="4.5.2">
 <h3>
-<span class="header-section-number">4.5.2</span> Matrices<a class="anchor" aria-label="anchor" href="#matrices"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.2</span> Factors<a class="anchor" aria-label="anchor" href="#factors"><i class="fas fa-link"></i></a>
 </h3>
+<p>Factors are objects that R uses to handle categorical variables, i.e. variables
+that can take one of a distinct set of values for each sample. For example,
+a variable indicating whether a subject had a disease or was a control could be
+encoded using a factor with values <code>Disease</code> or <code>Control</code>. Consider an example
+dataset with six subjects where three are disease and three are control, and
+we create a factor from a corresponding variable of character strings using the
+<a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/factor"><code>factor()</code> function</a>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="prog-basics.html#cb14-1" aria-hidden="true" tabindex="-1"></a>case_status <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb14-2"><a href="prog-basics.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">'Disease'</span>,<span class="st">'Disease'</span>,<span class="st">'Disease'</span>,</span>
+<span id="cb14-3"><a href="prog-basics.html#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Control'</span>,<span class="st">'Control'</span>,<span class="st">'Control'</span></span>
+<span id="cb14-4"><a href="prog-basics.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-5"><a href="prog-basics.html#cb14-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-6"><a href="prog-basics.html#cb14-6" aria-hidden="true" tabindex="-1"></a>case_status</span>
+<span id="cb14-7"><a href="prog-basics.html#cb14-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] Disease Disease Disease Control Control Control</span>
+<span id="cb14-8"><a href="prog-basics.html#cb14-8" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> Control Disease</span></code></pre></div>
+<p>The factor <code>case_status</code> prints as a vector of labels, either <code>Disease</code> or
+<code>Control</code>. The distinct values in the factor are called <em>levels</em>, and this
+factor has two: <code>Control</code> and <code>Disease</code>. Internally, a factor is stored as a
+vector of integers where each level has the same value:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="prog-basics.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(case_status)</span>
+<span id="cb15-2"><a href="prog-basics.html#cb15-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></span>
+<span id="cb15-3"><a href="prog-basics.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(case_status)</span>
+<span id="cb15-4"><a href="prog-basics.html#cb15-4" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Control"</span>,<span class="st">"Disease"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></span></code></pre></div>
+<p>By default, R assigns integers to levels in alphanumeric order; since “Control”
+comes lexicographically before “Disease”, the <code>Control</code> level is assigned the
+integer <code>1</code> and <code>Disease</code> is assigned <code>2</code>. Each value of the factor corresponds
+to these integers, and since <code>Disease</code> came before <code>Control</code>, the numeric values
+of the factor are (2, 2, 2, 1, 1, 1). The integer values assigned to each level
+allow the factor to be sorted:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="prog-basics.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(case_status)</span>
+<span id="cb16-2"><a href="prog-basics.html#cb16-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] Control Control Control Disease Disease Disease</span>
+<span id="cb16-3"><a href="prog-basics.html#cb16-3" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> Control Disease</span></code></pre></div>
+<p>Note the order of the factor levels has changed so that controls, which have a
+value of 1, precede disease, which have a value of 2. The integers assigned to
+each level can be specified explicitly when creating the factor:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="prog-basics.html#cb17-1" aria-hidden="true" tabindex="-1"></a>case_status <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb17-2"><a href="prog-basics.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">'Disease'</span>,<span class="st">'Disease'</span>,<span class="st">'Disease'</span>,<span class="st">'Control'</span>,<span class="st">'Control'</span>,<span class="st">'Control'</span>),</span>
+<span id="cb17-3"><a href="prog-basics.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels=</span><span class="fu">c</span>(<span class="st">'Disease'</span>,<span class="st">'Control'</span>)</span>
+<span id="cb17-4"><a href="prog-basics.html#cb17-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-5"><a href="prog-basics.html#cb17-5" aria-hidden="true" tabindex="-1"></a>case_status</span>
+<span id="cb17-6"><a href="prog-basics.html#cb17-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] Disease Disease Disease Control Control Control</span>
+<span id="cb17-7"><a href="prog-basics.html#cb17-7" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> Control Disease</span>
+<span id="cb17-8"><a href="prog-basics.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(case_status)</span>
+<span id="cb17-9"><a href="prog-basics.html#cb17-9" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Disease"</span>,<span class="st">"Control"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span></span></code></pre></div>
+<p>The base R functions for reading in <a href="biology-bioinformatics.html#csv-files">CSV Files</a> load columns with character
+values as factors by default (you may turn this off with
+<code>stringsAsFactors=FALSE</code> to <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>), and in other situations you may have
+factors created by other functions that need to have their integer values
+changed. This process is called <em>releveling</em> the factor, and may be accomplished
+by passing a factor into the <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function and specifying new levels:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="prog-basics.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(case_status)</span>
+<span id="cb18-2"><a href="prog-basics.html#cb18-2" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Disease"</span>,<span class="st">"Control"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span></span>
+<span id="cb18-3"><a href="prog-basics.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(case_status, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Control"</span>,<span class="st">"Disease"</span>))</span>
+<span id="cb18-4"><a href="prog-basics.html#cb18-4" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Control"</span>,<span class="st">"Disease"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span></span></code></pre></div>
+<p>Controlling the order of levels in a factor is important in a number of
+situations. One is when specifying the reference category for categorical
+variables when constructing model matrices to pass to statistical models, the
+details of which are beyond the scope of this book. A second is when the order
+of categorical variables when passed to ggplot, which is
+covered in greater detail in [Reordering 1-D Data Elements] in the
+<a href="data-visualization.html#dv-gg">Grammar of Graphics</a> chapter. The <a href="https://forcats.tidyverse.org/">forcats</a>
+tidyverse package provides more powerful functions for working with categorical
+variables stored in factors.
+### Matrices</p>
 <p>A matrix in R is simply the 2 dimensional version of a vector. That is, it is
 a rectangle of values that all have the same type, e.g. number, character,
 logical, etc. A matrix may be constructed using the vector notation described
@@ -625,15 +621,21 @@ programming languages for this is the function must <em>accept</em> or allow you
 *pattern:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># a basic function signature</span></span>
-<span><span class="fu">function_name</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span> <span class="co"># function accepts exactly 2 arguments</span></span></code></pre></div>
-<p>Here, <code>arg1</code> and <code>arg2</code> are <em>formal arguments</em> or <em>named arguments</em>, indicating
+<span><span class="fu">function_name</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span> <span class="co"># function accepts 2 arguments</span></span></code></pre></div>
+<p>Here, <code>arg1</code> and <code>arg2</code> are <em>arguments</em> or <em>actual arguments</em>, indicating
 this function accepts two arguments. The name of the function (i.e.
 <code>function_name</code>) and the pattern of arguments it accepts is called the
 function’s <em>signature.</em> Every function has at least one signature, and it is
 critical to understand it in order to use the function properly.</p>
-<p>In the above example, <code>arg1</code> and <code>arg2</code> are <em>required</em> arguments. This means
-that the function will not execute without exactly two arguments provided and
-will raise an error if you try otherwise:</p>
+<p>In the above example, <code>arg1</code> and <code>arg2</code> are <em>positional</em> arguments. This means
+the order of arguments is important. Calling the function above like
+<code>function_name(arg2, arg1)</code> will produce a different result than with
+<code>function_name(arg1, arg2)</code>. As we will see shortly, functions have names for
+their arguments in their definition that can be used to specify arguments in any
+order.</p>
+<p>For most functions, some arguments are <em>required</em>. This means that the function
+will not execute without two arguments provided and will raise an error
+if you try otherwise:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="prog-basics.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>() <span class="co"># compute the arithmetic mean, but of what?</span></span>
 <span id="cb29-2"><a href="prog-basics.html#cb29-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean.default</span>() <span class="sc">:</span> argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
 <p>How do you know what arguments a function requires? All functions provided by
@@ -861,7 +863,7 @@ two forms of iteration: vectorized operations, and functional programming with
 <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>.</p>
 <div class="box warning">
 <p>Note that R does have <code>for</code> and <code>while</code> loop support in the language. However,
-these loop structures often have poor performance, and should generally be
+these loop structures can have poor performance, and should generally be
 avoided in favor of the functional style of iteration described below.</p>
 <p><a href="https://www.r-bloggers.com/2018/09/how-to-avoid-for-loop-in-r/">How To Avoid For Loops in R</a></p>
 <p>If you really, really want to learn how to use for loops in R, read this, but
@@ -1406,13 +1408,11 @@ reasonable (albeit arbitrary) conventions.</p>
 <li><a class="nav-link" href="#before-you-begin"><span class="header-section-number">4.1</span> Before you begin</a></li>
 <li><a class="nav-link" href="#introduction-1"><span class="header-section-number">4.2</span> Introduction</a></li>
 <li><a class="nav-link" href="#prog-r-syntax"><span class="header-section-number">4.3</span> R Syntax Basics</a></li>
-<li>
-<a class="nav-link" href="#prog-types"><span class="header-section-number">4.4</span> Basic Types of Values</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#factors"><span class="header-section-number">4.4.1</span> Factors</a></li></ul>
-</li>
+<li><a class="nav-link" href="#prog-types"><span class="header-section-number">4.4</span> Basic Types of Values</a></li>
 <li>
 <a class="nav-link" href="#prog-struct"><span class="header-section-number">4.5</span> Data Structures</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#vectors"><span class="header-section-number">4.5.1</span> Vectors</a></li>
-<li><a class="nav-link" href="#matrices"><span class="header-section-number">4.5.2</span> Matrices</a></li>
+<li><a class="nav-link" href="#factors"><span class="header-section-number">4.5.2</span> Factors</a></li>
 <li><a class="nav-link" href="#lists-and-data-frames"><span class="header-section-number">4.5.3</span> Lists and data frames</a></li>
 </ul>
 </li>

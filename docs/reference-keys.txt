@@ -19,10 +19,9 @@ before-you-begin
 introduction-1
 prog-r-syntax
 prog-types
-factors
 prog-struct
 vectors
-matrices
+factors
 lists-and-data-frames
 logical-tests-and-comparators
 functions
