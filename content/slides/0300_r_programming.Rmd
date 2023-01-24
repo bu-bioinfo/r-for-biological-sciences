@@ -1052,122 +1052,103 @@ $$
 
 ## Functional operations on 2 dimensions
 
-[Z-score
-transformation](https://en.wikipedia.org/wiki/Standard_score) that accepts a
-vector, subtracts the mean from each element, and divides the result by the
-standard deviation of the data. This ensures the data has a mean and standard
-deviation of 0 and 1, respectively. However, this function only operates on a
-single vector of numbers. Large datasets have many *features*, each of which may
-be individual vectors, that we desire to perform this same Z-score
-transformation on separately. In other words, we have one function that we wish
-to execute on either every row or every column of a matrix and return the
-result. This is a form of iteration that can be implemented in a functional
-style using the `apply` function.
+* Recall the [Z-score transformation](https://en.wikipedia.org/wiki/Standard_score) defined earlier:
 
-This is the signature of the `apply` function, from the RStudio `help(apply)`
-page:
+  ```r
+  standardize <- function(x) {
+    res <- (x - mean(x))/sd(x)
+    return(res)
+  }
+  ```
 
-```r
-apply(X, MARGIN, FUN, ..., simplify = TRUE)
-```
+* This function operates on a single vector
+* We sometimes want to transform each row or column of a matrix separately
+* The `apply()` function allows a function to be applied to either rows or columns
+  of a 2 dimensional data structure like a matrix or data frame
 
-Here, `X` is a matrix (i.e. a rectangle of numbers) that we wish to perform a
-computation on for either each row or each column. `MARGIN` indicates whether
-the matrix should be traversed by rows (`MARGIN=1`) or columns (`MARGIN=2`).
-`FUN` is the name of a function that accepts a vector and returns either a
-vector or a scalar value that we wish to execute on either the rows or columns.
-`apply()` then executes `FUN` on each row or column of `X` and returns the
-result. For example:
+## The `apply()` function
+
+* This is the signature of the `apply` function, from the RStudio `help(apply)` page:
+
+  ```r
+  apply(X, MARGIN, FUN, ..., simplify = TRUE)
+  ```
+
+* `X` is a matrix or data frame (i.e. a rectangle of numbers)
+* `MARGIN` indicates whether function should be applied on rows (`MARGIN=1`) or columns (`MARGIN=2`)
+* `FUN` is the name of a function that accepts a vector and returns either a vector or a scalar value
+* `apply()` then executes `FUN` on each row or column of `X` and returns the result
+
+## `apply()` example
 
 ```r
 zscore <- function(x) {
   return((x-mean(x))/sd(x))
 }
-# construct a matrix of 50 rows by 100 columns with samples drawn from a normal distribution
-x_mat <- matrix(
-  rnorm(100*50, mean=20, sd=5),
+# construct matrix of 50x100 normally distributed samples
+x_mat <- matrix( rnorm(100*50, mean=20, sd=5),
   nrow=50,
   ncol=100
 )
-# z-transform the rows of x_mat, so that each column has mean,sd of 0,1
+# z-transform the rows so that each column has mean,sd of 0,1
 x_mat_zscore  <- apply(x_mat, 2, zscore)
-# we can check that all the columns of x_mat_zscore have mean close to zero with apply too
+# check columns of x_mat_zscore have mean close to zero with apply
 x_mat_zscore_means <- apply(x_mat_zscore, 2, mean)
-# note: due to machine precision errors, these results will not be exactly zero, but are very close
-# note: the all() function returns true if all of its arguments are TRUE
+# note: due to machine precision errors, these results will not be
+# exactly zero, but are very close
+# note: the all() function returns true if all elements are TRUE
 all(x_mat_zscore_means<1e-15)
 [1] TRUE
 ```
 
-The same approach can be used when `X` is a list or data frame rather than a
-matrix using the `lapply()` function (hint: the `l` in `lapply` stands for
-"list"). Here is the function signature for `lapply`:
+## `lapply()` Function
 
-```r
-lapply(X, FUN, ...)
-```
+* `lapply()` iterates over the elements of `X` and returns a list with the result
 
-Recall that lists and data frames can be thought of as vectors where each
-element can be its own vector. Therefore, there is only one axis along which to
-iterate on the elements and there is not `MARGIN` argument as in `apply`. This
-function returns a new list of the same dimension as the original list with
-elements returned by `FUN`:
+  ```r
+  lapply(X, FUN, ...)
+  ```
 
-```r
-x <- list(
-  feature1=rnorm(100,mean=20,sd=10),
-  feature2=rnorm(100,mean=50,sd=5)
-)
-x_zscore <- lapply(x, zscore)
-# check that the means are close to zero
-x_zscore_means <- lapply(x_zscore, mean)
-all(x_zscore_means < 1e-15)
-[1] TRUE
-```
+* Example:
 
-This functional programming pattern might be counter intuitive at first, but it
-is well worth your while to learn.
-
-::: {.box .readmore}
-[R for Data Science - Iteration](https://r4ds.had.co.nz/iteration.html)
-:::
+  ```r
+  x <- list(
+    feature1=rnorm(100,mean=20,sd=10),
+    feature2=rnorm(100,mean=50,sd=5)
+  )
+  x_zscore <- lapply(x, zscore)
+  # check that the means are close to zero
+  x_zscore_means <- lapply(x_zscore, mean)
+  all(x_zscore_means < 1e-15)
+  [1] TRUE
+  ```
 
 ## Installing Packages
 
-Advanced functionality in R is provided through *packages* written and supported
-by R community members. With the exception of [bioconductor
+* Advanced functionality in R is provided through *packages* written and supported
+by R community members
+* With the exception of [bioconductor
 packages](#bio-bioconductor), all R packages are hosted on the [Comprehensive R
-Archive Network](https://cran.r-project.org/) (CRAN) web site. At the time of
-writing, there are [more than 18,000
-packages](https://cran.r-project.org/web/packages/index.html) hosted on CRAN
-that you can install. To install a package from CRAN, use the `install.packages`
-function in the R console:
+Archive Network](https://cran.r-project.org/) (CRAN) web site
+* There are [more than 18,000 packages](https://cran.r-project.org/web/packages/index.html) hosted on CRAN
+* To install a package from CRAN, use the `install.packages` function in the R console:
 
-```r
-# install one package
-install.packages("tidyverse")
-# install multiple packages
-install.packages(c("readr","dplyr"))
-```
-
-::: {.box .note}
-As mentioned above, many packages used in biological data analysis are not
-hosted on CRAN, but in [Bioconductor](#bio-bioconductor). The Bioconductor
-project's mission is "to develop, support, and disseminate free open source
-software that facilitates rigorous and reproducible analysis of data from
-current and emerging biological assays." Practically, this means Bioconductor
-packages are subject to stricter standards for documentation, coding conventions
-and structure, and standards compliance compared with the relatively more lax
-CRAN package submission process.
-:::
+  ```r
+  # install one package
+  install.packages("tidyverse")
+  # install multiple packages
+  install.packages(c("readr","dplyr"))
+  ```
 
 ## Saving and Loading R Data
 
-While it is always a good idea to save results in tabular form in [CSV Files],
-sometimes it is convenient to save complicated R objects and data structures
-like lists to a file that can be read back into R easily. This can be done with
-the [`saveRDS()` and `readRDS()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/readRDS.html)
-functions:
+* Matrices and data frames can be written to file tabular form (e.g. CSV files)
+* Sometimes it is convenient to save complicated R objects and data structures
+like lists to a file that can be read back into R easily
+* [`saveRDS()` and `readRDS()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/readRDS.html)
+ functions do this
+
+## `saveRDS()` and `readRDS` example
 
 ```r
 a_complicated_list <- list(
@@ -1183,53 +1164,6 @@ saveRDS(a_complicated_list, "a_complicated_list.rda")
 # later, possibly in a different script
 a_complicated_list <- readRDS("a_complicated_list.rda")
 ```
-
-These functions are very convenient for saving results of complicated analyses
-and reading them back in later, especially if those analyses were time
-consuming.
-
-::: {.box .note}
-R also has the functions
-[`save()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/save.html)
-and [`load()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/load.html).
-These functions are similar to `saveRDS` and `readRDS`, except they do not allow
-loading individual objects into new variables. Instead, `save` accepts one or
-more variable names that are in the global namespace and saves them all to a
-file:
-
-```r
-var_a <- "a string"
-var_b <- 1.234
-
-save(var_a, var_b, file="saved_variables.rda")
-```
-
-Then later when the file `saved_variables.rda` is `load()`ed, the all the
-variables saved into the file are loaded into the namespace with their saved
-values:
-
-```r
-# assume var_a and var_b are not defined yet
-load("saved_variables.rda")
-var_a
-[1] "a string"
-var_b
-[1] 1.234
-```
-
-This requires the programmer to remember the names of the variables that were
-saved into the file. Also, if there are variables that already exist in the
-current environment that are also saved in the file, those variable values will
-be overridden possibly without the programmers knowledge or intent. There is no
-way to change the variable names of variable saved in this way. For these
-reasons, `saveRDS` and `loadRDS` are generally safer to use as you can be more
-explicit about what you are saving and loading.
-:::
-
-::: {.box .readmore}
-* [`saveRDS()` and `readRDS()` R manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/readRDS.html)
-* [`readRDS()` and `saveRDS()` official documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/readRDS)
-:::
 
 # Troubleshooting and Debugging
 
