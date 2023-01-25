@@ -18,7 +18,13 @@ These are the specific topics covered in each week.
 * Prelim: [Git + github] ([slides](slides/0200_preliminaries.html#git-github))
 * R Prog: [R Syntax Basics] ([slides](slides/0300_r_programming.html))
 * R Prog: [Functions] ([slides](slides/0300_r_programming.html#functions))
+* R Prog: [Data structures] ([slides](slides/0300_r_programming.html#data-structures))
+* R Prog: [Factors] ([slides](slides/0300_r_programming.html#factors))
+* R Prog: [Iteration] ([slides](slides/0300_r_programming.html#iteration))
 * R Prog: [Troubleshooting and Debugging] ([slides](slides/0300_r_programming.html#troubleshooting-and-debugging))
+
+## Week 2
+* [Assignment 1]
 * Data Wrangle: [The Tidyverse] ([slides](slides/0400_data_wrangling.html#the-tidyverse))
 * Data Wrangle: [Tidyverse Basics] ([slides](slides/0400_data_wrangling.html#tidyverse-basics))
 * Data Wrangle: [Importing Data] ([slides](slides/0400_data_wrangling.html#importing-data))
@@ -26,12 +32,8 @@ These are the specific topics covered in each week.
 * Data Wrangle: [The tibble] ([slides](slides/0400_data_wrangling.html#the-tibble))
 * Data Wrangle: [pipes] ([slides](slides/0400_data_wrangling.html#pipes))
 * Data Wrangle: [Arranging Data] ([slides](slides/0400_data_wrangling.html#arranging-data))
+* Data Wrangle: [Regular expressions] ([slides](slides/0400_data_wrangling.html#regular-expressions)
 * Data Wrangle: [Rearranging Data] ([slides](slides/0400_data_wrangling.html#rearranging-data))
-* [Assignment 1]
-
-## Week 2
-* [Assignment 1]
-* Data Wrangle: [Regular expressions]
 * Bioinfo: [R in Biology]
 * Bioinfo: [Types of Biological Data]
 * Bioinfo: [Bioconductor]
@@ -68,9 +70,6 @@ These are the specific topics covered in each week.
 * Data Viz: [Specifying Heatmap Colors]
 * Data Viz: [Dendrograms]
 * [Assignment 2] Review
-* R Prog: [Data structures]
-* R Prog: [Factors]
-* R Prog: [Iteration]
 
 ## Week 5
 * [Assignment 4]
