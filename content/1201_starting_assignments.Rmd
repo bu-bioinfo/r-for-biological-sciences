@@ -28,30 +28,30 @@ Classroom](https://classroom.github.com) link.
    you to a page like this one:
 
    ![Step 1](GitHub_Classroom_1.png)
-   
+
 2. Click "Accept this assignment", and you will see a confirmation page like
    this one:
 
    ![Step 2](GitHub_Classroom_2.png)
-   
+
 3. Navigate to our GitHub [BF591-R Organization](https://github.com/BF591-R)
    page. You should see a link to your clone repo as well as the other pinned
    template repos.
-   
+
    :::{.box .important}
    Make sure you find the repo that ends in your GitHub
    username! These repos will have the tag "Private" next to the name. Do not
    clone the repositories labeled with "Public template"!
    :::
-   
+
    Your assignment repo will look something like the following:
-   
+
    ![Step 3](GitHub_Classroom_3.png)
-   
+
 4. When you click on the link to your repo, you should see something like this:
 
    ![Step 4](GitHub_Classroom_4.png)
-   
+
 5. Inside this repo, click the big <font color="green">**g r e e n**</font>
    button and copy the HTTPS link to your repository.
 
@@ -62,32 +62,38 @@ Classroom](https://classroom.github.com) link.
 6. Login to [https://scc-ondemand.bu.edu/](SCC interactive). Start an
    interactive R session (Interactive Apps > RStudio Server), use the default
    settings but increase the hours to like 12 or something.
-   
+
    :::{.box .note}
    Alternatively, you may run RStudio on your personal computer, but beware the
    instructions in this tutorial may not be exactly what you see. You will
    need to install git on your machine. Here is a [guide](https://support.posit.co/hc/en-us/articles/200532077)
    :::
-   
+
 7. Once your session is loaded and you are login in, select the "New Project"
    button below the "Edit" button.
-   
+
    ![](img/how_to_1-new_proj.png)
 
 8. With the prompt open, select `Version Control` > `git`, and paste your repo's
    url into the first prompt. Feel free to rename the project. You can change
    where this folder is setup on SCC, but I find `~/Documents` or
    `~/Documents/BF591` to be a good home for organizing my various projects.
-   
+
    ![](img/how_to_2-prompt.png)
-   
-9. You will need to login to complete this process, enter your GitHub username
-   and password when prompted.
+
+9. [Follow these
+   instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic)
+   to create a GitHub Personal Access Token.
+
+   When RStudio prompts you for your **username**, enter your **GitHub username**.
+
+   When you are prompted for your **password**, enter the **Personal Access
+   Token** you just created.
 
 10. R will download all of the repository contents, and add an `.RProj` file to
     the directory. This RProject file is useful for switching between R assignments
     in RStudio. This context menu is in the top right of the RStudio interface:
-    
+
     ![](img/how_to_3-switch-proj.png)
 
 ## Committing and Pushing with R (and without) {-}
@@ -108,15 +114,15 @@ back to GitHub.
 
 1. Save the files you want to commit, and select the Git tab in the top right
    viewer (by default).
-   
+
    ![](img/how_to_4-git_tab.png)
-   
+
 2. You'll notice the files you changed are listed here, along with varying
    symbols. A question mark **?** means the file is untracked, an **M** means a
    tracked file has been modified. A **D** means a tracked file has been deleted.
    If I select a file I want to add back to GitHub, I can tick the checkbox and it
    will switch to the left column. This is called **staging** a file.
-   
+
    ![](img/how_to_5-checkbox.png)
 3. Once I've staged all the files I want to add, I can click on the **Commit**
    button. This brings up another window, which will again list the files you are
@@ -126,15 +132,15 @@ back to GitHub.
    typically to solve a task. It is **paramount** that you include commit messages,
    so you can track what it is you're doing with your work! Just a sentence is
    usually enough to describe what the changes in this commit are doing.
-   
+
    ![](img/how_to_6-commit_menu.png)
- 
+
 4. Once you've pressed the commit button, all that's left to do is to **push**
   your commit. This sends the commit to GitHub where it can safely live forever,
   duplicated across the world and safe from most cataclysms.
-  
+
   ![](img/how_to_7-push.png)
-  
+
 5. In the same vein, the **pull** button is useful if your GitHub has been
 updated more recently than your current SCC directory. This can happen if you're
 editing these files from another computer or on [GitHub.com](GitHub.com)
@@ -151,25 +157,25 @@ to interact with SCC normally.
 1. Click on the terminal tab at the bottom of your layout (default).  
 
    ![](img/how_to_8-terminal_tab.png)  
-   
+
 2. Marvel at the wonderful monospace font and rest your hands upon the keyboard.
    To see how the directory is doing, we can type `git status` to see what files
    have been changed. Wow! Looks like I have a lot of stuff to deal with. What's
    nice is the `git` command offers a lot of helpful tips for getting me on my way.
 
    ![](img/how_to_9-git_status.png)
-   
+
 3. I want to add these files, and I really don't care how many I had so I am
    going to use `git add *`, which basically adds everything that can be found in
    the current directory. If I only wanted one or two things, I could specify `git
    add file1.txt file2.txt` and leave the other files alone.
-   
+
 4. Once I have added (or removed `git rm file1.txt`) the files I want to commit,
    I simply use `git commit -m "Added a lot more content to tutorials!` to create
    the commit and add my **very important message**. Messages are not mandatory but
    if you slack on being descriptive you will regret it when you come back later to
    figure out what in God's name you were doing that day.
-   
+
 5. Finally, with my commit done and files added, I simply say `git push` to send
    my wonderful code back to GitHub, and I can sit back and marvel at my
    handiwork.
@@ -198,16 +204,16 @@ Each assignment repo has the following files within:
 - **reference_report.html** - This is the completed "report" of the assignment.
   You will be endeavoring to replicate this while completing the assignment,
   with some room for creative differences in elements like plotting.
-   
+
 - **main.R** - This is the main R script in the assignment, where you will be
   doing a lot of your _programming_. This script contains function definitions
   and descriptions, but with functions that are empty. Complete the functions as
   described in the script and ensure they pass the tests.
-  
+
 - **README.md** - Every repository _should_ have a README. Usually it contains
   useful information about installation, usage, and licensing. In this case, it
   will have helpful links back to assignment instructions.
-  
+
 - **report.Rmd** - Another empty file, this markdown script will `source()` your
   `main.R` script, loading the functions into its environment. There will be
   empty code blocks throughout this document, use the functions you developed in
