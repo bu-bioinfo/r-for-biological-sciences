@@ -20,8 +20,8 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: '<a href="../data-wrangling.html">Data Wrangling</a>',
-                        subtitle: 'R for Biological Science',
+                title: 'Data Wrangling',
+                        subtitle: '<a href="../index.html">R for Biological Science</a>',
                 useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -3385,19 +3385,19 @@ x dplyr::lag()    masks stats::lag()</pre></li>
 <th align="left">Brief description/use</th>
 </tr>
 <tr class="odd">
-<td align="left"><code>read_csv</code></td>
+<td align="left"><code>write_csv</code></td>
 <td align="left">Delimiter: <code>,</code> - Decimal separator: <code>.</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>read_csv2</code></td>
+<td align="left"><code>write_csv2</code></td>
 <td align="left">Delimiter: <code>;</code> - Decimal separator: <code>,</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>read_tsv</code></td>
+<td align="left"><code>write_tsv</code></td>
 <td align="left">Delimiter: <code>&lt;tab&gt;</code> - Decimal separator: <code>.</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>read_delim</code></td>
+<td align="left"><code>write_delim</code></td>
 <td align="left">Delimiter: set by user - Decimal separator: <code>.</code></td>
 </tr>
 </table>
@@ -3431,8 +3431,8 @@ x dplyr::lag()    masks stats::lag()</pre></li>
 
 <pre class="codeblock">
   tbl$x
-  [1] 29.572549 12.015877 15.235536 23.071761 32.254703 48.048651 21.905756
-  [8] 15.511768 34.872685 21.352433 12.515230 23.608096  6.778630 12.342237
+  [1] 29.57249 12.01577 15.25536 23.07761 32.25403 48.04651 21.90576
+  [8] 15.51168 34.87285 21.32433 12.51230 23.60896  6.77630 12.34223
   ...
   tbl[1,"x"] # access the first element of x
   # A tibble: 1 x 1
@@ -3506,7 +3506,7 @@ x dplyr::lag()    masks stats::lag()</pre></li>
 <li>Authors of tidyverse believe row names are better stored as a normal column</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Constructing tibbles by hand</h2></hgroup><article  id="constructing-tibbles-by-hand">
+</article></slide><slide class=""><hgroup><h2><code>tribble()</code> - Constructing tibbles by hand</h2></hgroup><article  id="tribble---constructing-tibbles-by-hand">
 
 <ul>
 <li>tibble package allows creating simple tibbles with the <code>tribble()</code> function:</li>
@@ -3514,18 +3514,11 @@ x dplyr::lag()    masks stats::lag()</pre></li>
 
 <pre class = 'prettyprint lang-r'>gene_stats &lt;- tribble(
     ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
-   &quot;apoe&quot;, 12.509293,   0.1032,   34.239521,   1.3e-5,
-   &quot;hoxd1&quot;,  4.399211,   0.6323,   16.332318,   0.0421,
-   &quot;snca&quot;, 45.748431,   4.2e-9,    0.757188,   0.9146,
-)
-gene_stats</pre>
-
-<pre >## # A tibble: 3 × 5
-##   gene  test1_stat      test1_p test2_stat  test2_p
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 apoe       12.5  0.103            34.2   0.000013
-## 2 hoxd1       4.40 0.632            16.3   0.0421  
-## 3 snca       45.7  0.0000000042      0.757 0.915</pre>
+   &quot;hoxd1&quot;, 12.509293,   0.1032,   34.239521,   1.3e-5,
+   &quot;brca1&quot;,  4.399211,   0.6323,   16.332318,   0.0421,
+   &quot;brca2&quot;,  9.672011,   0.9323,   12.689219,   0.0621,
+   &quot;snca&quot;, 45.748431,   4.2e-4,    0.757188,   0.9146,
+)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Tidy Data</h2></hgroup><article  id="tidy-data">
 
@@ -3556,16 +3549,19 @@ gene_stats</pre>
 
 <pre class = 'prettyprint lang-r'>gene_stats</pre>
 
-<pre >## # A tibble: 3 × 5
-##   gene  test1_stat      test1_p test2_stat  test2_p
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 apoe       12.5  0.103            34.2   0.000013
-## 2 hoxd1       4.40 0.632            16.3   0.0421  
-## 3 snca       45.7  0.0000000042      0.757 0.915</pre>
+<pre >## # A tibble: 4 × 5
+##   gene  test1_stat test1_p test2_stat  test2_p
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 hoxd1      12.5  0.103       34.2   0.000013
+## 2 brca1       4.40 0.632       16.3   0.0421  
+## 3 brca2       9.67 0.932       12.7   0.0621  
+## 4 snca       45.7  0.00042      0.757 0.915</pre>
 
 </article></slide><slide class=""><hgroup><h2>Tidy data illustration</h2></hgroup><article  id="tidy-data-illustration">
 
 <img width="100%" src='https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png' title='fig:'/><p class='caption'>Tidy data - from R for Data Science</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>pipes with <code>%&gt;%</code></h2></hgroup><article  id="pipes-with">
 
 </article></slide><slide class=""><hgroup><h2>pipes</h2></hgroup><article  id="pipes">
 
@@ -3594,7 +3590,7 @@ data_grouped &lt;- dplyr::group_by(data, better_column_name)
 summarized &lt;- dplyr::summarize(data_grouped, mean(numeric_column))</pre></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>pipes with <code>%&gt;%</code></h2></hgroup><article  id="pipes-with">
+</article></slide><slide class=""><hgroup><h2>pipes with <code>%&gt;%</code></h2></hgroup><article  id="pipes-with-1">
 
 <ul>
 <li><p>A key <code>tidyverse</code> programming pattern is chaining manipulations of <code>tibble</code>s together by passing the result of one manipulation as input to the next</p></li>
@@ -3624,59 +3620,7 @@ summarized &lt;- dplyr::summarize(data_grouped, mean(numeric_column))</pre></li>
 <li>Many provided in the *<a href='https://dplyr.tidyverse.org/' title=''><code>dplyr</code> package</a></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Arranging Data Example</h2></hgroup><article  id="arranging-data-example">
-
-<ul>
-<li>In the examples below, we will make use of the following made-up tibble</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>gene_stats</pre>
-
-<pre >## # A tibble: 3 × 5
-##   gene  test1_stat      test1_p test2_stat  test2_p
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 apoe       12.5  0.103            34.2   0.000013
-## 2 hoxd1       4.40 0.632            16.3   0.0421  
-## 3 snca       45.7  0.0000000042      0.757 0.915</pre>
-
-</article></slide><slide class=""><hgroup><h2><code>dplyr::filter()</code> - Pick rows out of a data set</h2></hgroup><article  id="dplyrfilter---pick-rows-out-of-a-data-set">
-
-<ul>
-<li>Consider the following tibble with made up gene information</li>
-</ul>
-
-<pre >## # A tibble: 4 x 4
-##    hgnc_symbol  mean        p    padj
-##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-##  1 HOX1A        5799 0.000910 0.00941
-##  2 BRCA1         153 0.0272   0.0342
-##  3 BRCA2         115 0.0228   0.0301
-##  4 SNCA          495 0.00318  0.0123</pre>
-
-</article></slide><slide class=""><hgroup><h2><code>dplyr::filter()</code> - Filter based on text values</h2></hgroup><article  id="dplyrfilter---filter-based-on-text-values">
-
-<ul>
-<li>We can use <code>filter()</code> on the data frame to look for the genes BRCA1 and BRCA2</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>de_genes %&gt;% filter(hgnc_symbol == &quot;BRCA1&quot; | hgnc_symbol == &quot;BRCA2&quot;)
-## # A tibble: 2 x 4
-##    hgnc_symbol  mean        p    padj
-##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-##  1 BRCA1         153 0.0272   0.0342
-##  2 BRCA2         115 0.0228   0.0301</pre>
-
-</article></slide><slide class=""><hgroup><h2><code>dplyr::filter()</code> - Filter based on numeric values</h2></hgroup><article  id="dplyrfilter---filter-based-on-numeric-values">
-
-<ul>
-<li>We can use <code>filter()</code> to restrict genes to those that are significant at <code>padj &lt; 0.01</code></li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>de_genes %&gt;% filter(padj &lt; 0.01)
-## # A tibble: 1 x 4
-##    hgnc_symbol  mean        p    padj
-##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-##  1 HOX1A        5799 0.000910 0.00941</pre>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Arranging Data - <code>dplyr::mutate()</code></h2></hgroup><article  id="arranging-data---dplyrmutate">
 
 </article></slide><slide class=""><hgroup><h2><code>dplyr::mutate()</code> - Create new columns using other columns</h2></hgroup><article  id="dplyrmutate---create-new-columns-using-other-columns">
 
@@ -3688,36 +3632,55 @@ summarized &lt;- dplyr::summarize(data_grouped, mean(numeric_column))</pre></li>
 <li><code>p.adjust</code> function can perform several of these procedures, including FDR</li>
 </ul>
 
+</article></slide><slide class=""><hgroup><h2>Made up gene statistics example</h2></hgroup><article  id="made-up-gene-statistics-example">
+
+<ul>
+<li>Consider the following tibble with made up gene information</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>gene_stats</pre>
+
+<pre >## # A tibble: 4 × 5
+##   gene  test1_stat test1_p test2_stat  test2_p
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 hoxd1      12.5  0.103       34.2   0.000013
+## 2 brca1       4.40 0.632       16.3   0.0421  
+## 3 brca2       9.67 0.932       12.7   0.0621  
+## 4 snca       45.7  0.00042      0.757 0.915</pre>
+
 </article></slide><slide class=""><hgroup><h2><code>dplyr::mutate()</code> - FDR example</h2></hgroup><article  id="dplyrmutate---fdr-example">
 
-<pre class = 'prettyprint lang-r'>dplyr::mutate(gene_stats,
+<pre class = 'prettyprint lang-r'>gene_stats &lt;- dplyr::mutate(gene_stats,
   test1_padj=p.adjust(test1_p,method=&quot;fdr&quot;)
-)</pre>
+)
+gene_stats</pre>
 
-<pre >## # A tibble: 3 × 6
-##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
-## 1 apoe       12.5  0.103            34.2   0.000013 0.155       
-## 2 hoxd1       4.40 0.632            16.3   0.0421   0.632       
-## 3 snca       45.7  0.0000000042      0.757 0.915    0.0000000126</pre>
+<pre >## # A tibble: 4 × 6
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1 hoxd1      12.5  0.103       34.2   0.000013    0.206  
+## 2 brca1       4.40 0.632       16.3   0.0421      0.843  
+## 3 brca2       9.67 0.932       12.7   0.0621      0.932  
+## 4 snca       45.7  0.00042      0.757 0.915       0.00168</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>dplyr::mutate()</code> - FDR example</h2></hgroup><article  id="dplyrmutate---fdr-example-1">
 
 <ul>
 <li><p>You can create multiple columns in the same call to <code>mutate()</code>:</p>
 
-<pre class = 'prettyprint lang-r'>gene_stats_mutated &lt;- dplyr::mutate(gene_stats,
+<pre class = 'prettyprint lang-r'>gene_stats &lt;- dplyr::mutate(gene_stats,
   test1_padj=p.adjust(test1_p,method=&quot;fdr&quot;),
   test2_padj=p.adjust(test2_p,method=&quot;fdr&quot;)
 )
-gene_stats_mutated</pre>
+gene_stats</pre>
 
-<pre >## # A tibble: 3 × 7
-##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
-## 1 apoe       12.5  0.103            34.2   0.000013 0.155          0.000039
-## 2 hoxd1       4.40 0.632            16.3   0.0421   0.632          0.0632  
-## 3 snca       45.7  0.0000000042      0.757 0.915    0.0000000126   0.915</pre></li>
+<pre >## # A tibble: 4 × 7
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 hoxd1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 brca1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 brca2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 snca       45.7  0.00042      0.757 0.915       0.00168   0.915</pre></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2><code>dplyr::mutate()</code> - Deriving from multiple columns</h2></hgroup><article  id="dplyrmutate---deriving-from-multiple-columns">
@@ -3725,7 +3688,7 @@ gene_stats_mutated</pre>
 <ul>
 <li><p>Here we create a column with <code>TRUE</code> or <code>FALSE</code> if either or both of the adjusted p-values are less than \(0.05\):</p>
 
-<pre class = 'prettyprint lang-r'>dplyr::mutate(gene_stats_mutated,
+<pre class = 'prettyprint lang-r'>gene_stats &lt;- dplyr::mutate(gene_stats,
   signif_either=(test1_padj &lt; 0.05 | test2_padj &lt; 0.05),
   signif_both=(test1_padj &lt; 0.05 &amp; test2_padj &lt; 0.05)
 )</pre></li>
@@ -3738,7 +3701,7 @@ gene_stats_mutated</pre>
 <li>Columns created first in a <code>mutate()</code> call can be used in subsequent column definitions:</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>dplyr::mutate(gene_stats,
+<pre class = 'prettyprint lang-r'>gene_stats &lt;- dplyr::mutate(gene_stats,
   test1_padj=p.adjust(test1_p,method=&quot;fdr&quot;), # test1_padj created
   test2_padj=p.adjust(test2_p,method=&quot;fdr&quot;),
   signif_either=(test1_padj &lt; 0.05 | test2_padj &lt; 0.05), #test1_padj used
@@ -3751,17 +3714,79 @@ gene_stats_mutated</pre>
 <li><p><code>mutate()</code> can also be used to modify columns in place</p></li>
 <li><p>Example replaces the values in the <code>gene</code> column with upper cased values</p>
 
-<pre class = 'prettyprint lang-r'>dplyr::mutate(gene_stats,
-  gene=stringr::str_to_upper(gene)
-)</pre></li>
+<pre class = 'prettyprint lang-r'>dplyr::mutate(gene_stats, gene=stringr::str_to_upper(gene) )</pre>
+
+<pre >## # A tibble: 4 × 9
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>stringr</code> - Working with character values</h2></hgroup><article  id="stringr---working-with-character-values">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Arranging Data - <code>dplyr::filter()</code></h2></hgroup><article  id="arranging-data---dplyrfilter">
+
+</article></slide><slide class=""><hgroup><h2><code>dplyr::filter()</code> - Pick rows out of a data set</h2></hgroup><article  id="dplyrfilter---pick-rows-out-of-a-data-set">
+
+<ul>
+<li>Consider the following tibble with made up gene information</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>gene_stats</pre>
+
+<pre >## # A tibble: 4 × 9
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2><code>dplyr::filter()</code> - Filter based on text values</h2></hgroup><article  id="dplyrfilter---filter-based-on-text-values">
+
+<ul>
+<li>We can use <code>filter()</code> on the data frame to look for the genes BRCA1 and BRCA2</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>gene_stats %&gt;% filter(gene == &quot;BRCA1&quot; | gene == &quot;BRCA2&quot;)</pre>
+
+<pre >## # A tibble: 2 × 9
+##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 BRCA1       4.40   0.632       16.3  0.0421      0.843     0.0828
+## 2 BRCA2       9.67   0.932       12.7  0.0621      0.932     0.0828
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2><code>dplyr::filter()</code> - Filter based on numeric values</h2></hgroup><article  id="dplyrfilter---filter-based-on-numeric-values">
+
+<ul>
+<li>We can use <code>filter()</code> to restrict genes to those that are significant at <code>padj &lt; 0.01</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>gene_stats %&gt;% filter(test1_padj &lt; 0.01)</pre>
+
+<pre >## # A tibble: 1 × 9
+##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 SNCA        45.7 0.00042      0.757   0.915    0.00168      0.915
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2><code>stringr</code> - Working with character values</h2></hgroup><article  id="stringr---working-with-character-values">
+
+</article></slide><slide class=""><hgroup><h2><code>stringr</code> - Working with character values</h2></hgroup><article  id="stringr---working-with-character-values-1">
 
 <ul>
 <li>Base R does not have very convenient functions for working with character strings</li>
 <li>We must frequently manipulate strings while loading, cleaning, and analyzing datasets</li>
 <li>The <a href='https://stringr.tidyverse.org/' title=''>stringr package</a> aims to make working with strings &ldquo;as easy as possible.&rdquo;</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2><code>stringr</code> - Working with character values</h2></hgroup><article  id="stringr---working-with-character-values-2">
+
+<ul>
 <li>Package includes many useful functions for operating on strings:
 
 <ul>
@@ -3783,12 +3808,14 @@ gene_stats_mutated</pre>
   gene=stringr::str_to_upper(gene)
 )</pre>
 
-<pre >## # A tibble: 3 × 5
-##   gene  test1_stat      test1_p test2_stat  test2_p
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 APOE       12.5  0.103            34.2   0.000013
-## 2 HOXD1       4.40 0.632            16.3   0.0421  
-## 3 SNCA       45.7  0.0000000042      0.757 0.915</pre></li>
+<pre >## # A tibble: 4 × 9
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Regular expressions</h2></hgroup><article  id="regular-expressions">
@@ -3806,18 +3833,20 @@ gene_stats_mutated</pre>
 <li>Consider the tibble with made up gene information:</li>
 </ul>
 
-<pre >## # A tibble: 4 x 4
-##    hgnc_symbol  mean        p    padj
-##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-##  1 HOX1A        5799 0.000910 0.00941
-##  2 BRCA1         153 0.0272   0.0342
-##  3 BRCA2         115 0.0228   0.0301
-##  4 SNCA          495 0.00318  0.0123</pre>
+<pre class = 'prettyprint lang-r'>gene_stats</pre>
+
+<pre >## # A tibble: 4 × 9
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 <ul>
-<li>Used <code>filter()</code> on the data frame to look for BRCA1 and BRCA2 individually</li>
-<li>These gene names follow a pattern of BRCAX, where X is 1 or 2</li>
-<li>Can write a regular expression to represent this pattern</li>
+<li>Used <code>filter()</code> to look for literal &ldquo;BRCA1&rdquo; and &ldquo;BRCA2&rdquo;</li>
+<li>Names follow a pattern of BRCAX, where X is 1 or 2</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Regular expression example</h2></hgroup><article  id="regular-expression-example-1">
@@ -3826,16 +3855,22 @@ gene_stats_mutated</pre>
 <li><a href='https://stringr.tidyverse.org/reference/str_detect.html' title=''><code>stringr::str_detect()</code></a> returns <code>TRUE</code> if the provided pattern matches the input and <code>FALSE</code> otherwise</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>dplyr::filter(de_genes, str_detect(hgnc_symbol,&quot;^BRCA[12]$&quot;))
-## # A tibble: 2 x 4
-##    hgnc_symbol  mean        p    padj
-##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-##  1 BRCA1         153 0.0272   0.0342
-##  2 BRCA2         115 0.0228   0.0301</pre>
+<pre class = 'prettyprint lang-r'>stringr::str_detect(c(&quot;HOX1A&quot;,&quot;BRCA1&quot;,&quot;BRCA2&quot;,&quot;SNCA&quot;), &quot;^BRCA[12]$&quot;)</pre>
+
+<pre >## [1] FALSE  TRUE  TRUE FALSE</pre>
+
+<pre class = 'prettyprint lang-r'>dplyr::filter(gene_stats, str_detect(gene,&quot;^BRCA[12]$&quot;))</pre>
+
+<pre >## # A tibble: 2 × 9
+##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 BRCA1       4.40   0.632       16.3  0.0421      0.843     0.0828
+## 2 BRCA2       9.67   0.932       12.7  0.0621      0.932     0.0828
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Regular expression example</h2></hgroup><article  id="regular-expression-example-2">
 
-<pre class = 'prettyprint lang-r'>dplyr::filter(de_genes, str_detect(hgnc_symbol,&quot;^BRCA[12]$&quot;))</pre>
+<pre class = 'prettyprint lang-r'>dplyr::filter(gene_stats, str_detect(gene,&quot;^BRCA[12]$&quot;))</pre>
 
 <ul>
 <li><p>The argument <code>&quot;^BRCA[12]$&quot;</code> is a regular expression that searches for the following:</p>
@@ -3859,56 +3894,51 @@ gene_stats_mutated</pre>
 <li><code>[XYZ]</code> - match one of any of the characters between <code>[]</code> (e.g. <code>X</code>, <code>Y</code>, or <code>Z</code>)</li>
 <li><code>^</code>, <code>$</code> - match the beginning and end of the string, respectively</li>
 </ul></li>
-<li>There are more special characters as well, good tutorial is<a href='https://regexone.com/' title=''>RegexOne - regular expression tutorial</a></li>
+<li>There are more special characters as well, good tutorial: <a href='https://regexone.com/' title=''>RegexOne - regular expression tutorial</a></li>
 </ul>
 
-<h3><code>dplyr::select()</code> - Subset Columns by Name</h3>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Arranging Data - <code>dplyr::select()</code></h2></hgroup><article  id="arranging-data---dplyrselect">
 
-<p>Our <code>mutate()</code> operations above created a number of new columns in our tibble, but we did not specify where in the tibble the new columns should go. Let’s consider the mutated tibble we created with all four new columns:</p>
+</article></slide><slide class=""><hgroup><h2><code>dplyr::select()</code> - Subset Columns by Name</h2></hgroup><article  id="dplyrselect---subset-columns-by-name">
 
-<pre class = 'prettyprint lang-r'>dplyr::mutate(gene_stats,
-  test1_padj=p.adjust(test1_p,method=&quot;fdr&quot;),
-  test2_padj=p.adjust(test2_p,method=&quot;fdr&quot;),
-  signif_either=(test1_padj &lt; 0.05 | test2_padj &lt; 0.05),
-  signif_both=(test1_padj &lt; 0.05 &amp; test2_padj &lt; 0.05),
-  gene=stringr::str_to_upper(gene)
-)</pre>
-
-<pre >## # A tibble: 3 × 9
-##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
-## 1 APOE       12.5  0.103            34.2   0.000013 0.155          0.000039
-## 2 HOXD1       4.40 0.632            16.3   0.0421   0.632          0.0632  
-## 3 SNCA       45.7  0.0000000042      0.757 0.915    0.0000000126   0.915   
-## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
-
-<p>From a readability standpoint, it might be helpful if all the columns that are about each test were grouped together, rather than having to look at the end of the tibble to find them.</p>
-
-<p>The <a href='https://dplyr.tidyverse.org/reference/select.html' title=''><code>dplyr::select()</code> function</a> allows you to pick specific columns out of a larger <code>tibble</code> in whatever order you choose:</p>
+<ul>
+<li><a href='https://dplyr.tidyverse.org/reference/select.html' title=''><code>dplyr::select()</code> function</a> picks columns out of a <code>tibble</code>:</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>stats &lt;- dplyr::select(gene_stats, test1_stat, test2_stat)
 stats</pre>
 
-<pre >## # A tibble: 3 × 2
+<pre >## # A tibble: 4 × 2
 ##   test1_stat test2_stat
 ##        &lt;dbl&gt;      &lt;dbl&gt;
 ## 1      12.5      34.2  
 ## 2       4.40     16.3  
-## 3      45.7       0.757</pre>
+## 3       9.67     12.7  
+## 4      45.7       0.757</pre>
 
-<p>Here we have explicitly selected the statistics columns. dplyr also has <a href='https://tidyselect.r-lib.org/reference/starts_with.html' title=''>helper functions</a> that allow for more flexible selection of columns. For example, if all of the columns we wished to select ended with <code>_stat</code>, we could use the <code>ends_with()</code> helper function:</p>
+</article></slide><slide class=""><hgroup><h2><code>dplyr::select()</code> - Helper functions</h2></hgroup><article  id="dplyrselect---helper-functions">
+
+<ul>
+<li><code>dplyr</code> also has <a href='https://tidyselect.r-lib.org/reference/starts_with.html' title=''>&ldquo;helper functions&rdquo;</a> for more flexible selection of columns</li>
+<li>For example, if all of the columns we wished to select ended with <code>_stat</code>, we could use the <code>ends_with()</code> helper function:</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>stats &lt;- dplyr::select(gene_stats, ends_with(&quot;_stat&quot;))
 stats</pre>
 
-<pre >## # A tibble: 3 × 2
+<pre >## # A tibble: 4 × 2
 ##   test1_stat test2_stat
 ##        &lt;dbl&gt;      &lt;dbl&gt;
 ## 1      12.5      34.2  
 ## 2       4.40     16.3  
-## 3      45.7       0.757</pre>
+## 3       9.67     12.7  
+## 4      45.7       0.757</pre>
 
-<p>If you so desire, <code>select()</code> allows for the renaming of selected columns:</p>
+</article></slide><slide class=""><hgroup><h2><code>dplyr::select()</code> - Renaming columns</h2></hgroup><article  id="dplyrselect---renaming-columns">
+
+<ul>
+<li><code>select()</code> allows for the renaming of selected columns:</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>stats &lt;- dplyr::select(gene_stats,
   t=test1_stat,
@@ -3916,25 +3946,17 @@ stats</pre>
 )
 stats</pre>
 
-<pre >## # A tibble: 3 × 2
+<pre >## # A tibble: 4 × 2
 ##       t  chisq
 ##   &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 12.5  34.2  
 ## 2  4.40 16.3  
-## 3 45.7   0.757</pre>
+## 3  9.67 12.7  
+## 4 45.7   0.757</pre>
 
-<p>If we knew that these test statistics actually corresponded to some kind of t-test and a \(\chi\)-squared test, naming the columns of the tibble appropriately may help others (and possibly you) understand your code better.</p>
+</article></slide><slide class=""><hgroup><h2><code>dplyr::select()</code> - Reorder columns</h2></hgroup><article  id="dplyrselect---reorder-columns">
 
-<p>We can use the <code>dplyr::select()</code> function to obtain our desired column order:</p>
-
-<pre class = 'prettyprint lang-r'>dplyr::mutate(gene_stats,
-  test1_padj=p.adjust(test1_p,method=&quot;fdr&quot;),
-  test2_padj=p.adjust(test2_p,method=&quot;fdr&quot;),
-  signif_either=(test1_padj &lt; 0.05 | test2_padj &lt; 0.05),
-  signif_both=(test1_padj &lt; 0.05 &amp; test2_padj &lt; 0.05),
-  gene=stringr::str_to_upper(gene)
-) %&gt;%
-dplyr::select(
+<pre class = 'prettyprint lang-r'>dplyr::select(gene_stats,
     gene,
     test1_stat, test1_p, test1_padj,
     test2_stat, test2_p, test2_padj,
@@ -3942,75 +3964,67 @@ dplyr::select(
     signif_both
 )</pre>
 
-<pre >## # A tibble: 3 × 9
-##   gene  test1_stat      test1_p   test1_padj test2_stat  test2_p test2_padj
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
-## 1 APOE       12.5  0.103        0.155            34.2   0.000013   0.000039
-## 2 HOXD1       4.40 0.632        0.632            16.3   0.0421     0.0632  
-## 3 SNCA       45.7  0.0000000042 0.0000000126      0.757 0.915      0.915   
+<pre >## # A tibble: 4 × 9
+##   gene  test1_stat test1_p test1_padj test2_stat  test2_p test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103      0.206       34.2   0.000013   0.000052
+## 2 BRCA1       4.40 0.632      0.843       16.3   0.0421     0.0828  
+## 3 BRCA2       9.67 0.932      0.932       12.7   0.0621     0.0828  
+## 4 SNCA       45.7  0.00042    0.00168      0.757 0.915      0.915   
 ## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
-<p>Now the order of our columns is clear and convenient. It is not necessary to list the columns for each test statistic on the same line, but the author thinks this makes the code easier to read and understand.</p>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Arranging Data - <code>dplyr::arrange()</code></h2></hgroup><article  id="arranging-data---dplyrarrange">
 
-<div class="box readmore">
+</article></slide><slide class=""><hgroup><h2><code>dplyr::arrange()</code> - Order rows based on their values</h2></hgroup><article  id="dplyrarrange---order-rows-based-on-their-values">
+
 <ul>
-<li><a href='https://r4ds.had.co.nz/transform.html#select' title=''>R for Data Science - Select columns with <code>select()</code></a></li>
-<li><a href='https://dplyr.tidyverse.org/reference/index.html' title=''>dplyr reference</a></li>
-<li><a href='https://tidyselect.r-lib.org/reference/starts_with.html' title=''>select helper functions</a></li>
-</ul></div>
+<li>Sometimes want to reorder rows, e.g. by p-value</li>
+</ul>
 
-<h3><code>dplyr::arrange()</code> - Order rows based on their values</h3>
+<pre class = 'prettyprint lang-r'>dplyr::arrange(gene_stats, test1_p)</pre>
 
-<p>Another common operation when working with biological analysis results is ordering them by some meaningful value. Like above, p-values are often used to prioritize results by simply sorting them in ascending order. The <code>arrange()</code> function is how to perform this sorting in tidyverse:</p>
+<pre >## # A tibble: 4 × 9
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## 2 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 3 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 4 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
-<pre class = 'prettyprint lang-r'>stats_sorted_by_test1_p &lt;- dplyr::arrange(gene_stats, test1_p)
-stats_sorted_by_test1_p</pre>
+</article></slide><slide class=""><hgroup><h2><code>dplyr::arrange()</code> - Changing sort direction</h2></hgroup><article  id="dplyrarrange---changing-sort-direction">
 
-<pre >## # A tibble: 3 × 5
-##   gene  test1_stat      test1_p test2_stat  test2_p
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 snca       45.7  0.0000000042      0.757 0.915   
-## 2 apoe       12.5  0.103            34.2   0.000013
-## 3 hoxd1       4.40 0.632            16.3   0.0421</pre>
+<ul>
+<li><code>dplyr::arrange()</code> sort ascending by default</li>
+<li>Can change order to descending with <code>desc()</code> helper function</li>
+</ul>
 
-<div class="box note">
-<p>Note we are sorting by nominal p-value here, not adjusted p-value. In general, sorting by nominal or adjusted p-value results in the same order of results. The only exception is when, due to the way the FDR procedure works, some adjusted p-values will be identical, making the relative order of those tests with the same FDR meaningless. In contrast, it is very rare that nominal p-values will be identical, and since they induce the same ordering of results, when sorting analysis results there are advantages to using nominal p-value, rather than adjusted p-value.</p></div>
-
-<p>In general, the larger the magnitude of the statistic, the smaller the p-value (for two-tailed tests), so if we so desired we could induce a similar ranking by arranging the data by the statistic in descending order:</p>
-
-<pre class = 'prettyprint lang-r'># desc() is a helper function that causes the results to be sorted in descending
-# order for the given column
+<pre class = 'prettyprint lang-r'># desc() sorts descending
 dplyr::arrange(gene_stats, desc(abs(test1_stat)))</pre>
 
-<pre >## # A tibble: 3 × 5
-##   gene  test1_stat      test1_p test2_stat  test2_p
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 snca       45.7  0.0000000042      0.757 0.915   
-## 2 apoe       12.5  0.103            34.2   0.000013
-## 3 hoxd1       4.40 0.632            16.3   0.0421</pre>
+<pre >## # A tibble: 4 × 9
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## 2 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
-<p>Here we first apply the base R <code>abs()</code> function to compute the absolute value of the test 1 statistic and then specify that we want to sort largest first. Note although we don’t have any negative values in our dataset, we should not assume that in general, so it is safer for us to be complete and add the absolute value call in case later we decide to copy and paste this code into another analysis. That’s pretty much all there is to <code>arrange()</code>.</p>
-
-<div class="box readmore">
-<ul>
-<li><a href='https://r4ds.had.co.nz/transform.html#arrange-rows-with-arrange' title=''>R for Data Science - Arrange rows with<code>arrange()</code></a></li>
-<li><a href='https://dplyr.tidyverse.org/reference/arrange.html' title=''>dplyr <code>arrange()</code> reference</a></li>
-</ul></div>
-
-<h3>Putting it all together</h3>
+</article></slide><slide class=""><hgroup><h2>Putting it all together</h2></hgroup><article  id="putting-it-all-together">
 
 <p>In the previous sections, we performed the following operations:</p>
 
 <ol>
-<li>Created new columns by computing false discovery rate on the nominal p-values using the <code>dplyr::mutate()</code> and <code>p.adjust</code> functions</li>
-<li>Created new columns that indicate the patterns of significance for each gene using <code>dplyr::mutate()</code></li>
+<li>Created new FDR on the nominal p-values using the <code>dplyr::mutate()</code> and <code>p.adjust</code> functions</li>
+<li>Created new boolean significance for each gene using <code>dplyr::mutate()</code></li>
 <li>Mutated the gene symbol case using <code>stringr::str_to_upper</code> and <code>dplyr::mutate()</code></li>
 <li>Reordered the columns to group related variables with <code>select()</code></li>
-<li>Filtered genes based on whether they have an adjusted p-value less than 0.05 for either and both statistical tests using <code>dplyr::filter()</code></li>
+<li>Filtered genes by FDR &lt; 0.05 for either and both statistical tests using <code>dplyr::filter()</code></li>
 <li>Sorted the results by p-value using <code>dplyr::arrange()</code></li>
 </ol>
 
-<p>For the sake of illustration, these steps were presented separately, but together they represent a single unit of data processing and thus might profitably be done in the same R command using <code>%&gt;%</code>:</p>
+</article></slide><slide class=""><hgroup><h2>Putting it all together</h2></hgroup><article  id="putting-it-all-together-1">
 
 <pre class = 'prettyprint lang-r'>gene_stats &lt;- dplyr::mutate(gene_stats,
   test1_padj=p.adjust(test1_p,method=&quot;fdr&quot;),
@@ -4026,22 +4040,8 @@ dplyr::select(
     signif_either,
     signif_both
 ) %&gt;%
-dplyr::filter(
-  test1_padj &lt; 0.05 | test2_padj &lt; 0.05
-) %&gt;%
-dplyr::arrange(
-  test1_p
-)
-gene_stats</pre>
-
-<pre >## # A tibble: 2 × 9
-##   gene  test1_stat      test1_p   test1_padj test2_stat  test2_p test2_padj
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
-## 1 SNCA        45.7 0.0000000042 0.0000000126      0.757 0.915      0.915   
-## 2 APOE        12.5 0.103        0.155            34.2   0.000013   0.000039
-## # … with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
-
-<p>This complete pipeline now contains all of our manipulations and our mutated tibble can be passed on to downstream analysis or collaborators.</p>
+dplyr::filter( test1_padj &lt; 0.05 | test2_padj &lt; 0.05 ) %&gt;%
+dplyr::arrange( test1_p )</pre>
 
 </article></slide><slide class=""><hgroup><h2>Grouping Data</h2></hgroup><article  id="grouping-data">
 
