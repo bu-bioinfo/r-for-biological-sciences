@@ -24,6 +24,9 @@ These are the specific topics covered in each week.
 * R Prog: [Troubleshooting and Debugging] ([slides](slides/0300_r_programming.html#troubleshooting-and-debugging))
 
 ## Week 2
+
+[Week 2 Slides](slides/week_2_slides.html)
+
 * [Assignment 1]
 * Data Wrangle: [The Tidyverse] ([slides](slides/0400_data_wrangling.html#the-tidyverse))
 * Data Wrangle: [Tidyverse Basics] ([slides](slides/0400_data_wrangling.html#tidyverse-basics))

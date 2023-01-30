@@ -15,7 +15,8 @@ rmd_list <- c(
   "0300_r_programming.Rmd",
   "0400_data_wrangling.Rmd",
   "0700_bioinfo.Rmd",
-  "1000_communication.Rmd"
+  "1000_communication.Rmd",
+  "week_2_slides.Rmd"
 )
 
 for(rmd in rmd_list) {

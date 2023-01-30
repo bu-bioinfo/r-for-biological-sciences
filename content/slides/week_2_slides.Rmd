@@ -1,10 +1,26 @@
 ---
-title: "Data Wrangling"
+title: "Week 2 Slides"
 subtitle: "[R for Biological Science](../index.html)"
 output: ioslides_presentation
 author: "Adam Labadorf"
 company: "Boston University"
 ---
+
+# Assignment 1
+
+## Assignment 1
+
+* [Assignment 1](../assignment-1.html) description
+* *Learning Objectives and Skill List*
+  - Install various packages needed for analysis
+  - Load Data
+  - Gain familiarity with common tidyverse operations such as groupby(), mutate,
+    and summarize.
+  - Create a small plot to display results
+  - Utilize R Markdown to create an attractive format for sharing data.
+
+# Data Wrangling
+
 
 ``` {r include=FALSE}
 library(tidyverse)
@@ -99,6 +115,43 @@ library(tidyverse)
 +--------------+--------------------------------------------------+
 | `write_delim`| Delimiter: set by user  - Decimal separator: `.` |
 +--------------+--------------------------------------------------+
+
+# Sidebar: CSV Files
+
+## CSV Files
+
+* `csv` - character separated value file
+* Most common, convenient, and flexible data file format in biology and bioinformatics
+* Plain text files that contain rectangular data
+* Each line of these files has some number of data values separated by a consistent character
+  - most commonly the comma which are called [comma-separated value, or "CSV", files](https://en.wikipedia.org/wiki/Comma-separated_values)
+* Filenames typically end with the extension `.csv`
+* Other characters, especially the <Tab> character, may be used to create valid
+files in this format
+
+## Example CSV file
+
+```
+id,somevalue,category,genes
+1,2.123,A,APOE
+4,5.123,B,"HOXA1,HOXB1"
+7,8.123,,SNCA
+```
+
+## Properties and principles of CSV files
+
+* The first line often but not always contains the column names of each column
+* Each value is delimited by the same character, in this case `,`
+* Values can be any value, including numbers and characters
+* When a value contains the delimiting character (e.g. HOXA1,HOXB1 contains a
+  `,`), the value is wrapped in double quotes
+* Values can be missing, indicated by sequential delimiters (i.e. `,,` or one
+  `,` at the end of the line, if the last column value is missing)
+* There is no delimiter at the end of the lines
+* To be well-formatted *every line must have the same number of delimited
+  values*
+
+# Back to data wrangling
 
 ## The tibble
 
@@ -365,7 +418,6 @@ gene_stats <- dplyr::mutate(gene_stats,
   gene=stringr::str_to_upper(gene)
 )
 ```
-
 # Arranging Data - `dplyr::filter()`
 
 ## `dplyr::filter()` - Pick rows out of a data set
@@ -579,389 +631,3 @@ dplyr::select(
 dplyr::filter( test1_padj < 0.05 | test2_padj < 0.05 ) %>%
 dplyr::arrange( test1_p )
 ```
-
-## Grouping Data
-
-Sometimes we are interested in summarizing subsets of our data defined by some
-grouping variable. Consider the following made-up sample metadata for a set of
-individuals in an Alzheimer's disease (AD) study:
-
-``` {r}
-metadata <- tribble(
-    ~ID, ~condition, ~age_at_death, ~Braak_stage, ~APOE_genotype,
-  "A01",        "AD",            78,            5,       "e4/e4",
-  "A02",        "AD",            81,            6,       "e3/e4",
-  "A03",        "AD",            90,            5,       "e4/e4",
-  "A04",   "Control",            80,            1,       "e3/e4",
-  "A05",   "Control",            79,            0,       "e3/e3",
-  "A06",   "Control",            81,            0,       "e2/e3"
-)
-```
-
-This is a typical setup for metadata in these types of experiments. There is a
-sample ID column which uniquely identifies each subject, a condition variable
-indicating which group each subject is in, and clinical information like age at
-death, Braak stage (a measure of Alzheimer's disease pathology in the brain),
-and diploid APOE genotype (e2 is associated with reduced risk of AD, e3 is
-baseline, and e4 confers increased risk).
-
-An important experimental design consideration is to match sample attributes
-between groups as well as possible to avoid confounding our comparison of
-interest. In this case, age at death is one such variable that we wish to match
-between groups. Although these values look pretty well matched between AD and
-Control groups, it would be better to check explicitly. We can do this using
-`dplyr::group_by()` to group the rows together based on condition and
-`dplyr::summarize()` to compute the mean age at death for each group:
-
-``` {r}
-dplyr::group_by(metadata,
-  condition
-) %>% dplyr::summarize(mean_age_at_death = mean(age_at_death))
-```
-
-The `dplyr::group_by()` accepts a tibble and a column name for
-a column that contains a categorical variable (i.e. a variable with discrete
-values like AD and Control) and separates the rows in the tibble into groups
-according to the distinct values of the column. The `dplyr::summarize()`
-function accepts the grouped tibble and creates a new tibble with contents
-defined as a function of values for columns in for each group.
-
-From the example above, we see that the mean age at death is indeed different
-between the two groups, but not by much. We can go one step further and compute
-the standard deviation age range to further investigate:
-
-``` {r}
-dplyr::group_by(metadata,
-  condition
-) %>% dplyr::summarize(
-  mean_age_at_death = mean(age_at_death),
-  sd_age_at_death = sd(age_at_death),
-  lower_age = mean_age_at_death-sd_age_at_death,
-  upper_age = mean_age_at_death+sd_age_at_death,
-)
-```
-
-Note the use of summarized variables defined first being used in variables
-defined later. Now we can see that the age ranges defined by +/- one standard
-deviation clearly overlap, which gives us more confidence that our average age
-at death for AD and Control are not significantly different.
-
-::: {.box .note}
-We used +/- one standard deviation to define the likely mean age range above and
-below the arithmetic mean for simplicity in the example above. The proper way to
-assess whether these distributions are significantly different is to use an
-appropriate statistical test like a t-test.
-:::
-
-Like other functions in `dplyr`, `dplyr::summarize()` has some helper functions
-that give it additional functionality. One useful helper function is `n()`,
-which is defined as the number of records within each group. We will add one
-more column to our summarized sample metadata from above that reports the number
-of subjects within each condition:
-
-``` {r}
-dplyr::group_by(metadata,
-  condition
-) %>% dplyr::summarize(
-  num_subjects = n(),
-  mean_age_at_death = mean(age_at_death),
-  sd_age_at_death = sd(age_at_death),
-  lower_age = mean_age_at_death-sd_age_at_death,
-  upper_age = mean_age_at_death+sd_age_at_death
-)
-```
-
-We now have a column with the number of subjects in each condition.
-
-::: {.box .note}
-Hadley Wickham is from New Zealand, which uses British, rather than American,
-English. Therefore, in many places, both spellings are supported in the
-tidyverse; e.g. both `summarise()` and `summarize()` are supported.
-:::
-
-::: {.box .readmore}
-* [R for Data Science - Grouped summaries with `summarise()`](https://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise)
-* [dplyr `summarise()` reference](https://dplyr.tidyverse.org/reference/summarise.html)
-:::
-
-## Rearranging Data
-
-Sometimes the shape and format of our data is not the most convenient for
-performing certain operations on it, even if it is [tidy](#tidy-data). Let's say
-we are considering the range of statistics that were computed for all of our
-genes in the `gene_stats` tibble, and wanted to compute the average statistic
-over all genes for both tests. Recall our tibble has separate columns for each
-test:
-
-```{r}
-gene_stats <- tribble(
-    ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
-   "APOE",   12.509293,   0.1032,   34.239521,   1.3e-5,
-  "HOXD1",    4.399211,   0.6323,   16.332318,   0.0421,
-   "SNCA",   45.748431,   4.2e-9,    0.757188,   0.9146,
-)
-gene_stats
-```
-
-For convenience, we desire our output to be in table form, with one row per test
-and the statistics for each test as columns. We could do this manually like so:
-
-```{r}
-tribble(
-   ~test_name, ~min, ~mean, ~max,
-   "test1_stat", min(gene_stats$test1_stat), mean(gene_stats$test1_stat), max(gene_stats$test1_stat),
-   "test2_stat",  min(gene_stats$test2_stat), mean(gene_stats$test2_stat), max(gene_stats$test2_stat),
-)
-```
-
-This gets the job done, but is clearly very ugly, error prone, and would require
-significant work if we later added more statistics columns.
-
-Instead of typing out the values we desire manually, we can *pivot* our tibble
-using the `tidyr::pivot_longer()` function, so that the column values are placed
-in a new column and the corresponding values are placed in yet another column.
-This process is illustrated in the following figure:
-
-![Pivot longer moves columns and values to two new columns](pivot_longer.png)
-
-In the figure, the original tibble has genes along rows and samples as columns.
-When the sample columns are pivoted, the value of each column name is placed in
-a new column named "Sample" and repeated for as many rows there are in the
-tibble. A second new column "Value" is populated with the corresponding values
-that were in each column. The gene associated with each value is preserved and
-repeated vertically until all the table columns and values have been pivoted.
-This process of pivoting transforms the tibble into so called "long" form.
-
-Returning to our `gene_stats` example, we can apply some operations to the
-tibble to easily perform the summarization we did above in a much more
-expressive manner:
-
-```{r pivot gene stats}
-long_gene_stats <- tidyr::pivot_longer(
-  gene_stats,
-  ends_with("_stat"),
-  names_to="test",
-  values_to="stat"
-)
-long_gene_stats
-```
-
-We see that now instead of having `X_stat` columns, the column names and their
-values have been put into the `test` and `stat` columns, respectively. Now to
-summarize the statistics for each test, we simply do a `group_by()` on the
-`test` column and compute summaries on the `stat` column:
-
-```{r}
-long_gene_stats %>%
-  dplyr::group_by(test) %>%
-  dplyr::summarize(min = min(stat), mean = mean(stat), max = max(stat))
-```
-
-You may verify that the numbers are identical in this pivoted tibble as the one
-we manually created earlier. This pivoting method will produce the desired
-output regardless of the number of tests we include the table, so long as the
-column names end in `"_test"`.
-
-::: {.box .note}
-The inverse of `pivot_longer()` is
-[`pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html). If
-you have variables gathered in single columns like that produced by
-`pivot_longer()` you can reverse the process with this function to create a
-tibble with those variables as columns.
-:::
-
-::: {.box .readmore}
-* [Pivoting - R for Data Science](https://r4ds.had.co.nz/tidy-data.html#pivoting)
-* [`pivot_longer()` reference](https://tidyr.tidyverse.org/reference/pivot_longer.html)
-:::
-
-## Relational Data
-
-As mentioned in our section on [types of biological data](#bio-data-types), we
-often need to combine different sources of data together to aid in
-interpretation of our results. Below we redefine the tibble of gene statistics
-from above to have properly capitalized gene symbols:
-
-``` {r}
-gene_stats <- tribble(
-    ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
-   "APOE",   12.509293,   0.1032,   34.239521,   1.3e-5,
-  "HOXD1",    4.399211,   0.6323,   16.332318,   0.0421,
-   "SNCA",   45.748431,   4.2e-9,    0.757188,   0.9146,
-)
-gene_stats
-```
-
-Our gene identifiers in this data frame are [gene
-symbols](https://en.wikipedia.org/wiki/Gene_nomenclature#Symbol_and_name) which,
-while convenient for our human brains to remember, can change over time and have
-many aliases (e.g. the APOE gene has also been called AD2, LDLCQ5, APO-E, and
-ApoE4 as listed on its
-[genecard](https://www.genecards.org/cgi-bin/carddisp.pl?gene=APOE)). This can
-make writing code that refers to a specific gene difficult, since there are so
-many possible names to look for. Fortunately, there are alternative gene
-identifier systems that do a better job of maintaining stable, consistent gene
-identifiers, one of the most popular being [Ensembl](https://www.ensembl.org/).
-Ensembl gene IDs always take the form `ENSGNNNNNNNNNNN` where `N`s are digits.
-These IDs are much more stable and predictable than gene symbols, and are
-preferable when working with genes in code.
-
-We wish to add Ensembl IDs for the genes in our `gene_stats` result to the
-tibble as a new column. Now suppose we have obtained another file with cross
-referenced gene identifiers like the following:
-
-``` {r}
-gene_map <- tribble(
-    ~symbol,            ~ENSGID,                    ~gene_name,
-     "APOE",  "ENSG00000130203",            "apolipoprotein E",
-     "BRCA1",  "ENSG00000012048", "BRCA1 DNA repair associated",
-    "HOXD1",  "ENSG00000128645",                 "homeobox D1",
-     "SNCA",  "ENSG00000145335",             "synuclein alpha",
-)
-gene_map
-```
-
-Imagine that this file contains mappings for all ~60,000 genes in the human
-genome. While it might be simple to look up our three genes in this file and
-annotate manually, it is easier to ask `dplyr` to do it for us. We can do this
-using the `dplyr::left_join()` function which accepts two data frames and the
-names of columns in each that share common values:
-
-``` {r}
-dplyr::left_join(
-    x=gene_stats,
-    y=gene_map,
-    by=c("gene" = "symbol")
-)
-```
-
-Notice that the additional columns in `gene_map` that were not involved in the
-join (i.e. `ENSG` and `gene_name`) are appended to the `gene_stats` tibble. If
-we wanted to use pipes, we could implement the same join above as follows:
-
-``` {r}
-gene_stats %>% dplyr::left_join(
-  gene_map,
-  by=c("gene" = "symbol")
-)
-```
-
-Under the hood, the `dplyr::left_join()` function took the values in
-`gene_stats$gene` and looked for the corresponding row in `gene_map` with the
-same value in in the `symbol` column. It then appends all the additional columns
-of `gene_map` for the matching rows and returns the result. We have added the
-identifier mapping we desired with only a few lines of code. And what's more,
-this code will work no matter how many genes we had in `gene_stats` as long as
-`gene_map` contains a mapping value for the values in `gene_stats$gene`.
-
-But what happens if we have genes in `gene_stats` that don't exist in our
-mapping? In the above example, we use a left join because we want to include
-all the rows in `gene_stats` regardless of whether a mapping exists in
-`gene_map`. In this case this was fine because all of our genes in `gene_stats`
-had a corresponding row in the mapping. However, notice that in the mapping
-there is an additional gene, [BRCA1](https://en.wikipedia.org/wiki/BRCA1) that
-is not in our gene statistics tibble. If we reverse the order of the join,
-observe what happens:
-
-``` {r}
-gene_map %>% dplyr::left_join(
-  gene_stats,
-  by=c("symbol" = "gene")
-)
-```
-
-Now the order of the rows is the same as in `gene_map`, and the columns for our
-missing gene BRCA1 are filled with `NA`. This is the left join at work, where
-the record from `gene_map` is included regardless of whether a corresponding
-value was found in `gene_stats`.
-
-There are additional types of joins besides left joins. Right joins are simply
-the opposite of left joins:
-
-
-``` {r}
-gene_stats %>% dplyr::right_join(
-  gene_map,
-  by=c("gene" = "symbol")
-)
-```
-
-The result is the same as the left join on `gene_map` except the order of the
-resulting columns is different.
-
-Inner joins return results for rows that have a match between the two tibbles.
-Recall our left join on `gene_map` included BRCA1 even though it was not found
-in `gene_stats`. An inner join will not include this row, because no match in
-`gene_stats` was found:
-
-``` {r}
-gene_map %>% dplyr::inner_join(
-  gene_stats,
-  by=c("symbol" = "gene")
-)
-```
-
-One last type of join is the
-[`dplyr::full_join()`](https://dplyr.tidyverse.org/reference/mutate-joins.html)
-(also sometimes called an outer join). As you may expect, a full join will
-return all rows from both tibbles whether a match in the other table was found
-or not.
-
-### Dealing with multiple matches
-
-In the example above, there was a one-to-one relationship between the gene
-symbols in both tibbles. This made the joined tibble tidy. However, when a
-one-to-many relationship exists, i.e. one gene symbol in one tibble has multiple
-rows in the other, this can lead to what appears to be duplicate rows in the
-joined result. Due to the relative instability of gene symbols, it is very
-common to have multiple Ensembl genes associated with a single gene symbol. The
-following takes a gene mapping of Ensembl IDs to gene symbols and identifies
-cases where multiple Ensembl IDs map to a single gene symbol:
-
-``` {r}
-readr::read_tsv("../mart_export.tsv") %>%
-  dplyr::filter(
-    `HGNC symbol` != "NA" & # many unstudied genes have Ensembl IDs but no official symbol
-    `HGNC symbol` %in% `HGNC symbol`[duplicated(`HGNC symbol`)]) %>%
-  dplyr::arrange(`HGNC symbol`)
-```
-
-There are over 7,000 Ensembl IDs that map to the same gene symbol as another
-Ensembl ID. That is more than 10% of all Ensembl IDs. So now let's create a new
-`gene_stats` tibble with one of these gene symbols and join with the map to
-see what happens:
-
-``` {r}
-gene_map <- readr::read_tsv("../mart_export.tsv")
-gene_stats <- tribble(
-    ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
-   "APOE",   12.509293,   0.1032,   34.239521,   1.3e-5,
-  "HOXD1",    4.399211,   0.6323,   16.332318,   0.0421,
-   "SNCA",   45.748431,   4.2e-9,    0.757188,   0.9146,
-  "DEAF1",    0.000000,      1.0,           0,      1.0
-) %>% left_join(gene_map, by=c("gene" = "HGNC symbol"))
-gene_stats
-```
-
-Notice how there are two rows for the DEAF1 gene that have identical values
-except for the `Stable Gene ID` column. This is a very common problem when
-mapping gene symbols to other gene identifiers and there is no general solution
-to picking the "best" mapping, short of manually inspecting all of the
-duplicates and choosing which one is the most appropriate yourself (which
-obviously is a huge amount of work). However, we do desire to remove the
-duplicated rows. In this case, since all the values besides the Ensembl ID are
-the same, effectively it doesn't matter which duplicate rows we eliminate. We
-can do this using the `duplicated()` function, which returns `TRUE` for all but
-the first row of a set of duplicated values:
-
-``` {r}
-filter(gene_stats, !duplicated(gene))
-```
-
-However, in general, you must be careful about identifying these types of
-one-to-many mapping issues and also about how you mitigate them.
-
-::: {.box .readmore}
-* [R for Data Science - Relational Data](https://r4ds.had.co.nz/relational-data.html)
-* [dplyr - mutate joins](https://dplyr.tidyverse.org/reference/mutate-joins.html)
-:::
