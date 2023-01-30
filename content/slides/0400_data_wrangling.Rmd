@@ -1,6 +1,6 @@
 ---
-title: "[Data Wrangling](../data-wrangling.html)"
-subtitle: "R for Biological Science"
+title: "Data Wrangling"
+subtitle: "[R for Biological Science](../index.html)"
 output: ioslides_presentation
 author: "Adam Labadorf"
 company: "Boston University"

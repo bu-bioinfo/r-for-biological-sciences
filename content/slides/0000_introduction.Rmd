@@ -1,6 +1,6 @@
 ---
-title: "[Introduction](../introduction.html)"
-subtitle: "R for Biological Science"
+title: "Introduction"
+subtitle: "[R for Biological Science](../index.html)"
 output: ioslides_presentation
 author: "Adam Labadorf"
 company: "Boston University"
