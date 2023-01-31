@@ -42,6 +42,13 @@ report.Rmd
 reference_report.html
 ```
 
+:::{.box .note}
+Note that in Assignment 1 there is no `test_main.R` and does not use the unit
+testing framework as described in the [Assignment Overview]. For this assignment
+you should just compare your knitted report to `reference_report.html`. All
+subsequent assignments have `test_main.R`.
+:::
+
 Each step of the assignment is explained in the R markdown file, `report.Rmd`.
 There you will find a list of tasks to explicity implement functions in your
 empty `main.R` script. The `main.R` script contains skeletons of each function
