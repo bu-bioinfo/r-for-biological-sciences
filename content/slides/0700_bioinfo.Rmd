@@ -1,6 +1,6 @@
 ---
-title: "[Biology & Bioinformatics](../biology-bioinformatics.html)"
-subtitle: "R for Biological Science"
+title: "Biology and Bioinformatics"
+subtitle: "[R for Biological Science](../index.html)"
 output: ioslides_presentation
 author: "Adam Labadorf"
 company: "Boston University"
@@ -10,36 +10,17 @@ company: "Boston University"
 #source("../0700_bioinfo.R")
 ```
 
-# Biology & Bioinformatics
+## R in Biology
 
-## R in Biology {#bio-r}
-
-R became popular in biological data analysis in the early to mid 2000s, when
-[microarray
-technology](https://www.genome.gov/genetics-glossary/Microarray-Technology) came
-into widespread use enabling researchers to look for statistical differences in
-gene expression for thousands of genes across large numbers of samples. As a
-result of this popularity, a community of biological researchers and data
-analysts created a collection of software packages called
-[Bioconductor](https://www.bioconductor.org/), which made a vast array of
-cutting edge statistical and bioinformatic methodologies widely available.
-
-Due to its ease of use, widespread community support, rich ecosystem of
-biological data analysis packages, and to it being free, R remains one of the
-primary languages of biological data analysis. The language's early focus on
-statistical analysis, and later transition to data science in general, makes it
-very useful and accessible to perform the kinds of analyses the new data science
-of biology required. It is also a bridge between biologists without a
-computational background and statisticians and bioinformaticians, who invent
-new methods and implement them as R packages that are easily accessible by all.
-The language and the package ecosystems and communities it supports continue to
-be a major source of biological discovery and innovation.
-
-As a data science, biology benefits from the main strengths of R and [the
-tidyverse](#dw-tidyverse) when combined with the powerful analytical techniques
-available in Bioconductor packages, namely to manipulate, visualize, analyze,
-and communicate biological data.
-
+* R rose in popularity when [microarray
+  technology](https://www.genome.gov/genetics-glossary/Microarray-Technology)
+  came into widespread use
+* A community of biological researchers and data analysts created a collection
+  of software packages called [Bioconductor](https://www.bioconductor.org/)
+* R packages form a bridge between:
+  - biologists without a computational background and
+  - statisticians and bioinformaticians, who invent new methods and implement
+    them as R packages that are easily accessible by all
 
 # Biological Data Overview
 
@@ -106,12 +87,12 @@ and [mass spectrometry](https://en.wikipedia.org/wiki/Mass_spectrometry) data
   - the domains found in proteins and their relative sequence
   - gene identifier cross references across different gene naming systems
   - single nucleotide polymorphism genomic locations and associations with traits or diseases
-* We use this information to aid in interpretation of our experimental data but generally do not generate ourselves
-* Comes in many forms, some of which are in CSV format.
 
 ## Information flow in biological data analysis
 
 <img src="../information_flow.png" width="80%"/>
+
+# CSV Files
 
 ## CSV Files
 
@@ -146,100 +127,353 @@ id,somevalue,category,genes
 * To be well-formatted *every line must have the same number of delimited
   values*
 
+# Forms of Biological Data
+
 ## Common Biological Data Matrices
 
-Typically the first data set you will work with in R is *processed data* as
-described in the previous section. This data has been transformed from primary
-data in some way such that it (usually) forms a numeric matrix with features
-as rows and samples as columns. The first column of these files usually contains
-a feature identifier, e.g. gene identifier, genomic locus, probe set ID, etc and
-the remaining columns have numerical values, one per sample. The first row is
-usually column names for all the columns in the file. Below is an example of one
-of these files from a microarray gene expression dataset loaded into R:
+* *processed data* typically what we worked with in R
+* Common features:
+  - First row is column headers/sample names
+  - First column is some *identifier* (gene symbol, genomic locus, etc)
+  - Each row is a variable with sample values as columns
+
+## Biological Data Matrix Example
 
 ```r
-intensities <- read_csv("example_intensity_data.csv")
+intensities <- readr::read_csv("example_intensity_data.csv")
 intensities
 # A tibble: 54,675 x 36
-   probe     GSM972389 GSM972390 GSM972396 GSM972401 GSM972409 GSM972412 GSM972413 GSM972422 GSM972429
-   <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
- 1 1007_s_at      9.54     10.2       9.72      9.68      9.35      9.89      9.70      9.67      9.87
- 2 1053_at        7.62      7.92      7.17      7.24      8.20      6.87      6.62      7.23      7.45
- 3 117_at         5.50      5.56      5.06      7.44      5.19      5.72      5.87      6.15      5.46
- 4 121_at         7.27      7.96      7.42      7.34      7.49      7.76      7.44      7.66      8.02
- 5 1255_g_at      2.79      3.10      2.78      2.91      3.02      2.73      2.78      3.56      2.83
- 6 1294_at        7.51      7.28      7.00      7.18      7.38      6.98      6.90      7.54      7.66
- 7 1316_at        3.89      4.36      4.24      3.94      4.20      4.34      4.06      4.24      4.11
- 8 1320_at        4.65      4.91      4.70      4.78      5.06      4.71      4.55      4.58      5.10
- 9 1405_i_at      8.03      7.47      5.42      7.21      9.48      6.79      6.57      8.50      6.36
-10 1431_at        3.09      3.78      3.33      3.12      3.21      3.27      3.37      3.84      3.32
-# ... with 54,665 more rows, and 26 more variables: GSM972433 <dbl>, GSM972438 <dbl>, GSM972440 <dbl>,
-#   GSM972443 <dbl>, GSM972444 <dbl>, GSM972446 <dbl>, GSM972453 <dbl>, GSM972457 <dbl>,
-#   GSM972459 <dbl>, GSM972463 <dbl>, GSM972467 <dbl>, GSM972472 <dbl>, GSM972473 <dbl>,
-#   GSM972475 <dbl>, GSM972476 <dbl>, GSM972477 <dbl>, GSM972479 <dbl>, GSM972480 <dbl>,
-#   GSM972487 <dbl>, GSM972488 <dbl>, GSM972489 <dbl>, GSM972496 <dbl>, GSM972502 <dbl>,
+   probe     GSM972389 GSM972390 GSM972396 GSM972401 GSM972409
+   <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+ 1 1007_s_at      9.54     10.2       9.72      9.68      9.35
+ 2 1053_at        7.62      7.92      7.17      7.24      8.20
+ 3 117_at         5.50      5.56      5.06      7.44      5.19
+ 4 121_at         7.27      7.96      7.42      7.34      7.49
+ 5 1255_g_at      2.79      3.10      2.78      2.91      3.02
+# ... with 54,665 more rows, and 26 more variables: GSM972433 <dbl>
+#   GSM972487 <dbl>, GSM972488 <dbl>, GSM972489 <dbl>,
 #   GSM972510 <dbl>, GSM972512 <dbl>, GSM972521 <dbl>
 ```
 
-The file has 54,676 rows, consisting of one header row which R loads in as the
-column names, and the remaining are probe sets, one per row. There are 36
-columns, where the first contains the probe set ID (e.g. `1007_s_at`) and the
-remaining 35 columns correspond to samples.
+## Biological data is NOT Tidy!
 
-### Biological data is NOT Tidy!
+* "tidy" data has the following properties:
 
-As mentioned in the [tidy data](#tidy data) section, the tidyverse packages
-assume data to be in so-called "tidy format", with variables as columns and
-observations as rows. Unfortunately, certain forms of biological data are
-typically available in the opposite orientation - variables are in rows and
-observations are in columns. This is primarily true in feature data matrices,
-e.g. gene expression counts matrices, where the number of variables (e.g. genes)
-is much larger than the number of samples, which tend to be small very small
-compared with the number of features. This format is convenient for humans to
-interact with using, e.g. spreadsheet programs like Microsoft Excel, but can
-unfortunately make performing certain operations on them challenging in
-tidyverse.
+  1. Each variable must have its own column
+  2. Each observation must have its own row
+  3. Each value must have its own cell
 
-For example, consider the microarray expression dataset in the previous section.
-Each of the 54,676 rows is a probeset, and each of the 35 numeric columns is a
-sample. This is a very large number of probesets to consider, especially if we
-plan to conduct a statistical test on each, which would impose a substantial
-[multiple hypothesis testing](#multiple-hypothesis-testing) burden on our
-results. We may therefore wish to eliminate probesets that have very low
-variance from the overall dataset, since these probesets are not likely to have
-a detectable statistical difference in our tests. However, computing the
-variance for each probeset is a computation *across all columns*, not on columns
-themselves, and this is not what tidyverse is designed to do well. Said
-differently, R and tidyverse do not operate by default on the rows of a data
-frame, tibble, or matrix.
+* Data from high throughput biological experiments have many more *variables*
+  than *observations*!
+* Biological data matrices are usually *transposed*
+  - variables as rows
+  - observations (i.e. samples) as columns
 
-Both base R and tidyverse are optimized to perform computations on columns, not
-rows. The reasons for this are buried in the details of how the R program itself
-was written to organize data internally and are beyond the scope of this book.
-The consequence of this design choice is that, while we can perform operations
-on the rows rather than the columns of a data structure, our code may perform
-very poorly (i.e. take a very long time to run).
+## Biological data is NOT Tidy!
 
-When working with these datasets, we have a couple options to deal with this
-issue:
+```r
+# A tibble: 54,675 x 36
+   probe     GSM972389 GSM972390 GSM972396 GSM972401 GSM972409
+   <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+ 1 1007_s_at      9.54     10.2       9.72      9.68      9.35
+ 2 1053_at        7.62      7.92      7.17      7.24      8.20
+```
 
-* **Pivot into long format.** As described in the [Rearranging Data] section, we
-  can rearrange our tibble to be more amenable to certain computations. In our
-  earlier example, we wish to group all of our measurements by probeset and
-  compute the variance of each, then possibly filter out probesets based on low
-  variance. We can therefore combine `pivot_longer()`, `group_by()`,
-  `summarize()`, and finally `left_join()` to perform this operation. Exactly
-  how to do this is left as an exercise in [Assignment 1].
+##  Tidyverse works on tidy data
 
-* **Compute row-wise statistics using `apply()`.** As described in [Iteration],
-  R is a functional programming language and implements iteration in a
-  functional style using the `apply()` function. The [`apply()
-  function`](#apply-and-friends) accepts a `MARGIN` argument of 1 or 2 if the
-  provided function is to be applied to the columns or rows, respectively. This
-  method can be used to compute a summary statistic on each row of a tibble and
-  the result saved back into the tibble using the column set operator:
+* Base R and tidyverse are optimized to perform computations on columns not rows
+* Can perform operations on rows rather than columns, but code may perform poorly
+* A couple options:
+
+  * **Pivot into long format.**
+  * **Compute row-wise statistics using `apply()`.**
+
+    ```r
+    intensity_variance <- apply(intensities, 2, var)
+    intensities$variance <- intensity_variance
+    ```
+
+# Bioconductor
+
+## Bioconductor
+
+* [Bioconductor](https://www.bioconductor.org/) is an organized collection of
+strictly biological analysis methods packages
+* Hosted and maintained outside of [CRAN](https://cran.r-project.org/)
+* Maintainers enforce [rigorous coding quality, testing, and documentation
+standards](https://bioconductor.org/developers/package-guidelines/)
+* Bioconductor is divided into roughly two sets of packages:
+  - *core maintainer* packages
+  - user contributed packages
+
+## Bioconductor: Core maintainer packages
+
+* Core maintainer packages define a set of common objects and classes e.g.:
+  - [ExpressionSet class](https://www.bioconductor.org/packages/devel/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf)
+in the [Biobase package](https://bioconductor.org/packages/release/bioc/html/Biobase.html))
+* All Bioconductor packages must use these common objects and classes
+* Ensures consistency among all Bioconductor packages
+
+## Installing Bioconductor
+
+* Bioconductor is itself a package called [BiocManager](https://www.bioconductor.org/install/)
+* `BiocManager` must be installed prior to installing other Bioconductor packages
+* To [install bioconductor] (note `install.packages()`):
 
   ```r
-  intensity_variance <- apply(intensities, 2, var)
-  intensities$variance <- intensity_variance
+  if (!require("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+  BiocManager::install(version = "3.16")
   ```
+
+## Installing Bioconductor packages
+
+```r
+# installs the affy bioconductor package for microarray analysis
+BiocManager::install("affy")
+```
+
+## Bioconductor package pages
+
+![](affy_package_page.png){width=90%}
+
+## Bioconductor documentation
+
+* In addition, Biconductor provides three types of documentation:
+
+  - [Workflow tutorials](https://bioconductor.org/packages/release/workflows/) on
+    how to perform specific analysis use cases
+  - [Package vignettes](https://bioconductor.org/help/package-vignettes/) for
+    every package, provides worked example of how to use the package
+  - Detailed, consistently formatted reference documentation that gives precise
+    information on functionality and use of each package
+
+
+## Base Bioconductor Packages & Classes
+
+* Base Bioconductor packages define convenient data structures for storing and
+  analyzing biological data
+* The `SummarizedExperiment` class stores data and metadata for an experiment
+
+## `SummarizedExperiment` Illustration
+
+![](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp){width=80%}
+
+## `SummarizedExperiment` Details
+
+* `SummarizedExperiment` class is used ubiquitously throughout the Bioconductor
+  package ecosystem
+* `SummarizedExperiment` stores:
+  - Processed data (`assays`)
+  - Metadata (`colData` and `exptData`)
+  - Annotation data (`rowData`)
+
+# Gene Identifiers
+
+## Gene Identifier Systems
+
+* First gene sequence determined in 1965 - [an alanine
+tRNA in yeast](https://pubmed.ncbi.nlm.nih.gov/14263761/)
+* Genes are distinct entities - how do we name them?
+* In 1979, formal guidelines for human gene nomenclature proposal gave
+  researchers a common vocabulary for genes
+* In 1989,  Human Genome Organisation (HUGO), become HUGO Gene Nomenclature Committee (HGNC)
+* HGNC remains the official body providing guidelines and gene naming authority
+* HGNC gene names called *gene symbols*
+
+## HGNC Gene Name Guidelines
+
+1. Each gene is assigned a unique symbol, HGNC ID and descriptive name.
+2. Symbols contain only uppercase Latin letters and Arabic numerals.
+3. Symbols should not be the same as commonly used abbreviations
+4. Nomenclature should not contain reference to any species or “G” for gene.
+5. Nomenclature should not be offensive or pejorative.
+
+## Gene Symbols
+
+* Gene symbols are the most human-readable system for naming genes
+* e.g. *BRCA1*, *APOE*, and *ACE2*
+* Symbols are convenient for humans when reading, identifying, communicating about genes
+* However, symbols may be ambiguous, and some genes have many synonymous symbols
+* Other gene identifier systems evolved in parallel to address this ambiguity
+
+## Gene symbol ambiguity: APOE
+
+![](apoe_gene_card.png){width=100%}
+
+## Human Gene Identifier Systems: Ensembl
+
+* [Ensembl](https://www.ensembl.org/) Project genome browser and genome annotation
+  database
+* Assigns automatic, systematic ID called *Ensembl Gene ID* during genome
+  annotation
+* Ensembl Gene ID follows convention `ENSGNNNNNNNNNNN`, where `N` are numbers
+  - e.g. APOE is `ENSG00000130203`
+* Gene annotation is
+* Supports *versions* of genes, e.g. `ENSG00000130203.10` where `.10` indicates this
+  is the 10th updated version of this gene
+* Previous versions maintained
+
+## Ensembl Gene IDs for Non-humans
+
+* Ensembl Gene IDs have organism-specific conventions:
+
+```{r echo=FALSE, results='asis'}
+library(knitr)
+kable(tribble(
+  ~`Gene ID Prefix`, ~Organism, ~Symbol, ~Example,
+  "`ENSG`", "Homo sapiens", "HOXA1", "ENSG00000105991",
+  "`ENSMUSG`", "Mus musculus (mouse)", "Hoxa1", "ENSMUSG00000029844",
+  "`ENSDARG`", "Danio rario (zebrafish)", "hoxa1a", "ENSDARG00000104307",
+  "`ENSFCAG`", "Felis catus (cat)", "HOXA1",  "ENSFCAG00000007937",
+  "`ENSMMUG`", "Macaca mulata (macaque)", "HOXA1", "ENSMMUG00000012807",
+))
+```
+
+## Other Identifier Systems
+
+* Ensembl is not the only gene identifier system besides gene symbol
+* Entrez Gene IDs (UCSC Gene IDs) used by the [NCBI Gene
+  database](https://www.ncbi.nlm.nih.gov/gene) are unique integers for each gene
+  in each organism
+  - APOE in humans is `384`, in mouse `11816`
+* Online Mendelian Inheritance in Man (OMIM) database has identifiers that look like
+  `OMIM:NNNNN`, where each OMIM ID refers to a unique gene or human phenotype
+  - APOE is `OMIM:107741`
+* UniProtKB/Swiss-Prot are protein sequence databases
+  - APOE is `P02649`
+
+## Mapping Between Identifier Systems
+
+* Often must map between identifier systems
+* e.g. We have Ensembl Gene ID, but want gene symbols
+* Ensembl provides [BioMart](https://www.ensembl.org/biomart/martview) that provides
+  gene identifier mappings
+* Mappings can be downloaded as CSV files
+* Ensembl website has [helpful
+  documentation](https://useast.ensembl.org/info/data/biomart/index.html) on how
+  to use BioMart to download annotation data
+
+## Biomart in Bioconductor: `biomaRt`
+
+* Ensembl also provides [the `biomaRt` Bioconductor
+package](https://useast.ensembl.org/info/data/biomart/biomart_r_package.html)
+* Allows programmatic access to the same information directly from R
+* There is [much more information in the Ensembl
+  databases](https://useast.ensembl.org/info/genome/index.html) than gene
+  annotation data that can be accessed via BioMart
+
+## `biomaRt` Example
+
+```r
+# this assumes biomaRt is already installed through bioconductor
+library(biomaRt)
+
+# the human biomaRt database is named "hsapiens_gene_ensembl"
+ensembl <- useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
+```
+
+## `biomaRt` Example
+
+```r
+# listAttributes() returns a data frame, convert to tibble
+as_tibble(listAttributes(ensembl))
+# A tibble: 3,143 x 3
+   name                          description                  page        
+   <chr>                         <chr>                        <chr>       
+ 1 ensembl_gene_id               Gene stable ID               feature_page
+ 2 ensembl_gene_id_version       Gene stable ID version       feature_page
+ 3 ensembl_transcript_id         Transcript stable ID         feature_page
+ 4 ensembl_transcript_id_version Transcript stable ID version feature_page
+ 5 ensembl_peptide_id            Protein stable ID            feature_page
+ 6 ensembl_peptide_id_version    Protein stable ID version    feature_page
+ 7 ensembl_exon_id               Exon stable ID               feature_page
+ 8 description                   Gene description             feature_page
+ 9 chromosome_name               Chromosome/scaffold name     feature_page
+10 start_position                Gene start (bp)              feature_page
+# ... with 3,133 more rows
+```
+
+## `biomaRt` Example
+
+* `name` column provides programmatic name associated with the attribute
+that can be used to retrieve that annotation information using the `getBM()`
+function:
+
+```r
+# create a tibble with ensembl gene ID, HGNC gene symbol, and gene description
+gene_map <- as_tibble(
+  getBM(
+    attributes=c("ensembl_gene_id", "hgnc_symbol", "description"),
+    mart=ensembl
+  )
+)
+```
+
+## `biomaRt` Example
+
+```r
+gene_map
+# A tibble: 68,012 x 3
+   ensembl_gene_id hgnc_symbol description                                                               
+   <chr>           <chr>       <chr>                                                                     
+ 1 ENSG00000210049 MT-TF       mitochondrially encoded tRNA-Phe ...
+ 2 ENSG00000211459 MT-RNR1     mitochondrially encoded 12S rRNA ...
+ 3 ENSG00000210077 MT-TV       mitochondrially encoded tRNA-Val ...
+ 4 ENSG00000210082 MT-RNR2     mitochondrially encoded 16S rRNA ...
+ 5 ENSG00000209082 MT-TL1      mitochondrially encoded tRNA-Leu ...
+ 6 ENSG00000198888 MT-ND1      mitochondrially encoded NADH:ubiquinone
+ 7 ENSG00000210100 MT-TI       mitochondrially encoded tRNA-Ile ...
+ 8 ENSG00000210107 MT-TQ       mitochondrially encoded tRNA-Gln ...
+ 9 ENSG00000210112 MT-TM       mitochondrially encoded tRNA-Met ...
+10 ENSG00000198763 MT-ND2      mitochondrially encoded NADH:ubiquinone
+# ... with 68,002 more rows
+```
+
+## Mapping Homologs
+
+* Many organisms share evolutionarily conserved genes (i.e. homologs)
+* `biomaRt` links identifiers by explicitly [connecting
+  different biomaRt
+  databases](https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/accessing_ensembl.html#given-the-human-gene-tp53-retrieve-the-human-chromosomal-location-of-this-gene-and-also-retrieve-the-chromosomal-location-and-refseq-id-of-its-homolog-in-mouse.)
+  with the `getLDS()` function:
+
+  ```r
+  human_db <- useEnsembl("ensembl", dataset = "hsapiens_gene_ensembl")
+  mouse_db <- useEnsembl("ensembl", dataset = "mmusculus_gene_ensembl")
+  orth_map <- as_tibble(
+    getLDS(attributes = c("ensembl_gene_id", "hgnc_symbol"),
+         mart = human_db,
+         attributesL = c("ensembl_gene_id", "mgi_symbol"),
+         martL = mouse_db
+    )
+)
+```
+
+## Mapping Homologs
+
+```r
+orth_map
+# A tibble: 26,390 x 4
+   Gene.stable.ID  HGNC.symbol Gene.stable.ID.1   MGI.symbol
+   <chr>           <chr>       <chr>              <chr>     
+ 1 ENSG00000198695 MT-ND6      ENSMUSG00000064368 "mt-Nd6"  
+ 2 ENSG00000212907 MT-ND4L     ENSMUSG00000065947 "mt-Nd4l"
+ 3 ENSG00000279169 PRAMEF13    ENSMUSG00000094303 ""        
+ 4 ENSG00000279169 PRAMEF13    ENSMUSG00000094722 ""        
+ 5 ENSG00000279169 PRAMEF13    ENSMUSG00000095666 ""        
+ 6 ENSG00000279169 PRAMEF13    ENSMUSG00000094741 ""        
+ 7 ENSG00000279169 PRAMEF13    ENSMUSG00000094836 ""        
+ 8 ENSG00000279169 PRAMEF13    ENSMUSG00000074720 ""        
+ 9 ENSG00000279169 PRAMEF13    ENSMUSG00000096236 ""        
+10 ENSG00000198763 MT-ND2      ENSMUSG00000064345 "mt-Nd2"  
+# ... with 26,380 more rows
+```
+
+## Alternative: `AnnotationDbi`
+
+* BioMart/biomaRt is not the only ways to map different gene identifiers
+* [AnnotateDbi](https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html)
+  provides gene identifier mapping independent of Ensembl
+* Also includes identifiers from technology platforms, e.g. probe set IDs from [microarrays](#microarrays)
+* Also allows comprehensive and flexible homolog mapping

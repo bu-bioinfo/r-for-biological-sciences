@@ -28,30 +28,30 @@ These are the specific topics covered in each week.
 [Week 2 Slides](slides/week_2_slides.html)
 
 * [Assignment 1]
-* Data Wrangle: [The Tidyverse] ([slides](slides/0400_data_wrangling.html#the-tidyverse))
-* Data Wrangle: [Tidyverse Basics] ([slides](slides/0400_data_wrangling.html#tidyverse-basics))
-* Data Wrangle: [Importing Data] ([slides](slides/0400_data_wrangling.html#importing-data))
+* Data Wrangle: [The Tidyverse] ([slides](slides/week_2_slides.html#the-tidyverse))
+* Data Wrangle: [Tidyverse Basics] ([slides](slides/week_2_slides.html#tidyverse-basics))
+* Data Wrangle: [Importing Data] ([slides](slides/week_2_slides.html#importing-data))
 * Bioinfo: [CSV Files] ([slides](slides/0700_bioinfo.html#csv-files))
-* Data Wrangle: [The tibble] ([slides](slides/0400_data_wrangling.html#the-tibble))
-* Data Wrangle: [pipes] ([slides](slides/0400_data_wrangling.html#pipes))
-* Data Wrangle: [Arranging Data] ([slides](slides/0400_data_wrangling.html#arranging-data))
-* Data Wrangle: [Regular expressions] ([slides](slides/0400_data_wrangling.html#regular-expressions)
-* Data Wrangle: [Rearranging Data] ([slides](slides/0400_data_wrangling.html#rearranging-data))
-* Bioinfo: [R in Biology]
-* Bioinfo: [Types of Biological Data]
-* Bioinfo: [Bioconductor]
-* Bioinfo: [Gene Identifiers]
-* Bioinfo: [Mapping Between Identifier Systems]
-* Bioinfo: [Mapping Homologs]
-* Data Wrangle: [Relational Data]
-* Data Viz: [Grammar of Graphics]
-* Data Viz: [Plotting One Dimension]
-* Data Viz: [Visualizing Distributions]
-* R Prog: [Unit Testing]
+* Data Wrangle: [The tibble] ([slides](slides/week_2_slides.html#the-tibble))
+* Data Wrangle: [pipes] ([slides](slides/week_2_slides.html#pipes))
+* Data Wrangle: [Arranging Data] ([slides](slides/week_2_slides.html#arranging-data))
+* Data Wrangle: [Regular expressions] ([slides](slides/week_2_slides.html#regular-expressions))
+* Data Wrangle: [Rearranging Data] ([slides](slides/week_2_slides.html#rearranging-data))
+* Bioinfo: [R in Biology] ([slides](slides/week_2_slides.html#r-in-biology))
+* Bioinfo: [Types of Biological Data] ([slides](slides/week_2_slides.html#types-of-biological-data))
+* Bioinfo: [Bioconductor] ([slides](slides/week_2_slides.html#bioconductor))
+* Bioinfo: [Gene Identifiers] ([slides](slides/week_2_slides.html#gene-identifiers))
+* Bioinfo: [Mapping Between Identifier Systems] ([slides](slides/week_2_slides.html#mapping-between-identifier-systems))
+* Data Wrangle: [Relational Data] ([slides](slides/week_2_slides.html#relational-data))
+* Bioinfo: [Mapping Homologs] ([slides](slides/week_2_slides.html#mapping-homologs))
 
 ## Week 3
 * [Assignment 1] Review
 * [Assignment 2]
+* Data Viz: [Grammar of Graphics]
+* Data Viz: [Plotting One Dimension]
+* Data Viz: [Visualizing Distributions]
+* R Prog: [Unit Testing]
 * Data Sci: [Data Modeling]
 * Data Sci: [A Worked Modeling Example]
 * Data Sci: [Data Summarization]
@@ -64,6 +64,7 @@ These are the specific topics covered in each week.
 * Bioinfo: [Differential Expression: Microarrays (limma)]
 
 ## Week 4
+* [Assignment 2] Review
 * [Assignment 3]
 * Data Sci: [Exploratory Data Analysis]
 * Data Sci: [Principal Component Analysis]
@@ -72,9 +73,9 @@ These are the specific topics covered in each week.
 * Data Viz: [Heatmaps]
 * Data Viz: [Specifying Heatmap Colors]
 * Data Viz: [Dendrograms]
-* [Assignment 2] Review
 
 ## Week 5
+* [Assignment 3] Review
 * [Assignment 4]
 * Bioinfo: [High Throughput Sequencing]
 * Bioinfo: [Count Data]
@@ -85,7 +86,6 @@ These are the specific topics covered in each week.
 * Bioinfo: [Count Normalization]
 * Bioinfo: [Count Transformation]
 * Bioinfo: [Differential Expression: RNASeq]
-* [Assignment 3] Review
 * Bioinfo: [DESeq2/EdgeR]
 * Bioinfo: [limma/voom]
 * Bioinfo: [Gene Set Enrichment Analysis]
@@ -95,6 +95,7 @@ These are the specific topics covered in each week.
 * Bioinfo: [fgsea]
 
 ## Week 6
+* [Assignment 4] Review
 * [Assignment 5]
 * Data Sci: [Statistical Distributions]
 * Data Sci: [Random Variables]
@@ -103,13 +104,13 @@ These are the specific topics covered in each week.
 * Data Sci: [Discrete Distributions]
 * Data Sci: [Continuous Distributions]
 * Data Sci: [Empirical Distributions]
-* [Assignment 4] Review
 * Data Sci: [Statistical Tests]
 * Data Sci: [p-values]
 * Data Sci: [Multiple Hypothesis Testing]
 * Data Sci: [Statistical power]
 
 ## Week 7
+* [Assignment 5] Review
 * [Assignment 6]
 * Data Viz: [Responsible Plotting]
 * Data Viz: [Human Visual Perception]
@@ -123,7 +124,6 @@ These are the specific topics covered in each week.
 * Data Viz: [Line Plots]
 * Data Viz: [Parallel Coordinate Plots]
 * Data Viz: [Chord Diagrams and Circos Plots]
-* [Assignment 5] Review
 * Data Viz: [How To Use Heatmaps Responsibly]
 * Data Viz: [Multiple Plots]
 * Data Viz: [Facet wrapping]
@@ -132,11 +132,11 @@ These are the specific topics covered in each week.
 * R Prog: [The `styler` package]
 
 ## Week 8
+* [Assignment 6] Review
 * [Assignment 7]
 * RShiny: [Rshiny]
 * RShiny: [Introduction]
 * RShiny: [Application Structure]
-* [Assignment 6] Review
 * RShiny: [Reactivity]
 * RShiny: [Publishing]
 
