@@ -745,6 +745,10 @@ long_gene_stats %>%
   columns
 * Can "reorganize" tibble by first `pivot_longer()` followed by `pivot_wider()`
 
+## Pivot wider illustration
+
+![Pivot wider moves values in one column new columns](../pivot_wider.png){width=80%}
+
 # Relational Data
 
 ## Relational Data

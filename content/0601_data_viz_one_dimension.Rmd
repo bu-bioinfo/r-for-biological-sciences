@@ -130,5 +130,3 @@ way, we might note that the relative proportion of `abeta` seems to be greater
 in AD samples than Controls, but that may not be true of `tau`. These
 observations may inspire us to ask these questions more rigorously than we have
 done so far by inspection.
-
-### Parallel Coordinate plots
