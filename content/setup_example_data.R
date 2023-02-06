@@ -1,6 +1,8 @@
 library(tidyverse)
 library(SummarizedExperiment)
 
+set.seed(1337)
+
 imgsize <- 400 ** 2
 ad_metadata <- tibble(
   ID=c(str_c('A',1:10),str_c('C',1:10)),
