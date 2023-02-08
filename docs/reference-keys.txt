@@ -114,7 +114,6 @@ plotting-one-dimension
 dv-bar
 lollipop-plots
 stacked-area-charts
-parallel-coordinate-plots
 visualizing-distributions
 histogram
 density
@@ -127,7 +126,7 @@ scatter-plots
 bubble-plots
 connected-scatter-plots
 line-plots
-parallel-coordinate-plots-1
+parallel-coordinate-plots
 heatmaps
 specifying-heatmap-colors
 how-to-use-heatmaps-responsibly
