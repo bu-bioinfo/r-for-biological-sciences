@@ -17,7 +17,8 @@ rmd_list <- c(
   "0600_data_viz.Rmd",
   "0700_bioinfo.Rmd",
   "1000_communication.Rmd",
-  "week_2_slides.Rmd"
+  "week_2_slides.Rmd",
+  "week_3_slides.Rmd"
 )
 
 for(rmd in rmd_list) {
