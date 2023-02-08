@@ -1,0 +1,845 @@
+---
+title: "Data Visualization"
+subtitle: "[R for Biological Science](../index.html)"
+output: ioslides_presentation
+author: "Adam Labadorf"
+company: "Boston University"
+---
+
+```{r data viz setup, include=FALSE}
+library(tidyverse)
+
+setwd('../')
+source("setup_example_data.R")
+setwd('slides')
+```
+
+## Data Visualization
+
+* Data visualization is a core component of both exploring data and communicating
+results
+* The goal: present data in a graphical way that shows patterns that are otherwise invisible
+* Effective data visualization is challenging!
+* No "gold standard" to follow - only principles and judgment
+
+## Properties of good data viz
+
+An effective data visualization:
+
+1. Depicts accurate data
+2. Depicts data accurately
+3. Shows enough, but not too much, of the data
+4. Is self contained - no additional information (except a caption) is required
+   to understand the contents of the figure
+
+## Properties of great data viz
+
+A *great* visualization has some additional properties:
+
+5. Exposes patterns in the data not easily observable by other methods
+6. Invites the viewer to ask more questions about the data
+
+# Grammar of Graphics
+
+## Grammar of Graphics {#dv-gg}
+
+<div class="columns-2">
+
+<img src="grammar_of_graphics_cover.png" class="center" height="450px"/>
+
+* "Grammar of graphics": a system of rules that describes how data and graphical
+  aesthetics  are combined to form graphics and plots
+* Aesthetics == color, size, shape, et c
+* First popularized in the book [The Grammar of Graphics](https://www.google.com/books/edition/_/ZiwLCAAAQBAJ?hl=en) by Leland
+Wilkinson and co-authors in 1999
+
+</div>
+
+## `ggplot2`
+
+<div class="columns-2">
+
+<img src="ggplot_logo.png" class="center" height="450px"/>
+
+* [ggplot2](https://ggplot2.tidyverse.org/) R package that implements grammar of graphics
+* Written by Hadley Wickham in 2005
+
+</div>
+
+## `ggplot2` Fundamentals
+
+* Every plot is the combination of three types of information:
+  1. **data** (i.e. values)
+  2. **geometry** (i.e. shapes)
+  3. **aesthetics** (i.e. connects values and shapes)
+  
+## `ggplot2` Example
+
+* A simple example dataset:
+
+  ```r
+  ## # A tibble: 20 × 8
+  ##    ID    age_at_death condition    tau  abeta   iba1   gfap braak_stage
+  ##    <chr>        <dbl> <fct>      <dbl>  <dbl>  <dbl>  <dbl> <fct>      
+  ##  1 A1              73 AD         96548 176324 157501  78139 4          
+  ##  2 A2              82 AD         95251      0 147637  79348 4          
+  ##                              ...
+  ## 10 A10             69 AD         48357  27260  47024  78507 2          
+  ## 11 C1              80 Control    62684  93739 131595 124075 3          
+  ## 12 C2              77 Control    63598  69838   7189  35597 3          
+  ##                              ...
+  ## 20 C10             73 Control    15781  16592  10271 100858 1
+  ```
+
+## Sidebar: Tau pathology
+
+![](https://upload.wikimedia.org/wikipedia/commons/f/f7/Tauopathy_in_Alzheimer%27s_disease.jpg){width=60%}
+
+## `ggplot2` Example
+
+* Goal: visualize the relationship between age at death and the amount of tau pathology
+* Try a scatter plot where each marker is a subject with
+  - $x$ is `age_at_death`
+  - $y$ is `tau`
+
+  ```r
+  ggplot(
+      data=ad_metadata,
+      mapping = aes(
+        x = age_at_death,
+        y = tau
+      )
+    ) +
+    geom_point()
+  ```
+
+## Simple Scatter Plot
+```{r echo=F}
+fig_size <- c(4,2)
+```
+
+```{r, fig.dim=fig_size, out.width="100%"}
+ggplot(data=ad_metadata, mapping=aes(x=age_at_death, y=tau)) +
+  geom_point()
+```
+
+## `ggplot2` Plot Components
+
+```r
+ggplot(data=ad_metadata, mapping=aes(x=age_at_death, y=tau)) +
+  geom_point()
+```
+
+1. `ggplot()` - function creates a plot
+2. `data=` - pass a tibble with the **data**
+2. `mapping=aes(...)` - Define an **aesthetics** mapping connecting data to plot properties
+3. `geom_point(...)` - Specify **geometry** as points where marks will be made at pairs
+  of x,y coordinates
+
+## Adding More Aesthetics
+
+Is this the whole story?
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+ggplot(data=ad_metadata, mapping=aes(x=age_at_death, y=tau)) +
+  geom_point()
+```
+
+## Adding More Aesthetics
+
+* There are both AD and Control subjects in this dataset!
+* How does `condition` relate to this relationship we see?
+* Layer on an additional aesthetic of color:
+
+  ```r
+  ggplot(
+      data=ad_metadata,
+      mapping = aes(
+        x = age_at_death,
+        y = tau,
+        color=condition # color each point
+      )
+    ) +
+    geom_point()
+  ```
+## Adding More Aesthetics
+
+```{r, fig.dim=fig_size, out.width="100%"}
+ggplot(data=ad_metadata, mapping=aes(
+      x=age_at_death, y=tau, color=condition
+    )) + geom_point()
+```
+
+## Other Plot Geometries
+
+* Differences in distributions of variables can be important
+* Examine the distribution of `age_at_death` for AD and Control samples
+  with [violin geometry](https://ggplot2.tidyverse.org/reference/geom_violin.html) with
+  `geom_violin()`:
+  
+  ```r
+  ggplot(data=ad_metadata, mapping = aes(x=condition, y=age_at_death)) +
+    geom_violin()
+  ```
+
+## Violin Plot
+
+```{r, fig.dim=fig_size, out.width="100%"}
+ggplot(data=ad_metadata, mapping = aes(x=condition, y=age_at_death)) +
+  geom_violin()
+```
+
+## Multiple Plots
+
+* Can put multiple plots in one figure with `patchwork` library:
+
+```r
+library(patchwork)
+age_boxplot <- ggplot(
+    data=ad_metadata,
+    mapping = aes(x=condition, y=age_at_death)
+  ) +
+  geom_boxplot()
+tau_boxplot <- ggplot(
+    data=ad_metadata,
+    mapping=aes(x=condition, y=tau)
+  ) +
+  geom_boxplot()
+
+age_boxplot | tau_boxplot # this puts the plots side by side
+```
+
+## Side by Side Plots
+
+```r
+age_boxplot | tau_boxplot # this puts the plots side by side
+```
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+library(patchwork)
+age_boxplot <- ggplot(data=ad_metadata, mapping = aes(x=condition, y=age_at_death)) +
+  geom_boxplot()
+tau_boxplot <- ggplot(data=ad_metadata, mapping=aes(x=condition, y=tau)) +
+  geom_boxplot()
+
+age_boxplot | tau_boxplot # this puts the plots side by side
+```
+
+## R Graph Gallery
+
+* Useful collection of plot types and examples:
+* [R Graph Gallery](https://www.r-graph-gallery.com/)
+
+## `ggplot` mechanics
+
+* `ggplot` has two key concepts that give it great flexibility: **layers** and
+   **scales**
+* A *layer* is one set of data drawn with a geometry and an aesthetic
+* A *scale* is the mapping from the data values to visual properties
+* A plot may have one or more layers
+* Different layers may share scales or have their own
+
+## `ggplot` Layers
+
+* Each layer is a set of data connected to a geometry and an aesthetic
+* Each `geom_X()` function adds a layer to a plot
+* The plot has three layers:
+
+  ```r
+  ggplot(data=ad_metadata, mapping=aes(x=age_at_death)) +
+    geom_point(mapping=aes(y=tau, color='blue')) +
+    geom_point(mapping=aes(y=abeta, color='red')) +
+    geom_point(mapping=aes(y=iba1, color='cyan'))
+  ```
+
+## `ggplot` Layers
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+ggplot(data=ad_metadata, mapping=aes(x=age_at_death)) +
+  geom_point(mapping=aes(y=tau, color='blue')) +
+  geom_point(mapping=aes(y=abeta, color='red')) +
+  geom_point(mapping=aes(y=iba1, color='cyan'))
+```
+
+
+## `ggplot` Scales
+
+* A scale maps data onto a range, e.g.:
+  - pixel range
+  - color on a gradient/set of colors
+  - shape type, circle or square
+  - shape dimension, like circle radius
+* Multiple layers on the same plot
+  - Must share at least one scale to be plotted together
+  - May differ in one or more scales to be distinguished from each other
+
+## `ggplot` Scales
+
+How many layers? How many scales?
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+ggplot(data=ad_metadata, mapping=aes(x=age_at_death)) +
+  geom_point(mapping=aes(y=tau, color='blue')) +
+  geom_point(mapping=aes(y=abeta, color='red')) +
+  geom_point(mapping=aes(y=iba1, color='cyan'))
+```
+
+## `ggplot` Incompatible Scales
+
+```r
+ggplot(data=ad_metadata, mapping=aes(x=braak_stage)) +
+  geom_point(mapping=aes(y=tau, color='blue')) +
+  geom_point(mapping=aes(y=age_at_death, color='red'))
+```
+
+## `ggplot` Incompatible Scales
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+ggplot(data=ad_metadata, mapping=aes(x=braak_stage)) +
+  geom_point(mapping=aes(y=tau, color='blue')) +
+  geom_point(mapping=aes(y=age_at_death, color='red'))
+```
+
+# Plotting One Dimension
+
+# Bar Charts
+
+## Bar chart
+
+* Map length (i.e. height or width of rectangle) proportional to scalar value
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+ggplot(ad_metadata, mapping = aes(x=ID,y=tau)) +
+  geom_bar(stat="identity")
+```
+
+## Bar chart
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="show"}
+ggplot(ad_metadata, mapping = aes(x=ID,y=tau)) +
+  geom_bar(stat="identity")
+```
+
+## More insightful bar chart
+
+* Change the fill color of the bars based on condition:
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+ggplot(ad_metadata, mapping = aes(x=ID,y=tau,fill=condition)) +
+  geom_bar(stat="identity")
+```
+
+## More insightful bar chart
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="show"}
+ggplot(ad_metadata, mapping = aes(x=ID,y=tau,fill=condition)) +
+  geom_bar(stat="identity")
+```
+
+## Diverging bar chart
+
+* Bar charts can also plot negative numbers
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+mutate(ad_metadata, tau_centered=(tau - mean(tau))) %>%
+  ggplot(mapping = aes(x=ID, y=tau_centered, fill=condition)) +
+  geom_bar(stat="identity")
+```
+
+## Diverging bar chart
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="show"}
+mutate(ad_metadata, tau_centered=(tau - mean(tau))) %>%
+  ggplot(mapping = aes(x=ID, y=tau_centered, fill=condition)) +
+  geom_bar(stat="identity")
+```
+
+# Lollipop plots
+
+## Lollipop plots
+
+* Similar to bar charts, "lollipop plots" replace bar with a line segment and a circle
+* No dedicated geometry - use `geom_point` and `geom_segment` layers:
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+ggplot(ad_metadata) +
+  geom_point(mapping=aes(x=ID, y=tau)) +
+  geom_segment(mapping=aes(x=ID, xend=ID, y=0, yend=tau))
+```
+
+## Lollipop plots
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+ggplot(ad_metadata) +
+  geom_point(mapping=aes(x=ID, y=tau)) +
+  geom_segment(mapping=aes(x=ID, xend=ID, y=0, yend=tau))
+```
+
+# Stacked Area charts
+
+## Stacked Area charts
+
+* Visualize multiple 1D data that share a common categorical axis
+
+```r
+pivot_longer(
+    ad_metadata,
+    c(tau,abeta,iba1,gfap),
+    names_to='Marker',
+    values_to='Intensity'
+  ) %>%
+  ggplot(aes(x=ID,y=Intensity,group=Marker,fill=Marker)) +
+    geom_area()
+```
+
+## Stacked Area charts
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+pivot_longer(
+  ad_metadata,
+  c(tau,abeta,iba1,gfap),
+  names_to='Marker',
+  values_to='Intensity'
+  ) %>%
+  ggplot(aes(x=ID,y=Intensity,group=Marker,fill=Marker)) +
+    geom_area()
+```
+
+## Stacked Area Charts Components
+
+Stacked area plots require three pieces of data:
+
+* **x** - a numeric or categorical axis for vertical alignment
+* **y** - a numeric axis to draw vertical proportions
+* **group** - a categorical variable that indicates which (x,y) pairs correspond
+  to the same line
+
+## Proportional Stacked Area Charts
+
+* Can view the relative proportion of values in each category rather than the actual values
+
+```r
+pivot_longer(
+    ad_metadata,
+    c(tau,abeta,iba1,gfap),
+    names_to='Marker',
+    values_to='Intensity'
+  ) %>%
+  group_by(ID) %>% # divide each intensity values by sum markers
+  mutate(
+    `Relative Intensity`=Intensity/sum(Intensity)
+  ) %>%
+  ungroup() %>% # ungroup restores the tibble to original number of rows
+  ggplot(aes(x=ID,y=`Relative Intensity`,group=Marker,fill=Marker)) +
+    geom_area()
+```
+
+## Proportional Stacked Area Charts
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+pivot_longer(
+    ad_metadata,
+    c(tau,abeta,iba1,gfap),
+    names_to='Marker',
+    values_to='Intensity'
+  ) %>%
+  group_by(ID) %>% # divide each intensity values by sum markers
+  mutate(
+    `Relative Intensity`=Intensity/sum(Intensity)
+  ) %>%
+  ungroup() %>% # ungroup restores the tibble to original number of rows
+  ggplot(aes(x=ID,y=`Relative Intensity`,group=Marker,fill=Marker)) +
+    geom_area()
+```
+
+# Visualizing Distributions
+
+## Visualizing Distributions
+
+* A distribution describes the general "shape" of a set of numbers
+  - i.e. what is the relative frequency of the values, or ranges of values
+* Must understand distribution of data to choose statistical methods appropriately
+
+# Histogram
+
+## Histogram
+
+* First described by Karl Pearson
+* Type of bar chart
+* Divides up the range of a dataset from minimum to maximum into bins usually of 
+  the same size
+* Each bin represented by a bar with height or width proportional to number of 
+  values that fall within that bin
+  
+```r
+ggplot(ad_metadata) +
+  geom_histogram(mapping=aes(x=age_at_death))
+```
+
+## Histogram
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=F}
+ggplot(ad_metadata) +
+  geom_histogram(mapping=aes(x=age_at_death))
+```
+
+## Changing histogram bins
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T}
+ggplot(ad_metadata) +
+  geom_histogram(mapping=aes(x=age_at_death),bins=10)
+```
+
+## Histograms sensitive to number of data points
+
+* Histogram of synthetic dataset of 1000 normally distributed values:
+
+```r
+tibble(x=rnorm(1000)) %>%
+  ggplot() +
+  geom_histogram(aes(x=x))
+```
+
+## Histograms sensitive to number of data points
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+tibble(x=rnorm(1000)) %>%
+  ggplot() +
+  geom_histogram(aes(x=x))
+```
+
+## Histograms with multiple distributions
+
+* Can add multiple histograms to same plot
+
+```r
+tibble(
+  x=c(rnorm(1000),rnorm(1000,mean=4)),
+  type=c(rep('A',1000),rep('B',1000))
+) %>%
+  ggplot(aes(x=x,fill=type)) +
+  geom_histogram(bins=30, alpha=0.6, position="identity")
+```
+
+## Histograms with multiple distributions
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=F}
+tibble(
+  x=c(rnorm(1000),rnorm(1000,mean=4)),
+  type=c(rep('A',1000),rep('B',1000))
+) %>%
+  ggplot(aes(x=x,fill=type)) +
+  geom_histogram(bins=30, alpha=0.6, position="identity")
+```
+
+# Density plots
+
+## Density plot
+
+* Similar to histogram, except instead of binning the values draws a smoothly interpolated line that approximates the distribution
+* Density plot is always normalized so the integral under the curve is approximately 1
+
+  ```r
+  ggplot(ad_metadata) +
+    geom_density(mapping=aes(x=age_at_death),fill="#c9a13daa")
+  ```
+
+## Density plot
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+ggplot(ad_metadata) +
+  geom_density(mapping=aes(x=age_at_death),fill="#c9a13daa")
+```
+
+## Density plot vs histogram
+
+```r
+library(patchwork)
+hist_g <- ggplot(ad_metadata) +
+  geom_histogram(mapping=aes(x=age_at_death),bins=30)
+density_g <- ggplot(ad_metadata) +
+  geom_density(mapping=aes(x=age_at_death),fill="#c9a13daa")
+
+hist_g | density_g
+```
+
+## Density plot vs histogram
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+library(patchwork)
+hist_g <- ggplot(ad_metadata) +
+  geom_histogram(mapping=aes(x=age_at_death),bins=30)
+density_g <- ggplot(ad_metadata) +
+  geom_density(mapping=aes(x=age_at_death),fill="#c9a13daa")
+
+hist_g | density_g
+```
+
+## Density plot vs histogram
+
+```r
+library(patchwork)
+normal_samples <- tibble(
+  x=c(rnorm(1000),rnorm(1000,mean=4)),
+  type=c(rep('A',1000),rep('B',1000))
+)
+hist_g <- ggplot(normal_samples) +
+  geom_histogram(
+    mapping=aes(x=x,fill=type),
+    alpha=0.6, position="identity", bins=30
+)
+density_g <- ggplot(normal_samples) +
+  geom_density(
+    mapping=aes(x=x,fill=type),
+    alpha=0.6, position="identity"
+  )
+
+hist_g | density_g
+```
+
+## Density plot vs histogram
+
+```{r, fig.dim=fig_size+c(0,0.5), out.width="100%", echo=F}
+library(patchwork)
+normal_samples <- tibble(
+  x=c(rnorm(1000),rnorm(1000,mean=4)),
+  type=c(rep('A',1000),rep('B',1000))
+)
+hist_g <- ggplot(normal_samples) +
+  geom_histogram(
+    mapping=aes(x=x,fill=type),
+    alpha=0.6, position="identity", bins=30
+)
+density_g <- ggplot(normal_samples) +
+  geom_density(
+    mapping=aes(x=x,fill=type),
+    alpha=0.6, position="identity"
+  )
+
+hist_g | density_g
+```
+
+# Boxplots
+
+## Boxplot
+
+* The histogram depicts distribution as a "box and whiskers"
+* Assume data are unimodal (i.e. roughly bell-shaped)
+* Explicitly draws:
+  - Median
+  - 25th and 75th percentile (a.k.a. 1st and 3rd quartile)
+  - "whiskers" that show further extents
+  - Some have markers for outlier samples
+  
+```r
+ggplot(ad_metadata) +
+  geom_boxplot(mapping=aes(x=condition,y=age_at_death))
+```
+
+## Boxplot
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="show"}
+ggplot(ad_metadata) +
+  geom_boxplot(mapping=aes(x=condition,y=age_at_death))
+```
+
+## Boxplot Anatomy
+
+![Boxplot anatomy. IQR stands for "inner quartile range", the distance between
+the 1st and 3rd quartile - Wikipedia](https://upload.wikimedia.org/wikipedia/commons/1/1a/Boxplot_vs_PDF.svg){width=50%}
+
+## Boxplot shortcomings
+
+```{r, fig.dim=fig_size+c(0,-0.5), out.width="100%", echo=T}
+normal_samples <- tibble(
+  x=c(rnorm(1000),rnorm(1000,4),rnorm(1000,2,3)),
+  type=c(rep('A',2000),rep('B',1000))
+)
+ggplot(normal_samples, aes(x=x,fill=type,alpha=0.6)) +
+  geom_density()
+```
+
+## Boxplot shortcomings
+
+```{r, fig.dim=fig_size+c(0,-0.5), out.width="100%", echo=T}
+ggplot(normal_samples, aes(x=type,y=x,fill=type)) +
+  geom_boxplot()
+```
+
+## Boxplot shortcomings
+
+```r
+library(patchwork)
+g <- ggplot(normal_samples, aes(x=type,y=x,fill=type))
+boxplot_g <- g + geom_boxplot()
+violin_g <- g + geom_violin()
+
+boxplot_g | violin_g
+```
+
+## Boxplot shortcomings
+
+* Boxplots can be misleading
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+library(patchwork)
+normal_samples <- tibble(
+  x=c(rnorm(1000),rnorm(1000,4),rnorm(1000,2,3)),
+  type=c(rep('A',2000),rep('B',1000))
+)
+g <- ggplot(normal_samples, aes(x=type,y=x,fill=type))
+boxplot_g <- g +  geom_boxplot()
+violin_g <- g + geom_violin()
+
+boxplot_g | violin_g
+```
+
+# Violin Plots
+
+## Violin plot
+
+* [violin plot](https://ggplot2.tidyverse.org/reference/geom_violin.html) produces a shape where the width is proportional to the density of values value along the x or y axis
+*Similar in principle to a histogram or a density plot
+
+```r
+ggplot(ad_metadata) +
+  geom_violin(aes(x=condition,y=tau,fill=condition))
+```
+
+## Violin plot
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+ggplot(ad_metadata) +
+  geom_violin(aes(x=condition,y=tau,fill=condition))
+```
+
+# Beeswarm Plots
+
+## Beeswarm plot
+
+* [beeswarm plot](https://r-charts.com/distribution/ggbeeswarm/) similar to
+a violin plot
+* Plots the data itself as points like in a scatter plot
+* Points are 'jittered' so they don't overlap
+
+```r
+library(ggbeeswarm)
+ggplot(ad_metadata) +
+  geom_beeswarm(
+    aes(x=condition,y=age_at_death,color=condition),
+    cex=2,
+    size=2
+  )
+```
+
+## Beeswarm plot
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+library(ggbeeswarm)
+ggplot(ad_metadata) +
+  geom_beeswarm(
+    aes(x=condition,y=age_at_death,color=condition),
+    cex=2,
+    size=2
+  )
+```
+
+## Beeswarm plot limitations
+
+* Typically only useful when the number of values is not too many or too few:
+
+```r
+normal_samples <- tibble(
+  x=c(rnorm(1000),rnorm(1000,4),rnorm(1000,2,3)),
+  type=c(rep('A',2000),rep('B',1000))
+)
+ggplot(normal_samples, aes(x=type,y=x,color=type)) +
+  geom_beeswarm()
+```
+
+## Beeswarm plot limitations
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="show"}
+ggplot(normal_samples, aes(x=type,y=x,color=type)) +
+  geom_beeswarm()
+```
+
+## Seeing patterns in bees
+
+* Can color bees by another value
+
+```r
+normal_samples <- tibble(
+  x=c(rnorm(100),rnorm(100,4),rnorm(100,2,3)),
+  type=c(rep('A',200),rep('B',100)),
+  category=sample(c('healthy','disease'),300,replace=TRUE)
+)
+ggplot(normal_samples, aes(x=type,y=x,color=category)) +
+  geom_beeswarm()
+```
+
+## Seeing patterns in bees
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+normal_samples <- tibble(
+  x=c(rnorm(100),rnorm(100,4),rnorm(100,2,3)),
+  type=c(rep('A',200),rep('B',100)),
+  category=sample(c('healthy','disease'),300,replace=TRUE)
+)
+ggplot(normal_samples, aes(x=type,y=x,color=category)) +
+  geom_beeswarm()
+```
+
+# Ridgeline Plots
+
+## Ridgeline
+
+* [ridgeline charts](https://www.r-graph-gallery.com/294-basic-ridgeline-plot.html) plot many non-trivial distributions
+* Simply multiple density plots drawn for different variables
+within the same plot
+
+```r
+library(ggridges)
+
+tibble(
+  x=c(rnorm(100),rnorm(100,4),rnorm(100,2,3)),
+  type=c(rep('A',200),rep('B',100)),
+) %>%
+  ggplot(aes(y=type,x=x,fill=type)) +
+  geom_density_ridges()
+```
+
+## Ridgeline
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+library(ggridges)
+
+tibble(
+  x=c(rnorm(100),rnorm(100,4),rnorm(100,2,3)),
+  type=c(rep('A',200),rep('B',100)),
+) %>%
+  ggplot(aes(y=type,x=x,fill=type)) +
+  geom_density_ridges()
+```
+
+## Many ridgelines
+
+```r
+tibble(
+  x=rnorm(10000,mean=runif(10,1,10),sd=runif(2,1,4)),
+  type=rep(c("A","B","C","D","E","F","G","H","I","J"),1000)
+) %>%
+  ggplot(aes(y=type,x=x,fill=type)) +
+  geom_density_ridges(alpha=0.6,position="identity")
+```
+
+## Many ridgelines
+
+``` {r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+tibble(
+  x=rnorm(10000,mean=runif(10,1,10),sd=runif(2,1,4)),
+  type=rep(c("A","B","C","D","E","F","G","H","I","J"),1000)
+) %>%
+  ggplot(aes(y=type,x=x,fill=type)) +
+  geom_density_ridges(alpha=0.6,position="identity")
+```
