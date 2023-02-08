@@ -42,12 +42,12 @@ These are the specific topics covered in each week.
 * Bioinfo: [Bioconductor] ([slides](slides/week_2_slides.html#bioconductor))
 * Bioinfo: [Gene Identifiers] ([slides](slides/week_2_slides.html#gene-identifiers))
 * Bioinfo: [Mapping Between Identifier Systems] ([slides](slides/week_2_slides.html#mapping-between-identifier-systems))
-* Data Wrangle: [Relational Data] ([slides](slides/week_2_slides.html#relational-data))
-* Bioinfo: [Mapping Homologs] ([slides](slides/week_2_slides.html#mapping-homologs))
 
 ## Week 3
 * [Assignment 1] Review
 * [Assignment 2]
+* Data Wrangle: [Relational Data] ([slides](slides/week_2_slides.html#relational-data))
+* Bioinfo: [Mapping Homologs] ([slides](slides/week_2_slides.html#mapping-homologs))
 * Data Viz: [Grammar of Graphics]
 * Data Viz: [Plotting One Dimension]
 * Data Viz: [Visualizing Distributions]
