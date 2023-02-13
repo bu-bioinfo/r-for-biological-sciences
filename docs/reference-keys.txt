@@ -234,7 +234,7 @@ correlation-network-analysis
 rshiny-test-suite
 visualization-of-individual-gene-expressions
 custom-option
-class-outlines
+detailed-class-schedule
 week-1
 week-2
 week-3
