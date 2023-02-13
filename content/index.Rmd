@@ -76,47 +76,56 @@ mentioned otherwise
 +-----------+-------------------+----------------------------------------------+-----------------+
 | Week      | Dates             | Topics                                       | Assignment      |
 +===========+===================+==============================================+=================+
-| [Week 1]  | 1/23 & 1/25       | - Preliminaries                              |                 |
-|           |                   | - Data in Biology                            | [Assignment 0]  |
+| [Week 1]  | 1/23 & 1/25       |                                              | [Assignment 0]  |
+|           |                   | - Preliminaries                              |                 |
+|           |                   | - Data in Biology                            |                 |
 |           |                   | - R Programming Basics                       |                 |
++-----------+-------------------+----------------------------------------------+-----------------+
+| [Week 2]  | 1/30 & 2/1        |                                              | [Assignment 1]  |
 |           |                   | - Data Wrangling & tidyverse Basics          |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 2]  | 1/30 & 2/1        | - R in Biology                               |                 |
-|           |                   | - Bio: Bioconductor Basics                   | [Assignment 1]  |
-|           |                   | - Data Viz: Grammar of Graphics              |                 |
+| [Week 3]  | 2/6  & 2/8        |                                              | [Assignment 2]  |
+|           |                   | - R in Biology                               |                 |
+|           |                   | - Bio: Bioconductor Basics                   |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 3]  | 2/6  & 2/8        | - Data Sci: Data Modeling                    |                 |
-|           |                   | - Bio: Gene Expression                       | [Assignment 2]  |
+| [Week 4]  | 2/13 & 2/15       |                                              | [Assignment 3]  |
+|           |                   | - Data Viz: Grammar of Graphics              |                 |
+|           |                   | - Bio: Gene Expression                       |                 |
 |           |                   | - Bio: Microarrays                           |                 |
+|           |                   | - Data Sci: Data Modeling                    |                 |
 |           |                   | - Bio: Differential Expression: Microarrays  |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 4]  | 2/13 & 2/15       | - Data Sci: PCA & Clustering                 |                 |
-|           |                   | - Data Vis: Heatmaps & Dendrograms           | [Assignment 3]  |
+| [Week 5]  | 2/21 & 2/22       |                                              | [Assignment 4]  |
+|           | **Note: 2/21 is a | - Data Sci: PCA & Clustering                 |                 |
+|           | Tuesday**         | - Data Vis: Heatmaps & Dendrograms           |                 |
 |           |                   | - R Programming: Structures & Iteration      |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 5]  | 2/21 & 2/22       | - Bio: High Throughput Sequencing            |                 |
-|           | **Note: 2/21 is a | - Bio: RNASeq                                |                 |
-|           | Tuesday**         | - Bio: Count Data                            | [Assignment 4]  |
+| [Week 6]  | 2/27 & 3/1        |                                              | [Assignment 5]  |
+|           |                   | - Bio: High Throughput Sequencing            |                 |
+|           |                   | - Bio: RNASeq                                |                 |
+|           |                   | - Bio: Count Data                            |                 |
 |           |                   | - Bio: Differential Expression: RNASeq       |                 |
 |           |                   | - Bio: Gene Set Enrichment Analysis          |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 6]  | 2/27 & 3/1        | - Data Sci: Distributions                    |                 |
-|           |                   | - Data Sci: Statistical Tests                | [Assignment 5]  |
-|           |                   | - R Programming: Style & Conventions         |                 |
-+-----------+-------------------+----------------------------------------------+-----------------+
 |           | 3/6 & 3/8         |  Spring Break                                |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 7]  | 3/13 & 3/15       | - Data Viz: Responsible Plotting             | [Assignment 6]  |
+| [Week 7]  | 3/13 & 3/15       |                                              | [Assignment 6]  |
+|           |                   | - Data Sci: Distributions                    |                 |
+|           |                   | - Data Sci: Statistical Tests                |                 |
+|           |                   | - R Programming: Style & Conventions         |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 | [Week 8]  | 3/20 & 3/22       | - RShiny                                     | [Assignment 7]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
 | [Week 9]  | 3/27 & 3/29       | - EngineeRing                                | [Assignment 7]  |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 10] | 4/3 & 4/5         | - Bio: Biological Networks                   |                 |
-|           |                   | - Data Sci: Network Analysis                 | [Project]       |
-|           |                   | - Data Viz: Network Viz                      |                 |
+| [Week 10] | 4/3 & 4/5         |                                              | [Project]       |
+|           |                   | - Data Viz: Plot Week!                       |                 |
+|           |                   | - Data Viz: Responsible Plotting             |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
-| [Week 11] | ~~4/10 & 4/12~~   | - Project work, no class                     |                 |
+| [Week 11] | ~~4/10 & 4/12~~   |                                              |                 |
+|           |                   | - Bio: Biological Networks                   |                 |
+|           |                   | - Data Sci: Network Analysis                 |                 |
+|           |                   | - Data Viz: Network Viz                      |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
 | [Week 12] | ~~4/19~~          | - Project work, no class                     |                 |
 +-----------+-------------------+----------------------------------------------+-----------------+
