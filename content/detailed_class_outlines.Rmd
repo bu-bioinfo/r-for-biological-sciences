@@ -6,6 +6,8 @@ output: html_document
 
 ## Week 1
 
+[Week 1 slides](slides/week_1_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 1 | 1/23 | Intro | [Course Intro & Details] |  |
@@ -27,6 +29,8 @@ output: html_document
 
 ## Week 2
 
+[Week 2 slides](slides/week_2_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 3 | 1/30 | Assignment | [Assignment 1] |  |
@@ -42,6 +46,8 @@ output: html_document
 
 
 ## Week 3
+
+[Week 3 slides](slides/week_3_slides.html)
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
@@ -59,16 +65,19 @@ output: html_document
 
 ## Week 4
 
+[Week 4 slides](slides/week_4_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
-| 7 | 2/13 | R Prog | [Unit Testing] |  |
-| 7 | 2/13 | Data Viz | [Grammar of Graphics] |  |
-| 7 | 2/13 | Data Viz | [Plotting One Dimension] |  |
-| 7 | 2/13 | Data Viz | [Visualizing Distributions] |  |
-| 7 | 2/13 | Bioinfo | [Gene Expression] |  |
-| 7 | 2/13 | Bioinfo | [Gene Expression Data in Bioconductor] |  |
-| 7 | 2/13 | Bioinfo | [Microarrays] |  |
-| 7 | 2/13 | Bioinfo | [Microarray Gene Expression Data] |  |
+| 7 | 2/13 | R Prog | [Unit Testing] | [slides](slides/0800_engineeRing.html#unit-testing) |
+| 7 | 2/13 | Data Viz | [Grammar of Graphics] | [slides](slides/0600_data_viz.html#grammar-of-graphics) |
+| 7 | 2/13 | Data Viz | [`ggplot` Mechanics] | [slides](slides/0600_data_viz.html#ggplot-mechanics) |
+| 7 | 2/13 | Data Viz | [Plotting One Dimension] | [slides](slides/0600_data_viz.html#plotting-one-dimension) |
+| 7 | 2/13 | Data Viz | [Visualizing Distributions] | [slides](slides/0600_data_viz.html#visualizing-distributions) |
+| 7 | 2/13 | Bioinfo | [Gene Expression] | [slides](slides/0700_bioinfo.html#gene-expression) |
+| 7 | 2/13 | Bioinfo | [Gene Expression Data in Bioconductor] | [slides](slides/0700_bioinfo.html#gene-expression-in-bioconductor) |
+| 7 | 2/13 | Bioinfo | [Microarrays] | [slides](slides/0700_bioinfo.html#microarrays) |
+| 7 | 2/13 | Bioinfo | [Microarray Gene Expression Data] | [slides](slides/0700_bioinfo.html#microarray-gene-expression-data) |
 | 8 | 2/15 | Assignment | [Assignment 2] |  |
 | 8 | 2/15 | Assignment | [Assignment 3] |  |
 | 8 | 2/15 | Data Science | [Data Modeling] |  |
@@ -80,6 +89,8 @@ output: html_document
 
 
 ## Week 5
+
+[Week 5 slides](slides/week_5_slides.html)
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
@@ -99,6 +110,8 @@ output: html_document
 
 
 ## Week 6
+
+[Week 6 slides](slides/week_6_slides.html)
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
@@ -120,6 +133,8 @@ output: html_document
 
 ## Week 7
 
+[Week 7 slides](slides/week_7_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 13 | 3/13 | Data Science | [Statistical Distributions] |  |
@@ -139,13 +154,14 @@ output: html_document
 
 ## Week 8
 
+[Week 8 slides](slides/week_8_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 15 | 3/20 | Data Viz | [Responsible Plotting] |  |
 | 15 | 3/20 | Data Viz | [Human Visual Perception] |  |
 | 15 | 3/20 | Data Viz | [Visual Encodings] |  |
 | 15 | 3/20 | Data Viz | [Elementary Perceptual Tasks] |  |
-| 15 | 3/20 | Data Viz | [`ggplot` Mechanics] |  |
 | 15 | 3/20 | Data Viz | [Plotting Two or More Dimensions] |  |
 | 15 | 3/20 | Data Viz | [Scatter Plots] |  |
 | 15 | 3/20 | Data Viz | [Bubble Plots] |  |
@@ -165,6 +181,8 @@ output: html_document
 
 ## Week 9
 
+[Week 9 slides](slides/week_9_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 17 | 3/27 | RShiny | [Rshiny] |  |
@@ -177,6 +195,8 @@ output: html_document
 
 
 ## Week 10
+
+[Week 10 slides](slides/week_10_slides.html)
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
@@ -195,6 +215,8 @@ output: html_document
 
 ## Week 11
 
+[Week 11 slides](slides/week_11_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 21 | 4/10 | Bioinfo | [Biological Pathways] |  |
@@ -209,6 +231,8 @@ output: html_document
 
 ## Week 12
 
+[Week 12 slides](slides/week_12_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 23 | 4/19 | No class, project work | NA |  |
@@ -216,6 +240,8 @@ output: html_document
 
 
 ## Week 13
+
+[Week 13 slides](slides/week_13_slides.html)
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
@@ -225,8 +251,52 @@ output: html_document
 
 ## Week 14
 
+[Week 14 slides](slides/week_14_slides.html)
+
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 27 | 5/3 | Wrap up and feedback | NA |  |
 
+
+[[1]]
+NULL
+
+[[2]]
+NULL
+
+[[3]]
+NULL
+
+[[4]]
+NULL
+
+[[5]]
+NULL
+
+[[6]]
+NULL
+
+[[7]]
+NULL
+
+[[8]]
+NULL
+
+[[9]]
+NULL
+
+[[10]]
+NULL
+
+[[11]]
+NULL
+
+[[12]]
+NULL
+
+[[13]]
+NULL
+
+[[14]]
+NULL
 

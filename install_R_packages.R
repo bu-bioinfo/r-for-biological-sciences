@@ -1,6 +1,14 @@
 # CRAN packages
 #https://stackoverflow.com/questions/4090169/elegant-way-to-check-for-missing-packages-and-install-them
-list.of.packages <- c("tidyverse", "ggdendro", "dynamicTreeCut", "fastcluster", "WGCNA", "threejs")
+list.of.packages <- c(
+  "tidyverse",
+  "ggdendro",
+  "dynamicTreeCut",
+  "fastcluster",
+  "WGCNA",
+  "threejs",
+  "kableExtra"
+)
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos='http://cran.us.r-project.org')
 
