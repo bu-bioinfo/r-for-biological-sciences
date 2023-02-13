@@ -2,174 +2,231 @@
 output: html_document
 ---
 
-# Class Outlines
-
-These are the specific topics covered in each week.
+# Detailed Class Schedule
 
 ## Week 1
-* Course Intro & Details ([slides](slides/0000_introduction.html))
-* [Assignment 0]
-* Intro: [Data in Biology] ([slides](slides/0100_data_in_biology.html))
-* Prelim: [The R Language] ([slides](slides/0200_preliminaries.html))
-* Prelim: [RStudio] on SCC ([slides](slides/0200_preliminaries.html#rstudio))
-* Prelim: [The R Script] ([slides](slides/0200_preliminaries.html#the-r-script))
-* Prelim: [The Scripting Workflow] ([slides](slides/0200_preliminaries.html#the-scripting-workflow))
-* Comm: [RMarkdown & knitr] ([slides](slides/1000_communication.html))
-* Prelim: [Git + github] ([slides](slides/0200_preliminaries.html#git-github))
-* R Prog: [R Syntax Basics] ([slides](slides/0300_r_programming.html))
-* R Prog: [Functions] ([slides](slides/0300_r_programming.html#functions))
-* R Prog: [Data structures] ([slides](slides/0300_r_programming.html#data-structures))
-* R Prog: [Factors] ([slides](slides/0300_r_programming.html#factors))
-* R Prog: [Iteration] ([slides](slides/0300_r_programming.html#iteration))
-* R Prog: [Troubleshooting and Debugging] ([slides](slides/0300_r_programming.html#troubleshooting-and-debugging))
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 1 | 1/23 | Intro | [Course Intro & Details] |  |
+| 1 | 1/23 | Assignment | [Assignment 0] |  |
+| 1 | 1/23 | Intro | [Data in Biology] | NA |
+| 1 | 1/23 | Prelim | [The R Language] | NA |
+| 1 | 1/23 | Prelim | [Rstudio] | [slides](slides/0200_preliminaries.html#rstudio) |
+| 1 | 1/23 | Prelim | [The R Script] | [slides](slides/0200_preliminaries.html#the-r-script) |
+| 1 | 1/23 | Prelim | [The Scripting Workflow] | [slides](slides/0200_preliminaries.html#the-scripting-workflow) |
+| 1 | 1/23 | Comm | [Rmarkdown & knitr] | NA |
+| 1 | 1/23 | Prelim | [Git + github] | [slides](slides/0200_preliminaries.html#git-github) |
+| 2 | 1/25 | R Prog | [R Syntax Basics] |  |
+| 2 | 1/25 | R Prog | [Functions] |  |
+| 2 | 1/25 | R Prog | [Data Structures] |  |
+| 2 | 1/25 | R Prog | [Factors] |  |
+| 2 | 1/25 | R Prog | [Iteration] |  |
+| 2 | 1/25 | R Prog | [Troubleshooting and Debugging] |  |
+
 
 ## Week 2
 
-[Week 2 Slides](slides/week_2_slides.html)
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 3 | 1/30 | Assignment | [Assignment 1] |  |
+| 3 | 1/30 | Data Wrangling | [The Tidyverse] |  |
+| 3 | 1/30 | Data Wrangling | [Tidyverse Basics] |  |
+| 3 | 1/30 | Data Wrangling | [Importing Data] |  |
+| 3 | 1/30 | Bioinfo | [CSV Files] |  |
+| 3 | 1/30 | Data Wrangling | [The tibble] |  |
+| 3 | 1/30 | Data Wrangling | [pipes] |  |
+| 3 | 1/30 | Data Wrangling | [Arranging Data] |  |
+| 3 | 1/30 | Data Wrangling | [Regular expressions] |  |
+| 4 | 2/1 | Cancelled due to illness | NA |  |
 
-* [Assignment 1]
-* Data Wrangle: [The Tidyverse] ([slides](slides/week_2_slides.html#the-tidyverse))
-* Data Wrangle: [Tidyverse Basics] ([slides](slides/week_2_slides.html#tidyverse-basics))
-* Data Wrangle: [Importing Data] ([slides](slides/week_2_slides.html#importing-data))
-* Bioinfo: [CSV Files] ([slides](slides/0700_bioinfo.html#csv-files))
-* Data Wrangle: [The tibble] ([slides](slides/week_2_slides.html#the-tibble))
-* Data Wrangle: [pipes] ([slides](slides/week_2_slides.html#pipes))
-* Data Wrangle: [Arranging Data] ([slides](slides/week_2_slides.html#arranging-data))
-* Data Wrangle: [Regular expressions] ([slides](slides/week_2_slides.html#regular-expressions))
-* Data Wrangle: [Rearranging Data] ([slides](slides/week_2_slides.html#rearranging-data))
-* Bioinfo: [R in Biology] ([slides](slides/week_2_slides.html#r-in-biology))
-* Bioinfo: [Types of Biological Data] ([slides](slides/week_2_slides.html#types-of-biological-data))
-* Bioinfo: [Bioconductor] ([slides](slides/week_2_slides.html#bioconductor))
-* Bioinfo: [Gene Identifiers] ([slides](slides/week_2_slides.html#gene-identifiers))
-* Bioinfo: [Mapping Between Identifier Systems] ([slides](slides/week_2_slides.html#mapping-between-identifier-systems))
 
 ## Week 3
-* [Assignment 1] Review
-* [Assignment 2]
-* Data Wrangle: [Relational Data] ([slides](slides/week_2_slides.html#relational-data))
-* Bioinfo: [Mapping Homologs] ([slides](slides/week_2_slides.html#mapping-homologs))
-* Data Viz: [Grammar of Graphics]
-* Data Viz: [Plotting One Dimension]
-* Data Viz: [Visualizing Distributions]
-* R Prog: [Unit Testing]
-* Data Sci: [Data Modeling]
-* Data Sci: [A Worked Modeling Example]
-* Data Sci: [Data Summarization]
-* Data Sci: [Linear Models]
-* Data Sci: [Flavors of Linear Models]
-* Bioinfo: [Gene Expression]
-* Bioinfo: [Gene Expression Data in Bioconductor]
-* Bioinfo: [Microarrays]
-* Bioinfo: [Microarray Gene Expression Data]
-* Bioinfo: [Differential Expression: Microarrays (limma)]
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 5 | 2/6 | Data Wrangling | [Rearranging Data] |  |
+| 5 | 2/6 | Bioinfo | [R in Biology] |  |
+| 5 | 2/6 | Bioinfo | [Types of Biological Data] |  |
+| 5 | 2/6 | Bioinfo | [Bioconductor] |  |
+| 5 | 2/6 | Bioinfo | [Gene Identifiers] |  |
+| 5 | 2/6 | Bioinfo | [Mapping Between Identifier Systems] |  |
+| 6 | 2/8 | Assignment | [Assignment 1] |  |
+| 6 | 2/8 | Assignment | [Assignment 2] |  |
+| 6 | 2/8 | Data Wrangling | [Relational Data] |  |
+| 6 | 2/8 | Bioinfo | [Mapping Homologs] |  |
+
 
 ## Week 4
-* [Assignment 2] Review
-* [Assignment 3]
-* Data Sci: [Exploratory Data Analysis]
-* Data Sci: [Principal Component Analysis]
-* Data Sci: [Cluster Analysis]
-* Data Sci: [Hierarchical Clustering]
-* Data Viz: [Heatmaps]
-* Data Viz: [Specifying Heatmap Colors]
-* Data Viz: [Dendrograms]
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 7 | 2/13 | R Prog | [Unit Testing] |  |
+| 7 | 2/13 | Data Viz | [Grammar of Graphics] |  |
+| 7 | 2/13 | Data Viz | [Plotting One Dimension] |  |
+| 7 | 2/13 | Data Viz | [Visualizing Distributions] |  |
+| 7 | 2/13 | Bioinfo | [Gene Expression] |  |
+| 7 | 2/13 | Bioinfo | [Gene Expression Data in Bioconductor] |  |
+| 7 | 2/13 | Bioinfo | [Microarrays] |  |
+| 7 | 2/13 | Bioinfo | [Microarray Gene Expression Data] |  |
+| 8 | 2/15 | Assignment | [Assignment 2] |  |
+| 8 | 2/15 | Assignment | [Assignment 3] |  |
+| 8 | 2/15 | Data Science | [Data Modeling] |  |
+| 8 | 2/15 | Data Science | [A Worked Modeling Example] |  |
+| 8 | 2/15 | Data Science | [Data Summarization] |  |
+| 8 | 2/15 | Data Science | [Linear Models] |  |
+| 8 | 2/15 | Data Science | [Flavors of Linear Models] |  |
+| 8 | 2/15 | Bioinfo | [Differential Expression: Microarrays (limma)] |  |
+
 
 ## Week 5
-* [Assignment 3] Review
-* [Assignment 4]
-* Bioinfo: [High Throughput Sequencing]
-* Bioinfo: [Count Data]
-* Bioinfo: [RNASeq]
-* Bioinfo: [RNASeq Gene Expression Data]
-* Bioinfo: [Filtering Counts]
-* Bioinfo: [Count Distributions]
-* Bioinfo: [Count Normalization]
-* Bioinfo: [Count Transformation]
-* Bioinfo: [Differential Expression: RNASeq]
-* Bioinfo: [DESeq2/EdgeR]
-* Bioinfo: [limma/voom]
-* Bioinfo: [Gene Set Enrichment Analysis]
-* Bioinfo: [Gene Sets]
-* Bioinfo: [Over-representation Analysis]
-* Bioinfo: [Rank-based Analysis]
-* Bioinfo: [fgsea]
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 9 | 2/21 | Data Science | [Exploratory Data Analysis] |  |
+| 9 | 2/21 | Data Science | [Principal Component Analysis] |  |
+| 9 | 2/21 | Data Science | [Cluster Analysis] |  |
+| 9 | 2/21 | Data Science | [Hierarchical Clustering] |  |
+| 9 | 2/21 | Data Viz | [Heatmaps] |  |
+| 9 | 2/21 | Data Viz | [Specifying Heatmap Colors] |  |
+| 9 | 2/21 | Data Viz | [Dendrograms] |  |
+| 10 | 2/22 | Assignment | [Assignment 3] |  |
+| 10 | 2/22 | Assignment | [Assignment 4] |  |
+| 10 | 2/22 | Bioinfo | [High Throughput Sequencing] |  |
+| 10 | 2/22 | Bioinfo | [Count Data] |  |
+| 10 | 2/22 | Bioinfo | [RNASeq] |  |
+| 10 | 2/22 | Bioinfo | [RNASeq Gene Expression Data] |  |
+
 
 ## Week 6
-* [Assignment 4] Review
-* [Assignment 5]
-* Data Sci: [Statistical Distributions]
-* Data Sci: [Random Variables]
-* Data Sci: [Statistical Distribution Basics]
-* Data Sci: [Distributions in R]
-* Data Sci: [Discrete Distributions]
-* Data Sci: [Continuous Distributions]
-* Data Sci: [Empirical Distributions]
-* Data Sci: [Statistical Tests]
-* Data Sci: [p-values]
-* Data Sci: [Multiple Hypothesis Testing]
-* Data Sci: [Statistical power]
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 11 | 2/27 | Bioinfo | [Filtering Counts] |  |
+| 11 | 2/27 | Bioinfo | [Count Distributions] |  |
+| 11 | 2/27 | Bioinfo | [Count Normalization] |  |
+| 11 | 2/27 | Bioinfo | [Count Transformation] |  |
+| 11 | 2/27 | Bioinfo | [Differential Expression: RNASeq] |  |
+| 11 | 2/27 | Bioinfo | [DESeq2/EdgeR] |  |
+| 11 | 2/27 | Bioinfo | [limma/voom] |  |
+| 12 | 3/1 | Assignment | [Assignment 4] |  |
+| 12 | 3/1 | Assignment | [Assignment 5] |  |
+| 12 | 3/1 | Bioinfo | [Gene Set Enrichment Analysis] |  |
+| 12 | 3/1 | Bioinfo | [Gene Sets] |  |
+| 12 | 3/1 | Bioinfo | [Over-representation Analysis] |  |
+| 12 | 3/1 | Bioinfo | [Rank-based Analysis] |  |
+| 12 | 3/1 | Bioinfo | [fgsea] |  |
+
 
 ## Week 7
-* [Assignment 5] Review
-* [Assignment 6]
-* Data Viz: [Responsible Plotting]
-* Data Viz: [Human Visual Perception]
-* Data Viz: [Visual Encodings]
-* Data Viz: [Elementary Perceptual Tasks]
-* Data Viz: [`ggplot` Mechanics]
-* Data Viz: [Plotting Two or More Dimensions]
-* Data Viz: [Scatter Plots]
-* Data Viz: [Bubble Plots]
-* Data Viz: [Connected Scatter Plots]
-* Data Viz: [Line Plots]
-* Data Viz: [Parallel Coordinate Plots]
-* Data Viz: [Chord Diagrams and Circos Plots]
-* Data Viz: [How To Use Heatmaps Responsibly]
-* Data Viz: [Multiple Plots]
-* Data Viz: [Facet wrapping]
-* Data Viz: [Publication Ready Plots]
-* R Prog: [Coding Style and Conventions]
-* R Prog: [The `styler` package]
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 13 | 3/13 | Data Science | [Statistical Distributions] |  |
+| 13 | 3/13 | Data Science | [Random Variables] |  |
+| 13 | 3/13 | Data Science | [Statistical Distributions Basics] |  |
+| 13 | 3/13 | Data Science | [Distributions in R] |  |
+| 13 | 3/13 | Data Science | [Discrete Distributions] |  |
+| 13 | 3/13 | Data Science | [Continuous Distributions] |  |
+| 13 | 3/13 | Data Science | [Empirical Distributions] |  |
+| 14 | 3/15 | Assignment | [Assignment 5] |  |
+| 14 | 3/15 | Assignment | [Assignment 6] |  |
+| 14 | 3/15 | Data Science | [Statistical Tests] |  |
+| 14 | 3/15 | Data Science | [p-values] |  |
+| 14 | 3/15 | Data Science | [Multiple Hypothesis Testing] |  |
+| 14 | 3/15 | Data Science | [Statistical power] |  |
+
 
 ## Week 8
-* [Assignment 6] Review
-* [Assignment 7]
-* RShiny: [Rshiny]
-* RShiny: [Introduction]
-* RShiny: [Application Structure]
-* RShiny: [Reactivity]
-* RShiny: [Publishing]
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 15 | 3/20 | Data Viz | [Responsible Plotting] |  |
+| 15 | 3/20 | Data Viz | [Human Visual Perception] |  |
+| 15 | 3/20 | Data Viz | [Visual Encodings] |  |
+| 15 | 3/20 | Data Viz | [Elementary Perceptual Tasks] |  |
+| 15 | 3/20 | Data Viz | [`ggplot` Mechanics] |  |
+| 15 | 3/20 | Data Viz | [Plotting Two or More Dimensions] |  |
+| 15 | 3/20 | Data Viz | [Scatter Plots] |  |
+| 15 | 3/20 | Data Viz | [Bubble Plots] |  |
+| 15 | 3/20 | Data Viz | [Connected Scatter Plots] |  |
+| 15 | 3/20 | Data Viz | [Line Plots] |  |
+| 16 | 3/22 | Assignment | [Assignment 5] |  |
+| 16 | 3/22 | Assignment | [Assignment 6] |  |
+| 16 | 3/22 | Data Viz | [Parallel Coordinate Plots] |  |
+| 16 | 3/22 | Data Viz | [Chord Diagrams and Circos Plots] |  |
+| 16 | 3/22 | Data Viz | [How To Use Heatmaps Responsibly] |  |
+| 16 | 3/22 | Data Viz | [Multiple Plots] |  |
+| 16 | 3/22 | Data Viz | [Facet wrapping] |  |
+| 16 | 3/22 | Data Viz | [Publication Ready Plots] |  |
+| 16 | 3/22 | R Prog | [Coding Style and Conventions] |  |
+| 16 | 3/22 | R Prog | [The `styler` package] |  |
+
 
 ## Week 9
-* EngineeRing: [Toolification]
-* EngineeRing: [The R Interpreter]
-* EngineeRing: [`Rscript`]
-* EngineeRing: [`commandArgs()`]
-* EngineeRing: [Parallel Processing]
-* EngineeRing: [Brief Introduction to Parallelization]
-* EngineeRing: [`apply` and Friends Are Pleasingly Parallel]
-* EngineeRing: [The `parallel` package]
-* [Assignment 7] Checkin
-* EngineeRing: [Object Oriented Programming in R]
-* EngineeRing: [Building R Packages]
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 17 | 3/27 | RShiny | [Rshiny] |  |
+| 17 | 3/27 | RShiny | [Introduction] |  |
+| 17 | 3/27 | RShiny | [Application Structure] |  |
+| 17 | 3/27 | RShiny | [Reactivity] |  |
+| 17 | 3/27 | RShiny | [Publishing] |  |
+| 18 | 3/29 | Assignment | [Assignment 6] |  |
+| 18 | 3/29 | Assignment | [Assignment 7] |  |
+
 
 ## Week 10
-* Bioinfo: [Biological Pathways]
-* Bioinfo: [Gene Regulatory Networks]
-* Bioinfo: [Protein-Protein Networks]
-* Bioinfo: [WGCNA]
-* [Assignment 7] Review
-* Data Sci: [Network Analysis]
-* Data Viz: [Network visualization]
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 19 | 4/3 | EngineeRing | [Toolification] |  |
+| 19 | 4/3 | EngineeRing | [The R Interpreter] |  |
+| 19 | 4/3 | EngineeRing | [`Rscript`] |  |
+| 19 | 4/3 | EngineeRing | [`commandArgs()`] |  |
+| 19 | 4/3 | EngineeRing | [Parallel Processing] |  |
+| 19 | 4/3 | EngineeRing | [Brief Introduction to Parallelization] |  |
+| 19 | 4/3 | EngineeRing | [`apply` and Friends Are Pleasingly Parallel] |  |
+| 19 | 4/3 | EngineeRing | [The `parallel` package] |  |
+| 20 | 4/5 | Assignment | [Assignment 7] |  |
+| 20 | 4/5 | EngineeRing | [Object Oriented Programming in R] |  |
+| 20 | 4/5 | EngineeRing | [Building R Packages] |  |
+
 
 ## Week 11
-* Project work, no class
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 21 | 4/10 | Bioinfo | [Biological Pathways] |  |
+| 21 | 4/10 | Bioinfo | [Gene Regulatory Networks] |  |
+| 21 | 4/10 | Bioinfo | [Protein-Protein Networks] |  |
+| 21 | 4/10 | Bioinfo | [WGCNA] |  |
+| 22 | 4/12 | Assignment | [Assignment 7] |  |
+| 22 | 4/12 | Assignment | [Final Project] |  |
+| 22 | 4/12 | Data Science | [Network Analysis] |  |
+| 22 | 4/12 | Data Viz | [Network visualization] |  |
+
 
 ## Week 12
-* Project work, no class
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 23 | 4/19 | No class, project work | NA |  |
+| 24 | 4/24 | No class, project work | NA |  |
+
 
 ## Week 13
-* Project work, no class
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 25 | 4/26 | No class, project work | NA |  |
+| 26 | 5/1 | No class, project work | NA |  |
+
 
 ## Week 14
-* Wrap up & feedback
+
+|Lecture|Date|Topic|Section|Slides|
+|-------|----|-----|-------|------|
+| 27 | 5/3 | Wrap up and feedback | NA |  |
+
+
