@@ -1,45 +1,203 @@
 ---
-title: "Data Visualization"
+title: "Week 4 Slides"
 subtitle: "[R for Biological Science](../index.html)"
 output: ioslides_presentation
 author: "Adam Labadorf"
 company: "Boston University"
 ---
 
-```{r data viz setup, include=FALSE}
-library(tidyverse)
-
+```{r, include=FALSE}
 setwd('../')
+source("0700_bioinfo.R")
 source("setup_example_data.R")
 setwd('slides')
+library(tidyverse)
+library(ggplot2)
 ```
 
-# Data Visualization
+# Notes and Business
 
-## Data Visualization
+## Assignment commits after due
 
-* Data visualization is a core component of both exploring data and communicating
-results
-* The goal: present data in a graphical way that shows patterns that are otherwise invisible
-* Effective data visualization is challenging!
-* No "gold standard" to follow - only principles and judgment
+* Your last commit prior to the start of class will be used as your submission
+* You may push later, but the TAs will check out the state of your code prior
+  to 2:30pm Wednesdays
+  
+## Assignment 2 Clarifications
 
-## Properties of good data viz
+* You may use `report.Rmd` to help troubleshoot
+* Example expression data has an R quirk:
+  - `read.table` functions expect first row to have 1 fewer column than subsequent rows
+  - First column is expected to be row names
+  
+# Unit Testing
 
-An effective data visualization:
+## Writing Correct Software
 
-1. Depicts accurate data
-2. Depicts data accurately
-3. Shows enough, but not too much, of the data
-4. Is self contained - no additional information (except a caption) is required
-   to understand the contents of the figure
+* Writing code that does what we intend is harder than it should be
+* As code complexity increases, changing one piece of code may affect other code
+  in unexpected ways
+* How do we ensure our code does what we mean for it to do?
 
-## Properties of great data viz
+## Software Testing
 
-A *great* visualization has some additional properties:
+* *Software testing* refers to writing code that tests other code
+* Formal methods exist to test software for correctness
+* Several *software testing frameworks* to choose from
+* General strategy:
+  1. Construct inputs for our code that have expected outputs
+  2. Compare actual output with expected output
+  3. Fail if they don't match
 
-5. Exposes patterns in the data not easily observable by other methods
-6. Invites the viewer to ask more questions about the data
+## Ad hoc testing
+
+```r
+add <- function(x,y) {
+  return(x+y)
+}
+```
+
+* Can test this manually:
+
+  ```r
+  result <- add(1,2)
+  result == 3
+  [1] TRUE
+  ```
+  
+## Ad hoc failure
+
+```r
+add <- function(x,y) {
+  return(x+y+1)
+}
+```
+
+* Test FAILS:
+
+  ```r
+  result <- add(1,2)
+  result == 3
+  [1] FALSE
+  ```
+
+## Formal vs informal tests
+
+* Manually testing code correctness is *informal*
+* *Formal* testing frameworks involve writing code to perform this testing
+* Formal tests are composed of *test cases* that cover different situations
+* Can be run automatically whenever your code changes
+* Write test cases when bugs are reported!
+
+## Unit Testing
+
+* *Unit testing* is one software testing approach that tests individual "units"
+  of code
+* A "unit" of code may be:
+  - A function
+  - A class
+* Once all units are tested, sets of units that work together can be tested
+  (called *integration testing*)
+* Unit tests form a kind of "documentation" for the software
+
+## `testthat` Package
+
+* R package [testthat](https://testthat.r-lib.org/) provides a testing framework
+* Authors: "tries to make testing as fun as possible, so that you get a visceral
+  satisfaction from writing tests."
+* Install using `install.packages("testthat")`
+
+## `testthat` Unit Test
+
+```r
+library(testthat)
+test_that("add() correctly adds things", {
+    expect_equal(add(1,2), 3)
+    expect_equal(add(5,6), 11)
+  }
+)
+Test passed
+```
+
+## `test_that` Anatomy
+
+```r
+test_that("add() correctly adds things", {
+    expect_equal(add(1,2), 3)
+    expect_equal(add(5,6), 11)
+  }
+)
+```
+
+1. a concise, human readable description of the test (`add() correctly adds things`)
+2. one or more tests enclosed by `{}` written using [`expect_X`
+  functions](https://testthat.r-lib.org/reference/index.html) from the testthat
+  package
+
+## `test_that` Failures
+
+```r
+test_that("add() correctly adds things", {
+    expect_equal(add(1,2), 3)
+    expect_equal(add(5,6), 10) # incorrect expected value
+  }
+)
+-- Failure (Line 3): add() correctly adds things -------------------------------
+add(5, 6) not equal to 10.
+1/1 mismatches
+[1] 11 - 10 == 1
+
+Error: Test failed
+```
+
+## Writing tests
+
+* Write an R script that only contains tests, e.g. `test_functions.R`
+* *Separate from analysis code!*
+* Your test script call the functions you have written in your other scripts
+  to check for their correctness 
+* Run tests whenever code changes substantially
+* Add more tests to test new functionality/when you identify bugs
+
+
+## Automated Testing
+
+* Can run tests in test script automatically with `test_file()`
+
+```r
+add <- function(x,y) {
+return(x+y)
+}
+testthat::test_file("test_functions.R")
+
+== Testing test_functions.R =======================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ] Done!
+```
+
+## Test Driven Development
+
+* Ultimate testing strategy is called [test driven
+development](https://en.wikipedia.org/wiki/Test-driven_development)
+* Idea: write your tests before developing *any* analysis code, even for
+  functions that don't exist yet
+* `testthat` tests calling functions that are not defined will fail like tests
+  that find incorrect output
+
+## Test Driven Development
+
+```r
+test_that("mul() correctly multiplies things",{
+  expect_equal(mul(1,2), 2)
+})
+-- Error (Line 1): new function ------------------------------------------------
+Error in `mul(1, 2)`: could not find function "mul"
+Backtrace:
+ 1. testthat::expect_equal(mul(1, 2), 2)
+ 2. testthat::quasi_label(enquo(object), label, arg = "object")
+ 3. rlang::eval_bare(expr, quo_get_env(quo))
+
+Error: Test failed
+```
 
 # Grammar of Graphics
 
@@ -332,8 +490,13 @@ ggplot(ad_metadata, mapping = aes(x=ID,y=tau)) +
 
 * Change the fill color of the bars based on condition:
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
-ggplot(ad_metadata, mapping = aes(x=ID,y=tau,fill=condition)) +
+```r
+ggplot(ad_metadata,
+  mapping = aes(
+    x=ID,
+    y=tau,
+    fill=condition)
+  ) +
   geom_bar(stat="identity")
 ```
 
@@ -348,9 +511,13 @@ ggplot(ad_metadata, mapping = aes(x=ID,y=tau,fill=condition)) +
 
 * Bar charts can also plot negative numbers
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+```r
 mutate(ad_metadata, tau_centered=(tau - mean(tau))) %>%
-  ggplot(mapping = aes(x=ID, y=tau_centered, fill=condition)) +
+  ggplot(mapping = aes(
+    x=ID,
+    y=tau_centered,
+    fill=condition)
+  ) +
   geom_bar(stat="identity")
 ```
 
@@ -369,7 +536,7 @@ mutate(ad_metadata, tau_centered=(tau - mean(tau))) %>%
 * Similar to bar charts, "lollipop plots" replace bar with a line segment and a circle
 * No dedicated geometry - use `geom_point` and `geom_segment` layers:
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+```r
 ggplot(ad_metadata) +
   geom_point(mapping=aes(x=ID, y=tau)) +
   geom_segment(mapping=aes(x=ID, xend=ID, y=0, yend=tau))
@@ -377,7 +544,7 @@ ggplot(ad_metadata) +
 
 ## Lollipop plots
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+``` {r, fig.dim=fig_size, out.width="100%", echo=T}
 ggplot(ad_metadata) +
   geom_point(mapping=aes(x=ID, y=tau)) +
   geom_segment(mapping=aes(x=ID, xend=ID, y=0, yend=tau))
@@ -850,4 +1017,301 @@ tibble(
 ) %>%
   ggplot(aes(y=type,x=x,fill=type)) +
   geom_density_ridges(alpha=0.6,position="identity")
+```
+
+# Gene Expression
+
+## Gene Expression
+
+* Gene expression: the process by which information from a gene is used in the
+  synthesis of functional gene products that affect a phenotype.
+* Gene expression studies are often focused on protein coding genes
+* Many functional expressed molecules
+  - protein coding genes
+  - [lncRNAs](https://en.wikipedia.org/wiki/Long_non-coding_RNA)
+  - [transfer RNAs](https://www.genome.gov/genetics-glossary/Transfer-RNA)
+  - microRNAs
+
+## Gene Expression Process
+
+* Specific parts of the genome code for genes
+* Gene sequences *transcribed* into RNA molecules called *transcripts*
+* In lower organisms (e.g. bacteria), RNA molecules passed directly to ribosomes
+* In most higher organisms (i.e. eukaryotes):
+  1. Initial transcripts, called *pre-messenger RNA (pre-mRNA) transcripts* are
+  processed via splicing 
+  2. Splicing removes certain parts of pre-mRNA (*introns*) and concatenates
+  adjacent sequences (*exons*) together into *mature RNA (mRNA)*
+  3. mRNA exported from nucleus to be translated at ribosomes 
+  
+## Gene Expression Process
+
+![](../gene_expression_nature.jpg){width=75%}
+ 
+## Gene Expression Measurements
+
+* Measurements proportional to abundance (or copy number) of RNA transcripts
+* Measurements are always non-negative
+* Usually *relative* to some normalizing quantity
+  - i.e. a value of zero does *not* mean gene is not expressed!
+* Some methods (e.g. digital droplet PCR) can estimate absolute abundance
+  (i.e. exact number of copies)
+
+## Gene Expression Assays
+
+* Many ways to measure the abundance of RNA transcripts
+
+  - Light absorbance
+  - [Northern blot](https://www.genome.gov/genetics-glossary/Northern-Blot) 
+  - [quantitative polymerase chain reaction
+  (qPCR)](https://www.thermofisher.com/blog/ask-a-scientist/what-is-qpcr/)
+  - Oligonucleotide and microarrays
+  - High throughput RNA sequencing (RNASeq)
+
+# Gene Expression Data in Bioconductor
+
+## Gene Expression Data in Bioconductor
+
+* [SummarizedExperiment
+container](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
+ standard way to load and work with gene expression data in Bioconductor
+* Stores the following information:
+
+  - `assays` - one or more measurement assays (e.g. gene expression) in the form of a feature by sample matrix
+  - `colData` - metadata associated with the samples (i.e. columns) of the assays
+  - `rowData` - metadata associated with the features (i.e. rows) of the assays
+  - `exptData` - additional metadata about the experiment itself, like protocol, project name, etc
+
+## SummarizedExperiment Schematic
+
+![](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp){width=70%}
+
+## Creating SummarizedExperiments
+
+*  Many Bioconductor packages for specific types of data, e.g.
+  [limma](#differential-expression--microarrays-limma) create SummarizedExperiment
+  objects for you
+* You may also create your own...
+
+## Creating `SummarizedExperiment`s
+
+```{r load summarizedexperiment, include=FALSE}
+library(SummarizedExperiment)
+intensities <- readr::read_delim("../example_intensity_data.csv",delim=" ")
+rowData <- intensities["probeset_id"]
+intensities <- as.data.frame(
+  dplyr::select(intensities, -probeset_id)
+)
+rownames(intensities) <- rowData$probeset_id
+colData <- tibble(
+  sample_name=colnames(intensities),
+  condition=sample(c("case","control"),ncol(intensities),replace=TRUE)
+)
+se <- SummarizedExperiment(
+   assays=list(intensities=intensities),
+   colData=colData,
+   rowData=rowData
+)
+```
+
+
+```r
+# microarray expression dataset intensities
+intensities <- readr::read_delim(
+  "example_intensity_data.csv",delim=" "
+)
+
+# the first column of intensities tibble is the probesetId,
+# extract to pass as rowData
+rowData <- intensities["probeset_id"]
+
+# remove probeset IDs from tibble and turn into a R dataframe
+# so that we can assign rownames since tibbles don't support
+# row names
+intensities <- as.data.frame(
+  select(intensities, -probeset_id)
+)
+rownames(intensities) <- rowData$probeset_id
+```
+
+## `SummarizedExperiment` cont'd
+
+```r
+# these column data are made up, but you would have a
+# sample metadata file to use
+colData <- tibble(
+  sample_name=colnames(intensities),
+  condition=sample(c("case","control"),ncol(intensities),replace=TRUE)
+)
+
+se <- SummarizedExperiment(
+   assays=list(intensities=intensities),
+   colData=colData,
+   rowData=rowData
+)
+```
+
+## `SummarizedExperiment` cont'd
+
+```r
+se
+## class: SummarizedExperiment
+## dim: 54675 35
+## metadata(0):
+## assays(1): intensities
+## rownames(54675): 1007_s_at 1053_at ... AFFX-TrpnX-5_at AFFX-TrpnX-M_at
+## rowData names(1): probeset_id
+## colnames(35): GSM972389 GSM972390 ... GSM972512 GSM972521
+## colData names(2): sample_name condition
+```
+
+# Microarrays
+
+## Microarrays
+
+<div class="columns-2">
+
+![](../microarray_chip.png){width=80%}
+
+* Microarrays: devices that measure relative abundance of DNA molecules
+* Measure 1000s of DNA molecules simultaneously
+* Molecules are selected *a priori* and "hard coded" onto the device
+
+</div>
+
+
+## Types of Microarrays 
+
+* Microarrays measure DNA
+* Usually one microarray is generated for an individual sample
+* Sample preparation method depends on target molecules 
+  - DNA: e.g. genetic variants, the DNA itself is biochemically extracted
+  - RNA abundance: RNA extracted then reverse transcribed to complementary DNA (cDNA)
+  
+## Microarray Terminology
+
+* **probe** - short (~25nt) cDNA molecule complementary to portion of target transcript
+* **probe set** - a set of probes that all target the same gene
+* **flowcell** - the glass slide portion of device that has probes deposited on it
+
+## Microarray Design
+
+![](../microarray_design.png){width=100%}
+
+## Microarray Data Generation Process
+
+![](../microarray_data_gen.png){width=100%}
+
+# Microarray Gene Expression Data
+
+## Microarray Gene Expression Data
+
+Four steps involved in analyzing gene expression microarray data:
+
+1. **Summarization of probes to probesets**
+2. **Normalization**
+3. **Quality control**
+4. **Analysis**
+
+## Microarray Data
+
+* Raw probe intensity data stored in CEL data files
+* [`affy` Bioconductor package](https://www.bioconductor.org/packages/release/bioc/html/affy.html)
+  - Loads CEL files into Bioconductor objects
+  - Performs key preprocessing operations
+* Typically have many CEL files, one per each sample
+
+## Reading CEL Files
+
+* Load CEL files with `affy::ReadAffy` function
+
+```r
+# read all CEL files in a single directory
+affy_batch <- affy::ReadAffy(celfile.path="directory/of/CELfiles")
+
+# or individual files in different directories
+cel_filenames <- c(
+  list.files( path="CELfile_dir1", full.names=TRUE, pattern=".CEL$" ),
+  list.files( path="CELfile_dir2", full.names=TRUE, pattern=".CEL$" )
+)
+affy_batch <- affy::ReadAffy(filenames=cel_filenames)
+```
+
+## Probe summarization and normalization
+
+* `affy` package provides functions to perform probe summarization and normalization
+* Robust Multi-array Average (RMA) state of the art method for normalization
+* `affy::rma` function implements RMA, performs summarization and normalization
+  of multiple arrays simultaneously
+
+## Aside: R package data
+
+* Some packages include data with the R functionality
+* Load package data into your workspace with `data()` function
+
+```r
+library(affydata)
+data(Dilution)
+```
+
+## RMA normalization
+
+```{r microarray norm 1, include=F}
+library(affy)
+library(affydata)
+data(Dilution)
+
+# normalize the Dilution microarray expression values
+# note Dilution is an AffyBatch object
+eset_rma <- affy::rma(Dilution,verbose=FALSE)
+```
+
+```r
+library(affy)
+library(affydata)
+data(Dilution)
+
+# normalize the Dilution microarray expression values
+# note Dilution is an AffyBatch object
+eset_rma <- affy::rma(Dilution,verbose=FALSE)
+```
+
+## `ExpressionSet` vs `SummarizedExperiment`
+
+* `ExpressionSet` is a container that contains high throughput assay data
+* Similar to and superseded by `SummarizedExperiment`
+* Some older packages (notably `affy`) return `ExpressionSet` objects, not
+  `SummarizedExperiment`s
+* Similar interface, but some key differences
+
+| Operation | ExpressionSet | SummarizedExperiment |
+|-----------|-----------------|------------------------|
+| Get expression values | `exprs(eset)` | `assays(se)` |
+| Get column data | `phenoData(eset)` | `colData(se)` |
+| Get row data | `annotation(eset)` | `rowData(se)` |
+
+## RMA normalization
+
+```{r microarray norm 2, echo=F}
+# plot distribution of non-normalized probes
+# note rma normalization takes the log2 of the expression values,
+# so we must do so on the raw data to compare
+raw_intensity <- as_tibble(exprs(Dilution)) %>%
+  mutate(probeset_id=rownames(exprs(Dilution))) %>%
+  pivot_longer(-probeset_id, names_to="Sample", values_to = "Intensity") %>%
+  mutate(
+    `log2 Intensity`=log2(Intensity),
+    Category="Before Normalization"
+  )
+
+# plot distribution of normalized probes
+rma_intensity <- as_tibble(exprs(eset_rma)) %>%
+  mutate(probesetid=featureNames(eset_rma)) %>%
+  pivot_longer(-probesetid, names_to="Sample", values_to = "log2 Intensity") %>%
+  mutate(Category="RMA Normalized")
+
+dplyr::bind_rows(raw_intensity, rma_intensity) %>%
+  ggplot(aes(x=Sample, y=`log2 Intensity`)) +
+  geom_boxplot() +
+  facet_wrap(vars(Category))
 ```

@@ -9,6 +9,9 @@ output_format <- ioslides_presentation(
 
 #rmd_list <- list.files("content/slides", pattern="*.Rmd", full.names=TRUE)
 rmd_list <- c(
+  "week_4_slides.Rmd",
+  "week_3_slides.Rmd",
+  "week_2_slides.Rmd",
   "0000_introduction.Rmd",
   "0100_data_in_biology.Rmd",
   "0200_preliminaries.Rmd",
@@ -17,9 +20,7 @@ rmd_list <- c(
   "0600_data_viz.Rmd",
   "0700_bioinfo.Rmd",
   "0800_engineeRing.Rmd",
-  "1000_communication.Rmd",
-  "week_2_slides.Rmd",
-  "week_3_slides.Rmd"
+  "1000_communication.Rmd"
 )
 
 for(rmd in rmd_list) {
