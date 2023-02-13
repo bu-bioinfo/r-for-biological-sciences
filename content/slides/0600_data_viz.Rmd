@@ -14,6 +14,8 @@ source("setup_example_data.R")
 setwd('slides')
 ```
 
+# Data Visualization
+
 ## Data Visualization
 
 * Data visualization is a core component of both exploring data and communicating
@@ -41,7 +43,7 @@ A *great* visualization has some additional properties:
 
 # Grammar of Graphics
 
-## Grammar of Graphics {#dv-gg}
+## Grammar of Graphics
 
 <div class="columns-2">
 
@@ -230,7 +232,9 @@ age_boxplot | tau_boxplot # this puts the plots side by side
 * Useful collection of plot types and examples:
 * [R Graph Gallery](https://www.r-graph-gallery.com/)
 
-## `ggplot` mechanics
+# `ggplot` Mechanics
+
+## `ggplot` Mechanics
 
 * `ggplot` has two key concepts that give it great flexibility: **layers** and
    **scales**
