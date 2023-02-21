@@ -862,3 +862,72 @@ dplyr::bind_rows(raw_intensity, rma_intensity) %>%
   geom_boxplot() +
   facet_wrap(vars(Category))
 ```
+
+## Differential Expression: Microarrays (limma)
+
+* [limma](https://bioconductor.org/packages/release/bioc/html/limma.html): `li`near `m`odels of `mi`croarrays
+* Designed for analyzing microarray gene expression data
+* One of the [top most
+downloaded](https://bioconductor.org/packages/stats/) Bioconductor packages
+* Supports arbitrarily complex experimental designs while maintaining strong statistical power
+* Can perform reliable inference even with small sample sizes
+
+## limma Example Setup
+
+* limma requires:
+  - `ExpressionSet` or `SummarizedExperiment` container
+  - a design matrix
+
+```r
+# intensities is an example gene expression matrix that corresponds to our
+# AD sample metadata of 10 AD and 10 Control individuals
+ad_se  <- SummarizedExperiment(
+  assays=list(intensities=intensities),
+  colData=ad_metadata,
+  rowData=rownames(intensities)
+)
+
+# define our design matrix for AD vs control, adjusting for age at death
+ad_vs_control_model <- model.matrix(~ age_at_death + condition, data=ad_metadata)
+```
+
+## limma Example: fit model
+
+```r
+# now run limma
+# first fit all genes with the model
+fit <- limma::lmFit(
+  assays(se)$intensities,
+  ad_vs_control_model
+)
+
+# now better control fit errors with the empirical Bayes method
+fit <- limma::eBayes(fit)
+```
+
+```{r limma fit, include=FALSE}
+ad_vs_control_model <- model.matrix(~ age_at_death + condition, data=ad_metadata)
+
+# now run limma
+# first fit all genes with the model
+fit <- limma::lmFit(
+  assays(ad_se)$intensities,
+  ad_vs_control_model
+)
+
+# now better control fit errors with the empirical Bayes method
+fit <- limma::eBayes(fit)
+```
+
+
+## limma Results
+
+* Look at top results using `limma::topTable()` function:
+
+```{r}
+# the coefficient name conditionAD is the column name in the design matrix
+# adjust="BH" means perform Benjamini-Hochberg multiple testing adjustment
+# on the nominal p-values from each gene test
+# topTable only returns the top 10 results sorted by ascending p-value by default
+topTable(fit, coef="conditionAD", adjust="BH")
+```
