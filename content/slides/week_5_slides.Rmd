@@ -986,7 +986,7 @@ well_clustered_data %>%
 
 ## Creating Flat Clusters
 
-```{r hclust cutree color, fig.dim=c(8,3)}
+```{r hclust cutree color, fig.dim=c(8,3), echo=FALSE}
 # we turn our labels into a tibble so we can join them with the original tibble
 well_clustered_data %>%
   left_join(
@@ -1037,7 +1037,7 @@ heatmap(marker_matrix)
 
 ## Example Heatmap
 
-```{r data viz marker heatmap}
+```{r data viz marker heatmap, echo=FALSE}
 # heatmap() requires a R matrix, and cannot accept a tibble or a dataframe
 marker_matrix <- as.matrix(
   dplyr::select(ad_metadata,c(tau,abeta,iba1,gfap))
@@ -1091,7 +1091,7 @@ heatmap.2(marker_matrix)
 
 ## `heatmap.2()` Example
 
-```{r heatmap.2, echo=FALSE}
+```{r heatmap.2, echo=FALSE, message=FALSE, warning=FALSE}
 library(gplots)
 heatmap.2(marker_matrix)
 ```

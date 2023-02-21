@@ -74,18 +74,11 @@ output: html_document
 | 7 | 2/13 | Data Viz | [`ggplot` Mechanics] | [slides](slides/0600_data_viz.html#ggplot-mechanics) |
 | 7 | 2/13 | Data Viz | [Plotting One Dimension] | [slides](slides/0600_data_viz.html#plotting-one-dimension) |
 | 7 | 2/13 | Data Viz | [Visualizing Distributions] | [slides](slides/0600_data_viz.html#visualizing-distributions) |
-| 7 | 2/13 | Bioinfo | [Gene Expression] | [slides](slides/0700_bioinfo.html#gene-expression) |
-| 7 | 2/13 | Bioinfo | [Gene Expression Data in Bioconductor] | [slides](slides/0700_bioinfo.html#gene-expression-in-bioconductor) |
-| 7 | 2/13 | Bioinfo | [Microarrays] | [slides](slides/0700_bioinfo.html#microarrays) |
-| 7 | 2/13 | Bioinfo | [Microarray Gene Expression Data] | [slides](slides/0700_bioinfo.html#microarray-gene-expression-data) |
+| 8 | 2/15 | Bioinfo | [Gene Expression] | [slides](slides/0700_bioinfo.html#gene-expression) |
+| 8 | 2/15 | Bioinfo | [Gene Expression Data in Bioconductor] | [slides](slides/0700_bioinfo.html#gene-expression-in-bioconductor) |
+| 8 | 2/15 | Bioinfo | [Microarrays] | [slides](slides/0700_bioinfo.html#microarrays) |
+| 8 | 2/15 | Bioinfo | [Microarray Gene Expression Data] | [slides](slides/0700_bioinfo.html#microarray-gene-expression-data) |
 | 8 | 2/15 | Assignment | [Assignment 2] |  |
-| 8 | 2/15 | Assignment | [Assignment 3] |  |
-| 8 | 2/15 | Data Science | [Data Modeling] |  |
-| 8 | 2/15 | Data Science | [A Worked Modeling Example] |  |
-| 8 | 2/15 | Data Science | [Data Summarization] |  |
-| 8 | 2/15 | Data Science | [Linear Models] |  |
-| 8 | 2/15 | Data Science | [Flavors of Linear Models] |  |
-| 8 | 2/15 | Bioinfo | [Differential Expression: Microarrays (limma)] |  |
 
 
 ## Week 5
@@ -94,19 +87,28 @@ output: html_document
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
-| 9 | 2/21 | Data Science | [Exploratory Data Analysis] |  |
-| 9 | 2/21 | Data Science | [Principal Component Analysis] |  |
-| 9 | 2/21 | Data Science | [Cluster Analysis] |  |
-| 9 | 2/21 | Data Science | [Hierarchical Clustering] |  |
-| 9 | 2/21 | Data Viz | [Heatmaps] |  |
-| 9 | 2/21 | Data Viz | [Specifying Heatmap Colors] |  |
-| 9 | 2/21 | Data Viz | [Dendrograms] |  |
+| 9 | 2/21 | Data Science | [Data Modeling] | [slides](slides/0500_data_sci.html#data-modeling) |
+| 9 | 2/21 | Data Science | [A Worked Modeling Example] | [slides](slides/0500_data_sci.html#a-worked-modeling-example) |
+| 9 | 2/21 | Data Science | [Data Summarization] | [slides](slides/0500_data_sci.html#data-summarization) |
+| 9 | 2/21 | Data Science | [Linear Models] | [slides](slides/0500_data_sci.html#linear-models) |
+| 9 | 2/21 | Data Science | [Flavors of Linear Models] | [slides](slides/0500_data_sci.html#flavors-of-linear-models) |
+| 9 | 2/21 | Data Science | [Exploratory Data Analysis] | [slides](slides/0500_data_sci.html#exploratory-data-analysis) |
+| 9 | 2/21 | Data Science | [Principal Component Analysis] | [slides](slides/0500_data_sci.html#principal-component-analysis) |
+| 9 | 2/21 | Data Science | [Cluster Analysis] | [slides](slides/0500_data_sci.html#cluster-analysis) |
+| 9 | 2/21 | Data Science | [Hierarchical Clustering] | [slides](slides/0500_data_sci.html#hierarchical-clustering) |
+| 9 | 2/21 | Data Viz | [Heatmaps] | [slides](slides/0600_data_viz.html#heatmaps) |
+| 9 | 2/21 | Data Viz | [Dendrograms] | [slides](slides/0600_data_viz.html#dendrograms) |
 | 10 | 2/22 | Assignment | [Assignment 3] |  |
-| 10 | 2/22 | Assignment | [Assignment 4] |  |
+| 10 | 2/22 | Bioinfo | [Differential Expression] |  |
+| 10 | 2/22 | Bioinfo | [Differential Expression: Microarrays (limma)] |  |
 | 10 | 2/22 | Bioinfo | [High Throughput Sequencing] |  |
 | 10 | 2/22 | Bioinfo | [Count Data] |  |
 | 10 | 2/22 | Bioinfo | [RNASeq] |  |
 | 10 | 2/22 | Bioinfo | [RNASeq Gene Expression Data] |  |
+| 10 | 2/22 | Bioinfo | [Filtering Counts] |  |
+| 10 | 2/22 | Bioinfo | [Count Distributions] |  |
+| 10 | 2/22 | Bioinfo | [Count Normalization] |  |
+| 10 | 2/22 | Bioinfo | [Count Transformation] |  |
 
 
 ## Week 6
@@ -115,15 +117,11 @@ output: html_document
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
-| 11 | 2/27 | Bioinfo | [Filtering Counts] |  |
-| 11 | 2/27 | Bioinfo | [Count Distributions] |  |
-| 11 | 2/27 | Bioinfo | [Count Normalization] |  |
-| 11 | 2/27 | Bioinfo | [Count Transformation] |  |
 | 11 | 2/27 | Bioinfo | [Differential Expression: RNASeq] |  |
 | 11 | 2/27 | Bioinfo | [DESeq2/EdgeR] |  |
 | 11 | 2/27 | Bioinfo | [limma/voom] |  |
+| 12 | 3/1 | Assignment | [Assignment 3] |  |
 | 12 | 3/1 | Assignment | [Assignment 4] |  |
-| 12 | 3/1 | Assignment | [Assignment 5] |  |
 | 12 | 3/1 | Bioinfo | [Gene Set Enrichment Analysis] |  |
 | 12 | 3/1 | Bioinfo | [Gene Sets] |  |
 | 12 | 3/1 | Bioinfo | [Over-representation Analysis] |  |
@@ -144,8 +142,8 @@ output: html_document
 | 13 | 3/13 | Data Science | [Discrete Distributions] |  |
 | 13 | 3/13 | Data Science | [Continuous Distributions] |  |
 | 13 | 3/13 | Data Science | [Empirical Distributions] |  |
+| 14 | 3/15 | Assignment | [Assignment 4] |  |
 | 14 | 3/15 | Assignment | [Assignment 5] |  |
-| 14 | 3/15 | Assignment | [Assignment 6] |  |
 | 14 | 3/15 | Data Science | [Statistical Tests] |  |
 | 14 | 3/15 | Data Science | [p-values] |  |
 | 14 | 3/15 | Data Science | [Multiple Hypothesis Testing] |  |
@@ -172,6 +170,7 @@ output: html_document
 | 16 | 3/22 | Data Viz | [Parallel Coordinate Plots] |  |
 | 16 | 3/22 | Data Viz | [Chord Diagrams and Circos Plots] |  |
 | 16 | 3/22 | Data Viz | [How To Use Heatmaps Responsibly] |  |
+| 16 | 3/22 | Data Viz | [Specifying Heatmap Colors] | [slides](slides/0600_data_viz.html#specifying-heatmap-colors) |
 | 16 | 3/22 | Data Viz | [Multiple Plots] |  |
 | 16 | 3/22 | Data Viz | [Facet wrapping] |  |
 | 16 | 3/22 | Data Viz | [Publication Ready Plots] |  |
