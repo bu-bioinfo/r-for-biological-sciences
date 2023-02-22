@@ -1095,3 +1095,647 @@ heatmap.2(marker_matrix)
 library(gplots)
 heatmap.2(marker_matrix)
 ```
+
+# Differential Expression Analysis
+
+## Differential Expression Analysis
+
+* Goal: identify to what extent gene expression is associated with one or more
+  variables of interest
+* Typically analyze whole transcriptome (i.e. 1000s of genes)
+* Two required components:
+  - an expression matrix (e.g. genes x samples)
+  - a *design matrix*
+  
+## The Design Matrix
+
+* A design matrix is a numeric matrix that contains
+  - the variables we wish to model
+  - any covariates or confounders we wish to adjust for
+* Encoded in a way that statistical procedures understand
+* Construct these matrices from a tibble with the [`model.matrix()`
+function](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/model.matrix)
+
+## Example Metadata
+```{r, include=FALSE}
+# subset down metadata to make examples clearer
+ad_metadata <- dplyr::filter(ad_metadata, ID %in% c('A1','A2','A3','C1','C2','C3'))
+```
+
+```{r}
+ad_metadata 
+```
+
+## Case vs Control Design
+
+* Model matrix to identify genes that are increased or decreased in people with
+AD compared with Controls
+* The `~ condition` argument is an an R
+[formula](https://rviews.rstudio.com/2017/02/01/the-r-formula-method-the-good-parts/)
+
+```r
+model.matrix(~ condition, data=ad_metadata)
+```
+
+## Case vs Control Design
+
+```{r model matrix}
+model.matrix(~ condition, data=ad_metadata)
+```
+
+## Formulas in R
+
+The general format of a formula is as follows:
+
+```r
+# portions in [] are optional
+[<outcome variable>] ~ <predictor 1> [+ <predictor 2>]...
+
+# examples
+
+# model Gene 3 expression as a function of disease status
+`Gene 3` ~ condition
+
+# model the amount of tau pathology as a function of abeta pathology,
+# adjusting for age at death
+tau ~ age_at_death + abeta
+
+# can create a model without an outcome variable
+~ age_at_death + condition
+```
+
+## More Complex Designs
+
+* Can include other variables in model to adjust for covariates or test other
+  contrasts
+* e.g. adjust out the effect of age by including `age_at_death` as a covariate in the model:
+
+```r
+model.matrix(~ age_at_death + condition, data=ad_metadata)
+```
+
+## More Complex Designs
+
+```{r model matrix cov}
+model.matrix(~ age_at_death + condition, data=ad_metadata)
+```
+
+```{r, include=FALSE}
+# we messed up ad_metadata, put it back
+setwd('../')
+source("0700_bioinfo.R")
+source("setup_example_data.R")
+setwd('slides')
+```
+
+## Differential Expression: Microarrays (limma)
+
+* [limma](https://bioconductor.org/packages/release/bioc/html/limma.html): `li`near `m`odels of `mi`croarrays
+* Designed for analyzing microarray gene expression data
+* One of the [top most
+downloaded](https://bioconductor.org/packages/stats/) Bioconductor packages
+* Supports arbitrarily complex experimental designs while maintaining strong statistical power
+* Can perform reliable inference even with small sample sizes
+
+## limma Example Setup
+
+* limma requires:
+  - `ExpressionSet` or `SummarizedExperiment` container
+  - a design matrix
+
+```r
+ad_se  <- SummarizedExperiment(
+  assays=list(intensities=intensities),
+  colData=ad_metadata,
+  rowData=rownames(intensities)
+)
+
+# design matrix for AD vs control, adjusting for age at death
+ad_vs_control_model <- model.matrix(
+  ~ age_at_death + condition,
+  data=ad_metadata
+)
+```
+
+## limma Example: fit model
+
+```r
+# now run limma
+# first fit all genes with the model
+fit <- limma::lmFit(
+  assays(se)$intensities,
+  ad_vs_control_model
+)
+
+# now better control fit errors with the empirical Bayes method
+fit <- limma::eBayes(fit)
+```
+
+```{r limma fit, include=FALSE}
+ad_vs_control_model <- model.matrix(~ age_at_death + condition, data=ad_metadata)
+
+# now run limma
+# first fit all genes with the model
+fit <- limma::lmFit(
+  assays(ad_se)$intensities,
+  ad_vs_control_model
+)
+
+# now better control fit errors with the empirical Bayes method
+fit <- limma::eBayes(fit)
+```
+
+
+## limma Results
+
+* Look at top results using `limma::topTable()` function:
+
+```{r}
+# the coefficient name conditionAD is the column name in the design matrix
+topTable(fit, coef="conditionAD", adjust="BH", number=5)
+```
+
+# High Throughput Sequencing
+
+## High Throughput Sequencing
+
+* High throughput sequencing (HTS) technologies measure and digitize the
+  nucleotide sequences of thousands to billions of DNA molecules simultaneously
+* HTS instruments can determine sequence of any DNA molecule in a sample  
+* HTS datasets sometimes called *unbiased* assays
+* Most popular HTS technology today is provided by [Illumina biotechnology company](https://en.wikipedia.org/wiki/Illumina,_Inc.)
+
+## Sequencing by synthesis
+
+* Illumina sequencing uses biotechnological technique called *sequencing by synthesis*
+* Sequencing instruments are called *sequencers*
+* The process, briefly:
+  1. $10^7$ to $10^9$ short (~300 nucleotide long) DNA molecules ligated to glass slide
+  2. Denatured to become single stranded,
+  3. Complementary strand by incorporating fluorescently tagged nucleotides
+  4. Tagged nucleotides excited by a laser and photograph taken of slide
+  5. Images are processed to reconstruct DNA sequences from fluorescence events
+
+## HTS Measures DNA
+
+* Any DNA molecules may be subjected to sequencing via this method
+* Many different types of experiments are possible:
+
+  - *Whole genome sequencing (WGS)*
+  - *RNA Sequencing (RNASeq)*
+  - *Whole genome bisulfite sequencing (WGBS)*
+  - *Chromatin immunoprecipitation followed by sequencing (ChIPSeq)*
+
+* Each of these experiments create the same type of data
+* Each must be interpreted appropriately based on experiment
+
+## Raw HTS Data
+
+* Raw HTS data  are the digitized DNA sequences for the billions of molecules captured
+  by the flow cell
+* Each digitized nucleotide sequence is called a *read*
+* Data stored in a standardized format called the [FASTQ file format](https://en.wikipedia.org/wiki/FASTQ_format)
+
+## FASTQ Format
+
+* Data for a single read in FASTQ format:
+
+```
+@SEQ_ID
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+```
+
+* `@` - header, unique read name per flowcell
+* `GAT...` - the nucleotide sequence
+* `+` - second header, usually blank
+* `!''...` - the [phred quality scores](https://en.wikipedia.org/wiki/Phred_quality_score)
+  for each base in the read
+
+## HTS Sequence Analysis
+
+* Raw sequencing reads must be processed with bioinformatic algorithms
+* Two broad classes of sequence analysis:
+  - *de novo* assembly to recover complete length of original molecules
+  - *sequence alignment* against a set of reference sequences, e.g. genome
+* Most data we analyze in R comes from aligned reads that have been produced by
+  other software
+
+## Sequence Alignment
+
+* Reads aligned to a reference sequence form a distribution of read counts
+  across all locations in the reference sequence
+* Any given reference sequence location, or *locus*, has zero or more reads that
+  align to it
+* The number of reads aligning to a given locus is called the *read count*
+* The read count is proportional to the copy number of molecules in the sample
+  that correspond to that locus
+* Read counts from all genes in a reference genome form *count data*
+
+##
+
+![](../hts_examples.png){width=100%}
+
+## Count Data
+
+* The *read counts* that align to each locus of a genome form a distribution
+* Count data have two important properties:
+
+  - **Count data are integers**
+  - **Counts are non-negative**
+
+* *count data are not normally distributed*
+
+## Analyzing Count Data
+
+* Techniques that assume data are normally distributed (like linear regression)
+  are not appropriate for count data
+* Must account for this in one of two ways:
+
+  * **Use statistical methods that model counts data** - generalized linear models
+  that model data using Poisson and Negative Binomial distributions
+  * **Transform the data to have be normally distributed** - certain [statistical
+  transformations](https://en.wikipedia.org/wiki/Data_transformation_(statistics)),
+  such as [regularized log](https://rdrr.io/bioc/DESeq2/man/rlog.html) or rank
+  transformations can make counts data more closely follow a normal distribution
+# RNASeq
+
+## RNASeq
+
+* RNA sequencing (RNASeq) digitizes the RNA molecules in a sample
+* Short reads (~100-300 nucleotides long) represent RNA fragments from longer
+  transcripts
+* RNA molecules are (in principle) sequenced in proportion to their relative copy
+  number in the original sample
+* Each sequencing dataset has a total number of reads called *library size*
+* Relative copy number means *absence of evidence is not evidence of absence*
+  - i.e. count of zero does *not necessarily mean* no molecules
+
+## RNASeq Gene Expression Data
+
+* When aligned, reads are counted using a *reference annotation* that defines
+  locations of genes in the genome
+* For a single sample, output is a vector of read counts for each gene in the
+  annotation
+* Genes with no reads mapping to them will have a count of zero
+* All others will have a read count of one or more;
+* Complex multicellular organisms have on the order of thousands to tens of
+  thousands of genes
+
+## The Counts Matrix
+
+* Read counts from multiple samples of genes using the same annotation are
+  usually concatenated into a *counts matrix*
+* Counts matrix usually has genes as rows and samples as columns (not tidy!)
+* Usually in `csv` or `tsv` (tab separated) format
+* These counts are from O'Meara et al 2014
+
+```r
+counts <- read_tsv("verse_counts.tsv")
+```
+
+```{r rnaseq load, include=FALSE}
+setwd('..')
+counts <- read_tsv("verse_counts.tsv")
+# the library size for these samples are very similar
+# tweak some of them so that the counts normalization section plots look better... >.>
+#counts$P0_1 <- round(counts$P0_1*1.2,0)
+#counts$P7_2 <- round(counts$P7_2*2.0,0)
+#counts$Ad_2 <- round(counts$Ad_2*0.7,0)
+setwd('slides')
+counts
+```
+
+## Example Counts Matrix
+
+```{r}
+counts
+```
+
+```{r, include=FALSE}
+## A tibble: 55,416 × 9
+#   gene                  P0_1  P0_2  P4_1  P4_2  P7_1  P7_2  Ad_1  Ad_2
+#   <chr>                <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+# 1 ENSMUSG00000102693.2     0     0     0     0     0     0     0     0
+# 2 ENSMUSG00000064842.3     0     0     0     0     0     0     0     0
+# 3 ENSMUSG00000051951.6    19    24    17    17    17    12     7     5
+# 4 ENSMUSG00000102851.2     0     0     0     0     1     0     0     0
+# 5 ENSMUSG00000103377.2     1     0     0     1     0     1     1     0
+# 6 ENSMUSG00000104017.2     0     3     0     0     0     1     0     0
+# 7 ENSMUSG00000103025.2     0     0     0     0     0     0     0     0
+# 8 ENSMUSG00000089699.2     0     0     0     0     0     0     0     0
+# 9 ENSMUSG00000103201.2     0     0     0     0     0     0     0     1
+#10 ENSMUSG00000103147.2     0     0     0     0     0     0     0     0
+## … with 55,406 more rows
+```
+
+## Analyzing Counts Data
+
+There are typically three steps when analyzing a RNASeq count matrix:
+
+1. **Filter genes that are unlikely to be differentially expressed.**
+2. **Normalize filtered counts to make samples comparable to one another.**
+3. **Differential expression analysis of filtered, normalized counts.**
+
+## Filtering Counts
+
+* Genes not detected in any sample (counts are zero) should not be considered
+* Genes with very low counts are not likely to be informative
+* Eliminating these genes from consideration reduce multiple hypothesis testing
+  burden later
+* General approach: set read count criteria to filter out genes
+
+## Filtering Undetected Genes
+
+* Genes not detected in any sample should be filtered
+
+```{r rnaseq filter zero counts}
+nonzero_genes <- rowSums(counts[-1])!=0
+filtered_counts <- counts[nonzero_genes,]
+slice_head(filtered_counts, n=5)
+```
+
+## Filtering Very Low Count Genes
+
+* Genes with fewer than 2 reads across all samples filtered
+
+```{r rnaseq filter zero one counts}
+nonzero_genes <- rowSums(counts[-1])>=2
+filtered_counts <- counts[nonzero_genes,]
+slice_head(filtered_counts, n=5)
+```
+
+## Filtering by Non-zero Sample Counts
+
+* Statistical procedures don't work with too many zeros
+* Small read counts may indicate very lowly abundant but biologically relevant genes
+* Can filter genes based on *number of non-zero sample counts*
+  - e.g. Filter out genes if they have zero counts in more than half of samples
+  
+## Filtering by Non-zero Sample Counts
+
+```{r rnaseq nonzero samples, echo=FALSE}
+library(patchwork)
+
+nonzero_counts <- mutate(counts,`Number of samples`=rowSums(counts[-1]!=0)) %>%
+  group_by(`Number of samples`) %>%
+  summarize(`Number of genes`=n() ) %>%
+  mutate(`Cumulative number of genes`=sum(`Number of genes`)-lag(cumsum(`Number of genes`),1,default=0))
+
+sum_g <- ggplot(nonzero_counts) +
+  geom_bar(aes(x=`Number of samples`,y=`Cumulative number of genes`,fill="In at least n"),stat="identity") +
+  geom_bar(aes(x=`Number of samples`,y=`Number of genes`,fill="In exactly n"),stat="identity") +
+  labs(title="Number of genes detected in n samples") +
+  scale_fill_discrete(name="Nonzero in:")
+
+sum_g
+```
+
+
+## Filtering by Non-zero Sample Counts
+
+* Consider genes present in at least $n$ samples
+* Plots distribution of mean counts within each number of nonzero samples:
+
+```{r rnaseq nonzero dist, echo=FALSE, fig.dim=c(8,3), message=FALSE, warning=FALSE}
+# calculate the mean count for non-zero counts in genes with exactly n non-zero counts
+mutate(counts,`Number of nonzero samples`=factor(rowSums(counts[-1]!=0))) %>%
+  pivot_longer(-c(gene,`Number of nonzero samples`),names_to="Sample",values_to="Count") %>%
+  group_by(`Number of nonzero samples`) %>%
+  group_by(gene, .add=TRUE) %>% summarize(`Nonzero Count Mean`=mean(Count[Count!=0]),.groups="keep") %>%
+  ungroup() %>%
+  ggplot(aes(x=`Number of nonzero samples`,y=`Nonzero Count Mean`,fill=`Number of nonzero samples`)) +
+  geom_violin(scale="width") +
+  scale_y_log10() +
+  labs(title="Nonzero count mean for genes with exactly n nonzero counts")
+```
+
+## Mean-variance Relationship
+
+* In counts data, genes with higher mean count also have higher variance
+* Mean-variance dependence means these count data are *heteroskedastic*
+
+```{r rnaseq mean variance, echo=FALSE, fig.dim=c(8,3)}
+tibble(
+  Mean=rowMeans(filtered_counts[-1]),
+  Variance=apply(filtered_counts[-1],1,var)
+) %>%
+  ggplot(aes(x=Mean,y=Variance)) +
+  geom_point(alpha=0.2) +
+  geom_smooth(method = 'gam', formula=y ~ s(x, bs = "cs")) +
+  scale_x_log10() + scale_y_log10()
+```
+
+## Filtering For Statistics
+
+* Genes with very few counts do not enable reliable statistical inference
+* **There is no biological meaning to any filtering threshold**
+* The read counts for a gene depends upon the total number of reads generated
+* We cannot use filtering to "remove lowly expressed genes"
+* Can only filter out genes that are below the detection threshold afforded by
+  the library size of the dataset
+
+## Count Distributions
+
+* The range of gene expression in a cell varies by orders of magnitude
+* Consider the distribution of read counts on a log10 scale from one sample
+
+```r
+dplyr::select(filtered_counts, Ad_1) %>%
+  filter(Ad_1 > 0) %>% # avoid taking log10(0)
+  mutate(`log10(counts)`=log10(Ad_1)) %>%
+  ggplot(aes(x=`log10(counts+1)`)) +
+  geom_histogram(bins=50) +
+  labs(title='log10(counts) distribution for Adult mouse')
+```
+## Count Distributions
+
+```{r rnaseq sample count dist, echo=FALSE, fig.dim=c(8,3)}
+dplyr::select(filtered_counts, Ad_1) %>%
+  filter(Ad_1 > 0) %>% # avoid taking log10(0)
+  mutate(`log10(counts)`=log10(Ad_1)) %>%
+  ggplot(aes(x=`log10(counts)`)) +
+  geom_histogram(bins=50) +
+  labs(title='log10(counts) distribution for Adult mouse')
+```
+
+## Count Distributions
+
+* Consider distribution for all the samples as a ridgeline plot
+
+```{r rnaseq ridgeline, echo=FALSE}
+library(ggridges)
+
+pivot_longer(filtered_counts,-c(gene),names_to="Sample",values_to="Count") %>%
+  filter(Count>0) %>%
+  mutate(`log10(Count)`=log10(Count)) %>%
+  ggplot(aes(y=Sample,x=`log10(Count)`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="log10(Count) Distributions")
+```
+
+## Count Normalization
+
+* Every sample will have a different number of reads (library size)
+* The number of reads that maps to any given gene is dependent upon:
+  - the relative abundance of the molecule in the sample
+  - the library size of each sample
+* The *raw read counts* are not directly comparable between samples
+* Counts in each sample must be *normalized* so they are comparable
+
+## Count Normalization
+
+* Count normalization: the process by which the number of raw counts in each
+  sample is scaled by a factor to make multiple samples comparable
+* Many strategies have been proposed to do this
+* The simplest is: divide ever count by some factor of the library size
+  - e.g. compute *counts per million reads* or *CPM* normalization
+
+$$
+cpm_{s,i} =  \frac{c_{s,i}}{l_s} * 10^6
+$$
+
+## Counts Per Million
+
+$$
+cpm_{s,i} =  \frac{c_{s,i}}{l_s} * 10^6
+$$
+* $c_{s,i} =$ raw count of gene $i$ in sample $s$
+* $l_s =$ library size for sample $s$
+* In principle, the proportion of read counts for each gene will be comparable
+  between samples
+
+## CPM Normalization
+
+```{r rnaseq ridgeline cpm, echo=FALSE}
+library(ggridges)
+
+raw <- pivot_longer(filtered_counts,-c(gene),names_to="Sample",values_to="Count") %>%
+  filter(Count>0) %>%
+  mutate(`log10(Count)`=log10(Count)) %>%
+  ggplot(aes(y=Sample,x=`log10(Count)`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="log10(Count) Distributions")
+
+size_factors <- colSums(filtered_counts[-1])/10^6
+cpm_counts <- as_tibble(filtered_counts[-1]/size_factors)
+norm <- pivot_longer(cpm_counts,everything(),names_to="Sample",values_to="CPM") %>%
+  filter(CPM>0) %>%
+  mutate(`log10(CPM)`=log10(CPM)) %>%
+  ggplot(aes(y=Sample,x=`log10(CPM)`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="log10(CPM) Distributions")
+
+raw / norm
+```
+
+## Library Size Normalization
+
+* CPM is a *library size normalization*
+* Library size normalizations are sensitive to extreme outlier genes
+  - e.g. if one gene in one sample has abnormally large counts, this can cause
+  other gene counts to be smaller than they truly are
+* These outlier counts are common in RNASeq data!
+* Normalization method should be robust to these outliers
+
+## DESeq2 Normalization
+
+* DESeq2 bioconductor package introduced a robust normalization method
+* Assumes that *most genes are not differentially expressed*
+* Uses the median geometric mean computed across all samples to determine the
+  scale factor for each sample
+* Currently the *de facto* standard normalization method for well characterized
+  genomes
+
+## DESeq2 Normalization
+
+```{r rnaseq deseq2 norm, message=FALSE, warning=FALSE}
+library(DESeq2)
+# DESeq2 requires a counts matrix
+# column data (sample information), and a formula
+# the counts matrix *must be raw counts*
+count_mat <- as.matrix(filtered_counts[-1])
+
+row.names(count_mat) <- filtered_counts$gene
+
+dds <- DESeqDataSetFromMatrix(
+  countData=count_mat,
+  colData=tibble(sample_name=colnames(filtered_counts[-1])),
+  design=~1 # no formula needed, ~1 produces a trivial design matrix
+)
+```
+
+## DESeq2 Normalization
+
+```{r rnaseq deseq2 norm2}
+# compute normalization factors
+dds <- estimateSizeFactors(dds)
+
+# extract the normalized counts
+deseq_norm_counts <- as_tibble(counts(dds,normalized=TRUE)) %>%
+  mutate(gene=filtered_counts$gene) %>%
+  relocate(gene) # relocate changes column order
+```
+
+## DESeq2 vs CPM
+
+```{r rnaseq ridgeline deseq2, echo=FALSE}
+size_factors <- colSums(filtered_counts[-1])/10^6
+cpm_counts <- as_tibble(filtered_counts[-1]/size_factors)
+cpm_norm <- pivot_longer(cpm_counts,everything(),names_to="Sample",values_to="CPM") %>%
+  filter(CPM>0) %>%
+  mutate(`log10(CPM)`=log10(CPM)) %>%
+  ggplot(aes(y=Sample,x=`log10(CPM)`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="log10(CPM) Distributions")
+
+deseq2_norm <- pivot_longer(deseq_norm_counts,-c(gene),names_to="Sample",values_to="Count") %>%
+  filter(Count > 0) %>%
+  mutate(`log10(Count)`=log10(Count)) %>%
+  ggplot(aes(y=Sample,x=`log10(Count)`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="log10(DESeq2 Norm) Distributions")
+
+cpm_norm / deseq2_norm
+```
+
+## DESeq2 Considerations
+
+The DESeq2 normalization procedure has two important considerations:
+
+* **The procedure borrows information across all samples.**
+* **The procedure does not use genes with any zero counts.**
+
+The CPM normalization procedure does not borrow information across all samples,
+and therefore is not subject to these considerations.
+
+## Count Transformation
+
+* One way to deal with the non-normality of count data is transform it to follow
+  a normal distribution
+* Enables more statistical methods like linear regression to be used
+* Count data are roughly *log-normal*, however low and zero counts can be
+  problematic for traditional `log()`
+* The DESeq2 package provides the `rlog()` function that performs a regularized
+  logarithmic transformation that avoids these biases
+
+```r
+# the dds is the DESeq2 object from earlier
+rld <- rlog(dds)
+```
+
+## Count Transformation
+
+```{r rnaseq rlog, echo=FALSE}
+# the dds is the DESeq2 object from earlier
+rld <- rlog(dds)
+
+# extract rlog values as a tibble
+rlog_counts <- as_tibble(assay(rld))
+rlog_counts$gene <- filtered_counts$gene
+pivot_longer(rlog_counts,-c(gene),names_to="Sample",values_to="rlog count") %>%
+  ggplot(aes(y=Sample,x=`rlog count`,fill=Sample)) +
+  geom_density_ridges(bandwidth=0.132) +
+  labs(title="rlog Distributions")
+```
