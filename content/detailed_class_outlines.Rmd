@@ -96,19 +96,19 @@ output: html_document
 | 9 | 2/21 | Data Science | [Principal Component Analysis] | [slides](slides/0500_data_sci.html#principal-component-analysis) |
 | 9 | 2/21 | Data Science | [Cluster Analysis] | [slides](slides/0500_data_sci.html#cluster-analysis) |
 | 9 | 2/21 | Data Science | [Hierarchical Clustering] | [slides](slides/0500_data_sci.html#hierarchical-clustering) |
-| 9 | 2/21 | Data Viz | [Heatmaps] | [slides](slides/0600_data_viz.html#heatmaps) |
 | 9 | 2/21 | Data Viz | [Dendrograms] | [slides](slides/0600_data_viz.html#dendrograms) |
 | 10 | 2/22 | Assignment | [Assignment 3] |  |
-| 10 | 2/22 | Bioinfo | [Differential Expression] |  |
-| 10 | 2/22 | Bioinfo | [Differential Expression: Microarrays (limma)] |  |
-| 10 | 2/22 | Bioinfo | [High Throughput Sequencing] |  |
-| 10 | 2/22 | Bioinfo | [Count Data] |  |
-| 10 | 2/22 | Bioinfo | [RNASeq] |  |
-| 10 | 2/22 | Bioinfo | [RNASeq Gene Expression Data] |  |
-| 10 | 2/22 | Bioinfo | [Filtering Counts] |  |
-| 10 | 2/22 | Bioinfo | [Count Distributions] |  |
-| 10 | 2/22 | Bioinfo | [Count Normalization] |  |
-| 10 | 2/22 | Bioinfo | [Count Transformation] |  |
+| 10 | 2/22 | Data Viz | [Heatmaps] | [slides](slides/0600_data_viz.html#heatmaps) |
+| 10 | 2/22 | Bioinfo | [Differential Expression] | [slides](slides/0700_bioinfo.html#differential-expression) |
+| 10 | 2/22 | Bioinfo | [Differential Expression: Microarrays (limma)] | [slides](slides/0700_bioinfo.html#differential-expression-microarrays-limma) |
+| 10 | 2/22 | Bioinfo | [High Throughput Sequencing] | [slides](slides/0700_bioinfo.html#high-throughput-sequencing) |
+| 10 | 2/22 | Bioinfo | [Count Data] | [slides](slides/0700_bioinfo.html#count-data) |
+| 10 | 2/22 | Bioinfo | [RNASeq] | [slides](slides/0700_bioinfo.html#rnaseq) |
+| 10 | 2/22 | Bioinfo | [RNASeq Gene Expression Data] | [slides](slides/0700_bioinfo.html#rnaseq-gene-expression-data) |
+| 10 | 2/22 | Bioinfo | [Filtering Counts] | [slides](slides/0700_bioinfo.html#filtering-counts) |
+| 10 | 2/22 | Bioinfo | [Count Distributions] | [slides](slides/0700_bioinfo.html#count-distributions) |
+| 10 | 2/22 | Bioinfo | [Count Normalization] | [slides](slides/0700_bioinfo.html#count-normalization) |
+| 10 | 2/22 | Bioinfo | [Count Transformation] | [slides](slides/0700_bioinfo.html#count-transformation) |
 
 
 ## Week 6
