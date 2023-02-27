@@ -1739,3 +1739,251 @@ pivot_longer(rlog_counts,-c(gene),names_to="Sample",values_to="rlog count") %>%
   geom_density_ridges(bandwidth=0.132) +
   labs(title="rlog Distributions")
 ```
+
+## Differential Expression: RNASeq
+
+* Normalized read counts are suitable for differential expression
+* Counts matrix created by concatenating read counts for all genes rows are genes
+  or transcripts and columns are samples
+* Read counts not normally distributed, requires statistical approach that either
+  1. Models counts explicitly
+  2. Transform counts to be normally distributed, use common statistical methods
+
+## Modeling Count Data
+
+* Poisson distribution: expresses probability that a given number of events
+  occur in a fixed period, e.g. time, space, distance, area, volume
+* Can model number of reads aligning to a given genome position/locus
+* Whole Genome Sequencing (WGS) data are modeled this way
+  
+## Poisson Distribution
+
+$$
+f(k;\lambda) = \mathtt{Pr}(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}
+$$
+
+* $\lambda$ is the average number of events observed in each period
+
+$$
+\lambda = \mathtt{E}(X) = \mathtt{Var}(X)
+$$
+
+* In Poisson, the mean and variance are assumed to be equal
+
+## WGS Read Depth
+
+![](wgs_igv.png){width=100%}
+
+## WGS Read Depth Distribution
+
+![](poisson.png){width=100%}
+
+## RNASeq Read Depth
+
+![](rnaseq_jbrowse.png){width=100%}
+
+## Mean-variance Relationship
+
+* In counts data, genes with higher mean count also have higher variance
+
+```{r rnaseq mean variance 2, echo=FALSE, fig.dim=c(8,3)}
+tibble(
+  Mean=rowMeans(filtered_counts[-1]),
+  Variance=apply(filtered_counts[-1],1,var)
+) %>%
+  ggplot(aes(x=Mean,y=Variance)) +
+  geom_point(alpha=0.2) +
+  geom_smooth(method = 'gam', formula=y ~ s(x, bs = "cs")) +
+  scale_x_log10() + scale_y_log10()
+```
+
+## Negative Binomial Distribution
+
+* In a set of Bernoulli trials, models the number of failures before a specified number of successes occurs
+
+$$
+f(k; r,p) = \mathtt{Pr}(X=k) = \binom{k+r-1}{k} (1-p)^k p^r
+$$
+
+* $r$ - number of "successes", $p$ - probability of success
+* Alternate formulation:
+
+$$
+p = \frac{\mu}{\sigma^2}, r = \frac{\mu^2}{\sigma^2 - \mu}
+$$
+
+## DESeq2 Dispersion Estimation
+
+* Index of dispersion $D$
+
+$$
+D = \frac{\sigma^2}{\mu}
+$$
+
+## DESeq2 Dispersion Estimation
+
+![](deseq2_dispersion.png){width=75%}
+
+## DESeq2/EdgeR
+
+* [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) and
+  [edgeR](https://bioconductor.org/packages/release/bioc/html/edgeR.html) are
+  bioconductor packages that both implement negative binomial regression for RNASeq data
+* Both perform raw counts normalization
+  - DESeq2 - described earlier
+  - edgeR - trimmed mean of M-values (TMM)
+
+## DESeq2
+
+As mentioned briefly above, DESeq2 requires three pieces of information to perform differential expression:
+
+1. A **raw** counts matrix with genes as rows and samples as columns
+2. A data frame with metadata associated with the columns
+3. A design formula for the differential expression model
+
+## DESeq2 Example
+
+```r
+library(DESeq2)
+
+# the counts matrix *must be raw counts*
+count_mat <- as.matrix(filtered_counts[-1])
+row.names(count_mat) <- filtered_counts$gene
+
+# create a sample matrix from sample names
+sample_info <- tibblesample_name=colnames(filtered_counts[-1])) %>%
+  separate(sample_name,
+    c("timepoint","replicate"),sep="_",remove=FALSE
+  ) %>%
+  mutate(
+    timepoint=factor(timepoint,levels=c("Ad","P0","P4","P7"))
+  )
+
+design <- formula(~ timepoint)
+```
+
+## DESeq2 Example
+
+```{r rnaseq deseq2 dataset, include=FALSE}
+library(DESeq2)
+
+# DESeq2 requires a counts matrix, column data (sample information), and a formula
+# the counts matrix *must be raw counts*
+count_mat <- as.matrix(filtered_counts[-1])
+row.names(count_mat) <- filtered_counts$gene
+
+# create a sample matrix from sample names
+sample_info <- tibble(
+  sample_name=colnames(filtered_counts[-1])
+) %>%
+  separate(sample_name,c("timepoint","replicate"),sep="_",remove=FALSE) %>%
+  mutate(
+    timepoint=factor(timepoint,levels=c("Ad","P0","P4","P7"))
+  )
+
+design <- formula(~ timepoint)
+```
+
+```{r}
+sample_info
+```
+
+## DESeq2 Example
+
+```{r rnaseq deseq2 de, message=FALSE, error=FALSE}
+dds <- DESeqDataSetFromMatrix(
+  countData=count_mat,
+  colData=sample_info,
+  design=design
+)
+dds <- DESeq(dds)
+resultsNames(dds)
+```
+
+## DESeq2 Results
+
+```{r rnaseq deseq2 results}
+res <- results(dds, name="timepoint_P0_vs_Ad")
+p0_vs_Ad_de <- as_tibble(res) %>%
+  mutate(gene=rownames(res)) %>%
+  relocate(gene) %>%
+  arrange(pvalue)
+head(p0_vs_Ad_de, 5)
+```
+
+## DESeq2 Results
+
+* *baseMean* - the mean normalized count of all samples for the gene
+* *log2FoldChange* - the estimated coefficient (i.e. log2FoldChange) for the comparison of interest
+* *lfcSE* - the standard error for the log2FoldChange estimate
+* *stat* - the [Wald statistic](https://en.wikipedia.org/wiki/Wald_test) associated with the log2FoldChange estimate
+* *pvalue* - the nominal p-value of the Wald test (i.e. the signifiance of the association)
+* *padj* - the multiple testing adjusted p-value (i.e. false discovery rate)
+
+## Filtering DESeq2 Results
+
+```{r rnaseq deseq2 sig}
+# number of genes significant at FDR < 0.05
+filter(p0_vs_Ad_de,padj<0.05)
+```
+
+## Volcano Plot
+
+* Volcano plots are log2 fold change vs -log10(p-value)
+
+```r
+mutate(
+  p0_vs_Ad_de,
+  `-log10(adjusted p)`=-log10(padj),
+  `FDR<0.05`=padj<0.05
+  ) %>%
+  ggplot(aes(x=log2FoldChange,y=`-log10(adjusted p)`,color=`FDR<0.05`)) +
+  geom_point()
+```
+
+## Volcano Plot
+
+```{r rnaseq deseq2 volcano, echo=FALSE, message=F, error=F}
+mutate(
+  p0_vs_Ad_de,
+  `-log10(adjusted p)`=-log10(padj),
+  `FDR<0.05`=padj<0.05
+  ) %>%
+  ggplot(aes(x=log2FoldChange,y=`-log10(adjusted p)`,color=`FDR<0.05`)) +
+  geom_point()
+```
+
+## limma/voom
+
+* limma package (for microarrays) was extended to support RNASeq
+* Transforms count with  [voom](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29) transformation
+  1. Compute CPM
+  2. Take log of CPM
+  3. Estimate mean-variance relationship to control errors
+* Uses linear model on transformed counts
+
+## limma/voom Example
+
+* Brief example is from the [limma User
+Guide](https://www.bioconductor.org/packages/devel/bioc/vignettes/limma/inst/doc/)
+chapter 15
+
+```r
+design <- data.frame(swirl = c("swirl.1", "swirl.2", "swirl.3", "swirl.4"),
+                     condition = c(1, -1, 1, -1))
+dge <- DGEList(counts=counts)
+keep <- filterByExpr(dge, design)
+dge <- dge[keep,,keep.lib.sizes=FALSE]
+```
+
+## limma/voom results
+
+* Use `topTable()` as in microarray limma results:
+
+```r
+# limma trend
+logCPM <- cpm(dge, log=TRUE, prior.count=3)
+fit <- lmFit(logCPM, design)
+fit <- eBayes(fit, trend=TRUE)
+topTable(fit, coef=ncol(design))
+```

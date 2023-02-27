@@ -1289,10 +1289,10 @@ $$
 $$
 cpm_{s,i} =  \frac{c_{s,i}}{l_s} * 10^6
 $$
+
 * $c_{s,i} =$ raw count of gene $i$ in sample $s$
 * $l_s =$ library size for sample $s$
-* In principle, the proportion of read counts for each gene will be comparable
-  between samples
+* In principle, the proportion of read counts for each gene will be comparable between samples
 
 ## CPM Normalization
 
@@ -1430,51 +1430,130 @@ pivot_longer(rlog_counts,-c(gene),names_to="Sample",values_to="rlog count") %>%
 
 ## Differential Expression: RNASeq
 
-The read counts for each gene or transcript form the primary data used to
-identify genes whose expression correlates with some condition of interest. The
-counts matrix created by concatenating read counts for all genes across a set of
-samples where rows are genes or transcripts and columns are samples is the most
-common form of expression data used for this purpose. As mentioned in the
-[Count Data] section, these counts are not normally distributed and therefore
-require a statistical approach that can accommodate the counts distribution.
+* Normalized read counts are suitable for differential expression
+* Counts matrix created by concatenating read counts for all genes rows are genes
+  or transcripts and columns are samples
+* Read counts not normally distributed, requires statistical approach that either
+  1. Models counts explicitly
+  2. Transform counts to be normally distributed, use common statistical methods
 
-The strong relationship between the mean and variance is characteristic of
-RNASeq expression data, and motivates the use of a generalized linear model
-called *negative binomial regression*. Negative binomial regression models count
-data using the [negative binomial distribution](https://en.wikipedia.org/wiki/Negative_binomial_distribution),
-which allows the relationship of mean and variance of a counts distribution to
-vary. The statistical details of the negative binomial distribution and negative
-binomial regression are beyond the scope of this book, but below we will discuss
-the aspects necessary to implement differential expression analysis.
+## Modeling Count Data
 
-#### DESeq2/EdgeR
+* Poisson distribution: expresses probability that a given number of events
+  occur in a fixed period, e.g. time, space, distance, area, volume
+* Can model number of reads aligning to a given genome position/locus
+* Whole Genome Sequencing (WGS) data are modeled this way
+  
+## Poisson Distribution
 
-[DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) and
-[edgeR](https://bioconductor.org/packages/release/bioc/html/edgeR.html) are bioconductor packages that both implement negative binomial
-regression to perform differential expression on RNASeq data. Both perform
-raw counts normalization as part of their function, though they differ in
-the normalization method (DESeq2 method is described above, while edgeR uses
-trimmed mean of M-values (TMM), see [@Robinson2010-ik]). The interface for using
-both packages is also similar, so we will focus on DESeq2 in this section.
+$$
+f(k;\lambda) = \mathtt{Pr}(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}
+$$
 
-As mentioned briefly above, DESeq2 requires three pieces of information to
-perform differential expression:
+* $\lambda$ is the average number of events observed in each period
+
+$$
+\lambda = \mathtt{E}(X) = \mathtt{Var}(X)
+$$
+
+* In Poisson, the mean and variance are assumed to be equal
+
+## WGS Read Depth
+
+![](wgs_igv.png){width=100%}
+
+## WGS Read Depth Distribution
+
+![](poisson.png){width=100%}
+
+## RNASeq Read Depth
+
+![](rnaseq_jbrowse.png){width=100%}
+
+## Mean-variance Relationship
+
+* In counts data, genes with higher mean count also have higher variance
+
+```{r rnaseq mean variance 2, echo=FALSE, fig.dim=c(8,3)}
+tibble(
+  Mean=rowMeans(filtered_counts[-1]),
+  Variance=apply(filtered_counts[-1],1,var)
+) %>%
+  ggplot(aes(x=Mean,y=Variance)) +
+  geom_point(alpha=0.2) +
+  geom_smooth(method = 'gam', formula=y ~ s(x, bs = "cs")) +
+  scale_x_log10() + scale_y_log10()
+```
+
+## Negative Binomial Distribution
+
+* In a set of Bernoulli trials, models the number of failures before a specified number of successes occurs
+
+$$
+f(k; r,p) = \mathtt{Pr}(X=k) = \binom{k+r-1}{k} (1-p)^k p^r
+$$
+
+* $r$ - number of "successes", $p$ - probability of success
+* Alternate formulation:
+
+$$
+p = \frac{\mu}{\sigma^2}, r = \frac{\mu^2}{\sigma^2 - \mu}
+$$
+
+## DESeq2 Dispersion Estimation
+
+* Index of dispersion $D$
+
+$$
+D = \frac{\sigma^2}{\mu}
+$$
+
+## DESeq2 Dispersion Estimation
+
+![](deseq2_dispersion.png){width=75%}
+
+## DESeq2/EdgeR
+
+* [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) and
+  [edgeR](https://bioconductor.org/packages/release/bioc/html/edgeR.html) are
+  bioconductor packages that both implement negative binomial regression for RNASeq data
+* Both perform raw counts normalization
+  - DESeq2 - described earlier
+  - edgeR - trimmed mean of M-values (TMM)
+
+## DESeq2
+
+As mentioned briefly above, DESeq2 requires three pieces of information to perform differential expression:
 
 1. A **raw** counts matrix with genes as rows and samples as columns
 2. A data frame with metadata associated with the columns
 3. A design formula for the differential expression model
 
-DESeq2 requires raw counts due to its normalization procedure, which borrows
-information across samples when computing size factors, as described above in
-the [Count Normalization] section.
+## DESeq2 Example
 
-With these three pieces of information, we construct a `DESeq` object:
-
-```{r rnaseq deseq2 dataset}
+```r
 library(DESeq2)
 
-# filter counts to retain genes with at least 6 out of 8 samples with nonzero counts
-filtered_counts <- counts[rowSums(counts[-1]!=0)>=6,]
+# the counts matrix *must be raw counts*
+count_mat <- as.matrix(filtered_counts[-1])
+row.names(count_mat) <- filtered_counts$gene
+
+# create a sample matrix from sample names
+sample_info <- tibblesample_name=colnames(filtered_counts[-1])) %>%
+  separate(sample_name,
+    c("timepoint","replicate"),sep="_",remove=FALSE
+  ) %>%
+  mutate(
+    timepoint=factor(timepoint,levels=c("Ad","P0","P4","P7"))
+  )
+
+design <- formula(~ timepoint)
+```
+
+## DESeq2 Example
+
+```{r rnaseq deseq2 dataset, include=FALSE}
+library(DESeq2)
 
 # DESeq2 requires a counts matrix, column data (sample information), and a formula
 # the counts matrix *must be raw counts*
@@ -1491,19 +1570,15 @@ sample_info <- tibble(
   )
 
 design <- formula(~ timepoint)
+```
 
+```{r}
 sample_info
 ```
 
-The design formula `~ timepoint` is similar to that supplied to the
-`model.matrix()` function as described in the [Differential Expression Analysis]
-section, where DESeq2 implicitly creates the model matrix by combining the
-column data with the formula. In this differential expression analysis, we wish
-to identify genes that are different between the timepoints `P0`, `P4`, `P7`,
-and `Ad`. With these three pieces of information prepared, we can create a DESeq
-object and perform differential expression analysis:
+## DESeq2 Example
 
-```{r rnaseq deseq2 de}
+```{r rnaseq deseq2 de, message=FALSE, error=FALSE}
 dds <- DESeqDataSetFromMatrix(
   countData=count_mat,
   colData=sample_info,
@@ -1513,13 +1588,7 @@ dds <- DESeq(dds)
 resultsNames(dds)
 ```
 
-DESeq2 performed differential expression on each gene and estimated parameters
-for three different comparisons - P0 vs Ad, P4 vs Ad, and P7 vs Ad. Here, Ad is
-the *reference group* so that we may interpret the statistics as relative to the
-adult animals. The choice of reference group does not change the magnitude of
-the results, but may change the sign of the estimated coefficients, which are
-log2 fold changes. To extract out the differential expression statistics for the
-P0 vs Ad comparison, we can use the `results()` function:
+## DESeq2 Results
 
 ```{r rnaseq deseq2 results}
 res <- results(dds, name="timepoint_P0_vs_Ad")
@@ -1527,12 +1596,10 @@ p0_vs_Ad_de <- as_tibble(res) %>%
   mutate(gene=rownames(res)) %>%
   relocate(gene) %>%
   arrange(pvalue)
-p0_vs_Ad_de
+head(p0_vs_Ad_de, 5)
 ```
 
-These are the results of the differential expression comparing P0 with Ad; the
-other contrasts (P4 vs Ad and P7 vs Ad) may be extracted by specifying the
-appropriate result names to the `name` argument to the `results()` function. The columns in the DESeq2 results are defined as follows:
+## DESeq2 Results
 
 * *baseMean* - the mean normalized count of all samples for the gene
 * *log2FoldChange* - the estimated coefficient (i.e. log2FoldChange) for the comparison of interest
@@ -1541,20 +1608,18 @@ appropriate result names to the `name` argument to the `results()` function. The
 * *pvalue* - the nominal p-value of the Wald test (i.e. the signifiance of the association)
 * *padj* - the multiple testing adjusted p-value (i.e. false discovery rate)
 
-In the P0 vs Ad comparison, we can check the number of significant results easily:
+## Filtering DESeq2 Results
 
 ```{r rnaseq deseq2 sig}
 # number of genes significant at FDR < 0.05
 filter(p0_vs_Ad_de,padj<0.05)
 ```
 
-There were 7,557 significantly differentially expressed genes associated with
-this comparison, which includes both up- and down-regulated genes (examine the
-signs of the log2FoldChange column). A common diagnostic plot of differenial
-expression results is the so-called *volcano plot* which plots the
-log2FoldChange on the x-axis against -log10 adjusted p-value on the y-axis:
+## Volcano Plot
 
-```{r rnaseq deseq2 volcano}
+* Volcano plots are log2 fold change vs -log10(p-value)
+
+```r
 mutate(
   p0_vs_Ad_de,
   `-log10(adjusted p)`=-log10(padj),
@@ -1564,41 +1629,32 @@ mutate(
   geom_point()
 ```
 
-The plot shows that there are significant genes at FDR < 0.05 that are increased
-and decreased in the comparison.
+## Volcano Plot
 
-DESeq2 has many capabilities beyond this basic differential expression
-functionality as described in its [comprehensive documentation in its vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).
+```{r rnaseq deseq2 volcano, echo=FALSE, message=F, error=F}
+mutate(
+  p0_vs_Ad_de,
+  `-log10(adjusted p)`=-log10(padj),
+  `FDR<0.05`=padj<0.05
+  ) %>%
+  ggplot(aes(x=log2FoldChange,y=`-log10(adjusted p)`,color=`FDR<0.05`)) +
+  geom_point()
+```
 
-As mentioned, edgeR implements a very similar model to DESeq2 and also has
-[excellent
-documentation](https://bioconductor.org/packages/release/bioc/html/edgeR.html).
+## limma/voom
 
-#### limma/voom
+* limma package (for microarrays) was extended to support RNASeq
+* Transforms count with  [voom](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29) transformation
+  1. Compute CPM
+  2. Take log of CPM
+  3. Estimate mean-variance relationship to control errors
+* Uses linear model on transformed counts
 
-While the limma package was initially developed for microarray analysis, the
-authors added support for RNASeq soon after the HTS technique became available.
-limma accommodates count data by first performing a [Count Transformation] using
-its own
-[voom](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29)
-transformation procedure. voom transforms counts by first performing a counts
-per million normalization, taking the logarithm of the CPM values, and finally
-estimates the mean-variance relationship across genes for use in its empirical
-Bayes statistical framework. The counts data being thus transformed, limma
-performs statistical inference using its usual linear model framework to produce
-differential expression results with arbitrarily complex statistical models.
+## limma/voom Example
 
-This brief example is from the [limma User
+* Brief example is from the [limma User
 Guide](https://www.bioconductor.org/packages/devel/bioc/vignettes/limma/inst/doc/)
-chapter 15, and covers loading
-and processing data from an RNA-seq experiment. We go into more depth while
-working with limma in assignment 6.
-
-Without going into too much detail, the `design` variable is how we inform limma
-of our experimental conditions, and where limma draws from to construct its
-linear models correctly. This design is relatively simple, just four samples
-belonging to two different conditions (the `swirls` here refer to the swirl of
-zebra fish, you can just see them as a phenotypic difference)
+chapter 15
 
 ```r
 design <- data.frame(swirl = c("swirl.1", "swirl.2", "swirl.3", "swirl.4"),
@@ -1608,13 +1664,9 @@ keep <- filterByExpr(dge, design)
 dge <- dge[keep,,keep.lib.sizes=FALSE]
 ```
 
-`DGEList()` is a function from edgeR, of which limma borrows some loading and
-filtering functions. This experiment filters by expression level, and uses
-square bracket notation (`[]`) to reduce the number of rows.
+## limma/voom results
 
-Finally, the expression data is transformed into CPM, counts per million, and
-a linear model is applied to the data with `lmFit()`. `topTable()` is used to view the most
-differentially expressed data.
+* Use `topTable()` as in microarray limma results:
 
 ```r
 # limma trend
