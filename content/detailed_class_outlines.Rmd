@@ -108,7 +108,6 @@ output: html_document
 | 10 | 2/22 | Bioinfo | [Filtering Counts] | [slides](slides/0700_bioinfo.html#filtering-counts) |
 | 10 | 2/22 | Bioinfo | [Count Distributions] | [slides](slides/0700_bioinfo.html#count-distributions) |
 | 10 | 2/22 | Bioinfo | [Count Normalization] | [slides](slides/0700_bioinfo.html#count-normalization) |
-| 10 | 2/22 | Bioinfo | [Count Transformation] | [slides](slides/0700_bioinfo.html#count-transformation) |
 
 
 ## Week 6
@@ -117,9 +116,10 @@ output: html_document
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
-| 11 | 2/27 | Bioinfo | [Differential Expression: RNASeq] |  |
-| 11 | 2/27 | Bioinfo | [DESeq2/EdgeR] |  |
-| 11 | 2/27 | Bioinfo | [limma/voom] |  |
+| 11 | 2/27 | Bioinfo | [Count Transformation] | [slides](slides/0700_bioinfo.html#count-transformation) |
+| 11 | 2/27 | Bioinfo | [Differential Expression: RNASeq] | [slides](slides/0700_bioinfo.html#differential-expression-rnaseq) |
+| 11 | 2/27 | Bioinfo | [DESeq2/EdgeR] | [slides](slides/0700_bioinfo.html#deseq2-edger) |
+| 11 | 2/27 | Bioinfo | [limma/voom] | [slides](slides/0700_bioinfo.html#limma-voom) |
 | 12 | 3/1 | Assignment | [Assignment 3] |  |
 | 12 | 3/1 | Assignment | [Assignment 4] |  |
 | 12 | 3/1 | Bioinfo | [Gene Set Enrichment Analysis] |  |
