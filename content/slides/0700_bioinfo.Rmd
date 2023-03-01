@@ -1693,7 +1693,8 @@ topTable(fit, coef=ncol(design))
 
 ## Example Gene Card
 
-![](apoe_gene_card_1.png){width=70%}
+![](apoe_gene_card_2.png){width=70%}
+* [https://www.genecards.org/cgi-bin/carddisp.pl?gene=APOE&keywords=APOE](https://www.genecards.org/cgi-bin/carddisp.pl?gene=APOE&keywords=APOE)
 
 ## Gene Ontology (GO)
 
