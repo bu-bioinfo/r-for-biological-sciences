@@ -12,19 +12,19 @@ output: html_document
 |-------|----|-----|-------|------|
 | 1 | 1/23 | Intro | [Course Intro & Details] |  |
 | 1 | 1/23 | Assignment | [Assignment 0] |  |
-| 1 | 1/23 | Intro | [Data in Biology] | NA |
-| 1 | 1/23 | Prelim | [The R Language] | NA |
+| 1 | 1/23 | Intro | [Data in Biology] | [slides](slides/0100_data_in_biology.html#data-in-biology) |
+| 1 | 1/23 | Prelim | [The R Language] | [slides](slides/0200_preliminaries.html#the-r-language) |
 | 1 | 1/23 | Prelim | [Rstudio] | [slides](slides/0200_preliminaries.html#rstudio) |
 | 1 | 1/23 | Prelim | [The R Script] | [slides](slides/0200_preliminaries.html#the-r-script) |
 | 1 | 1/23 | Prelim | [The Scripting Workflow] | [slides](slides/0200_preliminaries.html#the-scripting-workflow) |
-| 1 | 1/23 | Comm | [Rmarkdown & knitr] | NA |
+| 1 | 1/23 | Comm | [Rmarkdown & knitr] | [slides](slides/1000_communication.html#rmarkdown-knitr) |
 | 1 | 1/23 | Prelim | [Git + github] | [slides](slides/0200_preliminaries.html#git-github) |
-| 2 | 1/25 | R Prog | [R Syntax Basics] |  |
-| 2 | 1/25 | R Prog | [Functions] |  |
-| 2 | 1/25 | R Prog | [Data Structures] |  |
-| 2 | 1/25 | R Prog | [Factors] |  |
-| 2 | 1/25 | R Prog | [Iteration] |  |
-| 2 | 1/25 | R Prog | [Troubleshooting and Debugging] |  |
+| 2 | 1/25 | R Prog | [R Syntax Basics] | [slides](slides/0300_r_programming.html#r-syntax-basics) |
+| 2 | 1/25 | R Prog | [Functions] | [slides](slides/0300_r_programming.html#functions) |
+| 2 | 1/25 | R Prog | [Data Structures] | [slides](slides/0300_r_programming.html#data-structures) |
+| 2 | 1/25 | R Prog | [Factors] | [slides](slides/0300_r_programming.html#factors) |
+| 2 | 1/25 | R Prog | [Iteration] | [slides](slides/0300_r_programming.html#iteration) |
+| 2 | 1/25 | R Prog | [Troubleshooting and Debugging] | [slides](slides/0300_r_programming.html#troubleshooting-and-debugging) |
 
 
 ## Week 2
@@ -34,14 +34,14 @@ output: html_document
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
 | 3 | 1/30 | Assignment | [Assignment 1] |  |
-| 3 | 1/30 | Data Wrangling | [The Tidyverse] |  |
-| 3 | 1/30 | Data Wrangling | [Tidyverse Basics] |  |
-| 3 | 1/30 | Data Wrangling | [Importing Data] |  |
-| 3 | 1/30 | Bioinfo | [CSV Files] |  |
-| 3 | 1/30 | Data Wrangling | [The tibble] |  |
-| 3 | 1/30 | Data Wrangling | [pipes] |  |
-| 3 | 1/30 | Data Wrangling | [Arranging Data] |  |
-| 3 | 1/30 | Data Wrangling | [Regular expressions] |  |
+| 3 | 1/30 | Data Wrangling | [The Tidyverse] | [slides](slides/0400_data_wrangling.html#the-tidyverse) |
+| 3 | 1/30 | Data Wrangling | [Tidyverse Basics] | [slides](slides/0400_data_wrangling.html#tidyverse-basics) |
+| 3 | 1/30 | Data Wrangling | [Importing Data] | [slides](slides/0400_data_wrangling.html#importing-data) |
+| 3 | 1/30 | Bioinfo | [CSV Files] | [slides](slides/0700_bioinfo.html#csv-files) |
+| 3 | 1/30 | Data Wrangling | [The tibble] | [slides](slides/0400_data_wrangling.html#the-tibble) |
+| 3 | 1/30 | Data Wrangling | [pipes] | [slides](slides/0400_data_wrangling.html#pipes) |
+| 3 | 1/30 | Data Wrangling | [Arranging Data] | [slides](slides/0400_data_wrangling.html#arranging-data) |
+| 3 | 1/30 | Data Wrangling | [Regular expressions] | [slides](slides/0400_data_wrangling.html#regular-expressions) |
 | 4 | 2/1 | Cancelled due to illness | NA |  |
 
 
@@ -51,16 +51,16 @@ output: html_document
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
-| 5 | 2/6 | Data Wrangling | [Rearranging Data] |  |
-| 5 | 2/6 | Bioinfo | [R in Biology] |  |
-| 5 | 2/6 | Bioinfo | [Types of Biological Data] |  |
-| 5 | 2/6 | Bioinfo | [Bioconductor] |  |
-| 5 | 2/6 | Bioinfo | [Gene Identifiers] |  |
-| 5 | 2/6 | Bioinfo | [Mapping Between Identifier Systems] |  |
+| 5 | 2/6 | Data Wrangling | [Rearranging Data] | [slides](slides/0400_data_wrangling.html#rearranging-data) |
+| 5 | 2/6 | Bioinfo | [R in Biology] | [slides](slides/0700_bioinfo.html#r-in-biology) |
+| 5 | 2/6 | Bioinfo | [Types of Biological Data] | [slides](slides/0700_bioinfo.html#types-of-biological-data) |
+| 5 | 2/6 | Bioinfo | [Bioconductor] | [slides](slides/0700_bioinfo.html#bioconductor) |
+| 5 | 2/6 | Bioinfo | [Gene Identifiers] | [slides](slides/0700_bioinfo.html#gene-identifiers) |
+| 5 | 2/6 | Bioinfo | [Mapping Between Identifier Systems] | [slides](slides/0700_bioinfo.html#mapping-between-identifier-systems) |
 | 6 | 2/8 | Assignment | [Assignment 1] |  |
 | 6 | 2/8 | Assignment | [Assignment 2] |  |
-| 6 | 2/8 | Data Wrangling | [Relational Data] |  |
-| 6 | 2/8 | Bioinfo | [Mapping Homologs] |  |
+| 6 | 2/8 | Data Wrangling | [Relational Data] | [slides](slides/0400_data_wrangling.html#relational-data) |
+| 6 | 2/8 | Bioinfo | [Mapping Homologs] | [slides](slides/0700_bioinfo.html#mapping-homologs) |
 
 
 ## Week 4
@@ -122,11 +122,11 @@ output: html_document
 | 11 | 2/27 | Bioinfo | [limma/voom] | [slides](slides/0700_bioinfo.html#limma-voom) |
 | 12 | 3/1 | Assignment | [Assignment 3] |  |
 | 12 | 3/1 | Assignment | [Assignment 4] |  |
-| 12 | 3/1 | Bioinfo | [Gene Set Enrichment Analysis] |  |
-| 12 | 3/1 | Bioinfo | [Gene Sets] |  |
-| 12 | 3/1 | Bioinfo | [Over-representation Analysis] |  |
-| 12 | 3/1 | Bioinfo | [Rank-based Analysis] |  |
-| 12 | 3/1 | Bioinfo | [fgsea] |  |
+| 12 | 3/1 | Bioinfo | [Gene Set Enrichment Analysis] | [slides](slides/0700_bioinfo.html#gene-set-enrichment-analysis) |
+| 12 | 3/1 | Bioinfo | [Gene Sets] | [slides](slides/0700_bioinfo.html#gene-sets) |
+| 12 | 3/1 | Bioinfo | [Over-representation Analysis] | [slides](slides/0700_bioinfo.html#over-representation-analysis) |
+| 12 | 3/1 | Bioinfo | [Rank-based Analysis] | [slides](slides/0700_bioinfo.html#rank-based-analysis) |
+| 12 | 3/1 | Bioinfo | [fgsea] | [slides](slides/0700_bioinfo.html#fgsea) |
 
 
 ## Week 7
@@ -135,19 +135,19 @@ output: html_document
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
-| 13 | 3/13 | Data Science | [Statistical Distributions] |  |
-| 13 | 3/13 | Data Science | [Random Variables] |  |
-| 13 | 3/13 | Data Science | [Statistical Distributions Basics] |  |
-| 13 | 3/13 | Data Science | [Distributions in R] |  |
-| 13 | 3/13 | Data Science | [Discrete Distributions] |  |
-| 13 | 3/13 | Data Science | [Continuous Distributions] |  |
-| 13 | 3/13 | Data Science | [Empirical Distributions] |  |
+| 13 | 3/13 | Data Science | [Statistical Distributions] | [slides](slides/0500_data_sci.html#statistical-distributions) |
+| 13 | 3/13 | Data Science | [Random Variables] | [slides](slides/0500_data_sci.html#random-variables) |
+| 13 | 3/13 | Data Science | [Statistical Distributions Basics] | [slides](slides/0500_data_sci.html#statistical-distribution-basics) |
+| 13 | 3/13 | Data Science | [Distributions in R] | [slides](slides/0500_data_sci.html#distributions-in-r) |
+| 13 | 3/13 | Data Science | [Discrete Distributions] | [slides](slides/0500_data_sci.html#discrete-distributions) |
+| 13 | 3/13 | Data Science | [Continuous Distributions] | [slides](slides/0500_data_sci.html#continuous-distributions) |
+| 13 | 3/13 | Data Science | [Empirical Distributions] | [slides](slides/0500_data_sci.html#empirical-distributions) |
 | 14 | 3/15 | Assignment | [Assignment 4] |  |
 | 14 | 3/15 | Assignment | [Assignment 5] |  |
-| 14 | 3/15 | Data Science | [Statistical Tests] |  |
-| 14 | 3/15 | Data Science | [p-values] |  |
-| 14 | 3/15 | Data Science | [Multiple Hypothesis Testing] |  |
-| 14 | 3/15 | Data Science | [Statistical power] |  |
+| 14 | 3/15 | Data Science | [Statistical Tests] | [slides](slides/0500_data_sci.html#statistical-tests) |
+| 14 | 3/15 | Data Science | [p-values] | [slides](slides/0500_data_sci.html#p-values) |
+| 14 | 3/15 | Data Science | [Multiple Hypothesis Testing] | [slides](slides/0500_data_sci.html#multiple-hypothesis-testing) |
+| 14 | 3/15 | Data Science | [Statistical power] | [slides](slides/0500_data_sci.html#statistical-power) |
 
 
 ## Week 8
