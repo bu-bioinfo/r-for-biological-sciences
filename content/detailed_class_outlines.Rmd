@@ -156,15 +156,15 @@ output: html_document
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
-| 15 | 3/20 | Data Viz | [Responsible Plotting] |  |
-| 15 | 3/20 | Data Viz | [Human Visual Perception] |  |
-| 15 | 3/20 | Data Viz | [Visual Encodings] |  |
-| 15 | 3/20 | Data Viz | [Elementary Perceptual Tasks] |  |
-| 15 | 3/20 | Data Viz | [Plotting Two or More Dimensions] |  |
-| 15 | 3/20 | Data Viz | [Scatter Plots] |  |
-| 15 | 3/20 | Data Viz | [Bubble Plots] |  |
-| 15 | 3/20 | Data Viz | [Connected Scatter Plots] |  |
-| 15 | 3/20 | Data Viz | [Line Plots] |  |
+| 15 | 3/20 | Data Viz | [Responsible Plotting] | [slides](slides/0600_data_viz.html#responsible-plotting) |
+| 15 | 3/20 | Data Viz | [Human Visual Perception] | [slides](slides/0600_data_viz.html#human-visual-perception) |
+| 15 | 3/20 | Data Viz | [Visual Encodings] | [slides](slides/0600_data_viz.html#visual-encodings) |
+| 15 | 3/20 | Data Viz | [Elementary Perceptual Tasks] | [slides](slides/0600_data_viz.html#elementary-perceptual-tasks) |
+| 15 | 3/20 | Data Viz | [Plotting Two or More Dimensions] | [slides](slides/0600_data_viz.html#plotting-two-or-more-dimensions) |
+| 15 | 3/20 | Data Viz | [Scatter Plots] | [slides](slides/0600_data_viz.html#scatter-plots) |
+| 15 | 3/20 | Data Viz | [Bubble Plots] | [slides](slides/0600_data_viz.html#bubble-plots) |
+| 15 | 3/20 | Data Viz | [Connected Scatter Plots] | [slides](slides/0600_data_viz.html#connected-scatter-plots) |
+| 15 | 3/20 | Data Viz | [Line Plots] | [slides](slides/0600_data_viz.html#line-plots) |
 | 16 | 3/22 | Assignment | [Assignment 5] |  |
 | 16 | 3/22 | Assignment | [Assignment 6] |  |
 | 16 | 3/22 | Data Viz | [Parallel Coordinate Plots] |  |

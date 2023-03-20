@@ -41,6 +41,365 @@ A *great* visualization has some additional properties:
 5. Exposes patterns in the data not easily observable by other methods
 6. Invites the viewer to ask more questions about the data
 
+# Responsible Plotting
+
+## Credits
+
+
+
+## Responsible Plotting
+
+* "Good plots empower us to ask good questions." - Alberto Cairo, How Charts Lie
+* Plots convey *ideas* (and *beliefs*)
+* Scientific papers often structured (and read) by its figures
+* Making plots is easy
+* Conveying ideas is *hard*
+
+## The "Hockey Stick Chart"
+
+![](../hockey_stick_chart.jpg){width=100%}
+
+## 5 Qualities of An Effective Viz
+
+1. **It is truthful**
+2. **It is functional**
+3. **It is insightful**
+4. **It is enlightening**
+5. **It is beautiful**
+
+## Visualization Principles
+
+* Visualizations *illustrate* (from latin *illustrare*, to light up or illuminate)
+* Leverage humans' *visual perception system*
+* This system is predictive/interpretive
+  - i.e. it is a *pattern recognition* system
+* When this system makes bad predictions, we can experience *optical illusions*
+
+## Contextual Colors
+
+<div class="centered">
+![](checkerboard_1.png){width=80%}
+</div>
+
+
+## Contextual Colors
+
+<div class="centered">
+![](../checker_illusion.png){width=100%}
+</div>
+
+## Contextual Colors
+
+<div class="centered">
+![](../gradient_illusion.png){width=80%}
+</div>
+
+## Lines
+
+<div class="centered">
+![](wavy_grid_1.png){width=70%}
+</div>
+
+## Lines
+
+<div class="centered">
+![](wavy_grid.png){width=100%}
+</div>
+
+## Contextual Area
+
+<div class="centered">
+![](area_illusion.png){width=100%}
+</div>
+
+## Seeing Shapes
+
+<div class="centered">
+![](negative_shape.png){width=60%}
+</div>
+
+## Seeing Shapes
+
+<div class="centered">
+![](../cloud_dog.png){width=100%}
+</div>
+
+## Key Distortions
+
+1. We perceive value/hue of colors **relative to adjacency colors**
+2. Certain geometry **interferes with assessing true spatial relationships**
+3. We perceive area of shapes **relative to adjacent shapes**
+4. We may perceive shapes **where there are none**
+5. We may perceive shapes **that look like other shapes**
+
+## Visual Encodings
+
+* Visualizations *encode* data values as visual properties
+* An encoding is a mapping between a data range and a visual property
+* Properties may include:
+  - Length/width/height
+  - Position
+  - Area
+  - Angle/proportional area
+  - Shape
+  - Color hue/value
+
+## 
+
+![](../viz_encodings.png){width=100%}
+
+## Visual Decoding
+
+* Every visualization uses one or more encodings
+* Reading a plot requires *decoding* from visual back to numbers to form a mental model of the data
+* Familiar encodings (e.g. position in a scatter plot) require less work to interpret than less conventional
+
+## Encoding Example
+
+```{r, fig.dim=c(8,3)}
+data <- tibble(
+  x=rnorm(100),
+  y=rnorm(100,0,5)
+)
+data %>%
+  ggplot(aes(x=x,y=y)) +
+  geom_point()
+```
+
+##
+
+```{r, fig.dim=c(8,3)}
+data <- mutate(data,
+  `x times y`=abs(x*y)
+)
+data %>%
+  ggplot(aes(x=x,y=y,size=`x times y`)) +
+  geom_point()
+```
+
+##
+
+```{r, fig.dim=c(8,3)}
+data <- mutate(data,
+    z=runif(100),
+    category=sample(c('A','B','C'), 100, replace=TRUE)
+  )
+data %>%
+  ggplot(aes(x=x, y=y, size=`x times y`, color=z, shape=category)) +
+  geom_point()
+```
+
+##
+
+```r
+data <-  mutate(data, `x + y`=x+y) %>%
+  arrange(`x + y`) %>%
+  mutate(
+    xend=lag(x,1),
+    yend=lag(y,1)
+  )
+data %>%
+  ggplot() +
+  geom_segment(aes(x=x,xend=xend,y=y,yend=yend,alpha=0.5)) +
+  geom_point(aes(x=x, y=y, size=`x times y`, color=z, shape=category))
+```
+
+## 
+
+```{r, echo=FALSE, warning=FALSE}
+data <-  mutate(data, `x + y`=x+y) %>%
+  arrange(`x + y`) %>%
+  mutate(
+    xend=lag(x,1),
+    yend=lag(y,1)
+  )
+data %>%
+  ggplot() +
+  geom_segment(aes(x=x,xend=xend,y=y,yend=yend,alpha=0.5)) +
+  geom_point(aes(x=x, y=y, size=`x times y`, color=z, shape=category))
+```
+
+##
+
+<div class="columns-2">
+```{r, fig.dim=c(4,6), echo=FALSE, warning=FALSE}
+data <- arrange(data, `x + y`) %>%
+  mutate(
+    xend=lag(x,1),
+    yend=lag(y,1)
+  )
+data %>%
+  ggplot() +
+  geom_segment(aes(x=x,xend=xend,y=y,yend=yend,alpha=0.5)) +
+  geom_point(aes(x=x, y=y, size=`x times y`, color=z, shape=category))
+```
+
+1. $x$ - positional encoding
+2. $y$ - positional encoding
+3. $xy$ - area encoding
+4. $z$ - quantitative encoding
+5. Category - categorical encoding to shape
+6. Adjacency along $x+y$ - length encoding
+
+</div>
+
+## More Complex Encodings
+
+```{r, fig.dim=c(8,3)}
+tibble(
+  value=rnorm(100),
+  category='A'
+) %>%
+  ggplot(aes(x=category,y=value,fill=category)) +
+  geom_violin()
+```
+
+## Common Encodings
+
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| Plot                        | $x$ encoding | $y$ encoding                          | note                                                   |
++=============================+==============+=======================================+========================================================+
+| [scatter](scatter-plot)     | position     | position                              |                                                        |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| [vertical bar](bar-chart)   | position     | height                                |                                                        |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| [horizontal bar](bar-chart) | width        | position                              |                                                        |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| [lollipop](lollipop-plots)  | position     | height for line + position for "head" |                                                        |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| [violin](violin-plots)      | position     | width                                 | $x$ transformed to range, $y$ transformed to densities |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+
+## Elementary Perceptual Tasks
+
+* Decoded visualizations represent relationships between data
+* Different encodings enable more or less precise estimates of those relationships
+* Translating from visualizations to quantiative estimates are *perceptual tasks*
+* These tasks developed into a theory of *elementary perceptual tasks* by Cleveland and McGill
+
+##
+
+<div class="centered">
+![](../elementary_perceptual_tasks.png){width=80%}
+</div>
+
+## Precision of Estimates
+
+```r
+# two groups of samples with similar random data profiles
+data <- as.matrix(
+  tibble(
+    A=c(rnorm(10),rnorm(10,2)),
+    B=c(rnorm(10),rnorm(10,2)),
+    C=c(rnorm(10),rnorm(10,2)),
+    D=c(rnorm(10,4),rnorm(10,-1)),
+    E=c(rnorm(10,4),rnorm(10,-1)),
+    F=c(rnorm(10,4),rnorm(10,-1))
+  )
+)
+rownames(data) <- paste0('G',seq(nrow(data)))
+heatmap(data)
+```
+
+## Precision of Estimates
+
+```{r, echo=FALSE}
+# these data have two groups of samples with similar random data profiles
+data <- as.matrix(
+  tibble(
+    A=c(rnorm(10),rnorm(10,2)),
+    B=c(rnorm(10),rnorm(10,2)),
+    C=c(rnorm(10),rnorm(10,2)),
+    D=c(rnorm(10,4),rnorm(10,-1)),
+    E=c(rnorm(10,4),rnorm(10,-1)),
+    F=c(rnorm(10,4),rnorm(10,-1))
+  )
+)
+rownames(data) <- paste0('G',seq(nrow(data)))
+heatmap(data)
+```
+
+## Precision of Estimates
+
+```{r, echo=FALSE, warning=FALSE}
+library(GGally)
+
+as_tibble(data) %>% mutate(
+  group=c(rep('Group 1',10),rep('Group 2',10))
+) %>%
+  ggparcoord(columns=1:6,groupColumn=7)
+```
+
+## Precision of Estimates
+
+<div class="columns-2">
+```{r, echo=FALSE, fig.dim=c(4,4)}
+# these data have two groups of samples with similar random data profiles
+data <- as.matrix(
+  tibble(
+    A=c(rnorm(10),rnorm(10,2)),
+    B=c(rnorm(10),rnorm(10,2)),
+    C=c(rnorm(10),rnorm(10,2)),
+    D=c(rnorm(10,4),rnorm(10,-1)),
+    E=c(rnorm(10,4),rnorm(10,-1)),
+    F=c(rnorm(10,4),rnorm(10,-1))
+  )
+)
+rownames(data) <- paste0('G',seq(nrow(data)))
+heatmap(data)
+```
+
+```{r, echo=FALSE, fig.dim=c(4,4)}
+library(GGally)
+
+as_tibble(data) %>% mutate(
+  group=c(rep('Group 1',10),rep('Group 2',10))
+) %>%
+  ggparcoord(columns=1:6,groupColumn=7)
+```
+
+</div>
+
+## Data Viz Opinions
+
+1. **Visualize data in multiple ways**
+2. **Perform statistical analyses to confirm patterns**
+3. **Informative is better than beautiful**
+4. **No plot is better than a useless plot**
+5. **Sometimes a table is the best way to present data**
+6. **If there is text on a plot, it should be legible**
+7. **Almost every plot should have properly labeled axes**
+8. **Be color-blind friendly**
+9. **Make differences appear as big as they mean**
+
+## Be Faithful To The Data
+
+```r
+library(patchwork)
+data <- tibble(
+  percent=c(86,88,87,90,93,89),
+  ID=c('A','B','C','D','E','F')
+)
+g <- ggplot(data, aes(x=ID,y=percent)) +
+  geom_bar(stat="identity")
+
+g + coord_cartesian(ylim=c(85,95)) | g
+```
+
+## Be Faithful To The Data
+
+```{r, echo=FALSE}
+library(patchwork)
+data <- tibble(
+  percent=c(86,88,87,90,93,89),
+  ID=c('A','B','C','D','E','F')
+)
+g <- ggplot(data, aes(x=ID,y=percent)) +
+  geom_bar(stat="identity")
+
+g + coord_cartesian(ylim=c(85,95)) | g
+```
+
 # Grammar of Graphics
 
 ## Grammar of Graphics
@@ -332,7 +691,7 @@ ggplot(ad_metadata, mapping = aes(x=ID,y=tau)) +
 
 * Change the fill color of the bars based on condition:
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+``` r
 ggplot(ad_metadata, mapping = aes(x=ID,y=tau,fill=condition)) +
   geom_bar(stat="identity")
 ```
@@ -348,7 +707,7 @@ ggplot(ad_metadata, mapping = aes(x=ID,y=tau,fill=condition)) +
 
 * Bar charts can also plot negative numbers
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+``` r
 mutate(ad_metadata, tau_centered=(tau - mean(tau))) %>%
   ggplot(mapping = aes(x=ID, y=tau_centered, fill=condition)) +
   geom_bar(stat="identity")
@@ -356,7 +715,7 @@ mutate(ad_metadata, tau_centered=(tau - mean(tau))) %>%
 
 ## Diverging bar chart
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="show"}
+``` {r, fig.dim=fig_size, echo=FALSE}
 mutate(ad_metadata, tau_centered=(tau - mean(tau))) %>%
   ggplot(mapping = aes(x=ID, y=tau_centered, fill=condition)) +
   geom_bar(stat="identity")
@@ -369,7 +728,7 @@ mutate(ad_metadata, tau_centered=(tau - mean(tau))) %>%
 * Similar to bar charts, "lollipop plots" replace bar with a line segment and a circle
 * No dedicated geometry - use `geom_point` and `geom_segment` layers:
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=T, results="hide"}
+```r
 ggplot(ad_metadata) +
   geom_point(mapping=aes(x=ID, y=tau)) +
   geom_segment(mapping=aes(x=ID, xend=ID, y=0, yend=tau))
@@ -377,7 +736,7 @@ ggplot(ad_metadata) +
 
 ## Lollipop plots
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=F, results="show"}
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
 ggplot(ad_metadata) +
   geom_point(mapping=aes(x=ID, y=tau)) +
   geom_segment(mapping=aes(x=ID, xend=ID, y=0, yend=tau))
@@ -486,7 +845,7 @@ ggplot(ad_metadata) +
 
 ## Histogram
 
-``` {r, fig.dim=fig_size, out.width="100%", echo=F}
+``` {r, fig.dim=fig_size, out.width="100%", echo=F, warning=FALSE}
 ggplot(ad_metadata) +
   geom_histogram(mapping=aes(x=age_at_death))
 ```
@@ -510,7 +869,7 @@ tibble(x=rnorm(1000)) %>%
 
 ## Histograms sensitive to number of data points
 
-```{r, fig.dim=fig_size, out.width="100%", echo=F}
+```{r, fig.dim=fig_size, out.width="100%", echo=F, warning=FALSE}
 tibble(x=rnorm(1000)) %>%
   ggplot() +
   geom_histogram(aes(x=x))
@@ -852,33 +1211,39 @@ tibble(
   geom_density_ridges(alpha=0.6,position="identity")
 ```
 
-## Plotting Two or More Dimensions
+# Plotting Two or More Dimensions
 
-Multi-dimensional plots allow relationships between different quantities to be
-depicted visually. As mentioned in the [Elemental Perceptual Tasks] section,
-this involves mapping data to visual elements using different encodings. The
-plot types in this section are examples of these different approaches to
-combining visual data encodings.
+## Scatter Plots
 
-### Scatter Plots
-
-Scatter plots visualize pairs of quantities, usually continuous, as points in
-a two dimensional space. Most commonly, the points are plotted in [cartesian
+* Scatter plots visualize pairs of quantities, usually continuous, as points in
+a two dimensional space
+* Usually in [cartesian
 coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system), but
 [polar coordinates](https://en.wikipedia.org/wiki/Polar_coordinate_system) or
-other types of coordinate systems.
+other types of coordinate systems are possible
 
-```{r viz dim scatter}
+```r
 ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
   geom_point(size=3)
 ```
 
-The `geom_point()` geometry draws a shape, circle by default, at pixel
-coordinates proportional to each $(x,y)$ pair. The shape may be changed by
-specifying the `shape=N` parameter to `geom_point`, where `N` is an integer ID
-of the shape. The following plot shows which IDs correspond to which shapes:
+## Scatter Plots
 
-```{r point shapes}
+```{r}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
+  geom_point(size=3)
+```
+
+## Scatter Plots: Marker Shapes
+
+```{r scatter shape enc}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
+  geom_point(size=3)
+```
+
+## Scatter Plots: Marker Shapes
+
+```{r, echo=FALSE}
 g <- ggplot()
 for(x in 0:5) {
   for(y in 0:4) {
@@ -889,28 +1254,53 @@ for(x in 0:5) {
   }
 }
 g
-
 ```
 
-However, `geom_points()` will choose up to six different shapes for you if you
-map a categorical encoding to the `shape` aesthetic:
+## Scatter Plots: Marker Shapes
 
-```{r scatter shape enc}
-ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
-  geom_point(size=3)
+```r
+g <- ggplot()
+for(x in 0:5) {
+  for(y in 0:4) {
+    if(x+y*6 < 26) {
+      g <- g + geom_point(
+        tibble(x=x,y=y),
+        aes(x=x,y=y),
+        shape=x+y*6,size=8) +
+       geom_label(
+         tibble(x=x,y=y,label=x+y*6),
+         aes(x=x,y=y+0.5,label=label)
+       )
+    }
+  }
+}
+g
 ```
-Controlling which shapes are mapped to which value can be accomplished with
+
+## Scatter Plots: Marker Shapes
+
+* Controlling which shapes are mapped to which value can be accomplished with
 [`scale_shape_manual()`](https://ggplot2.tidyverse.org/reference/scale_manual.html):
 
-```{r scatter shape manual}
+```r
 ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
   geom_point(size=3) +
   scale_shape_manual(values=c(3,9))
 ```
 
-Color encodings can also be added using either a continuous or discrete values:
+## Scatter Plots: Marker Shapes
 
-```{r scatter color}
+```{r scatter shape manual, echo=FALSE}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
+  geom_point(size=3) +
+  scale_shape_manual(values=c(3,9))
+```
+
+## Scatter Plots: Color Encodings
+
+* Color encodings added using either continuous or discrete values:
+
+```r
 library(patchwork)
 g <- ggplot(ad_metadata)
 g_condition <- g + geom_point(mapping=aes(x=abeta, y=tau, color=condition),size=3)
@@ -918,38 +1308,38 @@ g_age <- g + geom_point(mapping=aes(x=abeta, y=tau, color=age_at_death),size=3)
 g_condition / g_age
 ```
 
-### Bubble Plots
+## Scatter Plots: Color Encodings
 
-A close relative of the scatter plot is the bubble plot. A bubble plot is a
-scatter plot where the area of the point markers is proportional to a third
-continuous dimension. Consider the plot from above, with age at death encoded as
-the area of each point:
+```{r scatter color, echo=FALSE}
+library(patchwork)
+g <- ggplot(ad_metadata)
+g_condition <- g + geom_point(mapping=aes(x=abeta, y=tau, color=condition),size=3)
+g_age <- g + geom_point(mapping=aes(x=abeta, y=tau, color=age_at_death),size=3)
+g_condition / g_age
+```
 
-```{r viz dim bubbl}
+## Bubble Plots
+
+* Close relative of the scatter plot where the area of the point markers is proportional to a third dimension
+
+```r
 ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, size=age_at_death)) +
   geom_point(alpha=0.5)
 ```
-In this example, the markers have been given 50% transparency, so overlapping
-bubbles may be discerned more easily.
 
-:::{.box .warning}
-Recall from the [Human Visual Perception] section that it is difficult for
-humans to accurately assess the relative sizes of shapes that are not near each
-other. Bubble plots may be useful in some instances, but should be used
-carefully.
-:::
+## Bubble Plots
 
-### Connected Scatter Plots
+```{r viz dim bubbl, echo=FALSE}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, size=age_at_death)) +
+  geom_point(alpha=0.5)
+```
 
-Another close relative of the scatter plot is the connected scatter plot. A
-connected scatter plot is simply a scatter plot where certain pairs of points
-are connected with a line in addition to the markers. Any pairs of points may
-have lines connecting them, but most often the line indicates some dimension of
-time, i.e. two points that are sequential in time are connected. Below is a
-connected scatter plot with a line drawn from the youngest to oldest age at
-death:
+## Connected Scatter Plots
 
-```{r viz connected scatter}
+* Close relative of the scatter plot where certain pairs of points
+are connected with a line 
+
+```r
 arrange(ad_metadata,age_at_death) %>%
   mutate(
     x=abeta,
@@ -962,25 +1352,44 @@ arrange(ad_metadata,age_at_death) %>%
   geom_point(aes(x=x,y=y,shape=condition,color=condition),size=3)
 ```
 
-The plot suggests that perhaps the AD and Control samples might be closer in age
-within groups than between. We can confirm this using another type of plot, e.g.
-density grouped by condition.
+## Connected Scatter Plots
 
-### Line Plots
+```{r viz connected scatter, echo=FALSE, warning=FALSE}
+arrange(ad_metadata,age_at_death) %>%
+  mutate(
+    x=abeta,
+    xend=lag(x,1),
+    y=tau,
+    yend=lag(y,1)
+  ) %>%
+  ggplot() +
+  geom_segment(aes(x=abeta, xend=xend, y=tau, yend=yend)) +
+  geom_point(aes(x=x,y=y,shape=condition,color=condition),size=3)
+```
 
-Line plots connect pairs of points with a line without drawing a symbol at each
-point. The `geom_line()` function will draw lines between pairs of points sorted
-by $x$ axis by default:
+## Line Plots
 
-```{r}
+* Line plots connect pairs of points with a line without drawing a symbol at each
+point
+* `geom_line()` function draws lines between pairs of points sorted by $x$ axis by default
+
+```r
 ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
     geom_line()
 ```
 
-This may be useful when plotting multiple lines using the `group` aesthetic
-mapping:
+## Line Plots
 
-``` {r}
+```{r, echo=FALSE}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
+    geom_line()
+```
+
+## Line Plots: Multiple Lines
+
+* Plot multiple lines using the `group` aesthetic mapping
+
+``` r
 pivot_longer(ad_metadata,
   c(tau,abeta,iba1,gfap),
   names_to='Marker',
@@ -990,19 +1399,28 @@ pivot_longer(ad_metadata,
     geom_line()
 ```
 
-This plot is similar to a [parallel coordinate plot](parallel-coordinate-plots),
-in that all four dimensions of each sample are displayed using a position
-encoding.
+## Line Plots: Multiple Lines
 
-### Parallel Coordinate Plots
+* Plot multiple lines using the `group` aesthetic mapping
 
-Parallel coordinate plots are line plots where each of possibly many continuous
-variables are given vertical position encodings and each sample has its own
-line. Unlike the line plot above, each vertical axis can have a different scale,
-thus allowing plots of variables with very different value ranges. The following
-is a parallel coordinate plot of our AD metadata:
+``` {r, echo=FALSE}
+pivot_longer(ad_metadata,
+  c(tau,abeta,iba1,gfap),
+  names_to='Marker',
+  values_to='Intensity'
+  ) %>%
+  ggplot(ad_metadata,mapping=aes(x=ID, y=Intensity, group=Marker, color=Marker)) +
+    geom_line()
+```
 
-```{r viz pcp ad}
+## Parallel Coordinate Plots
+
+* Line plots where:
+  - 2+ continuous variables given vertical position encodings and
+  - Each sample has its own line
+* Each vertical axis can have a different scale
+
+```r
 library(GGally)
 
 ggparcoord(ad_metadata,
@@ -1013,29 +1431,34 @@ ggparcoord(ad_metadata,
   scale_color_manual(values=c("#bbbbbb", "#666666"))
 ```
 
-All the variables have been scaled and centered to have mean zero and standard
-deviation 1, and the values plotted using a position encoding vertically long
-each. Each line is a different subject, and have been colored based on the type
-of subject, either AD or control. This encoding allows us to make a number of
-observations about the samples, e.g. except for gfap, AD samples have
-consistently higher values than Controls.
+## Parallel Coordinate Plots
 
-:::{.box .note}
-A common way to specify colors is with a six digit
-[hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) code, e.g. `#2ca9f3`.
-These codes form a triplet of (`rr`,`gg`,`bb`), where `rr` is the value of the
-color red, `gg` the value of green, and `bb` for blue, examples:
+```{r viz pcp ad, warning=FALSE, echo=FALSE}
+library(GGally)
 
-* `#000000` is the color black, or a value of zero in all three colors
-* `#ffffff` is the color white, with maximum value for all three colors
-* `#ff0000` is the color red, with full red value and no value for green or blue
-* `#0000ff` is the color blue, with full blue value and no value for red or green
-* `#2ca9f3` is <span style="color: #2ca9f3">this color</span>, a combination of red, green, and blue
+ggparcoord(ad_metadata,
+           columns=c(2,4:8),
+           groupColumn=3,
+           showPoints=TRUE
+           ) +
+  scale_color_manual(values=c("#bbbbbb", "#666666"))
+```
 
-All colors in tidyverse may be specified with these hexadecimal color codes. See
-[web colors](https://en.wikipedia.org/wiki/Web_colors) for more information on
-how to specify colors in this way.
-:::
+## Note: hexadecimal color codes
+
+* Colors can be specified with a 6- or 8- hexit
+[hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) code
+* Hexit - `0 - f`, `0=0` and `f=16`
+* Codes form a triplet `#rrggbb`
+  - `rr` is the value of the color red
+  - `gg` for green
+  - `bb` for blue
+
+* `#ffffff` is the color <span style="color: #ffffff; background: #000000">white</span>
+* `#000000` is the color <span style="color: #000000">black</span>
+* `#ff0000` is the color <span style="color: #ff0000">red</span>
+* `#0000ff` is the color <span style="color: #0000ff">blue</span>
+* `#7fff00` is <span style="color: #7fff00">this color</span> (called chartreuse)
 
 # Heatmaps
 
