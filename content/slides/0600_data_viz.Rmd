@@ -45,7 +45,9 @@ A *great* visualization has some additional properties:
 
 ## Credits
 
-
+<div class="centered">
+![](cairo_books.png){width=100%}
+</div>
 
 ## Responsible Plotting
 
@@ -57,7 +59,9 @@ A *great* visualization has some additional properties:
 
 ## The "Hockey Stick Chart"
 
+<div class="centered">
 ![](../hockey_stick_chart.jpg){width=100%}
+</div>
 
 ## 5 Qualities of An Effective Viz
 
