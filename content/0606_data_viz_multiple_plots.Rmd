@@ -65,7 +65,7 @@ the faceting may be adjusted using arguments as described in the
 ### Multipanel Figures
 
 Facet wrapping is useful when all of the data for the separate plots are on the
-same scale, and comaprisons of the facet groups is meaningful. However, faceting
+same scale, and comparisons of the facet groups is meaningful. However, faceting
 is less convenient when we desire to place plots with unrelated data in the same
 figure. The [`patchwork`](https://patchwork.data-imaginist.com/) package allows
 us to compose multiple plots together using an intuitive set of operators. For

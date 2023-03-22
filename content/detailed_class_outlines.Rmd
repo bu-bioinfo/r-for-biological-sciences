@@ -167,15 +167,13 @@ output: html_document
 | 15 | 3/20 | Data Viz | [Line Plots] | [slides](slides/0600_data_viz.html#line-plots) |
 | 16 | 3/22 | Assignment | [Assignment 5] |  |
 | 16 | 3/22 | Assignment | [Assignment 6] |  |
-| 16 | 3/22 | Data Viz | [Parallel Coordinate Plots] |  |
-| 16 | 3/22 | Data Viz | [Chord Diagrams and Circos Plots] |  |
-| 16 | 3/22 | Data Viz | [How To Use Heatmaps Responsibly] |  |
+| 16 | 3/22 | Data Viz | [Parallel Coordinate Plots] | [slides](slides/0600_data_viz.html#parallel-coordinate-plots) |
+| 16 | 3/22 | Data Viz | [Chord Diagrams and Circos Plots] | [slides](slides/0600_data_viz.html#chord-diagrams-and-circos-plots) |
+| 16 | 3/22 | Data Viz | [How To Use Heatmaps Responsibly] | [slides](slides/0600_data_viz.html#how-to-use-heatmaps-responsibly) |
 | 16 | 3/22 | Data Viz | [Specifying Heatmap Colors] | [slides](slides/0600_data_viz.html#specifying-heatmap-colors) |
-| 16 | 3/22 | Data Viz | [Multiple Plots] |  |
-| 16 | 3/22 | Data Viz | [Facet wrapping] |  |
-| 16 | 3/22 | Data Viz | [Publication Ready Plots] |  |
-| 16 | 3/22 | R Prog | [Coding Style and Conventions] |  |
-| 16 | 3/22 | R Prog | [The `styler` package] |  |
+| 16 | 3/22 | Data Viz | [Multiple Plots] | [slides](slides/0600_data_viz.html#multiple-plots) |
+| 16 | 3/22 | Data Viz | [Facet wrapping] | [slides](slides/0600_data_viz.html#facet-wrapping) |
+| 16 | 3/22 | Data Viz | [Publication Ready Plots] | [slides](slides/0600_data_viz.html#publication-ready-plots) |
 
 
 ## Week 9
@@ -184,6 +182,8 @@ output: html_document
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
+| 17 | 3/27 | R Prog | [Coding Style and Conventions] |  |
+| 17 | 3/27 | R Prog | [The `styler` package] |  |
 | 17 | 3/27 | RShiny | [Rshiny] |  |
 | 17 | 3/27 | RShiny | [Introduction] |  |
 | 17 | 3/27 | RShiny | [Application Structure] |  |
