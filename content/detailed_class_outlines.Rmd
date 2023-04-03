@@ -199,16 +199,15 @@ output: html_document
 
 |Lecture|Date|Topic|Section|Slides|
 |-------|----|-----|-------|------|
-| 19 | 4/3 | EngineeRing | [Toolification] |  |
-| 19 | 4/3 | EngineeRing | [The R Interpreter] |  |
-| 19 | 4/3 | EngineeRing | [`Rscript`] |  |
-| 19 | 4/3 | EngineeRing | [`commandArgs()`] |  |
-| 19 | 4/3 | EngineeRing | [Parallel Processing] |  |
-| 19 | 4/3 | EngineeRing | [Brief Introduction to Parallelization] |  |
-| 19 | 4/3 | EngineeRing | [`apply` and Friends Are Pleasingly Parallel] |  |
-| 19 | 4/3 | EngineeRing | [The `parallel` package] |  |
-| 20 | 4/5 | Assignment | [Assignment 7] |  |
-| 20 | 4/5 | EngineeRing | [Object Oriented Programming in R] |  |
+| 19 | 4/3 | EngineeRing | [Toolification] | [slides](slides/0800_engineeRing.html#toolification) |
+| 19 | 4/3 | EngineeRing | [The R Interpreter] | [slides](slides/0800_engineeRing.html#the-r-interpreter) |
+| 19 | 4/3 | EngineeRing | [`Rscript`] | [slides](slides/0800_engineeRing.html#rscript) |
+| 19 | 4/3 | EngineeRing | [`commandArgs()`] | [slides](slides/0800_engineeRing.html#commandargs) |
+| 19 | 4/3 | EngineeRing | [Parallel Processing] | [slides](slides/0800_engineeRing.html#parallel-processing) |
+| 19 | 4/3 | EngineeRing | [Brief Introduction to Parallelization] | [slides](slides/0800_engineeRing.html#brief-introduction-to-parallelization) |
+| 19 | 4/3 | EngineeRing | [`apply` and Friends Are Pleasingly Parallel] | [slides](slides/0800_engineeRing.html#apply-is-pleasingly-parallel) |
+| 19 | 4/3 | EngineeRing | [The `parallel` package] | [slides](slides/0800_engineeRing.html#the-parallel-package) |
+| 19 | 4/3 | EngineeRing | [Object Oriented Programming in R] | [slides](slides/0800_engineeRing.html#object-oriented-programming-in-r) |
 | 20 | 4/5 | EngineeRing | [Building R Packages] |  |
 
 

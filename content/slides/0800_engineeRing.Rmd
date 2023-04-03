@@ -174,51 +174,28 @@ Backtrace:
 Error: Test failed
 ```
 
+# Toolification
+
 ## Toolification
 
-RStudio is a highly effective tool for developing R code, and most analyses we
-conduct are suitable for running in its interactive environment. However, there
-are certain circumstances where running R scripts in this interactive manner is
-not optimal or even suitable:
+* Some use cases make running scripts in RStudio ineffective
 
-1. The same script must be run on many different inputs
-2. The data that is to be analyzed is stored on a system where interactive
-RStudio session are not available
-3. The script takes a very long time to run (e.g. days to weeks)
-4. The computational demands of the analysis exceed the resources available on
-the computer where RStudio is being run (e.g. a personal laptop has limited
-memory)
+  1. The same script must be run on many different inputs
+  2. Data stored on a system where interactive RStudio session are not available
+  3. The script takes a very long time to run (e.g. days to weeks)
+  4. The computational demands of the analysis exceed the resources of the
+  computer where RStudio is being run
+  
+* Must turn an R script into a *tool*
 
-In these cases, it is necessary to run R scripts outside of RStudio, often on
-a command line interface (CLI) like that found on linux clusters and cloud based
-virtual machines. While most scripts can be run in an R interpreter on the 
-CLI and produce the same behavior, there are some steps that help
-convert an R script into a tool that can be run in this way. This process of
-transforming an R script in to a more generally usable tool that is run on the
-CLI is termed *toolification* in this text. The following sections describe some
-strategies for *toolifying* and running R scripts developed in RStudio on the
-CLI.
+## The R Interpreter
 
-### The R Interpreter
+![](../r_interpreter.png){width=80%}
 
-It bears mentioning that RStudio and R are related but independent programs.
-Specifically, RStudio runs the R program behind its interface using what is
-called the [*R interpreter*](https://www.oreilly.com/library/view/r-in-a/9781449358204/ch05s09.html).
-When you run R on a CLI, you are given an interactive interface where commands
-written in the R language can be evaluated. In RStudio, the interpreter that is
-running behind the scenes can be accessed in the Console tab at the bottom right:
+## Running R Scripts
 
-![R Interpreter in both RStudio and a linux terminal](r_interpreter.png)
-
-The interpreter by itself is not very useful, since most meaningful analyses
-require many lines of code be run sequentially as a unit. The interpreter can be
-helpful to test out individual lines of code and examine help documentation for
-R functions.
-
-The simplest way to run an R script from the command line is to first run an R
-interpreter and then use the [`source()` function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/source),
-which accepts a filename for an R script as its first argument an executes all
-lines of code in the script.
+* Use the [`source()` function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/source),
+to execute all code in a file in an R interpreter
 
 ```
 $ cat simple_script.R
@@ -232,15 +209,12 @@ $ R
  num [1:4] 1 2 3 4
 ```
 
-However, this method requires some interactivity, namely by running an R
-interpreter first, so it is not sufficient to run in a non-interactive fashion.
-We may need to run our script without any interactivity, for example when it is
-a part of a computational pipeline.
+## `Rscript`
 
-### `Rscript`
+* Base R includes the [`Rscript` command](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/Rscript)
+that can be run on the command line
 
-The R program also includes the [`Rscript` command](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/Rscript)
-that can be run on the command line:
+##
 
 ```
 $ Rscript
@@ -261,14 +235,9 @@ or options to R, in addition to --no-echo --no-restore, such as
   --restore           Do restore previously saved objects at startup
   --vanilla           Combine --no-save, --no-restore, --no-site-file
                         --no-init-file and --no-environ
-
-'file' may contain spaces but not shell metacharacters
-Expressions (one or more '-e <expr>') may be used *instead* of 'file'
-See also  ?Rscript  from within R
 ```
 
-This CLI command accepts an R script as an input and executes the commands in
-the file as if they had been passed to `source()`, for example:
+## `Rscript` Example
 
 ```
 $ cat simple_script.R
@@ -282,28 +251,19 @@ $ Rscript simple_script.R
 $
 ```
 
-This is the simplest way to toolify an R script; simply run it on the command
-line with `Rscript`. Toolifying simple R scripts that do not need to accept
-inputs to execute on different data generally require no changes.
+## `Rscript` Specifics
 
-:::{.box .note}
-`Rscript` is a convenience function that runs the following `R` command:
+* `Rscript` is a convenience function that runs the following `R` command:
 
 ```
 $ Rscript simple_script.R # is equivalent to:
 $ R --no-echo --no-restore --file=simple_script.R
 ```
 
-If for some reason you cannot run `Rscript` directly, you can use these
-arguments with the `R` command to attain the same result.
-:::
+## `commandArgs()`
 
-### `commandArgs()`
-
-However, sometimes we may wish to control the behavior of a script directly from
-the command line, rather than editing the script directly for every different
-execution. To pass information into the script when it is run, we can pass
-arguments with the `Rscript` command:
+* Can control the behavior of a script directly from the command line by
+passing command line arguments to the `Rscript` command
 
 ```
 $ Rscript simple_script.R abc
@@ -312,17 +272,19 @@ $ Rscript simple_script.R abc
  num [1:4] 1 2 3 4
 ```
 
-Although we passed in the argument `abc`, the output of the script didn't change
-because the script wasn't written to receive it. In order for a script to gain
-access to the command line arguments, we must call the [`commandArgs()`
-function](https://www.rdocumentation.org/packages/R.utils/versions/2.11.0/topics/commandArgs):
+## `commandArgs()`
+
+* Call the [`commandArgs()`
+function](https://www.rdocumentation.org/packages/R.utils/versions/2.11.0/topics/commandArgs)
+to access command line arguments in the shell
 
 ```r
 args <- commandArgs(trailingOnly=TRUE)
 ```
 
-Now when we execute the script, the arguments passed in are available in the
-`args` variable:
+## `commandArgs()`
+
+* arguments passed in are available in the `args` variable:
 
 ```
 $ cat echo_args.R
@@ -335,12 +297,10 @@ $ Rscript echo_args.R # no args
 character(0)
 ```
 
-In the last case when no arguments were passed, R is telling us the `args`
-variable is a character vector of length zero.
+## `trailingOnly=FALSE`
 
-:::{.box .note}
-By default, the `commandArgs()` function will return the full command that was
-run, including the `Rscript` command itself and any additional arguments:
+* By default the `commandArgs()` includes the `Rscript` command itself and any
+additional arguments:
 
 ```
 $ Rscript -e "commandArgs()" abc 123
@@ -354,6 +314,8 @@ $ Rscript -e "commandArgs()" abc 123
 [8] "123"
 ```
 
+## `trailingOnly=TRUE`
+
 The `trailingOnly=TRUE` argument returns only the arguments provided at the end
 of the command, after the `Rscript` portion:
 ```
@@ -361,18 +323,14 @@ $ Rscript -e "commandArgs(trailingOnly=TRUE)" abc 123
 [1] "abc" "123"
 ```
 
-Note you can provide individual commands instead of a script to `Rscript` with
-the `-e` argument.
-:::
 
-The `commandArgs()` function is all that is needed to toolify a R script.
-Consider a simple script named `inspect_csv.R` that loads in any CSV file and
-summarizes it as a tibble:
+## Example Tool
 
 ```r
 args <- commandArgs(trailingOnly=TRUE)
 if(length(args) != 1) {
-  cat("Usage: simple_script.R <csv file>\n") # cat() writes characters to the screen
+  # cat() writes characters to the screen
+  cat("Usage: simple_script.R <csv file>\n")
   cat("Provide exactly one argument that is a CSV filename\n")
   quit(save="no", status=1)
 }
@@ -381,7 +339,7 @@ library(tidyverse)
 read_csv(fn)
 ```
 
-We can now run the script with `Rscript` and give it the filename of a CSV file:
+## Example Tool
 
 ```
 $ cat data.csv
@@ -390,6 +348,11 @@ g1,1,35,20
 g2,32,56,99
 g3,392,583,444
 g4,39853,16288,66928
+```
+
+##
+
+```
 $ Rscript inspect_csv.R data.csv
 ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 ✔ ggplot2 3.3.5     ✔ purrr   0.3.4
@@ -416,16 +379,12 @@ dbl (3): sampleA, sampleB, sampleC
 4 g4      39853   16288   66928
 ```
 
-Note the input handling of the arguments, where the usage of the script and a
-helpful error message is printed out before the script quits if there was not
-exactly one argument provided. 
+## Numerical CLI Arguments
 
-In the example above, a filename was passed into the script as an argument. A
-filename is encoded as a character string in this case, and `commandArgs()`
-always produces a vector of strings. If we need to pass in arguments to control
-numerical values, we will need to parse the arguments first. Consider the
-following R implementation of the linux command `head`, which prints only the
-top $n$ lines of a file to the screen:
+* `commandArgs()` always produces a vector of strings
+* Numerical arguments must be parsed explicitly
+
+## `head.R`
 
 ```r
 args <- commandArgs(trailingOnly=TRUE)
@@ -438,7 +397,11 @@ if(length(args) != 2) {
 # read in arguments
 fn <- args[1]
 n <- as.integer(args[2])
+```
 
+## `head.R`
+
+```r
 # the csv output will include a header row, so reduce n by 1
 n <- n-1
 
@@ -451,14 +414,9 @@ suppressMessages(
             write_csv(stdout())
     }
 )
-
 ```
 
-We again tested the number of arguments passed in for correct usage, and then
-assigned the arguments to variables. The `n` argument is cast from a character
-string to an integer in the process, enabling its use in the
-`dplyr::slice_head()` function. We can print out the first three lines of a file
-as follows:
+## `head.R`
 
 ```
 $ Rscript head.R data.csv 3
@@ -467,32 +425,29 @@ g1,1,35,20
 g2,32,56,99
 ```
 
-Reading command line arguments into variables in a script can become tedious if
-your script has a large number of arguments. Fortunately, the [`argparser`
-package](https://www.rdocumentation.org/packages/argparser/versions/0.7.1) can help handle many of the
-repetitive operations, including specifying arguments, providing default values,
-automatically casting to appropriate types like numbers, and printing out usage
-information:
+## `argparser`
 
-```{r argparser}
+* Reading command line arguments into variables in a script can become tedious
+* [`argparser` package](https://www.rdocumentation.org/packages/argparser/versions/0.7.1)
+helps build CLI argument interfaces
+
+```r
 library(argparser, quietly=TRUE)
 parser <- arg_parser("R implementation of GNU coreutils head command")
 parser <- add_argument(parser, "filename", help="file to print lines from")
 parser <- add_argument(parser, "-n", help="number of lines to print", type="numeric", default=10)
-parser <- parse_args(parser, c("-n",3,"data.csv"))
-print(paste("printing from file:",parser$filename))
-print(paste("printing top n:",parser$n))
+parser <- parse_args(parser, c("-n", 3, "data.csv"))
+print(paste("printing from file:", parser$filename))
+print(paste("printing top n:", parser$n))
 ```
 
-With this library, we can rewrite our `head.R` script to be more concise:
+## `head.R + argparse`
 
 ```r
 library(argparser, quietly=TRUE)
 
-# instantiate parser
 parser <- arg_parser("R implementation of GNU coreutils head command")
 
-# add arguments
 parser <- add_argument(
   parser,
   arg="filename",
@@ -506,7 +461,12 @@ parser <- add_argument(
   default=10,
   short='-n'
 )
+```
 
+## `head.R + argparse`
+
+
+```r
 args <- parse_args(parser)
 
 fn <- args$filename
@@ -524,9 +484,7 @@ suppressMessages(
 )
 ```
 
-Note we didn't have to explicitly parse the `top` argument as an integer because
-`type="numeric"` handled this for us. We can print out the top three lines of
-our file like we did above using the new parser and arguments:
+## `head.R + argparse`
 
 ```
 $ Rscript head.R -n 3 data.csv
@@ -535,7 +493,7 @@ g1,1,35,20
 g2,32,56,99
 ```
 
-We can also inspect the usage by passing the `-h` flag:
+## `head.R + argparse`
 
 ```
 $ Rscript head.R -h
@@ -554,112 +512,82 @@ optional arguments:
   -n, --top   number of lines to print [default: 10]
 ```
 
-These are the only tools required to toolify our R script.
-
-:::{.box .important}
-Note that scripts developed in RStudio can be run on the command line, but
-scripts written for CLI use with the strategies above cannot be easily run
-inside RStudio! However, if you followed good practices and implemented your
-script as a set of functions, you can easily write a CLI wapper script that
-calls those functions, thereby enabling you to continue developing your code in
-RStudio and maintain CLI tool functionality.
-:::
+# Parallel Processing
 
 ## Parallel Processing
 
-Most modern computers have multiple processing or CPU cores, e.g. a 4-core or
-8-core processor. This principally means that these computers can execute
-multiple processes simultaneously thereby dividing the wall clock time required
-to run the computations on a one core machine by a factor equal to the number of
-cores the machine has. This can be a very meaningful performance improvement,
-e.g. an 8 core machine could reduce the running time of a computation from a
-week to less than a day. Some data centers possess compute nodes with 28 or even
-64 cores, meaning a computation that would normally run for two months could
-complete in a single day if all cores are used! Processes that are running at
-the same time on different cores are said to be running *in parallel*, while
-a computation that is not parallelized runs *serially*.
+* Most modern computers have multiple processing or CPU cores, e.g. a 4-core or
+8-core processor
+* Running processes simultaneously can divide time required to run an analysis 
+by a factor equal to the number of machine cores
+* e.g. a machine with 64 cores could run a computation that would normally take
+two months in a single day
+* Processes running at the same time on different cores are running *in parallel*
+* A computation that is not parallelized runs *serially*
 
-### Brief Introduction to Parallelization
+## Brief Introduction to Parallelization
 
-Not all computations can be parallelized, and some can only be made parallel by
-using sophisticated mathematical models and algorithms. However, certain classes
-of problems are [*pleasingly
-parallel*](https://en.wikipedia.org/wiki/Embarrassingly_parallel), meaning their
-structure makes it easy if not trivial to divide into parts that can be run in
-parallel. In general, how "parallelizeable" a computation is depends on how the
-subparts of the computation relate to one another.
+* Not all computations can be parallelized
+* Certain classes of problems are [*pleasingly
+parallel*](https://en.wikipedia.org/wiki/Embarrassingly_parallel):
+  - problem structure easily divided into parts that can be run in parallel
+* In general, how "parallelizeable" a computation is depends on how the
+subparts of the computation relate to one another
 
-Consider the problem of mapping [high throughput sequencing
-reads](#high-throughput-sequencing) against a reference genome. If the task is
-to identify the location(s) in the genome where each read matches, the locations
-of one read do not influence the locations of another read; they are independent
-of each other. Since they are independent, in principle they can be done in
-parallel, meaning that, again *in priniple*, every one of the millions of reads
-could be aligned against the genome at the same time. This would mean the wall
-clock time required to align all the reads in a multi-million read dataset would
-take as long as it takes to align a single read. This makes short read alignment
-a pleasingly parallel problem. Unfortunately, in practice there are technical
-constraints preventing this increase in performance, but most modern alignment
-programs like [`bwa`](http://bio-bwa.sourceforge.net/bwa.shtml) and
+## Parallelizability
+
+* The structure of a computation determines whether/how it can be parallelized
+* Consider mapping [high throughput sequencing reads](#high-throughput-sequencing) against a reference genome:
+  - i.e. identify the location(s) in the genome where each read matches
+* Alignment locations of different reads don't depend on each other, i.e. they are independent
+* Independent tasks can be performed in parallel 
+* Most modern alignment programs like [`bwa`](http://bio-bwa.sourceforge.net/bwa.shtml) and
 [`STAR`](https://github.com/alexdobin/STAR) exploit this inherently parallel
-structure to improve performance by using multiple cores at the same time.
+structure of read alignment problem
 
-In general, splitting up a computation into pieces that can run in parallel does
-not always lead to performance improvements. There are several ways computations
-are constrained based on which aspects of the algorithm or program require the
-most time to run. Briefly, an algorithm can be:
+## Parallelization Limitations
 
-* *compute-bound* - the computations take the largest amount of time
-* *memory-bound* - the amount of main memory (i.e. RAM) on the machine determines how quickly the computation can complete
-* *input/output (IO)-bound* - writing to and from hard disk takes the most time
-* *network-bound* - transfering data over a network, usually between processes running in parallel, takes the most time
+* Splitting up a computation into pieces that can run in parallel does
+not always lead to performance improvements
+* Execution time of an algorithm depends on the slowest step
+* Every algorithm is bounded by one of *compute*, *memory*, *input/output*, *network* 
+* These concepts are covered in the field of [high-performance computing](https://en.wikipedia.org/wiki/High-performance_computing)
 
-These concepts are covered in the field of [high-performance computing](https://en.wikipedia.org/wiki/High-performance_computing) and are
-beyond the scope of this class. However, for the purposes of this section, the
-problems we are concerned with when parallelizing computations are
-**compute-bound** computations.
+## Algorithm Boundedness
 
-:::{.box .note}
-Parallelism can be attained on both the multiprocessor and the distributed
-computing level. In distributed computing, different subtasks of a
-parallelizable computation are executed on different physical computers. Each
-of these subtasks could possibly be further parallelized using multiple cores on
-each system. In cluster computing or cloud environments, enormous performance
-improvements can be attained by utilizing both levels of parallelization. For
-example, if you submit 100 jobs via `qsub` to a compute cluster and they all run
-at the same time, and each job uses 16 cores on its local machine, that amounts
-to a 1,600x speedup. This parallelism would reduce a computation taking over 4
-years to run in a single day!
-:::
+* An algorithm can be one of:
+  - *compute-bound* - the computations take the largest amount of time
+  - *memory-bound* - the amount of main memory (i.e. RAM) on the machine
+  determines how quickly the computation can complete
+  - *input/output (IO)-bound* - writing to and from hard disk takes the most time
+  - *network-bound* - transfering data over a network, usually between processes
+  running in parallel, takes the most time
 
-### `apply` and Friends Are Pleasingly Parallel
+## Multilevel parallelization
 
-In R, loops are most efficiently expressed using the [`apply`
-function](#apply-and-friends) and its variants `lapply` and `vapply`. Recall
-that these functions accept a function and a collection of inputs, usually a
-list. The `apply` function iterates over the input collection and executes the
-function on each of them. In general, the inputs are assumed to be independent,
-and the function does not have any outside dependencies. This is precisely the
-pattern needed for pleasantly parallel tasks. In general, any iteration using an
-`apply` function can be parallelized in R.
+* Parallelism can be attained on both multiprocessor and distributed computing level:
+  - Multiprocessor - one job utilizing multiple cores on a single machine
+  - Distributed computing - running jobs on multiple separate machines
+* Can utilize both levels of parallelization
+  - e.g. 100 jobs via `qsub` and each job uses 16 cores = $100 * 16 =$ 1600x speedup!
 
-### The `parallel` package
+## `apply` Is Pleasingly Parallel
 
-R can leverage multiple core architectures to execute processes in parallel with
-the [`parallel` package], which is installed as a base R package. The main
-function in this package that enables parallelism is
-[`mclapply()`](https://stat.ethz.ch/R-manual/R-devel/library/parallel/html/mclapply.html),
-or `m`ulti`c`ore `apply`. `mclapply` accepts all of the same arguments as
-`lapply` and a few additional starting with `mc.`. The argument to `mclapply`
-that enables parallelism is `mc.cores`, which specifies the number of cores to
-use when executing tasks in parallel.
+* [`apply`](#apply-and-friends), `lapply`, `vapply` etc computations are *pleasantly parallel*
+* `apply` iterates over the input collection and executes the function on each of them
+* In general, any iteration using an `apply` function can be parallelized in R
 
-:::{.box .important}
-`mclapply` is *not* available on Windows, only Mac and linux.
-:::
+## The `parallel` package
 
-Consider the following script `mclapply.R` which runs a function that prints out
-its input with the current time and then waits (i.e. sleeps) for three seconds:
+* R can leverage multiple core architectures to execute processes in parallel with
+the [`parallel` package]
+* [`mclapply()`](https://stat.ethz.ch/R-manual/R-devel/library/parallel/html/mclapply.html),
+or `m`ulti`c`ore `apply` is multicore implementation of `apply`
+* `mclapply` accepts all of the same arguments as `lapply` and a few additional starting with `mc.`
+* `mc.cores`, which specifies the number of cores to use when executing tasks in parallel
+* **NB:** `mclapply` is *not* available on Windows, only Mac and linux
+
+## `mclapply` Example
 
 ```r
 library(parallel)
@@ -677,8 +605,7 @@ ret <- mclapply(
 )
 ```
 
-Note the number of cores to be used is passed in as a command line argument. If
-we run the script with one core, we can see the functions run serially:
+## `mclapply` Example - 1 core
 
 ```
 $ Rscript mclapply.R 1
@@ -695,8 +622,7 @@ $ Rscript mclapply.R 1
 
 ```
 
-If we instead run the script with three cores, we can see from the printed times
-that the functions are executed in groups of 3:
+## `mclapply` Example - 3 cores
 
 ```
 $ Rscript mclapply.R 3
@@ -712,8 +638,7 @@ $ Rscript mclapply.R 3
 [1] "2022-03-23 20:30:05 process 10"
 ```
 
-Finally, if we use 10 cores (and the machine we are using has at least 10
-cores), all the functions execute simultaneously:
+## `mclapply` Example - 10 cores
 
 ```
 - Rscript mclapply.R 10
@@ -729,35 +654,131 @@ cores), all the functions execute simultaneously:
 [1] "2022-03-23 20:34:59 process 10"
 ```
 
-This introduction to parallelization in R will likely be sufficient for most
-simple parallel tasks, but there are many details that we won't cover here. For
-more in-depth explanation of how parallelism in R works refer to the links in
-the read more box below.
-
-:::{.box .readmore}
-* [Parallel Computation](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html) section of R Programming for Data Science, by Roger Peng
-* [Quick Intro to Parallel Computing in R](https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html), National Center for Ecological Analysis & Synthesis
-* [mclapply documentation](https://stat.ethz.ch/R-manual/R-devel/library/parallel/html/mclapply.html)
-* [Parallel processing with R on Windows](https://waterprogramming.wordpress.com/2020/03/16/parallel-processing-with-r-on-windows/), Water Programming Blog, Reed Lab, Cornell
-:::
+# Object Oriented Programming in R
 
 ## Object Oriented Programming in R
 
-[Object-orietned programming](https://en.wikipedia.org/wiki/Object-oriented_programming)
+* [Object-oriented programming](https://en.wikipedia.org/wiki/Object-oriented_programming)
 (OOP) is a programming paradigm that encapsulates related code and data into
-conceptual "objects". These objects generally are used to organize code and make
-it easier to write by passing these encapsulated data and code together as a
-unit. There are several different styles of OOP, and a programming language my
-implement more than one style, or none at all.
+conceptual "objects"
+* Objects organize code and make it easier to write, maintain, and understand
+* There are several different styles of OOP, and a programming language may
+implement more than one style, or none at all
+* R supports several different OOP systems
 
-Although R is primarily a [functional programming
-language](#functional-programming) it does support OOP in several different
-ways. Hadley Wickham has written an [excellent book chapter on OOP in
-R](https://adv-r.hadley.nz/oo.html) and thus is not replicated here.
+## OOP Concepts
 
-::: {.box .readmore}
-* [OOP in R](https://adv-r.hadley.nz/oo.html) by Hadley Wickam
-:::
+* *polymorphism* - enables considering a function's interface separately from its implementation
+* *encapsulation* - enables organizing a function's implementation and data together under a common
+interface
+
+## OOP Terminology
+
+* *class*: the "type" of the object
+* *method*: something all objects of a class can do
+* *field*: something all objects of a class have (e.g. data)
+* *inheritance*: some classes share same behavior as other classes (i.e. they
+*inherit* the behavior)
+* *method dispatch*: the programming language decides which method implementation
+to execute for a given class
+
+## Polymorphism
+
+```{r}
+library(ggplot2)
+ggplot2::diamonds
+```
+
+## Polymorphism
+
+* Consider the `summary()` function:
+
+```r
+diamonds <- ggplot2::diamonds
+
+summary(diamonds$carat)
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>    0.20    0.40    0.70    0.80    1.04    5.01
+
+summary(diamonds$cut)
+#>      Fair      Good Very Good   Premium     Ideal 
+#>      1610      4906     12082     13791     21551
+```
+
+## Encapsulation
+
+* Data and functionality combined into the same object
+* Consider python class:
+
+```python
+class Read(object):
+  def __init__(self, header, seq, qual):
+    self.header = header
+    self.seq = seq
+    self.qual = qual
+  def to_fastq(self):
+    return '@{}\n{}\n+\n{}'.format(
+      self.header,
+      self.seq,
+      self.qual
+    )
+read1 = Read("read1", "ACTG", "FFFF")
+read1.seq # access sequence
+read1.fastq() # output fastq format
+```
+
+## OOP in R
+
+* R has three main OOP systems:
+  - S3 - first, simplest, functional system
+  - R6 - more recent, encapsulated system
+  - S4 - like S3, but more restrictive
+* Bioconductor requires packages be written using S4 system
+
+## S3
+
+```r
+new_Read <- function(header, seq, qual=NULL) {
+  structure(
+    list(
+      header=header,
+      seq=seq,
+      qual=qual
+    ),
+    class="Read"
+  )
+}
+read1 <- new_Read("read1", "ACGT", "FFFF")
+fastq.Read <- function(x) {
+  UseMethod("fastq")
+  paste0("@",self$header,"\n",self$seq,"+\n",self$qual,"\n")
+}
+fastq(read1)
+```
+
+## R6
+
+```r
+Read <- R6Class("Read", list(
+  header = NULL,
+  seq = NULL,
+  qual = NULL,
+  initialize = function(header, seq, qual=NULL) {
+    self$header <- header
+    self$seq <- seq
+    self$qual <- qual
+  },
+  fastq = function() {
+    invisible(paste0("@",self$header,"\n",self$seq,"+\n",self$qual,"\n"))
+  }
+}
+}
+))
+read1 <- Read$new("read1","ACTG","FFFF")
+read1$fastq()
+```
+
+# Building R Packages
 
 ## Building R Packages
 
