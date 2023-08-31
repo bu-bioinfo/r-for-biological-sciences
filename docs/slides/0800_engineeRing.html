@@ -3673,7 +3673,9 @@ g2,32,56,99</pre>
 <pre class = 'prettyprint lang-r'>library(argparser, quietly=TRUE)
 parser &lt;- arg_parser(&quot;R implementation of GNU coreutils head command&quot;)
 parser &lt;- add_argument(parser, &quot;filename&quot;, help=&quot;file to print lines from&quot;)
-parser &lt;- add_argument(parser, &quot;-n&quot;, help=&quot;number of lines to print&quot;, type=&quot;numeric&quot;, default=10)
+parser &lt;- add_argument(parser, &quot;-n&quot;, help=&quot;number of lines to print&quot;,
+  type=&quot;numeric&quot;,
+  default=10)
 parser &lt;- parse_args(parser, c(&quot;-n&quot;, 3, &quot;data.csv&quot;))
 print(paste(&quot;printing from file:&quot;, parser$filename))
 print(paste(&quot;printing top n:&quot;, parser$n))</pre>
@@ -3975,7 +3977,9 @@ summary(diamonds$cut)
       self.seq,
       self.qual
     )
-read1 = Read(&quot;read1&quot;, &quot;ACTG&quot;, &quot;FFFF&quot;)</pre>
+read1 = Read(&quot;read1&quot;, &quot;ACTG&quot;, &quot;FFFF&quot;)
+read1.seq # access sequence
+read1.fastq() # output fastq format</pre>
 
 </article></slide><slide class=""><hgroup><h2>OOP in R</h2></hgroup><article  id="oop-in-r">
 
@@ -4007,6 +4011,7 @@ fastq.Read &lt;- function(x) {
   UseMethod(&quot;fastq&quot;)
   paste0(&quot;@&quot;,self$header,&quot;\n&quot;,self$seq,&quot;+\n&quot;,self$qual,&quot;\n&quot;)
 }
+read1$seq
 fastq(read1)</pre>
 
 </article></slide><slide class=""><hgroup><h2>R6</h2></hgroup><article  id="r6">
@@ -4027,6 +4032,7 @@ fastq(read1)</pre>
 }
 ))
 read1 &lt;- Read$new(&quot;read1&quot;,&quot;ACTG&quot;,&quot;FFFF&quot;)
+read1$seq
 read1$fastq()</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Building R Packages</h2></hgroup><article  id="building-r-packages">

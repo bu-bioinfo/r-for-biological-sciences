@@ -189,8 +189,8 @@ data but generally do not generate ourselves. Annotation data comes in many
 forms, some of which are in CSV format.</p>
 <p>The figure below contains a simple diagram of how these different types of data
 work together for a typical biological data analysis.</p>
-<div class="figure">
-<img src="information_flow.png" alt=""><p class="caption">Information flow in biological data analysis</p>
+<div class="float">
+<img src="information_flow.png" alt="Information flow in biological data analysis"><div class="figcaption">Information flow in biological data analysis</div>
 </div>
 </div>
 <div id="csv-files" class="section level3" number="8.2.2">
@@ -241,27 +241,27 @@ a feature identifier, e.g. gene identifier, genomic locus, probe set ID, etc an
 the remaining columns have numerical values, one per sample. The first row is
 usually column names for all the columns in the file. Below is an example of one
 of these files from a microarray gene expression dataset loaded into R:</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="biology-bioinformatics.html#cb359-1" aria-hidden="true" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"example_intensity_data.csv"</span>)</span>
-<span id="cb359-2"><a href="biology-bioinformatics.html#cb359-2" aria-hidden="true" tabindex="-1"></a>intensities</span>
-<span id="cb359-3"><a href="biology-bioinformatics.html#cb359-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 54,675 x 36</span></span>
-<span id="cb359-4"><a href="biology-bioinformatics.html#cb359-4" aria-hidden="true" tabindex="-1"></a>   probe     GSM972389 GSM972390 GSM972396 GSM972401 GSM972409 GSM972412 GSM972413 GSM972422 GSM972429</span>
-<span id="cb359-5"><a href="biology-bioinformatics.html#cb359-5" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb359-6"><a href="biology-bioinformatics.html#cb359-6" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> 1007_s_at      <span class="fl">9.54</span>     <span class="fl">10.2</span>       <span class="fl">9.72</span>      <span class="fl">9.68</span>      <span class="fl">9.35</span>      <span class="fl">9.89</span>      <span class="fl">9.70</span>      <span class="fl">9.67</span>      <span class="fl">9.87</span></span>
-<span id="cb359-7"><a href="biology-bioinformatics.html#cb359-7" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> 1053_at        <span class="fl">7.62</span>      <span class="fl">7.92</span>      <span class="fl">7.17</span>      <span class="fl">7.24</span>      <span class="fl">8.20</span>      <span class="fl">6.87</span>      <span class="fl">6.62</span>      <span class="fl">7.23</span>      <span class="fl">7.45</span></span>
-<span id="cb359-8"><a href="biology-bioinformatics.html#cb359-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> 117_at         <span class="fl">5.50</span>      <span class="fl">5.56</span>      <span class="fl">5.06</span>      <span class="fl">7.44</span>      <span class="fl">5.19</span>      <span class="fl">5.72</span>      <span class="fl">5.87</span>      <span class="fl">6.15</span>      <span class="fl">5.46</span></span>
-<span id="cb359-9"><a href="biology-bioinformatics.html#cb359-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> 121_at         <span class="fl">7.27</span>      <span class="fl">7.96</span>      <span class="fl">7.42</span>      <span class="fl">7.34</span>      <span class="fl">7.49</span>      <span class="fl">7.76</span>      <span class="fl">7.44</span>      <span class="fl">7.66</span>      <span class="fl">8.02</span></span>
-<span id="cb359-10"><a href="biology-bioinformatics.html#cb359-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> 1255_g_at      <span class="fl">2.79</span>      <span class="fl">3.10</span>      <span class="fl">2.78</span>      <span class="fl">2.91</span>      <span class="fl">3.02</span>      <span class="fl">2.73</span>      <span class="fl">2.78</span>      <span class="fl">3.56</span>      <span class="fl">2.83</span></span>
-<span id="cb359-11"><a href="biology-bioinformatics.html#cb359-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> 1294_at        <span class="fl">7.51</span>      <span class="fl">7.28</span>      <span class="fl">7.00</span>      <span class="fl">7.18</span>      <span class="fl">7.38</span>      <span class="fl">6.98</span>      <span class="fl">6.90</span>      <span class="fl">7.54</span>      <span class="fl">7.66</span></span>
-<span id="cb359-12"><a href="biology-bioinformatics.html#cb359-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> 1316_at        <span class="fl">3.89</span>      <span class="fl">4.36</span>      <span class="fl">4.24</span>      <span class="fl">3.94</span>      <span class="fl">4.20</span>      <span class="fl">4.34</span>      <span class="fl">4.06</span>      <span class="fl">4.24</span>      <span class="fl">4.11</span></span>
-<span id="cb359-13"><a href="biology-bioinformatics.html#cb359-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> 1320_at        <span class="fl">4.65</span>      <span class="fl">4.91</span>      <span class="fl">4.70</span>      <span class="fl">4.78</span>      <span class="fl">5.06</span>      <span class="fl">4.71</span>      <span class="fl">4.55</span>      <span class="fl">4.58</span>      <span class="fl">5.10</span></span>
-<span id="cb359-14"><a href="biology-bioinformatics.html#cb359-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> 1405_i_at      <span class="fl">8.03</span>      <span class="fl">7.47</span>      <span class="fl">5.42</span>      <span class="fl">7.21</span>      <span class="fl">9.48</span>      <span class="fl">6.79</span>      <span class="fl">6.57</span>      <span class="fl">8.50</span>      <span class="fl">6.36</span></span>
-<span id="cb359-15"><a href="biology-bioinformatics.html#cb359-15" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> 1431_at        <span class="fl">3.09</span>      <span class="fl">3.78</span>      <span class="fl">3.33</span>      <span class="fl">3.12</span>      <span class="fl">3.21</span>      <span class="fl">3.27</span>      <span class="fl">3.37</span>      <span class="fl">3.84</span>      <span class="fl">3.32</span></span>
-<span id="cb359-16"><a href="biology-bioinformatics.html#cb359-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 54,665 more rows, and 26 more variables: GSM972433 &lt;dbl&gt;, GSM972438 &lt;dbl&gt;, GSM972440 &lt;dbl&gt;,</span></span>
-<span id="cb359-17"><a href="biology-bioinformatics.html#cb359-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972443 &lt;dbl&gt;, GSM972444 &lt;dbl&gt;, GSM972446 &lt;dbl&gt;, GSM972453 &lt;dbl&gt;, GSM972457 &lt;dbl&gt;,</span></span>
-<span id="cb359-18"><a href="biology-bioinformatics.html#cb359-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972459 &lt;dbl&gt;, GSM972463 &lt;dbl&gt;, GSM972467 &lt;dbl&gt;, GSM972472 &lt;dbl&gt;, GSM972473 &lt;dbl&gt;,</span></span>
-<span id="cb359-19"><a href="biology-bioinformatics.html#cb359-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972475 &lt;dbl&gt;, GSM972476 &lt;dbl&gt;, GSM972477 &lt;dbl&gt;, GSM972479 &lt;dbl&gt;, GSM972480 &lt;dbl&gt;,</span></span>
-<span id="cb359-20"><a href="biology-bioinformatics.html#cb359-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972487 &lt;dbl&gt;, GSM972488 &lt;dbl&gt;, GSM972489 &lt;dbl&gt;, GSM972496 &lt;dbl&gt;, GSM972502 &lt;dbl&gt;,</span></span>
-<span id="cb359-21"><a href="biology-bioinformatics.html#cb359-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   GSM972510 &lt;dbl&gt;, GSM972512 &lt;dbl&gt;, GSM972521 &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="biology-bioinformatics.html#cb358-1" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"example_intensity_data.csv"</span>)</span>
+<span id="cb358-2"><a href="biology-bioinformatics.html#cb358-2" tabindex="-1"></a>intensities</span>
+<span id="cb358-3"><a href="biology-bioinformatics.html#cb358-3" tabindex="-1"></a><span class="co"># A tibble: 54,675 x 36</span></span>
+<span id="cb358-4"><a href="biology-bioinformatics.html#cb358-4" tabindex="-1"></a>   probe     GSM972389 GSM972390 GSM972396 GSM972401 GSM972409 GSM972412 GSM972413 GSM972422 GSM972429</span>
+<span id="cb358-5"><a href="biology-bioinformatics.html#cb358-5" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb358-6"><a href="biology-bioinformatics.html#cb358-6" tabindex="-1"></a> <span class="dv">1</span> 1007_s_at      <span class="fl">9.54</span>     <span class="fl">10.2</span>       <span class="fl">9.72</span>      <span class="fl">9.68</span>      <span class="fl">9.35</span>      <span class="fl">9.89</span>      <span class="fl">9.70</span>      <span class="fl">9.67</span>      <span class="fl">9.87</span></span>
+<span id="cb358-7"><a href="biology-bioinformatics.html#cb358-7" tabindex="-1"></a> <span class="dv">2</span> 1053_at        <span class="fl">7.62</span>      <span class="fl">7.92</span>      <span class="fl">7.17</span>      <span class="fl">7.24</span>      <span class="fl">8.20</span>      <span class="fl">6.87</span>      <span class="fl">6.62</span>      <span class="fl">7.23</span>      <span class="fl">7.45</span></span>
+<span id="cb358-8"><a href="biology-bioinformatics.html#cb358-8" tabindex="-1"></a> <span class="dv">3</span> 117_at         <span class="fl">5.50</span>      <span class="fl">5.56</span>      <span class="fl">5.06</span>      <span class="fl">7.44</span>      <span class="fl">5.19</span>      <span class="fl">5.72</span>      <span class="fl">5.87</span>      <span class="fl">6.15</span>      <span class="fl">5.46</span></span>
+<span id="cb358-9"><a href="biology-bioinformatics.html#cb358-9" tabindex="-1"></a> <span class="dv">4</span> 121_at         <span class="fl">7.27</span>      <span class="fl">7.96</span>      <span class="fl">7.42</span>      <span class="fl">7.34</span>      <span class="fl">7.49</span>      <span class="fl">7.76</span>      <span class="fl">7.44</span>      <span class="fl">7.66</span>      <span class="fl">8.02</span></span>
+<span id="cb358-10"><a href="biology-bioinformatics.html#cb358-10" tabindex="-1"></a> <span class="dv">5</span> 1255_g_at      <span class="fl">2.79</span>      <span class="fl">3.10</span>      <span class="fl">2.78</span>      <span class="fl">2.91</span>      <span class="fl">3.02</span>      <span class="fl">2.73</span>      <span class="fl">2.78</span>      <span class="fl">3.56</span>      <span class="fl">2.83</span></span>
+<span id="cb358-11"><a href="biology-bioinformatics.html#cb358-11" tabindex="-1"></a> <span class="dv">6</span> 1294_at        <span class="fl">7.51</span>      <span class="fl">7.28</span>      <span class="fl">7.00</span>      <span class="fl">7.18</span>      <span class="fl">7.38</span>      <span class="fl">6.98</span>      <span class="fl">6.90</span>      <span class="fl">7.54</span>      <span class="fl">7.66</span></span>
+<span id="cb358-12"><a href="biology-bioinformatics.html#cb358-12" tabindex="-1"></a> <span class="dv">7</span> 1316_at        <span class="fl">3.89</span>      <span class="fl">4.36</span>      <span class="fl">4.24</span>      <span class="fl">3.94</span>      <span class="fl">4.20</span>      <span class="fl">4.34</span>      <span class="fl">4.06</span>      <span class="fl">4.24</span>      <span class="fl">4.11</span></span>
+<span id="cb358-13"><a href="biology-bioinformatics.html#cb358-13" tabindex="-1"></a> <span class="dv">8</span> 1320_at        <span class="fl">4.65</span>      <span class="fl">4.91</span>      <span class="fl">4.70</span>      <span class="fl">4.78</span>      <span class="fl">5.06</span>      <span class="fl">4.71</span>      <span class="fl">4.55</span>      <span class="fl">4.58</span>      <span class="fl">5.10</span></span>
+<span id="cb358-14"><a href="biology-bioinformatics.html#cb358-14" tabindex="-1"></a> <span class="dv">9</span> 1405_i_at      <span class="fl">8.03</span>      <span class="fl">7.47</span>      <span class="fl">5.42</span>      <span class="fl">7.21</span>      <span class="fl">9.48</span>      <span class="fl">6.79</span>      <span class="fl">6.57</span>      <span class="fl">8.50</span>      <span class="fl">6.36</span></span>
+<span id="cb358-15"><a href="biology-bioinformatics.html#cb358-15" tabindex="-1"></a><span class="dv">10</span> 1431_at        <span class="fl">3.09</span>      <span class="fl">3.78</span>      <span class="fl">3.33</span>      <span class="fl">3.12</span>      <span class="fl">3.21</span>      <span class="fl">3.27</span>      <span class="fl">3.37</span>      <span class="fl">3.84</span>      <span class="fl">3.32</span></span>
+<span id="cb358-16"><a href="biology-bioinformatics.html#cb358-16" tabindex="-1"></a><span class="co"># ... with 54,665 more rows, and 26 more variables: GSM972433 &lt;dbl&gt;, GSM972438 &lt;dbl&gt;, GSM972440 &lt;dbl&gt;,</span></span>
+<span id="cb358-17"><a href="biology-bioinformatics.html#cb358-17" tabindex="-1"></a><span class="co">#   GSM972443 &lt;dbl&gt;, GSM972444 &lt;dbl&gt;, GSM972446 &lt;dbl&gt;, GSM972453 &lt;dbl&gt;, GSM972457 &lt;dbl&gt;,</span></span>
+<span id="cb358-18"><a href="biology-bioinformatics.html#cb358-18" tabindex="-1"></a><span class="co">#   GSM972459 &lt;dbl&gt;, GSM972463 &lt;dbl&gt;, GSM972467 &lt;dbl&gt;, GSM972472 &lt;dbl&gt;, GSM972473 &lt;dbl&gt;,</span></span>
+<span id="cb358-19"><a href="biology-bioinformatics.html#cb358-19" tabindex="-1"></a><span class="co">#   GSM972475 &lt;dbl&gt;, GSM972476 &lt;dbl&gt;, GSM972477 &lt;dbl&gt;, GSM972479 &lt;dbl&gt;, GSM972480 &lt;dbl&gt;,</span></span>
+<span id="cb358-20"><a href="biology-bioinformatics.html#cb358-20" tabindex="-1"></a><span class="co">#   GSM972487 &lt;dbl&gt;, GSM972488 &lt;dbl&gt;, GSM972489 &lt;dbl&gt;, GSM972496 &lt;dbl&gt;, GSM972502 &lt;dbl&gt;,</span></span>
+<span id="cb358-21"><a href="biology-bioinformatics.html#cb358-21" tabindex="-1"></a><span class="co">#   GSM972510 &lt;dbl&gt;, GSM972512 &lt;dbl&gt;, GSM972521 &lt;dbl&gt;</span></span></code></pre></div>
 <p>The file has 54,676 rows, consisting of one header row which R loads in as the
 column names, and the remaining are probe sets, one per row. There are 36
 columns, where the first contains the probe set ID (e.g. <code>1007_s_at</code>) and the
@@ -317,7 +317,7 @@ functional style using the <code><a href="https://rdrr.io/r/base/apply.html">app
 provided function is to be applied to the columns or rows, respectively. This
 method can be used to compute a summary statistic on each row of a tibble and
 the result saved back into the tibble using the column set operator:</p>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">intensity_variance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">intensities</span>, <span class="fl">2</span>, <span class="va">var</span><span class="op">)</span></span>
 <span><span class="va">intensities</span><span class="op">$</span><span class="va">variance</span> <span class="op">&lt;-</span> <span class="va">intensity_variance</span></span></code></pre></div>
 </li>
@@ -354,7 +354,7 @@ process. User contributed and maintained packages provide specialized
 functionality for specific types of analysis.</p>
 <p>Bioconductor itself must be installed prior to installing other Bioconductor
 packages. To [install bioconductor], you can run the following:</p>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"3.14"</span><span class="op">)</span></span></code></pre></div>
@@ -373,7 +373,7 @@ the time when you write your code.</p>
 <p>The <code>BiocManager</code> package is the only Bioconductor package installable using
 <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>. After installing the BiocManager package, you may then
 install bioconductor packages:</p>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># installs the affy bioconductor package for microarray analysis</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"affy"</span><span class="op">)</span></span></code></pre></div>
 <p>One key aspect of Bioconductor packages is consistent and helpful documentation;
@@ -404,8 +404,8 @@ specifically the SummarizedExperiment class in the <a href="https://bioconductor
 name</a>
 package. An illustration of what a SummarizedExperiment object stores is below,
 from the Bioconductor maintainer’s paper in Nature:</p>
-<div class="figure">
-<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp" alt=""><p class="caption">SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21.</p>
+<div class="float">
+<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp" alt="SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21."><div class="figcaption">SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21.</div>
 </div>
 <p>As you can see from the figure, this class stores processed data (<code>assays</code>),
 metadata (<code>colData</code> and <code>exptData</code>), and annotation data (<code>rowData</code>). The
@@ -418,8 +418,8 @@ in this chapter.</p>
 <h2>
 <span class="header-section-number">8.4</span> Microarrays<a class="anchor" aria-label="anchor" href="#microarrays"><i class="fas fa-link"></i></a>
 </h2>
-<div class="figure">
-<img src="microarray_chip.png" alt=""><p class="caption">A Microarray Device - Thermo Fisher Scientific</p>
+<div class="float">
+<img src="microarray_chip.png" alt="A Microarray Device - Thermo Fisher Scientific"><div class="figcaption">A Microarray Device - Thermo Fisher Scientific</div>
 </div>
 <p>Microarrays are devices that measure the relative abundance of thousands of
 distinct DNA sequences simultaneously. Short (~25 nucleotide) single-stranded
@@ -433,8 +433,8 @@ most often the human population. Microarrays of the same type (e.g. human gene
 expression) all have the same set of probes. The choice of DNA sequence probes
 therefore determines what the microarray measures and how to interpret the data.
 The design of a microarray is illustrated in the following figure.</p>
-<div class="figure">
-<img src="microarray_design.png" alt=""><p class="caption">Illustration of Microarray Design</p>
+<div class="float">
+<img src="microarray_design.png" alt="Illustration of Microarray Design"><div class="figcaption">Illustration of Microarray Design</div>
 </div>
 <p>A microarray device generates data by applying a specially prepared DNA sample
 to it; the sample usually corresponds to a single biological specimen, e.g. an
@@ -466,8 +466,8 @@ the corresponding DNA molecule were in the sample, the more light the spot
 emits. In this way, the relative abundance of all probes on the array are
 measured simultaneously. The process of generating microarray data from a sample
 is illustrated in the following figure.</p>
-<div class="figure">
-<img src="microarray_data_gen.png" alt=""><p class="caption">Illustration of Microarray Data Generation Process</p>
+<div class="float">
+<img src="microarray_data_gen.png" alt="Illustration of Microarray Data Generation Process"><div class="figcaption">Illustration of Microarray Data Generation Process</div>
 </div>
 <p>After the microarray has been scanned, the relative copy number of the DNA in
 the sample matching the probes on the microarray are expressed as the intensity
@@ -636,8 +636,8 @@ proportional to the number of those molecules found in the original sample.
 Therefore, the analysis and interpretation of HTS data commonly involves the
 analysis of <em>count data</em>, which we discuss in detail in the next section. The
 following figure illustrates the concepts described in this section.</p>
-<div class="figure">
-<img src="hts_examples.png" alt=""><p class="caption">Illustration of WGS and RNASeq read alignment process</p>
+<div class="float">
+<img src="hts_examples.png" alt="Illustration of WGS and RNASeq read alignment process"><div class="figcaption">Illustration of WGS and RNASeq read alignment process</div>
 </div>
 </div>
 <div id="count-data" class="section level3" number="8.5.3">
@@ -684,18 +684,18 @@ Expression Data</a> section.</p>
 <span class="header-section-number">8.6.1</span> Gene Identifier Systems<a class="anchor" aria-label="anchor" href="#gene-identifier-systems"><i class="fas fa-link"></i></a>
 </h3>
 <p>Since the first genetic sequence for a gene was determined in 1965 - <a href="https://pubmed.ncbi.nlm.nih.gov/14263761/">an alanine
-tRNA in yeast</a><span class="citation">(<a href="detailed-class-schedule.html#ref-Holley1965-tu" role="doc-biblioref">Holley et al. 1965</a>)</span> -
+tRNA in yeast</a><span class="citation">(<a href="detailed-class-schedule.html#ref-Holley1965-tu">Holley et al. 1965</a>)</span> -
 scientists have been trying to give them names. In 1979, <a href="https://pubmed.ncbi.nlm.nih.gov/295268/">formal guidelines for
 the nomenclature used for human genes was
-proposed</a><span class="citation">(<a href="detailed-class-schedule.html#ref-Shows1979-iw" role="doc-biblioref">Shows et al. 1979</a>)</span> along with the
-founding of the Human Gene Nomenclature Committee <span class="citation">(<a href="detailed-class-schedule.html#ref-Bruford2020-zs" role="doc-biblioref">Bruford et al. 2020</a>)</span>, so that
+proposed</a><span class="citation">(<a href="detailed-class-schedule.html#ref-Shows1979-iw">Shows et al. 1979</a>)</span> along with the
+founding of the Human Gene Nomenclature Committee <span class="citation">(<a href="detailed-class-schedule.html#ref-Bruford2020-zs">Bruford et al. 2020</a>)</span>, so that
 researchers would have a common vocabulary to refer to genes in a consistent
 way. In 1989, this committee was placed under the auspices of the Human Genome
 Organisation (HUGO), becoming the HUGO Gene Nomenclature Committee (HGNC). The
 HGNC has been the official body providing guidelines and gene naming authority
 since, and as such HGNC gene names are often called <em>gene symbols</em>.</p>
 <div class="box note">
-<p>As per <span class="citation">Bruford et al. (<a href="detailed-class-schedule.html#ref-Bruford2020-zs" role="doc-biblioref">2020</a>)</span>, the official human gene symbol guidelines are as
+<p>As per <span class="citation">Bruford et al. (<a href="detailed-class-schedule.html#ref-Bruford2020-zs">2020</a>)</span>, the official human gene symbol guidelines are as
 follows:</p>
 <ol style="list-style-type: decimal">
 <li>Each gene is assigned a unique symbol, HGNC ID and descriptive name.</li>
@@ -832,53 +832,53 @@ more information in the Ensembl
 databases</a> than gene
 annotation data that can be accessed via BioMart, but we will provide a brief
 example of how to extract gene information here:</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="biology-bioinformatics.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this assumes biomaRt is already installed through bioconductor</span></span>
-<span id="cb364-2"><a href="biology-bioinformatics.html#cb364-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
-<span id="cb364-3"><a href="biology-bioinformatics.html#cb364-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb364-4"><a href="biology-bioinformatics.html#cb364-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the human biomaRt database is named "hsapiens_gene_ensembl"</span></span>
-<span id="cb364-5"><a href="biology-bioinformatics.html#cb364-5" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="at">biomart=</span><span class="st">"ensembl"</span>, <span class="at">dataset=</span><span class="st">"hsapiens_gene_ensembl"</span>)</span>
-<span id="cb364-6"><a href="biology-bioinformatics.html#cb364-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb364-7"><a href="biology-bioinformatics.html#cb364-7" aria-hidden="true" tabindex="-1"></a><span class="co"># listAttributes() returns a data frame, turn into a tibble to help with formatting</span></span>
-<span id="cb364-8"><a href="biology-bioinformatics.html#cb364-8" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(<span class="fu">listAttributes</span>(ensembl))</span>
-<span id="cb364-9"><a href="biology-bioinformatics.html#cb364-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3,143 x 3</span></span>
-<span id="cb364-10"><a href="biology-bioinformatics.html#cb364-10" aria-hidden="true" tabindex="-1"></a>   name                          description                  page        </span>
-<span id="cb364-11"><a href="biology-bioinformatics.html#cb364-11" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                         <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                        <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       </span>
-<span id="cb364-12"><a href="biology-bioinformatics.html#cb364-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ensembl_gene_id               Gene stable ID               feature_page</span>
-<span id="cb364-13"><a href="biology-bioinformatics.html#cb364-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ensembl_gene_id_version       Gene stable ID version       feature_page</span>
-<span id="cb364-14"><a href="biology-bioinformatics.html#cb364-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ensembl_transcript_id         Transcript stable ID         feature_page</span>
-<span id="cb364-15"><a href="biology-bioinformatics.html#cb364-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ensembl_transcript_id_version Transcript stable ID version feature_page</span>
-<span id="cb364-16"><a href="biology-bioinformatics.html#cb364-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ensembl_peptide_id            Protein stable ID            feature_page</span>
-<span id="cb364-17"><a href="biology-bioinformatics.html#cb364-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ensembl_peptide_id_version    Protein stable ID version    feature_page</span>
-<span id="cb364-18"><a href="biology-bioinformatics.html#cb364-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ensembl_exon_id               Exon stable ID               feature_page</span>
-<span id="cb364-19"><a href="biology-bioinformatics.html#cb364-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> description                   Gene description             feature_page</span>
-<span id="cb364-20"><a href="biology-bioinformatics.html#cb364-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> chromosome_name               Chromosome<span class="sc">/</span>scaffold name     feature_page</span>
-<span id="cb364-21"><a href="biology-bioinformatics.html#cb364-21" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> start_position                Gene <span class="fu">start</span> (bp)              feature_page</span>
-<span id="cb364-22"><a href="biology-bioinformatics.html#cb364-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 3,133 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="biology-bioinformatics.html#cb363-1" tabindex="-1"></a><span class="co"># this assumes biomaRt is already installed through bioconductor</span></span>
+<span id="cb363-2"><a href="biology-bioinformatics.html#cb363-2" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb363-3"><a href="biology-bioinformatics.html#cb363-3" tabindex="-1"></a></span>
+<span id="cb363-4"><a href="biology-bioinformatics.html#cb363-4" tabindex="-1"></a><span class="co"># the human biomaRt database is named "hsapiens_gene_ensembl"</span></span>
+<span id="cb363-5"><a href="biology-bioinformatics.html#cb363-5" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="at">biomart=</span><span class="st">"ensembl"</span>, <span class="at">dataset=</span><span class="st">"hsapiens_gene_ensembl"</span>)</span>
+<span id="cb363-6"><a href="biology-bioinformatics.html#cb363-6" tabindex="-1"></a></span>
+<span id="cb363-7"><a href="biology-bioinformatics.html#cb363-7" tabindex="-1"></a><span class="co"># listAttributes() returns a data frame, turn into a tibble to help with formatting</span></span>
+<span id="cb363-8"><a href="biology-bioinformatics.html#cb363-8" tabindex="-1"></a><span class="fu">as_tibble</span>(<span class="fu">listAttributes</span>(ensembl))</span>
+<span id="cb363-9"><a href="biology-bioinformatics.html#cb363-9" tabindex="-1"></a><span class="co"># A tibble: 3,143 x 3</span></span>
+<span id="cb363-10"><a href="biology-bioinformatics.html#cb363-10" tabindex="-1"></a>   name                          description                  page        </span>
+<span id="cb363-11"><a href="biology-bioinformatics.html#cb363-11" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                         <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                        <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       </span>
+<span id="cb363-12"><a href="biology-bioinformatics.html#cb363-12" tabindex="-1"></a> <span class="dv">1</span> ensembl_gene_id               Gene stable ID               feature_page</span>
+<span id="cb363-13"><a href="biology-bioinformatics.html#cb363-13" tabindex="-1"></a> <span class="dv">2</span> ensembl_gene_id_version       Gene stable ID version       feature_page</span>
+<span id="cb363-14"><a href="biology-bioinformatics.html#cb363-14" tabindex="-1"></a> <span class="dv">3</span> ensembl_transcript_id         Transcript stable ID         feature_page</span>
+<span id="cb363-15"><a href="biology-bioinformatics.html#cb363-15" tabindex="-1"></a> <span class="dv">4</span> ensembl_transcript_id_version Transcript stable ID version feature_page</span>
+<span id="cb363-16"><a href="biology-bioinformatics.html#cb363-16" tabindex="-1"></a> <span class="dv">5</span> ensembl_peptide_id            Protein stable ID            feature_page</span>
+<span id="cb363-17"><a href="biology-bioinformatics.html#cb363-17" tabindex="-1"></a> <span class="dv">6</span> ensembl_peptide_id_version    Protein stable ID version    feature_page</span>
+<span id="cb363-18"><a href="biology-bioinformatics.html#cb363-18" tabindex="-1"></a> <span class="dv">7</span> ensembl_exon_id               Exon stable ID               feature_page</span>
+<span id="cb363-19"><a href="biology-bioinformatics.html#cb363-19" tabindex="-1"></a> <span class="dv">8</span> description                   Gene description             feature_page</span>
+<span id="cb363-20"><a href="biology-bioinformatics.html#cb363-20" tabindex="-1"></a> <span class="dv">9</span> chromosome_name               Chromosome<span class="sc">/</span>scaffold name     feature_page</span>
+<span id="cb363-21"><a href="biology-bioinformatics.html#cb363-21" tabindex="-1"></a><span class="dv">10</span> start_position                Gene <span class="fu">start</span> (bp)              feature_page</span>
+<span id="cb363-22"><a href="biology-bioinformatics.html#cb363-22" tabindex="-1"></a><span class="co"># ... with 3,133 more rows</span></span></code></pre></div>
 <p>The <code>name</code> column provides the programmatic name associated with the attribute
 that can be used to retrieve that annotation information using the <code>getBM()</code>
 function:</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="biology-bioinformatics.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a tibble with ensembl gene ID, HGNC gene symbol, and gene description</span></span>
-<span id="cb365-2"><a href="biology-bioinformatics.html#cb365-2" aria-hidden="true" tabindex="-1"></a>gene_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
-<span id="cb365-3"><a href="biology-bioinformatics.html#cb365-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getBM</span>(</span>
-<span id="cb365-4"><a href="biology-bioinformatics.html#cb365-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">attributes=</span><span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"hgnc_symbol"</span>, <span class="st">"description"</span>),</span>
-<span id="cb365-5"><a href="biology-bioinformatics.html#cb365-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mart=</span>ensembl</span>
-<span id="cb365-6"><a href="biology-bioinformatics.html#cb365-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb365-7"><a href="biology-bioinformatics.html#cb365-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb365-8"><a href="biology-bioinformatics.html#cb365-8" aria-hidden="true" tabindex="-1"></a>gene_map</span>
-<span id="cb365-9"><a href="biology-bioinformatics.html#cb365-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 68,012 x 3</span></span>
-<span id="cb365-10"><a href="biology-bioinformatics.html#cb365-10" aria-hidden="true" tabindex="-1"></a>   ensembl_gene_id hgnc_symbol description                                                               </span>
-<span id="cb365-11"><a href="biology-bioinformatics.html#cb365-11" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                                                                     </span>
-<span id="cb365-12"><a href="biology-bioinformatics.html#cb365-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ENSG00000210049 MT<span class="sc">-</span>TF       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Phe</span> (UUU<span class="sc">/</span>C) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">748</span><span class="sc">~</span></span>
-<span id="cb365-13"><a href="biology-bioinformatics.html#cb365-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ENSG00000211459 MT<span class="sc">-</span>RNR1     mitochondrially encoded 12S rRNA [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7470</span>]       </span>
-<span id="cb365-14"><a href="biology-bioinformatics.html#cb365-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ENSG00000210077 MT<span class="sc">-</span>TV       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Val</span> (GUN) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7500</span>]</span>
-<span id="cb365-15"><a href="biology-bioinformatics.html#cb365-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ENSG00000210082 MT<span class="sc">-</span>RNR2     mitochondrially encoded 16S rRNA [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7471</span>]       </span>
-<span id="cb365-16"><a href="biology-bioinformatics.html#cb365-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ENSG00000209082 MT<span class="sc">-</span>TL1      mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Leu</span> (UUA<span class="sc">/</span>G) <span class="dv">1</span> [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7</span><span class="sc">~</span></span>
-<span id="cb365-17"><a href="biology-bioinformatics.html#cb365-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ENSG00000198888 MT<span class="sc">-</span>ND1      mitochondrially encoded NADH<span class="sc">:</span>ubiquinone oxidoreductase core subunit <span class="dv">1</span> [So<span class="sc">~</span></span>
-<span id="cb365-18"><a href="biology-bioinformatics.html#cb365-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ENSG00000210100 MT<span class="sc">-</span>TI       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Ile</span> (AUU<span class="sc">/</span>C) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">748</span><span class="sc">~</span></span>
-<span id="cb365-19"><a href="biology-bioinformatics.html#cb365-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> ENSG00000210107 MT<span class="sc">-</span>TQ       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Gln</span> (CAA<span class="sc">/</span>G) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">749</span><span class="sc">~</span></span>
-<span id="cb365-20"><a href="biology-bioinformatics.html#cb365-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> ENSG00000210112 MT<span class="sc">-</span>TM       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Met</span> (AUA<span class="sc">/</span>G) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">749</span><span class="sc">~</span></span>
-<span id="cb365-21"><a href="biology-bioinformatics.html#cb365-21" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> ENSG00000198763 MT<span class="sc">-</span>ND2      mitochondrially encoded NADH<span class="sc">:</span>ubiquinone oxidoreductase core subunit <span class="dv">2</span> [So<span class="sc">~</span></span>
-<span id="cb365-22"><a href="biology-bioinformatics.html#cb365-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 68,002 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="biology-bioinformatics.html#cb364-1" tabindex="-1"></a><span class="co"># create a tibble with ensembl gene ID, HGNC gene symbol, and gene description</span></span>
+<span id="cb364-2"><a href="biology-bioinformatics.html#cb364-2" tabindex="-1"></a>gene_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
+<span id="cb364-3"><a href="biology-bioinformatics.html#cb364-3" tabindex="-1"></a>  <span class="fu">getBM</span>(</span>
+<span id="cb364-4"><a href="biology-bioinformatics.html#cb364-4" tabindex="-1"></a>    <span class="at">attributes=</span><span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"hgnc_symbol"</span>, <span class="st">"description"</span>),</span>
+<span id="cb364-5"><a href="biology-bioinformatics.html#cb364-5" tabindex="-1"></a>    <span class="at">mart=</span>ensembl</span>
+<span id="cb364-6"><a href="biology-bioinformatics.html#cb364-6" tabindex="-1"></a>  )</span>
+<span id="cb364-7"><a href="biology-bioinformatics.html#cb364-7" tabindex="-1"></a>)</span>
+<span id="cb364-8"><a href="biology-bioinformatics.html#cb364-8" tabindex="-1"></a>gene_map</span>
+<span id="cb364-9"><a href="biology-bioinformatics.html#cb364-9" tabindex="-1"></a><span class="co"># A tibble: 68,012 x 3</span></span>
+<span id="cb364-10"><a href="biology-bioinformatics.html#cb364-10" tabindex="-1"></a>   ensembl_gene_id hgnc_symbol description                                                               </span>
+<span id="cb364-11"><a href="biology-bioinformatics.html#cb364-11" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                                                                     </span>
+<span id="cb364-12"><a href="biology-bioinformatics.html#cb364-12" tabindex="-1"></a> <span class="dv">1</span> ENSG00000210049 MT<span class="sc">-</span>TF       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Phe</span> (UUU<span class="sc">/</span>C) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">748</span><span class="sc">~</span></span>
+<span id="cb364-13"><a href="biology-bioinformatics.html#cb364-13" tabindex="-1"></a> <span class="dv">2</span> ENSG00000211459 MT<span class="sc">-</span>RNR1     mitochondrially encoded 12S rRNA [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7470</span>]       </span>
+<span id="cb364-14"><a href="biology-bioinformatics.html#cb364-14" tabindex="-1"></a> <span class="dv">3</span> ENSG00000210077 MT<span class="sc">-</span>TV       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Val</span> (GUN) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7500</span>]</span>
+<span id="cb364-15"><a href="biology-bioinformatics.html#cb364-15" tabindex="-1"></a> <span class="dv">4</span> ENSG00000210082 MT<span class="sc">-</span>RNR2     mitochondrially encoded 16S rRNA [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7471</span>]       </span>
+<span id="cb364-16"><a href="biology-bioinformatics.html#cb364-16" tabindex="-1"></a> <span class="dv">5</span> ENSG00000209082 MT<span class="sc">-</span>TL1      mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Leu</span> (UUA<span class="sc">/</span>G) <span class="dv">1</span> [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">7</span><span class="sc">~</span></span>
+<span id="cb364-17"><a href="biology-bioinformatics.html#cb364-17" tabindex="-1"></a> <span class="dv">6</span> ENSG00000198888 MT<span class="sc">-</span>ND1      mitochondrially encoded NADH<span class="sc">:</span>ubiquinone oxidoreductase core subunit <span class="dv">1</span> [So<span class="sc">~</span></span>
+<span id="cb364-18"><a href="biology-bioinformatics.html#cb364-18" tabindex="-1"></a> <span class="dv">7</span> ENSG00000210100 MT<span class="sc">-</span>TI       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Ile</span> (AUU<span class="sc">/</span>C) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">748</span><span class="sc">~</span></span>
+<span id="cb364-19"><a href="biology-bioinformatics.html#cb364-19" tabindex="-1"></a> <span class="dv">8</span> ENSG00000210107 MT<span class="sc">-</span>TQ       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Gln</span> (CAA<span class="sc">/</span>G) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">749</span><span class="sc">~</span></span>
+<span id="cb364-20"><a href="biology-bioinformatics.html#cb364-20" tabindex="-1"></a> <span class="dv">9</span> ENSG00000210112 MT<span class="sc">-</span>TM       mitochondrially encoded tRNA<span class="sc">-</span><span class="fu">Met</span> (AUA<span class="sc">/</span>G) [Source<span class="sc">:</span>HGNC Symbol;Acc<span class="sc">:</span>HGNC<span class="sc">:</span><span class="dv">749</span><span class="sc">~</span></span>
+<span id="cb364-21"><a href="biology-bioinformatics.html#cb364-21" tabindex="-1"></a><span class="dv">10</span> ENSG00000198763 MT<span class="sc">-</span>ND2      mitochondrially encoded NADH<span class="sc">:</span>ubiquinone oxidoreductase core subunit <span class="dv">2</span> [So<span class="sc">~</span></span>
+<span id="cb364-22"><a href="biology-bioinformatics.html#cb364-22" tabindex="-1"></a><span class="co"># ... with 68,002 more rows</span></span></code></pre></div>
 <p>With this Ensembl Gene ID to HGNC symbol mapping in hand, you can combine the
 tibble above with other tibbles containing gene information by <a href="data-wrangling.html#relational-data">joining them
 together</a>.</p>
@@ -917,30 +917,30 @@ BioMart enables us to extract these linked identifiers by explicitly <a href="ht
 different biomaRt
 databases</a>
 with the <code>getLDS()</code> function:</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="biology-bioinformatics.html#cb366-1" aria-hidden="true" tabindex="-1"></a>human_db <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"hsapiens_gene_ensembl"</span>)</span>
-<span id="cb366-2"><a href="biology-bioinformatics.html#cb366-2" aria-hidden="true" tabindex="-1"></a>mouse_db <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"mmusculus_gene_ensembl"</span>)</span>
-<span id="cb366-3"><a href="biology-bioinformatics.html#cb366-3" aria-hidden="true" tabindex="-1"></a>orth_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
-<span id="cb366-4"><a href="biology-bioinformatics.html#cb366-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getLDS</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"hgnc_symbol"</span>),</span>
-<span id="cb366-5"><a href="biology-bioinformatics.html#cb366-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mart =</span> human_db,</span>
-<span id="cb366-6"><a href="biology-bioinformatics.html#cb366-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">attributesL =</span> <span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"mgi_symbol"</span>),</span>
-<span id="cb366-7"><a href="biology-bioinformatics.html#cb366-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">martL =</span> mouse_db</span>
-<span id="cb366-8"><a href="biology-bioinformatics.html#cb366-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb366-9"><a href="biology-bioinformatics.html#cb366-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb366-10"><a href="biology-bioinformatics.html#cb366-10" aria-hidden="true" tabindex="-1"></a>orth_map</span>
-<span id="cb366-11"><a href="biology-bioinformatics.html#cb366-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 26,390 x 4</span></span>
-<span id="cb366-12"><a href="biology-bioinformatics.html#cb366-12" aria-hidden="true" tabindex="-1"></a>   Gene.stable.ID  HGNC.symbol Gene.stable.ID<span class="fl">.1</span>   MGI.symbol</span>
-<span id="cb366-13"><a href="biology-bioinformatics.html#cb366-13" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
-<span id="cb366-14"><a href="biology-bioinformatics.html#cb366-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> ENSG00000198695 MT<span class="sc">-</span>ND6      ENSMUSG00000064368 <span class="st">"mt-Nd6"</span>  </span>
-<span id="cb366-15"><a href="biology-bioinformatics.html#cb366-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> ENSG00000212907 MT<span class="sc">-</span>ND4L     ENSMUSG00000065947 <span class="st">"mt-Nd4l"</span></span>
-<span id="cb366-16"><a href="biology-bioinformatics.html#cb366-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094303 <span class="st">""</span>        </span>
-<span id="cb366-17"><a href="biology-bioinformatics.html#cb366-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094722 <span class="st">""</span>        </span>
-<span id="cb366-18"><a href="biology-bioinformatics.html#cb366-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> ENSG00000279169 PRAMEF13    ENSMUSG00000095666 <span class="st">""</span>        </span>
-<span id="cb366-19"><a href="biology-bioinformatics.html#cb366-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094741 <span class="st">""</span>        </span>
-<span id="cb366-20"><a href="biology-bioinformatics.html#cb366-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094836 <span class="st">""</span>        </span>
-<span id="cb366-21"><a href="biology-bioinformatics.html#cb366-21" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> ENSG00000279169 PRAMEF13    ENSMUSG00000074720 <span class="st">""</span>        </span>
-<span id="cb366-22"><a href="biology-bioinformatics.html#cb366-22" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> ENSG00000279169 PRAMEF13    ENSMUSG00000096236 <span class="st">""</span>        </span>
-<span id="cb366-23"><a href="biology-bioinformatics.html#cb366-23" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> ENSG00000198763 MT<span class="sc">-</span>ND2      ENSMUSG00000064345 <span class="st">"mt-Nd2"</span>  </span>
-<span id="cb366-24"><a href="biology-bioinformatics.html#cb366-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 26,380 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="biology-bioinformatics.html#cb365-1" tabindex="-1"></a>human_db <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"hsapiens_gene_ensembl"</span>)</span>
+<span id="cb365-2"><a href="biology-bioinformatics.html#cb365-2" tabindex="-1"></a>mouse_db <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"mmusculus_gene_ensembl"</span>)</span>
+<span id="cb365-3"><a href="biology-bioinformatics.html#cb365-3" tabindex="-1"></a>orth_map <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
+<span id="cb365-4"><a href="biology-bioinformatics.html#cb365-4" tabindex="-1"></a>  <span class="fu">getLDS</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"hgnc_symbol"</span>),</span>
+<span id="cb365-5"><a href="biology-bioinformatics.html#cb365-5" tabindex="-1"></a>       <span class="at">mart =</span> human_db,</span>
+<span id="cb365-6"><a href="biology-bioinformatics.html#cb365-6" tabindex="-1"></a>       <span class="at">attributesL =</span> <span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"mgi_symbol"</span>),</span>
+<span id="cb365-7"><a href="biology-bioinformatics.html#cb365-7" tabindex="-1"></a>       <span class="at">martL =</span> mouse_db</span>
+<span id="cb365-8"><a href="biology-bioinformatics.html#cb365-8" tabindex="-1"></a>  )</span>
+<span id="cb365-9"><a href="biology-bioinformatics.html#cb365-9" tabindex="-1"></a>)</span>
+<span id="cb365-10"><a href="biology-bioinformatics.html#cb365-10" tabindex="-1"></a>orth_map</span>
+<span id="cb365-11"><a href="biology-bioinformatics.html#cb365-11" tabindex="-1"></a><span class="co"># A tibble: 26,390 x 4</span></span>
+<span id="cb365-12"><a href="biology-bioinformatics.html#cb365-12" tabindex="-1"></a>   Gene.stable.ID  HGNC.symbol Gene.stable.ID<span class="fl">.1</span>   MGI.symbol</span>
+<span id="cb365-13"><a href="biology-bioinformatics.html#cb365-13" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     </span>
+<span id="cb365-14"><a href="biology-bioinformatics.html#cb365-14" tabindex="-1"></a> <span class="dv">1</span> ENSG00000198695 MT<span class="sc">-</span>ND6      ENSMUSG00000064368 <span class="st">"mt-Nd6"</span>  </span>
+<span id="cb365-15"><a href="biology-bioinformatics.html#cb365-15" tabindex="-1"></a> <span class="dv">2</span> ENSG00000212907 MT<span class="sc">-</span>ND4L     ENSMUSG00000065947 <span class="st">"mt-Nd4l"</span></span>
+<span id="cb365-16"><a href="biology-bioinformatics.html#cb365-16" tabindex="-1"></a> <span class="dv">3</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094303 <span class="st">""</span>        </span>
+<span id="cb365-17"><a href="biology-bioinformatics.html#cb365-17" tabindex="-1"></a> <span class="dv">4</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094722 <span class="st">""</span>        </span>
+<span id="cb365-18"><a href="biology-bioinformatics.html#cb365-18" tabindex="-1"></a> <span class="dv">5</span> ENSG00000279169 PRAMEF13    ENSMUSG00000095666 <span class="st">""</span>        </span>
+<span id="cb365-19"><a href="biology-bioinformatics.html#cb365-19" tabindex="-1"></a> <span class="dv">6</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094741 <span class="st">""</span>        </span>
+<span id="cb365-20"><a href="biology-bioinformatics.html#cb365-20" tabindex="-1"></a> <span class="dv">7</span> ENSG00000279169 PRAMEF13    ENSMUSG00000094836 <span class="st">""</span>        </span>
+<span id="cb365-21"><a href="biology-bioinformatics.html#cb365-21" tabindex="-1"></a> <span class="dv">8</span> ENSG00000279169 PRAMEF13    ENSMUSG00000074720 <span class="st">""</span>        </span>
+<span id="cb365-22"><a href="biology-bioinformatics.html#cb365-22" tabindex="-1"></a> <span class="dv">9</span> ENSG00000279169 PRAMEF13    ENSMUSG00000096236 <span class="st">""</span>        </span>
+<span id="cb365-23"><a href="biology-bioinformatics.html#cb365-23" tabindex="-1"></a><span class="dv">10</span> ENSG00000198763 MT<span class="sc">-</span>ND2      ENSMUSG00000064345 <span class="st">"mt-Nd2"</span>  </span>
+<span id="cb365-24"><a href="biology-bioinformatics.html#cb365-24" tabindex="-1"></a><span class="co"># ... with 26,380 more rows</span></span></code></pre></div>
 <p>The <code>mgi_symbol</code> field refers to the gene symbol assigned in the <a href="https://www.jax.org/research-and-faculty/resources/mouse-genome-informatics">Mouse Genome
 Informatics database</a>
 maintained by <a href="https://www.jax.org/">The Jackson Laboratory</a>.</p>
@@ -959,9 +959,9 @@ RNAs</a>,
 <a href="https://en.wikipedia.org/wiki/Long_non-coding_RNA">lncRNAs</a>, etc, that are
 produced by this process. The gene expression process has many steps and
 intermediate products, as depicted in the following figure:</p>
-<div class="figure">
-<img src="gene_expression_nature.jpg" alt=""><p class="caption">The Gene Expression Process - An overview of the flow of information from DNA
-to protein in a eukaryote</p>
+<div class="float">
+<img src="gene_expression_nature.jpg" alt="The Gene Expression Process - An overview of the flow of information from DNA to protein in a eukaryote"><div class="figcaption">The Gene Expression Process - An overview of the flow of information from DNA
+to protein in a eukaryote</div>
 </div>
 <p>The specific parts of the genome that code for genes are copied, or
 <em>transcribed</em> into RNA molecules called <em>transcripts</em>. In lower organisms like
@@ -1046,14 +1046,14 @@ This container requires the following information:</p>
 </ul>
 <p>The figure below illustrates how the SummarizedExperiment container is
 structured and how the different data elements are accessed:</p>
-<div class="figure">
-<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp" alt=""><p class="caption">SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21.</p>
+<div class="float">
+<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp" alt="SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21."><div class="figcaption">SummarizedExperiment Schematic - Huber, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21.</div>
 </div>
 <p>Many Bioconductor packages for specific types of data, e.g.
 <a href="#differential-expression--microarrays-limma">limma</a> create these
 SummarizedExperiment objects for you, but you may also create your own by
 assembling each of these data into data frames manually:</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># microarray expression dataset intensities</span></span>
 <span><span class="va">intensities</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="st">"example_intensity_data.csv"</span>,delim<span class="op">=</span><span class="st">" "</span><span class="op">)</span></span>
 <span></span>
@@ -1117,7 +1117,7 @@ function</a>.
 Consider for the following imaginary sample information tibble that has 10 AD
 and 10 Control subjects with different clinical and protein histology
 measurements assayed on their brain tissue:</p>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ad_metadata</span></span></code></pre></div>
 <pre><code>## # A tibble: 20 x 8
 ##    ID    age_at_death condition    tau  abeta   iba1   gfap braak_stage
@@ -1145,7 +1145,7 @@ measurements assayed on their brain tissue:</p>
 <p>We might be interested in identifying genes that are increased or decreased in
 people with AD compared with Controls. We can create a model matrix for this as
 follows:</p>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="va">condition</span>, data<span class="op">=</span><span class="va">ad_metadata</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    (Intercept) conditionAD
 ## 1            1           1
@@ -1195,7 +1195,7 @@ tau ~ age_at_death + abeta
 <p>For most models, the design matrix will have an intercept term of all ones and
 additional colums for the other variables in the model. We might wish to adjust
 out the effect of age by including <code>age_at_death</code> as a covariate in the model:</p>
-<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="va">age_at_death</span> <span class="op">+</span> <span class="va">condition</span>, data<span class="op">=</span><span class="va">ad_metadata</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##    (Intercept) age_at_death conditionAD
 ## 1            1           81           1
@@ -1273,7 +1273,7 @@ performing key preprocessing operations. Typically, two or more samples were
 processed in this way, resulting in a set of CEL files that should be processed
 together. These CEL files will typically be all stored in the same directory,
 and may be loaded using the <code><a href="https://rdrr.io/pkg/affy/man/read.affybatch.html">affy::ReadAffy</a></code> function:</p>
-<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># read all CEL files in a single directory</span></span>
 <span><span class="va">affy_batch</span> <span class="op">&lt;-</span> <span class="fu">affy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/affy/man/read.affybatch.html">ReadAffy</a></span><span class="op">(</span>celfile.path<span class="op">=</span><span class="st">"directory/of/CELfiles"</span><span class="op">)</span></span>
 <span></span>
@@ -1289,7 +1289,7 @@ for each sample, and other information about the experiment contained within the
 CEL files.</p>
 <p>The <code>affy</code> package provides functions to perform probe summarization and
 normalization. The most popular method to accomplish this at the time of writing
-is called Robust Multi-array Average or RMA <span class="citation">(<a href="detailed-class-schedule.html#ref-Irizarry2003-hn" role="doc-biblioref">Irizarry et al. 2003</a>)</span>, which performs
+is called Robust Multi-array Average or RMA <span class="citation">(<a href="detailed-class-schedule.html#ref-Irizarry2003-hn">Irizarry et al. 2003</a>)</span>, which performs
 summarization and normalization of multiple arrays simultaneously. Below, the
 RMA algorithm is used to normalize an example dataset provided by the
 <a href="https://bioconductor.org/packages/release/data/experiment/html/affydata.html"><code>affydata</code></a>
@@ -1301,14 +1301,14 @@ dataset, which was generated using two concentrations of cDNA from human liver
 tissue and a central nervous system cell line. To load a data package into R,
 first run <code>library(&lt;data package&gt;)</code> and then <code>data(&lt;dataset name&gt;)</code>.</p>
 </div>
-<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">affy</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">affydata</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##      Package    LibPath                                     Item      
 ## [1,] "affydata" "C:/Users/Adam/Documents/R/win-library/4.1" "Dilution"
 ##      Title                        
 ## [1,] "AffyBatch instance Dilution"</code></pre>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Dilution</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># normalize the Dilution microarray expression values</span></span>
@@ -1361,11 +1361,11 @@ experiment with a large number of conditions or predictors can still be analyze
 even with small sample sizes. The method accomplishes this by using an
 <a href="https://en.wikipedia.org/wiki/Empirical_Bayes_method">empirical Bayes</a> approach
 that borrows information across all the genes in the dataset to better control
-error in individual gene models. See <span class="citation">Ritchie et al. (<a href="detailed-class-schedule.html#ref-Ritchie2015-bj" role="doc-biblioref">2015</a>)</span> for more details on how
+error in individual gene models. See <span class="citation">Ritchie et al. (<a href="detailed-class-schedule.html#ref-Ritchie2015-bj">2015</a>)</span> for more details on how
 limma works.</p>
 <p>limma requres an expression matrix like that stored in an ExpressionSet or
 SummarizedExperiment container and a design matrix:</p>
-<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># intensities is an example gene expression matrix that corresponds to our</span></span>
 <span><span class="co"># AD sample metadata of 10 AD and 10 Control individuals</span></span>
 <span><span class="va">ad_se</span>  <span class="op">&lt;-</span> <span class="fu">SummarizedExperiment</span><span class="op">(</span></span>
@@ -1389,7 +1389,7 @@ SummarizedExperiment container and a design matrix:</p>
 <p>We have now conducted a differential expression analysis with limma. We can
 extract out the results for our question of interest - which genes are
 associated with AD - using the <code><a href="https://rdrr.io/pkg/limma/man/toptable.html">limma::topTable()</a></code> function:</p>
-<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the coefficient name conditionAD is the column name in the design matrix</span></span>
 <span><span class="co"># adjust="BH" means perform Benjamini-Hochberg multiple testing adjustment</span></span>
 <span><span class="co"># on the nominal p-values from each gene test</span></span>
@@ -1445,7 +1445,7 @@ rRNA molecules are removed from the RNA material that goes on to sequencing
 using either a <em>poly-A tail enrichment</em> or <em>ribo-depletion</em> strategy. These two
 methods maintain different populations of RNA and therefore sequencing datasets
 generated with different strategies require different interpretations. The more
-detail on this topic is beyond the scope of this book, but <span class="citation">(<a href="detailed-class-schedule.html#ref-Zhao2018-ao" role="doc-biblioref">Zhao et al. 2018</a>)</span>
+detail on this topic is beyond the scope of this book, but <span class="citation">(<a href="detailed-class-schedule.html#ref-Zhao2018-ao">Zhao et al. 2018</a>)</span>
 provide a good introduction and comparison of both approaches.</p>
 </div>
 <p>The reads produced in an RNASeq experiment represent RNA fragments from
@@ -1497,12 +1497,12 @@ annotation used. Complex multicellular organisms have on the order of
 thousands to tens of thousands of genes; for example, humans and mice have
 20k-30k genes in their respective genomes. Each RNASeq experiment thus may yield
 tens of thousands of measurements for each sample.</p>
-<p>We shall consider an example RNASeq dataset generated by <span class="citation">(<a href="detailed-class-schedule.html#ref-OMeara2015-mu" role="doc-biblioref">O’Meara et al. 2015</a>)</span>
+<p>We shall consider an example RNASeq dataset generated by <span class="citation">(<a href="detailed-class-schedule.html#ref-OMeara2015-mu">O’Meara et al. 2015</a>)</span>
 generated to study how mouse cardiac cells can regenerate up until one week
 of age, after which they lose the ability to do so. The dataset has eight
 RNASeq samples, two for each of four time points across the developmental window
 until adulthood. We will load in the expression data as a tibble:</p>
-<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu">read_tsv</span><span class="op">(</span><span class="st">"verse_counts.tsv"</span><span class="op">)</span></span>
 <span><span class="va">counts</span></span></code></pre></div>
 <pre><code>## # A tibble: 55,416 x 9
@@ -1543,7 +1543,7 @@ the rationale and considerations for different filtering strategies.</p>
 <p>Genes that were not detected in any sample are the easiest to filter, and often
 eliminate many genes from consideration. Below we filter out all genes that have
 zero counts in all samples:</p>
-<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nonzero_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">counts</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">!=</span><span class="fl">0</span></span>
 <span><span class="va">filtered_counts</span> <span class="op">&lt;-</span> <span class="va">counts</span><span class="op">[</span><span class="va">nonzero_genes</span>,<span class="op">]</span></span>
 <span><span class="va">filtered_counts</span></span></code></pre></div>
@@ -1567,7 +1567,7 @@ genes with zeros in all samples as we have done above is somewhat liberal, as
 there may be many genes with reads in only one sample. Genes with only a single
 sample with a non-zero count also cannot be differentially expressed, so we can
 easily decide to eliminate those as well:</p>
-<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nonzero_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">counts</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">&gt;=</span><span class="fl">2</span></span>
 <span><span class="va">filtered_counts</span> <span class="op">&lt;-</span> <span class="va">counts</span><span class="op">[</span><span class="va">nonzero_genes</span>,<span class="op">]</span></span>
 <span><span class="va">filtered_counts</span></span></code></pre></div>
@@ -1589,7 +1589,7 @@ easily decide to eliminate those as well:</p>
 at least two non-zero counts. We may now wonder how many genes we would include
 if we required at least <span class="math inline">\(n\)</span> samples to have non-zero counts. Consider the
 following bar chart of the number of genes detected in at least <span class="math inline">\(n\)</span> samples:</p>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nonzero_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">counts</span>,`Number of samples`<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">counts</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">!=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1614,7 +1614,7 @@ of counts for genes present in at least <span class="math inline">\(n\)</span> s
 the number of nonzero counts. Below is a plot similar to that above but, which
 plots the distribution of mean counts across samples within each number of
 nonzero samples:</p>
-<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate the mean count for non-zero counts in genes with exactly n non-zero counts</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">counts</span>,`Number of nonzero samples`<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">counts</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">!=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gene</span>,<span class="va">`Number of nonzero samples`</span><span class="op">)</span>,names_to<span class="op">=</span><span class="st">"Sample"</span>,values_to<span class="op">=</span><span class="st">"Count"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1677,7 +1677,7 @@ dataset.</p>
 <p>The range of gene expression in a cell varies by orders of magnitude. The
 following histogram plots the distribution of read count values for one of the
 adult samples:</p>
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">filtered_counts</span>, <span class="va">Ad_1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`log10(counts+1)`<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">Ad_1</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">`log10(counts+1)`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1691,7 +1691,7 @@ of magnitude. There are relatively few of these highly abundant genes, however,
 and most genes are betwen the range of 100-10,000 reads. We see that this
 distribution is similar for all the samples, when displayed as a <a href="data-visualization.html#ridgeline">ridgeline
 plot</a>:</p>
-<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/">ggridges</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">pivot_longer</span><span class="op">(</span><span class="va">filtered_counts</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span>,names_to<span class="op">=</span><span class="st">"Sample"</span>,values_to<span class="op">=</span><span class="st">"Count"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1765,13 +1765,13 @@ normalization method</em>.</p>
 <p>The DESeq2 normalization method is a statistical procedure that uses the median
 geometric mean computed across all samples to determine the scale factor for
 each sample. The procedure is somewhat complicated and we encourage the reader
-to examine it in detail in the DESeq2 publication <span class="citation">(<a href="detailed-class-schedule.html#ref-Love2014-lb" role="doc-biblioref">Love, Huber, and Anders 2014</a>)</span>. The method has
+to examine it in detail in the DESeq2 publication <span class="citation">(<a href="detailed-class-schedule.html#ref-Love2014-lb">Love, Huber, and Anders 2014</a>)</span>. The method has
 proven to be consistent and reliable compared with other strategies
-<span class="citation">(<a href="detailed-class-schedule.html#ref-Dillies2013-rq" role="doc-biblioref">Dillies et al. 2013</a>)</span> and is the default normalization for the populare DESeq2
+<span class="citation">(<a href="detailed-class-schedule.html#ref-Dillies2013-rq">Dillies et al. 2013</a>)</span> and is the default normalization for the populare DESeq2
 differential expression method, which will be described in a later section. The
 DESeq2 normalization method may be implemented using the <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2 Bioconductor
 package</a>:</p>
-<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mikelove/DESeq2">DESeq2</a></span><span class="op">)</span></span>
 <span><span class="co"># DESeq2 requires a counts matrix, column data (sample information), and a formula</span></span>
 <span><span class="co"># the counts matrix *must be raw counts*</span></span>
@@ -1801,7 +1801,7 @@ extracts the normalized counts matrix. When plotted as a ridgeline plot as
 before, we see that the gene expression distribution modes are better behaved
 compared to raw counts, and the shape of the distribution is preserved unlike
 with CPM normalized counts:</p>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pivot_longer</span><span class="op">(</span><span class="va">deseq_norm_counts</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span>,names_to<span class="op">=</span><span class="st">"Sample"</span>,values_to<span class="op">=</span><span class="st">"Count"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`log10(Count+1)`<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">Count</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">Sample</span>,x<span class="op">=</span><span class="va">`log10(Count+1)`</span>,fill<span class="op">=</span><span class="va">Sample</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1830,7 +1830,7 @@ the entire experiment.</li>
 and therefore is not subject to these considerations.</p>
 <p>These are only two of many possible normalization methods, DESeq2 being the most
 popular at the time of writing. For a detailed explanation of many normalization
-methods, see <span class="citation">(<a href="detailed-class-schedule.html#ref-Dillies2013-rq" role="doc-biblioref">Dillies et al. 2013</a>)</span>.</p>
+methods, see <span class="citation">(<a href="detailed-class-schedule.html#ref-Dillies2013-rq">Dillies et al. 2013</a>)</span>.</p>
 </div>
 <div id="count-transformation" class="section level4" number="8.7.8.2">
 <h4>
@@ -1854,7 +1854,7 @@ mean count vs variance will be discussed in more detail in the next section.</p>
 </div>
 <p>We can clearlysee the effect of rlog on the counts distribution by plotting the
 rlog’ed counts using a ridgeline plot as before:</p>
-<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the dds is the DESeq2 object from earlier</span></span>
 <span><span class="va">rld</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/rlog.html">rlog</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
 <span></span>
@@ -1870,7 +1870,7 @@ rlog’ed counts using a ridgeline plot as before:</p>
 <p>It is generally accepted that count transformations have significant drawbacks
 compared with statistical methods that model counts and errors explicitly, like
 generalized linear models (GLM) such as Poisson and Negative Binomial
-regressions <span class="citation">(<a href="detailed-class-schedule.html#ref-St-Pierre2018-tc" role="doc-biblioref">St-Pierre, Shikon, and Schneider 2018</a>)</span>. Whenever possible, these GLM based methods
+regressions <span class="citation">(<a href="detailed-class-schedule.html#ref-St-Pierre2018-tc">St-Pierre, Shikon, and Schneider 2018</a>)</span>. Whenever possible, these GLM based methods
 should be used instead of transformations. However, the transformations may
 sometimes be necessary depending on the required analysis, so the rlog function
 in DESeq2 may be useful for these cases.</p>
@@ -1910,7 +1910,7 @@ the aspects necessary to implement differential expression analysis.</p>
 regression to perform differential expression on RNASeq data. Both perform
 raw counts normalization as part of their function, though they differ in
 the normalization method (DESeq2 method is described above, while edgeR uses
-trimmed mean of M-values (TMM), see <span class="citation">(<a href="detailed-class-schedule.html#ref-Robinson2010-ik" role="doc-biblioref">Robinson and Oshlack 2010</a>)</span>). The interface for using
+trimmed mean of M-values (TMM), see <span class="citation">(<a href="detailed-class-schedule.html#ref-Robinson2010-ik">Robinson and Oshlack 2010</a>)</span>). The interface for using
 both packages is also similar, so we will focus on DESeq2 in this section.</p>
 <p>As mentioned briefly above, DESeq2 requires three pieces of information to
 perform differential expression:</p>
@@ -1923,7 +1923,7 @@ perform differential expression:</p>
 information across samples when computing size factors, as described above in
 the <a href="biology-bioinformatics.html#count-normalization">Count Normalization</a> section.</p>
 <p>With these three pieces of information, we construct a <code>DESeq</code> object:</p>
-<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mikelove/DESeq2">DESeq2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># filter counts to retain genes with at least 6 out of 8 samples with nonzero counts</span></span>
@@ -1964,7 +1964,7 @@ column data with the formula. In this differential expression analysis, we wish
 to identify genes that are different between the timepoints <code>P0</code>, <code>P4</code>, <code>P7</code>,
 and <code>Ad</code>. With these three pieces of information prepared, we can create a DESeq
 object and perform differential expression analysis:</p>
-<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html">DESeqDataSetFromMatrix</a></span><span class="op">(</span></span>
 <span>  countData<span class="op">=</span><span class="va">count_mat</span>,</span>
 <span>  colData<span class="op">=</span><span class="va">sample_info</span>,</span>
@@ -1981,7 +1981,7 @@ adult animals. The choice of reference group does not change the magnitude of
 the results, but may change the sign of the estimated coefficients, which are
 log2 fold changes. To extract out the differential expression statistics for the
 P0 vs Ad comparison, we can use the <code><a href="https://rdrr.io/pkg/DESeq2/man/results.html">results()</a></code> function:</p>
-<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html">results</a></span><span class="op">(</span><span class="va">dds</span>, name<span class="op">=</span><span class="st">"timepoint_P0_vs_Ad"</span><span class="op">)</span></span>
 <span><span class="va">p0_vs_Ad_de</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>gene<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -2020,7 +2020,7 @@ appropriate result names to the <code>name</code> argument to the <code><a href=
 <em>padj</em> - the multiple testing adjusted p-value (i.e. false discovery rate)</li>
 </ul>
 <p>In the P0 vs Ad comparison, we can check the number of significant results easily:</p>
-<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of genes significant at FDR &lt; 0.05</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">p0_vs_Ad_de</span>,<span class="va">padj</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 7,557 x 7
@@ -2042,7 +2042,7 @@ this comparison, which includes both up- and down-regulated genes (examine the
 signs of the log2FoldChange column). A common diagnostic plot of differenial
 expression results is the so-called <em>volcano plot</em> which plots the
 log2FoldChange on the x-axis against -log10 adjusted p-value on the y-axis:</p>
-<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>  <span class="va">p0_vs_Ad_de</span>,</span>
 <span>  `-log10(adjusted p)`<span class="op">=</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span>,</span>
@@ -2084,7 +2084,7 @@ of our experimental conditions, and where limma draws from to construct its
 linear models correctly. This design is relatively simple, just four samples
 belonging to two different conditions (the <code>swirls</code> here refer to the swirl of
 zebra fish, you can just see them as a phenotypic difference)</p>
-<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>swirl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"swirl.1"</span>, <span class="st">"swirl.2"</span>, <span class="st">"swirl.3"</span>, <span class="st">"swirl.4"</span><span class="op">)</span>,</span>
 <span>                     condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">dge</span> <span class="op">&lt;-</span> <span class="fu">DGEList</span><span class="op">(</span>counts<span class="op">=</span><span class="va">counts</span><span class="op">)</span></span>
@@ -2096,7 +2096,7 @@ square bracket notation (<code>[]</code>) to reduce the number of rows.</p>
 <p>Finally, the expression data is transformed into CPM, counts per million, and
 a linear model is applied to the data with <code>lmFit()</code>. <code>topTable()</code> is used to view the most
 differentially expressed data.</p>
-<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># limma trend</span></span>
 <span><span class="va">logCPM</span> <span class="op">&lt;-</span> <span class="fu">cpm</span><span class="op">(</span><span class="va">dge</span>, log<span class="op">=</span><span class="cn">TRUE</span>, prior.count<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lmFit</span><span class="op">(</span><span class="va">logCPM</span>, <span class="va">design</span><span class="op">)</span></span>
@@ -2222,7 +2222,7 @@ use a combination of <code>pivot_longer()</code> and <code><a href="https://dply
 by pathway. Below, we have the results of these operations and used them to
 display a summary of the number of genes in all the pathways contained with the
 hallmark pathways gene collection.</p>
-<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">read_delim</span><span class="op">(</span><span class="st">'h.all.v7.5.1.symbols.gmt'</span>, delim<span class="op">=</span><span class="st">'\t'</span>, col_names<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>Pathway <span class="op">=</span> <span class="va">X1</span>, Desc<span class="op">=</span><span class="va">X2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Desc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -2255,7 +2255,7 @@ facilitate working with gene sets. The foundation of the GSEABase package is the
 GeneSet and GeneSetCollection classes which store gene sets and metadata or a
 collection of GeneSet objects, respectively. We will use the GSEABase package to
 read in the collection of gene sets we previously downloaded.</p>
-<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">'GSEABase'</span><span class="op">)</span></span>
 <span><span class="va">hallmarks_gmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/getObjects.html">getGmt</a></span><span class="op">(</span>con<span class="op">=</span><span class="st">'h.all.v7.5.1.symbols.gmt'</span><span class="op">)</span></span>
 <span><span class="va">hallmarks_gmt</span></span></code></pre></div>
@@ -2273,7 +2273,7 @@ thorough description of the classes and methods, please read their extended
 documentation available
 <a href="https://bioconductor.org/packages/release/bioc/manuals/GSEABase/man/GSEABase.pdf">here</a>.</p>
 <p>The geneIds method will return a list with each pathway as a named vector of associated gene ids:</p>
-<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html">geneIds</a></span><span class="op">(</span><span class="va">hallmarks_gmt</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $HALLMARK_TNFA_SIGNALING_VIA_NFKB
 ##   [1] "JUNB"     "CXCL2"    "ATF3"     "NFKBIA"   "TNFAIP3"  "PTGS2"   
@@ -2347,12 +2347,12 @@ documentation available
 ## [193] "NCAN"     "TGM2"     "ETS1"     "HOXB9"    "SELENBP1" "FOSL2"   
 ## [199] "SULT2B1"  "TGFB3"</code></pre>
 <p>The names method will return all of the gene set names contained within a specific collection:</p>
-<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">hallmarks_gmt</span><span class="op">)</span>,<span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "HALLMARK_TNFA_SIGNALING_VIA_NFKB" "HALLMARK_HYPOXIA"</code></pre>
 <p>We can access a specific gene set contained within this collection by referring
 to its name and using the following notation:</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hallmarks_gmt</span><span class="op">[[</span><span class="st">'HALLMARK_ANGIOGENESIS'</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## setName: HALLMARK_ANGIOGENESIS 
 ## geneIds: VCAN, POSTN, ..., CXCL6 (total: 36)
@@ -2366,10 +2366,10 @@ particular case, we could extract the gene names contained assigned to this
 GeneSet by calling the <code>geneIds</code> slot as shown below to return a vector of the
 gene names. We can see the first five below and also the length of the returned
 vector by using the base R <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function:</p>
-<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">hallmarks_gmt</span><span class="op">[[</span><span class="st">'HALLMARK_ANGIOGENESIS'</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">geneIds</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "VCAN"   "POSTN"  "FSTL1"  "LRPAP1" "STC1"   "LPL"</code></pre>
-<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">hallmarks_gmt</span><span class="op">[[</span><span class="st">'HALLMARK_ANGIOGENESIS'</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">geneIds</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 36</code></pre>
 <p>GSEABase includes a number of built-in functions for reading gene sets in from
@@ -2476,7 +2476,7 @@ GeneSet object to programmatically generate a contingency table:</p>
 was chosen to make calculations of the values contained within the table
 transparent and easy to understand.</p>
 </div>
-<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#load and read our list of DE genes contained within a newline delimited txt file</span></span>
 <span><span class="va">de_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scan.html">scan</a></span><span class="op">(</span><span class="st">'example_de_list.txt'</span>, what<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>, sep<span class="op">=</span><span class="st">'\n'</span><span class="op">)</span></span>
 <span></span>
@@ -2512,7 +2512,7 @@ transparent and easy to understand.</p>
 <p>We perform the Fisher’s Exact test using the built-in R function <code><a href="https://rdrr.io/r/stats/fisher.test.html">fisher.test()</a></code>
 and view the summarized output by simply calling the variable where we stored
 the test results:</p>
-<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fisher_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fisher.test.html">fisher.test</a></span><span class="op">(</span><span class="va">contingency_table</span>, alternative<span class="op">=</span><span class="st">'greater'</span><span class="op">)</span></span>
 <span><span class="va">fisher_results</span></span></code></pre></div>
 <pre><code>## 
@@ -2571,7 +2571,7 @@ Diego as Gene Set Enrichment Analysis (note the capitalization). This specific
 methodology should not be confused with gene set enrichment analysis, which we
 use as an umbrella term covering the many statistical methodologies used to
 analyze gene sets.</p>
-<p><a href="final-project.html#gene-set-enrichment-analysis-1">Gene Set Enrichment Analysis</a> (<a href="https://www.gsea-msigdb.org/gsea/index.jsp" class="uri">https://www.gsea-msigdb.org/gsea/index.jsp</a>) was
+<p><a href="biology-bioinformatics.html#gene-set-enrichment-analysis">Gene Set Enrichment Analysis</a> (<a href="https://www.gsea-msigdb.org/gsea/index.jsp" class="uri">https://www.gsea-msigdb.org/gsea/index.jsp</a>) was
 a method developed to facilitate the biological analysis of genome-wide
 expression experiments. It is a rank-based method which utilizes all of the
 information from an expression dataset instead of relying on pre-determined
@@ -2684,7 +2684,7 @@ associated with them were generated randomly, there is likely a strong residual
 signal / bias towards various cancer pathways as we will see in our results
 below</p>
 </div>
-<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/ctlab/fgsea/">'fgsea'</a></span><span class="op">)</span></span></code></pre></div>
 <p>fgsea takes as input, a named vector of gene-level statistics (a ranked list)
 and a named list of gene sets. The gene names in the ranked list must exactly
@@ -2720,13 +2720,13 @@ format using the <code>setNames</code> function on our two vectors and we can us
 could generate these vectors in a number of ways depending upon the format
 of your results data.</p>
 <p>These are the top 5 genes in our ranked list:</p>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rnk_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">rnks</span>, <span class="va">de_genes</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">rnk_list</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  RBMS1P1    RBMS1     GAS1    SFRP2   CCDC80      MGP 
 ## 9.965527 9.907958 9.888917 9.828172 9.826594 9.802787</code></pre>
 <p>And these are the bottom 5 genes in the list:</p>
-<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">rnk_list</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##      KLF7   ANKDD1A    RIMKLB     RGS19    PLPPR4     TENM4 
 ## -9.865186 -9.922858 -9.930453 -9.931198 -9.959923 -9.984908</code></pre>
@@ -2735,7 +2735,7 @@ There are two ways we can load these gene sets in the appropriate format
 expected. The first is to use one of the built-in functions in fgsea,
 <code>gmtPathways</code>, which will read directly from the GMT file. We have displayed
 the contents of a randomly selected gene set below:</p>
-<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hallmark_pathways_fgsea</span> <span class="op">&lt;-</span> <span class="fu">fgsea</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fgsea/man/gmtPathways.html">gmtPathways</a></span><span class="op">(</span><span class="st">'h.all.v7.5.1.symbols.gmt'</span><span class="op">)</span></span>
 <span><span class="va">hallmark_pathways_fgsea</span><span class="op">$</span><span class="va">HALLMARK_TGF_BETA_SIGNALING</span></span></code></pre></div>
 <pre><code>##  [1] "TGFBR1"   "SMAD7"    "TGFB1"    "SMURF2"   "SMURF1"   "BMPR2"   
@@ -2749,7 +2749,7 @@ the contents of a randomly selected gene set below:</p>
 ## [49] "THBS1"    "FNTA"     "HDAC1"    "UBE2D3"   "LTBP2"    "RHOA"</code></pre>
 <p>If we had previously loaded these gene sets in using GSEABase, we could also
 simply do the following:</p>
-<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hallmark_pathways_GSEABase</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html">geneIds</a></span><span class="op">(</span><span class="va">hallmarks_gmt</span><span class="op">)</span></span>
 <span><span class="va">hallmark_pathways_GSEABase</span><span class="op">$</span><span class="va">HALLMARK_TGF_BETA_SIGNALING</span></span></code></pre></div>
 <pre><code>##  [1] "TGFBR1"   "SMAD7"    "TGFB1"    "SMURF2"   "SMURF1"   "BMPR2"   
@@ -2764,7 +2764,7 @@ simply do the following:</p>
 <p>Now to run fgsea, we will use default parameters besides manually setting
 thresholds to ignore gene sets in the analysis based on minimum and maximum
 values for their size:</p>
-<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fgsea_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/fgsea/man/fgsea.html">fgsea</a></span><span class="op">(</span><span class="va">hallmark_pathways_GSEABase</span>, <span class="va">rnk_list</span>, minSize <span class="op">=</span> <span class="fl">15</span>, maxSize<span class="op">=</span><span class="fl">500</span><span class="op">)</span></span>
 <span><span class="va">fgsea_results</span> <span class="op">&lt;-</span> <span class="va">fgsea_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>As noted in the official documentation for the original GSEA, very small gene
@@ -2776,7 +2776,7 @@ exploration of our results. We can see below the results sorted by ascending
 <code>padj</code> and the pathways with the lowest adjusted p-values are largely associated
 with cancer pathways including Epithelial Mesenchymal Transition, and Apical
 Junctions.</p>
-<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fgsea_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 15 x 8
 ##    pathway                 pval     padj log2err     ES    NES  size leadingEdge
@@ -2800,7 +2800,7 @@ Junctions.</p>
 subset significant gene sets by the direction of their NES (positive indicating
 an enrichment at the “top” of our list and negative indicating an enrichment at
 the “bottom”).</p>
-<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">top_positive_nes</span> <span class="op">&lt;-</span> <span class="va">fgsea_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">padj</span> <span class="op">&lt;</span> <span class="fl">.25</span> <span class="op">&amp;</span> <span class="va">NES</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">NES</span>, n<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
@@ -2826,7 +2826,7 @@ considering “significant” gene sets. The results of rank-based GSEA need to 
 further inspected and most often confirmed through complementary or follow-up
 experiments. Thus, we will choose to use a relaxed FDR threshold of &lt; .25.</p>
 </div>
-<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb439"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fgsea_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pathway <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">pathway</span>, <span class="va">NES</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -2867,7 +2867,7 @@ allows us to specify a specific pathway. The <code>plotEnrichment</code> functio
 at minimum the list of genes contained within the pathway to plot and the input
 ranked list of gene-level statistics. We have displayed the enrichment plot for
 one of the significantly enriched gene sets below:</p>
-<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">make_gsea_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pathway_name</span>, <span class="va">rnks</span><span class="op">)</span> <span class="op">{</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/fgsea/man/plotEnrichment.html">plotEnrichment</a></span><span class="op">(</span><span class="va">hallmark_pathways_fgsea</span><span class="op">[[</span><span class="va">pathway_name</span><span class="op">]</span><span class="op">]</span>, <span class="va">rnks</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="va">pathway_name</span><span class="op">)</span></span>
@@ -2895,7 +2895,7 @@ function. Below we have saved all of the genes contained within the leading edge
 subset of significant gene sets, and displayed those belonging to the
 HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION gene set as determined in this
 experiment:</p>
-<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gather_leadingedge</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">results</span>, <span class="va">threshold</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>  <span class="va">genes</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -3023,12 +3023,12 @@ library(WGCNA)</code></pre>
 ## samp5 11.647539 10.866047 14.852970  2.2034360 14.15414 15.949892 42.21472
 ## samp6  5.897658 11.960800 15.915636 -0.1724085 21.78596 16.336686 44.93125</code></pre>
 <p>An optional choice in WGCNA to allow multithreads</p>
-<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">allowWGCNAThreads</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Allowing multi-threading with up to 4 threads.</code></pre>
 <p>Now we will choose a “soft-thresholding power” to construct the network. There is no single answer in the power to choose.<br>
 If you refer to <a href="https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/faq.html">WGCNA faq</a>, there are more details for power choosing.</p>
-<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A set of soft-thresholding powers to choose from:</span></span>
 <span><span class="va">powers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
@@ -3052,7 +3052,7 @@ If you refer to <a href="https://horvath.genetics.ucla.edu/html/CoexpressionNetw
 ## 8      8 0.063500  -1.570       -0.11100   0.338     0.279  0.708
 ## 9      9 0.000378  -0.206        0.00319   0.285     0.224  0.621
 ## 10    10 0.003650  -0.600       -0.00478   0.241     0.181  0.545</code></pre>
-<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">cex1</span> <span class="op">&lt;-</span> <span class="fl">0.9</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sft</span><span class="op">$</span><span class="va">fitIndices</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
@@ -3081,7 +3081,7 @@ If you refer to <a href="https://horvath.genetics.ucla.edu/html/CoexpressionNetw
 <div class="inline-figure"><img src="main_files/unnamed-chunk-154-1.png" width="672"></div>
 <p>Generally, we want to choose a power that give us the “Scale Free Topology Model Fit, signed R^2” around <strong>0.8</strong>. This toy dataset is too small and can’t show it properly.<br>
 For illustration, we will pick power 4 in this example.</p>
-<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">picked_power</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span></span>
 <span><span class="co"># fix a namespace conflict issue, force R to use the cor() function in WGCNA:</span></span>
@@ -3091,7 +3091,7 @@ For illustration, we will pick power 4 in this example.</p>
 There are a lot of parameters. In most cases, you don’t need to modify them. But, make sure you choose the proper <code>power</code>, <code>networkType</code> (“signed” or “unsigned”), and <code>minModuleSize</code> in your analysis.<br>
 - <code>networkType</code> Using “signed” option, the direction of the correlation will be considered, e.g. two genes won’t be clustered together if their correlation value is a perfect -1. On the other hand, use “unsigned” option to consider the absolute value of correlation.<br>
 - <code>minModuleSize</code> The minimum umber of features, e.g. genes, in a module. In this example with only 7 genes, so I set this argument to be 2. In real analysis, a typical choice may be 20 or 30 for a matrix with several hundreds or thousands of genes.</p>
-<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">netwk</span> <span class="op">&lt;-</span> <span class="fu">blockwiseModules</span><span class="op">(</span></span>
 <span>  datExpr <span class="op">=</span> <span class="va">dat</span>,</span>
 <span>  power <span class="op">=</span> <span class="va">picked_power</span>,</span>
@@ -3127,16 +3127,16 @@ There are a lot of parameters. In most cases, you don’t need to modify them. B
 ##      mergeCloseModules: Merging modules whose distance is less than 0.25
 ##        Calculating new MEs...</code></pre>
 <p>Now we can see the module membership assignment:</p>
-<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">netwk</span><span class="op">$</span><span class="va">colors</span></span></code></pre></div>
 <pre><code>##      CRAB     Whale     Lobst     Octop     Coral BabyShark      Orca 
 ##         1         2         1         1         1         2         2</code></pre>
 <p>CRAB, Lobst, Octop and Coral are assigned to module 1. Whale, BabyShark and Orca are assigned to module 2.</p>
 <p>We can use function labels2colors() to conveniently convert the module membership to color labels.</p>
-<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mergedColors</span> <span class="op">&lt;-</span> <span class="fu">labels2colors</span><span class="op">(</span><span class="va">netwk</span><span class="op">$</span><span class="va">colors</span><span class="op">)</span></span></code></pre></div>
 <p>Plot the dendrogram and the module colors:</p>
-<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotDendroAndColors</span><span class="op">(</span></span>
 <span>  <span class="va">netwk</span><span class="op">$</span><span class="va">dendrograms</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  <span class="va">mergedColors</span><span class="op">[</span><span class="va">netwk</span><span class="op">$</span><span class="va">blockGenes</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">]</span>,</span>
@@ -3151,7 +3151,7 @@ There are a lot of parameters. In most cases, you don’t need to modify them. B
 In this dendrogram, you will be able to roughly see the size of each module by looking at the area of different colors.</p>
 <p>At this point, the WGCNA analysis is finished.<br>
 We can summarize the module information in a data frame:</p>
-<div class="sourceCode" id="cb459"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">module_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  gene_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">netwk</span><span class="op">$</span><span class="va">colors</span><span class="op">)</span>,</span>
 <span>  modules <span class="op">=</span> <span class="fu">labels2colors</span><span class="op">(</span><span class="va">netwk</span><span class="op">$</span><span class="va">colors</span><span class="op">)</span></span>

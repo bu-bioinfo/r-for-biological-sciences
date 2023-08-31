@@ -144,15 +144,15 @@ possible.</p>
 load multiple packages at the same time. The tidyverse authors recognize this,
 and defined a set of reasonable packages to load at once when loading the
 metapackage (i.e. a package that contains multiple packages):</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-wrangling.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb59-2"><a href="data-wrangling.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="sc">--</span> Attaching packages <span class="sc">---------------------------------------------</span> tidyverse <span class="dv">1</span>.<span class="fl">3.1</span> <span class="sc">--</span></span>
-<span id="cb59-3"><a href="data-wrangling.html#cb59-3" aria-hidden="true" tabindex="-1"></a>v ggplot2 <span class="dv">3</span>.<span class="fl">3.5</span>     v purrr   <span class="dv">0</span>.<span class="fl">3.4</span></span>
-<span id="cb59-4"><a href="data-wrangling.html#cb59-4" aria-hidden="true" tabindex="-1"></a>v tibble  <span class="dv">3</span>.<span class="fl">1.6</span>     v dplyr   <span class="dv">1</span>.<span class="fl">0.7</span></span>
-<span id="cb59-5"><a href="data-wrangling.html#cb59-5" aria-hidden="true" tabindex="-1"></a>v tidyr   <span class="dv">1</span>.<span class="fl">1.4</span>     v stringr <span class="dv">1</span>.<span class="fl">4.0</span></span>
-<span id="cb59-6"><a href="data-wrangling.html#cb59-6" aria-hidden="true" tabindex="-1"></a>v readr   <span class="dv">2</span>.<span class="fl">1.1</span>     v forcats <span class="dv">0</span>.<span class="fl">5.1</span></span>
-<span id="cb59-7"><a href="data-wrangling.html#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="sc">--</span> Conflicts <span class="sc">------------------------------------------------</span> <span class="fu">tidyverse_conflicts</span>() <span class="sc">--</span></span>
-<span id="cb59-8"><a href="data-wrangling.html#cb59-8" aria-hidden="true" tabindex="-1"></a>x dplyr<span class="sc">::</span><span class="fu">filter</span>() masks stats<span class="sc">::</span><span class="fu">filter</span>()</span>
-<span id="cb59-9"><a href="data-wrangling.html#cb59-9" aria-hidden="true" tabindex="-1"></a>x dplyr<span class="sc">::</span><span class="fu">lag</span>()    masks stats<span class="sc">::</span><span class="fu">lag</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-wrangling.html#cb59-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb59-2"><a href="data-wrangling.html#cb59-2" tabindex="-1"></a><span class="sc">--</span> Attaching packages <span class="sc">---------------------------------------------</span> tidyverse <span class="dv">1</span>.<span class="fl">3.1</span> <span class="sc">--</span></span>
+<span id="cb59-3"><a href="data-wrangling.html#cb59-3" tabindex="-1"></a>v ggplot2 <span class="dv">3</span>.<span class="fl">3.5</span>     v purrr   <span class="dv">0</span>.<span class="fl">3.4</span></span>
+<span id="cb59-4"><a href="data-wrangling.html#cb59-4" tabindex="-1"></a>v tibble  <span class="dv">3</span>.<span class="fl">1.6</span>     v dplyr   <span class="dv">1</span>.<span class="fl">0.7</span></span>
+<span id="cb59-5"><a href="data-wrangling.html#cb59-5" tabindex="-1"></a>v tidyr   <span class="dv">1</span>.<span class="fl">1.4</span>     v stringr <span class="dv">1</span>.<span class="fl">4.0</span></span>
+<span id="cb59-6"><a href="data-wrangling.html#cb59-6" tabindex="-1"></a>v readr   <span class="dv">2</span>.<span class="fl">1.1</span>     v forcats <span class="dv">0</span>.<span class="fl">5.1</span></span>
+<span id="cb59-7"><a href="data-wrangling.html#cb59-7" tabindex="-1"></a><span class="sc">--</span> Conflicts <span class="sc">------------------------------------------------</span> <span class="fu">tidyverse_conflicts</span>() <span class="sc">--</span></span>
+<span id="cb59-8"><a href="data-wrangling.html#cb59-8" tabindex="-1"></a>x dplyr<span class="sc">::</span><span class="fu">filter</span>() masks stats<span class="sc">::</span><span class="fu">filter</span>()</span>
+<span id="cb59-9"><a href="data-wrangling.html#cb59-9" tabindex="-1"></a>x dplyr<span class="sc">::</span><span class="fu">lag</span>()    masks stats<span class="sc">::</span><span class="fu">lag</span>()</span></code></pre></div>
 <p>The packages in the <code>Attaching packages</code> section are those loaded by default,
 and each of these packages adds a unique set of functions to your R environment.
 We will mention functions from many of these packages as we go through this
@@ -211,8 +211,8 @@ data</a>).
 However, when <code>dplyr</code> is loaded, it also has a <code>filter</code> function which overrides
 the definition from the <code>stats</code> package. This is why the tidyverse package
 reports this as a conflict when loaded:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="data-wrangling.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="sc">--</span> Conflicts <span class="sc">------------------------------------------------</span> <span class="fu">tidyverse_conflicts</span>() <span class="sc">--</span></span>
-<span id="cb60-2"><a href="data-wrangling.html#cb60-2" aria-hidden="true" tabindex="-1"></a>x dplyr<span class="sc">::</span><span class="fu">filter</span>() masks stats<span class="sc">::</span><span class="fu">filter</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="data-wrangling.html#cb60-1" tabindex="-1"></a><span class="sc">--</span> Conflicts <span class="sc">------------------------------------------------</span> <span class="fu">tidyverse_conflicts</span>() <span class="sc">--</span></span>
+<span id="cb60-2"><a href="data-wrangling.html#cb60-2" tabindex="-1"></a>x dplyr<span class="sc">::</span><span class="fu">filter</span>() masks stats<span class="sc">::</span><span class="fu">filter</span>()</span></code></pre></div>
 <p>This is tidyverse telling you that the <code>filter</code> function has been redefined and
 you should make sure you are aware of that.</p>
 <p>However, if you did want to use the original <code>stats</code> defined <code>filter</code> function,
@@ -435,8 +435,8 @@ that we “observed” the same test for all the genes in the tibble. Depending 
 what dataset we are working with, we sometimes have to be flexible in our
 conceptualization of what constitutes variables and observations.</p>
 <p>The R for Data Science book depicts these rules in the following illustration:</p>
-<div class="figure">
-<img src="https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png" alt=""><p class="caption">Tidy data - from R for Data Science</p>
+<div class="float">
+<img src="https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png" alt="Tidy data - from R for Data Science"><div class="figcaption">Tidy data - from R for Data Science</div>
 </div>
 <p>These rules are pretty generic, and in general a dataset might require some work
 to manipulate it into tidy form. Fortunately for those of us working in biology
@@ -741,7 +741,7 @@ The <a href="https://www.nature.com/articles/pr19972506">Homeobox (HOX) genes</a
 DNA binding proteins that regulate gene expression of genes involved in
 morphgenesis and cell differentiation in vertebrates. In humans, HOX genes are
 organized into 4 clusters of paralogs that were the result of three DNA
-duplication events in the distant evolutionary past<span class="citation">(<a href="detailed-class-schedule.html#ref-Abbasi2015-rn" role="doc-biblioref">Abbasi 2015</a>)</span>, where each
+duplication events in the distant evolutionary past<span class="citation">(<a href="detailed-class-schedule.html#ref-Abbasi2015-rn">Abbasi 2015</a>)</span>, where each
 cluster encodes a subset of 13 distinct HOX genes placed next to each other.
 Each of these clusters has been assigned a letter identifier A-D (e.g. HOXA,
 HOXB, HOXC, and HOXD) and each paralogous gene within each cluster is assigned
@@ -749,8 +749,8 @@ the same number (e.g. HOXA4, HOXB4, HOXC4, and HOXD4 are paralogs). There are 1
 HOX genes in total, though not all genes remain in all clusters (e.g. HOXA1,
 HOXB1, and HOXD1 exist but HOXC1 was lost over time). The following figure
 depicts the human HOX gene clusters:</p>
-<div class="figure">
-<img src="human_hox.jpg" alt=""><p class="caption">Human HOX gene clusters - Veraksa, A.; Del Campo, M.; McGinnis, W. Developmental Patterning Genes and their Conserved Functions: From Model Organisms to Humans. Mol. Genet. Metab. 2000, 69 (2), 85–100.</p>
+<div class="float">
+<img src="human_hox.jpg" alt="Human HOX gene clusters - Veraksa, A.; Del Campo, M.; McGinnis, W. Developmental Patterning Genes and their Conserved Functions: From Model Organisms to Humans. Mol. Genet. Metab. 2000, 69 (2), 85–100."><div class="figcaption">Human HOX gene clusters - Veraksa, A.; Del Campo, M.; McGinnis, W. Developmental Patterning Genes and their Conserved Functions: From Model Organisms to Humans. Mol. Genet. Metab. 2000, 69 (2), 85–100.</div>
 </div>
 <p>Let’s say we want to extract out all the HOX genes from our gene statistics. We
 can write a regular expression that matches the pattern described above:</p>
@@ -1281,8 +1281,8 @@ significant work if we later added more statistics columns.</p>
 using the <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">tidyr::pivot_longer()</a></code> function, so that the column values are placed
 in a new column and the corresponding values are placed in yet another column.
 This process is illustrated in the following figure:</p>
-<div class="figure">
-<img src="pivot_longer.png" alt=""><p class="caption">Pivot longer moves columns and values to two new columns</p>
+<div class="float">
+<img src="pivot_longer.png" alt="Pivot longer moves columns and values to two new columns"><div class="figcaption">Pivot longer moves columns and values to two new columns</div>
 </div>
 <p>In the figure, the original tibble has genes along rows and samples as columns.
 When the sample columns are pivoted, the value of each column name is placed in

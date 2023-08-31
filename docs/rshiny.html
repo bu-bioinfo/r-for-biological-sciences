@@ -107,8 +107,8 @@
 <span class="header-section-number">10.1</span> RShiny Introduction<a class="anchor" aria-label="anchor" href="#rshiny-introduction"><i class="fas fa-link"></i></a>
 </h2>
 <p>R Shiny is an R package that enables seamless creation of interactive web applications using exclusively R. This is quite the feat since R is very much <em>not</em> a web programming language like JavaScript. It allows for data scientists like us, who are much more comfortable creating scripts and analyses, to leverage their skills and make attractive, functional web apps to share with their collaborators and beyond.</p>
-<div class="figure">
-<img src="img/shiny_01.png" alt=""><p class="caption">A basic shiny app inside RStudio</p>
+<div class="float">
+<img src="img/shiny_01.png" alt="A basic shiny app inside RStudio"><div class="figcaption">A basic shiny app inside RStudio</div>
 </div>
 <p>Shiny is much easier to use thanks to its built-in shorthands for common web elements. A paragraph tab, used for normal text, can be types with <code>p("Text")</code> instead of HTML’s clunkier <code>&lt;p&gt;Text&lt;/p&gt;</code>. This applies to even more complicated objects like buttons, sliders, and outputting plots and tables.</p>
 <p>This chapter will bring you through the basics of constructing an app, and the nature of reactive programming. It is still R, it will still mostly feel like R, but Shiny is a veneer of utility that turns your average data scientist into a web developer fully equipped to impress any lab peer.</p>
@@ -121,8 +121,8 @@
 2. <strong>CSS</strong> - cascading style sheets, the design and aesthetic portions<br>
 3. <strong>JavaScript</strong> - a programming language made for the web, used for making web pages interactive and adaptive.</p>
 <p>Normally, these elements are create separately in different files, placed onto a web server, and delivered to the user when they load that web page. You’re probably with one or all three of these in one sense or another, and you can see how they work by opening up your browser’s console.</p>
-<div class="figure">
-<img src="img/shiny_02.png" alt=""><p class="caption">The HTML that lives inside Google.com</p>
+<div class="float">
+<img src="img/shiny_02.png" alt="The HTML that lives inside Google.com"><div class="figcaption">The HTML that lives inside Google.com</div>
 </div>
 <p>Dealing with all of those HTML tags (things that look like this: <code>&lt;p&gt;Woa&lt;/p&gt;</code>) is <em>far</em> too much work, so we can use Shiny to not only put together the bones of our website, we can easily customize the CSS and JavaScript elements as well, which will give our applications a fully configurable R-like feel for our users who are hungry for pretty data science and bioinformatics.</p>
 <div class="inline-figure"><img src="img/shiny_03.png" style="width:200px;text-align:center;display:block"></div>
@@ -131,8 +131,8 @@
 <span class="header-section-number">10.1.1.1</span> Getting started and development<a class="anchor" aria-label="anchor" href="#getting-started-and-development"><i class="fas fa-link"></i></a>
 </h4>
 <p>Getting start with Shiny is easy whether you’re on SCC or your own computer. Simple select a new project, choose new directory, and select the Shiny option as seen below.</p>
-<div class="figure">
-<img src="https://d33wubrfki0l68.cloudfront.net/6f3bccc61698dce386b5650c4204d59ebcd66836/571c3/images/action-workflow/new-project.png" alt=""><p class="caption">New Shiny App</p>
+<div class="float">
+<img src="https://d33wubrfki0l68.cloudfront.net/6f3bccc61698dce386b5650c4204d59ebcd66836/571c3/images/action-workflow/new-project.png" alt="New Shiny App"><div class="figcaption">New Shiny App</div>
 </div>
 <div id="exercise-0---exercises" class="section level6 unnumbered box important">
 <h6>Exercise 0 - Exercises<a class="anchor" aria-label="anchor" href="#exercise-0---exercises"><i class="fas fa-link"></i></a>
@@ -157,12 +157,12 @@
 <div id="a-simple-example" class="section level4 unnumbered">
 <h4>A simple example<a class="anchor" aria-label="anchor" href="#a-simple-example"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb491"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb491-1"><a href="rshiny.html#cb491-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb491-2"><a href="rshiny.html#cb491-2"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="st">"Hello, worm!"</span>)</span>
-<span id="cb491-3"><a href="rshiny.html#cb491-3"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) { }</span>
-<span id="cb491-4"><a href="rshiny.html#cb491-4"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_04.png" alt=""><p class="caption">Example app</p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb490-1"><a href="rshiny.html#cb490-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb490-2"><a href="rshiny.html#cb490-2"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="st">"Hello, worm!"</span>)</span>
+<span id="cb490-3"><a href="rshiny.html#cb490-3"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) { }</span>
+<span id="cb490-4"><a href="rshiny.html#cb490-4"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="float">
+<img src="img/shiny_04.png" alt="Example app"><div class="figcaption">Example app</div>
 </div>
 <p>This is the simplest Shiny app structure, which displays the text we pass into UI (the front end) and then doing absolutely nothing else (relatable). The first line loads R Shiny as a package, the second creates our simple user interface and text output, line three controls the back end (which again, does nothing), and the final line launches our app using the objects created in lines two and three.</p>
 <p>In order to build some actual content in our app, we’ll first look at the UI, what the user sees.</p>
@@ -174,17 +174,17 @@
 <p>Much like the rest of the content in this course (and I’m sure you’re sick of hearing this), user interfaces and user design could be taught as its own course. There are innumerable ways for people to interact with software, and designing that software to make them the least angry possible is now your focus.</p>
 <p>R Shiny makes designing what a user sees fairly easy for us. Gone are the days of opening up a text editor to tweak HTML tags, we can just use built in functions like <code><a href="https://rstudio.github.io/htmltools/reference/builder.html">span()</a></code> and <code><a href="https://rstudio.github.io/htmltools/reference/builder.html">div()</a></code> to organize our page.</p>
 <p>For example, copying our above extra simple app, I could paste in a whole text block to get a new line of text:</p>
-<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="st">"Nothing beside remains. Round the decay"</span>,</span>
 <span>  <span class="st">"Of that colossal wreck, boundless and bare"</span>,</span>
 <span>  <span class="st">"The lone and level sands stretch far away."</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_05.png" alt=""><p class="caption">Not great appearance-wise</p>
+<div class="float">
+<img src="img/shiny_05.png" alt="Not great appearance-wise"><div class="figcaption">Not great appearance-wise</div>
 </div>
 <p>But that’s all rather clunky. And what if I want to include some other elements in between? Or an image, a link? We can do better than just a big block of text next to some plots. Instead we can use <code><a href="https://rstudio.github.io/htmltools/reference/builder.html">p()</a></code> tags, short for paragraph, to split things up more reasonably and add more convenient customization:</p>
-<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
 <span>  <span class="fu">p</span><span class="op">(</span><span class="st">"Nothing beside remains. Round the decay"</span><span class="op">)</span>,</span>
 <span>  <span class="fu">p</span><span class="op">(</span><span class="st">"Of that colossal wreck, boundless and bare"</span><span class="op">)</span>,</span>
@@ -193,36 +193,36 @@
 <span>  <span class="fu">p</span><span class="op">(</span><span class="st">"The lone and level sands stretch far away."</span><span class="op">)</span>,</span>
 <span>  <span class="fu">markdown</span><span class="op">(</span><span class="st">"&gt;Percy Bysshe Shelley"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_06.png" alt=""><p class="caption">Finally, some good poetry</p>
+<div class="float">
+<img src="img/shiny_06.png" alt="Finally, some good poetry"><div class="figcaption">Finally, some good poetry</div>
 </div>
 <div class="box note">
-<p>We still need to include commas at the end, since these tags are essentially <em>arguments</em> being passed to the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage()</a></code> function. This is <strong>not</strong> the case for the server side object, which is a normal function and will be split up by line breaks.</p>
+<p>We still need to include commas at the end, since these tags are essentially <em>arguments</em> being passed to the <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage()</a></code> function. This is <strong>not</strong> the case for the server side object, which is a normal function and will be split up by line breaks.</p>
 </div>
 <p>Much nicer! This Shelley tribute page is really coming together. Let’s talk about some specific interactive elements that we can use to actually work with the user!</p>
 <div id="exercise-1---ui-functions" class="section level6 unnumbered box important">
 <h6>Exercise 1 - UI Functions<a class="anchor" aria-label="anchor" href="#exercise-1---ui-functions"><i class="fas fa-link"></i></a>
 </h6>
 <p>Let’s try out some HTML tags. Go to <a href="https://shiny.rstudio.com/reference/shiny/1.6.0/builder.html">this link</a> to see all of the options! Play around with trying to display some in your app.</p>
-<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">p</a></span><span class="op">(</span><span class="st">"This is an easy paragraph"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">br</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># this is a line break</span></span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">h1</a></span><span class="op">(</span><span class="st">"A big heading"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">h6</a></span><span class="op">(</span><span class="st">"A small heading"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span> <span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="inputs" class="section level4" number="10.2.1.1">
 <h4>
 <span class="header-section-number">10.2.1.1</span> Inputs<a class="anchor" aria-label="anchor" href="#inputs"><i class="fas fa-link"></i></a>
 </h4>
 <p>Built-in inputs are one of the major draws to Shiny. Instead of dealing with fickle JavaScript and the DOM (a.k.a. we get to skip half of BF768), we get to type one line of R code and it is all taken care of for us!</p>
-<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html">sliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"pyramids"</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span>,</span>
+<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"pyramids"</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"How many pyramids are there?"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Let’s break down this function very quickly:<br>
@@ -231,21 +231,21 @@
 3. <strong>label = </strong> - Text to display to the user about the slider.<br>
 4. <strong>value = </strong> - What value should the slider start at?<br>
 5. **step = * - The amount the slider can move by. Useful if more (or less) precise input is required.</p>
-<div class="figure">
-<img src="img/shiny_07.png" alt=""><p class="caption">The simplest of inputs</p>
+<div class="float">
+<img src="img/shiny_07.png" alt="The simplest of inputs"><div class="figcaption">The simplest of inputs</div>
 </div>
 <p>The most vital part, and something that all input functions share, is the inputId. This text is used to manage this bit of input data in the server function, and is there for the connection between what the user does and how our app manages it.</p>
-<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/dateInput.html">dateInput</a></span><span class="op">(</span><span class="st">"birthday"</span>, <span class="st">"When is your birthday?"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fileInput.html">fileInput</a></span><span class="op">(</span><span class="st">"photo"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Please upload an embarassing photo of you at the "</span>,</span>
+<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/dateInput.html">dateInput</a></span><span class="op">(</span><span class="st">"birthday"</span>, <span class="st">"When is your birthday?"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fileInput.html">fileInput</a></span><span class="op">(</span><span class="st">"photo"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Please upload an embarassing photo of you at the "</span>,</span>
 <span>                            <span class="st">"Christmas party"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"button"</span>, <span class="st">"Which is your favorite?"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"button"</span>, <span class="st">"Which is your favorite?"</span>,</span>
 <span>               choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span>, <span class="st">"Pyramids"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>This generates multiple inputs I can get the results from using <code>input$birthday</code>, <code>input$photo</code>, and <code>input$button</code>.</p>
-<div class="figure">
-<img src="img/shiny_08.png" alt=""><p class="caption">A couple more neat inputs</p>
+<div class="float">
+<img src="img/shiny_08.png" alt="A couple more neat inputs"><div class="figcaption">A couple more neat inputs</div>
 </div>
 <div class="box note">
 <p>The results of the file upload are nested. If I were to ask for a CSV, and needed to load that with <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>, I would need to use <code>input$csv$datapath</code> to point R at the uploaded object.</p>
@@ -256,28 +256,28 @@
 <h4>
 <span class="header-section-number">10.2.1.2</span> Outputs<a class="anchor" aria-label="anchor" href="#outputs"><i class="fas fa-link"></i></a>
 </h4>
-<p>Now that we have a beautiful UI page that takes user input we can figure out <em>where</em> on the page to put it. This part is also relatively easy, every kind of output has a corresponding output function. If I want to insert a base plot or ggplot, I use <code><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput()</a></code>. A table or data frame or tibble would go through <code><a href="https://shiny.rstudio.com/reference/shiny/latest/renderTable.html">tableOutput()</a></code>.</p>
-<p>One advanced option is to use <code><a href="https://shiny.rstudio.com/reference/shiny/latest/htmlOutput.html">uiOutput()</a></code> to place input options and HTML <strong>back into</strong> the front end. This can be used to create some very nice effects, such as inserting results only when one option is selected or spawning a follow up question to an option. Here’s a small example:</p>
-<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
+<p>Now that we have a beautiful UI page that takes user input we can figure out <em>where</em> on the page to put it. This part is also relatively easy, every kind of output has a corresponding output function. If I want to insert a base plot or ggplot, I use <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput()</a></code>. A table or data frame or tibble would go through <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code>.</p>
+<p>One advanced option is to use <code><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput()</a></code> to place input options and HTML <strong>back into</strong> the front end. This can be used to create some very nice effects, such as inserting results only when one option is selected or spawning a follow up question to an option. Here’s a small example:</p>
+<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"button"</span>, <span class="st">"Peanut butter or jelly?"</span>,</span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"button"</span>, <span class="st">"Peanut butter or jelly?"</span>,</span>
 <span>                             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Peanut butter"</span>, <span class="st">"Jelly"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/htmlOutput.html">uiOutput</a></span><span class="op">(</span><span class="st">"choice"</span><span class="op">)</span><span class="op">)</span></span>
+<span>                <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput</a></span><span class="op">(</span><span class="st">"choice"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">choice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">choice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">button</span> <span class="op">==</span> <span class="st">"Peanut butter"</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"pbChoice"</span>, <span class="st">"PB is great. Bread or english muffin?"</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"pbChoice"</span>, <span class="st">"PB is great. Bread or english muffin?"</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bread"</span>, <span class="st">"English Muffin"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"jellychoice"</span>, <span class="st">"What kind of jelly?"</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"jellychoice"</span>, <span class="st">"What kind of jelly?"</span>,</span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Strawberry"</span>, <span class="st">"Raspberry"</span>, <span class="st">"Toxic sludge"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<p>This is our first example of the server function…doing anything…but we’re gonna ignore exactly what or why it’s doing anything so I can comment on <code><a href="https://shiny.rstudio.com/reference/shiny/latest/htmlOutput.html">uiOutput()</a></code>. Based on the if-else statement on line 7, our follow up question changes. This can be used to show/hide responses for users. A user hits a check box indicating they’re a veteran, you can insert more questions about their veteran status or info.</p>
-<div class="figure">
-<img src="img/shiny_09.png" alt=""><p class="caption">This works way better in RStudio</p>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p>This is our first example of the server function…doing anything…but we’re gonna ignore exactly what or why it’s doing anything so I can comment on <code><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput()</a></code>. Based on the if-else statement on line 7, our follow up question changes. This can be used to show/hide responses for users. A user hits a check box indicating they’re a veteran, you can insert more questions about their veteran status or info.</p>
+<div class="float">
+<img src="img/shiny_09.png" alt="This works way better in RStudio"><div class="figcaption">This works way better in RStudio</div>
 </div>
 <p>We will figure out this whole server thing in more detail once we have made our page look as pretty as possible.</p>
 </div>
@@ -286,28 +286,28 @@
 <span class="header-section-number">10.2.1.3</span> Sidebar-Main<a class="anchor" aria-label="anchor" href="#sidebar-main"><i class="fas fa-link"></i></a>
 </h4>
 <p>Now that we have all these functions to populate our page with the most inane content possible, we’re gonna start running into issues with organization. Even with our mastery of HTML elements, it will prove difficult to fit everything we want into one blank page:</p>
-<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"&lt;p&gt;All work and no play makes Jack a dull boy&lt;/p&gt;"</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
 <span>        collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_10.png" alt=""><p class="caption">Maybe I’ll stay at a different hotel.</p>
+<div class="float">
+<img src="img/shiny_10.png" alt="Maybe I’ll stay at a different hotel."><div class="figcaption">Maybe I’ll stay at a different hotel.</div>
 </div>
-<p>Instead, we can use the popular Sidebar layout to help organize our web page. This works by placing two functions inside the UI argument: <code><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel()</a></code> and <code><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel()</a></code>. This offers us nice compartmentalization of design without demanding too many arguments or details from us as we put it together. Very useful for quick apps that you don’t need to make look <em>that</em> good. We just need to nest our two panels inside <code><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout()</a></code> like so:</p>
-<div class="sourceCode" id="cb499"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"I never get tired of these inane examples."</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<p>Instead, we can use the popular Sidebar layout to help organize our web page. This works by placing two functions inside the UI argument: <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel()</a></code>. This offers us nice compartmentalization of design without demanding too many arguments or details from us as we put it together. Very useful for quick apps that you don’t need to make look <em>that</em> good. We just need to nest our two panels inside <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout()</a></code> like so:</p>
+<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"I never get tired of these inane examples."</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"&lt;p&gt;This is the sidebar&lt;/p&gt;"</span>, <span class="fl">10</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">h1</a></span><span class="op">(</span><span class="st">"and this is the main panel!"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_11.png" alt=""><p class="caption">Much better.</p>
+<div class="float">
+<img src="img/shiny_11.png" alt="Much better."><div class="figcaption">Much better.</div>
 </div>
-<p>We can add other elements, like <code><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel()</a></code>, to bring the app together. Notice that the title panel is located <em>outside</em> of the <code><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout()</a></code> call, since we don’t want it inside our sidebar or main panel elements. <strong>Nesting the functions is the same as the nesting of the layout.</strong></p>
+<p>We can add other elements, like <code><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel()</a></code>, to bring the app together. Notice that the title panel is located <em>outside</em> of the <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout()</a></code> call, since we don’t want it inside our sidebar or main panel elements. <strong>Nesting the functions is the same as the nesting of the layout.</strong></p>
 </div>
 <div id="fluidpage" class="section level4" number="10.2.1.4">
 <h4>
@@ -315,50 +315,50 @@
 </h4>
 <p>There is an alternative to the sidebar-main panel layout, which is a little constricting if you don’t want this super big sidebar taking up everything. The FluidPage (which we have been using as our parent function this whole time! Woa!) can allow for a more grid-like customization of the application.</p>
 <p>While there are a lot of ways to control the height and width of your fluid rows, we’ll look at a quick example to see a comically bad example of doing so.</p>
-<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #007BA7'</span>,</span>
-<span>                <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidRow</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #F3A712'</span>,</span>
+<div class="sourceCode" id="cb499"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #007BA7'</span>,</span>
+<span>                <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #F3A712'</span>,</span>
 <span>                         <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">p</a></span><span class="op">(</span><span class="st">"I'm in the first row!"</span><span class="op">)</span>,</span>
-<span>                         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #A8C686'</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #A8C686'</span>,</span>
 <span>                                width <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>                                <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">p</a></span><span class="op">(</span><span class="st">"Left columm!"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #DB162F'</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #DB162F'</span>,</span>
 <span>                                width <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>                                <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">p</a></span><span class="op">(</span><span class="st">"Right column!"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidRow</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #E6BCCD'</span>,</span>
+<span>                <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #E6BCCD'</span>,</span>
 <span>                         <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">p</a></span><span class="op">(</span><span class="st">"I'm in the second row!"</span><span class="op">)</span>,</span>
-<span>                         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #BEE3DB'</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #BEE3DB'</span>,</span>
 <span>                                width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                                <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">p</a></span><span class="op">(</span><span class="st">"Left, lower"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #9D44B5'</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">'background-color: #9D44B5'</span>,</span>
 <span>                                width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                                <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">p</a></span><span class="op">(</span><span class="st">"Right, lower!"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_12.png" alt=""><p class="caption">This was very fun lol.</p>
+<div class="float">
+<img src="img/shiny_12.png" alt="This was very fun lol."><div class="figcaption">This was very fun lol.</div>
 </div>
-<p>The main gist is that each <code><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidRow()</a></code> creates a new row inside whatever function it is, and then you can use the <code>column</code> function inside each row to further split up the page. Then, you can use the same input and output functions inside each of these, along with whatever normal HTML you wish. The overall, standard width of the page is 12 unnamed shiny units, so keep ensure your widths don’t add up to more than 12.</p>
-<div class="figure">
-<img src="https://d33wubrfki0l68.cloudfront.net/15ea13e6dd0ba26014225718b5541abb983e0a45/7b30e/diagrams/action-layout/multirow.png" alt=""><p class="caption">Splitting up a page with fluidRows.</p>
+<p>The main gist is that each <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow()</a></code> creates a new row inside whatever function it is, and then you can use the <code>column</code> function inside each row to further split up the page. Then, you can use the same input and output functions inside each of these, along with whatever normal HTML you wish. The overall, standard width of the page is 12 unnamed shiny units, so keep ensure your widths don’t add up to more than 12.</p>
+<div class="float">
+<img src="https://d33wubrfki0l68.cloudfront.net/15ea13e6dd0ba26014225718b5541abb983e0a45/7b30e/diagrams/action-layout/multirow.png" alt="Splitting up a page with fluidRows."><div class="figcaption">Splitting up a page with fluidRows.</div>
 </div>
 <div id="exercise-2---fluidpage-collage" class="section level6 unnumbered box important">
 <h6>Exercise 2 - FluidPage Collage<a class="anchor" aria-label="anchor" href="#exercise-2---fluidpage-collage"><i class="fas fa-link"></i></a>
 </h6>
-<p>Try using <code><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage()</a></code>, <code><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidRow()</a></code>, and <code><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column()</a></code> to create a collage of images! You can easily include an image in your Shiny app using <code>img(src="img.url")</code>.</p>
-<div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
+<p>Try using <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage()</a></code>, <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow()</a></code>, and <code><a href="https://rdrr.io/pkg/shiny/man/column.html">column()</a></code> to create a collage of images! You can easily include an image in your Shiny app using <code>img(src="img.url")</code>.</p>
+<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidRow</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">6</span>,</span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>           <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">img</a></span><span class="op">(</span>src<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"https://extension.umn.edu/sites/extension.umn.edu/"</span>,</span>
 <span>                          <span class="st">"files/styles/caption_medium/public/big-spittle"</span>,</span>
 <span>                          <span class="st">"bug-fig3_0.jpg?itok=dQJIfJw4"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>           <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">img</a></span><span class="op">(</span>src<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"https://www.gardeningknowhow.com/wp-content/uploads"</span>,</span>
 <span>                          <span class="st">"/2021/05/rhododendron-leafhopper-400x300.jpg"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span> <span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -368,20 +368,20 @@
 </h3>
 <p>Once we have a place in the front end, we can start to manipulate the server side to control and run out application. The interface is nothing without the back end it controls; the back end is where we can start to write our R and manipulate data to inform the user.</p>
 <p>The server function has two components we worry about: the <code>input</code>, which delivers to us information from the user, and <code>output</code>, which we can pass data and objects to be rendered by our webpage.</p>
-<div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"radio"</span>, label <span class="op">=</span> <span class="st">"Number of points"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"radio"</span>, label <span class="op">=</span> <span class="st">"Number of points"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">radio</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="va">input</span><span class="op">$</span><span class="va">radio</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_13.png" alt=""><p class="caption">This isn’t ggplot so the default theme is fine.</p>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/shiny_13.png" alt="This isn’t ggplot so the default theme is fine."><div class="figcaption">This isn’t ggplot so the default theme is fine.</div>
 </div>
 <div id="input" class="section level4" number="10.2.2.1">
 <h4>
@@ -394,38 +394,38 @@
 <h4>
 <span class="header-section-number">10.2.2.2</span> Output<a class="anchor" aria-label="anchor" href="#output"><i class="fas fa-link"></i></a>
 </h4>
-<p>Finally, the server function delivers this output <em>back</em> to the web interface. In this example, we created a <code><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput()</a></code> below the radio buttons to display our plot. Inside the server function, we use <code>output$plot</code> to match the output ID we created in <code><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput()</a></code>. The rendered plot is then inserted into that part of the document. This process of matching IDs mirrors the input process.</p>
+<p>Finally, the server function delivers this output <em>back</em> to the web interface. In this example, we created a <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput()</a></code> below the radio buttons to display our plot. Inside the server function, we use <code>output$plot</code> to match the output ID we created in <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput()</a></code>. The rendered plot is then inserted into that part of the document. This process of matching IDs mirrors the input process.</p>
 <div id="exercise-3---inputs-and-outputs" class="section level6 unnumbered box important">
 <h6>Exercise 3 - Inputs and Outputs<a class="anchor" aria-label="anchor" href="#exercise-3---inputs-and-outputs"><i class="fas fa-link"></i></a>
 </h6>
 <p>Now that you can connect inputs and outputs try to combine a couple! Here is a short list of inputs:
-- <code><a href="https://shiny.rstudio.com/reference/shiny/latest/dateInput.html">dateInput()</a></code>
-- <code><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons()</a></code>
-- <code><a href="https://shiny.rstudio.com/reference/shiny/latest/textInput.html">textInput()</a></code>
+- <code><a href="https://rdrr.io/pkg/shiny/man/dateInput.html">dateInput()</a></code>
+- <code><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons()</a></code>
+- <code><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput()</a></code>
 And outputs:
-- <code><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">imageOutput()</a></code>
-- <code><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput()</a></code>
-- <code><a href="https://shiny.rstudio.com/reference/shiny/latest/textOutput.html">textOutput()</a></code>
+- <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">imageOutput()</a></code>
+- <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput()</a></code>
+- <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput()</a></code>
 See the cheat sheet and docs for more! Here is a little example, try something else:</p>
-<div class="sourceCode" id="cb503"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/textInput.html">textInput</a></span><span class="op">(</span><span class="st">"text"</span>, <span class="st">"Enter some text"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput</a></span><span class="op">(</span><span class="st">"text"</span>, <span class="st">"Enter some text"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"n"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">text</span>, x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>    <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>There are a number of base outputs types: tables, plots, UI (for additional elements), and so on. There are also additional libraries for elements like maps, networks, and even 3D objects. DataTables are especially useful for sharing data with users.</p>
-<div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb503"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/DT">DT</a></span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderDataTable.html">dataTableOutput</a></span><span class="op">(</span><span class="st">"dt"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderDataTable.html">dataTableOutput</a></span><span class="op">(</span><span class="st">"dt"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span></span>
 <span>    <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">iris</span>, extensions <span class="op">=</span> <span class="st">'Buttons'</span>, class <span class="op">=</span> <span class="st">"display"</span>,</span>
@@ -434,16 +434,16 @@ See the cheat sheet and docs for more! Here is a little example, try something e
 <span>                                 ordering <span class="op">=</span> <span class="cn">TRUE</span>, dom <span class="op">=</span> <span class="st">'Bfrtip'</span>,</span>
 <span>                                 buttons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'copy'</span>, <span class="st">'csv'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_14.png" alt=""><p class="caption">Once I spent like a week trying to get this work and my old boss canned the project ¯\<em>(ツ)</em>/¯</p>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/shiny_14.png" alt="Once I spent like a week trying to get this work and my old boss canned the project ¯\(ツ)/¯"><div class="figcaption">Once I spent like a week trying to get this work and my old boss canned the project ¯\<em>(ツ)</em>/¯</div>
 </div>
 <p>And here is a cool example using a package I’ve never tried before.</p>
-<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bwlewis.github.io/rthreejs">threejs</a></span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"maxz"</span>, <span class="st">"Height of graph"</span>, <span class="fl">5</span>, <span class="fl">25</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"maxz"</span>, <span class="st">"Height of graph"</span>, <span class="fl">5</span>, <span class="fl">25</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/threejs/man/threejs-shiny.html">scatterplotThreeOutput</a></span><span class="op">(</span><span class="st">"scatterplot"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
@@ -454,9 +454,9 @@ See the cheat sheet and docs for more! Here is a little example, try something e
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/threejs/man/scatterplot3js.html">scatterplot3js</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>,<span class="va">z</span>, color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_15.png" alt=""><p class="caption">I think there was a toy like this at my doctor’s once</p>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/shiny_15.png" alt="I think there was a toy like this at my doctor’s once"><div class="figcaption">I think there was a toy like this at my doctor’s once</div>
 </div>
 <div id="traceback" class="section level5" number="10.2.2.2.1">
 <h5>
@@ -464,26 +464,26 @@ See the cheat sheet and docs for more! Here is a little example, try something e
 </h5>
 <p>One essential feature for Shiny is determining why errors crop up. You may have some familiarity with this kind of troubleshooting in base R, but because Shiny is abstracting our R into an entire application, the errors can turn into edlritch horrors without compare.</p>
 <p>One main tool is automatic, and that is the traceback. When a shiny app fails in a specific way, the error printed lists how the application arrived at that issue. Each function used is listed, in reverse order, from when it was called. In this way, we can track down exactly where our problem lies.</p>
-<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">g</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">h</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="va">h</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span></span>
 <span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"N"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"N"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu">f</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cars</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="img/shiny_16.png" alt=""><p class="caption">I swear this is more useful than it looks</p>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/shiny_16.png" alt="I swear this is more useful than it looks"><div class="figcaption">I swear this is more useful than it looks</div>
 </div>
 <p>The above application fails because of the three functions at the beginning.</p>
 <p>Now that I know the error is limited to my <code>f()</code> function on line 13, I can do one of two things:<br>
@@ -495,18 +495,18 @@ See the cheat sheet and docs for more! Here is a little example, try something e
 <h6>Exercise 4 - Print Output<a class="anchor" aria-label="anchor" href="#exercise-4---print-output"><i class="fas fa-link"></i></a>
 </h6>
 <p>While not the most nuanced debugging strategy, sliding a <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> statement into your code is a tried and true method of figuring out what your code is doing. Can you figure out where we can put a <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> statement here to see what our input is doing when a button is changed?</p>
-<div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"hey"</span>,</span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"hey"</span>,</span>
 <span>                             <span class="st">"woa cool bugs"</span>,</span>
 <span>                             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"One"</span>, <span class="st">"Two"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"out"</span><span class="op">)</span><span class="op">)</span></span>
+<span>                <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"out"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="co"># ?</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -524,17 +524,17 @@ See the cheat sheet and docs for more! Here is a little example, try something e
 <p>Say I have an application that reads in a CSV of rainfall data and spits our a graph along with some statistics. I load my data and calculate the mean raininess over the last week or what have you. Next, I load in my data <em>again</em> and I run ggplot to plot a histogram of number of toads rained in a certain zip code.</p>
 <p>With what we have learned in Shiny so far, I can only do these processes separately, once in each <code>output$x &lt;-</code> section. Not only does this mean I need to write my uploading multiple times, I <em>also</em> need to parse the data more than once. It may be trivial for my rainfall data that spans two rows, but if your application needs to parse a lot of data then all of sudden your user is stuck looking at blank results and the angry emails will just pour into your inbox (with or without toads).</p>
 <p>To solve this, in a Shiny way, we use a <em>reactive expression</em>. This is somewhat like a function that runs every time an input changes. The best part is that the results are <em>cached</em>, meaning they aren’t re-run unless they absolutely must be. This means I can load the data once and plot and process it without loading anything again.</p>
-<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">datapath</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu">dataset</span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Toads</span>, y <span class="op">=</span> <span class="va">cm_rain_week</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderTable.html">renderTable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">csv</span> <span class="op">&lt;-</span> <span class="fu">dataset</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/mean.html">mean</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">Toads</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
@@ -554,24 +554,24 @@ See the cheat sheet and docs for more! Here is a little example, try something e
 </h6>
 <p>If you thought this Shiny stuff was stuffy and boring, you might be right! But it can also make art, really easily!</p>
 <p>Try to get the following code working, and then visit <a href="https://github.com/taytayp/aRt">here</a> to see what other functions are available and try to do your own! Uncomment line 1 to install the package, you may need to run <code>install.packages("devtools")</code> first.</p>
-<div class="sourceCode" id="cb509"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># devtools::install_github("taytayp/aRt")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">aRt</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column</a></span><span class="op">(</span>width<span class="op">=</span><span class="fl">6</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"slide"</span>, <span class="st">"How many hills?"</span>, <span class="fl">2</span>, <span class="fl">20</span>, <span class="fl">2</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"pal"</span>, <span class="st">"What color?"</span>,</span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span>width<span class="op">=</span><span class="fl">6</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"slide"</span>, <span class="st">"How many hills?"</span>, <span class="fl">2</span>, <span class="fl">20</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"pal"</span>, <span class="st">"What color?"</span>,</span>
 <span>               <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ag_Sunset"</span>, <span class="st">"Earth"</span>, <span class="st">"Tropic"</span>, <span class="st">"Sunset"</span>, <span class="st">"SunsetDark"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/column.html">column</a></span><span class="op">(</span>width<span class="op">=</span><span class="fl">6</span>, <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span>, width <span class="op">=</span> <span class="st">"400px"</span>, height <span class="op">=</span> <span class="st">"400px"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span>width<span class="op">=</span><span class="fl">6</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span>, width <span class="op">=</span> <span class="st">"400px"</span>, height <span class="op">=</span> <span class="st">"400px"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
 <span>    <span class="fu">fading</span><span class="op">(</span>n_layers<span class="op">=</span><span class="va">input</span><span class="op">$</span><span class="va">slide</span>, n_points<span class="op">=</span><span class="fl">1</span>, col_palette<span class="op">=</span><span class="va">input</span><span class="op">$</span><span class="va">pal</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 
 </div>
