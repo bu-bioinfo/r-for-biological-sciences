@@ -60,7 +60,7 @@ datasets, implements a set of data summarization and exploration operations on
 it, and allows interaction with an RShiny app.
 
 The course materials are aligned with [BF528 Applications in Translational
-Bioinformatics](https://bf528.rtfd.io) and are intended to be taken in tandem,
+Bioinformatics](https://bf528.rtfd.io),
 but the materials also stand alone as an independent class.
 
 ## Course Schedule {-}
