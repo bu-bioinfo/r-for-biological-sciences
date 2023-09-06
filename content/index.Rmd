@@ -139,7 +139,10 @@ mentioned otherwise
 
 Primary instructor: Adam Labadorf (labadorf AT bu DOT edu)
 
-TAs for the course have not yet been chosen
+TAs:
+
+  - Nathan Sahelijo - sahelijo@bu
+  - Sami Clayton - samic@bu
 
 ## Office Hours {-}
 
