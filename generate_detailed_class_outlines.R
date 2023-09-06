@@ -60,14 +60,18 @@ dplyr::group_by(sched, Week) %>%
     cat(str_c("## Week ",x$Week,"\n\n"))
     cat(str_c("[Week ",x$Week," slides](slides/week_",x$Week,"_slides.html)\n\n"))
     
-    cat(str_c("|Lecture|Date|Topic|Section|Slides|\n"))
-    cat(str_c("|-------|----|-----|-------|------|\n"))
+    # got rid of adding date because meh
+    #cat(str_c("|Lecture|Date|Topic|Section|Slides|\n"))
+    #cat(str_c("|-------|----|-----|-------|------|\n"))
+    
+    cat(str_c("|Lecture|Topic|Section|Slides|\n"))
+    cat(str_c("|-------|-----|-------|------|\n"))
     
     dplyr::group_by(g, row_number()) %>%
       dplyr::group_map(function(r, x1){
         r <- c(
           r$`Lecture No`,
-          lecture_dates[r$`Lecture No`],
+          #lecture_dates[r$`Lecture No`],
           r$Topic,
           str_c("[",r$Section,"]"),
           if(is.na(r$`Slides Link`)) ""
