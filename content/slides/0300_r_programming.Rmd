@@ -410,7 +410,7 @@ dim(A) # prints out the dimensions of the matrix, rows first
   ```r
   my_df <- data.frame( # recall '.' has no special meaning in R
     numbers=c(1,2,3),
-    categories=c("A","B","C","D")
+    categories=c("A","B","C")
   )
   my_df$numbers
   [1] 1 2 3
@@ -679,8 +679,8 @@ mean(x=my_vals,trim=0.1)
   [1] 1
   ```
 
-* If find yourself copying and pasting code from one part of your script to another,
-  you are repeating yourself!
+* If you find yourself copying and pasting code from one part of your script to
+  another, you are repeating yourself!
 
 ## Writing your own functions
 

@@ -19,6 +19,25 @@ company: "Boston University"
   - Create a small plot to display results
   - Utilize R Markdown to create an attractive format for sharing data.
 
+# Installing R Packages
+
+## Installing Packages
+
+* Advanced functionality in R is provided through *packages* written and supported
+by R community members
+* With the exception of [bioconductor
+packages](#bio-bioconductor), all R packages are hosted on the [Comprehensive R
+Archive Network](https://cran.r-project.org/) (CRAN) web site
+* There are [more than 18,000 packages](https://cran.r-project.org/web/packages/index.html) hosted on CRAN
+* To install a package from CRAN, use the `install.packages` function in the R console:
+
+  ```r
+  # install one package
+  install.packages("tidyverse")
+  # install multiple packages
+  install.packages(c("readr","dplyr"))
+  ```
+
 # Data Wrangling
 
 

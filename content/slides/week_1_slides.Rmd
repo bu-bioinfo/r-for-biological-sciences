@@ -934,7 +934,7 @@ dim(A) # prints out the dimensions of the matrix, rows first
   ```r
   my_df <- data.frame( # recall '.' has no special meaning in R
     numbers=c(1,2,3),
-    categories=c("A","B","C","D")
+    categories=c("A","B","C")
   )
   my_df$numbers
   [1] 1 2 3
@@ -1206,8 +1206,8 @@ mean(x=my_vals,trim=0.1)
   [1] 1
   ```
 
-* If find yourself copying and pasting code from one part of your script to another,
-  you are repeating yourself!
+* If you find yourself copying and pasting code from one part of your script to
+  another, you are repeating yourself!
 
 ## Writing your own functions
 
@@ -1652,47 +1652,6 @@ all(x_mat_zscore_means<1e-15)
   [1] TRUE
   ```
 
-## Installing Packages
-
-* Advanced functionality in R is provided through *packages* written and supported
-by R community members
-* With the exception of [bioconductor
-packages](#bio-bioconductor), all R packages are hosted on the [Comprehensive R
-Archive Network](https://cran.r-project.org/) (CRAN) web site
-* There are [more than 18,000 packages](https://cran.r-project.org/web/packages/index.html) hosted on CRAN
-* To install a package from CRAN, use the `install.packages` function in the R console:
-
-  ```r
-  # install one package
-  install.packages("tidyverse")
-  # install multiple packages
-  install.packages(c("readr","dplyr"))
-  ```
-
-## Saving and Loading R Data
-
-* Matrices and data frames can be written to file tabular form (e.g. CSV files)
-* Sometimes it is convenient to save complicated R objects and data structures
-like lists to a file that can be read back into R easily
-* [`saveRDS()` and `readRDS()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/readRDS.html)
- functions do this
-
-## `saveRDS()` and `readRDS` example
-
-```r
-a_complicated_list <- list(
-    categories = c("A","B","C"),
-    data_matrix = matrix(c(1,2,3,4,5,6),nrows=2,ncols=3),
-    nested_list = list(
-      a = c(1,2,3),
-      b = c(4,5,6)
-    )
-)
-saveRDS(a_complicated_list, "a_complicated_list.rda")
-
-# later, possibly in a different script
-a_complicated_list <- readRDS("a_complicated_list.rda")
-```
 
 # Troubleshooting and Debugging
 
