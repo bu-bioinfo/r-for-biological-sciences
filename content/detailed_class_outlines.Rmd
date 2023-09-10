@@ -34,6 +34,7 @@ output: html_document
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
 | 3 | Assignment | [Assignment 1] |  |
+| 3 | R Prog | [Installing Packages] | [slides](slides/0300_r_programming#the-tidyverse) |
 | 3 | Data Wrangling | [The Tidyverse] | [slides](slides/0400_data_wrangling.html#the-tidyverse) |
 | 3 | Data Wrangling | [Tidyverse Basics] | [slides](slides/0400_data_wrangling.html#tidyverse-basics) |
 | 3 | Data Wrangling | [Importing Data] | [slides](slides/0400_data_wrangling.html#importing-data) |
@@ -199,6 +200,7 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
+| 19 | R Prog | [Saving and Loading R Objects] | [slides](slides/0300_r_programming#saving-and-loading-r-data) |
 | 19 | EngineeRing | [Toolification] | [slides](slides/0800_engineeRing.html#toolification) |
 | 19 | EngineeRing | [The R Interpreter] | [slides](slides/0800_engineeRing.html#the-r-interpreter) |
 | 19 | EngineeRing | [`Rscript`] | [slides](slides/0800_engineeRing.html#rscript) |
