@@ -184,6 +184,17 @@ incomplete. Even experts are fallible. The bioinformatics field evolves
 rapidly, and Rome was not built in a day. Be kind to yourself and to others.
 You are always smarter and more knowledgeable today than you were yesterday.
 
+**Harm Acknowledgement.** Indigenous peoples in many parts of the United States,
+including Boston, were subject to unethical and harmful treatment by Americans
+of European descent and their ancestors at various times in our history. These
+harms include violence, murder, betrayal, biological warfare, forced
+sterilization and bodily exploitation, and forced displacement from ancestral
+lands. The instructors of this course acknowledge and condemn these acts of
+harm, and recognize that those acts enabled the use of land presently occupied
+by Boston University. We are committed to embracing the truth of these harms and
+to restorative justice for those whose suffering and subjugation allow us to be
+in this classroom today.
+
 ## Acknowledgements & Contributions {-}
 
 These materials would not have been possible without the contributions of
