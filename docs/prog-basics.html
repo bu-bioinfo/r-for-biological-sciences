@@ -392,8 +392,12 @@ of categorical variables when passed to ggplot, which is
 covered in greater detail in [Reordering 1-D Data Elements] in the
 <a href="data-visualization.html#dv-gg">Grammar of Graphics</a> chapter. The <a href="https://forcats.tidyverse.org/">forcats</a>
 tidyverse package provides more powerful functions for working with categorical
-variables stored in factors.
-### Matrices</p>
+variables stored in factors.</p>
+</div>
+<div id="matrices" class="section level3" number="4.5.3">
+<h3>
+<span class="header-section-number">4.5.3</span> Matrices<a class="anchor" aria-label="anchor" href="#matrices"><i class="fas fa-link"></i></a>
+</h3>
 <p>A matrix in R is simply the 2 dimensional version of a vector. That is, it is
 a rectangle of values that all have the same type, e.g. number, character,
 logical, etc. A matrix may be constructed using the vector notation described
@@ -419,15 +423,41 @@ Instead of having a length like a vector, it has <span class="math inline">\(m \
 <span id="cb20-6"><a href="prog-basics.html#cb20-6" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">6</span></span>
 <span id="cb20-7"><a href="prog-basics.html#cb20-7" tabindex="-1"></a><span class="fu">dim</span>(<span class="fu">t</span>(A))</span>
 <span id="cb20-8"><a href="prog-basics.html#cb20-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">2</span></span></code></pre></div>
+<div class="box note">
+<p>R can store hyper-rectangular data using <code>array</code>s. <code>arrays</code> are constructed and
+operate similarly to matrix, but may have arbitrarily many dimensions. The
+following example is a 3-dimensional array with dimension sizes of <span class="math inline">\(2x2x3\)</span>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="prog-basics.html#cb21-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">12</span>)</span>
+<span id="cb21-2"><a href="prog-basics.html#cb21-2" tabindex="-1"></a>x</span>
+<span id="cb21-3"><a href="prog-basics.html#cb21-3" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span></span>
+<span id="cb21-4"><a href="prog-basics.html#cb21-4" tabindex="-1"></a><span class="fu">array</span>(x, <span class="at">dim=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb21-5"><a href="prog-basics.html#cb21-5" tabindex="-1"></a>, , <span class="dv">1</span></span>
+<span id="cb21-6"><a href="prog-basics.html#cb21-6" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="prog-basics.html#cb21-7" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb21-8"><a href="prog-basics.html#cb21-8" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span></span>
+<span id="cb21-9"><a href="prog-basics.html#cb21-9" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span></span>
+<span id="cb21-10"><a href="prog-basics.html#cb21-10" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="prog-basics.html#cb21-11" tabindex="-1"></a>, , <span class="dv">2</span></span>
+<span id="cb21-12"><a href="prog-basics.html#cb21-12" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="prog-basics.html#cb21-13" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb21-14"><a href="prog-basics.html#cb21-14" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">5</span>    <span class="dv">7</span></span>
+<span id="cb21-15"><a href="prog-basics.html#cb21-15" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">6</span>    <span class="dv">8</span></span>
+<span id="cb21-16"><a href="prog-basics.html#cb21-16" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="prog-basics.html#cb21-17" tabindex="-1"></a>, , <span class="dv">3</span></span>
+<span id="cb21-18"><a href="prog-basics.html#cb21-18" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="prog-basics.html#cb21-19" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb21-20"><a href="prog-basics.html#cb21-20" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">9</span>   <span class="dv">11</span></span>
+<span id="cb21-21"><a href="prog-basics.html#cb21-21" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">10</span>   <span class="dv">12</span></span></code></pre></div>
+</div>
 <div class="box readmore">
 <p><a href="https://rstudio-education.github.io/hopr/r-objects.html#atomic-vectors">Hands-On Programming with R - Atomic Vectors</a>
 <a href="https://r4ds.had.co.nz/vectors.html">R for Data Science - Vectors</a>
 <a href="https://adv-r.hadley.nz/vectors-chap.html">Advanced R - Vectors</a></p>
 </div>
 </div>
-<div id="lists-and-data-frames" class="section level3" number="4.5.3">
+<div id="lists-and-data-frames" class="section level3" number="4.5.4">
 <h3>
-<span class="header-section-number">4.5.3</span> Lists and data frames<a class="anchor" aria-label="anchor" href="#lists-and-data-frames"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.4</span> Lists and data frames<a class="anchor" aria-label="anchor" href="#lists-and-data-frames"><i class="fas fa-link"></i></a>
 </h3>
 <p>Vectors and matrices have the special property that all items must be of the
 same type, e.g. numbers. Lists and data frames are data structures that do not
@@ -437,39 +467,39 @@ instance, the first item of a list may be a vector of numbers, while the second
 is a vector of character strings. These are the most flexible data structures in
 R, and are among the most commonly used.</p>
 <p>Lists can be created using the <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> function:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="prog-basics.html#cb21-1" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb21-2"><a href="prog-basics.html#cb21-2" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
-<span id="cb21-3"><a href="prog-basics.html#cb21-3" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>,<span class="st">"D"</span>)</span>
-<span id="cb21-4"><a href="prog-basics.html#cb21-4" tabindex="-1"></a>)</span>
-<span id="cb21-5"><a href="prog-basics.html#cb21-5" tabindex="-1"></a>my_list</span>
-<span id="cb21-6"><a href="prog-basics.html#cb21-6" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb21-7"><a href="prog-basics.html#cb21-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb21-8"><a href="prog-basics.html#cb21-8" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="prog-basics.html#cb21-9" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
-<span id="cb21-10"><a href="prog-basics.html#cb21-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span> <span class="st">"D"</span></span>
-<span id="cb21-11"><a href="prog-basics.html#cb21-11" tabindex="-1"></a>my_list[[<span class="dv">1</span>]] <span class="co"># access the first item of the list</span></span>
-<span id="cb21-12"><a href="prog-basics.html#cb21-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb21-13"><a href="prog-basics.html#cb21-13" tabindex="-1"></a>my_list[[<span class="dv">2</span>]] <span class="co"># access the second item of the list</span></span>
-<span id="cb21-14"><a href="prog-basics.html#cb21-14" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span> <span class="st">"D"</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="prog-basics.html#cb22-1" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb22-2"><a href="prog-basics.html#cb22-2" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb22-3"><a href="prog-basics.html#cb22-3" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>,<span class="st">"D"</span>)</span>
+<span id="cb22-4"><a href="prog-basics.html#cb22-4" tabindex="-1"></a>)</span>
+<span id="cb22-5"><a href="prog-basics.html#cb22-5" tabindex="-1"></a>my_list</span>
+<span id="cb22-6"><a href="prog-basics.html#cb22-6" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb22-7"><a href="prog-basics.html#cb22-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb22-8"><a href="prog-basics.html#cb22-8" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="prog-basics.html#cb22-9" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb22-10"><a href="prog-basics.html#cb22-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span> <span class="st">"D"</span></span>
+<span id="cb22-11"><a href="prog-basics.html#cb22-11" tabindex="-1"></a>my_list[[<span class="dv">1</span>]] <span class="co"># access the first item of the list</span></span>
+<span id="cb22-12"><a href="prog-basics.html#cb22-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb22-13"><a href="prog-basics.html#cb22-13" tabindex="-1"></a>my_list[[<span class="dv">2</span>]] <span class="co"># access the second item of the list</span></span>
+<span id="cb22-14"><a href="prog-basics.html#cb22-14" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span> <span class="st">"D"</span></span></code></pre></div>
 <p>The arguments passed to <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> define the values and their order of the list.
 In the above example, the list has two elements: one vector of 3 numbers and one
 vector of 4 character strings. Note you can access individual items of the list
 using the <code>[[N]]</code> syntax, where <code>N</code> is the 1-based index of the element.</p>
 <p>Lists can also be defined and indexed by name:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="prog-basics.html#cb22-1" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb22-2"><a href="prog-basics.html#cb22-2" tabindex="-1"></a>  <span class="at">numbers=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
-<span id="cb22-3"><a href="prog-basics.html#cb22-3" tabindex="-1"></a>  <span class="at">categories=</span><span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>,<span class="st">"D"</span>)</span>
-<span id="cb22-4"><a href="prog-basics.html#cb22-4" tabindex="-1"></a>)</span>
-<span id="cb22-5"><a href="prog-basics.html#cb22-5" tabindex="-1"></a>my_list</span>
-<span id="cb22-6"><a href="prog-basics.html#cb22-6" tabindex="-1"></a><span class="sc">$</span>numbers</span>
-<span id="cb22-7"><a href="prog-basics.html#cb22-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb22-8"><a href="prog-basics.html#cb22-8" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="prog-basics.html#cb22-9" tabindex="-1"></a><span class="sc">$</span>categories</span>
-<span id="cb22-10"><a href="prog-basics.html#cb22-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span> <span class="st">"D"</span></span>
-<span id="cb22-11"><a href="prog-basics.html#cb22-11" tabindex="-1"></a>my_list<span class="sc">$</span>numbers <span class="co"># access the first item of the list</span></span>
-<span id="cb22-12"><a href="prog-basics.html#cb22-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb22-13"><a href="prog-basics.html#cb22-13" tabindex="-1"></a>my_list<span class="sc">$</span>categories <span class="co"># access the second item of the list</span></span>
-<span id="cb22-14"><a href="prog-basics.html#cb22-14" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span> <span class="st">"D"</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="prog-basics.html#cb23-1" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb23-2"><a href="prog-basics.html#cb23-2" tabindex="-1"></a>  <span class="at">numbers=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb23-3"><a href="prog-basics.html#cb23-3" tabindex="-1"></a>  <span class="at">categories=</span><span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>,<span class="st">"D"</span>)</span>
+<span id="cb23-4"><a href="prog-basics.html#cb23-4" tabindex="-1"></a>)</span>
+<span id="cb23-5"><a href="prog-basics.html#cb23-5" tabindex="-1"></a>my_list</span>
+<span id="cb23-6"><a href="prog-basics.html#cb23-6" tabindex="-1"></a><span class="sc">$</span>numbers</span>
+<span id="cb23-7"><a href="prog-basics.html#cb23-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb23-8"><a href="prog-basics.html#cb23-8" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="prog-basics.html#cb23-9" tabindex="-1"></a><span class="sc">$</span>categories</span>
+<span id="cb23-10"><a href="prog-basics.html#cb23-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span> <span class="st">"D"</span></span>
+<span id="cb23-11"><a href="prog-basics.html#cb23-11" tabindex="-1"></a>my_list<span class="sc">$</span>numbers <span class="co"># access the first item of the list</span></span>
+<span id="cb23-12"><a href="prog-basics.html#cb23-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb23-13"><a href="prog-basics.html#cb23-13" tabindex="-1"></a>my_list<span class="sc">$</span>categories <span class="co"># access the second item of the list</span></span>
+<span id="cb23-14"><a href="prog-basics.html#cb23-14" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span> <span class="st">"D"</span></span></code></pre></div>
 <p>The elements of the list have been assigned the names <code>numbers</code> and <code>categories</code>
 when creating the list, though any valid R identifier names can be used. When
 elements are associated with names they can be accessed using the <code>list$name</code>
@@ -478,56 +508,288 @@ syntax.</p>
 one important respect: <em>the elements of a data frame must all have the same
 length, while the elements of a list do not.</em> You may create a data frame with
 the <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> function:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="prog-basics.html#cb23-1" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="co"># recall '.' has no special meaning in R</span></span>
-<span id="cb23-2"><a href="prog-basics.html#cb23-2" tabindex="-1"></a>  <span class="at">numbers=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
-<span id="cb23-3"><a href="prog-basics.html#cb23-3" tabindex="-1"></a>  <span class="at">categories=</span><span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>,<span class="st">"D"</span>)</span>
-<span id="cb23-4"><a href="prog-basics.html#cb23-4" tabindex="-1"></a>)</span>
-<span id="cb23-5"><a href="prog-basics.html#cb23-5" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">data.frame</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)) <span class="sc">:</span></span>
-<span id="cb23-6"><a href="prog-basics.html#cb23-6" tabindex="-1"></a>  arguments imply differing number of rows<span class="sc">:</span> <span class="dv">3</span>, <span class="dv">4</span></span>
-<span id="cb23-7"><a href="prog-basics.html#cb23-7" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb23-8"><a href="prog-basics.html#cb23-8" tabindex="-1"></a>  <span class="at">numbers=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
-<span id="cb23-9"><a href="prog-basics.html#cb23-9" tabindex="-1"></a>  <span class="at">categories=</span><span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>)</span>
-<span id="cb23-10"><a href="prog-basics.html#cb23-10" tabindex="-1"></a>)</span>
-<span id="cb23-11"><a href="prog-basics.html#cb23-11" tabindex="-1"></a>my_df</span>
-<span id="cb23-12"><a href="prog-basics.html#cb23-12" tabindex="-1"></a>  numbers categories</span>
-<span id="cb23-13"><a href="prog-basics.html#cb23-13" tabindex="-1"></a><span class="dv">1</span>       <span class="dv">1</span>          A</span>
-<span id="cb23-14"><a href="prog-basics.html#cb23-14" tabindex="-1"></a><span class="dv">2</span>       <span class="dv">2</span>          B</span>
-<span id="cb23-15"><a href="prog-basics.html#cb23-15" tabindex="-1"></a><span class="dv">3</span>       <span class="dv">3</span>          C</span>
-<span id="cb23-16"><a href="prog-basics.html#cb23-16" tabindex="-1"></a>my_df<span class="sc">$</span>numbers</span>
-<span id="cb23-17"><a href="prog-basics.html#cb23-17" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb23-18"><a href="prog-basics.html#cb23-18" tabindex="-1"></a>my_df[<span class="dv">1</span>] <span class="co"># numeric indexing also works, and returns a subset data frame</span></span>
-<span id="cb23-19"><a href="prog-basics.html#cb23-19" tabindex="-1"></a>  numbers</span>
-<span id="cb23-20"><a href="prog-basics.html#cb23-20" tabindex="-1"></a><span class="dv">1</span>       <span class="dv">1</span></span>
-<span id="cb23-21"><a href="prog-basics.html#cb23-21" tabindex="-1"></a><span class="dv">2</span>       <span class="dv">2</span></span>
-<span id="cb23-22"><a href="prog-basics.html#cb23-22" tabindex="-1"></a><span class="dv">3</span>       <span class="dv">3</span></span>
-<span id="cb23-23"><a href="prog-basics.html#cb23-23" tabindex="-1"></a>my_df[<span class="dv">1</span>]<span class="sc">$</span>numbers</span>
-<span id="cb23-24"><a href="prog-basics.html#cb23-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb23-25"><a href="prog-basics.html#cb23-25" tabindex="-1"></a><span class="co"># this syntax is [&lt;row&gt;,&lt;column&gt;], and if either is omitted return all</span></span>
-<span id="cb23-26"><a href="prog-basics.html#cb23-26" tabindex="-1"></a>my_df[,<span class="dv">1</span>] <span class="co"># return all rows of the first column as a vector</span></span>
-<span id="cb23-27"><a href="prog-basics.html#cb23-27" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb23-28"><a href="prog-basics.html#cb23-28" tabindex="-1"></a>my_df<span class="sc">$</span>categories</span>
-<span id="cb23-29"><a href="prog-basics.html#cb23-29" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="prog-basics.html#cb24-1" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="co"># recall '.' has no special meaning in R</span></span>
+<span id="cb24-2"><a href="prog-basics.html#cb24-2" tabindex="-1"></a>  <span class="at">numbers=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb24-3"><a href="prog-basics.html#cb24-3" tabindex="-1"></a>  <span class="at">categories=</span><span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>,<span class="st">"D"</span>)</span>
+<span id="cb24-4"><a href="prog-basics.html#cb24-4" tabindex="-1"></a>)</span>
+<span id="cb24-5"><a href="prog-basics.html#cb24-5" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">data.frame</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)) <span class="sc">:</span></span>
+<span id="cb24-6"><a href="prog-basics.html#cb24-6" tabindex="-1"></a>  arguments imply differing number of rows<span class="sc">:</span> <span class="dv">3</span>, <span class="dv">4</span></span>
+<span id="cb24-7"><a href="prog-basics.html#cb24-7" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb24-8"><a href="prog-basics.html#cb24-8" tabindex="-1"></a>  <span class="at">numbers=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb24-9"><a href="prog-basics.html#cb24-9" tabindex="-1"></a>  <span class="at">categories=</span><span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>)</span>
+<span id="cb24-10"><a href="prog-basics.html#cb24-10" tabindex="-1"></a>)</span>
+<span id="cb24-11"><a href="prog-basics.html#cb24-11" tabindex="-1"></a>my_df</span>
+<span id="cb24-12"><a href="prog-basics.html#cb24-12" tabindex="-1"></a>  numbers categories</span>
+<span id="cb24-13"><a href="prog-basics.html#cb24-13" tabindex="-1"></a><span class="dv">1</span>       <span class="dv">1</span>          A</span>
+<span id="cb24-14"><a href="prog-basics.html#cb24-14" tabindex="-1"></a><span class="dv">2</span>       <span class="dv">2</span>          B</span>
+<span id="cb24-15"><a href="prog-basics.html#cb24-15" tabindex="-1"></a><span class="dv">3</span>       <span class="dv">3</span>          C</span>
+<span id="cb24-16"><a href="prog-basics.html#cb24-16" tabindex="-1"></a>my_df<span class="sc">$</span>numbers</span>
+<span id="cb24-17"><a href="prog-basics.html#cb24-17" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb24-18"><a href="prog-basics.html#cb24-18" tabindex="-1"></a>my_df[<span class="dv">1</span>] <span class="co"># numeric indexing also works, and returns a subset data frame</span></span>
+<span id="cb24-19"><a href="prog-basics.html#cb24-19" tabindex="-1"></a>  numbers</span>
+<span id="cb24-20"><a href="prog-basics.html#cb24-20" tabindex="-1"></a><span class="dv">1</span>       <span class="dv">1</span></span>
+<span id="cb24-21"><a href="prog-basics.html#cb24-21" tabindex="-1"></a><span class="dv">2</span>       <span class="dv">2</span></span>
+<span id="cb24-22"><a href="prog-basics.html#cb24-22" tabindex="-1"></a><span class="dv">3</span>       <span class="dv">3</span></span>
+<span id="cb24-23"><a href="prog-basics.html#cb24-23" tabindex="-1"></a>my_df[<span class="dv">1</span>]<span class="sc">$</span>numbers</span>
+<span id="cb24-24"><a href="prog-basics.html#cb24-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb24-25"><a href="prog-basics.html#cb24-25" tabindex="-1"></a><span class="co"># this syntax is [&lt;row&gt;,&lt;column&gt;], and if either is omitted return all</span></span>
+<span id="cb24-26"><a href="prog-basics.html#cb24-26" tabindex="-1"></a>my_df[,<span class="dv">1</span>] <span class="co"># return all rows of the first column as a vector</span></span>
+<span id="cb24-27"><a href="prog-basics.html#cb24-27" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb24-28"><a href="prog-basics.html#cb24-28" tabindex="-1"></a>my_df<span class="sc">$</span>categories</span>
+<span id="cb24-29"><a href="prog-basics.html#cb24-29" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span></span></code></pre></div>
 <p>Note the data frame is printed as a matrix with element names as columns and
 automatically numbered rows. You may access specific elements of a data frame in
 a number of ways:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="prog-basics.html#cb24-1" tabindex="-1"></a>my_df<span class="sc">$</span>numbers[<span class="dv">1</span>] <span class="co"># extract the first value of the numbers column</span></span>
-<span id="cb24-2"><a href="prog-basics.html#cb24-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb24-3"><a href="prog-basics.html#cb24-3" tabindex="-1"></a>my_df[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># same as above, recall the [&lt;row&gt;,&lt;column&gt;] syntax</span></span>
-<span id="cb24-4"><a href="prog-basics.html#cb24-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb24-5"><a href="prog-basics.html#cb24-5" tabindex="-1"></a>my_df<span class="sc">$</span>categories[<span class="dv">3</span>] <span class="co"># extract the third value of the categories column</span></span>
-<span id="cb24-6"><a href="prog-basics.html#cb24-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"C"</span></span></code></pre></div>
-<div class="box note">
-<p>In the examples above, the operation of extracting out different parts of a
-vector, matrix, list, or data frame is called <em>subsetting.</em> R provides many
-different ways to subset a data structure and discussing all of them is beyond
-the scope of this book. However, mastering subsetting will help your code be
-more concise and correct. See the Read More link on Subsetting below:</p>
-<p><a href="https://adv-r.hadley.nz/subsetting.html">Advanced R - Subsetting</a></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="prog-basics.html#cb25-1" tabindex="-1"></a>my_df<span class="sc">$</span>numbers[<span class="dv">1</span>] <span class="co"># extract the first value of the numbers column</span></span>
+<span id="cb25-2"><a href="prog-basics.html#cb25-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb25-3"><a href="prog-basics.html#cb25-3" tabindex="-1"></a>my_df[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># same as above, recall the [&lt;row&gt;,&lt;column&gt;] syntax</span></span>
+<span id="cb25-4"><a href="prog-basics.html#cb25-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb25-5"><a href="prog-basics.html#cb25-5" tabindex="-1"></a>my_df<span class="sc">$</span>categories[<span class="dv">3</span>] <span class="co"># extract the third value of the categories column</span></span>
+<span id="cb25-6"><a href="prog-basics.html#cb25-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"C"</span></span></code></pre></div>
 </div>
+<div id="subsetting" class="section level3" number="4.5.5">
+<h3>
+<span class="header-section-number">4.5.5</span> Subsetting<a class="anchor" aria-label="anchor" href="#subsetting"><i class="fas fa-link"></i></a>
+</h3>
+<p>Each of the data structures in R are collections of objects. Very often, we
+would like to select a subset of elements in a collection that have certain
+properties, for instance numeric values less than a specific threshold or occupy
+a specific position in the vector (e.g. the first or last element). The process
+of selecting out a subset of elements in a data structure is called <em>subsetting</em>.
+R provides many different methods to subset a data structure, where the choice
+of method depends on the type of data structure (e.g. vector vis a vis a data
+frame) or the type of subsetting required by a particular use case.</p>
+<div class="box warning">
+<p>Unlike other languages like C and python, R uses <em>1-based indexing</em>. This means
+that the first item in any data structure is referenced with the index 1:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="prog-basics.html#cb26-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">0.4</span>, <span class="fl">9.1</span>, <span class="fl">7.7</span>)</span>
+<span id="cb26-2"><a href="prog-basics.html#cb26-2" tabindex="-1"></a>x[<span class="dv">1</span>]</span>
+<span id="cb26-3"><a href="prog-basics.html#cb26-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb26-4"><a href="prog-basics.html#cb26-4" tabindex="-1"></a>x[<span class="dv">4</span>]</span>
+<span id="cb26-5"><a href="prog-basics.html#cb26-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">7.7</span></span>
+<span id="cb26-6"><a href="prog-basics.html#cb26-6" tabindex="-1"></a>x[<span class="dv">0</span>] <span class="co"># this always returns an empty vector</span></span>
+<span id="cb26-7"><a href="prog-basics.html#cb26-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb26-8"><a href="prog-basics.html#cb26-8" tabindex="-1"></a>x[<span class="dv">5</span>] <span class="co"># accessing indices larger than the vector length returns NA</span></span>
+<span id="cb26-9"><a href="prog-basics.html#cb26-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span></span></code></pre></div>
+<p>C and python use <em>0-based indexing</em>, where the first item in a data structure is
+referenced with the index 0. For example:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="prog-basics.html#cb27-1" tabindex="-1"></a>x <span class="op">=</span> [<span class="fl">3.5</span>, <span class="fl">0.4</span>, <span class="fl">9.1</span>, <span class="fl">7.7</span>]</span>
+<span id="cb27-2"><a href="prog-basics.html#cb27-2" tabindex="-1"></a><span class="bu">print</span>(x[<span class="dv">0</span>])</span>
+<span id="cb27-3"><a href="prog-basics.html#cb27-3" tabindex="-1"></a><span class="fl">3.5</span></span>
+<span id="cb27-4"><a href="prog-basics.html#cb27-4" tabindex="-1"></a><span class="bu">print</span>(x[<span class="dv">3</span>])</span>
+<span id="cb27-5"><a href="prog-basics.html#cb27-5" tabindex="-1"></a><span class="fl">7.7</span></span>
+<span id="cb27-6"><a href="prog-basics.html#cb27-6" tabindex="-1"></a><span class="bu">print</span>(x[<span class="dv">4</span>]) <span class="co"># accessing indices larger than the list length raises error</span></span>
+<span id="cb27-7"><a href="prog-basics.html#cb27-7" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb27-8"><a href="prog-basics.html#cb27-8" tabindex="-1"></a>  File <span class="st">"&lt;stdin&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb27-9"><a href="prog-basics.html#cb27-9" tabindex="-1"></a><span class="pp">IndexError</span>: <span class="bu">list</span> index out of <span class="bu">range</span></span></code></pre></div>
+<p>As you move between developing code in 0-based languages and R, be sure to
+remember they use different indexing strategies!</p>
+</div>
+<div id="vectors-1" class="section level4" number="4.5.5.1">
+<h4>
+<span class="header-section-number">4.5.5.1</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>There are six different ways to subset vectors in R. The following three are the
+most common:</p>
+<ul>
+<li>
+<p><strong>Positive integers</strong>: return specific elements by integer index.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="prog-basics.html#cb28-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">0.4</span>, <span class="fl">9.1</span>, <span class="fl">7.7</span>)</span>
+<span id="cb28-2"><a href="prog-basics.html#cb28-2" tabindex="-1"></a>x[<span class="dv">1</span>]</span>
+<span id="cb28-3"><a href="prog-basics.html#cb28-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb28-4"><a href="prog-basics.html#cb28-4" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># can subset using a vector of integers</span></span>
+<span id="cb28-5"><a href="prog-basics.html#cb28-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span> <span class="fl">9.1</span></span>
+<span id="cb28-6"><a href="prog-basics.html#cb28-6" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)] <span class="co"># can select the same element multiple times</span></span>
+<span id="cb28-7"><a href="prog-basics.html#cb28-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span> <span class="fl">3.5</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Negative integers</strong>: omit specific elements by their negative integer index.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="prog-basics.html#cb29-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">0.4</span>, <span class="fl">9.1</span>, <span class="fl">7.7</span>)</span>
+<span id="cb29-2"><a href="prog-basics.html#cb29-2" tabindex="-1"></a>x[<span class="sc">-</span><span class="dv">1</span>] <span class="co"># return all but the first element</span></span>
+<span id="cb29-3"><a href="prog-basics.html#cb29-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.4</span> <span class="fl">9.1</span> <span class="fl">7.7</span></span>
+<span id="cb29-4"><a href="prog-basics.html#cb29-4" tabindex="-1"></a>x[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)] <span class="co"># return the first and third element</span></span>
+<span id="cb29-5"><a href="prog-basics.html#cb29-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span> <span class="fl">9.1</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Logical vectors</strong>: return specific elements where the indexing vector is <code>TRUE</code></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="prog-basics.html#cb30-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">0.4</span>, <span class="fl">9.1</span>, <span class="fl">7.7</span>)</span>
+<span id="cb30-2"><a href="prog-basics.html#cb30-2" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>)]</span>
+<span id="cb30-3"><a href="prog-basics.html#cb30-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb30-4"><a href="prog-basics.html#cb30-4" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>)]</span>
+<span id="cb30-5"><a href="prog-basics.html#cb30-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.4</span> <span class="fl">9.1</span></span>
+<span id="cb30-6"><a href="prog-basics.html#cb30-6" tabindex="-1"></a>x <span class="sc">&gt;</span> <span class="dv">3</span></span>
+<span id="cb30-7"><a href="prog-basics.html#cb30-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">TRUE</span> <span class="cn">TRUE</span></span>
+<span id="cb30-8"><a href="prog-basics.html#cb30-8" tabindex="-1"></a>x[x <span class="sc">&gt;</span> <span class="dv">3</span>]</span>
+<span id="cb30-9"><a href="prog-basics.html#cb30-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span> <span class="fl">9.1</span> <span class="fl">7.7</span></span></code></pre></div>
+</li>
+</ul>
+<p>To see the other methods of indexing vectors, see the section on <a href="https://adv-r.hadley.nz/subsetting.html#atomic-vectors-1">subsetting
+vectors</a> and Hadley
+Wickham’s book <a href="https://adv-r.hadley.nz/">Advanced R</a>.</p>
+</div>
+<div id="matrices-1" class="section level4" number="4.5.5.2">
+<h4>
+<span class="header-section-number">4.5.5.2</span> Matrices<a class="anchor" aria-label="anchor" href="#matrices-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Since matrices in R are vectors, they may be subset using the same methods as
+vectors. Additionally, because matrices also have a notion of rows and columns,
+they may also be subset by pairs of vectors that select either rows or columns.
+A matrix <code>x</code> may be subset with the syntax <code>[&lt;row selectors&gt;, &lt;column selectors&gt;]</code>.
+The <code>selectors</code> may be any of the methods used to subset a vector, as described
+above.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="prog-basics.html#cb31-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb31-2"><a href="prog-basics.html#cb31-2" tabindex="-1"></a>x</span>
+<span id="cb31-3"><a href="prog-basics.html#cb31-3" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb31-4"><a href="prog-basics.html#cb31-4" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span></span>
+<span id="cb31-5"><a href="prog-basics.html#cb31-5" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">5</span>    <span class="dv">6</span></span>
+<span id="cb31-6"><a href="prog-basics.html#cb31-6" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">7</span>    <span class="dv">8</span>    <span class="dv">9</span></span>
+<span id="cb31-7"><a href="prog-basics.html#cb31-7" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)] <span class="co"># first two rows, first two columns</span></span>
+<span id="cb31-8"><a href="prog-basics.html#cb31-8" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb31-9"><a href="prog-basics.html#cb31-9" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">2</span></span>
+<span id="cb31-10"><a href="prog-basics.html#cb31-10" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">5</span></span>
+<span id="cb31-11"><a href="prog-basics.html#cb31-11" tabindex="-1"></a>x[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), ] <span class="co"># leaving a selector blank selects all, second row and all columns</span></span>
+<span id="cb31-12"><a href="prog-basics.html#cb31-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></span>
+<span id="cb31-13"><a href="prog-basics.html#cb31-13" tabindex="-1"></a>x[, <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)] <span class="co"># all rows included, last two columns</span></span>
+<span id="cb31-14"><a href="prog-basics.html#cb31-14" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb31-15"><a href="prog-basics.html#cb31-15" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">2</span>    <span class="dv">3</span></span>
+<span id="cb31-16"><a href="prog-basics.html#cb31-16" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">5</span>    <span class="dv">6</span></span>
+<span id="cb31-17"><a href="prog-basics.html#cb31-17" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">8</span>    <span class="dv">9</span></span>
+<span id="cb31-18"><a href="prog-basics.html#cb31-18" tabindex="-1"></a>x[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">2</span>)] <span class="co"># select the second row and second column</span></span>
+<span id="cb31-19"><a href="prog-basics.html#cb31-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">5</span></span></code></pre></div>
+</div>
+<div id="lists" class="section level4" number="4.5.5.3">
+<h4>
+<span class="header-section-number">4.5.5.3</span> Lists<a class="anchor" aria-label="anchor" href="#lists"><i class="fas fa-link"></i></a>
+</h4>
+<p>A list can be subset with all the same methods as a vector.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="prog-basics.html#cb32-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fl">3.5</span>, <span class="fl">0.4</span>, <span class="fu">c</span>(<span class="fl">9.1</span>, <span class="fl">5.8</span>), <span class="fl">7.7</span>)<span class="er">)</span></span>
+<span id="cb32-2"><a href="prog-basics.html#cb32-2" tabindex="-1"></a>l[<span class="dv">1</span>]</span>
+<span id="cb32-3"><a href="prog-basics.html#cb32-3" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb32-4"><a href="prog-basics.html#cb32-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb32-5"><a href="prog-basics.html#cb32-5" tabindex="-1"></a>l[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)]</span>
+<span id="cb32-6"><a href="prog-basics.html#cb32-6" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb32-7"><a href="prog-basics.html#cb32-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.4</span></span>
+<span id="cb32-8"><a href="prog-basics.html#cb32-8" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="prog-basics.html#cb32-9" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb32-10"><a href="prog-basics.html#cb32-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">9.1</span> <span class="fl">5.8</span></span>
+<span id="cb32-11"><a href="prog-basics.html#cb32-11" tabindex="-1"></a>l[<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)]</span>
+<span id="cb32-12"><a href="prog-basics.html#cb32-12" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb32-13"><a href="prog-basics.html#cb32-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.4</span></span>
+<span id="cb32-14"><a href="prog-basics.html#cb32-14" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="prog-basics.html#cb32-15" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb32-16"><a href="prog-basics.html#cb32-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">9.1</span> <span class="fl">5.8</span></span></code></pre></div>
+<p>Note that when indexing a list with <code>[</code>, the result returned is always another
+list; we will discuss this more later.</p>
+<p>When a list has names associated with its values, it may also be access by name
+in addition to the ways described above:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="prog-basics.html#cb33-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a=</span><span class="fl">3.5</span>, <span class="at">b=</span><span class="fl">0.4</span>, <span class="at">c=</span><span class="fu">c</span>(<span class="fl">9.1</span>, <span class="fl">5.8</span>), <span class="at">d=</span><span class="fl">7.7</span>)</span>
+<span id="cb33-2"><a href="prog-basics.html#cb33-2" tabindex="-1"></a>l[<span class="st">"a"</span>]</span>
+<span id="cb33-3"><a href="prog-basics.html#cb33-3" tabindex="-1"></a><span class="sc">$</span>a</span>
+<span id="cb33-4"><a href="prog-basics.html#cb33-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb33-5"><a href="prog-basics.html#cb33-5" tabindex="-1"></a>l[<span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"c"</span>)]</span>
+<span id="cb33-6"><a href="prog-basics.html#cb33-6" tabindex="-1"></a><span class="sc">$</span>a</span>
+<span id="cb33-7"><a href="prog-basics.html#cb33-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb33-8"><a href="prog-basics.html#cb33-8" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="prog-basics.html#cb33-9" tabindex="-1"></a><span class="sc">$</span>c</span>
+<span id="cb33-10"><a href="prog-basics.html#cb33-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">9.1</span> <span class="fl">5.8</span></span>
+<span id="cb33-11"><a href="prog-basics.html#cb33-11" tabindex="-1"></a>l[<span class="fu">c</span>(<span class="st">"b"</span>)]</span></code></pre></div>
+<p>We will discuss what <code>$</code> means at the end of this section.</p>
+</div>
+<div id="data-frames" class="section level4" number="4.5.5.4">
+<h4>
+<span class="header-section-number">4.5.5.4</span> Data frames<a class="anchor" aria-label="anchor" href="#data-frames"><i class="fas fa-link"></i></a>
+</h4>
+<p>Data frames may be accessed like both vectors (and therefore lists) and also
+like matrices, since they are rectangular by construction.</p>
+</div>
+<div id="and" class="section level4" number="4.5.5.5">
+<h4>
+<span class="header-section-number">4.5.5.5</span> <code>[[</code> and <code>$</code><a class="anchor" aria-label="anchor" href="#and"><i class="fas fa-link"></i></a>
+</h4>
+<p>The <code>[[</code> and <code>$</code> operators are used to access single items of data structures.
+Remember from the section on subsetting lists that indexing with <code>[</code> (i.e. a
+single square bracket) always returns a list. When we wish to access an
+individual value of a list or data frame and return only that value, we use
+<code>[[</code> when indexing by integer or name:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="prog-basics.html#cb34-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a=</span><span class="fl">3.5</span>, <span class="at">b=</span><span class="fl">0.4</span>, <span class="at">c=</span><span class="fu">c</span>(<span class="fl">9.1</span>, <span class="fl">5.8</span>), <span class="at">d=</span><span class="fl">7.7</span>)</span>
+<span id="cb34-2"><a href="prog-basics.html#cb34-2" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="prog-basics.html#cb34-3" tabindex="-1"></a>l[<span class="dv">1</span>] <span class="co"># returns a list with a single value of 3.5</span></span>
+<span id="cb34-4"><a href="prog-basics.html#cb34-4" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb34-5"><a href="prog-basics.html#cb34-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb34-6"><a href="prog-basics.html#cb34-6" tabindex="-1"></a>l[[<span class="dv">1</span>]] <span class="co"># returns 3.5</span></span>
+<span id="cb34-7"><a href="prog-basics.html#cb34-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb34-8"><a href="prog-basics.html#cb34-8" tabindex="-1"></a>l[[<span class="dv">3</span>]] <span class="co"># returns c(9.1, 5.8)</span></span>
+<span id="cb34-9"><a href="prog-basics.html#cb34-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">9.1</span> <span class="fl">5.8</span></span>
+<span id="cb34-10"><a href="prog-basics.html#cb34-10" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="prog-basics.html#cb34-11" tabindex="-1"></a>l[<span class="st">"a"</span>] <span class="co"># returns list(a=3.5)</span></span>
+<span id="cb34-12"><a href="prog-basics.html#cb34-12" tabindex="-1"></a><span class="sc">$</span>a</span>
+<span id="cb34-13"><a href="prog-basics.html#cb34-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb34-14"><a href="prog-basics.html#cb34-14" tabindex="-1"></a>l<span class="sc">$</span>a <span class="co"># returns 3.5</span></span>
+<span id="cb34-15"><a href="prog-basics.html#cb34-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb34-16"><a href="prog-basics.html#cb34-16" tabindex="-1"></a>l[[<span class="st">"a"</span>]] <span class="co"># also returns 3.5</span></span>
+<span id="cb34-17"><a href="prog-basics.html#cb34-17" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span></code></pre></div>
+<p>To see another (ane more complete) treatment of subsetting, see the section on
+<a href="https://adv-r.hadley.nz/subsetting.html#atomic-vectors-1">subsetting vectors</a>
+and Hadley Wickham’s book <a href="https://adv-r.hadley.nz/">Advanced R</a>.</p>
 <div class="box readmore">
 <p><a href="http://adv-r.had.co.nz/Data-structures.html">Advanced R - Data Structures</a>
 <a href="https://adv-r.hadley.nz/subsetting.html">Advanced R - Subsetting</a></p>
 </div>
+</div>
+</div>
+<div id="naming-data-structures" class="section level3" number="4.5.6">
+<h3>
+<span class="header-section-number">4.5.6</span> Naming Data Structures<a class="anchor" aria-label="anchor" href="#naming-data-structures"><i class="fas fa-link"></i></a>
+</h3>
+<p>Vectors, matrices, lists, and data frames can have names assigned to their
+indices. For vectors and lists, these names are one-dimensional vectors of
+characters that are assignable and accessible using the <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> function:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="prog-basics.html#cb35-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb35-2"><a href="prog-basics.html#cb35-2" tabindex="-1"></a><span class="fu">names</span>(x) <span class="co"># vectors have no names by default</span></span>
+<span id="cb35-3"><a href="prog-basics.html#cb35-3" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb35-4"><a href="prog-basics.html#cb35-4" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>)</span>
+<span id="cb35-5"><a href="prog-basics.html#cb35-5" tabindex="-1"></a>x</span>
+<span id="cb35-6"><a href="prog-basics.html#cb35-6" tabindex="-1"></a>a b c</span>
+<span id="cb35-7"><a href="prog-basics.html#cb35-7" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb35-8"><a href="prog-basics.html#cb35-8" tabindex="-1"></a><span class="fu">names</span>(x)</span>
+<span id="cb35-9"><a href="prog-basics.html#cb35-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"a"</span> <span class="st">"b"</span> <span class="st">"c"</span></span>
+<span id="cb35-10"><a href="prog-basics.html#cb35-10" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"d"</span>,<span class="st">"e"</span>,<span class="st">"f"</span>)</span>
+<span id="cb35-11"><a href="prog-basics.html#cb35-11" tabindex="-1"></a>x</span>
+<span id="cb35-12"><a href="prog-basics.html#cb35-12" tabindex="-1"></a>d e f</span>
+<span id="cb35-13"><a href="prog-basics.html#cb35-13" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span></code></pre></div>
+<p>When a list is created with named items, those names are accessible similarly:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="prog-basics.html#cb36-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a=</span><span class="fl">3.5</span>, <span class="at">b=</span><span class="fl">0.4</span>, <span class="at">c=</span><span class="fu">c</span>(<span class="fl">9.1</span>, <span class="fl">5.8</span>), <span class="at">d=</span><span class="fl">7.7</span>)</span>
+<span id="cb36-2"><a href="prog-basics.html#cb36-2" tabindex="-1"></a><span class="fu">names</span>(l)</span>
+<span id="cb36-3"><a href="prog-basics.html#cb36-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"a"</span> <span class="st">"b"</span> <span class="st">"c"</span> <span class="st">"d"</span></span>
+<span id="cb36-4"><a href="prog-basics.html#cb36-4" tabindex="-1"></a><span class="fu">names</span>(l) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="st">"f3"</span>, <span class="st">"f4"</span>)</span>
+<span id="cb36-5"><a href="prog-basics.html#cb36-5" tabindex="-1"></a>l</span>
+<span id="cb36-6"><a href="prog-basics.html#cb36-6" tabindex="-1"></a><span class="sc">$</span>f1</span>
+<span id="cb36-7"><a href="prog-basics.html#cb36-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span>
+<span id="cb36-8"><a href="prog-basics.html#cb36-8" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="prog-basics.html#cb36-9" tabindex="-1"></a><span class="sc">$</span>f2</span>
+<span id="cb36-10"><a href="prog-basics.html#cb36-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.4</span></span>
+<span id="cb36-11"><a href="prog-basics.html#cb36-11" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="prog-basics.html#cb36-12" tabindex="-1"></a><span class="sc">$</span>f3</span>
+<span id="cb36-13"><a href="prog-basics.html#cb36-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">9.1</span> <span class="fl">5.8</span></span>
+<span id="cb36-14"><a href="prog-basics.html#cb36-14" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="prog-basics.html#cb36-15" tabindex="-1"></a><span class="sc">$</span>f4</span>
+<span id="cb36-16"><a href="prog-basics.html#cb36-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">7.7</span></span></code></pre></div>
+<p>As matrices and data frames also have both rows and columns, they can have
+<code>rownames</code> and <code>colnames</code>, respectively:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="prog-basics.html#cb37-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">byrow=</span>T)</span>
+<span id="cb37-2"><a href="prog-basics.html#cb37-2" tabindex="-1"></a><span class="fu">colnames</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span>)</span>
+<span id="cb37-3"><a href="prog-basics.html#cb37-3" tabindex="-1"></a><span class="fu">rownames</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"r1"</span>, <span class="st">"r2"</span>, <span class="st">"r3"</span>)</span>
+<span id="cb37-4"><a href="prog-basics.html#cb37-4" tabindex="-1"></a>m</span>
+<span id="cb37-5"><a href="prog-basics.html#cb37-5" tabindex="-1"></a>   c1 c2 c3</span>
+<span id="cb37-6"><a href="prog-basics.html#cb37-6" tabindex="-1"></a>r1  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span></span>
+<span id="cb37-7"><a href="prog-basics.html#cb37-7" tabindex="-1"></a>r2  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span></span>
+<span id="cb37-8"><a href="prog-basics.html#cb37-8" tabindex="-1"></a>r3  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span></span>
+<span id="cb37-9"><a href="prog-basics.html#cb37-9" tabindex="-1"></a>m[<span class="st">"r1"</span>,] <span class="co"># get row 1</span></span>
+<span id="cb37-10"><a href="prog-basics.html#cb37-10" tabindex="-1"></a>c1 c2 c3 </span>
+<span id="cb37-11"><a href="prog-basics.html#cb37-11" tabindex="-1"></a> <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span> </span>
+<span id="cb37-12"><a href="prog-basics.html#cb37-12" tabindex="-1"></a>m[, <span class="st">"c2"</span>] <span class="co"># get column 2</span></span>
+<span id="cb37-13"><a href="prog-basics.html#cb37-13" tabindex="-1"></a>r1 r2 r3 </span>
+<span id="cb37-14"><a href="prog-basics.html#cb37-14" tabindex="-1"></a> <span class="dv">2</span>  <span class="dv">5</span>  <span class="dv">8</span> </span></code></pre></div>
 </div>
 </div>
 <div id="logical-tests-and-comparators" class="section level2" number="4.6">
@@ -536,49 +798,49 @@ more concise and correct. See the Read More link on Subsetting below:</p>
 </h2>
 <p>As mentioned above, R recognizes logical values as a distinct type. R provides
 all the conventional infix logical operators:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="prog-basics.html#cb25-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">==</span> <span class="dv">1</span> <span class="co"># equality</span></span>
-<span id="cb25-2"><a href="prog-basics.html#cb25-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
-<span id="cb25-3"><a href="prog-basics.html#cb25-3" tabindex="-1"></a><span class="dv">1</span> <span class="sc">!=</span> <span class="dv">1</span> <span class="co"># inequality</span></span>
-<span id="cb25-4"><a href="prog-basics.html#cb25-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
-<span id="cb25-5"><a href="prog-basics.html#cb25-5" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&lt;</span> <span class="dv">2</span> <span class="co"># less than</span></span>
-<span id="cb25-6"><a href="prog-basics.html#cb25-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
-<span id="cb25-7"><a href="prog-basics.html#cb25-7" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">2</span> <span class="co"># greater than</span></span>
-<span id="cb25-8"><a href="prog-basics.html#cb25-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
-<span id="cb25-9"><a href="prog-basics.html#cb25-9" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&lt;=</span> <span class="dv">2</span> <span class="co"># less than or equal to</span></span>
-<span id="cb25-10"><a href="prog-basics.html#cb25-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
-<span id="cb25-11"><a href="prog-basics.html#cb25-11" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&gt;=</span> <span class="dv">2</span> <span class="co"># greater than or equal to</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="prog-basics.html#cb38-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">==</span> <span class="dv">1</span> <span class="co"># equality</span></span>
+<span id="cb38-2"><a href="prog-basics.html#cb38-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb38-3"><a href="prog-basics.html#cb38-3" tabindex="-1"></a><span class="dv">1</span> <span class="sc">!=</span> <span class="dv">1</span> <span class="co"># inequality</span></span>
+<span id="cb38-4"><a href="prog-basics.html#cb38-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
+<span id="cb38-5"><a href="prog-basics.html#cb38-5" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&lt;</span> <span class="dv">2</span> <span class="co"># less than</span></span>
+<span id="cb38-6"><a href="prog-basics.html#cb38-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb38-7"><a href="prog-basics.html#cb38-7" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">2</span> <span class="co"># greater than</span></span>
+<span id="cb38-8"><a href="prog-basics.html#cb38-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
+<span id="cb38-9"><a href="prog-basics.html#cb38-9" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&lt;=</span> <span class="dv">2</span> <span class="co"># less than or equal to</span></span>
+<span id="cb38-10"><a href="prog-basics.html#cb38-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb38-11"><a href="prog-basics.html#cb38-11" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&gt;=</span> <span class="dv">2</span> <span class="co"># greater than or equal to</span></span></code></pre></div>
 <p>These operators also work on vectors, albeit with the same caveats about vector
 length as noted earlier:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="prog-basics.html#cb26-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb26-2"><a href="prog-basics.html#cb26-2" tabindex="-1"></a>x <span class="sc">==</span> <span class="dv">2</span></span>
-<span id="cb26-3"><a href="prog-basics.html#cb26-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
-<span id="cb26-4"><a href="prog-basics.html#cb26-4" tabindex="-1"></a>x <span class="sc">&lt;</span> <span class="dv">1</span></span>
-<span id="cb26-5"><a href="prog-basics.html#cb26-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
-<span id="cb26-6"><a href="prog-basics.html#cb26-6" tabindex="-1"></a>x <span class="sc">&lt;</span> <span class="dv">3</span></span>
-<span id="cb26-7"><a href="prog-basics.html#cb26-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span> <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
-<span id="cb26-8"><a href="prog-basics.html#cb26-8" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span>
-<span id="cb26-9"><a href="prog-basics.html#cb26-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
-<span id="cb26-10"><a href="prog-basics.html#cb26-10" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">!=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span>
-<span id="cb26-11"><a href="prog-basics.html#cb26-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">TRUE</span></span>
-<span id="cb26-12"><a href="prog-basics.html#cb26-12" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb26-13"><a href="prog-basics.html#cb26-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span> <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
-<span id="cb26-14"><a href="prog-basics.html#cb26-14" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
-<span id="cb26-15"><a href="prog-basics.html#cb26-15" tabindex="-1"></a>In <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">:</span></span>
-<span id="cb26-16"><a href="prog-basics.html#cb26-16" tabindex="-1"></a>  longer object length is not a multiple of shorter object length</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="prog-basics.html#cb39-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb39-2"><a href="prog-basics.html#cb39-2" tabindex="-1"></a>x <span class="sc">==</span> <span class="dv">2</span></span>
+<span id="cb39-3"><a href="prog-basics.html#cb39-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
+<span id="cb39-4"><a href="prog-basics.html#cb39-4" tabindex="-1"></a>x <span class="sc">&lt;</span> <span class="dv">1</span></span>
+<span id="cb39-5"><a href="prog-basics.html#cb39-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb39-6"><a href="prog-basics.html#cb39-6" tabindex="-1"></a>x <span class="sc">&lt;</span> <span class="dv">3</span></span>
+<span id="cb39-7"><a href="prog-basics.html#cb39-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span> <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
+<span id="cb39-8"><a href="prog-basics.html#cb39-8" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span>
+<span id="cb39-9"><a href="prog-basics.html#cb39-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
+<span id="cb39-10"><a href="prog-basics.html#cb39-10" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">!=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span>
+<span id="cb39-11"><a href="prog-basics.html#cb39-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">TRUE</span></span>
+<span id="cb39-12"><a href="prog-basics.html#cb39-12" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb39-13"><a href="prog-basics.html#cb39-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span> <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
+<span id="cb39-14"><a href="prog-basics.html#cb39-14" tabindex="-1"></a>Warning message<span class="sc">:</span></span>
+<span id="cb39-15"><a href="prog-basics.html#cb39-15" tabindex="-1"></a>In <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">:</span></span>
+<span id="cb39-16"><a href="prog-basics.html#cb39-16" tabindex="-1"></a>  longer object length is not a multiple of shorter object length</span></code></pre></div>
 <p>R also provides many functions of the form <code>is.X</code> where <code>X</code> is some type or
 condition (recall that <code>.</code> is not a special character in R):</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="prog-basics.html#cb27-1" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="dv">1</span>) <span class="co"># is the argument numeric?</span></span>
-<span id="cb27-2"><a href="prog-basics.html#cb27-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
-<span id="cb27-3"><a href="prog-basics.html#cb27-3" tabindex="-1"></a><span class="fu">is.character</span>(<span class="dv">1</span>) <span class="co"># is the argument a string?</span></span>
-<span id="cb27-4"><a href="prog-basics.html#cb27-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
-<span id="cb27-5"><a href="prog-basics.html#cb27-5" tabindex="-1"></a><span class="fu">is.character</span>(<span class="st">"ABC"</span>)</span>
-<span id="cb27-6"><a href="prog-basics.html#cb27-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
-<span id="cb27-7"><a href="prog-basics.html#cb27-7" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="co"># recall a vector has exactly one type</span></span>
-<span id="cb27-8"><a href="prog-basics.html#cb27-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
-<span id="cb27-9"><a href="prog-basics.html#cb27-9" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="st">"3"</span>))</span>
-<span id="cb27-10"><a href="prog-basics.html#cb27-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
-<span id="cb27-11"><a href="prog-basics.html#cb27-11" tabindex="-1"></a><span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>))</span>
-<span id="cb27-12"><a href="prog-basics.html#cb27-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="prog-basics.html#cb40-1" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="dv">1</span>) <span class="co"># is the argument numeric?</span></span>
+<span id="cb40-2"><a href="prog-basics.html#cb40-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb40-3"><a href="prog-basics.html#cb40-3" tabindex="-1"></a><span class="fu">is.character</span>(<span class="dv">1</span>) <span class="co"># is the argument a string?</span></span>
+<span id="cb40-4"><a href="prog-basics.html#cb40-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
+<span id="cb40-5"><a href="prog-basics.html#cb40-5" tabindex="-1"></a><span class="fu">is.character</span>(<span class="st">"ABC"</span>)</span>
+<span id="cb40-6"><a href="prog-basics.html#cb40-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb40-7"><a href="prog-basics.html#cb40-7" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="co"># recall a vector has exactly one type</span></span>
+<span id="cb40-8"><a href="prog-basics.html#cb40-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb40-9"><a href="prog-basics.html#cb40-9" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="st">"3"</span>))</span>
+<span id="cb40-10"><a href="prog-basics.html#cb40-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
+<span id="cb40-11"><a href="prog-basics.html#cb40-11" tabindex="-1"></a><span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>))</span>
+<span id="cb40-12"><a href="prog-basics.html#cb40-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">TRUE</span></span></code></pre></div>
 <div class="box readmore">
 <p><a href="https://www.statmethods.net/management/operators.html">Quick-R - Operators</a></p>
 </div>
@@ -620,7 +882,7 @@ useful if it didn’t accept a value! The terminology used in R and many other
 programming languages for this is the function must <em>accept</em> or allow you to
 <em>pass it arguments.</em> In R, functions accept arguments using the following
 *pattern:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># a basic function signature</span></span>
 <span><span class="fu">function_name</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span> <span class="co"># function accepts 2 arguments</span></span></code></pre></div>
 <p>Here, <code>arg1</code> and <code>arg2</code> are <em>arguments</em> or <em>actual arguments</em>, indicating
@@ -637,8 +899,8 @@ order.</p>
 <p>For most functions, some arguments are <em>required</em>. This means that the function
 will not execute without two arguments provided and will raise an error
 if you try otherwise:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="prog-basics.html#cb29-1" tabindex="-1"></a><span class="fu">mean</span>() <span class="co"># compute the arithmetic mean, but of what?</span></span>
-<span id="cb29-2"><a href="prog-basics.html#cb29-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean.default</span>() <span class="sc">:</span> argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="prog-basics.html#cb42-1" tabindex="-1"></a><span class="fu">mean</span>() <span class="co"># compute the arithmetic mean, but of what?</span></span>
+<span id="cb42-2"><a href="prog-basics.html#cb42-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean.default</span>() <span class="sc">:</span> argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
 <p>How do you know what arguments a function requires? All functions provided by
 base R and many other packages include detailed documentation that can be
 accessed directly through RStudio using either the <code>?</code> or <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code>:</p>
@@ -673,12 +935,12 @@ remove <code>NA</code> values from <code>x</code> before computing the mean.</li
 <p>All function arguments can be specified by name, regardless of whether there is
 a default value or not. For instance, the following two <code>mean</code> calls are
 equivalent:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="prog-basics.html#cb30-1" tabindex="-1"></a><span class="co"># this generates 100 normally distributed samples with mean 0 and standard deviation 1</span></span>
-<span id="cb30-2"><a href="prog-basics.html#cb30-2" tabindex="-1"></a>my_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">1</span>)</span>
-<span id="cb30-3"><a href="prog-basics.html#cb30-3" tabindex="-1"></a><span class="fu">mean</span>(my_vals)</span>
-<span id="cb30-4"><a href="prog-basics.html#cb30-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.05826857</span></span>
-<span id="cb30-5"><a href="prog-basics.html#cb30-5" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x=</span>my_vals)</span>
-<span id="cb30-6"><a href="prog-basics.html#cb30-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.05826857</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="prog-basics.html#cb43-1" tabindex="-1"></a><span class="co"># this generates 100 normally distributed samples with mean 0 and standard deviation 1</span></span>
+<span id="cb43-2"><a href="prog-basics.html#cb43-2" tabindex="-1"></a>my_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb43-3"><a href="prog-basics.html#cb43-3" tabindex="-1"></a><span class="fu">mean</span>(my_vals)</span>
+<span id="cb43-4"><a href="prog-basics.html#cb43-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.05826857</span></span>
+<span id="cb43-5"><a href="prog-basics.html#cb43-5" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x=</span>my_vals)</span>
+<span id="cb43-6"><a href="prog-basics.html#cb43-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.05826857</span></span></code></pre></div>
 <p>To borrow from <a href="https://www.python.org/dev/peps/pep-0020/#id2">the Zen of
 Python</a>, “Explicit is better than
 implicit.” Being explicit about which variables are being passed as which
@@ -689,15 +951,15 @@ what you intend.</p>
 <p><strong>The <code>...</code> argument catchall can be very dangerous.</strong> It allows you to provide
 arguments to a function that have no meaning, and R will not raise an error.
 Consider the following call to <code>mean</code>:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="prog-basics.html#cb31-1" tabindex="-1"></a><span class="co"># this generates 100 normally distributed samples with mean 0 and standard deviation 1</span></span>
-<span id="cb31-2"><a href="prog-basics.html#cb31-2" tabindex="-1"></a>my_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">1</span>)</span>
-<span id="cb31-3"><a href="prog-basics.html#cb31-3" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x=</span>my_vals,<span class="at">tirm=</span><span class="fl">0.1</span>)</span>
-<span id="cb31-4"><a href="prog-basics.html#cb31-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.05826857</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="prog-basics.html#cb44-1" tabindex="-1"></a><span class="co"># this generates 100 normally distributed samples with mean 0 and standard deviation 1</span></span>
+<span id="cb44-2"><a href="prog-basics.html#cb44-2" tabindex="-1"></a>my_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb44-3"><a href="prog-basics.html#cb44-3" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x=</span>my_vals,<span class="at">tirm=</span><span class="fl">0.1</span>)</span>
+<span id="cb44-4"><a href="prog-basics.html#cb44-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.05826857</span></span></code></pre></div>
 <p>Did you spot the mistake? The <code>trim</code> argument name has been misspelled as
 <code>tirm</code>, but R did not report an error. Compare the value of mean without the
 typo:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="prog-basics.html#cb32-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x=</span>my_vals,<span class="at">trim=</span><span class="fl">0.1</span>)</span>
-<span id="cb32-2"><a href="prog-basics.html#cb32-2" tabindex="-1"></a>[<span class="dv">1</span>]<span class="sc">-</span><span class="fl">0.02139839</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="prog-basics.html#cb45-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x=</span>my_vals,<span class="at">trim=</span><span class="fl">0.1</span>)</span>
+<span id="cb45-2"><a href="prog-basics.html#cb45-2" tabindex="-1"></a>[<span class="dv">1</span>]<span class="sc">-</span><span class="fl">0.02139839</span></span></code></pre></div>
 <p>The value we get is different, because R recognizes <code>trim</code> but not <code>tirm</code> and
 changes its behavior accordingly. Not all functions have the <code>...</code> catchall in
 their signatures, but many do and so you must be diligent when supplying
@@ -720,23 +982,23 @@ the same operation on different data. For example, one common data
 transformation is <em>standardization</em> or <em>normalization</em> which entails taking a
 series of numbers, subtracting the mean of all the numbers from them, and
 dividing each by the standard deviation of the numbers:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="prog-basics.html#cb33-1" tabindex="-1"></a><span class="co"># 100 normally distributed samples with mean 20 and standard deviation 10</span></span>
-<span id="cb33-2"><a href="prog-basics.html#cb33-2" tabindex="-1"></a>my_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb33-3"><a href="prog-basics.html#cb33-3" tabindex="-1"></a>my_vals_norm <span class="ot">&lt;-</span> (my_vals <span class="sc">-</span> <span class="fu">mean</span>(my_vals))<span class="sc">/</span><span class="fu">sd</span>(my_vals)</span>
-<span id="cb33-4"><a href="prog-basics.html#cb33-4" tabindex="-1"></a><span class="fu">mean</span>(my_vals_norm)</span>
-<span id="cb33-5"><a href="prog-basics.html#cb33-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
-<span id="cb33-6"><a href="prog-basics.html#cb33-6" tabindex="-1"></a><span class="fu">sd</span>(my_vals_norm)</span>
-<span id="cb33-7"><a href="prog-basics.html#cb33-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="prog-basics.html#cb46-1" tabindex="-1"></a><span class="co"># 100 normally distributed samples with mean 20 and standard deviation 10</span></span>
+<span id="cb46-2"><a href="prog-basics.html#cb46-2" tabindex="-1"></a>my_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb46-3"><a href="prog-basics.html#cb46-3" tabindex="-1"></a>my_vals_norm <span class="ot">&lt;-</span> (my_vals <span class="sc">-</span> <span class="fu">mean</span>(my_vals))<span class="sc">/</span><span class="fu">sd</span>(my_vals)</span>
+<span id="cb46-4"><a href="prog-basics.html#cb46-4" tabindex="-1"></a><span class="fu">mean</span>(my_vals_norm)</span>
+<span id="cb46-5"><a href="prog-basics.html#cb46-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb46-6"><a href="prog-basics.html#cb46-6" tabindex="-1"></a><span class="fu">sd</span>(my_vals_norm)</span>
+<span id="cb46-7"><a href="prog-basics.html#cb46-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
 <p>Later in your code, you may need to standardize a different set of values, so
 you decide to copy and paste your code from above and replace the variable name
 to reflect the new data:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="prog-basics.html#cb34-1" tabindex="-1"></a><span class="co"># new samples with mean 40 and standard deviation 5</span></span>
-<span id="cb34-2"><a href="prog-basics.html#cb34-2" tabindex="-1"></a>my_other_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">40</span>,<span class="at">sd=</span><span class="dv">5</span>)</span>
-<span id="cb34-3"><a href="prog-basics.html#cb34-3" tabindex="-1"></a>my_other_vals_norm <span class="ot">&lt;-</span> (my_other_vals <span class="sc">-</span> <span class="fu">mean</span>(my_other_vals))<span class="sc">/</span><span class="fu">sd</span>(my_vals)</span>
-<span id="cb34-4"><a href="prog-basics.html#cb34-4" tabindex="-1"></a><span class="fu">mean</span>(my_other_vals_norm)</span>
-<span id="cb34-5"><a href="prog-basics.html#cb34-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
-<span id="cb34-6"><a href="prog-basics.html#cb34-6" tabindex="-1"></a><span class="fu">sd</span>(my_other_vals_norm) <span class="co"># this should be 1!</span></span>
-<span id="cb34-7"><a href="prog-basics.html#cb34-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.52351</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="prog-basics.html#cb47-1" tabindex="-1"></a><span class="co"># new samples with mean 40 and standard deviation 5</span></span>
+<span id="cb47-2"><a href="prog-basics.html#cb47-2" tabindex="-1"></a>my_other_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">40</span>,<span class="at">sd=</span><span class="dv">5</span>)</span>
+<span id="cb47-3"><a href="prog-basics.html#cb47-3" tabindex="-1"></a>my_other_vals_norm <span class="ot">&lt;-</span> (my_other_vals <span class="sc">-</span> <span class="fu">mean</span>(my_other_vals))<span class="sc">/</span><span class="fu">sd</span>(my_vals)</span>
+<span id="cb47-4"><a href="prog-basics.html#cb47-4" tabindex="-1"></a><span class="fu">mean</span>(my_other_vals_norm)</span>
+<span id="cb47-5"><a href="prog-basics.html#cb47-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb47-6"><a href="prog-basics.html#cb47-6" tabindex="-1"></a><span class="fu">sd</span>(my_other_vals_norm) <span class="co"># this should be 1!</span></span>
+<span id="cb47-7"><a href="prog-basics.html#cb47-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.52351</span></span></code></pre></div>
 <p>Notice the mistake? We forgot to change the variable name <code>my_vals</code> to
 <code>my_other_vals</code> in our pasted code, which produced an incorrect result. Good
 thing we checked!</p>
@@ -757,7 +1019,7 @@ opportunity to write your own function and avoid repeating yourself!</p>
 <span class="header-section-number">4.7.2</span> Writing your own functions<a class="anchor" aria-label="anchor" href="#writing-your-own-functions"><i class="fas fa-link"></i></a>
 </h3>
 <p>R allows you to define your own function using the following syntax:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># code that does something with arg1, arg2, etc</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">some_result</span><span class="op">)</span></span>
@@ -767,24 +1029,24 @@ their names, and the code within the function, which is also called the function
 <em>body</em>. Taking the example above, I would define a function named <code>standardize</code>
 <em>that accepts a vector of numbers, subtracts the mean from all the values, and
 </em>divides them by the standard deviation:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="prog-basics.html#cb36-1" tabindex="-1"></a>standardize <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb36-2"><a href="prog-basics.html#cb36-2" tabindex="-1"></a>  res <span class="ot">&lt;-</span> (x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
-<span id="cb36-3"><a href="prog-basics.html#cb36-3" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
-<span id="cb36-4"><a href="prog-basics.html#cb36-4" tabindex="-1"></a>}</span>
-<span id="cb36-5"><a href="prog-basics.html#cb36-5" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="prog-basics.html#cb36-6" tabindex="-1"></a>my_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb36-7"><a href="prog-basics.html#cb36-7" tabindex="-1"></a>my_vals_std <span class="ot">&lt;-</span> <span class="fu">standardize</span>(my_vals)</span>
-<span id="cb36-8"><a href="prog-basics.html#cb36-8" tabindex="-1"></a><span class="fu">mean</span>(my_vals_std)</span>
-<span id="cb36-9"><a href="prog-basics.html#cb36-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
-<span id="cb36-10"><a href="prog-basics.html#cb36-10" tabindex="-1"></a><span class="fu">sd</span>(my_vals_std)</span>
-<span id="cb36-11"><a href="prog-basics.html#cb36-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb36-12"><a href="prog-basics.html#cb36-12" tabindex="-1"></a></span>
-<span id="cb36-13"><a href="prog-basics.html#cb36-13" tabindex="-1"></a>my_other_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">40</span>,<span class="at">sd=</span><span class="dv">5</span>)</span>
-<span id="cb36-14"><a href="prog-basics.html#cb36-14" tabindex="-1"></a>my_other_vals_std <span class="ot">&lt;-</span> <span class="fu">standardize</span>(my_other_vals)</span>
-<span id="cb36-15"><a href="prog-basics.html#cb36-15" tabindex="-1"></a><span class="fu">mean</span>(my_other_vals_std)</span>
-<span id="cb36-16"><a href="prog-basics.html#cb36-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
-<span id="cb36-17"><a href="prog-basics.html#cb36-17" tabindex="-1"></a><span class="fu">sd</span>(my_other_vals_std)</span>
-<span id="cb36-18"><a href="prog-basics.html#cb36-18" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="prog-basics.html#cb49-1" tabindex="-1"></a>standardize <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb49-2"><a href="prog-basics.html#cb49-2" tabindex="-1"></a>  res <span class="ot">&lt;-</span> (x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
+<span id="cb49-3"><a href="prog-basics.html#cb49-3" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb49-4"><a href="prog-basics.html#cb49-4" tabindex="-1"></a>}</span>
+<span id="cb49-5"><a href="prog-basics.html#cb49-5" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="prog-basics.html#cb49-6" tabindex="-1"></a>my_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb49-7"><a href="prog-basics.html#cb49-7" tabindex="-1"></a>my_vals_std <span class="ot">&lt;-</span> <span class="fu">standardize</span>(my_vals)</span>
+<span id="cb49-8"><a href="prog-basics.html#cb49-8" tabindex="-1"></a><span class="fu">mean</span>(my_vals_std)</span>
+<span id="cb49-9"><a href="prog-basics.html#cb49-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb49-10"><a href="prog-basics.html#cb49-10" tabindex="-1"></a><span class="fu">sd</span>(my_vals_std)</span>
+<span id="cb49-11"><a href="prog-basics.html#cb49-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb49-12"><a href="prog-basics.html#cb49-12" tabindex="-1"></a></span>
+<span id="cb49-13"><a href="prog-basics.html#cb49-13" tabindex="-1"></a>my_other_vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">40</span>,<span class="at">sd=</span><span class="dv">5</span>)</span>
+<span id="cb49-14"><a href="prog-basics.html#cb49-14" tabindex="-1"></a>my_other_vals_std <span class="ot">&lt;-</span> <span class="fu">standardize</span>(my_other_vals)</span>
+<span id="cb49-15"><a href="prog-basics.html#cb49-15" tabindex="-1"></a><span class="fu">mean</span>(my_other_vals_std)</span>
+<span id="cb49-16"><a href="prog-basics.html#cb49-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb49-17"><a href="prog-basics.html#cb49-17" tabindex="-1"></a><span class="fu">sd</span>(my_other_vals_std)</span>
+<span id="cb49-18"><a href="prog-basics.html#cb49-18" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
 <p>Notice above we are assigning the value of the <code>standardize</code> function to new
 variables. In R and other languages, the result of a function is <em>returned</em> when
 the function is called; the value returned is called the <em>return value</em>. The
@@ -808,17 +1070,17 @@ where in the rest of your code the variable can be accessed. In R, variables
 defined outside of a function have <em>universal</em> or <em>top level scope</em>, i.e. they
 can be accessed from anywhere in your script. However, variables defined
 <em>inside</em> functions can only be accessed from within that function. For example:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="prog-basics.html#cb37-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb37-2"><a href="prog-basics.html#cb37-2" tabindex="-1"></a>multiply_x_by_two <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb37-3"><a href="prog-basics.html#cb37-3" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">*</span><span class="dv">2</span> <span class="co"># x is not defined as a parameter to the function, but is defined outside the function</span></span>
-<span id="cb37-4"><a href="prog-basics.html#cb37-4" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
-<span id="cb37-5"><a href="prog-basics.html#cb37-5" tabindex="-1"></a>}</span>
-<span id="cb37-6"><a href="prog-basics.html#cb37-6" tabindex="-1"></a>x</span>
-<span id="cb37-7"><a href="prog-basics.html#cb37-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb37-8"><a href="prog-basics.html#cb37-8" tabindex="-1"></a><span class="fu">multiply_x_by_two</span>()</span>
-<span id="cb37-9"><a href="prog-basics.html#cb37-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">6</span></span>
-<span id="cb37-10"><a href="prog-basics.html#cb37-10" tabindex="-1"></a>y</span>
-<span id="cb37-11"><a href="prog-basics.html#cb37-11" tabindex="-1"></a>Error<span class="sc">:</span> object <span class="st">'y'</span> not found</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="prog-basics.html#cb50-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb50-2"><a href="prog-basics.html#cb50-2" tabindex="-1"></a>multiply_x_by_two <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb50-3"><a href="prog-basics.html#cb50-3" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">*</span><span class="dv">2</span> <span class="co"># x is not defined as a parameter to the function, but is defined outside the function</span></span>
+<span id="cb50-4"><a href="prog-basics.html#cb50-4" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb50-5"><a href="prog-basics.html#cb50-5" tabindex="-1"></a>}</span>
+<span id="cb50-6"><a href="prog-basics.html#cb50-6" tabindex="-1"></a>x</span>
+<span id="cb50-7"><a href="prog-basics.html#cb50-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb50-8"><a href="prog-basics.html#cb50-8" tabindex="-1"></a><span class="fu">multiply_x_by_two</span>()</span>
+<span id="cb50-9"><a href="prog-basics.html#cb50-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">6</span></span>
+<span id="cb50-10"><a href="prog-basics.html#cb50-10" tabindex="-1"></a>y</span>
+<span id="cb50-11"><a href="prog-basics.html#cb50-11" tabindex="-1"></a>Error<span class="sc">:</span> object <span class="st">'y'</span> not found</span></code></pre></div>
 <p>Notice that the variable <code>x</code> is accessible within the function
 <code>multiply_x_by_two</code>, but the variable <code>y</code> is <em>not</em> accessible outside that
 function. The reason that <code>x</code> is accessible within the function is that
@@ -830,17 +1092,17 @@ the function.</p>
 bad practice!</strong> Functions should be as self contained as possible, and any
 values they need should be passed as parameters. A better way to write the
 function above would be as follows:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="prog-basics.html#cb38-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb38-2"><a href="prog-basics.html#cb38-2" tabindex="-1"></a>multiply_by_two <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb38-3"><a href="prog-basics.html#cb38-3" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">*</span><span class="dv">2</span> <span class="co"># x here is defined as whatever is passed to the function!</span></span>
-<span id="cb38-4"><a href="prog-basics.html#cb38-4" tabindex="-1"></a>  y</span>
-<span id="cb38-5"><a href="prog-basics.html#cb38-5" tabindex="-1"></a>}</span>
-<span id="cb38-6"><a href="prog-basics.html#cb38-6" tabindex="-1"></a>x</span>
-<span id="cb38-7"><a href="prog-basics.html#cb38-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb38-8"><a href="prog-basics.html#cb38-8" tabindex="-1"></a><span class="fu">multiply_by_two</span>(<span class="dv">6</span>)</span>
-<span id="cb38-9"><a href="prog-basics.html#cb38-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">12</span></span>
-<span id="cb38-10"><a href="prog-basics.html#cb38-10" tabindex="-1"></a>x <span class="co"># the value of x in the outer scope remains the same, because the function scope does not modify it</span></span>
-<span id="cb38-11"><a href="prog-basics.html#cb38-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="prog-basics.html#cb51-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb51-2"><a href="prog-basics.html#cb51-2" tabindex="-1"></a>multiply_by_two <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb51-3"><a href="prog-basics.html#cb51-3" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">*</span><span class="dv">2</span> <span class="co"># x here is defined as whatever is passed to the function!</span></span>
+<span id="cb51-4"><a href="prog-basics.html#cb51-4" tabindex="-1"></a>  y</span>
+<span id="cb51-5"><a href="prog-basics.html#cb51-5" tabindex="-1"></a>}</span>
+<span id="cb51-6"><a href="prog-basics.html#cb51-6" tabindex="-1"></a>x</span>
+<span id="cb51-7"><a href="prog-basics.html#cb51-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb51-8"><a href="prog-basics.html#cb51-8" tabindex="-1"></a><span class="fu">multiply_by_two</span>(<span class="dv">6</span>)</span>
+<span id="cb51-9"><a href="prog-basics.html#cb51-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">12</span></span>
+<span id="cb51-10"><a href="prog-basics.html#cb51-10" tabindex="-1"></a>x <span class="co"># the value of x in the outer scope remains the same, because the function scope does not modify it</span></span>
+<span id="cb51-11"><a href="prog-basics.html#cb51-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
 <p>Every variable and function you define is subject to the same scope rules above.
 Scope is a critical concept to understand when programming, and grasping how it
 works will make your code more predictable and less error prone.</p>
@@ -879,33 +1141,33 @@ don’t say I didn’t warn you when your code slows to a crawl for unknown reas
 fancy, but it just means R intrinsically knows how to perform many operations on
 vectors and matrices as well as individual values. We have already seen examples
 of this above when performing arithmetic operations on vectors:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="prog-basics.html#cb39-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
-<span id="cb39-2"><a href="prog-basics.html#cb39-2" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">3</span> <span class="co"># add 3 to every element of vector x</span></span>
-<span id="cb39-3"><a href="prog-basics.html#cb39-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span></span>
-<span id="cb39-4"><a href="prog-basics.html#cb39-4" tabindex="-1"></a>x <span class="sc">*</span> x <span class="co"># elementwise multiplication, 1*1 2*2 etc</span></span>
-<span id="cb39-5"><a href="prog-basics.html#cb39-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">16</span> <span class="dv">25</span></span>
-<span id="cb39-6"><a href="prog-basics.html#cb39-6" tabindex="-1"></a>x_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">3</span>)</span>
-<span id="cb39-7"><a href="prog-basics.html#cb39-7" tabindex="-1"></a>x_mat <span class="sc">+</span> <span class="dv">3</span> <span class="co"># add 3 to every element of matrix x_mat</span></span>
-<span id="cb39-8"><a href="prog-basics.html#cb39-8" tabindex="-1"></a>[,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
-<span id="cb39-9"><a href="prog-basics.html#cb39-9" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span></span>
-<span id="cb39-10"><a href="prog-basics.html#cb39-10" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">5</span>    <span class="dv">7</span>    <span class="dv">9</span></span>
-<span id="cb39-11"><a href="prog-basics.html#cb39-11" tabindex="-1"></a><span class="co"># the * operator always means element-wise</span></span>
-<span id="cb39-12"><a href="prog-basics.html#cb39-12" tabindex="-1"></a>x_mat <span class="sc">*</span> x_mat</span>
-<span id="cb39-13"><a href="prog-basics.html#cb39-13" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
-<span id="cb39-14"><a href="prog-basics.html#cb39-14" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">9</span>   <span class="dv">25</span></span>
-<span id="cb39-15"><a href="prog-basics.html#cb39-15" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">4</span>   <span class="dv">16</span>   <span class="dv">36</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="prog-basics.html#cb52-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb52-2"><a href="prog-basics.html#cb52-2" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">3</span> <span class="co"># add 3 to every element of vector x</span></span>
+<span id="cb52-3"><a href="prog-basics.html#cb52-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span></span>
+<span id="cb52-4"><a href="prog-basics.html#cb52-4" tabindex="-1"></a>x <span class="sc">*</span> x <span class="co"># elementwise multiplication, 1*1 2*2 etc</span></span>
+<span id="cb52-5"><a href="prog-basics.html#cb52-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">16</span> <span class="dv">25</span></span>
+<span id="cb52-6"><a href="prog-basics.html#cb52-6" tabindex="-1"></a>x_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb52-7"><a href="prog-basics.html#cb52-7" tabindex="-1"></a>x_mat <span class="sc">+</span> <span class="dv">3</span> <span class="co"># add 3 to every element of matrix x_mat</span></span>
+<span id="cb52-8"><a href="prog-basics.html#cb52-8" tabindex="-1"></a>[,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb52-9"><a href="prog-basics.html#cb52-9" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span></span>
+<span id="cb52-10"><a href="prog-basics.html#cb52-10" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">5</span>    <span class="dv">7</span>    <span class="dv">9</span></span>
+<span id="cb52-11"><a href="prog-basics.html#cb52-11" tabindex="-1"></a><span class="co"># the * operator always means element-wise</span></span>
+<span id="cb52-12"><a href="prog-basics.html#cb52-12" tabindex="-1"></a>x_mat <span class="sc">*</span> x_mat</span>
+<span id="cb52-13"><a href="prog-basics.html#cb52-13" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb52-14"><a href="prog-basics.html#cb52-14" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">9</span>   <span class="dv">25</span></span>
+<span id="cb52-15"><a href="prog-basics.html#cb52-15" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">4</span>   <span class="dv">16</span>   <span class="dv">36</span></span></code></pre></div>
 <p>In addition to simple arithmetic operations, R also has syntax for
 vector-vector, matrix-vector, and matrix-matrix operations, like matrix
 multiplication and dot products:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="prog-basics.html#cb40-1" tabindex="-1"></a><span class="co"># the %*% operator stands for matrix multiplication</span></span>
-<span id="cb40-2"><a href="prog-basics.html#cb40-2" tabindex="-1"></a>x_mat <span class="sc">%*%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="co"># [ 2x3 ] * [ 3 ]</span></span>
-<span id="cb40-3"><a href="prog-basics.html#cb40-3" tabindex="-1"></a>     [,<span class="dv">1</span>]</span>
-<span id="cb40-4"><a href="prog-basics.html#cb40-4" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">22</span></span>
-<span id="cb40-5"><a href="prog-basics.html#cb40-5" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">28</span></span>
-<span id="cb40-6"><a href="prog-basics.html#cb40-6" tabindex="-1"></a>x_mat <span class="sc">%*%</span> <span class="fu">t</span>(x_mat) <span class="co"># recall t() is the transpose function, making [ 2x3 ] * [ 3x2 ]</span></span>
-<span id="cb40-7"><a href="prog-basics.html#cb40-7" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
-<span id="cb40-8"><a href="prog-basics.html#cb40-8" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">35</span>   <span class="dv">44</span></span>
-<span id="cb40-9"><a href="prog-basics.html#cb40-9" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">44</span>   <span class="dv">56</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="prog-basics.html#cb53-1" tabindex="-1"></a><span class="co"># the %*% operator stands for matrix multiplication</span></span>
+<span id="cb53-2"><a href="prog-basics.html#cb53-2" tabindex="-1"></a>x_mat <span class="sc">%*%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="co"># [ 2x3 ] * [ 3 ]</span></span>
+<span id="cb53-3"><a href="prog-basics.html#cb53-3" tabindex="-1"></a>     [,<span class="dv">1</span>]</span>
+<span id="cb53-4"><a href="prog-basics.html#cb53-4" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">22</span></span>
+<span id="cb53-5"><a href="prog-basics.html#cb53-5" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">28</span></span>
+<span id="cb53-6"><a href="prog-basics.html#cb53-6" tabindex="-1"></a>x_mat <span class="sc">%*%</span> <span class="fu">t</span>(x_mat) <span class="co"># recall t() is the transpose function, making [ 2x3 ] * [ 3x2 ]</span></span>
+<span id="cb53-7"><a href="prog-basics.html#cb53-7" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb53-8"><a href="prog-basics.html#cb53-8" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">35</span>   <span class="dv">44</span></span>
+<span id="cb53-9"><a href="prog-basics.html#cb53-9" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">44</span>   <span class="dv">56</span></span></code></pre></div>
 <p>These forms of implicit iteration are very powerful, and the R program has been
 highly optimized to perform these operations very quickly. If you can cast your
 iteration into a vector or matrix multiplication, it is a good idea to do so.
@@ -933,7 +1195,7 @@ factor <span class="math inline">\(s(\mathbf{x})\)</span> to control the range o
 dependent upon the values of <span class="math inline">\(\mathbf{x}\)</span>. If <span class="math inline">\(t_r\)</span> is arithmetic mean and <span class="math inline">\(s\)</span> is
 standard deviation, we have defined the standardization transformation mentioned
 in earlier examples:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, mean<span class="op">=</span><span class="fl">20</span>, sd<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">x_zscore</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <p>However, there are many different ways to define the central value of a set of
@@ -958,7 +1220,7 @@ there are many possible scaling strategies we might consider:</p>
 for each combination when trying out different transformation techniques.</p>
 <p>In R and other functional languages, we can easily accomplish this by <em>passing
 functions as arguments to other functions</em>. Consider the following R function:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># note R already has a built in function named "transform"</span></span>
 <span><span class="va">my_transform</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">t_r</span>, <span class="va">s</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu">t_r</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
@@ -967,36 +1229,36 @@ functions as arguments to other functions</em>. Consider the following R functio
 the arguments <code>t_r</code> and <code>s</code> are passed as arguments. If we wished to transform
 using a <a href="https://en.wikipedia.org/wiki/Standard_score">Z-score normalization</a>,
 we could call <code>my_transform</code> as follows:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="prog-basics.html#cb43-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb43-2"><a href="prog-basics.html#cb43-2" tabindex="-1"></a>x_zscore <span class="ot">&lt;-</span> <span class="fu">my_transform</span>(x, mean, sd)</span>
-<span id="cb43-3"><a href="prog-basics.html#cb43-3" tabindex="-1"></a><span class="fu">mean</span>(x_zscore)</span>
-<span id="cb43-4"><a href="prog-basics.html#cb43-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
-<span id="cb43-5"><a href="prog-basics.html#cb43-5" tabindex="-1"></a><span class="fu">sd</span>(x_zscore)</span>
-<span id="cb43-6"><a href="prog-basics.html#cb43-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="prog-basics.html#cb56-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb56-2"><a href="prog-basics.html#cb56-2" tabindex="-1"></a>x_zscore <span class="ot">&lt;-</span> <span class="fu">my_transform</span>(x, mean, sd)</span>
+<span id="cb56-3"><a href="prog-basics.html#cb56-3" tabindex="-1"></a><span class="fu">mean</span>(x_zscore)</span>
+<span id="cb56-4"><a href="prog-basics.html#cb56-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb56-5"><a href="prog-basics.html#cb56-5" tabindex="-1"></a><span class="fu">sd</span>(x_zscore)</span>
+<span id="cb56-6"><a href="prog-basics.html#cb56-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
 <p>In the <code>my_transform</code> function call, the second and third arguments are the
 names of the <code>mean</code> and <code>sd</code> functions, respectively. In the definition of
 <code>my_transform</code> we use the syntax <code>t_r(x)</code> and <code>s(x)</code> to indicate that these
 arguments should be treated as functions. Using this strategy, we could just as
 easily define a transformation using <code>median</code> and <code>sum</code> for <code>t_r</code> and <code>s</code> if we
 wished to:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="prog-basics.html#cb44-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb44-2"><a href="prog-basics.html#cb44-2" tabindex="-1"></a>x_transform <span class="ot">&lt;-</span> <span class="fu">my_transform</span>(x, median, sum)</span>
-<span id="cb44-3"><a href="prog-basics.html#cb44-3" tabindex="-1"></a><span class="fu">median</span>(x_transform)</span>
-<span id="cb44-4"><a href="prog-basics.html#cb44-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
-<span id="cb44-5"><a href="prog-basics.html#cb44-5" tabindex="-1"></a><span class="fu">sum</span>(x_transform) <span class="co"># this quantity does not have an a priori known value (or meaning for that matter, it's just an example)</span></span>
-<span id="cb44-6"><a href="prog-basics.html#cb44-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.013</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="prog-basics.html#cb57-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb57-2"><a href="prog-basics.html#cb57-2" tabindex="-1"></a>x_transform <span class="ot">&lt;-</span> <span class="fu">my_transform</span>(x, median, sum)</span>
+<span id="cb57-3"><a href="prog-basics.html#cb57-3" tabindex="-1"></a><span class="fu">median</span>(x_transform)</span>
+<span id="cb57-4"><a href="prog-basics.html#cb57-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb57-5"><a href="prog-basics.html#cb57-5" tabindex="-1"></a><span class="fu">sum</span>(x_transform) <span class="co"># this quantity does not have an a priori known value (or meaning for that matter, it's just an example)</span></span>
+<span id="cb57-6"><a href="prog-basics.html#cb57-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.013</span></span></code></pre></div>
 <p>We can also write our own functions and pass them to get the <code>my_transform</code>
 function to have desired behavior. The following scales the values of <code>x</code> to
 have a range of <span class="math inline">\([0,1]\)</span>:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="prog-basics.html#cb45-1" tabindex="-1"></a>data_range <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb45-2"><a href="prog-basics.html#cb45-2" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x))</span>
-<span id="cb45-3"><a href="prog-basics.html#cb45-3" tabindex="-1"></a>}</span>
-<span id="cb45-4"><a href="prog-basics.html#cb45-4" tabindex="-1"></a><span class="co"># my_transform computes: (x - min(x))/(max(x) - min(x))</span></span>
-<span id="cb45-5"><a href="prog-basics.html#cb45-5" tabindex="-1"></a>x_rescaled <span class="ot">&lt;-</span> <span class="fu">my_transform</span>(x, min, data_range)</span>
-<span id="cb45-6"><a href="prog-basics.html#cb45-6" tabindex="-1"></a><span class="fu">min</span>(x_rescaled)</span>
-<span id="cb45-7"><a href="prog-basics.html#cb45-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
-<span id="cb45-8"><a href="prog-basics.html#cb45-8" tabindex="-1"></a><span class="fu">max</span>(x_rescaled)</span>
-<span id="cb45-9"><a href="prog-basics.html#cb45-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="prog-basics.html#cb58-1" tabindex="-1"></a>data_range <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb58-2"><a href="prog-basics.html#cb58-2" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x))</span>
+<span id="cb58-3"><a href="prog-basics.html#cb58-3" tabindex="-1"></a>}</span>
+<span id="cb58-4"><a href="prog-basics.html#cb58-4" tabindex="-1"></a><span class="co"># my_transform computes: (x - min(x))/(max(x) - min(x))</span></span>
+<span id="cb58-5"><a href="prog-basics.html#cb58-5" tabindex="-1"></a>x_rescaled <span class="ot">&lt;-</span> <span class="fu">my_transform</span>(x, min, data_range)</span>
+<span id="cb58-6"><a href="prog-basics.html#cb58-6" tabindex="-1"></a><span class="fu">min</span>(x_rescaled)</span>
+<span id="cb58-7"><a href="prog-basics.html#cb58-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb58-8"><a href="prog-basics.html#cb58-8" tabindex="-1"></a><span class="fu">max</span>(x_rescaled)</span>
+<span id="cb58-9"><a href="prog-basics.html#cb58-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
 <p>The <code>data_range</code> function simply subtracts the minimum value of <code>x</code> from the
 maximum value and returns the result.</p>
 <p>This feature of passing functions as arguments to other functions is a
@@ -1029,7 +1291,7 @@ result. This is a form of iteration that can be implemented in a functional
 style using the <code>apply</code> function.</p>
 <p>This is the signature of the <code>apply</code> function, from the RStudio <code><a href="https://rdrr.io/r/base/apply.html">help(apply)</a></code>
 page:</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">MARGIN</span>, <span class="va">FUN</span>, <span class="va">...</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Here, <code>X</code> is a matrix (i.e. a rectangle of numbers) that we wish to perform a
 computation on for either each row or each column. <code>MARGIN</code> indicates whether
@@ -1038,42 +1300,42 @@ the matrix should be traversed by rows (<code>MARGIN=1</code>) or columns (<code
 vector or a scalar value that we wish to execute on either the rows or columns.
 <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> then executes <code>FUN</code> on each row or column of <code>X</code> and returns the
 result. For example:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="prog-basics.html#cb47-1" tabindex="-1"></a>zscore <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb47-2"><a href="prog-basics.html#cb47-2" tabindex="-1"></a>  <span class="fu">return</span>((x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x))</span>
-<span id="cb47-3"><a href="prog-basics.html#cb47-3" tabindex="-1"></a>}</span>
-<span id="cb47-4"><a href="prog-basics.html#cb47-4" tabindex="-1"></a><span class="co"># construct a matrix of 50 rows by 100 columns with samples drawn from a normal distribution</span></span>
-<span id="cb47-5"><a href="prog-basics.html#cb47-5" tabindex="-1"></a>x_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb47-6"><a href="prog-basics.html#cb47-6" tabindex="-1"></a>  <span class="fu">rnorm</span>(<span class="dv">100</span><span class="sc">*</span><span class="dv">50</span>, <span class="at">mean=</span><span class="dv">20</span>, <span class="at">sd=</span><span class="dv">5</span>),</span>
-<span id="cb47-7"><a href="prog-basics.html#cb47-7" tabindex="-1"></a>  <span class="at">nrow=</span><span class="dv">50</span>,</span>
-<span id="cb47-8"><a href="prog-basics.html#cb47-8" tabindex="-1"></a>  <span class="at">ncol=</span><span class="dv">100</span></span>
-<span id="cb47-9"><a href="prog-basics.html#cb47-9" tabindex="-1"></a>)</span>
-<span id="cb47-10"><a href="prog-basics.html#cb47-10" tabindex="-1"></a><span class="co"># z-transform the rows of x_mat, so that each column has mean,sd of 0,1</span></span>
-<span id="cb47-11"><a href="prog-basics.html#cb47-11" tabindex="-1"></a>x_mat_zscore  <span class="ot">&lt;-</span> <span class="fu">apply</span>(x_mat, <span class="dv">2</span>, zscore)</span>
-<span id="cb47-12"><a href="prog-basics.html#cb47-12" tabindex="-1"></a><span class="co"># we can check that all the columns of x_mat_zscore have mean close to zero with apply too</span></span>
-<span id="cb47-13"><a href="prog-basics.html#cb47-13" tabindex="-1"></a>x_mat_zscore_means <span class="ot">&lt;-</span> <span class="fu">apply</span>(x_mat_zscore, <span class="dv">2</span>, mean)</span>
-<span id="cb47-14"><a href="prog-basics.html#cb47-14" tabindex="-1"></a><span class="co"># note: due to machine precision errors, these results will not be exactly zero, but are very close</span></span>
-<span id="cb47-15"><a href="prog-basics.html#cb47-15" tabindex="-1"></a><span class="co"># note: the all() function returns true if all of its arguments are TRUE</span></span>
-<span id="cb47-16"><a href="prog-basics.html#cb47-16" tabindex="-1"></a><span class="fu">all</span>(x_mat_zscore_means<span class="sc">&lt;</span><span class="fl">1e-15</span>)</span>
-<span id="cb47-17"><a href="prog-basics.html#cb47-17" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="prog-basics.html#cb60-1" tabindex="-1"></a>zscore <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb60-2"><a href="prog-basics.html#cb60-2" tabindex="-1"></a>  <span class="fu">return</span>((x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x))</span>
+<span id="cb60-3"><a href="prog-basics.html#cb60-3" tabindex="-1"></a>}</span>
+<span id="cb60-4"><a href="prog-basics.html#cb60-4" tabindex="-1"></a><span class="co"># construct a matrix of 50 rows by 100 columns with samples drawn from a normal distribution</span></span>
+<span id="cb60-5"><a href="prog-basics.html#cb60-5" tabindex="-1"></a>x_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb60-6"><a href="prog-basics.html#cb60-6" tabindex="-1"></a>  <span class="fu">rnorm</span>(<span class="dv">100</span><span class="sc">*</span><span class="dv">50</span>, <span class="at">mean=</span><span class="dv">20</span>, <span class="at">sd=</span><span class="dv">5</span>),</span>
+<span id="cb60-7"><a href="prog-basics.html#cb60-7" tabindex="-1"></a>  <span class="at">nrow=</span><span class="dv">50</span>,</span>
+<span id="cb60-8"><a href="prog-basics.html#cb60-8" tabindex="-1"></a>  <span class="at">ncol=</span><span class="dv">100</span></span>
+<span id="cb60-9"><a href="prog-basics.html#cb60-9" tabindex="-1"></a>)</span>
+<span id="cb60-10"><a href="prog-basics.html#cb60-10" tabindex="-1"></a><span class="co"># z-transform the rows of x_mat, so that each column has mean,sd of 0,1</span></span>
+<span id="cb60-11"><a href="prog-basics.html#cb60-11" tabindex="-1"></a>x_mat_zscore  <span class="ot">&lt;-</span> <span class="fu">apply</span>(x_mat, <span class="dv">2</span>, zscore)</span>
+<span id="cb60-12"><a href="prog-basics.html#cb60-12" tabindex="-1"></a><span class="co"># we can check that all the columns of x_mat_zscore have mean close to zero with apply too</span></span>
+<span id="cb60-13"><a href="prog-basics.html#cb60-13" tabindex="-1"></a>x_mat_zscore_means <span class="ot">&lt;-</span> <span class="fu">apply</span>(x_mat_zscore, <span class="dv">2</span>, mean)</span>
+<span id="cb60-14"><a href="prog-basics.html#cb60-14" tabindex="-1"></a><span class="co"># note: due to machine precision errors, these results will not be exactly zero, but are very close</span></span>
+<span id="cb60-15"><a href="prog-basics.html#cb60-15" tabindex="-1"></a><span class="co"># note: the all() function returns true if all of its arguments are TRUE</span></span>
+<span id="cb60-16"><a href="prog-basics.html#cb60-16" tabindex="-1"></a><span class="fu">all</span>(x_mat_zscore_means<span class="sc">&lt;</span><span class="fl">1e-15</span>)</span>
+<span id="cb60-17"><a href="prog-basics.html#cb60-17" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
 <p>The same approach can be used when <code>X</code> is a list or data frame rather than a
 matrix using the <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function (hint: the <code>l</code> in <code>lapply</code> stands for
 “list”). Here is the function signature for <code>lapply</code>:</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
 <p>Recall that lists and data frames can be thought of as vectors where each
 element can be its own vector. Therefore, there is only one axis along which to
 iterate on the elements and there is not <code>MARGIN</code> argument as in <code>apply</code>. This
 function returns a new list of the same dimension as the original list with
 elements returned by <code>FUN</code>:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="prog-basics.html#cb49-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb49-2"><a href="prog-basics.html#cb49-2" tabindex="-1"></a>  <span class="at">feature1=</span><span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>),</span>
-<span id="cb49-3"><a href="prog-basics.html#cb49-3" tabindex="-1"></a>  <span class="at">feature2=</span><span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">5</span>)</span>
-<span id="cb49-4"><a href="prog-basics.html#cb49-4" tabindex="-1"></a>)</span>
-<span id="cb49-5"><a href="prog-basics.html#cb49-5" tabindex="-1"></a>x_zscore <span class="ot">&lt;-</span> <span class="fu">lapply</span>(x, zscore)</span>
-<span id="cb49-6"><a href="prog-basics.html#cb49-6" tabindex="-1"></a><span class="co"># check that the means are close to zero</span></span>
-<span id="cb49-7"><a href="prog-basics.html#cb49-7" tabindex="-1"></a>x_zscore_means <span class="ot">&lt;-</span> <span class="fu">lapply</span>(x_zscore, mean)</span>
-<span id="cb49-8"><a href="prog-basics.html#cb49-8" tabindex="-1"></a><span class="fu">all</span>(x_zscore_means <span class="sc">&lt;</span> <span class="fl">1e-15</span>)</span>
-<span id="cb49-9"><a href="prog-basics.html#cb49-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="prog-basics.html#cb62-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb62-2"><a href="prog-basics.html#cb62-2" tabindex="-1"></a>  <span class="at">feature1=</span><span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">20</span>,<span class="at">sd=</span><span class="dv">10</span>),</span>
+<span id="cb62-3"><a href="prog-basics.html#cb62-3" tabindex="-1"></a>  <span class="at">feature2=</span><span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="at">mean=</span><span class="dv">50</span>,<span class="at">sd=</span><span class="dv">5</span>)</span>
+<span id="cb62-4"><a href="prog-basics.html#cb62-4" tabindex="-1"></a>)</span>
+<span id="cb62-5"><a href="prog-basics.html#cb62-5" tabindex="-1"></a>x_zscore <span class="ot">&lt;-</span> <span class="fu">lapply</span>(x, zscore)</span>
+<span id="cb62-6"><a href="prog-basics.html#cb62-6" tabindex="-1"></a><span class="co"># check that the means are close to zero</span></span>
+<span id="cb62-7"><a href="prog-basics.html#cb62-7" tabindex="-1"></a>x_zscore_means <span class="ot">&lt;-</span> <span class="fu">lapply</span>(x_zscore, mean)</span>
+<span id="cb62-8"><a href="prog-basics.html#cb62-8" tabindex="-1"></a><span class="fu">all</span>(x_zscore_means <span class="sc">&lt;</span> <span class="fl">1e-15</span>)</span>
+<span id="cb62-9"><a href="prog-basics.html#cb62-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
 <p>This functional programming pattern might be counter intuitive at first, but it
 is well worth your while to learn.</p>
 <div class="box readmore">
@@ -1093,7 +1355,7 @@ writing, there are <a href="https://cran.r-project.org/web/packages/index.html">
 packages</a> hosted on CRAN
 that you can install. To install a package from CRAN, use the <code>install.packages</code>
 function in the R console:</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install one package</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span>
 <span><span class="co"># install multiple packages</span></span>
@@ -1118,7 +1380,7 @@ sometimes it is convenient to save complicated R objects and data structures
 like lists to a file that can be read back into R easily. This can be done with
 the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/readRDS.html"><code>saveRDS()</code> and <code>readRDS()</code></a>
 functions:</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_complicated_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    categories <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span><span class="op">)</span>,</span>
 <span>    data_matrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>,nrows<span class="op">=</span><span class="fl">2</span>,ncols<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,</span>
@@ -1142,7 +1404,7 @@ These functions are similar to <code>saveRDS</code> and <code>readRDS</code>, ex
 loading individual objects into new variables. Instead, <code>save</code> accepts one or
 more variable names that are in the global namespace and saves them all to a
 file:</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">var_a</span> <span class="op">&lt;-</span> <span class="st">"a string"</span></span>
 <span><span class="va">var_b</span> <span class="op">&lt;-</span> <span class="fl">1.234</span></span>
 <span></span>
@@ -1150,12 +1412,12 @@ file:</p>
 <p>Then later when the file <code>saved_variables.rda</code> is <code><a href="https://rdrr.io/r/base/load.html">load()</a></code>ed, the all the
 variables saved into the file are loaded into the namespace with their saved
 values:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="prog-basics.html#cb53-1" tabindex="-1"></a><span class="co"># assume var_a and var_b are not defined yet</span></span>
-<span id="cb53-2"><a href="prog-basics.html#cb53-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"saved_variables.rda"</span>)</span>
-<span id="cb53-3"><a href="prog-basics.html#cb53-3" tabindex="-1"></a>var_a</span>
-<span id="cb53-4"><a href="prog-basics.html#cb53-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"a string"</span></span>
-<span id="cb53-5"><a href="prog-basics.html#cb53-5" tabindex="-1"></a>var_b</span>
-<span id="cb53-6"><a href="prog-basics.html#cb53-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.234</span></span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="prog-basics.html#cb66-1" tabindex="-1"></a><span class="co"># assume var_a and var_b are not defined yet</span></span>
+<span id="cb66-2"><a href="prog-basics.html#cb66-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"saved_variables.rda"</span>)</span>
+<span id="cb66-3"><a href="prog-basics.html#cb66-3" tabindex="-1"></a>var_a</span>
+<span id="cb66-4"><a href="prog-basics.html#cb66-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"a string"</span></span>
+<span id="cb66-5"><a href="prog-basics.html#cb66-5" tabindex="-1"></a>var_b</span>
+<span id="cb66-6"><a href="prog-basics.html#cb66-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.234</span></span></code></pre></div>
 <p>This requires the programmer to remember the names of the variables that were
 saved into the file. Also, if there are variables that already exist in the
 current environment that are also saved in the file, those variable values will
@@ -1226,46 +1488,46 @@ modifications there.</p>
 lists. These objects can be difficult to inspect due to their size. The <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>
 function, which stands for <code>str</code>ucture, will pretty print an object with its
 values and its structure:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="prog-basics.html#cb54-1" tabindex="-1"></a>nested_lists <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb54-2"><a href="prog-basics.html#cb54-2" tabindex="-1"></a>  <span class="at">a=</span><span class="fu">list</span>(</span>
-<span id="cb54-3"><a href="prog-basics.html#cb54-3" tabindex="-1"></a>      <span class="at">item1=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
-<span id="cb54-4"><a href="prog-basics.html#cb54-4" tabindex="-1"></a>      <span class="at">item2=</span><span class="fu">c</span>(<span class="st">'A'</span>,<span class="st">'B'</span>,<span class="st">'C'</span>)</span>
-<span id="cb54-5"><a href="prog-basics.html#cb54-5" tabindex="-1"></a>  ),</span>
-<span id="cb54-6"><a href="prog-basics.html#cb54-6" tabindex="-1"></a>  <span class="at">b=</span><span class="fu">list</span>(</span>
-<span id="cb54-7"><a href="prog-basics.html#cb54-7" tabindex="-1"></a>      <span class="at">var1=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb54-8"><a href="prog-basics.html#cb54-8" tabindex="-1"></a>      <span class="at">var2=</span><span class="dv">100</span><span class="sc">:</span><span class="dv">110</span>,</span>
-<span id="cb54-9"><a href="prog-basics.html#cb54-9" tabindex="-1"></a>      <span class="at">var3=</span><span class="dv">1000</span><span class="sc">:</span><span class="dv">1010</span></span>
-<span id="cb54-10"><a href="prog-basics.html#cb54-10" tabindex="-1"></a>  ),  </span>
-<span id="cb54-11"><a href="prog-basics.html#cb54-11" tabindex="-1"></a>  <span class="at">c=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>)</span>
-<span id="cb54-12"><a href="prog-basics.html#cb54-12" tabindex="-1"></a>)</span>
-<span id="cb54-13"><a href="prog-basics.html#cb54-13" tabindex="-1"></a>nested_lists</span>
-<span id="cb54-14"><a href="prog-basics.html#cb54-14" tabindex="-1"></a><span class="sc">$</span>a</span>
-<span id="cb54-15"><a href="prog-basics.html#cb54-15" tabindex="-1"></a><span class="sc">$</span>a<span class="sc">$</span>item1</span>
-<span id="cb54-16"><a href="prog-basics.html#cb54-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb54-17"><a href="prog-basics.html#cb54-17" tabindex="-1"></a></span>
-<span id="cb54-18"><a href="prog-basics.html#cb54-18" tabindex="-1"></a><span class="sc">$</span>a<span class="sc">$</span>item2</span>
-<span id="cb54-19"><a href="prog-basics.html#cb54-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span></span>
-<span id="cb54-20"><a href="prog-basics.html#cb54-20" tabindex="-1"></a></span>
-<span id="cb54-21"><a href="prog-basics.html#cb54-21" tabindex="-1"></a></span>
-<span id="cb54-22"><a href="prog-basics.html#cb54-22" tabindex="-1"></a><span class="sc">$</span>b</span>
-<span id="cb54-23"><a href="prog-basics.html#cb54-23" tabindex="-1"></a><span class="sc">$</span>b<span class="sc">$</span>var1</span>
-<span id="cb54-24"><a href="prog-basics.html#cb54-24" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></span>
-<span id="cb54-25"><a href="prog-basics.html#cb54-25" tabindex="-1"></a></span>
-<span id="cb54-26"><a href="prog-basics.html#cb54-26" tabindex="-1"></a><span class="sc">$</span>b<span class="sc">$</span>var2</span>
-<span id="cb54-27"><a href="prog-basics.html#cb54-27" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">100</span> <span class="dv">101</span> <span class="dv">102</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">105</span> <span class="dv">106</span> <span class="dv">107</span> <span class="dv">108</span> <span class="dv">109</span> <span class="dv">110</span></span>
-<span id="cb54-28"><a href="prog-basics.html#cb54-28" tabindex="-1"></a></span>
-<span id="cb54-29"><a href="prog-basics.html#cb54-29" tabindex="-1"></a><span class="sc">$</span>b<span class="sc">$</span>var3</span>
-<span id="cb54-30"><a href="prog-basics.html#cb54-30" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">1000</span> <span class="dv">1001</span> <span class="dv">1002</span> <span class="dv">1003</span> <span class="dv">1004</span> <span class="dv">1005</span> <span class="dv">1006</span> <span class="dv">1007</span> <span class="dv">1008</span> <span class="dv">1009</span> <span class="dv">1010</span></span>
-<span id="cb54-31"><a href="prog-basics.html#cb54-31" tabindex="-1"></a><span class="fu">str</span>(nested_lists)</span>
-<span id="cb54-32"><a href="prog-basics.html#cb54-32" tabindex="-1"></a>List of <span class="dv">3</span></span>
-<span id="cb54-33"><a href="prog-basics.html#cb54-33" tabindex="-1"></a> <span class="sc">$</span> a<span class="sc">:</span>List of <span class="dv">2</span></span>
-<span id="cb54-34"><a href="prog-basics.html#cb54-34" tabindex="-1"></a>  ..<span class="sc">$</span> item1<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb54-35"><a href="prog-basics.html#cb54-35" tabindex="-1"></a>  ..<span class="sc">$</span> item2<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span></span>
-<span id="cb54-36"><a href="prog-basics.html#cb54-36" tabindex="-1"></a> <span class="sc">$</span> b<span class="sc">:</span>List of <span class="dv">3</span></span>
-<span id="cb54-37"><a href="prog-basics.html#cb54-37" tabindex="-1"></a>  ..<span class="sc">$</span> var1<span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span></span>
-<span id="cb54-38"><a href="prog-basics.html#cb54-38" tabindex="-1"></a>  ..<span class="sc">$</span> var2<span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>] <span class="dv">100</span> <span class="dv">101</span> <span class="dv">102</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">105</span> <span class="dv">106</span> <span class="dv">107</span> <span class="dv">108</span> <span class="dv">109</span> ...</span>
-<span id="cb54-39"><a href="prog-basics.html#cb54-39" tabindex="-1"></a>  ..<span class="sc">$</span> var3<span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>] <span class="dv">1000</span> <span class="dv">1001</span> <span class="dv">1002</span> <span class="dv">1003</span> <span class="dv">1004</span> <span class="dv">1005</span> <span class="dv">1006</span> <span class="dv">1007</span> <span class="dv">1008</span> <span class="dv">1009</span> ...</span>
-<span id="cb54-40"><a href="prog-basics.html#cb54-40" tabindex="-1"></a> <span class="sc">$</span> c<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] <span class="dv">10</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="prog-basics.html#cb67-1" tabindex="-1"></a>nested_lists <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb67-2"><a href="prog-basics.html#cb67-2" tabindex="-1"></a>  <span class="at">a=</span><span class="fu">list</span>(</span>
+<span id="cb67-3"><a href="prog-basics.html#cb67-3" tabindex="-1"></a>      <span class="at">item1=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb67-4"><a href="prog-basics.html#cb67-4" tabindex="-1"></a>      <span class="at">item2=</span><span class="fu">c</span>(<span class="st">'A'</span>,<span class="st">'B'</span>,<span class="st">'C'</span>)</span>
+<span id="cb67-5"><a href="prog-basics.html#cb67-5" tabindex="-1"></a>  ),</span>
+<span id="cb67-6"><a href="prog-basics.html#cb67-6" tabindex="-1"></a>  <span class="at">b=</span><span class="fu">list</span>(</span>
+<span id="cb67-7"><a href="prog-basics.html#cb67-7" tabindex="-1"></a>      <span class="at">var1=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb67-8"><a href="prog-basics.html#cb67-8" tabindex="-1"></a>      <span class="at">var2=</span><span class="dv">100</span><span class="sc">:</span><span class="dv">110</span>,</span>
+<span id="cb67-9"><a href="prog-basics.html#cb67-9" tabindex="-1"></a>      <span class="at">var3=</span><span class="dv">1000</span><span class="sc">:</span><span class="dv">1010</span></span>
+<span id="cb67-10"><a href="prog-basics.html#cb67-10" tabindex="-1"></a>  ),  </span>
+<span id="cb67-11"><a href="prog-basics.html#cb67-11" tabindex="-1"></a>  <span class="at">c=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>)</span>
+<span id="cb67-12"><a href="prog-basics.html#cb67-12" tabindex="-1"></a>)</span>
+<span id="cb67-13"><a href="prog-basics.html#cb67-13" tabindex="-1"></a>nested_lists</span>
+<span id="cb67-14"><a href="prog-basics.html#cb67-14" tabindex="-1"></a><span class="sc">$</span>a</span>
+<span id="cb67-15"><a href="prog-basics.html#cb67-15" tabindex="-1"></a><span class="sc">$</span>a<span class="sc">$</span>item1</span>
+<span id="cb67-16"><a href="prog-basics.html#cb67-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb67-17"><a href="prog-basics.html#cb67-17" tabindex="-1"></a></span>
+<span id="cb67-18"><a href="prog-basics.html#cb67-18" tabindex="-1"></a><span class="sc">$</span>a<span class="sc">$</span>item2</span>
+<span id="cb67-19"><a href="prog-basics.html#cb67-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span></span>
+<span id="cb67-20"><a href="prog-basics.html#cb67-20" tabindex="-1"></a></span>
+<span id="cb67-21"><a href="prog-basics.html#cb67-21" tabindex="-1"></a></span>
+<span id="cb67-22"><a href="prog-basics.html#cb67-22" tabindex="-1"></a><span class="sc">$</span>b</span>
+<span id="cb67-23"><a href="prog-basics.html#cb67-23" tabindex="-1"></a><span class="sc">$</span>b<span class="sc">$</span>var1</span>
+<span id="cb67-24"><a href="prog-basics.html#cb67-24" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></span>
+<span id="cb67-25"><a href="prog-basics.html#cb67-25" tabindex="-1"></a></span>
+<span id="cb67-26"><a href="prog-basics.html#cb67-26" tabindex="-1"></a><span class="sc">$</span>b<span class="sc">$</span>var2</span>
+<span id="cb67-27"><a href="prog-basics.html#cb67-27" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">100</span> <span class="dv">101</span> <span class="dv">102</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">105</span> <span class="dv">106</span> <span class="dv">107</span> <span class="dv">108</span> <span class="dv">109</span> <span class="dv">110</span></span>
+<span id="cb67-28"><a href="prog-basics.html#cb67-28" tabindex="-1"></a></span>
+<span id="cb67-29"><a href="prog-basics.html#cb67-29" tabindex="-1"></a><span class="sc">$</span>b<span class="sc">$</span>var3</span>
+<span id="cb67-30"><a href="prog-basics.html#cb67-30" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">1000</span> <span class="dv">1001</span> <span class="dv">1002</span> <span class="dv">1003</span> <span class="dv">1004</span> <span class="dv">1005</span> <span class="dv">1006</span> <span class="dv">1007</span> <span class="dv">1008</span> <span class="dv">1009</span> <span class="dv">1010</span></span>
+<span id="cb67-31"><a href="prog-basics.html#cb67-31" tabindex="-1"></a><span class="fu">str</span>(nested_lists)</span>
+<span id="cb67-32"><a href="prog-basics.html#cb67-32" tabindex="-1"></a>List of <span class="dv">3</span></span>
+<span id="cb67-33"><a href="prog-basics.html#cb67-33" tabindex="-1"></a> <span class="sc">$</span> a<span class="sc">:</span>List of <span class="dv">2</span></span>
+<span id="cb67-34"><a href="prog-basics.html#cb67-34" tabindex="-1"></a>  ..<span class="sc">$</span> item1<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb67-35"><a href="prog-basics.html#cb67-35" tabindex="-1"></a>  ..<span class="sc">$</span> item2<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"C"</span></span>
+<span id="cb67-36"><a href="prog-basics.html#cb67-36" tabindex="-1"></a> <span class="sc">$</span> b<span class="sc">:</span>List of <span class="dv">3</span></span>
+<span id="cb67-37"><a href="prog-basics.html#cb67-37" tabindex="-1"></a>  ..<span class="sc">$</span> var1<span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span></span>
+<span id="cb67-38"><a href="prog-basics.html#cb67-38" tabindex="-1"></a>  ..<span class="sc">$</span> var2<span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>] <span class="dv">100</span> <span class="dv">101</span> <span class="dv">102</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">105</span> <span class="dv">106</span> <span class="dv">107</span> <span class="dv">108</span> <span class="dv">109</span> ...</span>
+<span id="cb67-39"><a href="prog-basics.html#cb67-39" tabindex="-1"></a>  ..<span class="sc">$</span> var3<span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>] <span class="dv">1000</span> <span class="dv">1001</span> <span class="dv">1002</span> <span class="dv">1003</span> <span class="dv">1004</span> <span class="dv">1005</span> <span class="dv">1006</span> <span class="dv">1007</span> <span class="dv">1008</span> <span class="dv">1009</span> ...</span>
+<span id="cb67-40"><a href="prog-basics.html#cb67-40" tabindex="-1"></a> <span class="sc">$</span> c<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] <span class="dv">10</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">5</span></span></code></pre></div>
 <p>The output <code>str</code> is more concise and descriptive than simply printing out the
 object.</p>
 <p>RStudio has many more debugging tools you can use. Check out the section on
@@ -1317,7 +1579,7 @@ buy a friend a coffee in return for them looking at it!</p>
 </h3>
 <p>Consistently formatted code is much easier to read (and possibly understand)
 than inconsistent code. Consider the following code example:</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">calcVal</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">arg</span><span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">{</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">a</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span><span class="op">)</span><span class="op">}</span></span>
 <span><span class="va">calc_val_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">arg</span><span class="op">)</span> <span class="op">{</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">b</span><span class="op">+</span><span class="va">a</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">**</span><span class="va">arg</span></span>
@@ -1338,7 +1600,7 @@ anywhere in the function</li>
 simpler using a default argument</li>
 </ul>
 <p>A more consistent version of this code might look like:</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">exponent_product</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">offset</span><span class="op">=</span><span class="fl">0</span>, <span class="va">arg</span><span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">offset</span><span class="op">+</span><span class="va">a</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">**</span><span class="va">arg</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -1349,13 +1611,13 @@ simpler using a default argument</li>
 <span class="header-section-number">4.12.5</span> Did I write comments, especially when what the code does is not obvious?<a class="anchor" aria-label="anchor" href="#did-i-write-comments-especially-when-what-the-code-does-is-not-obvious"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes what a piece of code does is obvious from looking at it:</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
 <p>Clearly this line of code takes the value of <code>x</code>, whatever it is, and adds 1 to
 it. However, it may not be obvious <em>why</em> a piece of code does what it does. In
 these cases, it may be very helpful to record your thinking about a line of code
 as a comment:</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># add 1 as a pseudocount</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
 <p>Then when you or someone else reads the code, it will be obvious what you were
@@ -1414,7 +1676,10 @@ reasonable (albeit arbitrary) conventions.</p>
 <a class="nav-link" href="#prog-struct"><span class="header-section-number">4.5</span> Data Structures</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#vectors"><span class="header-section-number">4.5.1</span> Vectors</a></li>
 <li><a class="nav-link" href="#factors"><span class="header-section-number">4.5.2</span> Factors</a></li>
-<li><a class="nav-link" href="#lists-and-data-frames"><span class="header-section-number">4.5.3</span> Lists and data frames</a></li>
+<li><a class="nav-link" href="#matrices"><span class="header-section-number">4.5.3</span> Matrices</a></li>
+<li><a class="nav-link" href="#lists-and-data-frames"><span class="header-section-number">4.5.4</span> Lists and data frames</a></li>
+<li><a class="nav-link" href="#subsetting"><span class="header-section-number">4.5.5</span> Subsetting</a></li>
+<li><a class="nav-link" href="#naming-data-structures"><span class="header-section-number">4.5.6</span> Naming Data Structures</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#logical-tests-and-comparators"><span class="header-section-number">4.6</span> Logical Tests and Comparators</a></li>

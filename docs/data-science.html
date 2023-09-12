@@ -202,7 +202,7 @@ the content of this chapter to human designed statistical models.</p>
 three genes can help us distinguish between patients who have Parkinson’s
 Disease and those who don’t by measuring the relative activity of those genes in
 blood samples. We have the following made-up dataset:</p>
-<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_exp</span></span></code></pre></div>
 <pre><code>## # A tibble: 200 x 5
 ##    sample_name `Disease Status` `Gene 1` `Gene 2` `Gene 3`
@@ -266,7 +266,7 @@ summarize a set of data; each approach will emphasize different aspects of the
 dataset, and have varying degrees of accuracy. Consider the gene expression of
 Gene 1 for all individuals in our example above, plotted as a distribution with
 a <a href="data-visualization.html#histogram">histogram</a>:</p>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">gene_exp</span>, <span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">`Gene 1`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins<span class="op">=</span><span class="fl">30</span>,fill<span class="op">=</span><span class="st">"#a93c13"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/data%20sci%20summ%20hist-1.png" width="672"></div>
@@ -278,7 +278,7 @@ a <a href="data-visualization.html#histogram">histogram</a>:</p>
 larger and smaller values. Since the extents to the left and right of the middle
 of the distribution appear to be equally distant, perhaps the arithmetic mean
 is a good way to identify the middle of the distribution:</p>
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">gene_exp</span>, <span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">`Gene 1`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins<span class="op">=</span><span class="fl">30</span>,fill<span class="op">=</span><span class="st">"#a93c13"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">gene_exp</span><span class="op">$</span><span class="va">`Gene 1`</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -293,7 +293,7 @@ value.</p>
 the sum of all the values and dividing by the number of values. The mean may be
 a good point estimate of the central tendency of a dataset, but it is sensitive
 to outlier samples. Consider the following examples:</p>
-<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">well_behaved_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">data_w_outliers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">800</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># oops I add some outliers :^)</span></span>
@@ -313,7 +313,7 @@ to outlier samples. Consider the following examples:</p>
 <p>The median is another measure of central tendency, which is found by identifying
 the value that divides the samples into equal halves when sorted from smallest
 to largest. The median is more robust in the presence of outliers.</p>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_no_outlier</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">well_behaved_data</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#AFBED1"</span>, color <span class="op">=</span> <span class="st">"grey"</span>, bins <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">well_behaved_data</span><span class="op">$</span><span class="va">data</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -339,7 +339,7 @@ words, we have not expressed the spread, or <em>dispersion</em> of the data.</p>
 deviation</a> of the data may
 characterize the spread well, since it appears to be symmetric around the mean.
 We can layer this information on the plot as well to inspect it:</p>
-<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g1_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">gene_exp</span><span class="op">$</span><span class="va">`Gene 1`</span><span class="op">)</span></span>
 <span><span class="va">g1_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">gene_exp</span><span class="op">$</span><span class="va">`Gene 1`</span><span class="op">)</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">gene_exp</span>, <span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">`Gene 1`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -356,7 +356,7 @@ well.</p>
 Often related to the distribution of the data.</p>
 <p><strong>Standard deviation</strong>: A measure of how close values are to the mean. Bigger
 standard deviations mean data is more spread out.</p>
-<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1000</span>, sd<span class="op">=</span><span class="fl">1.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">data</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#EAC5D8"</span>, color <span class="op">=</span> <span class="st">"white"</span>, bins <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">+</span></span>
@@ -367,7 +367,7 @@ standard deviations mean data is more spread out.</p>
 <p><strong>Variance</strong>:
 Similar to SD (it’s the square of SD), variance measures how far a random value
 is from the mean.</p>
-<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1000</span>, sd<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">data</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#DBD8F0"</span>, color <span class="op">=</span> <span class="st">"white"</span>, bins <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">+</span></span>
@@ -389,7 +389,7 @@ we can potentially describe the dataset mathematically. We decide to visually
 inspect this possibility by layering a normal distribution on top of our data
 using
 <a href="https://ggplot2.tidyverse.org/reference/geom_function.html"><code>stat_function</code></a>:</p>
-<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g1_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">gene_exp</span><span class="op">$</span><span class="va">`Gene 1`</span><span class="op">)</span></span>
 <span><span class="va">g1_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">gene_exp</span><span class="op">$</span><span class="va">`Gene 1`</span><span class="op">)</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">gene_exp</span>, <span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">`Gene 1`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -423,7 +423,7 @@ this value.</p>
 <p>The normal distribution is the most common distribution observed in nature, but
 it is hardly the only one. We could have proposed other distributions to instead
 summarize our data:</p>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_norm</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">5000</span><span class="op">)</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#D0FCB3"</span>, bins <span class="op">=</span> <span class="fl">50</span>, color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Normal distribution"</span>, <span class="st">"rnorm(n = 1000)"</span><span class="op">)</span></span>
@@ -497,7 +497,7 @@ functions may be non-linear so long as the predicted outcome is modeled as a
 linear combination of the transformed variables. The rest of this section is
 dedicated to a worked example of a linear model for gene expression data.</p>
 <p>Let us begin with a <a href="data-visualization.html#beeswarm-plot">beeswarm plot</a> plot of Gene 3:</p>
-<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eclarke/ggbeeswarm">ggbeeswarm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gene_exp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">`Disease Status`</span>, y<span class="op">=</span><span class="va">`Gene 3`</span>, color<span class="op">=</span><span class="va">`Disease Status`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -506,7 +506,7 @@ dedicated to a worked example of a linear model for gene expression data.</p>
 normally distributed just like Gene 1, so let’s summarize each group with the
 arithmetic mean and standard deviation as before, and instead plot both
 distributions as histograms:</p>
-<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">exp_summ</span> <span class="op">&lt;-</span> <span class="fu">pivot_longer</span><span class="op">(</span></span>
 <span>  <span class="va">gene_exp</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`Gene 3`</span><span class="op">)</span></span>
@@ -523,13 +523,13 @@ distributions as histograms:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">c_mean</span>,<span class="va">pd_mean</span><span class="op">)</span><span class="op">)</span>, y<span class="op">=</span><span class="fl">21</span>, hjust<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">"How different?"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-47-1.png" width="672"></div>
 <p>We can make a point estimate of this difference by simply subtracting the means:</p>
-<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pd_mean</span> <span class="op">-</span> <span class="va">c_mean</span></span></code></pre></div>
 <pre><code>## [1] 164.0942</code></pre>
 <p>In other words, this point estimate suggests that on average Parkinson’s
 patients have 164.1 greater expression than Controls. We can
 plot this relationship relatively simply:</p>
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gene_exp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">`Disease Status`</span>, y<span class="op">=</span><span class="va">`Gene 3`</span>, color<span class="op">=</span><span class="va">`Disease Status`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"segment"</span>, x<span class="op">=</span><span class="fl">0</span>, xend<span class="op">=</span><span class="fl">3</span>, y<span class="op">=</span><span class="fl">2</span><span class="op">*</span><span class="va">c_mean</span><span class="op">-</span><span class="va">pd_mean</span>, yend<span class="op">=</span><span class="fl">2</span><span class="op">*</span><span class="va">pd_mean</span><span class="op">-</span><span class="va">c_mean</span><span class="op">)</span></span></code></pre></div>
@@ -538,7 +538,7 @@ plot this relationship relatively simply:</p>
 the difference. We can do this by using an <a href="https://en.wikipedia.org/wiki/Least_squares">linear
 regression</a> by modeling Gene 3 as a
 function of disease status:</p>
-<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">`Gene 3`</span> <span class="op">~</span> <span class="va">`Disease Status`</span>, data<span class="op">=</span><span class="va">gene_exp</span><span class="op">)</span></span>
 <span><span class="va">fit</span></span></code></pre></div>
 <pre><code>## 
@@ -558,7 +558,7 @@ of using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> over th
 confident the model was that the difference in mean between Parkinson’s and
 controls subjects. Let’s print some more information about the model than
 before:</p>
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -590,7 +590,7 @@ substantial. The <span class="math inline">\(R^2\)</span> value also has an asso
 small. Overall, these statistics suggest this model fits the data very well.</p>
 <p>We can plot the results of a linear model for each of our genes relatively
 easily:</p>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pd_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_exp</span>,<span class="va">`Disease Status`</span><span class="op">==</span><span class="st">"Parkinson's"</span><span class="op">)</span><span class="op">$</span><span class="va">`Gene 1`</span><span class="op">)</span></span>
 <span><span class="va">c_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_exp</span>,<span class="va">`Disease Status`</span><span class="op">==</span><span class="st">"Control"</span><span class="op">)</span><span class="op">$</span><span class="va">`Gene 1`</span><span class="op">)</span></span>
 <span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gene_exp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">`Disease Status`</span>, y<span class="op">=</span><span class="va">`Gene 1`</span>, color<span class="op">=</span><span class="va">`Disease Status`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -616,7 +616,7 @@ easily:</p>
 <p>We can also compute the corresponding linear model fits, and confirm that the
 coefficients agree with the directions observed in the plot, as well as that all
 the associations are significant FDR &lt; 0.05:</p>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">`Gene 1`</span> <span class="op">~</span> <span class="va">`Disease Status`</span>, data<span class="op">=</span><span class="va">gene_exp</span><span class="op">)</span></span>
 <span><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">`Gene 2`</span> <span class="op">~</span> <span class="va">`Disease Status`</span>, data<span class="op">=</span><span class="va">gene_exp</span><span class="op">)</span></span>
 <span><span class="va">fit3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">`Gene 3`</span> <span class="op">~</span> <span class="va">`Disease Status`</span>, data<span class="op">=</span><span class="va">gene_exp</span><span class="op">)</span></span>
@@ -769,7 +769,7 @@ range of values, relative to all other possible values, assuming the random
 variable in question follows the statistical distribution. The following is a
 visualization of the theoretical distribution of a normally distributed random
 variable:</p>
-<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>,<span class="fl">4</span>,by<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span>,</span>
 <span>  `Probability Density`<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
@@ -818,7 +818,7 @@ being less than or equal to a particular value. We compute this using the
 <em>cumulative distribution function</em> (CDF) or sometimes just <em>distribution
 function</em>. In the plot below, both the PDF and CDF are plotted for a normal
 distribution with mean zero and standard deviation of 1:</p>
-<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>,<span class="fl">4</span>,by<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span>,</span>
 <span>  PDF<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span>
@@ -1001,7 +1001,7 @@ In the following plot, each dot represents a day. The x-axis is calender day,
 and y-axis is the number of letters you receive on that day. Although on average
 you are receiving 20 letters each day, the actual number of letters each day
 vary a lot.</p>
-<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">my_letter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, lambda <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">my_letter</span>,</span>
@@ -1013,7 +1013,7 @@ vary a lot.</p>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-49-1.png" width="672"></div>
 <p>Now, let’s plot the density plot of our data. The <span class="math inline">\(x\)</span>-axis is the number of
 letters on a single day, and the <span class="math inline">\(y\)</span>-axis is the probability.</p>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">my_letter</span><span class="op">)</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"royalblue"</span>,</span>
 <span>  main <span class="op">=</span> <span class="st">"Probability of number of letters each day"</span>,</span>
@@ -1023,7 +1023,7 @@ letters on a single day, and the <span class="math inline">\(y\)</span>-axis is 
 <p>Since we only have 30 data points, it doesn’t look like a good curve. But,
 after we worked at the mail reception for 5000 days, it becomes much closer
 to the theoretical Poisson distribution with lambda = 20.</p>
-<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5000</span>, lambda <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"royalblue"</span>,</span>
@@ -1032,7 +1032,7 @@ to the theoretical Poisson distribution with lambda = 20.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-51-1.png" width="672"></div>
 <p>Here is the theoretical Poisson distribution with lambda = 20:</p>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">dpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">40</span><span class="op">)</span>, lambda <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"royalblue"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"probability"</span>, main <span class="op">=</span> <span class="st">"Poisson lambda=20"</span></span>
@@ -1040,16 +1040,16 @@ to the theoretical Poisson distribution with lambda = 20.</p>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-52-1.png" width="672"></div>
 <p>If we want to know what’s the probability to receive, for example, 18 letters,<br>
 we can use <code><a href="https://rdrr.io/r/stats/Poisson.html">dpois()</a></code> function.</p>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">dpois</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">18</span>, lambda <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.08439355</code></pre>
 <p>If we want to know the probability of receiving 18 or less letters,
 use <code><a href="https://rdrr.io/r/stats/Poisson.html">ppois()</a></code> function.</p>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">ppois</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">18</span>, lambda <span class="op">=</span> <span class="fl">20</span>, lower.tail <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.3814219</code></pre>
 <p>It is the cumulative area colored in the following plot:</p>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">dpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">40</span><span class="op">)</span>, lambda <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"royalblue"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"probability"</span>, main <span class="op">=</span> <span class="st">"Poisson lambda=20"</span></span>
@@ -1062,7 +1062,7 @@ use <code><a href="https://rdrr.io/r/stats/Poisson.html">ppois()</a></code> func
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">18</span>, y0 <span class="op">=</span> <span class="fl">0</span>, y1 <span class="op">=</span> <span class="fl">0.08439355</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"salmon"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-55-1.png" width="672"></div>
 <p><code><a href="https://rdrr.io/r/stats/Poisson.html">qpois()</a></code> is like the “reverse” of <code><a href="https://rdrr.io/r/stats/Poisson.html">ppois()</a></code>.</p>
-<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">qpois</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.3814219</span>, lambda <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 18</code></pre>
 <p>Let’s review the definition of Poisson distribution.</p>
@@ -1104,7 +1104,7 @@ normally distributed, common examples include people’s height, blood pressure,
 and students’ exam score.</p>
 <p>This is what a normal distribution with mean = 0 and standard deviation = 1
 looks like:</p>
-<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">norm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">norm</span><span class="op">)</span>,</span>
@@ -1117,7 +1117,7 @@ with normal distribution, including <code><a href="https://rdrr.io/r/stats/Norma
 <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>.</p>
 <p><code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> is used to draw random data points from a normal distribution with
 a given mean and standard deviation.</p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">6</span>, <span class="co"># number of data points to draw</span></span>
@@ -1128,10 +1128,10 @@ a given mean and standard deviation.</p>
 <p><code><a href="https://rdrr.io/r/stats/Normal.html">dnorm()</a></code> is the density at a given quantile. For instance, in the normal
 distribution (mean=0, standard deviation=1) above, the probability density at
 0.5 is roughly 0.35.</p>
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.5</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.3520653</code></pre>
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">norm</span><span class="op">)</span>,</span>
 <span>  main <span class="op">=</span> <span class="st">"A Normal distribution"</span>, xlab <span class="op">=</span> <span class="st">"x"</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"royalblue"</span></span>
@@ -1144,10 +1144,10 @@ distribution (mean=0, standard deviation=1) above, the probability density at
 <p><code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> gives the distribution function. Or, you can think of it as the
 cumulative of the left side of the density function until a given value,
 which is the area colored in light blue in the following plot.</p>
-<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">0.5</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.6914625</code></pre>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">norm</span><span class="op">)</span>,</span>
 <span>  main <span class="op">=</span> <span class="st">"A Normal distribution"</span>, xlab <span class="op">=</span> <span class="st">"x"</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"royalblue"</span></span>
@@ -1161,10 +1161,10 @@ which is the area colored in light blue in the following plot.</p>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-62-1.png" width="672"></div>
 <p><code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> gives the quantile function. You can think of it as the “reverse” of
 <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code>. For instance:</p>
-<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">0.5</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.6914625</code></pre>
-<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.6914625</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.5000001</code></pre>
 <p>Similarly, other distributions such as chi-square distribution, they all have
@@ -1311,7 +1311,7 @@ hobby</a></p>
 <a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_probability/bs704_probability9.html">Z-values</a>(not mentioned but are in texts that fully explain t-tests)
 One-Sample t-tests come in 3 flavors: two-tailed test, one-tailed test (upper tail), and one-tailed test (lower tail).</p>
 </div>
-<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># One-sample t-test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="co">#numeric vector of data </span></span>
 <span>       mu <span class="op">=</span> <span class="fl">0</span>, <span class="co">#True value of the mean. Defaults to 0</span></span>
@@ -1330,7 +1330,7 @@ p-value and confidence intervals of your data’s mean.</p>
 <p><em>(conf.level) percent confidence interval</em>: calculated interval where the true mean(x) is with conf.level % certainty.</p>
 <p><em>sample estimates, mean of x</em>: The calculated mean of x</p>
 <p>Accepting or rejecting the null hypothesis is a matter of determining if mean(x) is outside the percent confidence interval range, if it is then the p-value will determine the significance of the results.</p>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Example</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">x0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="co">#rnorm(n_samples, true_mean, standard_deviation)</span></span>
@@ -1367,7 +1367,7 @@ the null hypothesis with this set of data</p>
 <p><em>Independent Variables</em>: 1</p>
 <p><em>Design</em>: 2 groups, 2 levels</p>
 <p><em>Parametric</em>: Yes</p>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># One-sample t-test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="co">#numeric vector of data 1</span></span>
 <span>       <span class="va">y</span>, <span class="co">#numeric vector of data 2</span></span>
@@ -1381,7 +1381,7 @@ x and y.</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests6.html">Moer information about unpaired t-tests here</a>
 <a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests7.html">Another R guide for upaired t-tests</a></p>
 </div>
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Unpaired t-test example</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
@@ -1415,7 +1415,7 @@ interval, the null hypothesis can be rejected.</p>
 <p><em>Independent Variables</em>: 1</p>
 <p><em>Design</em>: 1 group, 2 levels</p>
 <p><em>Parametric</em>: Yes</p>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># One-sample t-test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="co">#numeric vector of data 1</span></span>
 <span>       <span class="va">y</span>, <span class="co">#numeric vector of data 2</span></span>
@@ -1429,7 +1429,7 @@ running a paired t-test make sure that you specify that <code>paired = TRUE</cod
 calling the function and that x and y have the same length.</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/Module7-ttests8.html#headingtaglink_2">More information about paired t-tests
 here</a></p>
-<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Unpaired t-test example</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">13</span><span class="op">)</span></span>
@@ -1463,7 +1463,7 @@ and y of length n, r would create a third data set of <code>new = ((x1-y1), (x2-
 <p><em>Design</em>: 2 groups, 2 + levels</p>
 <p><em>Parametric</em>: No</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare3.html">More Information on Chi-Squared tests</a></p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#How to Run a chi-squared test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="co"># numeric vector, matrix, or factor</span></span>
 <span>           <span class="va">y</span> <span class="co"># numeric vector; ignored if x is a matrix; factor of the same length as x if x is a factor</span></span>
@@ -1478,13 +1478,13 @@ and y of length n, r would create a third data set of <code>new = ((x1-y1), (x2-
 <p><em>Design</em>: 1 group</p>
 <p><em>Parametric</em>: No</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare2.html#headingtaglink_1">More Information on Chi-Squared test on one sample</a></p>
-<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#How to Run a chi-square goodness of fit</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="co"># numeric vector</span></span>
 <span>           p <span class="op">=</span> <span class="co">#list of probabilities, like c(10, 10, 10, 70)/100), same length as x</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The chi-squared goodness-of-fit can compare one set of outcomes to a given set of probabilities to determine the likelihood of the test probabilities differing from the given. The set of given probabilities constitutes the null hypothesis. In the below example, the dataset is the tested outcome frequencies: the number of times x[1], x[2], x[3], and x[4] were observed. If my null hypothesis says that each of the 4 should be observed an equal number of times, then the resulting chi-square test should will have a p-value of p&lt;0.001</p>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">25</span>, <span class="fl">18</span>, <span class="fl">92</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">x</span>, p<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">25</span>, <span class="fl">25</span>, <span class="fl">25</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span></span></code></pre></div>
@@ -1503,8 +1503,8 @@ and y of length n, r would create a third data set of <code>new = ((x1-y1), (x2-
 <p><em>Design</em>: 2 groups, 2 levels</p>
 <p><em>Parametric</em>: No</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_nonparametric/bs704_nonparametric4.html">More information here</a></p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="data-science.html#cb223-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(x,<span class="co">#Numeric vector of data</span></span>
-<span id="cb223-2"><a href="data-science.html#cb223-2" tabindex="-1"></a>            y <span class="co">#optional numeric vector of data)</span></span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="data-science.html#cb236-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(x,<span class="co">#Numeric vector of data</span></span>
+<span id="cb236-2"><a href="data-science.html#cb236-2" tabindex="-1"></a>            y <span class="co">#optional numeric vector of data)</span></span></code></pre></div>
 </div>
 <div id="wilcoxon-signed-ranks-test" class="section level4 unnumbered">
 <h4>
@@ -1576,7 +1576,7 @@ summary(aov(formula, #formula specifying the model
 <p>In statistics, the p-value is the probability of obtaining the observed results assuming that the null hypothesis is correct. In other words, the p-value is the probability of the same results happening by chance selection from the normal population rather than the test condition.</p>
 <p>For instance, imagine there is a game that randomly picks one out of four colors. The game developer decides to add a 5th color, yellow, so that each color now has 1/5 chance of winning and a 4/5 chance of losing. How many of its first games would yellow have to lose in a row before you suspect the dev forgot to code in the ability for yellow to win? If you want to wait to until there is a &lt; 5% chance of yellow losing every single game in a row under normal circumstances before pointing this out to the dev, then yellow would have to lose 14/14 games (a 4.4% likelihood).</p>
 <p>To visualize how 14 losses in a row in a game of chance with 1/5 success rate would occur in less than 5% of all instances, we can run a simulation of 1000 instances of 14 games with 1/5 chance success and displaying the results with their frequencies of success:</p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">roll</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nrolls</span>, <span class="va">noptions</span><span class="op">)</span><span class="op">{</span></span>
 <span> <span class="va">outcomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">noptions</span>, <span class="va">nrolls</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
 <span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">outcomes</span><span class="op">[</span><span class="va">outcomes</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
@@ -1597,7 +1597,7 @@ Here you see that slightly less than 5% of all run instances had 0 wins.</div>
 <p>In this situation, we are comparing if yellow’s win rate is significantly lower than if yellow had an equal chance at winning. The research hypothesis or alternative hypothesis in this case is that yellow’s chance of winning is significantly lower than the rest of the colors while the null hypothesis would be that yellow’s chance of winning is the same as the rest of the colors.
 The p-value of this test would be 0.043 because 43 out of 1000 instances of 14 rolls with a 1/5 chance of success totaled 0 successes, the number of successes we saw. If we instead were looking for 1 success or less out of 14 rolls, the p-value would be 0.19, because our simulation ran 147 instances of 1 success and 42 instances of 0 success.</p>
 <p>Since p-values are calculated by the percentage of outcomes that are higher than the one observed, on a normal distribution they may look something like this:</p>
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">norm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50000</span>, mean <span class="op">=</span> <span class="fl">4</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">norm</span><span class="op">)</span>,</span>
@@ -1717,7 +1717,7 @@ will almost always only have as many components as samples. To demonstrate this,
 we perform PCA using the
 <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp"><code>stats::prcomp()</code></a>
 function on an example microarray gene expression intensity dataset:</p>
-<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># intensities contains microarray expression data for ~54k probesets x 20 samples</span></span>
 <span></span>
 <span><span class="co"># transpose expression values so samples are rows</span></span>
@@ -1772,7 +1772,7 @@ function on an example microarray gene expression intensity dataset:</p>
 in the dataset. The <code>sdev</code> variable returned by <code><a href="https://rdrr.io/r/stats/prcomp.html">prcomp()</a></code> may be used to first
 calculate the variance explained by each component by squaring it, then dividing
 by the sum:</p>
-<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">pca_var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  PC<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu">str_c</span><span class="op">(</span><span class="st">"PC"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span>,<span class="fu">str_c</span><span class="op">(</span><span class="st">"PC"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -1809,7 +1809,7 @@ This is usually done by inspection and outlier samples chosen subjectively;
 there are no general rules to decide when a sample is an outlier by this method.
 Below the projections for components 1 and 2 are plotted against each other as a
 scatter plot:</p>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">PC1</span>,y<span class="op">=</span><span class="va">PC2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1818,7 +1818,7 @@ scatter plot:</p>
 of many pairs of projections. We could plot all pairs of the first six
 components using the <a href="https://ggobi.github.io/ggally/reference/ggpairs.html"><code>ggpairs() function</code></a> in the
 <a href="https://ggobi.github.io/ggally/">GGally</a> package:</p>
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">PC1</span><span class="op">:</span><span class="va">PC6</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1828,7 +1828,7 @@ components using the <a href="https://ggobi.github.io/ggally/reference/ggpairs.h
 common for projections for pairs of components to be plotted, an alternative way
 to visualize projections across all samples is by plotting the distribution of
 projections for each component using a <a href="#beeswarm-plots">beeswarm plot</a>:</p>
-<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">pivot_longer</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>,names_to<span class="op">=</span><span class="st">"PC"</span>,values_to<span class="op">=</span><span class="st">"projection"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>PC<span class="op">=</span><span class="fu">fct_relevel</span><span class="op">(</span><span class="va">PC</span>,<span class="fu">str_c</span><span class="op">(</span><span class="st">"PC"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1841,7 +1841,7 @@ we cannot see how they relate to one another.</p>
 <p>These projection plots may become more useful if we layer on additional
 information about our samples. There are two types of samples in our dataset (
 labelled <code>A</code> and <code>C</code>. We can color our pairwise scatter plot by type like so:</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>type<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html">str_sub</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">PC1</span>,y<span class="op">=</span><span class="va">PC2</span>,color<span class="op">=</span><span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1849,7 +1849,7 @@ labelled <code>A</code> and <code>C</code>. We can color our pairwise scatter pl
 <div class="inline-figure"><img src="main_files/pca%20color%20scatter-1.png" width="672"></div>
 <p>Little pattern is obvious from the plot, but we can plot pairs of components as
 before but now with type information:</p>
-<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>type<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html">str_sub</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1859,7 +1859,7 @@ before but now with type information:</p>
 <p>Examining PC3 and PC4, we now observe that there may indeed be some genes that
 distinguish between types based on the separation of projection scores for the
 two types. Finally, we can also color our beeswarm plot by type:</p>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    sample<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>,</span>
@@ -1892,7 +1892,7 @@ comparative performance of different clustering algorithms applied to the same
 data. Different algorithms may identify different types of patterns, and so no
 one clustering method is better than any other in general.</p>
 <p>The goal of clustering may be easily illustrated with the following plot:</p>
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">unclustered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">well_clustered_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">f1</span>,y<span class="op">=</span><span class="va">f2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Unclustered"</span><span class="op">)</span></span>
@@ -1964,7 +1964,7 @@ set of points using WPGMA:</p>
 <img src="hierarchical_clustering.png" alt="Conceptual illustration of agglomerative hierarchical clustering"><div class="figcaption">Conceptual illustration of agglomerative hierarchical clustering</div>
 </div>
 <p>Below we will cluster the synthetic dataset introduced above in R:</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">well_clustered_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">f1</span>,y<span class="op">=</span><span class="va">f2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Unclustered"</span><span class="op">)</span></span></code></pre></div>
@@ -1974,7 +1974,7 @@ multivariate normal samples. To hierarchically cluster these samples, we use the
 <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist"><code>dist()</code></a>
 and <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust"><code>hclust()</code></a>
 functions:</p>
-<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compute all pairwise distances using euclidean distance as the distance metric</span></span>
 <span><span class="va">euc_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">well_clustered_data</span>,<span class="op">-</span><span class="va">ID</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1997,7 +1997,7 @@ functions:</p>
 ##  - attr(*, "class")= chr "hclust"</code></pre>
 <p>The <code><a href="https://rdrr.io/r/stats/hclust.html">hclust()</a></code> return object describes the clustering as a tree that can be
 visualized using a <a href="data-visualization.html#dendrograms">dendrogram</a>:</p>
-<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andrie/ggdendro">ggdendro</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/ggdendrogram.html">ggdendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span></code></pre></div>
 <p><img src="main_files/hclust%20dendro-1.png" width="672">
@@ -2011,7 +2011,7 @@ sample groups are clearly visible. If we wished to separate these three groups,
 we can use the
 <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cutree"><code>cutree</code></a>
 to divide the tree into three groups using <code>k=3</code>:</p>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">hc</span>,k<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">labels</span></span></code></pre></div>
 <pre><code>##  A1  A2  A3  A4  A5  A6  A7  A8  A9 A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20 
@@ -2021,7 +2021,7 @@ to divide the tree into three groups using <code>k=3</code>:</p>
 ##  C1  C2  C3  C4  C5  C6  C7  C8  C9 C10 C11 C12 C13 C14 C15 C16 C17 C18 C19 C20 
 ##   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3</code></pre>
 <p>We can then use these samples and labels to color our original plot as desired:</p>
-<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># we turn our labels into a tibble so we can join them with the original tibble</span></span>
 <span><span class="va">well_clustered_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
@@ -2068,21 +2068,21 @@ weights to the edges to represent how often they interact with each other.</p>
 analyze networks in several language, <a href="https://igraph.org/r/">including R</a>. In
 the examples below, we will use the igraph package to demonstrate the concepts
 described in this section.</p>
-<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span></span></code></pre></div>
 <p>The <a href="https://igraph.org/r/doc/sample_gnm.html"><code>sample_gnm(n,m)</code> function</a>
 generates a random network with <span class="math inline">\(n\)</span> nodes and <span class="math inline">\(m\)</span> edges between them. We will
 use this function below to generate random networks of different types.</p>
 <p>A <strong>cyclic network</strong> has at least one directed path that starts and ends in the
 same node.</p>
-<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-81-1.png" width="672"></div>
 <p>An <strong>acyclic network</strong> , on the other hand, does not have any cycle path.</p>
-<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -2092,7 +2092,7 @@ same node.</p>
 can point in both directions, which are equivalent to undirected edges). One
 common example is a network representing cell metabolic process, where certain
 proteins biochemically modify, e.g. phosphorylate, other proteins.</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -2100,7 +2100,7 @@ proteins biochemically modify, e.g. phosphorylate, other proteins.</p>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-83-1.png" width="672"></div>
 <p>The edges in a <strong>indirect network</strong> do not have direction. Common examples
 include social interaction network and gene correlation network.</p>
-<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -2118,14 +2118,14 @@ include social interaction network and gene correlation network.</p>
 <p>In the following network, there are many ways to go from “Moon_Capital” to “Crystal_Corridor”, but there’s only one shortest path, which is “Moon_Capital” -&gt; “Gryphon’s_Nest” -&gt; “Crystal_Corridor”. On the other hand, when you want to go from “Moon_Capital” to “Icy_Turret”, there are two possible ways: one through “Gryphon’s_Nest”, one through “Agate_Trademart”.</p>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-85-1.png" width="672"></div>
 <p>In <code>igraph</code>, this can be calculated using <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths()</a></code>.</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">samp_g</span>, from <span class="op">=</span> <span class="st">"Moon_Capital"</span>, to <span class="op">=</span> <span class="st">"Crystal_Corridor"</span><span class="op">)</span><span class="op">$</span><span class="va">vpath</span></span></code></pre></div>
 <pre><code>## [[1]]
 ## + 3/5 vertices, named, from 6b2bdd0:
 ## [1] Moon_Capital     Gryphon's_Nest   Crystal_Corridor</code></pre>
 <p>One thing to keep in mind is, when <strong>weights</strong> are assigned to edges and being considered, the shortest path may <em>not</em> be the path that goes through the least number of vertices. In this example, consider the weight assigned to the edge connecting “Moon_Capital” and “Gryphon’s_Nest” is substantially large. <font color="grey"><del>The Royal Priest warned you that Gryphons live at the top of the hill, and it’s too hard to climb.</del></font></p>
 <p>Let’s color the edges according to their weights. Green means 1, blue means 2 while red means 3. Now, the shortest path from “Moon_Capital” to “Crystal_Corridor” becomes “Moon_Capital” -&gt; “Agate_Trademart” -&gt; “Icy_Turret” -&gt; “Crystal_Corridor”.</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Moon_Capital"</span>, <span class="st">"Icy_Turret"</span>, <span class="st">"Crystal_Corridor"</span>, <span class="st">"Gryphon's_Nest"</span>, <span class="st">"Agate_Trademart"</span><span class="op">)</span></span>
 <span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
@@ -2140,7 +2140,7 @@ include social interaction network and gene correlation network.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-87-1.png" width="672"></div>
 <p>We can conveniently find the shortest path with weights assigned!</p>
-<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">samp_g</span>,</span>
 <span>  from <span class="op">=</span> <span class="st">"Moon_Capital"</span>, to <span class="op">=</span> <span class="st">"Crystal_Corridor"</span>,</span>
 <span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span>, <span class="st">"weights"</span><span class="op">)</span></span>
@@ -2154,7 +2154,7 @@ include social interaction network and gene correlation network.</p>
 <span class="header-section-number">6.5.1.2</span> Vertex centrality<a class="anchor" aria-label="anchor" href="#vertex-centrality"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <strong>degree of a vertex</strong> is the number of edges connected to it. In <code>igraph</code>, this can be calculated using <code><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree()</a></code>.</p>
-<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  <span class="st">"from"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"G"</span>, <span class="st">"H"</span>, <span class="st">"H"</span>, <span class="st">"H"</span>, <span class="st">"H"</span>, <span class="st">"H"</span>, <span class="st">"M"</span>, <span class="st">"I"</span>, <span class="st">"G"</span>, <span class="st">"N"</span>, <span class="st">"N"</span><span class="op">)</span>,</span>
 <span>  <span class="st">"to"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>, <span class="st">"F"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>, <span class="st">"G"</span>, <span class="st">"H"</span>, <span class="st">"I"</span>, <span class="st">"J"</span>, <span class="st">"K"</span>, <span class="st">"L"</span>, <span class="st">"M"</span>, <span class="st">"K"</span>, <span class="st">"J"</span>, <span class="st">"N"</span>, <span class="st">"O"</span>, <span class="st">"P"</span><span class="op">)</span></span>
@@ -2162,7 +2162,7 @@ include social interaction network and gene correlation network.</p>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"name"</span><span class="op">)</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-89-1.png" width="672"></div>
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## A B C G H M I N D E F J K L O P 
 ## 6 2 2 3 6 2 2 3 2 2 1 2 2 1 1 1</code></pre>
@@ -2170,7 +2170,7 @@ include social interaction network and gene correlation network.</p>
 <p>To some extent, the degree can be used to evaluate the importance of a vertex. When a vertex is connected to a lot of other vertices, it naturally appears to be more important and has more ability to pass down information to other vertices. Assume you just opened a new on-line shop and you want to attract new customers as many as possible, you start by reaching out to the person you know has the largest number of friends.</p>
 <p>But, sometimes, people with the largest number of friends may not necessarily be the one who can “spread the word” to the whole community the most efficiently. In the example above, although A and H have a lot of connections, in fact, it seems like if we pass an information to G, the whole community will be influenced the most quickly.</p>
 <p>This leads us to <strong>closeness centrality</strong>, which is the sum of the length of the shortest paths between a node and all the other nodes in the graph. Although A and H have a lot of friends, it takes too long to reach the other side of the graph. When we calculating the closeness centrality using <code><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness()</a></code> function to calculate closeness centrality.</p>
-<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##          A          B          C          G          H          M          I 
 ## 0.03225806 0.02272727 0.02272727 0.03703704 0.03225806 0.02272727 0.02272727 
@@ -2179,7 +2179,7 @@ include social interaction network and gene correlation network.</p>
 ##          O          P 
 ## 0.01960784 0.01960784</code></pre>
 <p><strong>Betweenness centrality</strong> is the number of shortest paths that pass through the vertex. In this example, G is the also the one with the highest betweenness centrality.</p>
-<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  A  B  C  G  H  M  I  N  D  E  F  J  K  L  O  P 
 ## 58  0  0 72 58  0  0 27  0  0  0  0  0  0  0  0</code></pre>

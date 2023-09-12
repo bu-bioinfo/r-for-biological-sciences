@@ -22,7 +22,15 @@ prog-types
 prog-struct
 vectors
 factors
+matrices
 lists-and-data-frames
+subsetting
+vectors-1
+matrices-1
+lists
+data-frames
+and
+naming-data-structures
 logical-tests-and-comparators
 functions
 prog-dry

@@ -141,7 +141,7 @@
 </h2>
 <p>Without writing an entire treatise on R Shiny (see the book), a Shiny application is broken into two components: the UI function and the Server function. In web development parlance, these represent the “front end” and the “back end”, respectively. The front end is all the code that controls what a user sees and does (the goop that is in the web browser), and the back end is what connects that front end to the server where most of the code, processing power, and data will live.</p>
 <p>You can use two files for this, but we have set it up for <code>app.R</code> to contain the entire Shiny application. It’s general format is like so:</p>
-<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="co"># front end</span></span>
@@ -190,19 +190,19 @@
 </h3>
 <p>Once the inputs are established on the page, we want somewhere to put everything once it’s done being run! This is accomplished by the <code>*Output()</code> functions. We have two outputs to consider, a plot and a table, so we can use <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> respectively, using the names inside <code>output</code> from the server function. These can be placed simply on the <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel()</a></code>.</p>
 <p>There is one additional step if you would like to use tabs instead, which lets us create more space for our outputs. Instead of using the output functions directly, we can first use <code><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel()</a></code> and place two <code><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel()</a></code> functions inside. We then finally place our outputs. A tab setup will look something like this:</p>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="assignment-7.html#cb537-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb537-2"><a href="assignment-7.html#cb537-2" tabindex="-1"></a>  ...</span>
-<span id="cb537-3"><a href="assignment-7.html#cb537-3" tabindex="-1"></a>  <span class="fu">mainPanel</span>(</span>
-<span id="cb537-4"><a href="assignment-7.html#cb537-4" tabindex="-1"></a>    <span class="fu">tabsetPanel</span>(</span>
-<span id="cb537-5"><a href="assignment-7.html#cb537-5" tabindex="-1"></a>      <span class="fu">tabPanel</span>(<span class="st">"Tab1 Name"</span></span>
-<span id="cb537-6"><a href="assignment-7.html#cb537-6" tabindex="-1"></a>        <span class="fu">tableOutput</span>(...)</span>
-<span id="cb537-7"><a href="assignment-7.html#cb537-7" tabindex="-1"></a>      ),</span>
-<span id="cb537-8"><a href="assignment-7.html#cb537-8" tabindex="-1"></a>      <span class="fu">tabPanel</span>(<span class="st">"Tab2 Name"</span></span>
-<span id="cb537-9"><a href="assignment-7.html#cb537-9" tabindex="-1"></a>        <span class="fu">plotOutput</span>(...)</span>
-<span id="cb537-10"><a href="assignment-7.html#cb537-10" tabindex="-1"></a>      )</span>
-<span id="cb537-11"><a href="assignment-7.html#cb537-11" tabindex="-1"></a>    )</span>
-<span id="cb537-12"><a href="assignment-7.html#cb537-12" tabindex="-1"></a>  )</span>
-<span id="cb537-13"><a href="assignment-7.html#cb537-13" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="assignment-7.html#cb550-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb550-2"><a href="assignment-7.html#cb550-2" tabindex="-1"></a>  ...</span>
+<span id="cb550-3"><a href="assignment-7.html#cb550-3" tabindex="-1"></a>  <span class="fu">mainPanel</span>(</span>
+<span id="cb550-4"><a href="assignment-7.html#cb550-4" tabindex="-1"></a>    <span class="fu">tabsetPanel</span>(</span>
+<span id="cb550-5"><a href="assignment-7.html#cb550-5" tabindex="-1"></a>      <span class="fu">tabPanel</span>(<span class="st">"Tab1 Name"</span></span>
+<span id="cb550-6"><a href="assignment-7.html#cb550-6" tabindex="-1"></a>        <span class="fu">tableOutput</span>(...)</span>
+<span id="cb550-7"><a href="assignment-7.html#cb550-7" tabindex="-1"></a>      ),</span>
+<span id="cb550-8"><a href="assignment-7.html#cb550-8" tabindex="-1"></a>      <span class="fu">tabPanel</span>(<span class="st">"Tab2 Name"</span></span>
+<span id="cb550-9"><a href="assignment-7.html#cb550-9" tabindex="-1"></a>        <span class="fu">plotOutput</span>(...)</span>
+<span id="cb550-10"><a href="assignment-7.html#cb550-10" tabindex="-1"></a>      )</span>
+<span id="cb550-11"><a href="assignment-7.html#cb550-11" tabindex="-1"></a>    )</span>
+<span id="cb550-12"><a href="assignment-7.html#cb550-12" tabindex="-1"></a>  )</span>
+<span id="cb550-13"><a href="assignment-7.html#cb550-13" tabindex="-1"></a>)</span></code></pre></div>
 <p>It might look a little messy but if you can keep an eye on hierarchy it will start to make more sense.</p>
 </div>
 <div id="server---function..." class="section level3 unnumbered">
