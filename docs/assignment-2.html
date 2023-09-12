@@ -195,7 +195,7 @@ called my firs column “probeids”.</p>
 <h4>Tests<a class="anchor" aria-label="anchor" href="#tests"><i class="fas fa-link"></i></a>
 </h4>
 <p>The tests for this function are:</p>
-<div class="sourceCode" id="cb531"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"loading csv correctly"</span>, <span class="op">{</span></span>
 <span>  <span class="va">result_tib</span> <span class="op">&lt;-</span> <span class="fu">load_expression</span><span class="op">(</span><span class="st">"/project/bf528/project_1/data/example_intensity_data.csv"</span><span class="op">)</span></span>
 <span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">result_tib</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">54675</span>, <span class="fl">36</span><span class="op">)</span><span class="op">)</span></span>
@@ -230,7 +230,7 @@ every row at once. This solution takes mere moments.</p>
 <div id="tests-1" class="section level4 unnumbered">
 <h4>Tests<a class="anchor" aria-label="anchor" href="#tests-1"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
 <span><span class="fu">test_that</span><span class="op">(</span><span class="st">"the correct rows are filtered out in filter_15()"</span>, <span class="op">{</span></span>
 <span>  <span class="va">test_tib</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probeids<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'1_s_at'</span>, <span class="st">'2_s_at'</span>, <span class="st">'3_s_at'</span>, <span class="st">'4_s_at'</span><span class="op">)</span>,</span>
@@ -279,7 +279,7 @@ tibble.</p>
 <div id="tests-2" class="section level4 unnumbered">
 <h4>Tests<a class="anchor" aria-label="anchor" href="#tests-2"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"affy ids can be converted to HGNC names properly using affy_to_hgnc()"</span>, <span class="op">{</span></span>
 <span>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
 <span>  <span class="va">response</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">affy_to_hgnc</span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="st">'1553551_s_at'</span><span class="op">)</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -333,13 +333,13 @@ correct location. Finally, we created two tibbles of good and bad genes using
 <code><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which()</a></code> and the <code>%in%</code> modifier. Which evaluates true conditions across a
 range of data, so we can pass the list of genes we want and select the correct
 ones. For instance:</p>
-<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
 <span><span class="va">tib</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene1"</span>, <span class="st">"gene2"</span>, <span class="st">"gene3"</span>, <span class="st">"gene4"</span><span class="op">)</span>,</span>
 <span>              affy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a_s_1"</span>, <span class="st">"a_s_2"</span>, <span class="st">"a_s_3"</span>, <span class="st">"a_s_4"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="va">tib</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene2"</span>, <span class="st">"gene3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># returns the index of the TRUE rows</span></span></code></pre></div>
 <pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tib</span><span class="op">$</span><span class="va">affy</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="va">tib</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene2"</span>, <span class="st">"gene3"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co"># use [] to get data back</span></span></code></pre></div>
 <pre><code>## [1] "a_s_2" "a_s_3"</code></pre>
 <p>Once again, there are many ways to reshape this data (some maybe more elegant
@@ -348,7 +348,7 @@ returned.</p>
 <div id="tests-3" class="section level4 unnumbered">
 <h4>Tests<a class="anchor" aria-label="anchor" href="#tests-3"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb538"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"reduce_data() is correctly changing the size and shape of the tibble"</span>, <span class="op">{</span></span>
 <span>  <span class="va">t_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probeids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span>,</span>
 <span>                     GSM1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span><span class="op">)</span>,</span>
