@@ -3652,46 +3652,292 @@ my_df
 3       3          C</pre></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Accessing data frame elements</h2></hgroup><article  id="accessing-data-frame-elements">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Subsetting</h2></hgroup><article  id="subsetting">
+
+</article></slide><slide class=""><hgroup><h2>Subsetting</h2></hgroup><article  id="subsetting-1">
 
 <ul>
-<li><p>Can access data frame elements by their name:</p>
-
-<pre class = 'prettyprint lang-r'>my_df &lt;- data.frame( # recall &#39;.&#39; has no special meaning in R
-  numbers=c(1,2,3),
-  categories=c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;)
-)
-my_df$numbers
-[1] 1 2 3
-my_df[1] # numeric indexing returns a subset data frame
-  numbers
-1       1
-2       2
-3       3</pre></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Accessing data frame elements cont’d</h2></hgroup><article  id="accessing-data-frame-elements-contd">
-
-<pre class = 'prettyprint lang-r'>my_df[1]$numbers
-[1] 1 2 3
-# this syntax is [&lt;row&gt;,&lt;column&gt;], and if either is omitted return all
-my_df[,1] # return all rows of the first column as a vector
-[1] 1 2 3
-my_df$categories
-[1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Accessing data frame elements cont’d</h2></hgroup><article  id="accessing-data-frame-elements-contd-1">
+<li>Each of the data structures in R are collections of objects</li>
+<li>We often would like to select a subset of elements in a collection that have certain properties
 
 <ul>
-<li><p>You may access specific elements of a data frame in a number of ways:</p>
-
-<pre class = 'prettyprint lang-r'>my_df$numbers[1] # extract the first value of the numbers column
-[1] 1
-my_df[1,1] # same as above, recall the [&lt;row&gt;,&lt;column&gt;] syntax
-[1] 1
-my_df$categories[3] # extract 3rd value of the categories column
-[1] &quot;C&quot;</pre></li>
+<li>e.g. numeric values less than a specific threshold</li>
+</ul></li>
+<li>Selecting out a subset of elements in a data structure is called <em>subsetting</em></li>
+<li>R provides many different methods to subset a data structure depending on the type of data structure</li>
 </ul>
+
+</article></slide><slide class=""><hgroup><h2>0- vs 1-based indexing</h2></hgroup><article  id="vs-1-based-indexing">
+
+<ul>
+<li>R uses <em>1-based indexing</em>
+
+<ul>
+<li>-&gt; the first item in any data structure is referenced with the index 1:</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(3.5, 0.4, 9.1, 7.7)
+x[1]
+[1] 3.5
+x[4]
+[1] 7.7
+x[0] # this always returns an empty vector
+[1] numeric(0)
+x[5] # accessing indices larger than the vector length returns NA
+[1] NA</pre>
+
+</article></slide><slide class=""><hgroup><h2>0- vs 1-based indexing</h2></hgroup><article  id="vs-1-based-indexing-1">
+
+<ul>
+<li>C and python use <em>0-based indexing</em>
+
+<ul>
+<li>the first item in a data structure is referenced with the index 0:</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-python'>x = [3.5, 0.4, 9.1, 7.7]
+print(x[0])
+3.5
+print(x[3])
+7.7
+print(x[4]) # accessing indices larger than the list length raises error
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+IndexError: list index out of range</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Vectors</h2></hgroup><article  id="subsetting-vectors">
+
+<p>There are six different ways to subset vectors in R. The following three are the most common:</p>
+
+<ul>
+<li><strong>Positive integers</strong>: return specific elements by integer index.</li>
+<li><strong>Negative integers</strong>: omit specific elements by their negative integer index.</li>
+<li><strong>Logical vectors</strong>: return specific elements where the indexing vector is <code>TRUE</code></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Vectors: Positive Integers</h2></hgroup><article  id="subsetting-vectors-positive-integers">
+
+<ul>
+<li><strong>Positive integers</strong>: return specific elements by integer index.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(3.5, 0.4, 9.1, 7.7)
+x[1]
+[1] 3.5
+x[c(1,3)] # can subset using a vector of integers
+[1] 3.5 9.1
+x[c(1,1)] # can select the same element multiple times
+[1] 3.5 3.5</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Vectors: Positive Integers</h2></hgroup><article  id="subsetting-vectors-positive-integers-1">
+
+<ul>
+<li><strong>Negative integers</strong>: omit specific elements by their negative integer index.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(3.5, 0.4, 9.1, 7.7)
+x[-1] # return all but the first element
+[1] 0.4 9.1 7.7
+x[-c(2,4)] # return the first and third element
+[1] 3.5 9.1</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Vectors: Logical Vectors</h2></hgroup><article  id="subsetting-vectors-logical-vectors">
+
+<ul>
+<li><strong>Logical vectors</strong>: return specific elements where the indexing vector is <code>TRUE</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(3.5, 0.4, 9.1, 7.7)
+x[c(TRUE,FALSE,FALSE,TRUE)]
+[1] 3.5
+x[c(FALSE,TRUE,TRUE,FALSE)]
+[1] 0.4 9.1
+x &gt; 3
+[1] TRUE FALSE TRUE TRUE
+x[x &gt; 3]
+[1] 3.5 9.1 7.7</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Matrices</h2></hgroup><article  id="subsetting-matrices">
+
+<ul>
+<li>Matrices may be subset using the same methods as vectors</li>
+<li>Also, because matrices also have a notion of rows and columns, they may also be subset by pairs of vectors that select either rows or columns</li>
+<li>Syntax: <code>x[&lt;row selectors&gt;, &lt;column selectors&gt;]</code></li>
+<li><code>selectors</code> may be any of the methods used to subset a vector</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Matrices</h2></hgroup><article  id="subsetting-matrices-1">
+
+<pre class = 'prettyprint lang-r'>x &lt;- matrix(1:9, nrow=3, byrow=TRUE)
+x
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+x[c(1,2), c(1,2)] # first two rows, first two columns
+     [,1] [,2]
+[1,]    1    2
+[2,]    4    5</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Matrices</h2></hgroup><article  id="subsetting-matrices-2">
+
+<pre class = 'prettyprint lang-r'>x[-c(1,3), ] # leaving a selector blank selects all, second row and all columns
+[1] 4 5 6
+x[, c(2,3)] # all rows included, last two columns
+     [,1] [,2]
+[1,]    2    3
+[2,]    5    6
+[3,]    8    9
+x[-c(1,3), c(2)] # select the second row and second column
+[1] 5</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Lists</h2></hgroup><article  id="subsetting-lists">
+
+<ul>
+<li>A list can be subset with all the same methods as a vector</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>l &lt;- list(3.5, 0.4, c(9.1, 5.8), 7.7))
+l[1]
+[[1]]
+[1] 3.5
+l[c(2,3)]
+[[1]]
+[1] 0.4
+
+[[2]]
+[1] 9.1 5.8</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Lists</h2></hgroup><article  id="subsetting-lists-1">
+
+<pre class = 'prettyprint lang-r'>l[c(FALSE, TRUE, TRUE, FALSE)]
+[[1]]
+[1] 0.4
+
+[[2]]
+[1] 9.1 5.8</pre>
+
+<p>Note: when indexing a list with <code>[</code>, the result returned is always another list; we will discuss this more later.</p>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting Lists by Name</h2></hgroup><article  id="subsetting-lists-by-name">
+
+<ul>
+<li>Named lists may be accessed by name</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>l &lt;- list(a=3.5, b=0.4, c=c(9.1, 5.8), d=7.7)
+l[&quot;a&quot;]
+$a
+[1] 3.5
+l[c(&quot;a&quot;,&quot;c&quot;)]
+$a
+[1] 3.5
+
+$c
+[1] 9.1 5.8
+l[c(&quot;b&quot;)]</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data frames</h2></hgroup><article  id="data-frames-1">
+
+<ul>
+<li>Data frames may be accessed like both vectors (and therefore lists)</li>
+<li>Also like matrices, since they are rectangular by construction</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2><code>[[</code> and <code>$</code></h2></hgroup><article  id="and">
+
+<ul>
+<li><code>[[</code> and <code>$</code> operators are used to access single items of data structures individual value of a list or data frame and return only that value,</li>
+<li>We use <code>[[</code> when indexing by integer or name:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>l &lt;- list(a=3.5, b=0.4, c=c(9.1, 5.8), d=7.7)
+
+l[1] # returns a list with a single value of 3.5
+[[1]]
+[1] 3.5
+l[[1]] # returns 3.5
+[1] 3.5
+l[[3]] # returns c(9.1, 5.8)
+[1] 9.1 5.8</pre>
+
+</article></slide><slide class=""><hgroup><h2><code>[[</code> and <code>$</code></h2></hgroup><article  id="and-1">
+
+<pre class = 'prettyprint lang-r'>l[&quot;a&quot;] # returns list(a=3.5)
+$a
+[1] 3.5
+l$a # returns 3.5
+[1] 3.5
+l[[&quot;a&quot;]] # also returns 3.5
+[1] 3.5</pre>
+
+<div class="box readmore">
+<p><a href='http://adv-r.had.co.nz/Data-structures.html' title=''>Advanced R - Data Structures</a> <a href='https://adv-r.hadley.nz/subsetting.html' title=''>Advanced R - Subsetting</a></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Naming Data Structures</h2></hgroup><article  id="naming-data-structures">
+
+<ul>
+<li>Vectors, matrices, lists, and data frames can have names assigned to their indices</li>
+<li>For vectors and lists, these names are one-dimensional vectors of characters</li>
+<li>Assignable and accessible using the <code>names()</code> function:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(1,2,3)
+names(x) # vectors have no names by default
+NULL
+names(x) &lt;- c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;)
+x
+a b c
+1 2 3
+names(x)
+[1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Naming Lists</h2></hgroup><article  id="naming-lists">
+
+<ul>
+<li>Lists names are accessible and assignable similarly to vectors:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>l &lt;- list(a=3.5, b=0.4, c=c(9.1, 5.8), d=7.7)
+names(l)
+[1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;
+names(l) &lt;- c(&quot;f1&quot;, &quot;f2&quot;, &quot;f3&quot;, &quot;f4&quot;)
+l
+$f1
+[1] 3.5
+
+$f2
+[1] 0.4
+
+$f3
+[1] 9.1 5.8
+
+$f4
+[1] 7.7</pre>
+
+</article></slide><slide class=""><hgroup><h2>Naming Matrices and Data frames</h2></hgroup><article  id="naming-matrices-and-data-frames">
+
+<ul>
+<li>Matrices and data frames also have both rows and columns</li>
+<li>They can have <code>rownames</code> and <code>colnames</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>m &lt;- matrix(1:9, nrow=3, byrow=T)
+colnames(m) &lt;- c(&quot;c1&quot;, &quot;c2&quot;, &quot;c3&quot;)
+rownames(m) &lt;- c(&quot;r1&quot;, &quot;r2&quot;, &quot;r3&quot;)
+m
+   c1 c2 c3
+r1  1  2  3
+r2  4  5  6
+r3  7  8  9
+m[&quot;r1&quot;,] # get row 1
+c1 c2 c3 
+ 1  2  3 
+m[, &quot;c2&quot;] # get column 2
+r1 r2 r3 
+ 2  5  8 </pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Logical Tests and Comparators</h2></hgroup><article  id="logical-tests-and-comparators">
 
