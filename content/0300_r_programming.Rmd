@@ -332,6 +332,7 @@ covered in greater detail in [Reordering 1-D Data Elements] in the
 [Grammar of Graphics] chapter. The [forcats](https://forcats.tidyverse.org/)
 tidyverse package provides more powerful functions for working with categorical
 variables stored in factors.
+
 ### Matrices
 
 A matrix in R is simply the 2 dimensional version of a vector. That is, it is
@@ -366,6 +367,36 @@ t(A)
 dim(t(A))
 [1] 3 2
 ```
+
+::: {.box .note}
+R can store hyper-rectangular data using `array`s. `arrays` are constructed and
+operate similarly to matrix, but may have arbitrarily many dimensions. The
+following example is a 3-dimensional array with dimension sizes of $2x2x3$:
+
+```r
+x <- seq(12)
+x
+[1]  1  2  3  4  5  6  7  8  9 10 11 12
+array(x, dim=c(2,2,3))
+, , 1
+
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+, , 2
+
+     [,1] [,2]
+[1,]    5    7
+[2,]    6    8
+
+, , 3
+
+     [,1] [,2]
+[1,]    9   11
+[2,]   10   12
+```
+:::
 
 ::: {.box .readmore}
 [Hands-On Programming with R - Atomic Vectors](https://rstudio-education.github.io/hopr/r-objects.html#atomic-vectors)
@@ -481,22 +512,276 @@ my_df$categories[3] # extract the third value of the categories column
 [1] "C"
 ```
 
+### Subsetting
 
+Each of the data structures in R are collections of objects. Very often, we
+would like to select a subset of elements in a collection that have certain
+properties, for instance numeric values less than a specific threshold or occupy
+a specific position in the vector (e.g. the first or last element). The process
+of selecting out a subset of elements in a data structure is called *subsetting*.
+R provides many different methods to subset a data structure, where the choice
+of method depends on the type of data structure (e.g. vector vis a vis a data
+frame) or the type of subsetting required by a particular use case.
 
-::: {.box .note}
-In the examples above, the operation of extracting out different parts of a
-vector, matrix, list, or data frame is called *subsetting.* R provides many
-different ways to subset a data structure and discussing all of them is beyond
-the scope of this book. However, mastering subsetting will help your code be
-more concise and correct. See the Read More link on Subsetting below:
+::: {.box .warning}
+Unlike other languages like C and python, R uses *1-based indexing*. This means
+that the first item in any data structure is referenced with the index 1:
 
-[Advanced R - Subsetting](https://adv-r.hadley.nz/subsetting.html)
+```r
+x <- c(3.5, 0.4, 9.1, 7.7)
+x[1]
+[1] 3.5
+x[4]
+[1] 7.7
+x[0] # this always returns an empty vector
+[1] numeric(0)
+x[5] # accessing indices larger than the vector length returns NA
+[1] NA
+```
+
+C and python use *0-based indexing*, where the first item in a data structure is
+referenced with the index 0. For example:
+
+```python
+x = [3.5, 0.4, 9.1, 7.7]
+print(x[0])
+3.5
+print(x[3])
+7.7
+print(x[4]) # accessing indices larger than the list length raises error
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+```
+
+As you move between developing code in 0-based languages and R, be sure to
+remember they use different indexing strategies!
 :::
+
+#### Vectors
+
+There are six different ways to subset vectors in R. The following three are the
+most common:
+
+* **Positive integers**: return specific elements by integer index.
+
+  ```r
+  x <- c(3.5, 0.4, 9.1, 7.7)
+  x[1]
+  [1] 3.5
+  x[c(1,3)] # can subset using a vector of integers
+  [1] 3.5 9.1
+  x[c(1,1)] # can select the same element multiple times
+  [1] 3.5 3.5
+  ```
+* **Negative integers**: omit specific elements by their negative integer index.
+
+  ```r
+  x <- c(3.5, 0.4, 9.1, 7.7)
+  x[-1] # return all but the first element
+  [1] 0.4 9.1 7.7
+  x[-c(2,4)] # return the first and third element
+  [1] 3.5 9.1
+  ```
+* **Logical vectors**: return specific elements where the indexing vector is `TRUE`
+
+  ```r
+  x <- c(3.5, 0.4, 9.1, 7.7)
+  x[c(TRUE,FALSE,FALSE,TRUE)]
+  [1] 3.5
+  x[c(FALSE,TRUE,TRUE,FALSE)]
+  [1] 0.4 9.1
+  x > 3
+  [1] TRUE FALSE TRUE TRUE
+  x[x > 3]
+  [1] 3.5 9.1 7.7
+  ```
+  
+To see the other methods of indexing vectors, see the section on [subsetting
+vectors](https://adv-r.hadley.nz/subsetting.html#atomic-vectors-1) and Hadley
+Wickham's book [Advanced R](https://adv-r.hadley.nz/).
+
+#### Matrices
+
+Since matrices in R are vectors, they may be subset using the same methods as
+vectors. Additionally, because matrices also have a notion of rows and columns,
+they may also be subset by pairs of vectors that select either rows or columns.
+A matrix `x` may be subset with the syntax `[<row selectors>, <column selectors>]`.
+The `selectors` may be any of the methods used to subset a vector, as described
+above.
+
+```r
+x <- matrix(1:9, nrow=3, byrow=TRUE)
+x
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+x[c(1,2), c(1,2)] # first two rows, first two columns
+     [,1] [,2]
+[1,]    1    2
+[2,]    4    5
+x[-c(1,3), ] # leaving a selector blank selects all, second row and all columns
+[1] 4 5 6
+x[, c(2,3)] # all rows included, last two columns
+     [,1] [,2]
+[1,]    2    3
+[2,]    5    6
+[3,]    8    9
+x[-c(1,3), c(2)] # select the second row and second column
+[1] 5
+```
+
+#### Lists
+
+A list can be subset with all the same methods as a vector.
+
+```r
+l <- list(3.5, 0.4, c(9.1, 5.8), 7.7))
+l[1]
+[[1]]
+[1] 3.5
+l[c(2,3)]
+[[1]]
+[1] 0.4
+
+[[2]]
+[1] 9.1 5.8
+l[c(FALSE, TRUE, TRUE, FALSE)]
+[[1]]
+[1] 0.4
+
+[[2]]
+[1] 9.1 5.8
+```
+
+Note that when indexing a list with `[`, the result returned is always another
+list; we will discuss this more later.
+
+When a list has names associated with its values, it may also be access by name
+in addition to the ways described above:
+
+```r
+l <- list(a=3.5, b=0.4, c=c(9.1, 5.8), d=7.7)
+l["a"]
+$a
+[1] 3.5
+l[c("a","c")]
+$a
+[1] 3.5
+
+$c
+[1] 9.1 5.8
+l[c("b")]
+```
+
+We will discuss what `$` means at the end of this section.
+
+#### Data frames
+
+Data frames may be accessed like both vectors (and therefore lists) and also
+like matrices, since they are rectangular by construction.
+
+
+#### `[[` and `$`
+
+The `[[` and `$` operators are used to access single items of data structures.
+Remember from the section on subsetting lists that indexing with `[` (i.e. a
+single square bracket) always returns a list. When we wish to access an
+individual value of a list or data frame and return only that value, we use
+`[[` when indexing by integer or name:
+
+```r
+l <- list(a=3.5, b=0.4, c=c(9.1, 5.8), d=7.7)
+
+l[1] # returns a list with a single value of 3.5
+[[1]]
+[1] 3.5
+l[[1]] # returns 3.5
+[1] 3.5
+l[[3]] # returns c(9.1, 5.8)
+[1] 9.1 5.8
+
+l["a"] # returns list(a=3.5)
+$a
+[1] 3.5
+l$a # returns 3.5
+[1] 3.5
+l[["a"]] # also returns 3.5
+[1] 3.5
+```
+
+To see another (ane more complete) treatment of subsetting, see the section on
+[subsetting vectors](https://adv-r.hadley.nz/subsetting.html#atomic-vectors-1)
+and Hadley Wickham's book [Advanced R](https://adv-r.hadley.nz/).
 
 ::: {.box .readmore}
 [Advanced R - Data Structures](http://adv-r.had.co.nz/Data-structures.html)
 [Advanced R - Subsetting](https://adv-r.hadley.nz/subsetting.html)
 :::
+
+### Naming Data Structures
+
+Vectors, matrices, lists, and data frames can have names assigned to their
+indices. For vectors and lists, these names are one-dimensional vectors of
+characters that are assignable and accessible using the `names()` function:
+
+```r
+x <- c(1,2,3)
+names(x) # vectors have no names by default
+NULL
+names(x) <- c("a","b","c")
+x
+a b c
+1 2 3
+names(x)
+[1] "a" "b" "c"
+names(x) <- c("d","e","f")
+x
+d e f
+1 2 3
+```
+
+When a list is created with named items, those names are accessible similarly:
+
+```r
+l <- list(a=3.5, b=0.4, c=c(9.1, 5.8), d=7.7)
+names(l)
+[1] "a" "b" "c" "d"
+names(l) <- c("f1", "f2", "f3", "f4")
+l
+$f1
+[1] 3.5
+
+$f2
+[1] 0.4
+
+$f3
+[1] 9.1 5.8
+
+$f4
+[1] 7.7
+```
+
+As matrices and data frames also have both rows and columns, they can have
+`rownames` and `colnames`, respectively:
+
+```r
+m <- matrix(1:9, nrow=3, byrow=T)
+colnames(m) <- c("c1", "c2", "c3")
+rownames(m) <- c("r1", "r2", "r3")
+m
+   c1 c2 c3
+r1  1  2  3
+r2  4  5  6
+r3  7  8  9
+m["r1",] # get row 1
+c1 c2 c3 
+ 1  2  3 
+m[, "c2"] # get column 2
+r1 r2 r3 
+ 2  5  8 
+```
 
 ## Logical Tests and Comparators
 
@@ -537,6 +822,17 @@ c(1,2) == c(1,2,3)
 Warning message:
 In c(1, 2, 3) == c(1, 2) :
   longer object length is not a multiple of shorter object length
+```
+
+When performing logical tests on vectors, the `all()` function may be used to
+return a single boolean value when all results are true:
+
+```r
+x <- c(1,2,3)
+all(x == 2)
+[1] FALSE
+all(x > 0)
+[1] TRUE
 ```
 
 R also provides many functions of the form `is.X` where `X` is some type or

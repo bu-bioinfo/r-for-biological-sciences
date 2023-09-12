@@ -1253,6 +1253,18 @@ l[["a"]] # also returns 3.5
   In c(1, 2, 3) == c(1, 2) :
     longer object length is not a multiple of shorter object length
   </pre>
+  
+## Logical Tests on Vectors
+
+* `all()` function returns a single boolean value when all results are true:
+
+  ```r
+  x <- c(1,2,3)
+  all(x == 2)
+  [1] FALSE
+  all(x > 0)
+  [1] TRUE
+  ```
 
 ## Testing the type of a variable
 
