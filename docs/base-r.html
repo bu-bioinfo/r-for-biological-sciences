@@ -40,9 +40,9 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Problem Statement This assignment will focus on basic functions of R with an emphasis on tidyverse implementations. tidyverse is a collection of packages, pioneered by Hadley Wickham and RStudio,...">
-<meta property="og:description" content="Problem Statement This assignment will focus on basic functions of R with an emphasis on tidyverse implementations. tidyverse is a collection of packages, pioneered by Hadley Wickham and RStudio,...">
-<meta name="twitter:description" content="Problem Statement This assignment will focus on basic functions of R with an emphasis on tidyverse implementations. tidyverse is a collection of packages, pioneered by Hadley Wickham and RStudio,...">
+<meta name="description" content="Problem Statement This assignment will focus on basic functions of R with an emphasis on working with base R data structures and functional programming patterns.  Learning Objectives and Skill...">
+<meta property="og:description" content="Problem Statement This assignment will focus on basic functions of R with an emphasis on working with base R data structures and functional programming patterns.  Learning Objectives and Skill...">
+<meta name="twitter:description" content="Problem Statement This assignment will focus on basic functions of R with an emphasis on working with base R data structures and functional programming patterns.  Learning Objectives and Skill...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -106,48 +106,32 @@
 <h3>Problem Statement<a class="anchor" aria-label="anchor" href="#problem-statement-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>This assignment will focus on basic functions of R with an emphasis on
-<code>tidyverse</code> implementations. <code>tidyverse</code> is a collection of packages, pioneered
-by Hadley Wickham and RStudio, that looks to standardize procedures,
-functionality, and syntax in R.</p>
-<p>To gain familiarity with R, we will be working with a microarray dataset that
-contains gene probe expression data for various samples collected from cancer
-patients. In bioinformatics, it is common to have multiple datasets for your
-different modes of data (i.e. microarray expression data is kept separate
-from clinical data detailing the samples). You will get an opportunity to work
-with both of these datasets, and be required to cross reference between the two.</p>
+working with base R data structures and functional programming patterns.</p>
 </div>
 <div id="learning-objectives-and-skill-list-1" class="section level3 unnumbered">
 <h3>Learning Objectives and Skill List<a class="anchor" aria-label="anchor" href="#learning-objectives-and-skill-list-1"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
-<li>Install various packages needed for analysis</li>
-<li>Load Data</li>
-<li>Gain familiarity with common <code>tidyverse</code> operations such as <code>groupby()</code>,
-<code>mutate</code>, and <code>summarize</code>.</li>
-<li>Create a small plot to display results</li>
-<li>Utilize R Markdown to create an attractive format for sharing data.</li>
+<li>Understand how vector, matrix, and data frame data structures operate in R</li>
+<li>Logical tests and operator functions applied to data structures</li>
+<li>Use functions and <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> to iterate over rows of a matrix</li>
+<li>Use functional programming concepts to generalize data summarizatoin operations</li>
+<li>Bonus: learn how to appropriately handle missing values</li>
 </ul>
 </div>
 <div id="instructions-1" class="section level3 unnumbered">
 <h3>Instructions<a class="anchor" aria-label="anchor" href="#instructions-1"><i class="fas fa-link"></i></a>
 </h3>
-<p>Our main focus for this assignment are installing packages, manipulating data,
-and summarizing important statistics across both samples and features (genes). An
-empty project repo can be found here:</p>
-<p><a href="https://github.com/bu-bioinfo/bf591-assignment-1">https://github.com/bu-bioinfo/bf591-assignment-1</a></p>
+<p>An empty project repo can be found here:</p>
+<p><a href="https://github.com/bu-bioinfo/bf591-assignment-base-r">https://github.com/bu-bioinfo/bf591-assignment-base-r</a></p>
 <p>The project is laid out as such:</p>
 <pre><code>main.R
+test_main.R
 report.Rmd
 reference_report.html</code></pre>
-<div class="box note">
-<p>Note that in Assignment 1 there is no <code>test_main.R</code> and does not use the unit
-testing framework as described in the <a href="assignment-overview.html#assignment-overview">Assignment Overview</a>. For this assignment
-you should just compare your knitted report to <code>reference_report.html</code>. All
-subsequent assignments have <code>test_main.R</code>.</p>
-</div>
 <p>Each step of the assignment is explained in the R markdown file, <code>report.Rmd</code>.
 There you will find a list of tasks to explicity implement functions in your
-empty <code>main.R</code> script. The <code>main.R</code> script contains skeletons of each function
+empty <code>main.R</code> script. The <code>main.R</code> script contains stubs of each function
 you’ll need to implement, explaining what each function should do, the parameters
 it expects to receive, and what type of output is expected to be returned. A
 reference report, <code>reference_report.html</code> is also provided. Assuming you successfully
@@ -171,6 +155,8 @@ main.R</li>
 comparing your output to the example compiled report in the repo</li>
 <li>In the workflow, you will go back and forth between developing code in main.R
 and running code chunks in report.Rmd</li>
+<li>In addition to inspecting your report results, also run
+<code>testthat:test_file('test_main.R')</code> to ensure they work correctly.</li>
 <li>When you have developed function bodies for all the functions and executed
 all the code chunks in the report successfully, you should be able to knit the
 entire report</li>
@@ -180,25 +166,7 @@ entire report</li>
 <h3>Hints<a class="anchor" aria-label="anchor" href="#hints-1"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
-<li>When developing the <code>period_to_underscore()</code> function, you might find the
-<a href="https://stringr.tidyverse.org/reference/str_replace.html"><code>stringr::str_replace_all()</code></a>
-function helpful. The <code>pattern</code> argument to these functions is interpreted as
-a <a href="data-wrangling.html#regular-expressions">regular expression</a> or “regex” for short. A regular
-expression is a sequence of characters (i.e. a string) written in a language
-that describes patterns in text, similar to “Find and Replace” operations in
-word processing software, but is more powerful and flexible in the kinds of
-patterns it can detect. Some characters have special meaning in regular
-expressions, one of which is the <code>.</code> character. In order to identify the literal
-period character like we are trying to do, we must instruct the regular
-expression to do so by either escaping the character with <code>\\.</code> or place it in a
-range with <code>[.]</code>. Either of these two methods will work to replace a literal <code>.</code>
-with <code>_</code>. See the section on <a href="data-wrangling.html#regular-expressions">Regular expressions</a> for more information.</li>
-<li>If you are getting <strong>type conversion</strong> errors when loading in your expression
-CSV file, check to make sure you aren’t supplying your own column names. The
-CSV file has column headers already, and supplying your own will cause the first
-line to be read in as data. Since the first row are character values in this
-case, all of the other values in the columns will be coerced to characters as
-well, instead of reading them in as numbers.</li>
+<li>TBD :)</li>
 </ul>
 </div>
 </div>
