@@ -4,7 +4,7 @@ output:
     css: style.css
 ---
 
-# Assignment 2 {-}
+# Bioinformatics Basics {-}
 
 ## Problem Statement {-}
 Arranging the structure of our data inputs is vital to using R, as is creating

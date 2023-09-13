@@ -1,7 +1,9 @@
 ---
 output: html_document
 ---
-# Assignment 7 {-}
+
+# RShiny Basics {-}
+
 > Now working on my companion package: R Dully
 
 ## Problem Statement {-}

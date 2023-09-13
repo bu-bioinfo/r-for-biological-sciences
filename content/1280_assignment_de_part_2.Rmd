@@ -4,7 +4,8 @@ output:
     css: style.css
 ---
 
-# Assignment 6 {-}
+# Differential Expression Part 2 {-}
+
 > Volcanoes don't really look like that, do they?
 
 ## Problem Statement {-}
