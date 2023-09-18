@@ -6,18 +6,7 @@ author: "Adam Labadorf"
 company: "Boston University"
 ---
 
-# Assignment 1
-
-## Assignment 1
-
-* [Assignment 1](../assignment-1.html) description
-* *Learning Objectives and Skill List*
-  - Install various packages needed for analysis
-  - Load Data
-  - Gain familiarity with common tidyverse operations such as groupby(), mutate,
-    and summarize.
-  - Create a small plot to display results
-  - Utilize R Markdown to create an attractive format for sharing data.
+# Assignment Base R Checkin
 
 # Installing R Packages
 
@@ -302,7 +291,7 @@ gene_stats
 
 ## Tidy data illustration
 
-![Tidy data - from R for Data Science](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png){width=100%}
+<img width="100%" src="../tidy-data-r-for-data-science.png"/>
 
 # pipes with `%>%`
 
@@ -778,7 +767,7 @@ tidyr::pivot_longer(
 
 ## Pivot longer illustration
 
-![Pivot longer moves columns and values to two new columns](../pivot_longer.png){width=80%}
+<img src="../pivot_longer.png" width="80%"/>
 
 ## `tidyr::pivot_longer()`
 
@@ -818,7 +807,7 @@ long_gene_stats %>%
 
 ## Pivot wider illustration
 
-![Pivot wider moves values in a column to new columns](../pivot_wider.png){width=80%}
+<img src="../pivot_wider.png" width="80%"/>
 
 # R in Biology
 
@@ -1013,7 +1002,7 @@ BiocManager::install("affy")
 
 ## Bioconductor package pages
 
-![](affy_package_page.png){width=90%}
+<img src="affy_package_page.png" width="90%"/>
 
 ## Bioconductor documentation
 
@@ -1035,7 +1024,7 @@ BiocManager::install("affy")
 
 ## `SummarizedExperiment` Illustration
 
-![](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp){width=80%}
+<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnmeth.3252/MediaObjects/41592_2015_Article_BFnmeth3252_Fig2_HTML.jpg?as=webp" width="80%"/>
 
 ## `SummarizedExperiment` Details
 
@@ -1077,7 +1066,7 @@ tRNA in yeast](https://pubmed.ncbi.nlm.nih.gov/14263761/)
 
 ## Gene symbol ambiguity: APOE
 
-![](apoe_gene_card.png){width=100%}
+<img src="apoe_gene_card.png" width="100%"/>
 
 ## Human Gene Identifier Systems: Ensembl
 
