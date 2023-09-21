@@ -33,22 +33,15 @@ Our main focus for this assignment are installing packages, manipulating data,
 and summarizing important statistics across both samples and features (genes). An
 empty project repo can be found here:
 
-[https://github.com/bu-bioinfo/bf591-assignment-1](https://github.com/bu-bioinfo/bf591-assignment-1)
+[https://github.com/bu-bioinfo/bf591-assignment-tidyverse-basics](https://github.com/bu-bioinfo/bf591-assignment-tidyverse-basics)
 
 The project is laid out as such:  
 ```
 main.R
 report.Rmd
 reference_report.html
+test_main.R
 ```
-
-:::{.box .note}
-Note that in Assignment 1 there is no `test_main.R` and does not use the unit
-testing framework as described in the [Assignment Overview]. For this assignment
-you should just compare your knitted report to `reference_report.html`. All
-subsequent assignments have `test_main.R`.
-:::
-
 Each step of the assignment is explained in the R markdown file, `report.Rmd`.
 There you will find a list of tasks to explicity implement functions in your
 empty `main.R` script. The `main.R` script contains skeletons of each function
@@ -72,9 +65,11 @@ assignment:
   main.R
 4. You can test your work by executing individual code chunks in report.Rmd and
   comparing your output to the example compiled report in the repo
-5. In the workflow, you will go back and forth between developing code in main.R
+5. In the workflow, you will go back and forth between developing code in `main.R`
   and running code chunks in report.Rmd
-6. When you have developed function bodies for all the functions and executed
+6. In addition to inspecting your report results, also run
+  `testthat:test_file('test_main.R')` to ensure they work correctly.
+7. When you have developed function bodies for all the functions and executed
   all the code chunks in the report successfully, you should be able to knit the
   entire report
 
