@@ -134,17 +134,12 @@ with both of these datasets, and be required to cross reference between the two.
 <p>Our main focus for this assignment are installing packages, manipulating data,
 and summarizing important statistics across both samples and features (genes). An
 empty project repo can be found here:</p>
-<p><a href="https://github.com/bu-bioinfo/bf591-assignment-1">https://github.com/bu-bioinfo/bf591-assignment-1</a></p>
+<p><a href="https://github.com/bu-bioinfo/bf591-assignment-tidyverse-basics">https://github.com/bu-bioinfo/bf591-assignment-tidyverse-basics</a></p>
 <p>The project is laid out as such:</p>
 <pre><code>main.R
 report.Rmd
-reference_report.html</code></pre>
-<div class="box note">
-<p>Note that in Assignment 1 there is no <code>test_main.R</code> and does not use the unit
-testing framework as described in the <a href="assignment-overview.html#assignment-overview">Assignment Overview</a>. For this assignment
-you should just compare your knitted report to <code>reference_report.html</code>. All
-subsequent assignments have <code>test_main.R</code>.</p>
-</div>
+reference_report.html
+test_main.R</code></pre>
 <p>Each step of the assignment is explained in the R markdown file, <code>report.Rmd</code>.
 There you will find a list of tasks to explicity implement functions in your
 empty <code>main.R</code> script. The <code>main.R</code> script contains skeletons of each function
@@ -169,8 +164,10 @@ document and fill in the function bodies to produce the desired behavior in
 main.R</li>
 <li>You can test your work by executing individual code chunks in report.Rmd and
 comparing your output to the example compiled report in the repo</li>
-<li>In the workflow, you will go back and forth between developing code in main.R
+<li>In the workflow, you will go back and forth between developing code in <code>main.R</code>
 and running code chunks in report.Rmd</li>
+<li>In addition to inspecting your report results, also run
+<code>testthat:test_file('test_main.R')</code> to ensure they work correctly.</li>
 <li>When you have developed function bodies for all the functions and executed
 all the code chunks in the report successfully, you should be able to knit the
 entire report</li>
