@@ -748,7 +748,6 @@ long_gene_stats %>%
 ## Pivot wider illustration
 
 ![Pivot wider moves values in one column new columns](../pivot_wider.png){width=80%}
-
 # Relational Data
 
 ## Relational Data
@@ -784,6 +783,8 @@ tribble(
   )
   ```
 
+## Match rows between tibbles
+
   ```{r echo=F}
   gene_map
   ```
@@ -796,7 +797,17 @@ tribble(
 * `dplyr::left_join()` function accepts two data frames and the
   names of columns in each that share common values:
 
-  ``` {r}
+  ``` {r, results='hide'}
+  dplyr::left_join(
+      x=gene_stats,
+      y=gene_map,
+      by=c("gene" = "symbol")
+  )
+  ```
+
+## Match rows between tibbles
+
+  ``` {r, echo=F}
   dplyr::left_join(
       x=gene_stats,
       y=gene_map,
@@ -821,7 +832,17 @@ tribble(
 * *Left join* means include all rows in "left" tibble even if there is no match
 * Note `BRCA1` is in `gene_map` but not `gene_stats`:
 
-  ``` {r}
+  ``` {r, results="hide"}
+  dplyr::left_join(
+    gene_map, # gene_map is "left"
+    gene_stats, # gene_stats is "right"
+    by=c("symbol" = "gene")
+  )
+  ```
+  
+## Missing values in join
+
+  ``` {r, echo=F}
   dplyr::left_join(
     gene_map, # gene_map is "left"
     gene_stats, # gene_stats is "right"
@@ -836,7 +857,7 @@ tribble(
   ``` {r}
   dplyr::right_join(
     gene_stats, # gene_stats is "left"
-    gene_map, # gene_map is "right"
+  gene_map, # gene_map is "right"
     by=c("gene" = "symbol")
   )
   ```
@@ -847,7 +868,17 @@ tribble(
 * Recall `gene_map` included BRCA1 even though it was not found in `gene_stats`
 * Inner join will not include this row, because no match in `gene_stats` was found:
 
-  ``` {r}
+  ``` {r, results="hide"}
+  dplyr::inner_join(
+    gene_map,
+    gene_stats,
+    by=c("symbol" = "gene")
+  )
+  ```
+
+## Inner join
+
+  ``` {r, echo=F}
   dplyr::inner_join(
     gene_map,
     gene_stats,
@@ -861,6 +892,12 @@ tribble(
   (also sometimes called an outer join)
 * a full join will return all rows from both tibbles whether a match in the
   other table was found or not
+  
+##
+
+<div class="centered">
+<img src="../relational_data_joins.png" width="85%">
+</div>
 
 ## Multiple matches
 
