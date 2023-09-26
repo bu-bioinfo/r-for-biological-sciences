@@ -3263,196 +3263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
           </hgroup>
   </slide>
 
-<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Notes and Business</h2></hgroup><article  id="notes-and-business">
-
-</article></slide><slide class=""><hgroup><h2>Assignment commits after due</h2></hgroup><article  id="assignment-commits-after-due">
-
-<ul>
-<li>Your last commit prior to the start of class will be used as your submission</li>
-<li>You may push later, but the TAs will check out the state of your code prior to 2:30pm Wednesdays</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Assignment 2 Clarifications</h2></hgroup><article  id="assignment-2-clarifications">
-
-<ul>
-<li>You may use <code>report.Rmd</code> to help troubleshoot</li>
-<li>Example expression data has an R quirk:
-
-<ul>
-<li><code>read.table</code> functions expect first row to have 1 fewer column than subsequent rows</li>
-<li>First column is expected to be row names</li>
-</ul></li>
-</ul>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Unit Testing</h2></hgroup><article  id="unit-testing">
-
-</article></slide><slide class=""><hgroup><h2>Writing Correct Software</h2></hgroup><article  id="writing-correct-software">
-
-<ul>
-<li>Writing code that does what we intend is harder than it should be</li>
-<li>As code complexity increases, changing one piece of code may affect other code in unexpected ways</li>
-<li>How do we ensure our code does what we mean for it to do?</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Software Testing</h2></hgroup><article  id="software-testing">
-
-<ul>
-<li><em>Software testing</em> refers to writing code that tests other code</li>
-<li>Formal methods exist to test software for correctness</li>
-<li>Several <em>software testing frameworks</em> to choose from</li>
-<li>General strategy:
-
-<ol>
-<li>Construct inputs for our code that have expected outputs</li>
-<li>Compare actual output with expected output</li>
-<li>Fail if they don’t match</li>
-</ol></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Ad hoc testing</h2></hgroup><article  id="ad-hoc-testing">
-
-<pre class = 'prettyprint lang-r'>add &lt;- function(x,y) {
-  return(x+y)
-}</pre>
-
-<ul>
-<li><p>Can test this manually:</p>
-
-<pre class = 'prettyprint lang-r'>result &lt;- add(1,2)
-result == 3
-[1] TRUE</pre></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Ad hoc failure</h2></hgroup><article  id="ad-hoc-failure">
-
-<pre class = 'prettyprint lang-r'>add &lt;- function(x,y) {
-  return(x+y+1)
-}</pre>
-
-<ul>
-<li><p>Test FAILS:</p>
-
-<pre class = 'prettyprint lang-r'>result &lt;- add(1,2)
-result == 3
-[1] FALSE</pre></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Formal vs informal tests</h2></hgroup><article  id="formal-vs-informal-tests">
-
-<ul>
-<li>Manually testing code correctness is <em>informal</em></li>
-<li><em>Formal</em> testing frameworks involve writing code to perform this testing</li>
-<li>Formal tests are composed of <em>test cases</em> that cover different situations</li>
-<li>Can be run automatically whenever your code changes</li>
-<li>Write test cases when bugs are reported!</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Unit Testing</h2></hgroup><article  id="unit-testing-1">
-
-<ul>
-<li><em>Unit testing</em> is one software testing approach that tests individual &ldquo;units&rdquo; of code</li>
-<li>A &ldquo;unit&rdquo; of code may be:
-
-<ul>
-<li>A function</li>
-<li>A class</li>
-</ul></li>
-<li>Once all units are tested, sets of units that work together can be tested (called <em>integration testing</em>)</li>
-<li>Unit tests form a kind of &ldquo;documentation&rdquo; for the software</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2><code>testthat</code> Package</h2></hgroup><article  id="testthat-package">
-
-<ul>
-<li>R package <a href='https://testthat.r-lib.org/' title=''>testthat</a> provides a testing framework</li>
-<li>Authors: &ldquo;tries to make testing as fun as possible, so that you get a visceral satisfaction from writing tests.&rdquo;</li>
-<li>Install using <code>install.packages(&quot;testthat&quot;)</code></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2><code>testthat</code> Unit Test</h2></hgroup><article  id="testthat-unit-test">
-
-<pre class = 'prettyprint lang-r'>library(testthat)
-test_that(&quot;add() correctly adds things&quot;, {
-    expect_equal(add(1,2), 3)
-    expect_equal(add(5,6), 11)
-  }
-)
-Test passed</pre>
-
-</article></slide><slide class=""><hgroup><h2><code>test_that</code> Anatomy</h2></hgroup><article  id="test_that-anatomy">
-
-<pre class = 'prettyprint lang-r'>test_that(&quot;add() correctly adds things&quot;, {
-    expect_equal(add(1,2), 3)
-    expect_equal(add(5,6), 11)
-  }
-)</pre>
-
-<ol>
-<li>a concise, human readable description of the test (<code>add() correctly adds things</code>)</li>
-<li>one or more tests enclosed by <code>{}</code> written using <a href='https://testthat.r-lib.org/reference/index.html' title=''><code>expect_X</code> functions</a> from the testthat package</li>
-</ol>
-
-</article></slide><slide class=""><hgroup><h2><code>test_that</code> Failures</h2></hgroup><article  id="test_that-failures">
-
-<pre class = 'prettyprint lang-r'>test_that(&quot;add() correctly adds things&quot;, {
-    expect_equal(add(1,2), 3)
-    expect_equal(add(5,6), 10) # incorrect expected value
-  }
-)
--- Failure (Line 3): add() correctly adds things -------------------------------
-add(5, 6) not equal to 10.
-1/1 mismatches
-[1] 11 - 10 == 1
-
-Error: Test failed</pre>
-
-</article></slide><slide class=""><hgroup><h2>Writing tests</h2></hgroup><article  id="writing-tests">
-
-<ul>
-<li>Write an R script that only contains tests, e.g. <code>test_functions.R</code></li>
-<li><em>Separate from analysis code!</em></li>
-<li>Your test script call the functions you have written in your other scripts to check for their correctness</li>
-<li>Run tests whenever code changes substantially</li>
-<li>Add more tests to test new functionality/when you identify bugs</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Automated Testing</h2></hgroup><article  id="automated-testing">
-
-<ul>
-<li>Can run tests in test script automatically with <code>test_file()</code></li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>add &lt;- function(x,y) {
-return(x+y)
-}
-testthat::test_file(&quot;test_functions.R&quot;)
-
-== Testing test_functions.R =======================================================
-[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ] Done!</pre>
-
-</article></slide><slide class=""><hgroup><h2>Test Driven Development</h2></hgroup><article  id="test-driven-development">
-
-<ul>
-<li>Ultimate testing strategy is called <a href='https://en.wikipedia.org/wiki/Test-driven_development' title=''>test driven development</a></li>
-<li>Idea: write your tests before developing <em>any</em> analysis code, even for functions that don’t exist yet</li>
-<li><code>testthat</code> tests calling functions that are not defined will fail like tests that find incorrect output</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Test Driven Development</h2></hgroup><article  id="test-driven-development-1">
-
-<pre class = 'prettyprint lang-r'>test_that(&quot;mul() correctly multiplies things&quot;,{
-  expect_equal(mul(1,2), 2)
-})
--- Error (Line 1): new function ------------------------------------------------
-Error in `mul(1, 2)`: could not find function &quot;mul&quot;
-Backtrace:
- 1. testthat::expect_equal(mul(1, 2), 2)
- 2. testthat::quasi_label(enquo(object), label, arg = &quot;object&quot;)
- 3. rlang::eval_bare(expr, quo_get_env(quo))
-
-Error: Test failed</pre>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Grammar of Graphics</h2></hgroup><article  id="grammar-of-graphics">
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Grammar of Graphics</h2></hgroup><article  id="grammar-of-graphics">
 
 </article></slide><slide class=""><hgroup><h2>Grammar of Graphics</h2></hgroup><article  id="grammar-of-graphics-1">
 
@@ -3570,10 +3381,10 @@ Error: Test failed</pre>
       color=condition # color each point
     )
   ) +
-  geom_point()</pre>
-
-</article></slide><slide class=""><hgroup><h2>Adding More Aesthetics</h2></hgroup><article  id="adding-more-aesthetics-2"></li>
+  geom_point()</pre></li>
 </ul>
+
+</article></slide><slide class=""><hgroup><h2>Adding More Aesthetics</h2></hgroup><article  id="adding-more-aesthetics-2">
 
 <pre class = 'prettyprint lang-r'>ggplot(data=ad_metadata, mapping=aes(
       x=age_at_death, y=tau, color=condition
@@ -3994,7 +3805,8 @@ hist_g | density_g</pre>
 
 </article></slide><slide class=""><hgroup><h2>Boxplot Anatomy</h2></hgroup><article  id="boxplot-anatomy">
 
-
+<div class="centered">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Boxplot_vs_PDF.svg" width="60%"></p></div>
 
 </article></slide><slide class=""><hgroup><h2>Boxplot shortcomings</h2></hgroup><article  id="boxplot-shortcomings">
 
