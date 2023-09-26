@@ -506,27 +506,6 @@ is that GitHub hosts git repos.
 6. Send (push) changes to GitHub with `git push`
 7. Go to 1
 
-# Assignments
-
-## Assignment Structure
-
-* Each assignment has similar format and workflow, files:
-
-  ```
-  ├── reference_report.html
-  ├── main.R
-  ├── README.md
-  ├── report.Rmd
-  └── test_main.R
-  ```
-
-## Assignment Repository Structure
-
-<img src="../assignment_files.png" class="center" width="100%"/>
-
-## Assignment Workflow
-
-<img src="../assignment_workflow.png" class="center" width="90%"/>
 
 # R Programming
 

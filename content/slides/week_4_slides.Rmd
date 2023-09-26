@@ -15,190 +15,6 @@ library(tidyverse)
 library(ggplot2)
 ```
 
-# Notes and Business
-
-## Assignment commits after due
-
-* Your last commit prior to the start of class will be used as your submission
-* You may push later, but the TAs will check out the state of your code prior
-  to 2:30pm Wednesdays
-  
-## Assignment 2 Clarifications
-
-* You may use `report.Rmd` to help troubleshoot
-* Example expression data has an R quirk:
-  - `read.table` functions expect first row to have 1 fewer column than subsequent rows
-  - First column is expected to be row names
-  
-# Unit Testing
-
-## Writing Correct Software
-
-* Writing code that does what we intend is harder than it should be
-* As code complexity increases, changing one piece of code may affect other code
-  in unexpected ways
-* How do we ensure our code does what we mean for it to do?
-
-## Software Testing
-
-* *Software testing* refers to writing code that tests other code
-* Formal methods exist to test software for correctness
-* Several *software testing frameworks* to choose from
-* General strategy:
-  1. Construct inputs for our code that have expected outputs
-  2. Compare actual output with expected output
-  3. Fail if they don't match
-
-## Ad hoc testing
-
-```r
-add <- function(x,y) {
-  return(x+y)
-}
-```
-
-* Can test this manually:
-
-  ```r
-  result <- add(1,2)
-  result == 3
-  [1] TRUE
-  ```
-  
-## Ad hoc failure
-
-```r
-add <- function(x,y) {
-  return(x+y+1)
-}
-```
-
-* Test FAILS:
-
-  ```r
-  result <- add(1,2)
-  result == 3
-  [1] FALSE
-  ```
-
-## Formal vs informal tests
-
-* Manually testing code correctness is *informal*
-* *Formal* testing frameworks involve writing code to perform this testing
-* Formal tests are composed of *test cases* that cover different situations
-* Can be run automatically whenever your code changes
-* Write test cases when bugs are reported!
-
-## Unit Testing
-
-* *Unit testing* is one software testing approach that tests individual "units"
-  of code
-* A "unit" of code may be:
-  - A function
-  - A class
-* Once all units are tested, sets of units that work together can be tested
-  (called *integration testing*)
-* Unit tests form a kind of "documentation" for the software
-
-## `testthat` Package
-
-* R package [testthat](https://testthat.r-lib.org/) provides a testing framework
-* Authors: "tries to make testing as fun as possible, so that you get a visceral
-  satisfaction from writing tests."
-* Install using `install.packages("testthat")`
-
-## `testthat` Unit Test
-
-```r
-library(testthat)
-test_that("add() correctly adds things", {
-    expect_equal(add(1,2), 3)
-    expect_equal(add(5,6), 11)
-  }
-)
-Test passed
-```
-
-## `test_that` Anatomy
-
-```r
-test_that("add() correctly adds things", {
-    expect_equal(add(1,2), 3)
-    expect_equal(add(5,6), 11)
-  }
-)
-```
-
-1. a concise, human readable description of the test (`add() correctly adds things`)
-2. one or more tests enclosed by `{}` written using [`expect_X`
-  functions](https://testthat.r-lib.org/reference/index.html) from the testthat
-  package
-
-## `test_that` Failures
-
-```r
-test_that("add() correctly adds things", {
-    expect_equal(add(1,2), 3)
-    expect_equal(add(5,6), 10) # incorrect expected value
-  }
-)
--- Failure (Line 3): add() correctly adds things -------------------------------
-add(5, 6) not equal to 10.
-1/1 mismatches
-[1] 11 - 10 == 1
-
-Error: Test failed
-```
-
-## Writing tests
-
-* Write an R script that only contains tests, e.g. `test_functions.R`
-* *Separate from analysis code!*
-* Your test script call the functions you have written in your other scripts
-  to check for their correctness 
-* Run tests whenever code changes substantially
-* Add more tests to test new functionality/when you identify bugs
-
-
-## Automated Testing
-
-* Can run tests in test script automatically with `test_file()`
-
-```r
-add <- function(x,y) {
-return(x+y)
-}
-testthat::test_file("test_functions.R")
-
-== Testing test_functions.R =======================================================
-[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ] Done!
-```
-
-## Test Driven Development
-
-* Ultimate testing strategy is called [test driven
-development](https://en.wikipedia.org/wiki/Test-driven_development)
-* Idea: write your tests before developing *any* analysis code, even for
-  functions that don't exist yet
-* `testthat` tests calling functions that are not defined will fail like tests
-  that find incorrect output
-
-## Test Driven Development
-
-```r
-test_that("mul() correctly multiplies things",{
-  expect_equal(mul(1,2), 2)
-})
--- Error (Line 1): new function ------------------------------------------------
-Error in `mul(1, 2)`: could not find function "mul"
-Backtrace:
- 1. testthat::expect_equal(mul(1, 2), 2)
- 2. testthat::quasi_label(enquo(object), label, arg = "object")
- 3. rlang::eval_bare(expr, quo_get_env(quo))
-
-Error: Test failed
-```
-
 # Grammar of Graphics
 
 ## Grammar of Graphics
@@ -322,6 +138,7 @@ ggplot(data=ad_metadata, mapping=aes(x=age_at_death, y=tau)) +
     ) +
     geom_point()
   ```
+  
 ## Adding More Aesthetics
 
 ```{r, fig.dim=fig_size, out.width="100%"}
@@ -422,7 +239,6 @@ ggplot(data=ad_metadata, mapping=aes(x=age_at_death)) +
   geom_point(mapping=aes(y=abeta, color='red')) +
   geom_point(mapping=aes(y=iba1, color='cyan'))
 ```
-
 
 ## `ggplot` Scales
 
@@ -820,8 +636,9 @@ ggplot(ad_metadata) +
 
 ## Boxplot Anatomy
 
-![Boxplot anatomy. IQR stands for "inner quartile range", the distance between
-the 1st and 3rd quartile - Wikipedia](https://upload.wikimedia.org/wikipedia/commons/1/1a/Boxplot_vs_PDF.svg){width=50%}
+<div class="centered">
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Boxplot_vs_PDF.svg" width="60%">
+</div>
 
 ## Boxplot shortcomings
 
