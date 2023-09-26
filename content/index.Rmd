@@ -82,7 +82,9 @@ mentioned otherwise
 |                                      |                   | - R Programming Basics                       |                                  |
 +--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
 | [Week 2] |                           | 9/13 & 9/18       |                                              | [Base R]                         |
-| [slides](slides/week_2_slides.html)  |                   | - Data Wrangling & tidyverse Basics          |                                  |
+| [slides](slides/week_2_slides.html)  |                   | - EngineeRing: Unit Testing                  |                                  |
+|                                      |                   | - Assignment Structure                       |                                  |
+|                                      |                   | - Data Wrangling & tidyverse Basics          |                                  |
 +--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
 | [Week 3] |                           | 9/20 & 9/25       |                                              | [Tidyverse Basics]               |
 | [slides](slides/week_3_slides.html)  |                   | - R in Biology                               |                                  |

@@ -19,9 +19,11 @@ output: html_document
 | 1 | Prelim | [The Scripting Workflow] | [slides](slides/0200_preliminaries.html#the-scripting-workflow) |
 | 1 | Comm | [Rmarkdown & knitr] | [slides](slides/1000_communication.html#rmarkdown-knitr) |
 | 1 | Prelim | [Git + github] | [slides](slides/0200_preliminaries.html#git-github) |
-| 2 | R Prog | [R Syntax Basics] | [slides](slides/0300_r_programming.html#r-syntax-basics) |
+| 1 | R Prog | [R Syntax Basics] | [slides](slides/0300_r_programming.html#r-syntax-basics) |
+| 1 | R Prog | [Data Structures] | [slides](slides/0300_r_programming.html#data-structures) |
+| 1 | R Prog | [Subsetting Data Structures] | [slides](slides/0300_r_programming.html#subsetting) |
+| 2 | R Prog | [Logical Tests and Comparators] | [slides](slides/0300_r_programming.html#logical-tests-and-comparators) |
 | 2 | R Prog | [Functions] | [slides](slides/0300_r_programming.html#functions) |
-| 2 | R Prog | [Data Structures] | [slides](slides/0300_r_programming.html#data-structures) |
 | 2 | R Prog | [Factors] | [slides](slides/0300_r_programming.html#factors) |
 | 2 | R Prog | [Iteration] | [slides](slides/0300_r_programming.html#iteration) |
 | 2 | R Prog | [Troubleshooting and Debugging] | [slides](slides/0300_r_programming.html#troubleshooting-and-debugging) |
@@ -33,8 +35,9 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
-| 3 | Assignment | [Assignment 1] |  |
-| 3 | R Prog | [Installing Packages] | [slides](slides/0300_r_programming#the-tidyverse) |
+| 3 | EngineeRing | [Unit Testing] | [slides](slides/0800_engineeRing.html#unit-testing) |
+| 3 | Intro | [Assignment Structure] | [slides](slides/week_1_slides.html#assignments) |
+| 3 | Assignment | [Assignment 1 - Base R] |  |
 | 3 | Data Wrangling | [The Tidyverse] | [slides](slides/0400_data_wrangling.html#the-tidyverse) |
 | 3 | Data Wrangling | [Tidyverse Basics] | [slides](slides/0400_data_wrangling.html#tidyverse-basics) |
 | 3 | Data Wrangling | [Importing Data] | [slides](slides/0400_data_wrangling.html#importing-data) |
@@ -43,7 +46,8 @@ output: html_document
 | 3 | Data Wrangling | [pipes] | [slides](slides/0400_data_wrangling.html#pipes) |
 | 3 | Data Wrangling | [Arranging Data] | [slides](slides/0400_data_wrangling.html#arranging-data) |
 | 3 | Data Wrangling | [Regular expressions] | [slides](slides/0400_data_wrangling.html#regular-expressions) |
-| 4 | Cancelled due to illness | NA |  |
+| 4 | Data Wrangling | [Grouping Data] | [slides](slides/0400_data_wrangling.html#grouping-data) |
+| 4 | Data Wrangling | [Rearranging Data] | [slides](slides/0400_data_wrangling.html#rearranging-data) |
 
 
 ## Week 3
@@ -52,14 +56,14 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
-| 5 | Data Wrangling | [Rearranging Data] | [slides](slides/0400_data_wrangling.html#rearranging-data) |
+| 5 | Assignment | [Assignment 1 - Base R] |  |
+| 5 | R Prog | [Installing Packages] | [slides](slides/0300_r_programming#the-tidyverse) |
+| 5 | Assignment | [Assignment 2 - Tidyverse Basics] |  |
 | 5 | Bioinfo | [R in Biology] | [slides](slides/0700_bioinfo.html#r-in-biology) |
 | 5 | Bioinfo | [Types of Biological Data] | [slides](slides/0700_bioinfo.html#types-of-biological-data) |
 | 5 | Bioinfo | [Bioconductor] | [slides](slides/0700_bioinfo.html#bioconductor) |
 | 5 | Bioinfo | [Gene Identifiers] | [slides](slides/0700_bioinfo.html#gene-identifiers) |
 | 5 | Bioinfo | [Mapping Between Identifier Systems] | [slides](slides/0700_bioinfo.html#mapping-between-identifier-systems) |
-| 6 | Assignment | [Assignment 1] |  |
-| 6 | Assignment | [Assignment 2] |  |
 | 6 | Data Wrangling | [Relational Data] | [slides](slides/0400_data_wrangling.html#relational-data) |
 | 6 | Bioinfo | [Mapping Homologs] | [slides](slides/0700_bioinfo.html#mapping-homologs) |
 
@@ -70,7 +74,8 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
-| 7 | R Prog | [Unit Testing] | [slides](slides/0800_engineeRing.html#unit-testing) |
+| 8 | Assignment | [Assignment 2 - Tidyverse Basics] |  |
+| 8 | Assignment | [Assignment 3 - Bioinformatics Basics] |  |
 | 7 | Data Viz | [Grammar of Graphics] | [slides](slides/0600_data_viz.html#grammar-of-graphics) |
 | 7 | Data Viz | [`ggplot` Mechanics] | [slides](slides/0600_data_viz.html#ggplot-mechanics) |
 | 7 | Data Viz | [Plotting One Dimension] | [slides](slides/0600_data_viz.html#plotting-one-dimension) |
@@ -79,7 +84,6 @@ output: html_document
 | 8 | Bioinfo | [Gene Expression Data in Bioconductor] | [slides](slides/0700_bioinfo.html#gene-expression-in-bioconductor) |
 | 8 | Bioinfo | [Microarrays] | [slides](slides/0700_bioinfo.html#microarrays) |
 | 8 | Bioinfo | [Microarray Gene Expression Data] | [slides](slides/0700_bioinfo.html#microarray-gene-expression-data) |
-| 8 | Assignment | [Assignment 2] |  |
 
 
 ## Week 5
@@ -88,6 +92,8 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
+| 9 | Assignment | [Assignment 3 - Bioinformatics Basics] |  |
+| 9 | Assignment | [Assignment 4 - Data Science Basics] |  |
 | 9 | Data Science | [Data Modeling] | [slides](slides/0500_data_sci.html#data-modeling) |
 | 9 | Data Science | [A Worked Modeling Example] | [slides](slides/0500_data_sci.html#a-worked-modeling-example) |
 | 9 | Data Science | [Data Summarization] | [slides](slides/0500_data_sci.html#data-summarization) |
@@ -98,7 +104,6 @@ output: html_document
 | 9 | Data Science | [Cluster Analysis] | [slides](slides/0500_data_sci.html#cluster-analysis) |
 | 9 | Data Science | [Hierarchical Clustering] | [slides](slides/0500_data_sci.html#hierarchical-clustering) |
 | 9 | Data Viz | [Dendrograms] | [slides](slides/0600_data_viz.html#dendrograms) |
-| 10 | Assignment | [Assignment 3] |  |
 | 10 | Data Viz | [Heatmaps] | [slides](slides/0600_data_viz.html#heatmaps) |
 | 10 | Bioinfo | [Differential Expression] | [slides](slides/0700_bioinfo.html#differential-expression) |
 | 10 | Bioinfo | [Differential Expression: Microarrays (limma)] | [slides](slides/0700_bioinfo.html#differential-expression-microarrays-limma) |
@@ -117,12 +122,12 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
+| 11 | Assignment | [Assignment 4 - Data Science Basics] |  |
+| 11 | Assignment | [Assignment 5 - Counts Data] |  |
 | 11 | Bioinfo | [Count Transformation] | [slides](slides/0700_bioinfo.html#count-transformation) |
 | 11 | Bioinfo | [Differential Expression: RNASeq] | [slides](slides/0700_bioinfo.html#differential-expression-rnaseq) |
 | 11 | Bioinfo | [DESeq2/EdgeR] | [slides](slides/0700_bioinfo.html#deseq2-edger) |
 | 11 | Bioinfo | [limma/voom] | [slides](slides/0700_bioinfo.html#limma-voom) |
-| 12 | Assignment | [Assignment 3] |  |
-| 12 | Assignment | [Assignment 4] |  |
 | 12 | Bioinfo | [Gene Set Enrichment Analysis] | [slides](slides/0700_bioinfo.html#gene-set-enrichment-analysis) |
 | 12 | Bioinfo | [Gene Sets] | [slides](slides/0700_bioinfo.html#gene-sets) |
 | 12 | Bioinfo | [Over-representation Analysis] | [slides](slides/0700_bioinfo.html#over-representation-analysis) |
@@ -136,6 +141,8 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
+| 13 | Assignment | [Assignment 5 - Counts Data] |  |
+| 13 | Assignment | [Assignment 6 - Differential Expression Part 1] |  |
 | 13 | Data Science | [Statistical Distributions] | [slides](slides/0500_data_sci.html#statistical-distributions) |
 | 13 | Data Science | [Random Variables] | [slides](slides/0500_data_sci.html#random-variables) |
 | 13 | Data Science | [Statistical Distributions Basics] | [slides](slides/0500_data_sci.html#statistical-distribution-basics) |
@@ -143,8 +150,6 @@ output: html_document
 | 13 | Data Science | [Discrete Distributions] | [slides](slides/0500_data_sci.html#discrete-distributions) |
 | 13 | Data Science | [Continuous Distributions] | [slides](slides/0500_data_sci.html#continuous-distributions) |
 | 13 | Data Science | [Empirical Distributions] | [slides](slides/0500_data_sci.html#empirical-distributions) |
-| 14 | Assignment | [Assignment 4] |  |
-| 14 | Assignment | [Assignment 5] |  |
 | 14 | Data Science | [Statistical Tests] | [slides](slides/0500_data_sci.html#statistical-tests) |
 | 14 | Data Science | [p-values] | [slides](slides/0500_data_sci.html#p-values) |
 | 14 | Data Science | [Multiple Hypothesis Testing] | [slides](slides/0500_data_sci.html#multiple-hypothesis-testing) |
@@ -157,6 +162,8 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
+| 15 | Assignment | [Assignment 6 - Differential Expression Part 1] |  |
+| 15 | Assignment | [Assignment 7 - Differential Expression Part 2] |  |
 | 15 | Data Viz | [Responsible Plotting] | [slides](slides/0600_data_viz.html#responsible-plotting) |
 | 15 | Data Viz | [Human Visual Perception] | [slides](slides/0600_data_viz.html#human-visual-perception) |
 | 15 | Data Viz | [Visual Encodings] | [slides](slides/0600_data_viz.html#visual-encodings) |
@@ -166,8 +173,6 @@ output: html_document
 | 15 | Data Viz | [Bubble Plots] | [slides](slides/0600_data_viz.html#bubble-plots) |
 | 15 | Data Viz | [Connected Scatter Plots] | [slides](slides/0600_data_viz.html#connected-scatter-plots) |
 | 15 | Data Viz | [Line Plots] | [slides](slides/0600_data_viz.html#line-plots) |
-| 16 | Assignment | [Assignment 5] |  |
-| 16 | Assignment | [Assignment 6] |  |
 | 16 | Data Viz | [Parallel Coordinate Plots] | [slides](slides/0600_data_viz.html#parallel-coordinate-plots) |
 | 16 | Data Viz | [Chord Diagrams and Circos Plots] | [slides](slides/0600_data_viz.html#chord-diagrams-and-circos-plots) |
 | 16 | Data Viz | [How To Use Heatmaps Responsibly] | [slides](slides/0600_data_viz.html#how-to-use-heatmaps-responsibly) |
@@ -183,6 +188,8 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
+| 17 | Assignment | [Assignment 7 - Differential Expression Part 2] |  |
+| 17 | Assignment | [Assignment 8 - RShiny MkI] |  |
 | 17 | R Prog | [Coding Style and Conventions] |  |
 | 17 | R Prog | [The `styler` package] |  |
 | 17 | RShiny | [Rshiny] |  |
@@ -190,8 +197,6 @@ output: html_document
 | 17 | RShiny | [Application Structure] |  |
 | 17 | RShiny | [Reactivity] |  |
 | 17 | RShiny | [Publishing] |  |
-| 18 | Assignment | [Assignment 6] |  |
-| 18 | Assignment | [Assignment 7] |  |
 
 
 ## Week 10
@@ -235,8 +240,8 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
-| 23 | No class, project work | NA |  |
-| 24 | No class, project work | NA |  |
+| 23 | Professional Development | NA |  |
+| 24 | Professional Development | NA |  |
 
 
 ## Week 13
@@ -245,8 +250,8 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
-| 25 | No class, project work | NA |  |
-| 26 | No class, project work | NA |  |
+| 25 | Professional Development | NA |  |
+| 26 | Professional Development | NA |  |
 
 
 ## Week 14
