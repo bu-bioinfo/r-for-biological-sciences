@@ -74,16 +74,16 @@ output: html_document
 
 |Lecture|Topic|Section|Slides|
 |-------|-----|-------|------|
-| 8 | Assignment | [Assignment 2 - Tidyverse Basics] |  |
-| 8 | Assignment | [Assignment 3 - Bioinformatics Basics] |  |
-| 7 | Data Viz | [Grammar of Graphics] | [slides](slides/0600_data_viz.html#grammar-of-graphics) |
-| 7 | Data Viz | [`ggplot` Mechanics] | [slides](slides/0600_data_viz.html#ggplot-mechanics) |
-| 7 | Data Viz | [Plotting One Dimension] | [slides](slides/0600_data_viz.html#plotting-one-dimension) |
-| 7 | Data Viz | [Visualizing Distributions] | [slides](slides/0600_data_viz.html#visualizing-distributions) |
-| 8 | Bioinfo | [Gene Expression] | [slides](slides/0700_bioinfo.html#gene-expression) |
-| 8 | Bioinfo | [Gene Expression Data in Bioconductor] | [slides](slides/0700_bioinfo.html#gene-expression-in-bioconductor) |
-| 8 | Bioinfo | [Microarrays] | [slides](slides/0700_bioinfo.html#microarrays) |
-| 8 | Bioinfo | [Microarray Gene Expression Data] | [slides](slides/0700_bioinfo.html#microarray-gene-expression-data) |
+| 7 | Assignment | [Assignment 2 - Tidyverse Basics] |  |
+| 7 | Assignment | [Assignment 3 - Bioinformatics Basics] |  |
+| 7 | Bioinfo | [Gene Expression] | [slides](slides/0700_bioinfo.html#gene-expression) |
+| 7 | Bioinfo | [Gene Expression Data in Bioconductor] | [slides](slides/0700_bioinfo.html#gene-expression-in-bioconductor) |
+| 7 | Bioinfo | [Microarrays] | [slides](slides/0700_bioinfo.html#microarrays) |
+| 7 | Bioinfo | [Microarray Gene Expression Data] | [slides](slides/0700_bioinfo.html#microarray-gene-expression-data) |
+| 8 | Data Viz | [Grammar of Graphics] | [slides](slides/0600_data_viz.html#grammar-of-graphics) |
+| 8 | Data Viz | [`ggplot` Mechanics] | [slides](slides/0600_data_viz.html#ggplot-mechanics) |
+| 8 | Data Viz | [Plotting One Dimension] | [slides](slides/0600_data_viz.html#plotting-one-dimension) |
+| 8 | Data Viz | [Visualizing Distributions] | [slides](slides/0600_data_viz.html#visualizing-distributions) |
 
 
 ## Week 5
