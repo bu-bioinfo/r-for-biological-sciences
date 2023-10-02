@@ -13,7 +13,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 knitr::opts_chunk$set(cache = TRUE)
 ```
 
-# R for Biological Sciences {-}
+# R for Biological Sciences {.unnumbered}
 
 **Semester: Fall 2023**
 
@@ -25,201 +25,289 @@ Site last updated 8/14/2023
 
 Contents:
 
-- [Course Schedule]
-- [Instructors]
-- [Office Hours]
-- [Course Values and Policies]
+-   [Course Schedule]
+-   [Instructors]
+-   [Office Hours]
+-   [Course Values and Policies]
 
 This course introduces the R programming language through the lens of
 practitioners in the biological sciences, particularly biology and
 bioinformatics. Key concepts and patterns of the language are covered,
 including:
 
-   * RStudio
-   * Data wrangling with tidyverse
-   * Data visualization with ggplot
-   * Essential biological data shapes and formats
-   * Core bioconductor packages
-   * Basic data exploration, including elementary statistical modeling and summarization
-   * Elementary Data Science concepts
-   * "Toolifying" R scripts
-   * Communicating R code and results with RMarkdown
-   * Buidling R packages and unit testing strategies
-   * Building interactive tools with RShiny
+-   RStudio
+-   Data wrangling with tidyverse
+-   Data visualization with ggplot
+-   Essential biological data shapes and formats
+-   Core bioconductor packages
+-   Basic data exploration, including elementary statistical modeling
+    and summarization
+-   Elementary Data Science concepts
+-   "Toolifying" R scripts
+-   Communicating R code and results with RMarkdown
+-   Buidling R packages and unit testing strategies
+-   Building interactive tools with RShiny
 
-About 1/3 of the materials are inspired by the online textbook [R for Data
-Science](https://r4ds.had.co.nz), while the rest has been developed by
-practicing bioinformaticians based on their experiences.
+About 1/3 of the materials are inspired by the online textbook [R for
+Data Science](https://r4ds.had.co.nz), while the rest has been developed
+by practicing bioinformaticians based on their experiences.
 
-Weekly programming assignments will help students apply these techniques to
-realistic problems involving analysis and visualization of biological data.
-Students will be introduced to a unit testing paradigm that will help them write
-correct code and deposit all their code into github for evaluation. Students
-will implement an end-to-end project that begins with one of a set of provided
-datasets, implements a set of data summarization and exploration operations on
-it, and allows interaction with an RShiny app.
+Weekly programming assignments will help students apply these techniques
+to realistic problems involving analysis and visualization of biological
+data. Students will be introduced to a unit testing paradigm that will
+help them write correct code and deposit all their code into github for
+evaluation. Students will implement an end-to-end project that begins
+with one of a set of provided datasets, implements a set of data
+summarization and exploration operations on it, and allows interaction
+with an RShiny app.
 
-The course materials are aligned with [BF528 Applications in Translational
-Bioinformatics](https://bf528.rtfd.io),
-but the materials also stand alone as an independent class.
+The course materials are aligned with [BF528 Applications in
+Translational Bioinformatics](https://bf528.rtfd.io), but the materials
+also stand alone as an independent class.
 
-## Course Schedule {-}
+## Course Schedule {.unnumbered}
 
 **Key:**
 
-* **bold** - class held over zoom
-* ~~struckout~~ - class not held, reserved for project work
-* Follow [Week N](#class-outlines) links for detailed list of topic sections.
-* Assignments are assigned and due on the first day of class each week unless
-mentioned otherwise
+-   **bold** - class held over zoom
+-   ~~struckout~~ - class not held, reserved for project work
+-   Follow [Week N](#class-outlines) links for detailed list of topic
+    sections.
+-   Assignments are assigned and due on the first day of class each week
+    unless mentioned otherwise
 
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| Week                                 | Dates             | Topics                                       | Assignment                       |
-+======================================+===================+==============================================+==================================+
-| [Week 1] |                           | 9/6 & 9/11        |                                              | [Assignment 0]                   |
-| [slides](slides/week_1_slides.html)  |                   | - Preliminaries                              |                                  |
-|                                      |                   | - Data in Biology                            |                                  |
-|                                      |                   | - R Programming Basics                       |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 2] |                           | 9/13 & 9/18       |                                              | [Base R]                         |
-| [slides](slides/week_2_slides.html)  |                   | - EngineeRing: Unit Testing                  |                                  |
-|                                      |                   | - Assignment Structure                       |                                  |
-|                                      |                   | - Data Wrangling & tidyverse Basics          |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 3] |                           | 9/20 & 9/25       |                                              | [Tidyverse Basics]               |
-| [slides](slides/week_3_slides.html)  |                   | - R in Biology                               |                                  |
-|                                      |                   | - Bio: Bioconductor Basics                   |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 4] |                           | 9/27 & 10/2       |                                              | [Bioinformatics Basics]          |
-| [slides](slides/week_4_slides.html)  |                   | - Data Viz: Grammar of Graphics              |                                  |
-|                                      |                   | - Bio: Gene Expression                       |                                  |
-|                                      |                   | - Bio: Microarrays                           |                                  |
-|                                      |                   | - Data Sci: Data Modeling                    |                                  |
-|                                      |                   | - Bio: Differential Expression: Microarrays  |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 5] |                           | ~~10/9~~ & 10/11  |                                              | [Data Science Basics]            |
-| [slides](slides/week_5_slides.html)  | Note: 10/9 is a   | - Data Sci: PCA & Clustering                 |                                  |
-|                                      | holiday, no class | - Data Vis: Heatmaps & Dendrograms           |                                  |
-|                                      |                   | - R Programming: Structures & Iteration      |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 6] |                           | 10/16 & 10/18     |                                              | [Counts Analysis]                |
-| [slides](slides/week_6_slides.html)  |                   | - Bio: High Throughput Sequencing            |                                  |
-|                                      |                   | - Bio: RNASeq                                |                                  |
-|                                      |                   | - Bio: Count Data                            |                                  |
-|                                      |                   | - Bio: Differential Expression: RNASeq       |                                  |
-|                                      |                   | - Bio: Gene Set Enrichment Analysis          |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 7]                             | 10/23 & 10/25     |                                              | [Differential Expression Part 1] |
-|                                      |                   | - Data Sci: Distributions                    |                                  |
-|                                      |                   | - Data Sci: Statistical Tests                |                                  |
-|                                      |                   | - R Programming: Style & Conventions         |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 8]                             | 10/30 & 11/1      | - RShiny                                     | [Differential Expression Part 2] |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 9]                             | 11/6 & 11/8       | - EngineeRing                                | [Rshiny Basics]                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 10]                            | 11/13 & 11/15     |                                              | [RShiny Basics] cont'd           |
-|                                      |                   | - Data Viz: Plot Week!                       |                                  |
-|                                      |                   | - Data Viz: Responsible Plotting             |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 11]                            | 11/20 & ~~11/22~~ |                                              | [Final Project]                  |
-|                                      | **Note: no class  | - Bio: Biological Networks                   |                                  |
-|                                      | 11/22**           | - Data Sci: Network Analysis                 |                                  |
-|                                      |                   | - Data Viz: Network Viz                      |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 12]                            | 11/27 & 11/29     | - Professional Development Workshops         |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 13]                            | 12/4 & 12/6       | - Professional Development Workshops         |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-| [Week 14]                            | 12/11             | - Course wrap up & feedback                  |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
-|                                      | 12/15             | - First day of exam period                   | Project due                      |
-|                                      |                   |                                              |                                  |
-+--------------------------------------+-------------------+----------------------------------------------+----------------------------------+
++----------------+----------------+----------------+----------------+
+| Week           | Dates          | Topics         | Assignment     |
++================+================+================+================+
+| [Week 1] \|    | 9/6 & 9/11     | -              | [Assignment 0] |
+| [slides](s     |                |  Preliminaries |                |
+| lides/week_%20 |                | -   Data in    |                |
+| 1_slides.html) |                |     Biology    |                |
+|                |                | -   R          |                |
+|                |                |                |                |
+|                |                |    Programming |                |
+|                |                |     Basics     |                |
++----------------+----------------+----------------+----------------+
+| [Week 2] \|    | 9/13 & 9/18    | -              | [Base R]       |
+| [slides](s     |                |   EngineeRing: |                |
+| lides/week_%20 |                |     Unit       |                |
+| 2_slides.html) |                |     Testing    |                |
+|                |                | -   Assignment |                |
+|                |                |     Structure  |                |
+|                |                | -   Data       |                |
+|                |                |     Wrangling  |                |
+|                |                |     &          |                |
+|                |                |     tidyverse  |                |
+|                |                |     Basics     |                |
++----------------+----------------+----------------+----------------+
+| [Week 3] \|    | 9/20 & 9/25    | -   R in       | [Tidyverse     |
+| [slides](s     |                |     Biology    | Basics]        |
+| lides/week_%20 |                | -   Bio:       |                |
+| 3_slides.html) |                |                |                |
+|                |                |   Bioconductor |                |
+|                |                |     Basics     |                |
++----------------+----------------+----------------+----------------+
+| [Week 4] \|    | 9/27 & 10/2    | -   Data Viz:  | [Bi            |
+| [slides](s     |                |     Grammar of | oinformatics   |
+| lides/week_%20 |                |     Graphics   | Basics]        |
+| 4_slides.html) |                | -   Bio: Gene  |                |
+|                |                |     Expression |                |
+|                |                | -   Bio:       |                |
+|                |                |                |                |
+|                |                |    Microarrays |                |
+|                |                | -   Data Sci:  |                |
+|                |                |     Data       |                |
+|                |                |     Modeling   |                |
+|                |                | -   Bio:       |                |
+|                |                |                |                |
+|                |                |   Differential |                |
+|                |                |                |                |
+|                |                |    Expression: |                |
+|                |                |                |                |
+|                |                |    Microarrays |                |
++----------------+----------------+----------------+----------------+
+| [Week 5] \|    | ~~10/9~~ &     | -   Data Sci:  | [Data Science  |
+| [slides](s     | 10/11 Note:    |     PCA &      | Basics]        |
+| lides/week_%20 | 10/9 is a      |     Clustering |                |
+| 5_slides.html) | holiday, no    | -   Data Vis:  |                |
+|                | class          |     Heatmaps & |                |
+|                |                |                |                |
+|                |                |    Dendrograms |                |
+|                |                | -   R          |                |
+|                |                |                |                |
+|                |                |   Programming: |                |
+|                |                |     Structures |                |
+|                |                |     &          |                |
+|                |                |     Iteration  |                |
++----------------+----------------+----------------+----------------+
+| [Week 6] \|    | 10/16 & 10/18  | -   Bio: High  | [Counts        |
+| [slides](s     |                |     Throughput | Analysis]      |
+| lides/week_%20 |                |     Sequencing |                |
+| 6_slides.html) |                | -   Bio:       |                |
+|                |                |     RNASeq     |                |
+|                |                | -   Bio: Count |                |
+|                |                |     Data       |                |
+|                |                | -   Bio:       |                |
+|                |                |                |                |
+|                |                |   Differential |                |
+|                |                |                |                |
+|                |                |    Expression: |                |
+|                |                |     RNASeq     |                |
+|                |                | -   Bio: Gene  |                |
+|                |                |     Set        |                |
+|                |                |     Enrichment |                |
+|                |                |     Analysis   |                |
++----------------+----------------+----------------+----------------+
+| [Week 7]       | 10/23 & 10/25  | -   Data Sci:  | [ Differential |
+|                |                |                | Expression     |
+|                |                |  Distributions | Part 1]        |
+|                |                | -   Data Sci:  |                |
+|                |                |                |                |
+|                |                |    Statistical |                |
+|                |                |     Tests      |                |
+|                |                | -   R          |                |
+|                |                |                |                |
+|                |                |   Programming: |                |
+|                |                |     Style &    |                |
+|                |                |                |                |
+|                |                |    Conventions |                |
++----------------+----------------+----------------+----------------+
+| [Week 8]       | 10/30 & 11/1   | -   RShiny     | [ Differential |
+|                |                |                | Expression     |
+|                |                |                | Part 2]        |
++----------------+----------------+----------------+----------------+
+| [Week 9]       | 11/6 & 11/8    | -              | [Rshiny        |
+|                |                |    EngineeRing | Basics]        |
++----------------+----------------+----------------+----------------+
+| [Week 10]      | 11/13 & 11/15  | -   Data Viz:  | [RShiny        |
+|                |                |     Plot Week! | Basics] cont'd |
+|                |                | -   Data Viz:  |                |
+|                |                |                |                |
+|                |                |    Responsible |                |
+|                |                |     Plotting   |                |
++----------------+----------------+----------------+----------------+
+| [Week 11]      | 11/20 &        | -   Bio:       | [Final         |
+|                | ~~11/22~~      |     Biological | Project]       |
+|                | **Note: no     |     Networks   |                |
+|                | class 11/22**  | -   Data Sci:  |                |
+|                |                |     Network    |                |
+|                |                |     Analysis   |                |
+|                |                | -   Data Viz:  |                |
+|                |                |     Network    |                |
+|                |                |     Viz        |                |
++----------------+----------------+----------------+----------------+
+| [Week 12]      | 11/27 & 11/29  | -              |                |
+|                |                |   Professional |                |
+|                |                |                |                |
+|                |                |    Development |                |
+|                |                |     Workshops  |                |
++----------------+----------------+----------------+----------------+
+| [Week 13]      | 12/4 & 12/6    | -              |                |
+|                |                |   Professional |                |
+|                |                |                |                |
+|                |                |    Development |                |
+|                |                |     Workshops  |                |
++----------------+----------------+----------------+----------------+
+| [Week 14]      | 12/11          | -   Course     |                |
+|                |                |     wrap up &  |                |
+|                |                |     feedback   |                |
++----------------+----------------+----------------+----------------+
+|                | 12/15          | -   First day  | Project due    |
+|                |                |     of exam    |                |
+|                |                |     period     |                |
++----------------+----------------+----------------+----------------+
 
-## Instructors {-}
+## Instructors {.unnumbered}
 
 Primary instructor: Adam Labadorf (labadorf AT bu DOT edu)
 
 TAs:
 
-  - Nathan Sahelijo - sahelijo@bu
-  - Sami Clayton - samic@bu
+-   Nathan Sahelijo - [sahelijo\@bu](mailto:sahelijo@bu){.email}
+-   Sami Clayton - [samic\@bu](mailto:samic@bu){.email}
 
-## Office Hours {-}
+## Office Hours {.unnumbered}
 
 Office hours will be arranged as needed
 
-## Course Values and Policies {-}
+## Course Values and Policies {.unnumbered}
 
-**Everyone is welcome.** Every background, race, color, creed, religion, ethnic
-origin, age, sex, sexual orientation, gender identity, nationality is welcome
-and celebrated in this course. Everyone deserves respect, patience, and
-kindness. Disrespectful language, discrimination, or harassment of any kind are
-not tolerated, and may result in removal from class or the University. This is
-not merely [BU policy](http://www.bu.edu/policies/policy-category/harassment-discrimination/).
-The instructors deem these principles to be inviolable human rights. Students
-should feel safe reporting any and all instances of discrimination or
-harassment to the instructor, to any of the Bioinformatics Program leadership,
-or the [BU Equal Opportunity Office](http://www.bu.edu/eoo/).
+**Everyone is welcome.** Every background, race, color, creed, religion,
+ethnic origin, age, sex, sexual orientation, gender identity,
+nationality is welcome and celebrated in this course. Everyone deserves
+respect, patience, and kindness. Disrespectful language, discrimination,
+or harassment of any kind are not tolerated, and may result in removal
+from class or the University. This is not merely [BU
+policy](http://www.bu.edu/policies/policy-category/harassment-discrimination/).
+The instructors deem these principles to be inviolable human rights.
+Students should feel safe reporting any and all instances of
+discrimination or harassment to the instructor, to any of the
+Bioinformatics Program leadership, or the [BU Equal Opportunity
+Office](http://www.bu.edu/eoo/).
 
-**Everyone brings value.** Each of us brings unique experiences, skills, and
-creativity to this course. Our diversity is our greatest asset.
+**Everyone brings value.** Each of us brings unique experiences, skills,
+and creativity to this course. Our diversity is our greatest asset.
 
-**Collaboration is highly encouraged.** All students are encouraged to work
-together and seek out any and all available resources when completing projects
-in all aspects of the course, including sharing coding ideas and strategies with
-each other as well as those found on the internet. Any and all available
-resources may be brought to bear. However, consistent with BU policy, the bulk
-of your code and your final reports should be written in your own words and
-represent your own work and understanding of the material. Copying/pasting large
-sections of code is not acceptable and will be investigated as cheating (we check).
+**Collaboration is highly encouraged.** All students are encouraged to
+work together and seek out any and all available resources when
+completing projects in all aspects of the course, including sharing
+coding ideas and strategies with each other as well as those found on
+the internet. Any and all available resources may be brought to bear.
+However, consistent with BU policy, the bulk of your code and your final
+reports should be written in your own words and represent your own work
+and understanding of the material. Copying/pasting large sections of
+code is not acceptable and will be investigated as cheating (we check).
 
-**A safe space for dissent.** For complex topics such as those covered in this
-class, there is seldom one correct answer, approach, or solution. Disagreement
-fosters innovation. All in the course, including students and TAs, are
-encouraged to express constructive criticism and alternative ideas on any
-aspect of the content.
+**A safe space for dissent.** For complex topics such as those covered
+in this class, there is seldom one correct answer, approach, or
+solution. Disagreement fosters innovation. All in the course, including
+students and TAs, are encouraged to express constructive criticism and
+alternative ideas on any aspect of the content.
 
 **We are always learning.** Our knowledge and understanding is always
 incomplete. Even experts are fallible. The bioinformatics field evolves
-rapidly, and Rome was not built in a day. Be kind to yourself and to others.
-You are always smarter and more knowledgeable today than you were yesterday.
+rapidly, and Rome was not built in a day. Be kind to yourself and to
+others. You are always smarter and more knowledgeable today than you
+were yesterday.
 
-**Harm Acknowledgement.** Indigenous peoples in many parts of the United States,
-including Boston, were subject to unethical and harmful treatment by Americans
-of European descent and their ancestors at various times in our history. These
-harms include violence, murder, betrayal, biological warfare, forced
-sterilization and bodily exploitation, and forced displacement from ancestral
-lands. The instructors of this course acknowledge and condemn these acts of
-harm, and recognize that those acts enabled the use of land presently occupied
-by Boston University. We are committed to embracing the truth of these harms and
-to restorative justice for those whose suffering and subjugation allow us to be
-in this classroom today.
+**Harm Acknowledgement.** Indigenous peoples in many parts of the United
+States, including Boston, were subject to unethical and harmful
+treatment by Americans of European descent and their ancestors at
+various times in our history. These harms include violence, murder,
+betrayal, biological warfare, forced sterilization and bodily
+exploitation, and forced displacement from ancestral lands. The
+instructors of this course acknowledge and condemn these acts of harm,
+and recognize that those acts enabled the use of land presently occupied
+by Boston University. We are committed to embracing the truth of these
+harms and to restorative justice for those whose suffering and
+subjugation allow us to be in this classroom today.
 
-## Acknowledgements & Contributions {-}
+## Acknowledgements & Contributions {.unnumbered}
 
-These materials would not have been possible without the contributions of
-Dakota Hawkins, Vanessa Li, Taylor Falk, and Mae Rose Gott, and Joey Orofino.
+These materials would not have been possible without the contributions
+of Dakota Hawkins, Vanessa Li, Taylor Falk, and Mae Rose Gott, and Joey
+Orofino.
 
 Former valiant and (probably still) attractive TAs:
 
-## 2023 {-}
+## 2023 {.unnumbered}
 
-* **Regan Conrad** (BU BF PhD Candidate)
-* **Aubrey (Brie) Odom-Mabey** (BU BF PhD Candidate)
+-   **Regan Conrad** (BU BF PhD Candidate)
+-   **Aubrey (Brie) Odom-Mabey** (BU BF PhD Candidate)
 
-### 2022 {-}
+### 2022 {.unnumbered}
 
-* **Taylor Falk** (BU BF MS Alumnus '21) is a Bioinformatics Developer working
-  with the VA PTSD Brain Bank, developing infrastructure to support data
-  generated out of our brains. He is championing the assignment strategy and
-  will be available to help with issues.
-* **Mae Rose Gott** (BU BF MS Alumna '21) is a Research Staff member working
-  on a number of different projects across many different areas. She will be
-  helping organize the course materials as we go forward.
-* **Vanessa Li** (BU BF PhD Candidate) is a PhD candidate in Dr. Stefano Monti's
-  lab in Computational Biomedicine. She will primarily be helping with grading
-  of your assignments.
-* **Joey Orofino** (BU BF MS Alumnus '18) is a Research Scientist working on
-  identifying small RNA based biomarkers of Parkinson's Disease
+-   **Taylor Falk** (BU BF MS Alumnus '21) is a Bioinformatics Developer
+    working with the VA PTSD Brain Bank, developing infrastructure to
+    support data generated out of our brains. He is championing the
+    assignment strategy and will be available to help with issues.
+-   **Mae Rose Gott** (BU BF MS Alumna '21) is a Research Staff member
+    working on a number of different projects across many different
+    areas. She will be helping organize the course materials as we go
+    forward.
+-   **Vanessa Li** (BU BF PhD Candidate) is a PhD candidate in Dr.
+    Stefano Monti's lab in Computational Biomedicine. She will primarily
+    be helping with grading of your assignments.
+-   **Joey Orofino** (BU BF MS Alumnus '18) is a Research Scientist
+    working on identifying small RNA based biomarkers of Parkinson's
+    Disease
