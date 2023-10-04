@@ -76,146 +76,111 @@ also stand alone as an independent class.
 -   Assignments are assigned and due on the first day of class each week
     unless mentioned otherwise
 
-+----------------+----------------+----------------+----------------+
-| Week           | Dates          | Topics         | Assignment     |
-+================+================+================+================+
-| [Week 1] \|    | 9/6 & 9/11     | -              | [Assignment 0] |
-| [slides](s     |                |  Preliminaries |                |
-| lides/week_%20 |                | -   Data in    |                |
-| 1_slides.html) |                |     Biology    |                |
-|                |                | -   R          |                |
-|                |                |                |                |
-|                |                |    Programming |                |
-|                |                |     Basics     |                |
-+----------------+----------------+----------------+----------------+
-| [Week 2] \|    | 9/13 & 9/18    | -              | [Base R]       |
-| [slides](s     |                |   EngineeRing: |                |
-| lides/week_%20 |                |     Unit       |                |
-| 2_slides.html) |                |     Testing    |                |
-|                |                | -   Assignment |                |
-|                |                |     Structure  |                |
-|                |                | -   Data       |                |
-|                |                |     Wrangling  |                |
-|                |                |     &          |                |
-|                |                |     tidyverse  |                |
-|                |                |     Basics     |                |
-+----------------+----------------+----------------+----------------+
-| [Week 3] \|    | 9/20 & 9/25    | -   R in       | [Tidyverse     |
-| [slides](s     |                |     Biology    | Basics]        |
-| lides/week_%20 |                | -   Bio:       |                |
-| 3_slides.html) |                |                |                |
-|                |                |   Bioconductor |                |
-|                |                |     Basics     |                |
-+----------------+----------------+----------------+----------------+
-| [Week 4] \|    | 9/27 & 10/2    | -   Data Viz:  | [Bi            |
-| [slides](s     |                |     Grammar of | oinformatics   |
-| lides/week_%20 |                |     Graphics   | Basics]        |
-| 4_slides.html) |                | -   Bio: Gene  |                |
-|                |                |     Expression |                |
-|                |                | -   Bio:       |                |
-|                |                |                |                |
-|                |                |    Microarrays |                |
-|                |                | -   Data Sci:  |                |
-|                |                |     Data       |                |
-|                |                |     Modeling   |                |
-|                |                | -   Bio:       |                |
-|                |                |                |                |
-|                |                |   Differential |                |
-|                |                |                |                |
-|                |                |    Expression: |                |
-|                |                |                |                |
-|                |                |    Microarrays |                |
-+----------------+----------------+----------------+----------------+
-| [Week 5] \|    | ~~10/9~~ &     | -   Data Sci:  | [Data Science  |
-| [slides](s     | 10/11 Note:    |     PCA &      | Basics]        |
-| lides/week_%20 | 10/9 is a      |     Clustering |                |
-| 5_slides.html) | holiday, no    | -   Data Vis:  |                |
-|                | class          |     Heatmaps & |                |
-|                |                |                |                |
-|                |                |    Dendrograms |                |
-|                |                | -   R          |                |
-|                |                |                |                |
-|                |                |   Programming: |                |
-|                |                |     Structures |                |
-|                |                |     &          |                |
-|                |                |     Iteration  |                |
-+----------------+----------------+----------------+----------------+
-| [Week 6] \|    | 10/16 & 10/18  | -   Bio: High  | [Counts        |
-| [slides](s     |                |     Throughput | Analysis]      |
-| lides/week_%20 |                |     Sequencing |                |
-| 6_slides.html) |                | -   Bio:       |                |
-|                |                |     RNASeq     |                |
-|                |                | -   Bio: Count |                |
-|                |                |     Data       |                |
-|                |                | -   Bio:       |                |
-|                |                |                |                |
-|                |                |   Differential |                |
-|                |                |                |                |
-|                |                |    Expression: |                |
-|                |                |     RNASeq     |                |
-|                |                | -   Bio: Gene  |                |
-|                |                |     Set        |                |
-|                |                |     Enrichment |                |
-|                |                |     Analysis   |                |
-+----------------+----------------+----------------+----------------+
-| [Week 7]       | 10/23 & 10/25  | -   Data Sci:  | [ Differential |
-|                |                |                | Expression     |
-|                |                |  Distributions | Part 1]        |
-|                |                | -   Data Sci:  |                |
-|                |                |                |                |
-|                |                |    Statistical |                |
-|                |                |     Tests      |                |
-|                |                | -   R          |                |
-|                |                |                |                |
-|                |                |   Programming: |                |
-|                |                |     Style &    |                |
-|                |                |                |                |
-|                |                |    Conventions |                |
-+----------------+----------------+----------------+----------------+
-| [Week 8]       | 10/30 & 11/1   | -   RShiny     | [ Differential |
-|                |                |                | Expression     |
-|                |                |                | Part 2]        |
-+----------------+----------------+----------------+----------------+
-| [Week 9]       | 11/6 & 11/8    | -              | [Rshiny        |
-|                |                |    EngineeRing | Basics]        |
-+----------------+----------------+----------------+----------------+
-| [Week 10]      | 11/13 & 11/15  | -   Data Viz:  | [RShiny        |
-|                |                |     Plot Week! | Basics] cont'd |
-|                |                | -   Data Viz:  |                |
-|                |                |                |                |
-|                |                |    Responsible |                |
-|                |                |     Plotting   |                |
-+----------------+----------------+----------------+----------------+
-| [Week 11]      | 11/20 &        | -   Bio:       | [Final         |
-|                | ~~11/22~~      |     Biological | Project]       |
-|                | **Note: no     |     Networks   |                |
-|                | class 11/22**  | -   Data Sci:  |                |
-|                |                |     Network    |                |
-|                |                |     Analysis   |                |
-|                |                | -   Data Viz:  |                |
-|                |                |     Network    |                |
-|                |                |     Viz        |                |
-+----------------+----------------+----------------+----------------+
-| [Week 12]      | 11/27 & 11/29  | -              |                |
-|                |                |   Professional |                |
-|                |                |                |                |
-|                |                |    Development |                |
-|                |                |     Workshops  |                |
-+----------------+----------------+----------------+----------------+
-| [Week 13]      | 12/4 & 12/6    | -              |                |
-|                |                |   Professional |                |
-|                |                |                |                |
-|                |                |    Development |                |
-|                |                |     Workshops  |                |
-+----------------+----------------+----------------+----------------+
-| [Week 14]      | 12/11          | -   Course     |                |
-|                |                |     wrap up &  |                |
-|                |                |     feedback   |                |
-+----------------+----------------+----------------+----------------+
-|                | 12/15          | -   First day  | Project due    |
-|                |                |     of exam    |                |
-|                |                |     period     |                |
-+----------------+----------------+----------------+----------------+
++----------------+--------------+--------------------+--------------+
+| Week           | Dates        | Topics             | Assignment   |
++================+==============+====================+==============+
+| [Week 1] \|    | 9/6 & 9/11   | -   Preliminaries  | [Assignment  |
+| [slides        |              | -   Data in        | 0]           |
+| ](slides/week_ |              |     Biology        |              |
+| 1_slides.html) |              | -   R Programming  |              |
+|                |              |     Basics         |              |
++----------------+--------------+--------------------+--------------+
+| [Week 2] \|    | 9/13 & 9/18  | -   EngineeRing:   | [Base R]     |
+| [slides        |              |     Unit Testing   |              |
+| ](slides/week_ |              | -   Assignment     |              |
+| 2_slides.html) |              |     Structure      |              |
+|                |              | -   Data Wrangling |              |
+|                |              |     & tidyverse    |              |
+|                |              |     Basics         |              |
++----------------+--------------+--------------------+--------------+
+| [Week 3] \|    | 9/20 & 9/25  | -   R in Biology   | [Tidyverse   |
+| [slides        |              | -   Bio:           | Basics]      |
+| ](slides/week_ |              |     Bioconductor   |              |
+| 3_slides.html) |              |     Basics         |              |
++----------------+--------------+--------------------+--------------+
+| [Week 4] \|    | 9/27 & 10/2  | -   Data Viz:      | [Bi          |
+| [slides        |              |     Grammar of     | oinformatics |
+| ](slides/week_ |              |     Graphics       | Basics]      |
+| 4_slides.html) |              | -   Bio: Gene      |              |
+|                |              |     Expression     |              |
+|                |              | -   Bio:           |              |
+|                |              |     Microarrays    |              |
+|                |              | -   Data Sci: Data |              |
+|                |              |     Modeling       |              |
+|                |              | -   Bio:           |              |
+|                |              |     Differential   |              |
+|                |              |     Expression:    |              |
+|                |              |     Microarrays    |              |
++----------------+--------------+--------------------+--------------+
+| [Week 5] \|    | ~~10/9~~ &   | -   Data Sci: PCA  | [Data        |
+| [slides        | 10/11 Note:  |     & Clustering   | Science      |
+| ](slides/week_ | 10/9 is a    | -   Data Vis:      | Basics]      |
+| 5_slides.html) | holiday, no  |     Heatmaps &     |              |
+|                | class        |     Dendrograms    |              |
+|                |              | -   R Programming: |              |
+|                |              |     Structures &   |              |
+|                |              |     Iteration      |              |
++----------------+--------------+--------------------+--------------+
+| [Week 6] \|    | 10/16 &      | -   Bio: High      | [Counts      |
+| [slides        | 10/18        |     Throughput     | Analysis]    |
+| ](slides/week_ |              |     Sequencing     |              |
+| 6_slides.html) |              | -   Bio: RNASeq    |              |
+|                |              | -   Bio: Count     |              |
+|                |              |     Data           |              |
+|                |              | -   Bio:           |              |
+|                |              |     Differential   |              |
+|                |              |     Expression:    |              |
+|                |              |     RNASeq         |              |
+|                |              | -   Bio: Gene Set  |              |
+|                |              |     Enrichment     |              |
+|                |              |     Analysis       |              |
++----------------+--------------+--------------------+--------------+
+| [Week 7]       | 10/23 &      | -   Data Sci:      | [            |
+|                | 10/25        |     Distributions  | Differential |
+|                |              | -   Data Sci:      | Expression   |
+|                |              |     Statistical    | Part 1]      |
+|                |              |     Tests          |              |
+|                |              | -   R Programming: |              |
+|                |              |     Style &        |              |
+|                |              |     Conventions    |              |
++----------------+--------------+--------------------+--------------+
+| [Week 8]       | 10/30 & 11/1 | -   RShiny         | [            |
+|                |              |                    | Differential |
+|                |              |                    | Expression   |
+|                |              |                    | Part 2]      |
++----------------+--------------+--------------------+--------------+
+| [Week 9]       | 11/6 & 11/8  | -   EngineeRing    | [Rshiny      |
+|                |              |                    | Basics]      |
++----------------+--------------+--------------------+--------------+
+| [Week 10]      | 11/13 &      | -   Data Viz: Plot | [RShiny      |
+|                | 11/15        |     Week!          | Basics]      |
+|                |              | -   Data Viz:      | cont'd       |
+|                |              |     Responsible    |              |
+|                |              |     Plotting       |              |
++----------------+--------------+--------------------+--------------+
+| [Week 11]      | 11/20 &      | -   Bio:           | [Final       |
+|                | ~~11/22~~    |     Biological     | Project]     |
+|                | **Note: no   |     Networks       |              |
+|                | class        | -   Data Sci:      |              |
+|                | 11/22**      |     Network        |              |
+|                |              |     Analysis       |              |
+|                |              | -   Data Viz:      |              |
+|                |              |     Network Viz    |              |
++----------------+--------------+--------------------+--------------+
+| [Week 12]      | 11/27 &      | -   Professional   |              |
+|                | 11/29        |     Development    |              |
+|                |              |     Workshops      |              |
++----------------+--------------+--------------------+--------------+
+| [Week 13]      | 12/4 & 12/6  | -   Professional   |              |
+|                |              |     Development    |              |
+|                |              |     Workshops      |              |
++----------------+--------------+--------------------+--------------+
+| [Week 14]      | 12/11        | -   Course wrap up |              |
+|                |              |     & feedback     |              |
++----------------+--------------+--------------------+--------------+
+|                | 12/15        | -   First day of   | Project due  |
+|                |              |     exam period    |              |
++----------------+--------------+--------------------+--------------+
 
 ## Instructors {.unnumbered}
 
