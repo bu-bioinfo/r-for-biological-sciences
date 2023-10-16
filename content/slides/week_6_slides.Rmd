@@ -349,7 +349,7 @@ pivot_longer(filtered_counts,-c(gene),names_to="Sample",values_to="Count") %>%
 * Count normalization: the process by which the number of raw counts in each
   sample is scaled by a factor to make multiple samples comparable
 * Many strategies have been proposed to do this
-* The simplest is: divide ever count by some factor of the library size
+* The simplest is: divide every count by some factor of the library size
   - e.g. compute *counts per million reads* or *CPM* normalization
 
 $$
@@ -361,6 +361,7 @@ $$
 $$
 cpm_{s,i} =  \frac{c_{s,i}}{l_s} * 10^6
 $$
+
 * $c_{s,i} =$ raw count of gene $i$ in sample $s$
 * $l_s =$ library size for sample $s$
 * In principle, the proportion of read counts for each gene will be comparable
@@ -499,6 +500,7 @@ pivot_longer(rlog_counts,-c(gene),names_to="Sample",values_to="rlog count") %>%
   geom_density_ridges(bandwidth=0.132) +
   labs(title="rlog Distributions")
 ```
+
 # Differential Expression Analysis
 
 ## Differential Expression Analysis
@@ -591,6 +593,8 @@ source("setup_example_data.R")
 setwd('slides')
 ```
 
+# Differential Expression: Microarrays (limma)
+
 ## Differential Expression: Microarrays (limma)
 
 * [limma](https://bioconductor.org/packages/release/bioc/html/limma.html): `li`near `m`odels of `mi`croarrays
@@ -657,6 +661,8 @@ fit <- limma::eBayes(fit)
 # the coefficient name conditionAD is the column name in the design matrix
 topTable(fit, coef="conditionAD", adjust="BH", number=5)
 ```
+
+# Differential Expression: RNASeq
 
 ## Differential Expression: RNASeq
 
@@ -732,7 +738,8 @@ $$
 
 ## DESeq2 Dispersion Estimation
 
-* Index of dispersion $D$
+* Negative Binomial Distribution can be expressed in terms of mean and variance
+* Index of dispersion $D$ - defines relationship between mean and variance:
 
 $$
 D = \frac{\sigma^2}{\mu}
@@ -905,217 +912,3 @@ fit <- lmFit(logCPM, design)
 fit <- eBayes(fit, trend=TRUE)
 topTable(fit, coef=ncol(design))
 ```
-
-# Interpreting Gene Expression
-
-## Gene Annotations
-
-* Individual gene studies can characterize:
-  - function
-  - localization
-  - structure
-  - interactions
-  - chemical properties
-  - dynamics
-* Genes are *annotated* with these properties via different databases
-* Some annotations consolidated into centralized metadatabases
-* e.g. `genecards.org`
-
-## Example Gene Card
-
-![](apoe_gene_card_2.png){width=70%}
-* [https://www.genecards.org/cgi-bin/carddisp.pl?gene=APOE&keywords=APOE](https://www.genecards.org/cgi-bin/carddisp.pl?gene=APOE&keywords=APOE)
-
-## Gene Ontology (GO)
-
-* *Ontology*: a controlled vocabulary of biological concepts
-* The Gene Ontology (GO): a set of *terms* that describes what genes are, do, etc
-* Each GO Term has a code like `GO:NNNNNNN`, e.g. `GO:0019319`
-* GO Terms subdivided into three *namespaces*:
-  - Biological Process (BP) - pathways, etc
-  - Molecular Function (MF) - enzymatic activity, DNA binding, etc
-  - Cellular Component (CC) - nucleus, cell membrane, etc
-* Terms within each namespace are hierarchical, form a directed acyclic graph (DAG)
-
-## Gene Ontology
-
-![](go_dag.png){width=70%}
-
-## Example GO Term
-
-![](go_term_example.png){width=70%}
-
-* [http://amigo.geneontology.org/amigo/term/GO:0019319](http://amigo.geneontology.org/amigo/term/GO:0019319)
-
-## GO Annotation
-
-* GO Terms can apply to genes from all biological systems
-* The GO itself does not contain gene annotations
-* *GO annotations* are provided/maintained separately for each organism
-* A gene may be annotated to many GO terms
-* A GO term may be annotated to many genes
-
-## GO Annotation
-
-![](go_annotation_example.png){width=100%}
-
-## Individual to Many Genes
-
-* High throughput gene expression studies implicate many genes
-* What biological processes are implicated by a differential expression analysis?
-* Idea: examine the annotations of all implicated genes and look for patterns
-
-## Gene Sets
-
-* Genes can be organized by different attributes:
-  - biochemical function, e.g. enzymatic activity
-  - biological process, e.g. pathways
-  - localization, e.g. nucleus
-  - disease association
-  - chromosomal locus
-  - defined by differential expression studies!
-  - any other reasonable grouping
-* A *gene set* is a group of genes related in one way or another
-* e.g. all genes annotated to GO Term GO:0019319 - hexose biosynthetic process
-
-## Gene Set Databases
-
-* Gene set database: a collection of gene sets
-* Different databases organize/maintain different sets of genes for different
-  purposes
-
-## GO Annotations
-
-* Available at [geneontology.org](https://geneontology.org) for many species
-* Programmatic access as well
-* Provided in tab-delimited GAF (GO Annotation Format) files
-
-## KEGG
-
-* Kyoto Encyclopedia of Genes and Genomcs
-* "Gold standard" for curated pathways
-* Highly detailed, validated gene sets with gene interaction information
-* [https://www.genome.jp/kegg/pathway.html](https://www.genome.jp/kegg/pathway.html)
-
-## KEGG
-
-![](kegg_homepage.png){width=100%}
-
-## KEGG: Huntington's Disease
-
-![](kegg_huntingtons.png){width=60%}
-
-## KEGG: Huntington's Disease
-
-![](kegg_huntingtons_closeup.png){width=100%}
-
-## MSigDB
-
-* Molecular Signatures Data Base
-* Originally, gene sets associated with cancer
-* Contains 9 collections of gene sets:
-  - H - well defined biological states/processes
-  - C1 - positional gene sets
-  - C2 - curated gene sets
-  - C3 - regulatory targets
-  - C4 - computational gene sets
-  - C5 - GO annotations
-  - C6 - oncogenic signatures
-  - C7 - immunologic signatures
-  - C8 - cell type signatures
-
-## `.gmt` - Gene Set File Format
-
-* `.gmt` - Gene Matrix Transpose
-* Defined by Broad Institute for use in its GSEA software
-* Contains gene sets, one per line
-* Tab-separated format with columns:
-  - 1st column: Gene set name
-  - 2nd column: Gene set description (often blank)
-  - 3rd and on: gene identifiers for genes in set
-
-## GMT File
-
-![](gmt_example.png){width=100%}
-
-## GMT Files in R
-
-```r
-library('GSEABase')
-hallmarks_gmt <- getGmt(con='h.all.v7.5.1.symbols.gmt')
-hallmarks_gmt
-## GeneSetCollection
-##   names: HALLMARK_TNFA_SIGNALING_VIA_NFKB, HALLMARK_HYPOXIA, ..., HALLMARK_PANCREAS_BETA_CELLS (50 total)
-##   unique identifiers: JUNB, CXCL2, ..., SRP14 (4383 total)
-##   types in collection:
-##     geneIdType: NullIdentifier (1 total)
-##     collectionType: NullCollection (1 total)
-```
-
-## Gene Set Enrichment Analysis
-
-* Compare
-  - a gene list of interest (e.g. DE gene list) with
-  - a gene set (e.g. genes annotated to `GO:0019319`)
-* Are the genes in our gene list have more similarity to the genes in the gene
-  set than we expect by chance?
-  
-## Gene Set Enrichment Flavors
-
-* Over-representation: does our gene list overlap a gene set more than expected
-  by chance?
-* Rank-based: are the gene in a gene set more increased/decreased in our gene
-  list than expected by chance?
-
-## Over-representation
-
-* Useful with a list of "genes of interest" e.g. DE genes at FDR < 0.05
-* Compute overlap with genes in a gene set
-* Is the overlap greater than we would expect by chance?
-
-## Hypergeometric/Fisher's Exact Test
-
-![](confusion_matrix.png){width=100%}
-
-## Hypergeometric/Fisher's Exact Test
-
-```r
-contingency_table <- matrix(c(13, 987, 23, 8977), 2, 2)
-fisher_results <- fisher.test(contingency_table, alternative='greater')
-fisher_results
-## 
-##  Fisher's Exact Test for Count Data
-## 
-## data:  contingency_table
-## p-value = 2.382e-05
-## alternative hypothesis: true odds ratio is greater than 1
-## 95 percent confidence interval:
-##  2.685749      Inf
-## sample estimates:
-## odds ratio 
-##   5.139308
-```
-
-## Rank Based: GSEA
-
-* Inputs:
-  - *all* genes irrespective of significance, ranked by a statistic e.g. log2 fold change
-  - gene set database
-* Examines whether genes in each gene set are more highly or lowly ranked than
-  expected by chance
-* Computes a Kolmogorov-Smirnov test to determine signficance
-* Produces *Normalized Enrichment Score*
-  - Positive if gene set genes are at the top of the sorted list
-  - Negative if at bottom
-* Official software: standalone JAVA package
-
-## Rank Based: GSEA
-
-![](gsea_illustration.png){width=100%}
-
-## fgsea
-
-* [fgsea](https://bioconductor.org/packages/release/bioc/html/fgsea.html) package implements the GSEA preranked algorithm in R
-* Requires
-  - List of ranked genes
-  - Database of gene sets
