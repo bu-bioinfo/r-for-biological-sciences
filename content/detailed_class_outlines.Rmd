@@ -128,11 +128,6 @@ output: html_document
 | 12 | Bioinfo | [Differential Expression: RNASeq] | [slides](slides/0700_bioinfo.html#differential-expression-rnaseq) |
 | 12 | Bioinfo | [DESeq2/EdgeR] | [slides](slides/0700_bioinfo.html#deseq2-edger) |
 | 12 | Bioinfo | [limma/voom] | [slides](slides/0700_bioinfo.html#limma-voom) |
-| 12 | Bioinfo | [Gene Set Enrichment Analysis] | [slides](slides/0700_bioinfo.html#gene-set-enrichment-analysis) |
-| 12 | Bioinfo | [Gene Sets] | [slides](slides/0700_bioinfo.html#gene-sets) |
-| 12 | Bioinfo | [Over-representation Analysis] | [slides](slides/0700_bioinfo.html#over-representation-analysis) |
-| 12 | Bioinfo | [Rank-based Analysis] | [slides](slides/0700_bioinfo.html#rank-based-analysis) |
-| 12 | Bioinfo | [fgsea] | [slides](slides/0700_bioinfo.html#fgsea) |
 
 
 ## Week 7
@@ -143,13 +138,18 @@ output: html_document
 |-------|-----|-------|------|
 | 13 | Assignment | [Assignment 5 - Counts Data] |  |
 | 13 | Assignment | [Assignment 6 - Differential Expression Part 1] |  |
-| 13 | Data Science | [Statistical Distributions] | [slides](slides/0500_data_sci.html#statistical-distributions) |
-| 13 | Data Science | [Random Variables] | [slides](slides/0500_data_sci.html#random-variables) |
-| 13 | Data Science | [Statistical Distributions Basics] | [slides](slides/0500_data_sci.html#statistical-distribution-basics) |
-| 13 | Data Science | [Distributions in R] | [slides](slides/0500_data_sci.html#distributions-in-r) |
-| 13 | Data Science | [Discrete Distributions] | [slides](slides/0500_data_sci.html#discrete-distributions) |
-| 13 | Data Science | [Continuous Distributions] | [slides](slides/0500_data_sci.html#continuous-distributions) |
-| 13 | Data Science | [Empirical Distributions] | [slides](slides/0500_data_sci.html#empirical-distributions) |
+| 13 | Bioinfo | [Gene Set Enrichment Analysis] | [slides](slides/0700_bioinfo.html#gene-set-enrichment-analysis) |
+| 13 | Bioinfo | [Gene Sets] | [slides](slides/0700_bioinfo.html#gene-sets) |
+| 13 | Bioinfo | [Over-representation Analysis] | [slides](slides/0700_bioinfo.html#over-representation-analysis) |
+| 13 | Bioinfo | [Rank-based Analysis] | [slides](slides/0700_bioinfo.html#rank-based-analysis) |
+| 13 | Bioinfo | [fgsea] | [slides](slides/0700_bioinfo.html#fgsea) |
+| 14 | Data Science | [Statistical Distributions] | [slides](slides/0500_data_sci.html#statistical-distributions) |
+| 14 | Data Science | [Random Variables] | [slides](slides/0500_data_sci.html#random-variables) |
+| 14 | Data Science | [Statistical Distributions Basics] | [slides](slides/0500_data_sci.html#statistical-distribution-basics) |
+| 14 | Data Science | [Distributions in R] | [slides](slides/0500_data_sci.html#distributions-in-r) |
+| 14 | Data Science | [Discrete Distributions] | [slides](slides/0500_data_sci.html#discrete-distributions) |
+| 14 | Data Science | [Continuous Distributions] | [slides](slides/0500_data_sci.html#continuous-distributions) |
+| 14 | Data Science | [Empirical Distributions] | [slides](slides/0500_data_sci.html#empirical-distributions) |
 | 14 | Data Science | [Statistical Tests] | [slides](slides/0500_data_sci.html#statistical-tests) |
 | 14 | Data Science | [p-values] | [slides](slides/0500_data_sci.html#p-values) |
 | 14 | Data Science | [Multiple Hypothesis Testing] | [slides](slides/0500_data_sci.html#multiple-hypothesis-testing) |

@@ -1,0 +1,1683 @@
+---
+title: "Data Visualization"
+subtitle: "[R for Biological Science](../index.html)"
+output: ioslides_presentation
+author: "Adam Labadorf"
+company: "Boston University"
+---
+
+```{r data viz setup, include=FALSE}
+library(tidyverse)
+
+fig_size <- c(4,2)
+
+setwd('../')
+source("setup_example_data.R")
+setwd('slides')
+```
+
+# Data Visualization
+
+## Data Visualization
+
+* Data visualization is a core component of both exploring data and communicating
+results
+* The goal: present data in a graphical way that shows patterns that are otherwise invisible
+* Effective data visualization is challenging!
+* No "gold standard" to follow - only principles and judgment
+
+## Properties of good data viz
+
+An effective data visualization:
+
+1. Depicts accurate data
+2. Depicts data accurately
+3. Shows enough, but not too much, of the data
+4. Is self contained - no additional information (except a caption) is required
+   to understand the contents of the figure
+
+## Properties of great data viz
+
+A *great* visualization has some additional properties:
+
+5. Exposes patterns in the data not easily observable by other methods
+6. Invites the viewer to ask more questions about the data
+
+# Responsible Plotting
+
+## Credits
+
+<div class="centered">
+![](cairo_books.png){width=100%}
+</div>
+
+## Responsible Plotting
+
+* "Good plots empower us to ask good questions." - Alberto Cairo, How Charts Lie
+* Plots convey *ideas* (and *beliefs*)
+* Scientific papers often structured (and read) by its figures
+* Making plots is easy
+* Conveying ideas is *hard*
+
+## The "Hockey Stick Chart"
+
+<div class="centered">
+![](../hockey_stick_chart.jpg){width=80%}
+</div>
+
+## 5 Qualities of An Effective Viz
+
+1. **It is truthful**
+2. **It is functional**
+3. **It is insightful**
+4. **It is enlightening**
+5. **It is beautiful**
+
+## Visualization Principles
+
+* Visualizations *illustrate* (from latin *illustrare*, to light up or illuminate)
+* Leverage humans' *visual perception system*
+* This system is predictive/interpretive
+  - i.e. it is a *pattern recognition* system
+* When this system makes bad predictions, we can experience *optical illusions*
+
+## Contextual Colors
+
+<div class="centered">
+![](checkerboard_1.png){width=80%}
+</div>
+
+
+## Contextual Colors
+
+<div class="centered">
+![](../checker_illusion.png){width=100%}
+</div>
+
+## Contextual Colors
+
+<div class="centered">
+![](../gradient_illusion.png){width=80%}
+</div>
+
+## Lines
+
+<div class="centered">
+![](wavy_grid_1.png){width=70%}
+</div>
+
+## Lines
+
+<div class="centered">
+![](wavy_grid.png){width=100%}
+</div>
+
+## Contextual Area
+
+<div class="centered">
+![](area_illusion.png){width=100%}
+</div>
+
+## Seeing Shapes
+
+<div class="centered">
+![](negative_shape.png){width=60%}
+</div>
+
+## Seeing Shapes
+
+<div class="centered">
+![](../cloud_dog.png){width=100%}
+</div>
+
+## We have a word for this
+
+- *pareidolia* - "the tendency for perception to impose a meaningful interpretation on a nebulous stimulus, usually visual, so that one sees an object, pattern, or meaning where there is none"
+
+## Key Distortions
+
+1. We perceive value/hue of colors **relative to adjacency colors**
+2. Certain geometry **interferes with assessing true spatial relationships**
+3. We perceive area of shapes **relative to adjacent shapes**
+4. We may perceive shapes **where there are none**
+5. We may perceive shapes **that look like other shapes**
+
+# Visual Encodings
+
+## Visual Encodings
+
+* Visualizations *encode* data values as visual properties
+* An encoding is a mapping between a data range and a visual property
+* Properties may include:
+  - Length/width/height
+  - Position
+  - Area
+  - Angle/proportional area
+  - Shape
+  - Color hue/value
+
+## 
+
+![](../viz_encodings.png){width=100%}
+
+## Visual Decoding
+
+* Every visualization uses one or more encodings
+* Reading a plot requires *decoding* from visual back to numbers to form a mental model of the data
+* Familiar encodings (e.g. position in a scatter plot) require less work to interpret than less conventional
+
+# Encoding Example
+
+## Encoding Example
+
+```{r, fig.dim=c(8,3)}
+data <- tibble(
+  x=rnorm(100),
+  y=rnorm(100,0,5)
+)
+data %>%
+  ggplot(aes(x=x,y=y)) +
+  geom_point()
+```
+
+##
+
+```{r, fig.dim=c(8,3)}
+data <- mutate(data,
+  `x times y`=abs(x*y)
+)
+data %>%
+  ggplot(aes(x=x,y=y,size=`x times y`)) +
+  geom_point()
+```
+
+##
+
+```{r, fig.dim=c(8,3)}
+data <- mutate(data,
+    z=runif(100),
+    category=sample(c('A','B','C'), 100, replace=TRUE)
+  )
+data %>%
+  ggplot(aes(x=x, y=y, size=`x times y`, color=z, shape=category)) +
+  geom_point()
+```
+
+##
+
+```{r, echo=FALSE, warning=FALSE}
+data <-  mutate(data, `x + y`=x+y) %>%
+  arrange(`x + y`) %>%
+  mutate(
+    xend=lag(x,1),
+    yend=lag(y,1)
+  )
+data %>%
+  ggplot() +
+  geom_segment(aes(x=x,xend=xend,y=y,yend=yend,alpha=0.5)) +
+  geom_point(aes(x=x, y=y, size=`x times y`, color=z, shape=category))
+```
+
+##
+
+<div class="columns-2">
+```{r, fig.dim=c(4,6), echo=FALSE, warning=FALSE}
+data <- arrange(data, `x + y`) %>%
+  mutate(
+    xend=lag(x,1),
+    yend=lag(y,1)
+  )
+data %>%
+  ggplot() +
+  geom_segment(aes(x=x,xend=xend,y=y,yend=yend,alpha=0.5)) +
+  geom_point(aes(x=x, y=y, size=`x times y`, color=z, shape=category))
+```
+
+1. $x$ - positional encoding
+2. $y$ - positional encoding
+3. $xy$ - area encoding
+4. $z$ - quantitative encoding
+5. Category - categorical encoding to shape
+6. Adjacency along $x+y$ - length encoding
+
+</div>
+
+## More Complex Encodings
+
+```{r, fig.dim=c(8,3)}
+tibble(
+  value=rnorm(100),
+  category='A'
+) %>%
+  ggplot(aes(x=category,y=value,fill=category)) +
+  geom_violin()
+```
+
+## Common Encodings
+
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| Plot                        | $x$ encoding | $y$ encoding                          | note                                                   |
++=============================+==============+=======================================+========================================================+
+| [scatter](scatter-plot)     | position     | position                              |                                                        |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| [vertical bar](bar-chart)   | position     | height                                |                                                        |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| [horizontal bar](bar-chart) | width        | position                              |                                                        |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| [lollipop](lollipop-plots)  | position     | height for line + position for "head" |                                                        |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+| [violin](violin-plots)      | position     | width                                 | $x$ transformed to range, $y$ transformed to densities |
++-----------------------------+--------------+---------------------------------------+--------------------------------------------------------+
+
+## Elementary Perceptual Tasks
+
+* Decoded visualizations represent relationships between data
+* Different encodings enable more or less precise estimates of those relationships
+* Translating from visualizations to quantiative estimates are *perceptual tasks*
+* These tasks developed into a theory of *elementary perceptual tasks* by Cleveland and McGill
+
+##
+
+<div class="centered">
+![](../elementary_perceptual_tasks.png){width=80%}
+</div>
+
+## Precision of Estimates
+
+```r
+# two groups of samples with similar random data profiles
+data <- as.matrix(
+  tibble(
+    A=c(rnorm(10),rnorm(10,2)),
+    B=c(rnorm(10),rnorm(10,2)),
+    C=c(rnorm(10),rnorm(10,2)),
+    D=c(rnorm(10,4),rnorm(10,-1)),
+    E=c(rnorm(10,4),rnorm(10,-1)),
+    F=c(rnorm(10,4),rnorm(10,-1))
+  )
+)
+rownames(data) <- paste0('G',seq(nrow(data)))
+heatmap(data)
+```
+
+## Precision of Estimates
+
+```{r, echo=FALSE, warning=FALSE}
+# these data have two groups of samples with similar random data profiles
+data <- as.matrix(
+  tibble(
+    A=c(rnorm(10),rnorm(10,2)),
+    B=c(rnorm(10),rnorm(10,2)),
+    C=c(rnorm(10),rnorm(10,2)),
+    D=c(rnorm(10,4),rnorm(10,-1)),
+    E=c(rnorm(10,4),rnorm(10,-1)),
+    F=c(rnorm(10,4),rnorm(10,-1))
+  )
+)
+rownames(data) <- paste0('G',seq(nrow(data)))
+heatmap(data)
+```
+
+## Precision of Estimates
+
+```{r, echo=FALSE, warning=FALSE}
+suppressMessages({library(GGally)})
+
+as_tibble(data) %>% mutate(
+  group=c(rep('Group 1',10),rep('Group 2',10))
+) %>%
+  ggparcoord(columns=1:6,groupColumn=7)
+```
+
+## Precision of Estimates
+
+<div class="columns-2">
+```{r, echo=FALSE, fig.dim=c(4,4)}
+# these data have two groups of samples with similar random data profiles
+data <- as.matrix(
+  tibble(
+    A=c(rnorm(10),rnorm(10,2)),
+    B=c(rnorm(10),rnorm(10,2)),
+    C=c(rnorm(10),rnorm(10,2)),
+    D=c(rnorm(10,4),rnorm(10,-1)),
+    E=c(rnorm(10,4),rnorm(10,-1)),
+    F=c(rnorm(10,4),rnorm(10,-1))
+  )
+)
+rownames(data) <- paste0('G',seq(nrow(data)))
+heatmap(data)
+```
+
+```{r, echo=FALSE, fig.dim=c(4,4)}
+library(GGally)
+
+as_tibble(data) %>% mutate(
+  group=c(rep('Group 1',10),rep('Group 2',10))
+) %>%
+  ggparcoord(columns=1:6,groupColumn=7)
+```
+
+</div>
+
+## Data Viz Opinions
+
+1. **Visualize data in multiple ways**
+2. **Perform statistical analyses to confirm patterns**
+3. **Informative is better than beautiful**
+4. **No plot is better than a useless plot**
+5. **Sometimes a table is the best way to present data**
+6. **If there is text on a plot, it should be legible**
+7. **Almost every plot should have properly labeled axes**
+8. **Be color-blind friendly**
+9. **Make differences appear as big as they mean**
+
+## Be Faithful To The Data
+
+```r
+library(patchwork)
+data <- tibble(
+  percent=c(86,88,87,90,93,89),
+  ID=c('A','B','C','D','E','F')
+)
+g <- ggplot(data, aes(x=ID,y=percent)) +
+  geom_bar(stat="identity")
+
+g + coord_cartesian(ylim=c(85,95)) | g
+```
+
+## Be Faithful To The Data
+
+```{r, echo=FALSE}
+library(patchwork)
+data <- tibble(
+  percent=c(86,88,87,90,93,89),
+  ID=c('A','B','C','D','E','F')
+)
+g <- ggplot(data, aes(x=ID,y=percent)) +
+  geom_bar(stat="identity")
+
+g + coord_cartesian(ylim=c(85,95)) | g
+```
+
+# Plotting Review
+
+## Example dataset
+
+  ```r
+  ## # A tibble: 20 × 8
+  ##    ID    age_at_death condition    tau  abeta   iba1   gfap braak_stage
+  ##    <chr>        <dbl> <fct>      <dbl>  <dbl>  <dbl>  <dbl> <fct>      
+  ##  1 A1              73 AD         96548 176324 157501  78139 4          
+  ##  2 A2              82 AD         95251      0 147637  79348 4          
+  ##                              ...
+  ## 10 A10             69 AD         48357  27260  47024  78507 2          
+  ## 11 C1              80 Control    62684  93739 131595 124075 3          
+  ## 12 C2              77 Control    63598  69838   7189  35597 3          
+  ##                              ...
+  ## 20 C10             73 Control    15781  16592  10271 100858 1
+  ```
+
+## Grammar of Graphics
+
+<div class="columns-2">
+
+<img src="grammar_of_graphics_cover.png" class="center" height="450px"/>
+
+* "Grammar of graphics": a system of rules that describes how data and graphical
+  aesthetics  are combined to form graphics and plots
+* Aesthetics == color, size, shape, et c
+* First popularized in the book [The Grammar of Graphics](https://www.google.com/books/edition/_/ZiwLCAAAQBAJ?hl=en) by Leland
+Wilkinson and co-authors in 1999
+
+</div>
+
+## `ggplot2`
+
+<div class="columns-2">
+
+<img src="ggplot_logo.png" class="center" height="450px"/>
+
+* [ggplot2](https://ggplot2.tidyverse.org/) R package that implements grammar of graphics
+* Written by Hadley Wickham in 2005
+
+</div>
+
+## `ggplot2` Fundamentals
+
+* Every plot is the combination of three types of information:
+  1. **data** (i.e. values)
+  2. **geometry** (i.e. shapes)
+  3. **aesthetics** (i.e. connects values and shapes)
+  
+
+## `ggplot` Layers
+
+* Each layer is a set of data connected to a geometry and an aesthetic
+* Each `geom_X()` function adds a layer to a plot
+* The plot has three layers:
+
+  ```r
+  ggplot(data=ad_metadata, mapping=aes(x=age_at_death)) +
+    geom_point(mapping=aes(y=tau, color='blue')) +
+    geom_point(mapping=aes(y=abeta, color='red')) +
+    geom_point(mapping=aes(y=iba1, color='cyan'))
+  ```
+
+## `ggplot` Layers
+
+```{r, fig.dim=fig_size, out.width="100%", echo=F}
+ggplot(data=ad_metadata, mapping=aes(x=age_at_death)) +
+  geom_point(mapping=aes(y=tau, color='blue')) +
+  geom_point(mapping=aes(y=abeta, color='red')) +
+  geom_point(mapping=aes(y=iba1, color='cyan'))
+```
+
+
+## `ggplot` Scales
+
+* A scale maps data onto a range, e.g.:
+  - pixel range
+  - color on a gradient/set of colors
+  - shape type, circle or square
+  - shape dimension, like circle radius
+* Multiple layers on the same plot
+  - Must share at least one scale to be plotted together
+  - May differ in one or more scales to be distinguished from each other
+
+# More Plot Types
+
+## Plot Type Review
+
+- One dimensional data
+  + Bar chart
+  + Lollipop plots
+  + Stacked Area charts
+- Visualizing Distributions
+  + Histogram
+  + Density plots
+  + Boxplots
+  + Violin Plots
+  + Beeswarm Plots
+  + Ridgeline Plots
+
+# Plotting Two or More Dimensions
+
+# Scatter Plots
+
+## Scatter Plots
+
+* Scatter plots visualize pairs of quantities, usually continuous, as points in
+a two dimensional space
+* Usually in [cartesian
+coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system), but
+[polar coordinates](https://en.wikipedia.org/wiki/Polar_coordinate_system) or
+other types of coordinate systems are possible
+
+```r
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
+  geom_point(size=3)
+```
+
+## Scatter Plots
+
+```{r}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
+  geom_point(size=3)
+```
+
+## Scatter Plots: Marker Shapes
+
+```{r scatter shape enc}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
+  geom_point(size=3)
+```
+
+## Scatter Plots: Marker Shapes
+
+```{r, echo=FALSE}
+g <- ggplot()
+for(x in 0:5) {
+  for(y in 0:4) {
+    if(x+y*6 < 26) {
+      g <- g + geom_point(aes(x=x,y=y),tibble(x=x,y=y),shape=x+y*6,size=8) +
+       geom_label(aes(x=x,y=y+0.5,label=label),tibble(x=x,y=y,label=x+y*6))
+    }
+  }
+}
+g
+```
+
+## Scatter Plots: Marker Shapes
+
+```r
+g <- ggplot()
+for(x in 0:5) {
+  for(y in 0:4) {
+    if(x+y*6 < 26) {
+      g <- g + geom_point(
+        tibble(x=x,y=y),
+        aes(x=x,y=y),
+        shape=x+y*6,size=8) +
+       geom_label(
+         tibble(x=x,y=y,label=x+y*6),
+         aes(x=x,y=y+0.5,label=label)
+       )
+    }
+  }
+}
+g
+```
+
+## Scatter Plots: Marker Shapes
+
+* Controlling which shapes are mapped to which value can be accomplished with
+[`scale_shape_manual()`](https://ggplot2.tidyverse.org/reference/scale_manual.html):
+
+```r
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
+  geom_point(size=3) +
+  scale_shape_manual(values=c(3,9))
+```
+
+## Scatter Plots: Marker Shapes
+
+```{r scatter shape manual, echo=FALSE}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, shape=condition)) +
+  geom_point(size=3) +
+  scale_shape_manual(values=c(3,9))
+```
+
+## Scatter Plots: Color Encodings
+
+* Color encodings added using either continuous or discrete values:
+
+```r
+library(patchwork)
+g <- ggplot(ad_metadata)
+g_condition <- g + geom_point(
+  mapping=aes(x=abeta, y=tau, color=condition),
+  size=3
+)
+g_age <- g + geom_point(
+  mapping=aes(x=abeta, y=tau, color=age_at_death),
+  size=3
+)
+g_condition / g_age
+```
+
+## Scatter Plots: Color Encodings
+
+```{r scatter color, echo=FALSE}
+library(patchwork)
+g <- ggplot(ad_metadata)
+g_condition <- g + geom_point(mapping=aes(x=abeta, y=tau, color=condition),size=3)
+g_age <- g + geom_point(mapping=aes(x=abeta, y=tau, color=age_at_death),size=3)
+g_condition / g_age
+```
+
+# Bubble Plots
+
+## Bubble Plots
+
+* Close relative of the scatter plot where the area of the point markers is proportional to a third dimension
+
+```r
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, size=age_at_death)) +
+  geom_point(alpha=0.5)
+```
+
+## Bubble Plots
+
+```{r viz dim bubbl, echo=FALSE}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau, size=age_at_death)) +
+  geom_point(alpha=0.5)
+```
+
+# Connected Scatter Plots
+
+## Connected Scatter Plots
+
+* Close relative of the scatter plot where certain pairs of points
+are connected with a line 
+
+```r
+arrange(ad_metadata,age_at_death) %>%
+  mutate(
+    x=abeta,
+    xend=lag(x,1),
+    y=tau,
+    yend=lag(y,1)
+  ) %>%
+  ggplot() +
+  geom_segment(aes(x=abeta, xend=xend, y=tau, yend=yend)) +
+  geom_point(aes(x=x,y=y,shape=condition,color=condition),size=3)
+```
+
+## Connected Scatter Plots
+
+```{r viz connected scatter, echo=FALSE, warning=FALSE}
+arrange(ad_metadata,age_at_death) %>%
+  mutate(
+    x=abeta,
+    xend=lag(x,1),
+    y=tau,
+    yend=lag(y,1)
+  ) %>%
+  ggplot() +
+  geom_segment(aes(x=abeta, xend=xend, y=tau, yend=yend)) +
+  geom_point(aes(x=x,y=y,shape=condition,color=condition),size=3)
+```
+
+# Line Plots
+
+## Line Plots
+
+* Line plots connect pairs of points with a line without drawing a symbol at each
+point
+* `geom_line()` function draws lines between pairs of points sorted by $x$ axis by default
+
+```r
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
+    geom_line()
+```
+
+## Line Plots
+
+```{r, echo=FALSE}
+ggplot(ad_metadata,mapping=aes(x=abeta, y=tau)) +
+    geom_line()
+```
+
+## Line Plots: Multiple Lines
+
+* Plot multiple lines using the `group` aesthetic mapping
+
+``` r
+pivot_longer(ad_metadata,
+  c(tau,abeta,iba1,gfap),
+  names_to='Marker',
+  values_to='Intensity'
+  ) %>%
+  ggplot(ad_metadata,mapping=aes(x=ID, y=Intensity, group=Marker, color=Marker)) +
+    geom_line()
+```
+
+## Line Plots: Multiple Lines
+
+* Plot multiple lines using the `group` aesthetic mapping
+
+``` {r, echo=FALSE}
+pivot_longer(ad_metadata,
+  c(tau,abeta,iba1,gfap),
+  names_to='Marker',
+  values_to='Intensity'
+  ) %>%
+  ggplot(ad_metadata,mapping=aes(x=ID, y=Intensity, group=Marker, color=Marker)) +
+    geom_line()
+```
+
+# Parallel Coordinate Plots
+
+## Parallel Coordinate Plots
+
+* Line plots where:
+  - 2+ continuous variables given vertical position encodings and
+  - Each sample has its own line
+* Each vertical axis can have a different scale
+
+```r
+library(GGally)
+
+ggparcoord(ad_metadata,
+           columns=c(2,4:8),
+           groupColumn=3,
+           showPoints=TRUE
+           ) +
+  scale_color_manual(values=c("#bbbbbb", "#666666"))
+```
+
+## Parallel Coordinate Plots
+
+```{r viz pcp ad, warning=FALSE, echo=FALSE}
+library(GGally)
+
+ggparcoord(ad_metadata,
+           columns=c(2,4:8),
+           groupColumn=3,
+           showPoints=TRUE
+           ) +
+  scale_color_manual(values=c("#bbbbbb", "#666666"))
+```
+
+## Note: hexadecimal color codes
+
+* Colors can be specified with a 6- or 8- hexit
+[hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) code
+* Hexit - `0 - f`, `0=0` and `f=16`
+* Codes form a triplet `#rrggbb`
+  - `rr` is the value of the color red
+  - `gg` for green
+  - `bb` for blue
+
+* `#ffffff` is the color <span style="color: #ffffff; background: #000000">white</span>
+* `#000000` is the color <span style="color: #000000">black</span>
+* `#ff0000` is the color <span style="color: #ff0000">red</span>
+* `#0000ff` is the color <span style="color: #0000ff">blue</span>
+* `#7fff00` is <span style="color: #7fff00">this color</span> (called chartreuse)
+
+# Heatmaps
+
+## Heatmaps
+
+* Heatmaps visualize values associated with a grid of points $(x,y,z)$ as a grid
+of colored rectangles
+* $x$ and $y$ define the grid point coordinates and $z$ is a continuous value
+* A common heatmap you might have seen is the [weather
+map](https://en.wikipedia.org/wiki/Weather_map), which plots current or
+predicted weather patterns on top of a geographic map:
+
+## Weathermaps
+
+![](../weather_map.png){width=100%}
+
+## Heatmaps in R
+
+* Heatmaps are often used to visualize matrices
+* Can create heatmap in R using the base R
+[`heatmap()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/heatmap)
+function:
+* `heatmap()` function creates a *clustered heatmap* where the rows and columns
+  have been hierarchically clustered
+  
+## Example Heatmap
+
+```{r data viz marker heatmap, echo=FALSE}
+# heatmap() requires a R matrix, and cannot accept a tibble or a dataframe
+marker_matrix <- as.matrix(
+  dplyr::select(ad_metadata,c(tau,abeta,iba1,gfap))
+)
+# rownames of the matrix become y labels
+rownames(marker_matrix) <- ad_metadata$ID
+
+heatmap(marker_matrix)
+```
+
+## Example Heatmap
+
+```r
+# heatmap() requires a R matrix, and cannot accept a tibble or a dataframe
+marker_matrix <- as.matrix(
+  dplyr::select(ad_metadata,c(tau,abeta,iba1,gfap))
+)
+# rownames of the matrix become y labels
+rownames(marker_matrix) <- ad_metadata$ID
+
+heatmap(marker_matrix)
+```
+
+## `heatmap()` Functionality
+
+* Performs hierarchical clustering of the rows and columns using a Euclidean distance function
+* Draws dendrograms on the rows and columns
+* Scales the data in the rows to have mean zero and standard deviation 1
+* Can alter this behavior with arguments:
+
+```r
+heatmap(
+  marker_matrix,
+  Rowv=NA, # don't cluster rows
+  Colv=NA, # don't cluster columns
+  scale="none", # don't scale rows
+)
+```
+
+## Less Fancy Heatmap
+
+```{r data viz pure heatmap, echo=FALSE}
+heatmap(
+  marker_matrix,
+  Rowv=NA, # don't cluster rows
+  Colv=NA, # don't cluster columns
+  scale="none", # don't scale rows
+)
+```
+
+## `heatmap()` Drawback
+
+* The scale mapping $z$ values to colors is very important when interpreting heatmaps
+* `heatmap()` function has the major drawback that no color key is provided!
+*  [`heatmap.2()`](https://www.rdocumentation.org/packages/gplots/versions/3.1.1/topics/heatmap.2)
+  in [`gplots` package](https://cran.r-project.org/web/packages/gplots/index.html)
+  has a similar interface
+* Provides more parameters to control the behavior of the plot and includes a color key:
+
+```r
+library(gplots)
+heatmap.2(marker_matrix)
+```
+
+## `heatmap.2()` Example
+
+```{r, include=FALSE}
+library(gplots)
+```
+
+```{r heatmap.2, echo=FALSE, warning=FALSE, error=FALSE}
+heatmap.2(marker_matrix)
+```
+
+## Annotating Rows and Columns
+
+* `heatmap()` and `heatmap.2()` can annotate rows and columns with a categorical variable along the margins
+
+```r
+# with heatmap()
+condition_colors <-
+  transmute(
+    ad_metadata,
+    color=if_else(condition == "AD","red","blue")
+  )
+heatmap(
+  marker_matrix,
+  RowSideColors=condition_colors$color
+)
+
+```
+
+## Annotating Rows and Columns
+
+```{r heatmap margin, echo=FALSE}
+condition_colors <-
+  transmute(
+    ad_metadata,
+    color=if_else(condition == "AD","red","blue")
+  )
+heatmap(
+  marker_matrix,
+  RowSideColors=condition_colors$color
+)
+```
+
+## Annotating Rows and Columns
+
+```r
+# with heatmap.2()
+heatmap.2(
+  marker_matrix,
+  RowSideColors=condition_colors$color
+)
+```
+
+## Annotating Rows and Columns
+
+```{r heatmap.2 margin, echo=FALSE}
+heatmap.2(
+  marker_matrix,
+  RowSideColors=condition_colors$color
+)
+```
+
+
+## Heatmaps in ggplot
+
+* "Heatmaps" in ggplot use  [`geom_tile`](https://ggplot2.tidyverse.org/reference/geom_tile.html) geometry
+* `geom_tile` requires data in long format with `x`, `y`, and `z` values
+
+```r
+pivot_longer(
+  ad_metadata,
+  c(tau,abeta,iba1,gfap),
+  names_to="Marker",
+  values_to="Intensity"
+) %>%
+  ggplot(aes(x=Marker,y=ID,fill=Intensity)) +
+  geom_tile()
+```
+
+## Heatmaps in ggplot
+
+```{r heatmap geom tile, echo=FALSE}
+pivot_longer(
+  ad_metadata,
+  c(tau,abeta,iba1,gfap),
+  names_to="Marker",
+  values_to="Intensity"
+) %>%
+  ggplot(aes(x=Marker,y=ID,fill=Intensity)) +
+  geom_tile()
+```
+
+## Native R color palettes
+
+* Heatmap color palette specified using [native color
+palettes](https://stat.ethz.ch/R-manual/R-patched/library/grDevices/html/palettes.html)
+
+```{r data viz heatmap native palettes,echo=FALSE}
+demo.pal <-
+  function(n, border = if (n < 32) "light gray" else NA,
+           main = paste("color palettes;  n=", n),
+           ch.col = c("rainbow(n, start=.7, end=.1)", "heat.colors(n)",
+                      "terrain.colors(n)", "topo.colors(n)",
+                      "cm.colors(n)"))
+{
+    nt <- length(ch.col)
+    i <- 1:n; j <- n / nt; d <- j/6; dy <- 2*d
+    plot(i, i+d, type = "n", yaxt = "n", ylab = "", main = main)
+    for (k in 1:nt) {
+        rect(i-.5, (k-1)*j+ dy, i+.4, k*j,
+             col = eval(str2lang(ch.col[k])), border = border)
+        text(2*j*1.3,  (k * j + dy/4)+0.3, ch.col[k])
+    }
+}
+demo.pal(16)
+```
+
+## Specifying Heatmap Colors
+
+* Heatmap color palette specified using [native color
+palettes](https://stat.ethz.ch/R-manual/R-patched/library/grDevices/html/palettes.html)
+passed to `col` argument
+
+```r
+# native R colors are:
+# - rainbow(n, start=.7, end=.1)
+# - heat.colors(n)
+# - terrain.colors(n)
+# - topo.colors(n)
+# - cm.colors(n)
+# the n argument specifies the number of colors
+# (i.e. resolution) of the colormap to return
+heatmap(marker_matrix,col=cm.colors(256))
+```
+
+## Specifying Heatmap Color Resolution
+
+```{r, fig_size=c(2,4)}
+heatmap(marker_matrix,col=cm.colors(256))
+```
+
+## Specifying Heatmap Colors Resolution
+
+```{r, fig_size=c(2,4)}
+heatmap(marker_matrix,col=cm.colors(2))
+```
+
+## Heatmap Colors in ggplot
+
+* With ggplot and `geom_tile()`, use the
+[`scale_fill_gradientn`](https://ggplot2.tidyverse.org/reference/scale_gradient.html)
+function to specify a different color palette
+
+```r
+pivot_longer(
+  ad_metadata,
+  c(tau,abeta,iba1,gfap),
+  names_to="Marker",
+  values_to="Intensity"
+) %>%
+  ggplot(aes(x=Marker,y=ID,fill=Intensity)) +
+  geom_tile() +
+  scale_fill_gradientn(colors=cm.colors(256))
+```
+
+## Heatmap Colors in ggplot
+
+```{r heatmap geom tile color change, echo=FALSE}
+pivot_longer(
+  ad_metadata,
+  c(tau,abeta,iba1,gfap),
+  names_to="Marker",
+  values_to="Intensity"
+) %>%
+  ggplot(aes(x=Marker,y=ID,fill=Intensity)) +
+  geom_tile() +
+  scale_fill_gradientn(colors=cm.colors(256))
+```
+
+## Less ugly heatmap colors
+
+* May use  [ColorBrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) palettes in the [RColorBrewer package](https://cran.r-project.org/web/packages/RColorBrewer/index.html) 
+* Sensible choices on color palettes, including colorblind-safe
+
+##
+
+```{r heatmap colorbrewer palettes, fig.dim=c(8,8), echo=FALSE}
+library(RColorBrewer)
+display.brewer.all()
+```
+
+## How To Use Heatmaps Responsibly
+
+* Heatmaps are quite complicated and can easily mislead us
+* Four factors influence how a dataset can be visualized as a heatmap:
+
+  1. The type of features, i.e. whether the features are continuous or discrete
+  2. The relative scales of the features
+  3. The total range of the data
+  4. Whether or not the data are centered
+  
+## Heatmaps: Discrete Features 
+
+```{r viz discrete heatmap, echo=FALSE}
+library(patchwork)
+random_letters <- function(n) {
+  letters <- c('A','B','C','D','E','F','G','H','I','J')
+  sample(letters[1:n],10,replace=TRUE)
+}
+features <- paste0('F',seq(10))
+g_binary <- tibble(
+  feature=features,
+  a=random_letters(2),
+  b=random_letters(2),
+  c=random_letters(2)
+) %>%
+  pivot_longer(c(a,b,c))  %>%
+  ggplot(aes(x=name,y=feature,fill=value)) + geom_tile()
+  
+g_trinary <- tibble(
+  feature=paste0('F',seq(10)),
+  a=random_letters(3),
+  b=random_letters(3),
+  c=random_letters(3)
+) %>%
+  pivot_longer(c(a,b,c))  %>%
+  ggplot(aes(x=name,y=feature,fill=value)) + geom_tile()
+
+g_unmanageable <- tibble(
+  feature=paste0('F',seq(10)),
+  a=random_letters(10),
+  b=random_letters(10),
+  c=random_letters(10)
+) %>%
+  pivot_longer(c(a,b,c))  %>%
+  ggplot(aes(x=name,y=feature,fill=value)) + geom_tile()
+
+g_binary | g_trinary | g_unmanageable
+```
+
+## Heatmaps: Continuous Features
+
+* Continuous features map numeric values to a *color gradient*
+
+```{r viz heatmap continuous, echo=FALSE}
+g_two_up <- tibble(
+  ID='a',
+  x=seq(0,1,0.1),
+  val=x
+) %>%
+  ggplot(aes(x=x,y=ID,fill=val)) +
+  geom_tile() +
+  scale_fill_gradient(low="#990000", high="#ffdddd")
+
+g_two_down <- tibble(
+  ID='a',
+  x=seq(0,1,0.1),
+  val=x
+) %>%
+  ggplot(aes(x=x,y=ID,fill=val)) +
+  geom_tile() +
+  scale_fill_gradient(low="#ffdddd", high="#990000")
+
+g_three <- tibble(
+  ID='a',
+  x=seq(0,1,0.1),
+  val=x
+) %>%
+  ggplot(aes(x=x,y=ID,fill=val)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#990000", mid="#ffffff", high="#9999ff", midpoint=0.5)
+
+g_two_up / g_two_down / g_three
+```
+
+## Heatmaps: Scales of Features
+
+* Generally, all features in heatmap must be on a comparable scale, or transformed
+appropriately to attain this
+
+```r
+data <- tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,100,20),
+  c=rnorm(10,20,5)
+) %>%
+  pivot_longer(c(a,b,c))
+
+ggplot(data,aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Scales of Features
+
+```{r viz heatmap mismatch scale, echo=FALSE}
+data <- tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,100,20),
+  c=rnorm(10,20,5)
+) %>%
+  pivot_longer(c(a,b,c))
+
+ggplot(data,aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Scales of Features
+
+```{r viz heatmap violin, fig.dim=c(8,4), warning=FALSE}
+library(ggbeeswarm)
+ggplot(data) +
+  geom_beeswarm(aes(x=name,y=value,color=name))
+```
+
+## Heatmaps: Transform Features
+
+* Features with different ranges must be *scaled* so they are all comparable
+* e.g. z-transform
+
+```r
+data %>%
+  pivot_wider(id_cols='ID',names_from=name) %>%
+  mutate(
+    across(c(a,b,c),scale)
+  ) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Transform Features
+
+```{r viz heatmap standard, echo=FALSE}
+data %>%
+  pivot_wider(id_cols='ID',names_from=name) %>%
+  mutate(
+    across(c(a,b,c),scale)
+  ) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Transform Features
+
+```{r viz standard violin, fig.dim=c(8,4), echo=FALSE}
+data %>%
+  pivot_wider(id_cols='ID',names_from=name) %>%
+  mutate(
+    across(c(a,b,c),scale)
+  ) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot() +
+  geom_beeswarm(aes(x=name,y=value,color=name))
+
+```
+
+## Heatmaps: Transform Features
+
+* Scaling rows vs columns dramatically changes the heatmap
+
+```r
+data %>%
+  pivot_wider(id_cols=name,names_from=ID) %>%
+  mutate(
+    across(starts_with('F'),scale)
+  ) %>%
+  pivot_longer(starts_with('F'),names_to="ID") %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Transform Features
+
+```{r viz heatmap scale row, echo=FALSE}
+data %>%
+  pivot_wider(id_cols=name,names_from=ID) %>%
+  mutate(
+    across(starts_with('F'),scale)
+  ) %>%
+  pivot_longer(starts_with('F'),names_to="ID") %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Total data range
+
+* Extreme values, i.e. outliers, in any of the features can render a heatmap uninformative
+
+```r
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,0,1),
+  c=c(rnorm(9,0,1),1e9)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Total data range
+
+```{r viz outlier, echo=FALSE}
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,0,1),
+  c=c(rnorm(9,0,1),1e9)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Data Distribution
+
+* Heatmaps "work best" when data are normally distributed
+* If they are not:
+
+```r
+data <- tibble(
+  ID=paste0('F',seq(10)),
+  a=10**rnorm(10,4,1),
+  b=10**rnorm(10,4,1),
+  c=10**rnorm(10,4,1)
+) %>%
+  pivot_longer(c(a,b,c))
+data %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Data Distribution
+
+```{r viz exponential, echo=FALSE}
+data <- tibble(
+  ID=paste0('F',seq(10)),
+  a=10**rnorm(10,4,1),
+  b=10**rnorm(10,4,1),
+  c=10**rnorm(10,4,1)
+) %>%
+  pivot_longer(c(a,b,c))
+data %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile()
+```
+
+## Heatmaps: Centered Data
+
+* Some features have a meaningful "center"
+  - e.g. log2 fold change of 0 divides data into up and down
+* A *diverging* color palette appropriate in these cases  
+* Be sure to align the center of the color palette with center value
+  - e.g. `midpoint=0` when central value is 0
+
+## Heatmaps: Centered Data
+
+```r
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,0,1),
+  c=rnorm(10,0,1)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient2(
+    low="#000099", mid="#ffffff", high="#990000",
+    midpoint=0
+  )
+```
+
+## Heatmaps: Centered Data
+
+```{r viz, echo=FALSE}
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,0,1),
+  b=rnorm(10,0,1),
+  c=rnorm(10,0,1)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#000099", mid="#ffffff", high="#990000", midpoint=0)
+```
+
+## Heatmaps: Centered Data
+
+* These data centered around 1, but default centers color palette around 0!
+
+```r
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,1,1),
+  b=rnorm(10,1,1),
+  c=rnorm(10,1,1)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#000099", mid="#ffffff", high="#990000")
+```
+
+## Heatmaps: Centered Data
+
+```{r viz improper midpoint, echo=FALSE}
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,1,1),
+  b=rnorm(10,1,1),
+  c=rnorm(10,1,1)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#000099", mid="#ffffff", high="#990000")
+```
+
+## Heatmaps: Centered Data
+
+* Be sure to set midpoint appropriately!
+
+```{r viz correct midpoint, echo=FALSE}
+tibble(
+  ID=paste0('F',seq(10)),
+  a=rnorm(10,1,1),
+  b=rnorm(10,1,1),
+  c=rnorm(10,1,1)
+) %>%
+  pivot_longer(c(a,b,c)) %>%
+  ggplot(aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient2(low="#000099", mid="#ffffff", high="#990000", midpoint=1)
+```
+
+## Heatmaps: 2-pole Data
+
+```{r viz two color, echo=FALSE}
+data <- tibble(
+  ID=paste0('F',seq(10)),
+  a=runif(10,0,10),
+  b=runif(10,0,10),
+  c=runif(10,0,10)
+) %>%
+  pivot_longer(c(a,b,c))
+
+g_up <- ggplot(data, aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient(low="#000099",high="#eeeeff")
+
+g_dn <- ggplot(data, aes(x=name,y=ID,fill=value)) +
+  geom_tile() +
+  scale_fill_gradient(low="#ffffff",high="#000099")
+
+g_up | g_dn
+```
+
+# Other Plot Types
+
+## Chord Diagrams and Circos Plots
+
+* Whole genome data can produce long vectors of data
+  - e.g. read pileup across all chromosomes
+* Screens/publication formats have limited space
+* How to visualize an entire genome in a rectangular space?
+* How to depict relationships between disparate genomic loci?
+* [Circos](http://www.circos.ca/) is a software package originally designed to
+handle this kind of data
+
+## Circos Plot Example
+
+![](page_et_al_circos.png){width=100%}
+![](page_et_al_circos.png){width=50%}
+
+## Circos Plot Example
+
+* [Circos Genomics Data Example](http://www.circos.ca/intro/genomic_data/)
+
+![](circos-conde-nast-large.png){width=60%}
+
+## Circos Plot Example
+
+![](circos-conde-nast-legend-2.png){width=80%}
+
+## Circos Plot Example
+
+![](circos-conde-nast-legend.png){width=80%}
+
+## `circlize` R package
+
+* Circos is written in PERL
+* [`circlize`](https://jokergoo.github.io/circlize_book/book/) package provides R implementation 
+
+![](../circlize-glance-track-1-1.png){width=60%}
+
+## `circlize` R package
+
+![](../circlize-glance-track-links-1.png){width=80%}
+
+# Multiple Plots
+
+## Multiple Plots
+
+* Often want to put multiple plots in same figure
+* Two approaches:
+  - *subplots*: combine unrelated plots into one figure
+  - *facet wrapping*: separate the same dataset into different plots
+
+## Multipanel Figures
+
+* [`patchwork`](https://patchwork.data-imaginist.com/) library composes ggplot objects together using an intuitive set of operators:
+  - `a | b` - put plots side-by-side
+  - `a / b` - put plot `a` above `b`
+  - `(a | b) / c` - put `a` and `b` side-by-side, and `c` below them
+
+## Multipanel Figures
+
+```{r viz patch}
+data <- tibble(
+  a=rnorm(100,0,1),
+  b=rnorm(100,3,2)
+)
+g_scatter <- ggplot(data, aes(x=a, y=b)) +
+  geom_point()
+g_violin <- pivot_longer(data, c(a,b)) %>%
+  ggplot(aes(x=name,y=value,fill=name)) +
+  geom_violin()
+```
+
+## Multipanel Figures
+
+```{r viz patch simple}
+g_scatter | g_violin
+```
+
+## Multipanel Figures
+
+```{r viz patchwork vert}
+g_scatter / g_violin
+```
+
+## Multipanel Figures
+
+```{r patch complex}
+g_scatter / ( g_scatter | g_violin)
+```
+
+## Multipanel Figures
+
+```{r viz complex 2}
+(g_scatter / g_scatter ) | g_violin
+```
+
+## Facet wrapping
+
+* Facet wrapping separates subsets of a dataset into plots with identical axes
+
+## Facet wrapping
+
+```r
+library(mvtnorm) # package implementing multivariate normal distributions
+nsamp <- 100
+data <-  rbind(
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,0.8,0.8,1),nrow=2)),
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,-0.8,-0.8,1),nrow=2)),
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,0,0,1),nrow=2))
+)
+colnames(data) <- c('x','y')
+g_oneplot <- as_tibble(data) %>%
+  mutate(
+    sample_name=c(rep('A',nsamp),rep('B',nsamp),rep('C',nsamp))
+  ) %>%
+  ggplot(aes(x=x,y=y,color=sample_name)) +
+  geom_point()
+g_oneplot
+```
+
+## Facet wrapping
+
+```{r viz facet oneplot, echo=FALSE}
+library(mvtnorm) # package implementing multivariate normal distributions
+nsamp <- 100
+data <-  rbind(
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,0.8,0.8,1),nrow=2)),
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,-0.8,-0.8,1),nrow=2)),
+    rmvnorm(nsamp,c(1,1),sigma=matrix(c(1,0,0,1),nrow=2))
+)
+colnames(data) <- c('x','y')
+g_oneplot <- as_tibble(data) %>%
+  mutate(
+    sample_name=c(rep('A',nsamp),rep('B',nsamp),rep('C',nsamp))
+  ) %>%
+  ggplot(aes(x=x,y=y,color=sample_name)) +
+  geom_point()
+g_oneplot
+```
+
+
+## `facet_wrap()` function
+
+* Plot may be split into three using the [`facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html)
+function
+
+```{r viz facet wrap, fig.dim=c(8,4)}
+g_oneplot + facet_wrap(vars(sample_name))
+```
+
+## `facet_wrap()` function
+ 
+* Can apply transforms to each facet
+
+```{r viz facet wrap plus, fig.dim=c(8,4)}
+g_oneplot + facet_wrap(vars(sample_name)) +
+  geom_smooth(method="loess", formula=y ~ x)
+```
+
+# Publication Ready Plots
+
+## Publication Ready Plots
+
+* ggplot styling is plain and recognizeable
+* Some journals may have strict formatting requirements
+* Tweaking plot aesthetics in code can be very tedious
+* Can address these issues with
+  - ggplot themes
+  - Exporting to Scalable Vector Graphics (SVG) format
+  
+## `ggplot` Themes
+
+* Themes in ggplot are combinations of styling elements applied to the different
+components of a chart
+
+```{r viz pub default}
+base_g <- tibble(
+  x=rnorm(100),
+  y=rnorm(100)
+) %>%
+  ggplot(aes(x=x, y=y)) +
+  geom_point()
+```
+
+## Default Theme
+
+```{r viz pub default plot, fig.dim=c(8,4)}
+base_g
+```
+
+## Black and white Theme
+
+* `ggplot` comes with other themes that may be added to plots with
+[`theme_X()`](https://ggplot2.tidyverse.org/reference/ggtheme.html) functions
+
+```{r viz theme bw, fig.dim=c(8,3)}
+base_g + theme_bw()
+```
+
+## Classic Theme
+
+```{r viz classic, fig.dim=c(8,4)}
+base_g + theme_classic()
+```
+
+## Exporting to SVG
+
+* All ggplot plots may be saved in  [Scalable Vector
+Graphics](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) (SVG) format
+* SVG is an XML format describes shapes using a mathematical specification
+* e.g. a circle:
+
+```xml
+<circle cx="50" cy="50" r="50"/>
+```
+
+## Editing SVGs
+
+* Illustration programs can edit the individual elements of the entire plot
+
+```{r viz pub multipanel, include=FALSE}
+library(patchwork)
+g1 <- tibble(
+  x=rnorm(100),
+  y=rnorm(100)
+) %>%
+  ggplot(aes(x=x, y=y)) +
+  geom_point() +
+  theme_bw()
+
+g2 <- tibble(
+   x=rnorm(100),
+   y=5*x+3+rnorm(100,1,4)
+) %>%
+  ggplot(aes(x=x, y=y)) +
+  geom_point() +
+  geom_smooth(method="loess", formula=y ~ x) +
+  theme_bw()
+
+g3 <- tibble(
+  group=c(rep('A',100),rep('B',100)),
+  val=c(rnorm(100,3),rnorm(100,5,3))
+) %>%
+  ggplot(aes(x=group, y=val,fill=group)) +  
+  geom_violin() +
+  theme_bw()
+```
+
+```{r, fig.dim=c(8,4), echo=FALSE}
+(g1 / g2) | g3
+```
+
+
+## Exporting to SVG
+
+* Save to SVG format by using [`ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html) function
+
+```{r viz ggsave}
+ggsave('multipanel.svg')
+```
+
+## Exporting to SVG
+
+![](../multipanel.png)
