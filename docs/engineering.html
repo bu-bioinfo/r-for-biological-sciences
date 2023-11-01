@@ -365,7 +365,7 @@ arguments with the <code>Rscript</code> command:</p>
 because the script wasn’t written to receive it. In order for a script to gain
 access to the command line arguments, we must call the <a href="https://www.rdocumentation.org/packages/R.utils/versions/2.11.0/topics/commandArgs"><code>commandArgs()</code>
 function</a>:</p>
-<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span>trailingOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Now when we execute the script, the arguments passed in are available in the
 <code>args</code> variable:</p>
@@ -401,7 +401,7 @@ the <code>-e</code> argument.</p>
 <p>The <code><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs()</a></code> function is all that is needed to toolify a R script.
 Consider a simple script named <code>inspect_csv.R</code> that loads in any CSV file and
 summarizes it as a tibble:</p>
-<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span>trailingOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">args</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Usage: simple_script.R &lt;csv file&gt;\n"</span><span class="op">)</span> <span class="co"># cat() writes characters to the screen</span></span>
@@ -451,7 +451,7 @@ always produces a vector of strings. If we need to pass in arguments to control
 numerical values, we will need to parse the arguments first. Consider the
 following R implementation of the linux command <code>head</code>, which prints only the
 top <span class="math inline">\(n\)</span> lines of a file to the screen:</p>
-<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span>trailingOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">args</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Usage: head.R &lt;filename&gt; &lt;N&gt;\n"</span><span class="op">)</span></span>
@@ -490,7 +490,7 @@ package</a> can help handle many of the
 repetitive operations, including specifying arguments, providing default values,
 automatically casting to appropriate types like numbers, and printing out usage
 information:</p>
-<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bitbucket.org/djhshih/argparser">argparser</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/arg_parser.html">arg_parser</a></span><span class="op">(</span><span class="st">"R implementation of GNU coreutils head command"</span><span class="op">)</span></span>
 <span><span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/add_argument.html">add_argument</a></span><span class="op">(</span><span class="va">parser</span>, <span class="st">"filename"</span>, help<span class="op">=</span><span class="st">"file to print lines from"</span><span class="op">)</span></span>
@@ -498,11 +498,11 @@ information:</p>
 <span><span class="va">parser</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/argparser/man/parse_args.html">parse_args</a></span><span class="op">(</span><span class="va">parser</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"-n"</span>,<span class="fl">3</span>,<span class="st">"data.csv"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="st">"printing from file:"</span>,<span class="va">parser</span><span class="op">$</span><span class="va">filename</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "printing from file: data.csv"</code></pre>
-<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="st">"printing top n:"</span>,<span class="va">parser</span><span class="op">$</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "printing top n: 3"</code></pre>
 <p>With this library, we can rewrite our <code>head.R</code> script to be more concise:</p>
-<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bitbucket.org/djhshih/argparser">argparser</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># instantiate parser</span></span>
@@ -672,7 +672,7 @@ use when executing tasks in parallel.</p>
 </div>
 <p>Consider the following script <code>mclapply.R</code> which runs a function that prints out
 its input with the current time and then waits (i.e. sleeps) for three seconds:</p>
-<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span>trailingOnly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>

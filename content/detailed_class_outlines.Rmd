@@ -150,10 +150,6 @@ output: html_document
 | 14 | Data Science | [Discrete Distributions] | [slides](slides/0500_data_sci.html#discrete-distributions) |
 | 14 | Data Science | [Continuous Distributions] | [slides](slides/0500_data_sci.html#continuous-distributions) |
 | 14 | Data Science | [Empirical Distributions] | [slides](slides/0500_data_sci.html#empirical-distributions) |
-| 14 | Data Science | [Statistical Tests] | [slides](slides/0500_data_sci.html#statistical-tests) |
-| 14 | Data Science | [p-values] | [slides](slides/0500_data_sci.html#p-values) |
-| 14 | Data Science | [Multiple Hypothesis Testing] | [slides](slides/0500_data_sci.html#multiple-hypothesis-testing) |
-| 14 | Data Science | [Statistical power] | [slides](slides/0500_data_sci.html#statistical-power) |
 
 
 ## Week 8
@@ -263,6 +259,19 @@ output: html_document
 | 27 | Wrap up and feedback | NA |  |
 
 
+## Week 15
+
+[Week 15 slides](slides/week_15_slides.html)
+
+|Lecture|Topic|Section|Slides|
+|-------|-----|-------|------|
+| 28 | Orphans, topics without a home. Or parents. | NA |  |
+| 28 | Data Science | [Statistical Tests] | [slides](slides/0500_data_sci.html#statistical-tests) |
+| 28 | Data Science | [p-values] | [slides](slides/0500_data_sci.html#p-values) |
+| 28 | Data Science | [Multiple Hypothesis Testing] | [slides](slides/0500_data_sci.html#multiple-hypothesis-testing) |
+| 28 | Data Science | [Statistical power] | [slides](slides/0500_data_sci.html#statistical-power) |
+
+
 [[1]]
 NULL
 
@@ -303,5 +312,8 @@ NULL
 NULL
 
 [[14]]
+NULL
+
+[[15]]
 NULL
 

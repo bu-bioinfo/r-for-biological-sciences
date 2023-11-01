@@ -193,12 +193,11 @@ called my firs column “probeids”.</p>
 <h4>Tests<a class="anchor" aria-label="anchor" href="#tests"><i class="fas fa-link"></i></a>
 </h4>
 <p>The tests for this function are:</p>
-<div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"loading csv correctly"</span>, <span class="op">{</span></span>
-<span>  <span class="va">result_tib</span> <span class="op">&lt;-</span> <span class="fu">load_expression</span><span class="op">(</span><span class="st">"/project/bf528/project_1/data/example_intensity_data.csv"</span><span class="op">)</span></span>
-<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">result_tib</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">54675</span>, <span class="fl">36</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu">expect_true</span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/is_tibble.html">is_tibble</a></span><span class="op">(</span><span class="va">result_tib</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb534-1"><a href="bioinformatics-basics.html#cb534-1"></a><span class="fu">test_that</span>(<span class="st">"loading csv correctly"</span>, {</span>
+<span id="cb534-2"><a href="bioinformatics-basics.html#cb534-2"></a>  result_tib <span class="ot">&lt;-</span> <span class="fu">load_expression</span>(<span class="st">"/project/bf528/project_1/data/example_intensity_data.csv"</span>)</span>
+<span id="cb534-3"><a href="bioinformatics-basics.html#cb534-3"></a>  <span class="fu">expect_equal</span>(<span class="fu">dim</span>(result_tib), <span class="fu">c</span>(<span class="dv">54675</span>, <span class="dv">36</span>))</span>
+<span id="cb534-4"><a href="bioinformatics-basics.html#cb534-4"></a>  <span class="fu">expect_true</span>(<span class="fu">is_tibble</span>(result_tib))</span>
+<span id="cb534-5"><a href="bioinformatics-basics.html#cb534-5"></a>})</span></code></pre></div>
 <p>This test uses the <code>load_expression()</code> you write to store the returned tibble in <code>result_tib</code>.</p>
 <div class="box important">
 <p>While this test is using the same file for data input as you are, this may not always be the case.</p>
@@ -228,19 +227,18 @@ every row at once. This solution takes mere moments.</p>
 <div id="tests-1" class="section level4 unnumbered">
 <h4>Tests<a class="anchor" aria-label="anchor" href="#tests-1"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
-<span><span class="fu">test_that</span><span class="op">(</span><span class="st">"the correct rows are filtered out in filter_15()"</span>, <span class="op">{</span></span>
-<span>  <span class="va">test_tib</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probeids<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'1_s_at'</span>, <span class="st">'2_s_at'</span>, <span class="st">'3_s_at'</span>, <span class="st">'4_s_at'</span><span class="op">)</span>,</span>
-<span>                     GSM1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span><span class="op">)</span>,</span>
-<span>                     GSM2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1.6</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>                     GSM3<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>                     GSM4<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">3.99</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>                     GSM5<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">3.0</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>                     GSM6<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>                     GSM7<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="fu">filter_15</span><span class="op">(</span><span class="va">test_tib</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb535-1"><a href="bioinformatics-basics.html#cb535-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb535-2"><a href="bioinformatics-basics.html#cb535-2"></a><span class="fu">test_that</span>(<span class="st">"the correct rows are filtered out in filter_15()"</span>, {</span>
+<span id="cb535-3"><a href="bioinformatics-basics.html#cb535-3"></a>  test_tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids=</span><span class="fu">c</span>(<span class="st">'1_s_at'</span>, <span class="st">'2_s_at'</span>, <span class="st">'3_s_at'</span>, <span class="st">'4_s_at'</span>),</span>
+<span id="cb535-4"><a href="bioinformatics-basics.html#cb535-4"></a>                     <span class="at">GSM1=</span><span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">3.95</span>, <span class="fl">4.05</span>, <span class="fl">0.5</span>),</span>
+<span id="cb535-5"><a href="bioinformatics-basics.html#cb535-5"></a>                     <span class="at">GSM2=</span><span class="fu">rep</span>(<span class="fl">1.6</span>, <span class="dv">4</span>),</span>
+<span id="cb535-6"><a href="bioinformatics-basics.html#cb535-6"></a>                     <span class="at">GSM3=</span><span class="fu">rep</span>(<span class="fl">2.5</span>, <span class="dv">4</span>),</span>
+<span id="cb535-7"><a href="bioinformatics-basics.html#cb535-7"></a>                     <span class="at">GSM4=</span><span class="fu">rep</span>(<span class="fl">3.99</span>, <span class="dv">4</span>),</span>
+<span id="cb535-8"><a href="bioinformatics-basics.html#cb535-8"></a>                     <span class="at">GSM5=</span><span class="fu">rep</span>(<span class="fl">3.0</span>, <span class="dv">4</span>),</span>
+<span id="cb535-9"><a href="bioinformatics-basics.html#cb535-9"></a>                     <span class="at">GSM6=</span><span class="fu">rep</span>(<span class="fl">1.0</span>, <span class="dv">4</span>),</span>
+<span id="cb535-10"><a href="bioinformatics-basics.html#cb535-10"></a>                     <span class="at">GSM7=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
+<span id="cb535-11"><a href="bioinformatics-basics.html#cb535-11"></a>  <span class="fu">expect_equal</span>(<span class="fu">pull</span>(<span class="fu">filter_15</span>(test_tib)), <span class="fu">c</span>(<span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span>))</span>
+<span id="cb535-12"><a href="bioinformatics-basics.html#cb535-12"></a>})</span></code></pre></div>
 <p>In order to test this function, we create a small sample tibble of expression
 data containing only seven samples and four IDs. Two of the rows <em>do</em> have more
 than 15% of their values exceeding <code>log2(15)</code>, the other two do not. This test
@@ -277,17 +275,16 @@ tibble.</p>
 <div id="tests-2" class="section level4 unnumbered">
 <h4>Tests<a class="anchor" aria-label="anchor" href="#tests-2"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"affy ids can be converted to HGNC names properly using affy_to_hgnc()"</span>, <span class="op">{</span></span>
-<span>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
-<span>  <span class="va">response</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">affy_to_hgnc</span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="st">'1553551_s_at'</span><span class="op">)</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/grep.html">grepl</a></span><span class="op">(</span><span class="st">"Error"</span>, <span class="va">response</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu">expect_warning</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Could not connect to ENSEMBL."</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="fu">expect_equal</span><span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">hgnc_symbol</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MT-ND1"</span>, <span class="st">"MT-TI"</span>, <span class="st">"MT-TM"</span>, <span class="st">"MT-ND2"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb536-1"><a href="bioinformatics-basics.html#cb536-1"></a><span class="fu">test_that</span>(<span class="st">"affy ids can be converted to HGNC names properly using affy_to_hgnc()"</span>, {</span>
+<span id="cb536-2"><a href="bioinformatics-basics.html#cb536-2"></a>  <span class="co"># biomaRt super buggy so we can try to account for not connecting well</span></span>
+<span id="cb536-3"><a href="bioinformatics-basics.html#cb536-3"></a>  response <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">affy_to_hgnc</span>(<span class="fu">tibble</span>(<span class="st">'1553551_s_at'</span>)), <span class="cn">TRUE</span>)</span>
+<span id="cb536-4"><a href="bioinformatics-basics.html#cb536-4"></a>  <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"Error"</span>, response[<span class="dv">1</span>])) {</span>
+<span id="cb536-5"><a href="bioinformatics-basics.html#cb536-5"></a>    <span class="fu">expect_warning</span>(<span class="fu">warning</span>(<span class="st">"Could not connect to ENSEMBL."</span>))</span>
+<span id="cb536-6"><a href="bioinformatics-basics.html#cb536-6"></a>  }</span>
+<span id="cb536-7"><a href="bioinformatics-basics.html#cb536-7"></a>  <span class="cf">else</span> {</span>
+<span id="cb536-8"><a href="bioinformatics-basics.html#cb536-8"></a>    <span class="fu">expect_equal</span>(response<span class="sc">$</span>hgnc_symbol, <span class="fu">c</span>(<span class="st">"MT-ND1"</span>, <span class="st">"MT-TI"</span>, <span class="st">"MT-TM"</span>, <span class="st">"MT-ND2"</span>))</span>
+<span id="cb536-9"><a href="bioinformatics-basics.html#cb536-9"></a>  }</span>
+<span id="cb536-10"><a href="bioinformatics-basics.html#cb536-10"></a>})</span></code></pre></div>
 <p>As fun as it is to try to get <code>biomaRt</code> function to connect correctly, it is
 even more fun to test them. Since a failure to connect doesn’t indicate an
 actual failure in <em>our</em> code we must use a <code><a href="https://rdrr.io/r/base/try.html">try()</a></code> block in order to capture if
@@ -331,40 +328,35 @@ correct location. Finally, we created two tibbles of good and bad genes using
 <code><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which()</a></code> and the <code>%in%</code> modifier. Which evaluates true conditions across a
 range of data, so we can pass the list of genes we want and select the correct
 ones. For instance:</p>
-<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
-<span><span class="va">tib</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene1"</span>, <span class="st">"gene2"</span>, <span class="st">"gene3"</span>, <span class="st">"gene4"</span><span class="op">)</span>,</span>
-<span>              affy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a_s_1"</span>, <span class="st">"a_s_2"</span>, <span class="st">"a_s_3"</span>, <span class="st">"a_s_4"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="va">tib</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene2"</span>, <span class="st">"gene3"</span><span class="op">)</span><span class="op">)</span> <span class="co"># returns the index of the TRUE rows</span></span></code></pre></div>
-<pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode" id="cb538"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">$</span><span class="va">affy</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="va">tib</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene2"</span>, <span class="st">"gene3"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co"># use [] to get data back</span></span></code></pre></div>
-<pre><code>## [1] "a_s_2" "a_s_3"</code></pre>
+<div class="sourceCode" id="cb537"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb537-1"><a href="bioinformatics-basics.html#cb537-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb537-2"><a href="bioinformatics-basics.html#cb537-2"></a>tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gene =</span> <span class="fu">c</span>(<span class="st">"gene1"</span>, <span class="st">"gene2"</span>, <span class="st">"gene3"</span>, <span class="st">"gene4"</span>),</span>
+<span id="cb537-3"><a href="bioinformatics-basics.html#cb537-3"></a>              <span class="at">affy =</span> <span class="fu">c</span>(<span class="st">"a_s_1"</span>, <span class="st">"a_s_2"</span>, <span class="st">"a_s_3"</span>, <span class="st">"a_s_4"</span>))</span>
+<span id="cb537-4"><a href="bioinformatics-basics.html#cb537-4"></a><span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"gene2"</span>, <span class="st">"gene3"</span>)) <span class="co"># returns the index of the TRUE rows</span></span>
+<span id="cb537-5"><a href="bioinformatics-basics.html#cb537-5"></a>tib<span class="sc">$</span>affy[<span class="fu">which</span>(tib<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"gene2"</span>, <span class="st">"gene3"</span>))] <span class="co"># use [] to get data back</span></span></code></pre></div>
 <p>Once again, there are many ways to reshape this data (some maybe more elegant
 than this!) and all we need is the data to be correctly shaped when it is
 returned.</p>
 <div id="tests-3" class="section level4 unnumbered">
 <h4>Tests<a class="anchor" aria-label="anchor" href="#tests-3"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb540"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"reduce_data() is correctly changing the size and shape of the tibble"</span>, <span class="op">{</span></span>
-<span>  <span class="va">t_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probeids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span>,</span>
-<span>                     GSM1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span><span class="op">)</span>,</span>
-<span>                     GSM2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span><span class="op">)</span>,</span>
-<span>                     GSM3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>affy_hg_u133_plus_2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span><span class="op">)</span>,</span>
-<span>                  hgnc_symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A-REAL-GENE"</span>, <span class="st">"SONIC"</span>, <span class="st">"UTWPU"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">good</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A-REAL-GENE"</span><span class="op">)</span></span>
-<span>  <span class="va">bad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SONIC"</span><span class="op">)</span></span>
-<span>  <span class="va">reduce_test</span> <span class="op">&lt;-</span> <span class="fu">reduce_data</span><span class="op">(</span><span class="va">t_tibble</span>, <span class="va">names</span>, <span class="va">good</span>, <span class="va">bad</span><span class="op">)</span></span>
-<span>  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probeids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span><span class="op">)</span>,</span>
-<span>                   hgnc_symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A-REAL-GENE"</span>, <span class="st">"SONIC"</span><span class="op">)</span>,</span>
-<span>                   gene_set <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"bad"</span><span class="op">)</span>,</span>
-<span>                   GSM1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9.5</span>, <span class="fl">7.6</span><span class="op">)</span>,</span>
-<span>                   GSM2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9.7</span>, <span class="fl">7.2</span><span class="op">)</span>,</span>
-<span>                   GSM3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6.9</span>, <span class="fl">4.3</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="va">reduce_test</span>, <span class="va">result</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb538-1"><a href="bioinformatics-basics.html#cb538-1"></a><span class="fu">test_that</span>(<span class="st">"reduce_data() is correctly changing the size and shape of the tibble"</span>, {</span>
+<span id="cb538-2"><a href="bioinformatics-basics.html#cb538-2"></a>  t_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span>),</span>
+<span id="cb538-3"><a href="bioinformatics-basics.html#cb538-3"></a>                     <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>, <span class="fl">5.5</span>),</span>
+<span id="cb538-4"><a href="bioinformatics-basics.html#cb538-4"></a>                     <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>, <span class="fl">2.9</span>),</span>
+<span id="cb538-5"><a href="bioinformatics-basics.html#cb538-5"></a>                     <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>, <span class="fl">6.8</span>))</span>
+<span id="cb538-6"><a href="bioinformatics-basics.html#cb538-6"></a>  names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">affy_hg_u133_plus_2 =</span> <span class="fu">c</span>(<span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span>, <span class="st">"3_s_at"</span>),</span>
+<span id="cb538-7"><a href="bioinformatics-basics.html#cb538-7"></a>                  <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">"A-REAL-GENE"</span>, <span class="st">"SONIC"</span>, <span class="st">"UTWPU"</span>))</span>
+<span id="cb538-8"><a href="bioinformatics-basics.html#cb538-8"></a>  good <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"A-REAL-GENE"</span>)</span>
+<span id="cb538-9"><a href="bioinformatics-basics.html#cb538-9"></a>  bad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"SONIC"</span>)</span>
+<span id="cb538-10"><a href="bioinformatics-basics.html#cb538-10"></a>  reduce_test <span class="ot">&lt;-</span> <span class="fu">reduce_data</span>(t_tibble, names, good, bad)</span>
+<span id="cb538-11"><a href="bioinformatics-basics.html#cb538-11"></a>  result <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">probeids =</span> <span class="fu">c</span>(<span class="st">"1_s_at"</span>, <span class="st">"2_s_at"</span>),</span>
+<span id="cb538-12"><a href="bioinformatics-basics.html#cb538-12"></a>                   <span class="at">hgnc_symbol =</span> <span class="fu">c</span>(<span class="st">"A-REAL-GENE"</span>, <span class="st">"SONIC"</span>),</span>
+<span id="cb538-13"><a href="bioinformatics-basics.html#cb538-13"></a>                   <span class="at">gene_set =</span> <span class="fu">c</span>(<span class="st">"good"</span>, <span class="st">"bad"</span>),</span>
+<span id="cb538-14"><a href="bioinformatics-basics.html#cb538-14"></a>                   <span class="at">GSM1 =</span> <span class="fu">c</span>(<span class="fl">9.5</span>, <span class="fl">7.6</span>),</span>
+<span id="cb538-15"><a href="bioinformatics-basics.html#cb538-15"></a>                   <span class="at">GSM2 =</span> <span class="fu">c</span>(<span class="fl">9.7</span>, <span class="fl">7.2</span>),</span>
+<span id="cb538-16"><a href="bioinformatics-basics.html#cb538-16"></a>                   <span class="at">GSM3 =</span> <span class="fu">c</span>(<span class="fl">6.9</span>, <span class="fl">4.3</span>))</span>
+<span id="cb538-17"><a href="bioinformatics-basics.html#cb538-17"></a>  <span class="fu">expect_equal</span>(reduce_test, result)</span>
+<span id="cb538-18"><a href="bioinformatics-basics.html#cb538-18"></a>})</span></code></pre></div>
 <p>In order to test a function that changes a tibble, we need to use a tibble. We
 only create a test table that is three rows by four columns, but that is enough
 to get the gist of the function. We simply pass the four parameters to
