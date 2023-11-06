@@ -21,8 +21,8 @@ knitr::opts_chunk$set(cache = TRUE)
 
 **Time: M/W 10:10 - 11:55**
 
-```{r, echo=F}
-print(paste("Site last updated",format(Sys.time(), "%a %b %d %Y")))
+```{r, echo=F, results="asis"}
+cat(paste("Site last updated",format(Sys.time(), "%a %b %d %Y")))
 ```
 
 Contents:

@@ -1,5 +1,6 @@
 rmd_files:
     - "index.Rmd"
+    - "detailed_class_outlines.Rmd"
     - "0000_introduction.Rmd"
     - "0100_data_in_biology.Rmd"
     - "0200_preliminaries.Rmd"
@@ -46,6 +47,6 @@ rmd_files:
     - "1290_assignment_rshiny_mk1.Rmd"
     - "1300_project.Rmd"
     - "appendix.Rmd"
-    - "detailed_class_outlines.Rmd"
+    - "bibliography.Rmd"
 delete_merged_file: true
 output_dir: "../docs"
