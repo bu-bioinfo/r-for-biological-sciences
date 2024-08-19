@@ -186,12 +186,10 @@ also stand alone as an independent class.
 
 ## Instructors {.unnumbered}
 
-Primary instructor: Adam Labadorf (labadorf AT bu DOT edu)
+Primary instructor: Joey Orofino (jorofino AT bu DOT edu)
 
 TAs:
-
--   Nathan Sahelijo - [sahelijo\@bu](mailto:sahelijo@bu){.email}
--   Sami Clayton - [samic\@bu](mailto:samic@bu){.email}
+TBA
 
 ## Office Hours {.unnumbered}
 
