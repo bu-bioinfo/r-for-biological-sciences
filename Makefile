@@ -1,13 +1,10 @@
-packages:
-	Rscript install_R_packages.R
-	
-slides: packages
+slides: 
 	Rscript build_slides.R	
 	
-detailed_schedule: packages
+detailed_schedule: 
 	Rscript generate_detailed_class_outlines.R
 	
-book: packages detailed_schedule
+book: detailed_schedule
 	Rscript build_bookdown.R
 	
 all: slides book

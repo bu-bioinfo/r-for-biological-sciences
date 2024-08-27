@@ -8,7 +8,8 @@ list.of.packages <- c(
   "WGCNA",
   "threejs",
   "kableExtra",
-  "statip"
+  "statip",
+  "here"
 )
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos='http://cran.us.r-project.org')
@@ -17,4 +18,4 @@ if(length(new.packages)) install.packages(new.packages, repos='http://cran.us.r-
 if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
-BiocManager::install(c("affy", "affydata", "hgu95av2cdf", "fgsea", "GO.db", "impute"))
+BiocManager::install(c("affy", "affydata", "hgu95av2cdf", "fgsea", "GO.db", "impute","limma","DESeq2"))
