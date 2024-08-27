@@ -3070,18 +3070,21 @@ var loadDeck = function(event) {
   });
 };
 
-if (document.readyState !== "loading" &&
-    document.querySelector('slides') === null) { 
-  // if the document is done loading but our element hasn't yet appeared, defer
-  // loading of the deck
-  window.setTimeout(function() {
-    loadDeck(null);
-  }, 0);
-} else {
-  // still loading the DOM, so wait until it's finished
-  document.addEventListener("DOMContentLoaded", loadDeck);
-}
+if (!window.Shiny) {
+  // If Shiny is loaded, the slide deck is initialized in ioslides template
 
+  if (document.readyState !== "loading" &&
+      document.querySelector('slides') === null) {
+    // if the document is done loading but our element hasn't yet appeared, defer
+    // loading of the deck
+    window.setTimeout(function() {
+      loadDeck(null);
+    }, 0);
+  } else {
+    // still loading the DOM, so wait until it's finished
+    document.addEventListener("DOMContentLoaded", loadDeck);
+  }
+}
 
 
 </script>
@@ -3182,7 +3185,7 @@ div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -3193,7 +3196,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -3947,14 +3950,13 @@ gene_stats</pre>
 <pre class = 'prettyprint lang-r'>dplyr::mutate(gene_stats, gene=stringr::str_to_upper(gene) )</pre>
 
 <pre >## # A tibble: 4 × 9
-##   gene  test1_stat test1_p test2_stat  test2_p test1_p…¹ test2…² signi…³ signi…⁴
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 HOXD1      12.5  0.103       34.2   0.000013   0.206   5.2 e-5 TRUE    FALSE  
-## 2 BRCA1       4.40 0.632       16.3   0.0421     0.843   8.28e-2 FALSE   FALSE  
-## 3 BRCA2       9.67 0.932       12.7   0.0621     0.932   8.28e-2 FALSE   FALSE  
-## 4 SNCA       45.7  0.00042      0.757 0.915      0.00168 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_padj, ³​signif_either,
-## #   ⁴​signif_both</pre></li>
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre></li>
 </ul>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Arranging Data - <code>dplyr::filter()</code></h2></hgroup><article  id="arranging-data---dplyrfilter">
@@ -3968,14 +3970,13 @@ gene_stats</pre>
 <pre class = 'prettyprint lang-r'>gene_stats</pre>
 
 <pre >## # A tibble: 4 × 9
-##   gene  test1_stat test1_p test2_stat  test2_p test1_p…¹ test2…² signi…³ signi…⁴
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 HOXD1      12.5  0.103       34.2   0.000013   0.206   5.2 e-5 TRUE    FALSE  
-## 2 BRCA1       4.40 0.632       16.3   0.0421     0.843   8.28e-2 FALSE   FALSE  
-## 3 BRCA2       9.67 0.932       12.7   0.0621     0.932   8.28e-2 FALSE   FALSE  
-## 4 SNCA       45.7  0.00042      0.757 0.915      0.00168 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_padj, ³​signif_either,
-## #   ⁴​signif_both</pre>
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>dplyr::filter()</code> - Filter based on text values</h2></hgroup><article  id="dplyrfilter---filter-based-on-text-values">
 
@@ -3986,11 +3987,11 @@ gene_stats</pre>
 <pre class = 'prettyprint lang-r'>gene_stats %&gt;% filter(gene == &quot;BRCA1&quot; | gene == &quot;BRCA2&quot;)</pre>
 
 <pre >## # A tibble: 2 × 9
-##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2…¹ signi…² signi…³
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 BRCA1       4.40   0.632       16.3  0.0421      0.843  0.0828 FALSE   FALSE  
-## 2 BRCA2       9.67   0.932       12.7  0.0621      0.932  0.0828 FALSE   FALSE  
-## # … with abbreviated variable names ¹​test2_padj, ²​signif_either, ³​signif_both</pre>
+##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 BRCA1       4.40   0.632       16.3  0.0421      0.843     0.0828
+## 2 BRCA2       9.67   0.932       12.7  0.0621      0.932     0.0828
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>dplyr::filter()</code> - Filter based on numeric values</h2></hgroup><article  id="dplyrfilter---filter-based-on-numeric-values">
 
@@ -4001,10 +4002,10 @@ gene_stats</pre>
 <pre class = 'prettyprint lang-r'>gene_stats %&gt;% filter(test1_padj &lt; 0.01)</pre>
 
 <pre >## # A tibble: 1 × 9
-##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2…¹ signi…² signi…³
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 SNCA        45.7 0.00042      0.757   0.915    0.00168   0.915 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test2_padj, ²​signif_either, ³​signif_both</pre>
+##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 SNCA        45.7 0.00042      0.757   0.915    0.00168      0.915
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2><code>stringr</code> - Working with character values</h2></hgroup><article  id="stringr---working-with-character-values">
 
@@ -4041,14 +4042,13 @@ gene_stats</pre>
 )</pre>
 
 <pre >## # A tibble: 4 × 9
-##   gene  test1_stat test1_p test2_stat  test2_p test1_p…¹ test2…² signi…³ signi…⁴
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 HOXD1      12.5  0.103       34.2   0.000013   0.206   5.2 e-5 TRUE    FALSE  
-## 2 BRCA1       4.40 0.632       16.3   0.0421     0.843   8.28e-2 FALSE   FALSE  
-## 3 BRCA2       9.67 0.932       12.7   0.0621     0.932   8.28e-2 FALSE   FALSE  
-## 4 SNCA       45.7  0.00042      0.757 0.915      0.00168 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_padj, ³​signif_either,
-## #   ⁴​signif_both</pre></li>
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Regular expressions</h2></hgroup><article  id="regular-expressions">
@@ -4069,14 +4069,13 @@ gene_stats</pre>
 <pre class = 'prettyprint lang-r'>gene_stats</pre>
 
 <pre >## # A tibble: 4 × 9
-##   gene  test1_stat test1_p test2_stat  test2_p test1_p…¹ test2…² signi…³ signi…⁴
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 HOXD1      12.5  0.103       34.2   0.000013   0.206   5.2 e-5 TRUE    FALSE  
-## 2 BRCA1       4.40 0.632       16.3   0.0421     0.843   8.28e-2 FALSE   FALSE  
-## 3 BRCA2       9.67 0.932       12.7   0.0621     0.932   8.28e-2 FALSE   FALSE  
-## 4 SNCA       45.7  0.00042      0.757 0.915      0.00168 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_padj, ³​signif_either,
-## #   ⁴​signif_both</pre>
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 2 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 <ul>
 <li>Used <code>filter()</code> to look for literal &ldquo;BRCA1&rdquo; and &ldquo;BRCA2&rdquo;</li>
@@ -4096,11 +4095,11 @@ gene_stats</pre>
 <pre class = 'prettyprint lang-r'>dplyr::filter(gene_stats, str_detect(gene,&quot;^BRCA[12]$&quot;))</pre>
 
 <pre >## # A tibble: 2 × 9
-##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2…¹ signi…² signi…³
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 BRCA1       4.40   0.632       16.3  0.0421      0.843  0.0828 FALSE   FALSE  
-## 2 BRCA2       9.67   0.932       12.7  0.0621      0.932  0.0828 FALSE   FALSE  
-## # … with abbreviated variable names ¹​test2_padj, ²​signif_either, ³​signif_both</pre>
+##   gene  test1_stat test1_p test2_stat test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 BRCA1       4.40   0.632       16.3  0.0421      0.843     0.0828
+## 2 BRCA2       9.67   0.932       12.7  0.0621      0.932     0.0828
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Regular expression example</h2></hgroup><article  id="regular-expression-example-2">
 
@@ -4199,13 +4198,13 @@ stats</pre>
 )</pre>
 
 <pre >## # A tibble: 4 × 9
-##   gene  test1_stat test1_p test1_padj test2_stat test2_p test2…¹ signi…² signi…³
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 HOXD1      12.5  0.103      0.206       34.2   1.3 e-5 5.2 e-5 TRUE    FALSE  
-## 2 BRCA1       4.40 0.632      0.843       16.3   4.21e-2 8.28e-2 FALSE   FALSE  
-## 3 BRCA2       9.67 0.932      0.932       12.7   6.21e-2 8.28e-2 FALSE   FALSE  
-## 4 SNCA       45.7  0.00042    0.00168      0.757 9.15e-1 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test2_padj, ²​signif_either, ³​signif_both</pre>
+##   gene  test1_stat test1_p test1_padj test2_stat  test2_p test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1 HOXD1      12.5  0.103      0.206       34.2   0.000013   0.000052
+## 2 BRCA1       4.40 0.632      0.843       16.3   0.0421     0.0828  
+## 3 BRCA2       9.67 0.932      0.932       12.7   0.0621     0.0828  
+## 4 SNCA       45.7  0.00042    0.00168      0.757 0.915      0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Arranging Data - <code>dplyr::arrange()</code></h2></hgroup><article  id="arranging-data---dplyrarrange">
 
@@ -4218,14 +4217,13 @@ stats</pre>
 <pre class = 'prettyprint lang-r'>dplyr::arrange(gene_stats, test1_p)</pre>
 
 <pre >## # A tibble: 4 × 9
-##   gene  test1_stat test1_p test2_stat  test2_p test1_p…¹ test2…² signi…³ signi…⁴
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 SNCA       45.7  0.00042      0.757 0.915      0.00168 9.15e-1 TRUE    FALSE  
-## 2 HOXD1      12.5  0.103       34.2   0.000013   0.206   5.2 e-5 TRUE    FALSE  
-## 3 BRCA1       4.40 0.632       16.3   0.0421     0.843   8.28e-2 FALSE   FALSE  
-## 4 BRCA2       9.67 0.932       12.7   0.0621     0.932   8.28e-2 FALSE   FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_padj, ³​signif_either,
-## #   ⁴​signif_both</pre>
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## 2 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 3 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## 4 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>dplyr::arrange()</code> - Changing sort direction</h2></hgroup><article  id="dplyrarrange---changing-sort-direction">
 
@@ -4238,14 +4236,13 @@ stats</pre>
 dplyr::arrange(gene_stats, desc(abs(test1_stat)))</pre>
 
 <pre >## # A tibble: 4 × 9
-##   gene  test1_stat test1_p test2_stat  test2_p test1_p…¹ test2…² signi…³ signi…⁴
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 SNCA       45.7  0.00042      0.757 0.915      0.00168 9.15e-1 TRUE    FALSE  
-## 2 HOXD1      12.5  0.103       34.2   0.000013   0.206   5.2 e-5 TRUE    FALSE  
-## 3 BRCA2       9.67 0.932       12.7   0.0621     0.932   8.28e-2 FALSE   FALSE  
-## 4 BRCA1       4.40 0.632       16.3   0.0421     0.843   8.28e-2 FALSE   FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_padj, ³​signif_either,
-## #   ⁴​signif_both</pre>
+##   gene  test1_stat test1_p test2_stat  test2_p test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 SNCA       45.7  0.00042      0.757 0.915       0.00168   0.915   
+## 2 HOXD1      12.5  0.103       34.2   0.000013    0.206     0.000052
+## 3 BRCA2       9.67 0.932       12.7   0.0621      0.932     0.0828  
+## 4 BRCA1       4.40 0.632       16.3   0.0421      0.843     0.0828  
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Putting it all together</h2></hgroup><article  id="putting-it-all-together">
 

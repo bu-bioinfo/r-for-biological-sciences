@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>8 Data Visualization | BF591 - R for Biological Sciences</title>
-<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta name="generator" content="bookdown 0.40 with bs4_book()">
 <meta property="og:title" content="8 Data Visualization | BF591 - R for Biological Sciences">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="8 Data Visualization | BF591 - R for Biological Sciences">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.2/transition.js"></script><script src="libs/bs3compat-0.4.2/tabs.js"></script><script src="libs/bs3compat-0.4.2/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -22,6 +22,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+          margin-bottom: 0em;
         }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -682,7 +683,7 @@ following R code creates such a plot with ggplot2:</p>
 <div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">ad_metadata</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age_at_death</span>, y<span class="op">=</span><span class="va">tau</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-97-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-98-1.png" width="672"></div>
 <p>All ggplot2 plots begin with the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function call, which is passed a
 tibble with the <strong>data</strong> to be plotted. We then define the <strong>aesthetics</strong> are
 defined by mapping the x coordinate to the <code>age_at_death</code> column and the y
@@ -698,7 +699,7 @@ this information to the plot:</p>
 <div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">ad_metadata</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age_at_death</span>, y<span class="op">=</span><span class="va">tau</span>, color<span class="op">=</span><span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-98-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-99-1.png" width="672"></div>
 <p>This looks a little clearer, showing that Control subjects generally have both
 an earlier age at death and a lower amount of tau pathology. This might be a
 problem, however, since if the age distributions of AD and Control groups are
@@ -713,7 +714,7 @@ geometry</a> with
 <div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">ad_metadata</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">condition</span>, y<span class="op">=</span><span class="va">age_at_death</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-99-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-100-1.png" width="672"></div>
 <p>We can see immediately that there are big differences between the age
 distributions of the two groups. This is not ideal, but perhaps we can adjust
 for these effects in downstream analyses. We’d like to look at the tau
@@ -729,7 +730,7 @@ ggplot2 plots to be arranged together with a simple expressive syntax:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">age_boxplot</span> <span class="op">|</span> <span class="va">tau_boxplot</span> <span class="co"># this puts the plots side by side</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-100-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-101-1.png" width="672"></div>
 <p>This confirms our suspicion, and also reveals a serious problem with our
 samples: we have strong confounding of tau and age at death between AD and
 Control samples. This means that if we look for differences between AD and
@@ -810,7 +811,7 @@ patterns in groups of bars, depending on how they are arranged:</p>
 <div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ID</span>,y<span class="op">=</span><span class="va">tau</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-102-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-103-1.png" width="672"></div>
 <p>Note the <code>stat="identity"</code> argument is required because by default <code>geom_bar</code>
 counts the number of values for each value of x, which in our case is only ever
 one. This plot is not particularly helpful, so let’s change the fill color of
@@ -818,7 +819,7 @@ the bars based on condition:</p>
 <div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ID</span>,y<span class="op">=</span><span class="va">tau</span>,fill<span class="op">=</span><span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-103-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-104-1.png" width="672"></div>
 <p>Slightly better, but maybe we can see even more clearly if we sort our tibble
 by tau first. Sorting elements in these 1-D charts is somewhat complicated, and
 is explained in the [Reordering 1-D Data Elements] section below.</p>
@@ -828,7 +829,7 @@ the tau measurements by subtracting the mean from each value before plotting:</p
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">ad_metadata</span>, tau_centered<span class="op">=</span><span class="op">(</span><span class="va">tau</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">tau</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ID</span>, y<span class="op">=</span><span class="va">tau_centered</span>, fill<span class="op">=</span><span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-104-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-105-1.png" width="672"></div>
 </div>
 <div id="lollipop-plots" class="section level3" number="8.3.2">
 <h3>
@@ -842,7 +843,7 @@ a height on the y or length on the x axis, depending on orientation.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ID</span>, y<span class="op">=</span><span class="va">tau</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span>mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ID</span>, xend<span class="op">=</span><span class="va">ID</span>, y<span class="op">=</span><span class="fl">0</span>, yend<span class="op">=</span><span class="va">tau</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-105-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-106-1.png" width="672"></div>
 <p>Note that <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> mappings can be made on the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> object or on each
 individual geometry function call, to specify different mappings based on
 geometry.</p>
@@ -868,7 +869,7 @@ of marker stain for each of the four genes for each individaul:</p>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ID</span>,y<span class="op">=</span><span class="va">Intensity</span>,group<span class="op">=</span><span class="va">Marker</span>,fill<span class="op">=</span><span class="va">Marker</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_area</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-106-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-107-1.png" width="672"></div>
 <p>We notice that subject A4 has the highest overall level of marker intensity,
 followed by A1, A7, etc. The control samples overall have less intensity across
 all markers. Certain samples, A2 and C5, have little to no <code>abeta</code> aggregation,
@@ -905,7 +906,7 @@ preprocessing our data by dividing each value by the column sum:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># ungroup restores the tibble to its original number of rows after the transformation</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ID</span>,y<span class="op">=</span><span class="va">`Relative Intensity`</span>,group<span class="op">=</span><span class="va">Marker</span>,fill<span class="op">=</span><span class="va">Marker</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_area</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-107-1.png" width="672">
+<p><img src="main_files/unnamed-chunk-108-1.png" width="672">
 Now the values for each subject have been normalized to each sum to 1. In this
 way, we might note that the relative proportion of <code>abeta</code> seems to be greater
 in AD samples than Controls, but that may not be true of <code>tau</code>. These
@@ -943,14 +944,14 @@ histogram of our <code>age_at_death</code> measurement for all samples:</p>
 <div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">age_at_death</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-108-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-109-1.png" width="672"></div>
 <p>Note that the histogram does not look very complete, because there are only 20
 values in our data. We can mitigate this somewhat by increasing the number of
 bins the data range is divided into:</p>
 <div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">age_at_death</span><span class="op">)</span>,bins<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-109-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-110-1.png" width="672"></div>
 <p>This is a little bit better, but there are still some bins (76-79, 84-87) that
 have no values. Compare this to the following synthetic dataset of 1000
 normally distributed values:</p>
@@ -960,7 +961,7 @@ normally distributed values:</p>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-110-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-111-1.png" width="672"></div>
 <p>For distributions with a small number of samples, histograms might not be the
 best visualization. We will continue with synthetic normally distributed dataset
 for the remaining examples.</p>
@@ -972,7 +973,7 @@ for the remaining examples.</p>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,fill<span class="op">=</span><span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins<span class="op">=</span><span class="fl">30</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, position<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-111-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-112-1.png" width="672"></div>
 <p>The <code>alpha=0.6, position="identity"</code> arguments makes the bars partially
 transparent so you can see the overlap more clearly.</p>
 <div class="box readmore">
@@ -1005,7 +1006,7 @@ of the <code>age_at_death</code> variable from our example tibble:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span>mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">age_at_death</span><span class="op">)</span>,fill<span class="op">=</span><span class="st">"#c9a13daa"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hist_g</span> <span class="op">|</span> <span class="va">density_g</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-112-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-113-1.png" width="672"></div>
 <p>Notice the overall shape of the two distributions is similar, with the highest
 values in both around age 77. The density plot is a smoother representation of
 a histogram, but its accuracy is still highly sensitive to the number of
@@ -1032,7 +1033,7 @@ two sets of 1000 normally distributed samples with different means:</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">hist_g</span> <span class="op">|</span> <span class="va">density_g</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-113-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-114-1.png" width="672"></div>
 <p>Again the two types of plots depict similar distributions, although they are
 different enough to possibly suggest different interpretations. In general,
 density plots might be preferable over histograms if the data are noisy or
@@ -1054,7 +1055,7 @@ distributions. Below is a boxplot of age at death divided by condition:</p>
 <div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">condition</span>,y<span class="op">=</span><span class="va">age_at_death</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-114-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-115-1.png" width="672"></div>
 <p>Boxplots are drawn assuming the data are
 <a href="https://en.wikipedia.org/wiki/Unimodality">unimodal</a> (i.e. shaped like a hill,
 possibly slanted to one side or the other), where the extents of the box
@@ -1083,7 +1084,7 @@ section):</p>
 <span><span class="va">violin_g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">boxplot_g</span> <span class="op">|</span> <span class="va">violin_g</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-115-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-116-1.png" width="672"></div>
 <p>The two distributions look almost identical in the boxplot figure; however they
 are dramatically different when visualized using a method like a violin plot
 where the contours of the entire distribution are depicted. Unless you are
@@ -1112,7 +1113,7 @@ tibble:</p>
 <div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">condition</span>,y<span class="op">=</span><span class="va">tau</span>,fill<span class="op">=</span><span class="va">condition</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-116-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-117-1.png" width="672"></div>
 <p>The violin plot is both more and less descriptive than a boxplot; it does depict
 the entire distribution of the data, but also doesn’t include features like
 median by default.</p>
@@ -1137,7 +1138,7 @@ of sample and the markers are colored by the amount of tau:</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eclarke/ggbeeswarm">ggbeeswarm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">condition</span>,y<span class="op">=</span><span class="va">age_at_death</span>,color<span class="op">=</span><span class="va">condition</span><span class="op">)</span>,cex<span class="op">=</span><span class="fl">2</span>,size<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-117-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-118-1.png" width="672"></div>
 <p>We may not have noticed before that our AD samples have a big gap in ages
 between 74 and 81; since the beeswarm plot displays all the data, we can see it
 easily here.</p>
@@ -1152,7 +1153,7 @@ too many samples:</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">normal_samples</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">type</span>,y<span class="op">=</span><span class="va">x</span>,color<span class="op">=</span><span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-118-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-119-1.png" width="672"></div>
 <p>This plot likely has too many samples to be the right choice (it’s also ugly),
 but it does give an idea of the distribution of the data.</p>
 <p>In the previous examples the markers for each group also determined the color of
@@ -1168,7 +1169,7 @@ example where markers are colored by another randomly generated variable:</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">normal_samples</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">type</span>,y<span class="op">=</span><span class="va">x</span>,color<span class="op">=</span><span class="va">category</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-119-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-120-1.png" width="672"></div>
 <p>We are now effectively visualizing three dimensions which may provide insight
 into the data.</p>
 <div class="box readmore">
@@ -1196,7 +1197,7 @@ another package outside ggplot2.</p>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">type</span>,x<span class="op">=</span><span class="va">x</span>,fill<span class="op">=</span><span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html">geom_density_ridges</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-120-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-121-1.png" width="672"></div>
 <p>Many distributions may be plotted:</p>
 <div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
@@ -1205,7 +1206,7 @@ another package outside ggplot2.</p>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">type</span>,x<span class="op">=</span><span class="va">x</span>,fill<span class="op">=</span><span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html">geom_density_ridges</a></span><span class="op">(</span>alpha<span class="op">=</span><span class="fl">0.6</span>,position<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-121-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-122-1.png" width="672"></div>
 <div class="box readmore">
 <ul>
 <li><a href="https://www.r-graph-gallery.com/294-basic-ridgeline-plot.html">R Graph Gallery - ridgeline plots</a></li>
@@ -1335,7 +1336,7 @@ by <span class="math inline">\(x\)</span> axis by default:</p>
 <div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span>,mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">abeta</span>, y<span class="op">=</span><span class="va">tau</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-123-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-124-1.png" width="672"></div>
 <p>This may be useful when plotting multiple lines using the <code>group</code> aesthetic
 mapping:</p>
 <div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
@@ -1346,7 +1347,7 @@ mapping:</p>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ad_metadata</span>,mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ID</span>, y<span class="op">=</span><span class="va">Intensity</span>, group<span class="op">=</span><span class="va">Marker</span>, color<span class="op">=</span><span class="va">Marker</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-124-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-125-1.png" width="672"></div>
 <p>This plot is similar to a <a href="parallel-coordinate-plots">parallel coordinate plot</a>,
 in that all four dimensions of each sample are displayed using a position
 encoding.</p>
@@ -1972,7 +1973,7 @@ ways in R. Using our AD marker example data, we hierarchically cluster the
 subjects based on the content of all their markers and visualize the result as
 follows:</p>
 <div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andrie/ggdendro">ggdendro</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://andrie.github.io/ggdendro/">ggdendro</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># produce a clustering of the data using the hclust for hierarchical clustering</span></span>
 <span><span class="co"># and euclidean distance as the distance metric</span></span>
@@ -1982,7 +1983,7 @@ follows:</p>
 <span><span class="co"># add ID as labels to the clustering object</span></span>
 <span><span class="va">hc</span><span class="op">$</span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="va">ad_metadata</span><span class="op">$</span><span class="va">ID</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/ggdendrogram.html">ggdendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://andrie.github.io/ggdendro/reference/ggdendrogram.html">ggdendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/dendro%20full-1.png" width="672"></div>
 <p>This dendrogram does not produce highly distinct clusters of AD and control
 samples with all the data.</p>
@@ -1990,7 +1991,7 @@ samples with all the data.</p>
 multivariate samples from two normal distributions and cluster the results:</p>
 <div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andrie/ggdendro">ggdendro</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://andrie.github.io/ggdendro/">ggdendro</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">well_clustered_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  ID<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>,<span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"B"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -2008,7 +2009,7 @@ multivariate samples from two normal distributions and cluster the results:</p>
 <span><span class="co"># add ID as labels to the clustering object</span></span>
 <span><span class="va">hc</span><span class="op">$</span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="va">well_clustered_data</span><span class="op">$</span><span class="va">ID</span></span>
 <span></span>
-<span><span class="va">dendro_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/ggdendrogram.html">ggdendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span>
+<span><span class="va">dendro_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andrie.github.io/ggdendro/reference/ggdendrogram.html">ggdendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span>
 <span><span class="va">scatter_g</span> <span class="op">|</span> <span class="va">dendro_g</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/dendro%20strong-1.png" width="672"></div>
 <p>Here, all the A and B samples strongly cluster together, with a large distance
@@ -2304,35 +2305,35 @@ effort.</p>
 </h2>
 <p>The most commonly used package to visualize network is <code>igraph</code>.</p>
 <div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span></code></pre></div>
 <p>First, let’s create a graph with 15 nodes.</p>
 <div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Opal"</span>, <span class="st">"Tourmaline"</span>, <span class="st">"Emerald"</span>, <span class="st">"Citrine"</span>, <span class="st">"Jasper"</span>, <span class="st">"Moonstone"</span>, <span class="st">"Agate"</span>, <span class="st">"Chalcedony"</span>, <span class="st">"Crystal"</span>, <span class="st">"Obsidian"</span>, <span class="st">"Quartz"</span>, <span class="st">"Topaz"</span>, <span class="st">"Beryl"</span>, <span class="st">"Sugilite"</span>, <span class="st">"Sapphire"</span><span class="op">)</span></span></code></pre></div>
-<p>Use <code><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm()</a></code> to generate a random graph.</p>
+<p>Use <code><a href="https://r.igraph.org/reference/sample_gnm.html">sample_gnm()</a></code> to generate a random graph.</p>
 <div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
-<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span></span>
+<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnm.html">sample_gnm</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">15</span>, <span class="co"># number of vertices</span></span>
 <span>  m <span class="op">=</span> <span class="fl">20</span>, <span class="co"># total number of edges</span></span>
 <span>  directed <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># if it's a directed network</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>To assign color to vertices, use <code><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr()</a></code>. <code><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder()</a></code> returns the number of vertices.</p>
+<p>To assign color to vertices, use <code><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr()</a></code>. <code><a href="https://r.igraph.org/reference/gorder.html">gorder()</a></code> returns the number of vertices.</p>
 <div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">names</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>To assign color to edges, use <code><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr()</a></code>. <code><a href="https://rdrr.io/pkg/igraph/man/gsize.html">gsize()</a></code> returns the total number of edges. Here I am assigning random colors.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">names</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://r.igraph.org/reference/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>To assign color to edges, use <code><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr()</a></code>. <code><a href="https://r.igraph.org/reference/gsize.html">gsize()</a></code> returns the total number of edges. Here I am assigning random colors.</p>
 <div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slateblue1"</span>, <span class="st">"lightpink1"</span>, <span class="st">"steelblue1"</span>, <span class="st">"palegreen3"</span><span class="op">)</span>,</span>
-<span>  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gsize.html">gsize</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  size <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/gsize.html">gsize</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>In real case, when you want to modify the color of a specific edge, you need to first find which edge you want to modify…</p>
 <div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge.html">edges</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/edge.html">edges</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 265d5cc UN-- 15 20 -- Erdos-Renyi (gnm) graph
+## IGRAPH 92ced05 UN-- 15 20 -- Erdos-Renyi (gnm) graph
 ## + attr: name (g/c), type (g/c), loops (g/l), m (g/n), name (v/c), color
 ## | (v/c), color (e/c)
-## + edges from 265d5cc (vertex names):
+## + edges from 92ced05 (vertex names):
 ##  [1] Emerald   --Citrine    Citrine   --Jasper     Tourmaline--Moonstone 
 ##  [4] Emerald   --Chalcedony Emerald   --Crystal    Opal      --Obsidian  
 ##  [7] Agate     --Obsidian   Opal      --Quartz     Jasper    --Quartz    
@@ -2345,13 +2346,13 @@ effort.</p>
 ## [1] "igraph.edge"</code></pre>
 <p>Then modify it. For example, modify the 1st edge, which is “Emerald–Citrine”.</p>
 <div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span>, name <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"red"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span>, name <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"red"</span></span></code></pre></div>
 <p>To visualize the network, just use <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>!</p>
 <div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-133-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-134-1.png" width="672"></div>
 <p>In real-world, we don’t want a random network. Now let’s create our network from scratch.</p>
-<p>There are many different ways to create a network. One of the most basic (and easy) ways is using <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_data_frame.html">graph_from_data_frame()</a></code> function in <code>igraph</code>.<br>
+<p>There are many different ways to create a network. One of the most basic (and easy) ways is using <code><a href="https://r.igraph.org/reference/graph_from_data_frame.html">graph_from_data_frame()</a></code> function in <code>igraph</code>.<br>
 1. Create 2 columns in the data frame: <code>from</code> and <code>to</code>. Each row represents an edge, and the entries are vertex names. For instance, as indicated in row 1 below, there is an edge “from Crystal to Moonstone”. In an undirected graph, you can put the two vertices in either way.<br>
 2. (optional) Add another column <code>color</code> to represent the color to plot the edge.<br>
 3. (optional) You can also add additional information for each edge. For example, add a column <code>weight</code> to specify the weight of this edge. The <code>weight</code> will become useful when you do network analysis later, for example, find the shortest path between two vertices. You can also add other attributes you want, like the “connection_type” here.</p>
@@ -2376,8 +2377,8 @@ effort.</p>
 ## 8    Topaz Moonstone palegreen3               2      2</code></pre>
 <p>Now create an igraph object from the data frame, and assign vertex color.</p>
 <div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="va">my_gem_df</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="va">my_gem_df</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Crystal"</span>, <span class="st">"Topaz"</span>, <span class="st">"Obsidian"</span>, <span class="st">"Agate"</span>, <span class="st">"Moonstone"</span>, <span class="st">"Citrine"</span><span class="op">)</span>,</span>
 <span>  color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="st">"slategray1"</span>, <span class="st">"slategray1"</span>, <span class="st">"lightpink"</span>, <span class="st">"slategray1"</span>, <span class="st">"lightpink"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -2386,27 +2387,7 @@ effort.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g</span>,</span>
 <span>  edge.width <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span>  edge.lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"connection_type"</span><span class="op">)</span>,</span>
-<span>  vertex.label.family <span class="op">=</span> <span class="st">"Trebuchet MS"</span>,</span>
-<span>  vertex.label.font <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  vertex.label.cex <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  vertex.label.dist <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  vertex.label.degree <span class="op">=</span> <span class="va">pi</span> <span class="op">/</span> <span class="fl">2</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-136-1.png" width="672"></div>
-<p>To see the whole list of available arguments available when plotting your network, visit <a href="https://igraph.org/r/doc/plot.common.html">igraph plot manual</a>.</p>
-<p>In the case of an directed graph, simply put <code>directed = TRUE</code> when creating the igraph object, and you will see the cute arrows.</p>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="va">my_gem_df</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Crystal"</span>, <span class="st">"Topaz"</span>, <span class="st">"Obsidian"</span>, <span class="st">"Agate"</span>, <span class="st">"Moonstone"</span>, <span class="st">"Citrine"</span><span class="op">)</span>,</span>
-<span>  color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="st">"slategray1"</span>, <span class="st">"slategray1"</span>, <span class="st">"lightpink"</span>, <span class="st">"slategray1"</span>, <span class="st">"lightpink"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g</span>,</span>
-<span>  edge.width <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span>  edge.lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"connection_type"</span><span class="op">)</span>,</span>
-<span>  edge.arrow.size <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  edge.lty <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"connection_type"</span><span class="op">)</span>,</span>
 <span>  vertex.label.family <span class="op">=</span> <span class="st">"Trebuchet MS"</span>,</span>
 <span>  vertex.label.font <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  vertex.label.cex <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -2414,6 +2395,26 @@ effort.</p>
 <span>  vertex.label.degree <span class="op">=</span> <span class="va">pi</span> <span class="op">/</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="main_files/unnamed-chunk-137-1.png" width="672"></div>
+<p>To see the whole list of available arguments available when plotting your network, visit <a href="https://igraph.org/r/doc/plot.common.html">igraph plot manual</a>.</p>
+<p>In the case of an directed graph, simply put <code>directed = TRUE</code> when creating the igraph object, and you will see the cute arrows.</p>
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="va">my_gem_df</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Crystal"</span>, <span class="st">"Topaz"</span>, <span class="st">"Obsidian"</span>, <span class="st">"Agate"</span>, <span class="st">"Moonstone"</span>, <span class="st">"Citrine"</span><span class="op">)</span>,</span>
+<span>  color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="st">"slategray1"</span>, <span class="st">"slategray1"</span>, <span class="st">"lightpink"</span>, <span class="st">"slategray1"</span>, <span class="st">"lightpink"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g</span>,</span>
+<span>  edge.width <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>  edge.lty <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"connection_type"</span><span class="op">)</span>,</span>
+<span>  edge.arrow.size <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  vertex.label.family <span class="op">=</span> <span class="st">"Trebuchet MS"</span>,</span>
+<span>  vertex.label.font <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  vertex.label.cex <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  vertex.label.dist <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  vertex.label.degree <span class="op">=</span> <span class="va">pi</span> <span class="op">/</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-138-1.png" width="672"></div>
 <div id="interactive-network-plots" class="section level3" number="8.9.1">
 <h3>
 <span class="header-section-number">8.9.1</span> Interactive network plots<a class="anchor" aria-label="anchor" href="#interactive-network-plots"><i class="fas fa-link"></i></a>

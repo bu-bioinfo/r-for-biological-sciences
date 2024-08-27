@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>7 Data Science | BF591 - R for Biological Sciences</title>
-<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta name="generator" content="bookdown 0.40 with bs4_book()">
 <meta property="og:title" content="7 Data Science | BF591 - R for Biological Sciences">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="7 Data Science | BF591 - R for Biological Sciences">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.2/transition.js"></script><script src="libs/bs3compat-0.4.2/tabs.js"></script><script src="libs/bs3compat-0.4.2/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -22,6 +22,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+          margin-bottom: 0em;
         }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -219,7 +220,7 @@ blood samples. We have the following made-up dataset:</p>
 ##  8 P8          Parkinson's          276.     450.     495.
 ##  9 P9          Parkinson's          274.     490.     496.
 ## 10 P10         Parkinson's          251.     584.     573.
-## # … with 190 more rows</code></pre>
+## # ℹ 190 more rows</code></pre>
 <p>Our imaginary dataset has 100 Parkinson’s and 100 control subjects. For each of
 our samples, we have a sample ID, Disease Status of <code>Parkinson's</code> or <code>Control</code>,
 and numeric measurements of each of three genes. Below are <a href="data-visualization.html#violin-plot">violin
@@ -311,7 +312,7 @@ to outlier samples. Consider the following examples:</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Mean example, big outliers"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g_no_outlier</span> <span class="op">|</span> <span class="va">g_outlier</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;"></div>
 <p>The median is another measure of central tendency, which is found by identifying
 the value that divides the samples into equal halves when sorted from smallest
 to largest. The median is more robust in the presence of outliers.</p>
@@ -327,7 +328,7 @@ to largest. The median is more robust in the presence of outliers.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Median example, big outliers"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g_no_outlier</span> <span class="op">|</span> <span class="va">g_outlier</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;"></div>
 </div>
 </div>
 <div id="dispersion" class="section level4" number="7.1.2.2">
@@ -401,7 +402,7 @@ using
 <span>    fill<span class="op">=</span><span class="st">"#a93c13"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">stat_function</span><span class="op">(</span>fun<span class="op">=</span><span class="va">dnorm</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean<span class="op">=</span><span class="va">g1_mean</span>, sd<span class="op">=</span><span class="va">g1_sd</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-46-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-47-1.png" width="672"></div>
 <p>Note the histogram bars are scaled with
 <code>aes(y=[after_stat](https://ggplot2.tidyverse.org/reference/aes_eval.html)(density))</code>
 to the density of values in each bin to make all the bar heights sum to 1 so
@@ -443,7 +444,7 @@ summarize our data:</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Exponential distribution"</span>, <span class="st">"rexp(n = 1000, rate = 1)"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">g_norm</span> <span class="op">|</span> <span class="va">g_unif</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">g_logistic</span> <span class="op">|</span> <span class="va">g_exp</span><span class="op">)</span></span></code></pre></div>
-<p><img src="main_files/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;">
+<p><img src="main_files/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;">
 In addition to the normal distribution, we have also plotted samples drawn from
 a <a href="ihttps://en.wikipedia.org/wiki/Continuous_uniform_distribution">continuous uniform
 distribution</a>
@@ -523,7 +524,7 @@ distributions as histograms:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins<span class="op">=</span><span class="fl">20</span>, alpha<span class="op">=</span><span class="fl">0.6</span>,position<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"segment"</span>, x<span class="op">=</span><span class="va">c_mean</span>, xend<span class="op">=</span><span class="va">pd_mean</span>, y<span class="op">=</span><span class="fl">20</span>, yend<span class="op">=</span><span class="fl">20</span>, arrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/arrow.html">arrow</a></span><span class="op">(</span>ends<span class="op">=</span><span class="st">"both"</span>, angle<span class="op">=</span><span class="fl">90</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">c_mean</span>,<span class="va">pd_mean</span><span class="op">)</span><span class="op">)</span>, y<span class="op">=</span><span class="fl">21</span>, hjust<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">"How different?"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-48-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-49-1.png" width="672"></div>
 <p>We can make a point estimate of this difference by simply subtracting the means:</p>
 <div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pd_mean</span> <span class="op">-</span> <span class="va">c_mean</span></span></code></pre></div>
@@ -1012,7 +1013,7 @@ vary a lot.</p>
 <span>  pch <span class="op">=</span> <span class="fl">19</span>, col <span class="op">=</span> <span class="st">"royalblue"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">20</span>, b <span class="op">=</span> <span class="fl">0</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"salmon"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-50-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-51-1.png" width="672"></div>
 <p>Now, let’s plot the density plot of our data. The <span class="math inline">\(x\)</span>-axis is the number of
 letters on a single day, and the <span class="math inline">\(y\)</span>-axis is the probability.</p>
 <div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
@@ -1021,7 +1022,7 @@ letters on a single day, and the <span class="math inline">\(y\)</span>-axis is 
 <span>  main <span class="op">=</span> <span class="st">"Probability of number of letters each day"</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"number of letters"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-51-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-52-1.png" width="672"></div>
 <p>Since we only have 30 data points, it doesn’t look like a good curve. But,
 after we worked at the mail reception for 5000 days, it becomes much closer
 to the theoretical Poisson distribution with lambda = 20.</p>
@@ -1032,14 +1033,14 @@ to the theoretical Poisson distribution with lambda = 20.</p>
 <span>  main <span class="op">=</span> <span class="st">"Probability of number of letters each day"</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"number of letters"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-52-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-53-1.png" width="672"></div>
 <p>Here is the theoretical Poisson distribution with lambda = 20:</p>
 <div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">dpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">40</span><span class="op">)</span>, lambda <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"royalblue"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"probability"</span>, main <span class="op">=</span> <span class="st">"Poisson lambda=20"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-53-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-54-1.png" width="672"></div>
 <p>If we want to know what’s the probability to receive, for example, 18 letters,<br>
 we can use <code><a href="https://rdrr.io/r/stats/Poisson.html">dpois()</a></code> function.</p>
 <div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
@@ -1062,7 +1063,7 @@ use <code><a href="https://rdrr.io/r/stats/Poisson.html">ppois()</a></code> func
 <span>  border <span class="op">=</span> <span class="st">"royalblue"</span>, col <span class="op">=</span> <span class="st">"lightblue1"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">18</span>, y0 <span class="op">=</span> <span class="fl">0</span>, y1 <span class="op">=</span> <span class="fl">0.08439355</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"salmon"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-56-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-57-1.png" width="672"></div>
 <p><code><a href="https://rdrr.io/r/stats/Poisson.html">qpois()</a></code> is like the “reverse” of <code><a href="https://rdrr.io/r/stats/Poisson.html">ppois()</a></code>.</p>
 <div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">qpois</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.3814219</span>, lambda <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
@@ -1113,7 +1114,7 @@ looks like:</p>
 <span>  main <span class="op">=</span> <span class="st">"A Normal distribution"</span>, xlab <span class="op">=</span> <span class="st">"x"</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"royalblue"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-58-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-59-1.png" width="672"></div>
 <p>Similar as the Poisson distribution above, there are several functions to work
 with normal distribution, including <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code>, <code><a href="https://rdrr.io/r/stats/Normal.html">dnorm()</a></code>, <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code>, and
 <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>.</p>
@@ -1142,7 +1143,7 @@ distribution (mean=0, standard deviation=1) above, the probability density at
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span><span class="op">(</span>x0 <span class="op">=</span> <span class="op">-</span><span class="fl">5</span>, y0 <span class="op">=</span> <span class="fl">0.3520653</span>, x1 <span class="op">=</span> <span class="fl">0.5</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"salmon"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.5</span>, y <span class="op">=</span> <span class="fl">0.3520653</span>, cex <span class="op">=</span> <span class="fl">1.5</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1.1</span>, y <span class="op">=</span> <span class="fl">0.36</span>, labels <span class="op">=</span> <span class="st">"0.3521"</span>, col <span class="op">=</span> <span class="st">"red2"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-61-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-62-1.png" width="672"></div>
 <p><code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> gives the distribution function. Or, you can think of it as the
 cumulative of the left side of the density function until a given value,
 which is the area colored in light blue in the following plot.</p>
@@ -1160,7 +1161,7 @@ which is the area colored in light blue in the following plot.</p>
 <span>  border <span class="op">=</span> <span class="st">"royalblue"</span>, col <span class="op">=</span> <span class="st">"lightblue1"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0.5</span>, y0 <span class="op">=</span> <span class="fl">0</span>, y1 <span class="op">=</span> <span class="fl">0.3520653</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"salmon"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-63-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-64-1.png" width="672"></div>
 <p><code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> gives the quantile function. You can think of it as the “reverse” of
 <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code>. For instance:</p>
 <div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
@@ -1535,7 +1536,7 @@ _Parametric_: Yes
 
 [More information here](https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ANOVA/BS704_HypothesisTesting-ANOVA4.html#headingtaglink_3)
 
-```r
+``` r
 summary(aov(formula, #formula specifying the model
             data #data frame containing the variables in the formula))</code></pre>
 </div>
@@ -1594,7 +1595,7 @@ summary(aov(formula, #formula specifying the model
 <span><span class="va">Yellow_Wins</span> <span class="op">&lt;-</span> <span class="fu">dataset</span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">14</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">Yellow_Wins</span>, freq<span class="op">=</span><span class="cn">FALSE</span>, right<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure">
-<img src="main_files/unnamed-chunk-76-1.png" width="672">
+<img src="main_files/unnamed-chunk-77-1.png" width="672">
 Here you see that slightly less than 5% of all run instances had 0 wins.</div>
 <p>In this situation, we are comparing if yellow’s win rate is significantly lower than if yellow had an equal chance at winning. The research hypothesis or alternative hypothesis in this case is that yellow’s chance of winning is significantly lower than the rest of the colors while the null hypothesis would be that yellow’s chance of winning is the same as the rest of the colors.
 The p-value of this test would be 0.043 because 43 out of 1000 instances of 14 rolls with a 1/5 chance of success totaled 0 successes, the number of successes we saw. If we instead were looking for 1 success or less out of 14 rolls, the p-value would be 0.19, because our simulation ran 147 instances of 1 success and 42 instances of 0 success.</p>
@@ -1614,7 +1615,7 @@ The p-value of this test would be 0.043 because 43 out of 1000 instances of 14 r
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">6</span>, y0 <span class="op">=</span> <span class="fl">0</span>, y1 <span class="op">=</span> <span class="fl">0.4</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"salmon"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">0.2</span>, <span class="st">"Observed Value (@ 2sd)"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3.9</span>, <span class="fl">0.01</span>, <span class="st">"Instances higher than crit. val -&gt;"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-77-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-78-1.png" width="672"></div>
 <p>Here the observed value is 6, which happens to be exactly 2 standard deviations above the mean. To compute the p-value of this instance, the area under the curve would need to be calculated which can be easily done by looking up the appropriate values on a z-table. <a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/sas/sas4-onesamplettest/sas4-onesamplettest3.html">Here is a link about finding the area under the normal curve</a></p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/MPH-Modules/PH717-QuantCore/PH717-Module7-T-tests/PH717-Module7-T-tests3.html">SPH’s information about p-values here</a></p>
 </div>
@@ -1635,11 +1636,11 @@ do we compute adjusted p-values in R?</p>
 <p>The chance of a Type I error is represented by alpha, the same alpha that we use to calculate significance level (1-alpha). Type II errors are represented by beta. The relationship between statistical power and beta are similar to the relationship between significance level and alpha: statistical power is calculated as 1-beta.</p>
 <p><a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_hypothesistest-means-proportions/BS704_HypothesisTest-Means-Proportions3.html#headingtaglink_3">Read more about the relationship between Type II and Type I errors</a></p>
 <p>To calculate beta, find the area under the curve of the research hypothesis distribution on the opposite side of the critical value line where alpha is calculated. To find the area in the tail of the distribution, you would need to reference a Z-score chart, which will not be expected of you in this course. If you wish to read more about it <a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/sas/sas4-onesamplettest/sas4-onesamplettest3.html">here is a link about finding the area under the normal curve with z-scores, same one as linked above</a></p>
-<p><img src="main_files/unnamed-chunk-78-1.png" width="672"><small> Code sourced from:
+<p><img src="main_files/unnamed-chunk-79-1.png" width="672"><small> Code sourced from:
 caracal, “How do I find the probability of a type II error”, stats.stackexchange.com, Feb 19, 2011, <a href="https://stats.stackexchange.com/questions/7402/how-do-i-find-the-probability-of-a-type-ii-error">link</a>, Date Accessed: Feb 28, 2022 </small></p>
 <p>The above graph shows the relationship of alpha and beta. Since the alternative hypothesis is looking for a higher mean, alpha is calculated by the area under the null hypothesis curve on right side of the critical value while beta is calculated by the area under the alternative hypothesis on the left of the critical value line. Should an experiment get a higher p-value than the critical value, then the Beta will increase in relationship to Alpha decreasing.</p>
 <div class="inline-figure">
-<img src="main_files/unnamed-chunk-79-1.png" width="672">
+<img src="main_files/unnamed-chunk-80-1.png" width="672">
 In this graph, the critical value was moved to 0.025 while the null and alternative hypotheses stayed the same. As the chance of alpha decreased, the chances of beta increased. The opposite is also true, as alpha increases, beta decreases</div>
 <div id="applications-of-statistical-power" class="section level5 unnumbered">
 <h5>Applications of Statistical Power<a class="anchor" aria-label="anchor" href="#applications-of-statistical-power"><i class="fas fa-link"></i></a>
@@ -2000,8 +2001,8 @@ functions:</p>
 <p>The <code><a href="https://rdrr.io/r/stats/hclust.html">hclust()</a></code> return object describes the clustering as a tree that can be
 visualized using a <a href="data-visualization.html#dendrograms">dendrogram</a>:</p>
 <div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andrie/ggdendro">ggdendro</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/ggdendrogram.html">ggdendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://andrie.github.io/ggdendro/">ggdendro</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://andrie.github.io/ggdendro/reference/ggdendrogram.html">ggdendrogram</a></span><span class="op">(</span><span class="va">hc</span><span class="op">)</span></span></code></pre></div>
 <p><img src="main_files/hclust%20dendro-1.png" width="672">
 Our data do indeed cluster well, where all samples from the same group cluster
 together perfectly. See the <a href="data-visualization.html#dendrograms">dendrogram</a> section in the <a href="#data-viz">data
@@ -2071,7 +2072,7 @@ analyze networks in several language, <a href="https://igraph.org/r/">including 
 the examples below, we will use the igraph package to demonstrate the concepts
 described in this section.</p>
 <div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span></code></pre></div>
 <p>The <a href="https://igraph.org/r/doc/sample_gnm.html"><code>sample_gnm(n,m)</code> function</a>
 generates a random network with <span class="math inline">\(n\)</span> nodes and <span class="math inline">\(m\)</span> edges between them. We will
 use this function below to generate random networks of different types.</p>
@@ -2079,35 +2080,35 @@ use this function below to generate random networks of different types.</p>
 same node.</p>
 <div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://r.igraph.org/reference/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-82-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-83-1.png" width="672"></div>
 <p>An <strong>acyclic network</strong> , on the other hand, does not have any cycle path.</p>
 <div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://r.igraph.org/reference/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-83-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-84-1.png" width="672"></div>
 <p>The edges in a <strong>directed network</strong> point to one specific direction (but, edges
 can point in both directions, which are equivalent to undirected edges). One
 common example is a network representing cell metabolic process, where certain
 proteins biochemically modify, e.g. phosphorylate, other proteins.</p>
 <div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://r.igraph.org/reference/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-84-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-85-1.png" width="672"></div>
 <p>The edges in a <strong>indirect network</strong> do not have direction. Common examples
 include social interaction network and gene correlation network.</p>
 <div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://r.igraph.org/reference/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-85-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-86-1.png" width="672"></div>
 <div id="basic-network-analysis" class="section level3" number="7.5.1">
 <h3>
 <span class="header-section-number">7.5.1</span> Basic network analysis<a class="anchor" aria-label="anchor" href="#basic-network-analysis"><i class="fas fa-link"></i></a>
@@ -2118,21 +2119,21 @@ include social interaction network and gene correlation network.</p>
 </h4>
 <p>The <strong>shortest path</strong> between two vertices is… yes, the shortest path you can go from one vertex to the other. There may be more than one shortest paths between two vertices.</p>
 <p>In the following network, there are many ways to go from “Moon_Capital” to “Crystal_Corridor”, but there’s only one shortest path, which is “Moon_Capital” -&gt; “Gryphon’s_Nest” -&gt; “Crystal_Corridor”. On the other hand, when you want to go from “Moon_Capital” to “Icy_Turret”, there are two possible ways: one through “Gryphon’s_Nest”, one through “Agate_Trademart”.</p>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-86-1.png" width="672"></div>
-<p>In <code>igraph</code>, this can be calculated using <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths()</a></code>.</p>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-87-1.png" width="672"></div>
+<p>In <code>igraph</code>, this can be calculated using <code><a href="https://r.igraph.org/reference/distances.html">shortest_paths()</a></code>.</p>
 <div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">samp_g</span>, from <span class="op">=</span> <span class="st">"Moon_Capital"</span>, to <span class="op">=</span> <span class="st">"Crystal_Corridor"</span><span class="op">)</span><span class="op">$</span><span class="va">vpath</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">samp_g</span>, from <span class="op">=</span> <span class="st">"Moon_Capital"</span>, to <span class="op">=</span> <span class="st">"Crystal_Corridor"</span><span class="op">)</span><span class="op">$</span><span class="va">vpath</span></span></code></pre></div>
 <pre><code>## [[1]]
-## + 3/5 vertices, named, from 1e1c09b:
+## + 3/5 vertices, named, from b621d79:
 ## [1] Moon_Capital     Gryphon's_Nest   Crystal_Corridor</code></pre>
 <p>One thing to keep in mind is, when <strong>weights</strong> are assigned to edges and being considered, the shortest path may <em>not</em> be the path that goes through the least number of vertices. In this example, consider the weight assigned to the edge connecting “Moon_Capital” and “Gryphon’s_Nest” is substantially large. <font color="grey"><del>The Royal Priest warned you that Gryphons live at the top of the hill, and it’s too hard to climb.</del></font></p>
 <p>Let’s color the edges according to their weights. Green means 1, blue means 2 while red means 3. Now, the shortest path from “Moon_Capital” to “Crystal_Corridor” becomes “Moon_Capital” -&gt; “Agate_Trademart” -&gt; “Icy_Turret” -&gt; “Crystal_Corridor”.</p>
 <div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Moon_Capital"</span>, <span class="st">"Icy_Turret"</span>, <span class="st">"Crystal_Corridor"</span>, <span class="st">"Gryphon's_Nest"</span>, <span class="st">"Agate_Trademart"</span><span class="op">)</span></span>
-<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">names</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span><span class="va">samp_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnm.html">sample_gnm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">names</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://r.igraph.org/reference/gorder.html">gorder</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"deepskyblue"</span>, <span class="st">"salmon"</span>, <span class="st">"deepskyblue"</span>, <span class="st">"deepskyblue"</span>, <span class="st">"palegreen3"</span>, <span class="st">"palegreen3"</span>, <span class="st">"salmon"</span><span class="op">)</span>,</span>
 <span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -2140,40 +2141,40 @@ include social interaction network and gene correlation network.</p>
 <span>  vertex.label.cex <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  vertex.label.dist <span class="op">=</span> <span class="fl">3</span>, edge.width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-88-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-89-1.png" width="672"></div>
 <p>We can conveniently find the shortest path with weights assigned!</p>
 <div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">samp_g</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">samp_g</span>,</span>
 <span>  from <span class="op">=</span> <span class="st">"Moon_Capital"</span>, to <span class="op">=</span> <span class="st">"Crystal_Corridor"</span>,</span>
-<span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span>, <span class="st">"weights"</span><span class="op">)</span></span>
+<span>  weights <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span>, <span class="st">"weights"</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="va">vpath</span></span></code></pre></div>
 <pre><code>## [[1]]
-## + 4/5 vertices, named, from 1e3c7a6:
+## + 4/5 vertices, named, from eda473c:
 ## [1] Moon_Capital     Agate_Trademart  Icy_Turret       Crystal_Corridor</code></pre>
 </div>
 <div id="vertex-centrality" class="section level4" number="7.5.1.2">
 <h4>
 <span class="header-section-number">7.5.1.2</span> Vertex centrality<a class="anchor" aria-label="anchor" href="#vertex-centrality"><i class="fas fa-link"></i></a>
 </h4>
-<p>The <strong>degree of a vertex</strong> is the number of edges connected to it. In <code>igraph</code>, this can be calculated using <code><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree()</a></code>.</p>
+<p>The <strong>degree of a vertex</strong> is the number of edges connected to it. In <code>igraph</code>, this can be calculated using <code><a href="https://r.igraph.org/reference/degree.html">degree()</a></code>.</p>
 <div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  <span class="st">"from"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"G"</span>, <span class="st">"H"</span>, <span class="st">"H"</span>, <span class="st">"H"</span>, <span class="st">"H"</span>, <span class="st">"H"</span>, <span class="st">"M"</span>, <span class="st">"I"</span>, <span class="st">"G"</span>, <span class="st">"N"</span>, <span class="st">"N"</span><span class="op">)</span>,</span>
 <span>  <span class="st">"to"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>, <span class="st">"F"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>, <span class="st">"G"</span>, <span class="st">"H"</span>, <span class="st">"I"</span>, <span class="st">"J"</span>, <span class="st">"K"</span>, <span class="st">"L"</span>, <span class="st">"M"</span>, <span class="st">"K"</span>, <span class="st">"J"</span>, <span class="st">"N"</span>, <span class="st">"O"</span>, <span class="st">"P"</span><span class="op">)</span></span>
 <span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"name"</span><span class="op">)</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">gorder</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/vertex_attr.html">vertex_attr</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"name"</span><span class="op">)</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"slategray1"</span>, <span class="fu"><a href="https://r.igraph.org/reference/gorder.html">gorder</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="main_files/unnamed-chunk-90-1.png" width="672"></div>
+<div class="inline-figure"><img src="main_files/unnamed-chunk-91-1.png" width="672"></div>
 <div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## A B C G H M I N D E F J K L O P 
 ## 6 2 2 3 6 2 2 3 2 2 1 2 2 1 1 1</code></pre>
 <p>The <strong>centrality</strong> of a vertex indicates how important it is in a network. For instance, after seeing a social interaction network, one question we can ask is “which person has the most influential power in this community?”. There are many different types of centrality, here we will only go through the basics.</p>
 <p>To some extent, the degree can be used to evaluate the importance of a vertex. When a vertex is connected to a lot of other vertices, it naturally appears to be more important and has more ability to pass down information to other vertices. Assume you just opened a new on-line shop and you want to attract new customers as many as possible, you start by reaching out to the person you know has the largest number of friends.</p>
 <p>But, sometimes, people with the largest number of friends may not necessarily be the one who can “spread the word” to the whole community the most efficiently. In the example above, although A and H have a lot of connections, in fact, it seems like if we pass an information to G, the whole community will be influenced the most quickly.</p>
-<p>This leads us to <strong>closeness centrality</strong>, which is the sum of the length of the shortest paths between a node and all the other nodes in the graph. Although A and H have a lot of friends, it takes too long to reach the other side of the graph. When we calculating the closeness centrality using <code><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness()</a></code> function to calculate closeness centrality.</p>
+<p>This leads us to <strong>closeness centrality</strong>, which is the sum of the length of the shortest paths between a node and all the other nodes in the graph. Although A and H have a lot of friends, it takes too long to reach the other side of the graph. When we calculating the closeness centrality using <code><a href="https://r.igraph.org/reference/closeness.html">closeness()</a></code> function to calculate closeness centrality.</p>
 <div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/closeness.html">closeness</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##          A          B          C          G          H          M          I 
 ## 0.03225806 0.02272727 0.02272727 0.03703704 0.03225806 0.02272727 0.02272727 
 ##          N          D          E          F          J          K          L 
@@ -2182,7 +2183,7 @@ include social interaction network and gene correlation network.</p>
 ## 0.01960784 0.01960784</code></pre>
 <p><strong>Betweenness centrality</strong> is the number of shortest paths that pass through the vertex. In this example, G is the also the one with the highest betweenness centrality.</p>
 <div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  A  B  C  G  H  M  I  N  D  E  F  J  K  L  O  P 
 ## 58  0  0 72 58  0  0 27  0  0  0  0  0  0  0  0</code></pre>
 </div>

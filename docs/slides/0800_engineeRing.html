@@ -3070,18 +3070,21 @@ var loadDeck = function(event) {
   });
 };
 
-if (document.readyState !== "loading" &&
-    document.querySelector('slides') === null) { 
-  // if the document is done loading but our element hasn't yet appeared, defer
-  // loading of the deck
-  window.setTimeout(function() {
-    loadDeck(null);
-  }, 0);
-} else {
-  // still loading the DOM, so wait until it's finished
-  document.addEventListener("DOMContentLoaded", loadDeck);
-}
+if (!window.Shiny) {
+  // If Shiny is loaded, the slide deck is initialized in ioslides template
 
+  if (document.readyState !== "loading" &&
+      document.querySelector('slides') === null) {
+    // if the document is done loading but our element hasn't yet appeared, defer
+    // loading of the deck
+    window.setTimeout(function() {
+      loadDeck(null);
+    }, 0);
+  } else {
+    // still loading the DOM, so wait until it's finished
+    document.addEventListener("DOMContentLoaded", loadDeck);
+  }
+}
 
 
 </script>
@@ -3182,7 +3185,7 @@ div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -3193,7 +3196,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -3673,9 +3676,7 @@ g2,32,56,99</pre>
 <pre class = 'prettyprint lang-r'>library(argparser, quietly=TRUE)
 parser &lt;- arg_parser(&quot;R implementation of GNU coreutils head command&quot;)
 parser &lt;- add_argument(parser, &quot;filename&quot;, help=&quot;file to print lines from&quot;)
-parser &lt;- add_argument(parser, &quot;-n&quot;, help=&quot;number of lines to print&quot;,
-  type=&quot;numeric&quot;,
-  default=10)
+parser &lt;- add_argument(parser, &quot;-n&quot;, help=&quot;number of lines to print&quot;, type=&quot;numeric&quot;, default=10)
 parser &lt;- parse_args(parser, c(&quot;-n&quot;, 3, &quot;data.csv&quot;))
 print(paste(&quot;printing from file:&quot;, parser$filename))
 print(paste(&quot;printing top n:&quot;, parser$n))</pre>
@@ -3941,7 +3942,7 @@ ggplot2::diamonds</pre>
 ##  8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
 ##  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
 ## 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39
-## # … with 53,930 more rows</pre>
+## # ℹ 53,930 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Polymorphism</h2></hgroup><article  id="polymorphism-1">
 
@@ -4011,7 +4012,6 @@ fastq.Read &lt;- function(x) {
   UseMethod(&quot;fastq&quot;)
   paste0(&quot;@&quot;,self$header,&quot;\n&quot;,self$seq,&quot;+\n&quot;,self$qual,&quot;\n&quot;)
 }
-read1$seq
 fastq(read1)</pre>
 
 </article></slide><slide class=""><hgroup><h2>R6</h2></hgroup><article  id="r6">
@@ -4032,7 +4032,6 @@ fastq(read1)</pre>
 }
 ))
 read1 &lt;- Read$new(&quot;read1&quot;,&quot;ACTG&quot;,&quot;FFFF&quot;)
-read1$seq
 read1$fastq()</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Building R Packages</h2></hgroup><article  id="building-r-packages">

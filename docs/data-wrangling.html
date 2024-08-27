@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>6 Data Wrangling | BF591 - R for Biological Sciences</title>
-<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta name="generator" content="bookdown 0.40 with bs4_book()">
 <meta property="og:title" content="6 Data Wrangling | BF591 - R for Biological Sciences">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="6 Data Wrangling | BF591 - R for Biological Sciences">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.2/transition.js"></script><script src="libs/bs3compat-0.4.2/tabs.js"></script><script src="libs/bs3compat-0.4.2/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -22,6 +22,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+          margin-bottom: 0em;
         }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -426,7 +427,7 @@ in each row is an “observation”, and each cell has a value; we can therefore
 that the dataset is tidy:</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_stats</span></span></code></pre></div>
-<pre><code>## # A tibble: 3 x 5
+<pre><code>## # A tibble: 3 × 5
 ##   gene  test1_stat      test1_p test2_stat  test2_p
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 apoe       12.5  0.103            34.2   0.000013
@@ -592,13 +593,12 @@ function:</p>
 <span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 × 9
-##   gene  test1_stat      test1_p test2_…¹ test2_p test1…² test2…³ signi…⁴ signi…⁵
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 apoe       12.5  0.103          34.2   1.3 e-5 1.55e-1 3.9 e-5 TRUE    FALSE  
-## 2 hoxd1       4.40 0.632          16.3   4.21e-2 6.32e-1 6.32e-2 FALSE   FALSE  
-## 3 snca       45.7  0.0000000042    0.757 9.15e-1 1.26e-8 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test2_stat, ²​test1_padj, ³​test2_padj,
-## #   ⁴​signif_either, ⁵​signif_both</code></pre>
+##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 apoe       12.5  0.103            34.2   0.000013 0.155          0.000039
+## 2 hoxd1       4.40 0.632            16.3   0.0421   0.632          0.0632  
+## 3 snca       45.7  0.0000000042      0.757 0.915    0.0000000126   0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <p>Recall that the <code>|</code> and <code>&amp;</code> operators execute ‘or’ and ‘and’ logic,
 respectively. The above example required the creation of a new variable
 <code>gene_stats_mutated</code> because the columns <code>test1_padj</code> and
@@ -614,13 +614,12 @@ then used to create the <code>signif</code> columns:</p>
 <span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 × 9
-##   gene  test1_stat      test1_p test2_…¹ test2_p test1…² test2…³ signi…⁴ signi…⁵
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 apoe       12.5  0.103          34.2   1.3 e-5 1.55e-1 3.9 e-5 TRUE    FALSE  
-## 2 hoxd1       4.40 0.632          16.3   4.21e-2 6.32e-1 6.32e-2 FALSE   FALSE  
-## 3 snca       45.7  0.0000000042    0.757 9.15e-1 1.26e-8 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test2_stat, ²​test1_padj, ³​test2_padj,
-## #   ⁴​signif_either, ⁵​signif_both</code></pre>
+##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 apoe       12.5  0.103            34.2   0.000013 0.155          0.000039
+## 2 hoxd1       4.40 0.632            16.3   0.0421   0.632          0.0632  
+## 3 snca       45.7  0.0000000042      0.757 0.915    0.0000000126   0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <p>The alternative would be to split this into two <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> commands, the first
 creating the adjusted p-value columns and the second creating the significance
 columns. <code>dplyr</code> recognizes how common it is to build new variables off of other
@@ -691,30 +690,30 @@ flexibility of the patterns that can be found.</p>
 result of a (made-up) statistical test for all the genes in a genome:</p>
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de_genes</span></span></code></pre></div>
-<pre><code>## # A tibble: 39,535 × 4
-##    hgnc_symbol  mean        p    padj
-##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-##  1 MT-TF        5799 0.000910 0.00941
-##  2 MT-RNR1       153 0.0272   0.0342 
-##  3 MT-TV         115 0.0228   0.0301 
-##  4 MT-RNR2       495 0.00318  0.0123 
-##  5 MT-TL1      20201 0.000377 0.00841
-##  6 MT-ND1        160 0.0179   0.0258 
-##  7 MT-TI        3511 0.00247  0.0115 
-##  8 MT-TQ         772 0.00376  0.0129 
-##  9 MT-TM         301 0.00325  0.0124 
-## 10 MT-ND2         12 0.107    0.111  
-## # … with 39,525 more rows</code></pre>
+<pre><code>## # A tibble: 40,982 × 4
+##    hgnc_symbol   mean         p    padj
+##    &lt;chr&gt;        &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+##  1 MT-TF          445 0.0121    0.0206 
+##  2 MT-RNR1        877 0.00257   0.0114 
+##  3 MT-TV           45 0.0308    0.0373 
+##  4 MT-RNR2        703 0.00211   0.0110 
+##  5 MT-TL1         589 0.00125   0.00990
+##  6 MT-ND1      674882 0.0000105 0.00583
+##  7 MT-TI            6 0.0743    0.0788 
+##  8 MT-TQ         1393 0.00436   0.0135 
+##  9 MT-TM          321 0.0112    0.0198 
+## 10 MT-ND2         650 0.00494   0.0141 
+## # ℹ 40,972 more rows</code></pre>
 <p>Now let’s say we’re interested in examining the results for the BRCA family of
 genes, BRCA1 and BRCA2. We can use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> on the data frame to look for them
 individually:</p>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de_genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">hgnc_symbol</span> <span class="op">==</span> <span class="st">"BRCA1"</span> <span class="op">|</span> <span class="va">hgnc_symbol</span> <span class="op">==</span> <span class="st">"BRCA2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
-##   hgnc_symbol  mean      p   padj
-##   &lt;chr&gt;       &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1 BRCA1          41 0.0321 0.0386
-## 2 BRCA2         447 0.0140 0.0223</code></pre>
+##   hgnc_symbol  mean       p   padj
+##   &lt;chr&gt;       &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 BRCA2        1104 0.00660 0.0157
+## 2 BRCA1           5 0.141   0.144</code></pre>
 <p>This isn’t so bad, but we can do the same thing with
 <a href="https://stringr.tidyverse.org/reference/str_detect.html"><code>stringr::str_detect()</code></a>
 , which returns <code>TRUE</code> if the provided pattern matches the input and <code>FALSE</code>
@@ -722,11 +721,11 @@ otherwise, a regular expression, and the [<code><a href="https://dplyr.tidyverse
 described in greater detail in a later section:</p>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^BRCA[12]$"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 2 x 4
-##   hgnc_symbol  mean      p   padj
-##   &lt;chr&gt;       &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1 BRCA1          41 0.0321 0.0386
-## 2 BRCA2         447 0.0140 0.0223</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##   hgnc_symbol  mean       p   padj
+##   &lt;chr&gt;       &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 BRCA2        1104 0.00660 0.0157
+## 2 BRCA1           5 0.141   0.144</code></pre>
 <p>The argument <code>"^BRCA[12]$"</code> is a regular expression that searches for the
 following:</p>
 <ul>
@@ -761,20 +760,20 @@ can write a regular expression that matches the pattern described above:</p>
 <div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^HOX[A-D][0-9]+$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">hgnc_symbol</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 39 x 4
+<pre><code>## # A tibble: 39 × 4
 ##    hgnc_symbol  mean        p    padj
 ##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-##  1 HOXA1        8734 0.000858 0.00934
-##  2 HOXA10       4149 0.00152  0.0102 
-##  3 HOXA11        567 0.0101   0.0188 
-##  4 HOXA13        411 0.0105   0.0191 
-##  5 HOXA2         554 0.00600  0.0151 
-##  6 HOXA3          18 0.0919   0.0959 
-##  7 HOXA4         475 0.0113   0.0199 
-##  8 HOXA5         434 0.0127   0.0211 
-##  9 HOXA6        3983 0.00252  0.0115 
-## 10 HOXA7         897 0.00961  0.0183 
-## # ... with 29 more rows</code></pre>
+##  1 HOXA1          46 0.0443   0.0499 
+##  2 HOXA10        255 0.0215   0.0289 
+##  3 HOXA11        300 0.00947  0.0182 
+##  4 HOXA13       1343 0.00425  0.0134 
+##  5 HOXA2         232 0.0162   0.0241 
+##  6 HOXA3          62 0.0280   0.0348 
+##  7 HOXA4        1124 0.00648  0.0156 
+##  8 HOXA5        2036 0.000764 0.00915
+##  9 HOXA6           7 0.100    0.104  
+## 10 HOXA7       18721 0.000546 0.00882
+## # ℹ 29 more rows</code></pre>
 <p>In this query we used two new regular expression features:</p>
 <ul>
 <li>within the <code>[]</code> we specified a range of characters <code>A-D</code> and <code>0-9</code> which will
@@ -790,20 +789,20 @@ regular expression as follows, using the special <code>.</code> character:</p>
 <div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="fu">str_detect</span><span class="op">(</span><span class="va">hgnc_symbol</span>,<span class="st">"^HOX.[0-9]+$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">hgnc_symbol</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 39 x 4
+<pre><code>## # A tibble: 39 × 4
 ##    hgnc_symbol  mean        p    padj
 ##    &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-##  1 HOXA1        8734 0.000858 0.00934
-##  2 HOXA10       4149 0.00152  0.0102 
-##  3 HOXA11        567 0.0101   0.0188 
-##  4 HOXA13        411 0.0105   0.0191 
-##  5 HOXA2         554 0.00600  0.0151 
-##  6 HOXA3          18 0.0919   0.0959 
-##  7 HOXA4         475 0.0113   0.0199 
-##  8 HOXA5         434 0.0127   0.0211 
-##  9 HOXA6        3983 0.00252  0.0115 
-## 10 HOXA7         897 0.00961  0.0183 
-## # ... with 29 more rows</code></pre>
+##  1 HOXA1          46 0.0443   0.0499 
+##  2 HOXA10        255 0.0215   0.0289 
+##  3 HOXA11        300 0.00947  0.0182 
+##  4 HOXA13       1343 0.00425  0.0134 
+##  5 HOXA2         232 0.0162   0.0241 
+##  6 HOXA3          62 0.0280   0.0348 
+##  7 HOXA4        1124 0.00648  0.0156 
+##  8 HOXA5        2036 0.000764 0.00915
+##  9 HOXA6           7 0.100    0.104  
+## 10 HOXA7       18721 0.000546 0.00882
+## # ℹ 29 more rows</code></pre>
 <p>Here, the <code>.</code> character is interpreted by the regex to match <em>any single
 character</em>, regardless of what it is, between the <code>HOX</code> part and the number
 part. This also requires that there exist exactly one character between the two
@@ -824,7 +823,7 @@ the regular expression language. For example, if you had a list of filenames:</p
 using a literal <code>.</code> character:</p>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">filenames</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">name</span>,<span class="st">"[.]txt$"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 2 x 1
+<pre><code>## # A tibble: 2 × 1
 ##   name     
 ##   &lt;chr&gt;    
 ## 1 file1.txt
@@ -835,7 +834,7 @@ and therefore <code>[.]</code> will match a literal <code>.</code> character. In
 slashes:</p>
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">filenames</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">name</span>,<span class="st">"\\.txt$"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 2 x 1
+<pre><code>## # A tibble: 2 × 1
 ##   name     
 ##   &lt;chr&gt;    
 ## 1 file1.txt
@@ -871,13 +870,13 @@ consider the mutated tibble we created with all four new columns:</p>
 <span>  signif_both<span class="op">=</span><span class="op">(</span><span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>  gene<span class="op">=</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>## # A tibble: 3 x 9
+<pre><code>## # A tibble: 3 × 9
 ##   gene  test1_stat      test1_p test2_stat  test2_p   test1_padj test2_padj
 ##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
 ## 1 APOE       12.5  0.103            34.2   0.000013 0.155          0.000039
 ## 2 HOXD1       4.40 0.632            16.3   0.0421   0.632          0.0632  
 ## 3 SNCA       45.7  0.0000000042      0.757 0.915    0.0000000126   0.915   
-## # ... with 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <p>From a readability standpoint, it might be helpful if all the columns that are
 about each test were grouped together, rather than having to look at the end of
 the tibble to find them.</p>
@@ -887,7 +886,7 @@ specific columns out of a larger <code>tibble</code> in whatever order you choos
 <div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gene_stats</span>, <span class="va">test1_stat</span>, <span class="va">test2_stat</span><span class="op">)</span></span>
 <span><span class="va">stats</span></span></code></pre></div>
-<pre><code>## # A tibble: 3 x 2
+<pre><code>## # A tibble: 3 × 2
 ##   test1_stat test2_stat
 ##        &lt;dbl&gt;      &lt;dbl&gt;
 ## 1      12.5      34.2  
@@ -940,13 +939,12 @@ may help others (and possibly you) understand your code better.</p>
 <span>    <span class="va">signif_both</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 × 9
-##   gene  test1_stat      test1_p test1_…¹ test2…² test2_p test2…³ signi…⁴ signi…⁵
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 APOE       12.5  0.103         1.55e-1  34.2   1.3 e-5 3.9 e-5 TRUE    FALSE  
-## 2 HOXD1       4.40 0.632         6.32e-1  16.3   4.21e-2 6.32e-2 FALSE   FALSE  
-## 3 SNCA       45.7  0.0000000042  1.26e-8   0.757 9.15e-1 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_stat, ³​test2_padj,
-## #   ⁴​signif_either, ⁵​signif_both</code></pre>
+##   gene  test1_stat      test1_p   test1_padj test2_stat  test2_p test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1 APOE       12.5  0.103        0.155            34.2   0.000013   0.000039
+## 2 HOXD1       4.40 0.632        0.632            16.3   0.0421     0.0632  
+## 3 SNCA       45.7  0.0000000042 0.0000000126      0.757 0.915      0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <p>Now the order of our columns is clear and convenient. It is not necessary to
 list the columns for each test statistic on the same line, but the author thinks
 this makes the code easier to read and understand.</p>
@@ -985,18 +983,17 @@ they are significant in either test this with our above example.</p>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 9
-##   gene  test1_stat      test1_p test1_…¹ test2…² test2_p test2…³ signi…⁴ signi…⁵
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 SNCA        45.7 0.0000000042  1.26e-8   0.757   0.915   0.915 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_stat, ³​test2_padj,
-## #   ⁴​signif_either, ⁵​signif_both</code></pre>
+##   gene  test1_stat      test1_p   test1_padj test2_stat test2_p test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+## 1 SNCA        45.7 0.0000000042 0.0000000126      0.757   0.915      0.915
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 9
-##   gene  test1_stat test1_p test1_padj test2_stat test2_p test2…¹ signi…² signi…³
-##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 APOE        12.5   0.103      0.155       34.2  1.3e-5  3.9e-5 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test2_padj, ²​signif_either, ³​signif_both</code></pre>
+##   gene  test1_stat test1_p test1_padj test2_stat  test2_p test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1 APOE        12.5   0.103      0.155       34.2 0.000013   0.000039
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <p>Here we are filtering the result so that only genes with nominal p-value less
 than 0.05 remain. Note we filter on the two tests separately, but we can also
 combine these tests using <a href="https://r4ds.had.co.nz/transform.html#logical-operators">logical
@@ -1006,20 +1003,19 @@ different results:</p>
 <code class="sourceCode R"><span><span class="co"># | means "logical or", meaning the row is retained if either condition is true</span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">|</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 × 9
-##   gene  test1_stat      test1_p test1_…¹ test2…² test2_p test2…³ signi…⁴ signi…⁵
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 APOE        12.5 0.103         1.55e-1  34.2   1.3 e-5 3.9 e-5 TRUE    FALSE  
-## 2 SNCA        45.7 0.0000000042  1.26e-8   0.757 9.15e-1 9.15e-1 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_stat, ³​test2_padj,
-## #   ⁴​signif_either, ⁵​signif_both</code></pre>
+##   gene  test1_stat      test1_p   test1_padj test2_stat  test2_p test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1 APOE        12.5 0.103        0.155            34.2   0.000013   0.000039
+## 2 SNCA        45.7 0.0000000042 0.0000000126      0.757 0.915      0.915   
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <p>Only APOE and SCNA are significant in at least one of the tests.</p>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># &amp; means "logical and", meaning the row is retained only if both conditions are true</span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_stats_mutated</span>, <span class="va">test1_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">test2_padj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 0 × 9
-## # … with 9 variables: gene &lt;chr&gt;, test1_stat &lt;dbl&gt;, test1_p &lt;dbl&gt;,
-## #   test1_padj &lt;dbl&gt;, test2_stat &lt;dbl&gt;, test2_p &lt;dbl&gt;, test2_padj &lt;dbl&gt;,
-## #   signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
+## # ℹ 9 variables: gene &lt;chr&gt;, test1_stat &lt;dbl&gt;, test1_p &lt;dbl&gt;, test1_padj &lt;dbl&gt;,
+## #   test2_stat &lt;dbl&gt;, test2_p &lt;dbl&gt;, test2_padj &lt;dbl&gt;, signif_either &lt;lgl&gt;,
+## #   signif_both &lt;lgl&gt;</code></pre>
 <p>It looks like we don’t have any genes that are significant by both tests.
 Filtering results like this is one of the most common operations we do on the
 results of biological analyses.</p>
@@ -1131,12 +1127,11 @@ profitably be done in the same R command using <code>%&gt;%</code>:</p>
 <span><span class="op">)</span></span>
 <span><span class="va">gene_stats</span></span></code></pre></div>
 <pre><code>## # A tibble: 2 × 9
-##   gene  test1_stat      test1_p test1_…¹ test2…² test2_p test2…³ signi…⁴ signi…⁵
-##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;   &lt;lgl&gt;  
-## 1 SNCA        45.7 0.0000000042  1.26e-8   0.757 9.15e-1 9.15e-1 TRUE    FALSE  
-## 2 APOE        12.5 0.103         1.55e-1  34.2   1.3 e-5 3.9 e-5 TRUE    FALSE  
-## # … with abbreviated variable names ¹​test1_padj, ²​test2_stat, ³​test2_padj,
-## #   ⁴​signif_either, ⁵​signif_both</code></pre>
+##   gene  test1_stat      test1_p   test1_padj test2_stat  test2_p test2_padj
+##   &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1 SNCA        45.7 0.0000000042 0.0000000126      0.757 0.915      0.915   
+## 2 APOE        12.5 0.103        0.155            34.2   0.000013   0.000039
+## # ℹ 2 more variables: signif_either &lt;lgl&gt;, signif_both &lt;lgl&gt;</code></pre>
 <p>This complete pipeline now contains all of our manipulations and our mutated
 tibble can be passed on to downstream analysis or collaborators.</p>
 </div>
@@ -1310,7 +1305,7 @@ expressive manner:</p>
 <span>  values_to<span class="op">=</span><span class="st">"stat"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">long_gene_stats</span></span></code></pre></div>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   gene       test1_p  test2_p test         stat
 ##   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
 ## 1 APOE  0.103        0.000013 test1_stat 12.5  
@@ -1456,13 +1451,12 @@ observe what happens:</p>
 <span>  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"symbol"</span> <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 4 × 7
-##   symbol ENSGID          gene_name             test1…¹  test1_p test2…²  test2_p
-##   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
-## 1 APOE   ENSG00000130203 apolipoprotein E        12.5   1.03e-1  34.2    1.3 e-5
-## 2 BRCA1  ENSG00000012048 BRCA1 DNA repair ass…   NA    NA        NA     NA      
-## 3 HOXD1  ENSG00000128645 homeobox D1              4.40  6.32e-1  16.3    4.21e-2
-## 4 SNCA   ENSG00000145335 synuclein alpha         45.7   4.2 e-9   0.757  9.15e-1
-## # … with abbreviated variable names ¹​test1_stat, ²​test2_stat</code></pre>
+##   symbol ENSGID          gene_name       test1_stat  test1_p test2_stat  test2_p
+##   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 APOE   ENSG00000130203 apolipoprotein…      12.5   1.03e-1     34.2    1.3 e-5
+## 2 BRCA1  ENSG00000012048 BRCA1 DNA repa…      NA    NA           NA     NA      
+## 3 HOXD1  ENSG00000128645 homeobox D1           4.40  6.32e-1     16.3    4.21e-2
+## 4 SNCA   ENSG00000145335 synuclein alpha      45.7   4.20e-9      0.757  9.15e-1</code></pre>
 <p>Now the order of the rows is the same as in <code>gene_map</code>, and the columns for our
 missing gene BRCA1 are filled with <code>NA</code>. This is the left join at work, where
 the record from <code>gene_map</code> is included regardless of whether a corresponding
@@ -1493,12 +1487,11 @@ in <code>gene_stats</code>. An inner join will not include this row, because no 
 <span>  by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"symbol"</span> <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3 × 7
-##   symbol ENSGID          gene_name        test1_stat     test1_p test2…¹ test2_p
-##   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                 &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1 APOE   ENSG00000130203 apolipoprotein E      12.5      1.03e-1  34.2   1.3 e-5
-## 2 HOXD1  ENSG00000128645 homeobox D1            4.40     6.32e-1  16.3   4.21e-2
-## 3 SNCA   ENSG00000145335 synuclein alpha       45.7      4.2 e-9   0.757 9.15e-1
-## # … with abbreviated variable name ¹​test2_stat</code></pre>
+##   symbol ENSGID          gene_name        test1_stat  test1_p test2_stat test2_p
+##   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+## 1 APOE   ENSG00000130203 apolipoprotein E      12.5   1.03e-1     34.2   1.3 e-5
+## 2 HOXD1  ENSG00000128645 homeobox D1            4.40  6.32e-1     16.3   4.21e-2
+## 3 SNCA   ENSG00000145335 synuclein alpha       45.7   4.20e-9      0.757 9.15e-1</code></pre>
 <p>One last type of join is the
 <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html"><code>dplyr::full_join()</code></a>
 (also sometimes called an outer join). As you may expect, a full join will
@@ -1535,7 +1528,7 @@ cases where multiple Ensembl IDs map to a single gene symbol:</p>
 ##  8 ENSG00000280461  ABCB10P1      &lt;NA&gt;                                       
 ##  9 ENSG00000274099  ABCB10P1      &lt;NA&gt;                                       
 ## 10 ENSG00000282479  ABCB10P3      &lt;NA&gt;                                       
-## # … with 7,258 more rows</code></pre>
+## # ℹ 7,258 more rows</code></pre>
 <p>There are over 7,000 Ensembl IDs that map to the same gene symbol as another
 Ensembl ID. That is more than 10% of all Ensembl IDs. So now let’s create a new
 <code>gene_stats</code> tibble with one of these gene symbols and join with the map to
