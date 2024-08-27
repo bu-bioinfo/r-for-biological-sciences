@@ -8,7 +8,9 @@ company: "Boston University"
 
 ```{r, echo=F, results='hide'}
 library(tidyverse)
-ad_metadata <- readr::read_tsv('../../ad_metadata.tsv', show_col_types=F)
+setwd("..")
+source("setup_example_data.R")
+#ad_metadata <- readr::read_tsv('../../ad_metadata.tsv', show_col_types=F)
 ```
 
 # Installing R Packages

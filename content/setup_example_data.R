@@ -49,3 +49,11 @@ ad_se <- SummarizedExperiment(
   colData=ad_metadata,
   rowData=list(probeset_id=intensities$probeset_id)
 )
+
+gene_stats <- tribble(
+    ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
+   "APOE",   12.509293,   0.1032,   34.239521,   1.3e-5,
+  "HOXD1",    4.399211,   0.6323,   16.332318,   0.0421,
+   "SNCA",   45.748431,   4.2e-9,    0.757188,   0.9146,
+)
+

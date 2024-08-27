@@ -4,6 +4,7 @@ output: html_document
 
 ``` {r include=FALSE}
 library(tidyverse)
+source("setup_example_data.R")
 ```
 
 # Data Wrangling
@@ -1146,7 +1147,7 @@ often need to combine different sources of data together to aid in
 interpretation of our results. Below we redefine the tibble of gene statistics
 from above to have properly capitalized gene symbols:
 
-``` {r}
+```{r}
 gene_stats <- tribble(
     ~gene, ~test1_stat, ~test1_p, ~test2_stat, ~test2_p,
    "APOE",   12.509293,   0.1032,   34.239521,   1.3e-5,

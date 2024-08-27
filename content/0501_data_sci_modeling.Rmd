@@ -2,6 +2,10 @@
 output: html_document
 ---
 
+```{r echo=FALSE, show=FALSE}
+library(tidyverse)
+```
+
 ## Data Modeling
 
 The goal of data modeling is to describe a dataset using a relatively small
@@ -543,11 +547,11 @@ fit1 <- lm(`Gene 1` ~ `Disease Status`, data=gene_exp)
 fit2 <- lm(`Gene 2` ~ `Disease Status`, data=gene_exp)
 fit3 <- lm(`Gene 3` ~ `Disease Status`, data=gene_exp)
 
-gene_stats <- bind_rows(
+gene_stats <- as.data.frame(rbind(
   c("Gene 1",coefficients(fit1),summary(fit1)$coefficients[2,4]),
   c("Gene 2",coefficients(fit2),summary(fit2)$coefficients[2,4]),
   c("Gene 3",coefficients(fit3),summary(fit3)$coefficients[2,4])
-)
+))
 colnames(gene_stats) <- c("Gene","Intercept","Parkinson's","pvalue")
 gene_stats$padj <- p.adjust(gene_stats$pvalue,method="fdr")
 gene_stats

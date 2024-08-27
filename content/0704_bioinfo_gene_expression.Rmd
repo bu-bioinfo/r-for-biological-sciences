@@ -322,7 +322,18 @@ tissue and a central nervous system cell line. To load a data package into R,
 first run `library(<data package>)` and then `data(<dataset name>)`.
 :::
 
-```{r microarray norm}
+
+```r
+library(affy)
+library(affydata)
+data(Dilution)
+
+# normalize the Dilution microarray expression values
+# note Dilution is an AffyBatch object
+eset_rma <- affy::rma(Dilution,verbose=FALSE)
+```
+
+```{r microarray norm plots}
 library(affy)
 library(affydata)
 data(Dilution)
