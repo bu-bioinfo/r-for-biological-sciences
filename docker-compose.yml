@@ -1,0 +1,6 @@
+services:
+  buildbook:
+    image: ghcr.io/bf591-r/bf591-bookdown-docker:latest
+    volumes:
+      - ./:/src
+    command: ["make", "book", "slides"]
