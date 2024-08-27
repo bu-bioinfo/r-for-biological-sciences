@@ -2124,7 +2124,7 @@ include social interaction network and gene correlation network.</p>
 <div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">samp_g</span>, from <span class="op">=</span> <span class="st">"Moon_Capital"</span>, to <span class="op">=</span> <span class="st">"Crystal_Corridor"</span><span class="op">)</span><span class="op">$</span><span class="va">vpath</span></span></code></pre></div>
 <pre><code>## [[1]]
-## + 3/5 vertices, named, from b621d79:
+## + 3/5 vertices, named, from fb97f3e:
 ## [1] Moon_Capital     Gryphon's_Nest   Crystal_Corridor</code></pre>
 <p>One thing to keep in mind is, when <strong>weights</strong> are assigned to edges and being considered, the shortest path may <em>not</em> be the path that goes through the least number of vertices. In this example, consider the weight assigned to the edge connecting “Moon_Capital” and “Gryphon’s_Nest” is substantially large. <font color="grey"><del>The Royal Priest warned you that Gryphons live at the top of the hill, and it’s too hard to climb.</del></font></p>
 <p>Let’s color the edges according to their weights. Green means 1, blue means 2 while red means 3. Now, the shortest path from “Moon_Capital” to “Crystal_Corridor” becomes “Moon_Capital” -&gt; “Agate_Trademart” -&gt; “Icy_Turret” -&gt; “Crystal_Corridor”.</p>
@@ -2149,7 +2149,7 @@ include social interaction network and gene correlation network.</p>
 <span>  weights <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/edge_attr.html">edge_attr</a></span><span class="op">(</span><span class="va">samp_g</span>, <span class="st">"weights"</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="va">vpath</span></span></code></pre></div>
 <pre><code>## [[1]]
-## + 4/5 vertices, named, from eda473c:
+## + 4/5 vertices, named, from 4af1101:
 ## [1] Moon_Capital     Agate_Trademart  Icy_Turret       Crystal_Corridor</code></pre>
 </div>
 <div id="vertex-centrality" class="section level4" number="7.5.1.2">
