@@ -17,7 +17,7 @@ knitr::opts_chunk$set(cache = TRUE)
 
 **Semester: Fall 2024**
 
-**Location: EPC 209
+**Location: EPC 209**
 
 **Time: M/W 10:10 - 11:55**
 
@@ -84,9 +84,9 @@ with an RShiny app.
 | [Week 8] \| [slides](slides/week_8_slides.html)   | 10/23 & 10/28 | - Rshiny                                                                                                                                                | [Differential Expression Part 2] |
 | [Week 9] \| [slides](slides/week_9_slides.html)   | 10/30 & 11/4  | - EngineeRing                                                                                                                                           | [RShiny Basics]                  |
 | [Week 10] \| [slides](slides/week_10_slides.html) | 11/6 & 11/11  | - Data Vis: Plot week<br>- Data Viz: Responsible Plotting                                                                                               | [RShiny Basics]                  |
-| [Week 11] \| [slides](slides/week_11_slides.html) | 11/13 & 11/18 | - Bio: Biological Networks<br>- Data Sci: Network Analysis<br>- Data Viz: Network Viz                                                                   | [Final Project]                  |
-| [Week 12] \| [slides](slides/week_12_slides.html) | 11/20 & 11/25 | - Professional Development Workshops                                                                                                                    |                                  |
-| [Week 13] \| [slides](slides/week_13_slides.html) | 12/2 & 12/4   | - Professional Development Workshops                                                                                                                    |                                  |
+| [Week 11]                                         | 11/13 & 11/18 | - Project Work                                                                                                                                          | [Final Project]                  |
+| [Week 12]                                         | 11/20 & 11/25 | - Professional Development Workshops                                                                                                                    |                                  |
+| [Week 13]                                         | 12/2 & 12/4   | - Professional Development Workshops                                                                                                                    |                                  |
 | [Week 14] \|                                      | 12/9          | - Course Feedback                                                                                                                                       |                                  |
 
 ## Instructors {.unnumbered}
