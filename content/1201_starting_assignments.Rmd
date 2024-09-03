@@ -63,11 +63,6 @@ Classroom](https://classroom.github.com) link.
    interactive R session (Interactive Apps > RStudio Server), use the default
    settings but increase the hours to like 12 or something.
 
-   :::{.box .note}
-   Alternatively, you may run RStudio on your personal computer, but beware the
-   instructions in this tutorial may not be exactly what you see. You will
-   need to install git on your machine. Here is a [guide](https://support.posit.co/hc/en-us/articles/200532077)
-   :::
 
 7. Once your session is loaded and you are login in, select the "New Project"
    button below the "Edit" button.
@@ -75,9 +70,8 @@ Classroom](https://classroom.github.com) link.
    ![](img/how_to_1-new_proj.png)
 
 8. With the prompt open, select `Version Control` > `git`, and paste your repo's
-   url into the first prompt. Feel free to rename the project. You can change
-   where this folder is setup on SCC, but I find `~/Documents` or
-   `~/Documents/BF591` to be a good home for organizing my various projects.
+   url into the first prompt. Feel free to rename the project. Make this directory
+   in the class directory (/projectnb/bf591/students/<your-username>/)
 
    ![](img/how_to_2-prompt.png)
 
