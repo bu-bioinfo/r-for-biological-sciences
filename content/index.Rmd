@@ -101,7 +101,11 @@ Eric Palanques Tost
 
 ## Office Hours {.unnumbered}
 
-Office hours will be arranged as needed
+Regular: Tuesdays 11-12pm, LSE101, Zoom also available
+
+By appointment: Email me (Joey)
+
+TAs: TBA
 
 ## Course Values and Policies {.unnumbered}
 
@@ -142,6 +146,26 @@ incomplete. Even experts are fallible. The bioinformatics field evolves
 rapidly, and Rome was not built in a day. Be kind to yourself and to
 others. You are always smarter and more knowledgeable today than you
 were yesterday.
+
+## Grading {.unnumbered}
+
+Grading will be based on the 7 roughly weekly assignments and the final project.
+Each assignment is 5% of your total grade (35% total), and the final project is
+60% of your grade. The remaining 5% is for class attendance / participation.
+
+## Absences, missed classes, and extensions {.unnumbered}
+
+You should always prioritize your physical, emotional and mental health. BU
+offers a number of resources through Student Health Services and I encourage you
+to explore them if you feel you need to talk to someone. I am also here to
+listen without judgement if needed and can help with accessing the resources
+available.
+
+If you need to miss extended class time or require extra time on assignment
+because of personal matters, please just inform me and I will work with you
+whenever you are back to catch you up on the material and find an arrangement
+that accommodates your needs. You never need to disclose to me any private
+matters if you are not comfortable doing so.
 
 
 ## Acknowledgements & Contributions {.unnumbered}
