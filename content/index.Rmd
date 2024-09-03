@@ -63,6 +63,9 @@ with one of a set of provided datasets, implements a set of data
 summarization and exploration operations on it, and allows interaction
 with an RShiny app.
 
+Relevant links (zoom and textbook) are available on Blackboard as a reference.
+The blackboard site will only be used for announcements and to host links. 
+
 ## Course Schedule {.unnumbered}
 
 **Key:**
@@ -92,16 +95,20 @@ with an RShiny app.
 ## Instructors {.unnumbered}
 
 Primary instructors: 
+
 Joey Orofino (jorofino AT bu DOT edu)
+
 Adam Labadorf (labadorf AT bu DOT edu)
 
 TAs:
+
 Xudong Han
+
 Eric Palanques Tost
 
 ## Office Hours {.unnumbered}
 
-Regular: Tuesdays 11-12pm, LSE101, Zoom also available
+Regular: Tuesdays 11-12pm, LSE101, Zoom link on Blackboard
 
 By appointment: Email me (Joey)
 
