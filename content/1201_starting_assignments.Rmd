@@ -71,7 +71,7 @@ Classroom](https://classroom.github.com) link.
 
 8. With the prompt open, select `Version Control` > `git`, and paste your repo's
    url into the first prompt. Feel free to rename the project. Make this directory
-   in the class directory (/projectnb/bf591/students/<your-username>/)
+   in the class directory (/projectnb/bf591/students/*BU_username*/)
 
    ![](img/how_to_2-prompt.png)
 
