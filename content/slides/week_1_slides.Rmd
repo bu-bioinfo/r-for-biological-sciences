@@ -2,7 +2,7 @@
 title: "Week 1 Slides"
 subtitle: "[R for Biological Science](../index.html)"
 output: ioslides_presentation
-author: "Adam Labadorf"
+author: "Adam Labadorf & Joey Orofino"
 company: "Boston University"
 ---
 
