@@ -21,6 +21,10 @@ consists of measurements for tens of thousands of known genes for every sample.
 Learning methods to inspect, reduce and display high dimensional data is
 necessary for many machine learning and bioinformatics problems.
 
+### Required readings {-}
+
+Please read sections 7.4 and 8.5.6-8.5.7 in the textbook.
+
 ## Learning Objectives {-}
 1. Understand the basic principles of Principal Component Analysis (PCA) and hierarchical clustering / heatmaps
 2. Perform PCA in R and evaluate the basic outputs of PCA

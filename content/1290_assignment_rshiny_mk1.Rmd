@@ -9,6 +9,10 @@ output: html_document
 ## Problem Statement {-}
 Communicating data and results is one of the most nefariously troubling aspects of data science. In bioinformatics we often have colleagues who are less experienced when it comes to viewing and manipulating data, such as clinicians or biologists who think computers are living objects of evil (they are). We must utilize better ways to communicate our work to them.
 
+## Required Readings {-}
+This assignment will largely draw upon Chapter 11 and build upon all the concepts
+we've used throughout the semester. 
+
 ## Learning Objectives {-}
 1. Develop the two sides of an R Shiny application: server and UI.
 2. Understand reactivity when it comes to an application.

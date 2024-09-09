@@ -12,6 +12,11 @@ output:
 This assignment will focus on basic functions of R with an emphasis on
 working with base R data structures and functional programming patterns.
 
+### Required Readings {-}
+
+Please read sections 5.3 through 5.10 in the textbook. Section 5.3 starts
+[here](https://bu-bioinfo.github.io/r-for-biological-sciences/prog-basics.html#prog-r-syntax)
+
 ### Learning Objectives and Skill List {-}
 
 - Understand how vector, matrix, and data frame data structures operate in R
@@ -22,9 +27,7 @@ working with base R data structures and functional programming patterns.
 
 ### Instructions {-}
 
-An empty project repo can be found here:
-
-[https://github.com/bu-bioinfo/bf591-assignment-base-r](https://github.com/bu-bioinfo/bf591-assignment-base-r)
+Accept the github classroom link posted on Blackboard for Assignment Base R. 
 
 The project is laid out as such:  
 
