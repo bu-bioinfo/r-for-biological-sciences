@@ -16,8 +16,8 @@ assignment.
 - Run RStudio, on the cluster or your personal computer
 - Create a GitHub account if required
 - Connect RStudio to GitHub
-- `git clone` the [Assignment 0 repo](https://github.com/BF591-R/bf591-setup-repo)
-  into RStudio using the provided GitHub Classroom link
+- `git clone` the Assignment 0 Repo into RStudio using the provided GitHub
+Classroom link
 
 ### Instructions {-}
 Follow the instructions on the [Starting an Assignment] page with the GitHub
