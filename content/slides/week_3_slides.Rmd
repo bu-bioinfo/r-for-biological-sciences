@@ -6,7 +6,7 @@ author: "Adam Labadorf"
 company: "Boston University"
 ---
 
-```{r, echo=F, results='hide'}
+```{r, echo=F, results='hide', warning=F, message=F}
 library(tidyverse)
 setwd("..")
 source("setup_example_data.R")
