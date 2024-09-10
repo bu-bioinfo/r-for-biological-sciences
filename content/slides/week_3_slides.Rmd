@@ -82,7 +82,7 @@ tRNA in yeast](https://pubmed.ncbi.nlm.nih.gov/14263761/)
 
 * Ensembl Gene IDs have organism-specific conventions:
 
-```{r echo=FALSE, results='asis'}
+```{r echo=FALSE, results='asis', warning=F, message=F}
 library(knitr)
 kable(tribble(
   ~`Gene ID Prefix`, ~Organism, ~Symbol, ~Example,
