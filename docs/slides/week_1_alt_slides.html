@@ -3850,6 +3850,81 @@ l$a # returns 3.5
 l[[&quot;a&quot;]] # also returns 3.5
 [1] 3.5</pre>
 
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Logical Tests and Comparators</h2></hgroup><article  id="logical-tests-and-comparators">
+
+</article></slide><slide class=""><hgroup><h2>Logical Tests and Comparators</h2></hgroup><article  id="logical-tests-and-comparators-1">
+
+<ul>
+<li><p>R recognizes logical values as a distinct type</p></li>
+<li><p>R provides all the conventional infix logical operators:</p>
+
+<pre class = 'prettyprint lang-r'>1 == 1 # equality
+[1] TRUE
+1 != 1 # inequality
+[1] FALSE
+1 &lt; 2 # less than
+[1] TRUE
+1 &gt; 2 # greater than
+[1] FALSE
+1 &lt;= 2 # less than or equal to
+[1] TRUE
+1 &gt;= 2 # greater than or equal to</pre></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Logical Tests on Vectors</h2></hgroup><article  id="logical-tests-on-vectors">
+
+<ul>
+<li><p>Logical tests are applied to each element of vectors:</p>
+
+<pre class="codeblock">
+x <- c(1,2,3)
+x == 2
+[1] FALSE TRUE FALSE
+x < 1
+[1] FALSE FALSE FALSE
+c(1,2) == c(1,3)
+[1] TRUE FALSE
+c(1,2) != c(1,3)
+[1] FALSE TRUE
+c(1,2) == c(1,2,3)
+[1] TRUE TRUE FALSE
+Warning message:
+In c(1, 2, 3) == c(1, 2) :
+  longer object length is not a multiple of shorter object length
+</pre></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Logical Tests on Vectors</h2></hgroup><article  id="logical-tests-on-vectors-1">
+
+<ul>
+<li><p><code>all()</code> function returns a single boolean value when all results are true:</p>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(1,2,3)
+all(x == 2)
+[1] FALSE
+all(x &gt; 0)
+[1] TRUE</pre></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Testing the type of a variable</h2></hgroup><article  id="testing-the-type-of-a-variable">
+
+<ul>
+<li><p>R provides many functions of the form <code>is.X</code> where <code>X</code> is some type or condition</p>
+
+<pre class = 'prettyprint lang-r'>is.numeric(1) # is the argument numeric?
+[1] TRUE
+is.character(1) # is the argument a string?
+[1] FALSE
+is.character(&quot;ABC&quot;)
+[1] TRUE
+is.numeric(c(1,2,3)) # recall a vector has exactly one type
+[1] TRUE
+is.numeric(c(1,2,&quot;3&quot;))
+[1] FALSE
+is.na(c(1,2,NA))
+[1] FALSE FALSE TRUE</pre></li>
+</ul>
+
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Functions</h2></hgroup><article  id="functions">
 
 </article></slide><slide class=""><hgroup><h2>Functions Intro</h2></hgroup><article  id="functions-intro">
