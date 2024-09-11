@@ -593,6 +593,79 @@ l[["a"]] # also returns 3.5
 [1] 3.5
 ```
 
+# Logical Tests and Comparators
+
+## Logical Tests and Comparators
+
+* R recognizes logical values as a distinct type
+* R provides all the conventional infix logical operators:
+
+  ```r
+  1 == 1 # equality
+  [1] TRUE
+  1 != 1 # inequality
+  [1] FALSE
+  1 < 2 # less than
+  [1] TRUE
+  1 > 2 # greater than
+  [1] FALSE
+  1 <= 2 # less than or equal to
+  [1] TRUE
+  1 >= 2 # greater than or equal to
+  ```
+
+## Logical Tests on Vectors
+
+* Logical tests are applied to each element of vectors:
+
+  <pre class="codeblock">
+  x <- c(1,2,3)
+  x == 2
+  [1] FALSE TRUE FALSE
+  x < 1
+  [1] FALSE FALSE FALSE
+  c(1,2) == c(1,3)
+  [1] TRUE FALSE
+  c(1,2) != c(1,3)
+  [1] FALSE TRUE
+  c(1,2) == c(1,2,3)
+  [1] TRUE TRUE FALSE
+  Warning message:
+  In c(1, 2, 3) == c(1, 2) :
+    longer object length is not a multiple of shorter object length
+  </pre>
+  
+## Logical Tests on Vectors
+
+* `all()` function returns a single boolean value when all results are true:
+
+  ```r
+  x <- c(1,2,3)
+  all(x == 2)
+  [1] FALSE
+  all(x > 0)
+  [1] TRUE
+  ```
+
+## Testing the type of a variable
+
+* R provides many functions of the form `is.X` where `X` is some type or condition
+
+  ```r
+  is.numeric(1) # is the argument numeric?
+  [1] TRUE
+  is.character(1) # is the argument a string?
+  [1] FALSE
+  is.character("ABC")
+  [1] TRUE
+  is.numeric(c(1,2,3)) # recall a vector has exactly one type
+  [1] TRUE
+  is.numeric(c(1,2,"3"))
+  [1] FALSE
+  is.na(c(1,2,NA))
+  [1] FALSE FALSE TRUE
+  ```
+  
 # Functions
 
 ## Functions Intro
@@ -1170,3 +1243,4 @@ all(x_mat_zscore_means<1e-15)
   all(x_zscore_means < 1e-15)
   [1] TRUE
   ```
+
