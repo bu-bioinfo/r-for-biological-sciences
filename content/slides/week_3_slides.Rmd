@@ -36,7 +36,7 @@ Archive Network](https://cran.r-project.org/) (CRAN) web site
 
 ## Central Dogma
 
-![](../Central-dogma.jpg)
+![](../Central-dogma.jpg){width=50%}
 
 ## Gene Expression Process
 
