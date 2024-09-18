@@ -34,6 +34,10 @@ Archive Network](https://cran.r-project.org/) (CRAN) web site
 
 # Gene Identifiers
 
+## Central Dogma
+
+![](../Central-dogma.jpg)
+
 ## Gene Expression Process
 
 ![](../gene_expression_nature.jpg){width=75%}
