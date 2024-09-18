@@ -34,6 +34,10 @@ Archive Network](https://cran.r-project.org/) (CRAN) web site
 
 # Gene Identifiers
 
+## Gene Expression Process
+
+![](../gene_expression_nature.jpg){width=75%}
+ 
 ## Gene Identifier Systems
 
 * First gene sequence determined in 1965 - [an alanine
