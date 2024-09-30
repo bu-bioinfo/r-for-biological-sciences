@@ -153,6 +153,265 @@ pivot_longer(
 * Can then possibly generate a scientific model 
 * This step sometimes called *exploratory data analysis* (EDA)
 
+# Heatmaps
+
+## Heatmaps
+
+* Heatmaps visualize values associated with a grid of points $(x,y,z)$ as a grid
+of colored rectangles
+* $x$ and $y$ define the grid point coordinates and $z$ is a continuous value
+* A common heatmap you might have seen is the [weather
+map](https://en.wikipedia.org/wiki/Weather_map), which plots current or
+predicted weather patterns on top of a geographic map:
+
+## Weathermaps
+
+<div class="centered">
+<img src="../weather_map.png" width="100%">
+</div>
+
+## Heatmaps in R
+
+* Heatmaps are often used to visualize matrices
+* Can create heatmap in R using the base R
+[`heatmap()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/heatmap)
+function:
+* `heatmap()` function creates a *clustered heatmap* where the rows and columns
+  have been hierarchically clustered
+  
+```r
+# heatmap() requires a R matrix, and cannot accept a tibble or a dataframe
+marker_matrix <- as.matrix(
+  dplyr::select(ad_metadata,c(tau,abeta,iba1,gfap))
+)
+# rownames of the matrix become y labels
+rownames(marker_matrix) <- ad_metadata$ID
+
+heatmap(marker_matrix)
+```
+
+## Example Heatmap
+
+```{r data viz marker heatmap, echo=FALSE}
+# heatmap() requires a R matrix, and cannot accept a tibble or a dataframe
+marker_matrix <- as.matrix(
+  dplyr::select(ad_metadata,c(tau,abeta,iba1,gfap))
+)
+# rownames of the matrix become y labels
+rownames(marker_matrix) <- ad_metadata$ID
+
+heatmap(marker_matrix)
+```
+
+## `heatmap()` Functionality
+
+* Performs hierarchical clustering of the rows and columns using a Euclidean distance function
+* Draws dendrograms on the rows and columns
+* Scales the data in the rows to have mean zero and standard deviation 1
+* Can alter this behavior with arguments:
+
+```r
+heatmap(
+  marker_matrix,
+  Rowv=NA, # don't cluster rows
+  Colv=NA, # don't cluster columns
+  scale="none", # don't scale rows
+)
+```
+
+## Less Fancy Heatmap
+
+```{r data viz pure heatmap, echo=FALSE}
+heatmap(
+  marker_matrix,
+  Rowv=NA, # don't cluster rows
+  Colv=NA, # don't cluster columns
+  scale="none", # don't scale rows
+)
+```
+
+## `heatmap()` Drawback
+
+* The scale mapping $z$ values to colors is very important when interpreting heatmaps
+* `heatmap()` function has the major drawback that no color key is provided!
+*  [`heatmap.2()`](https://www.rdocumentation.org/packages/gplots/versions/3.1.1/topics/heatmap.2)
+  in [`gplots` package](https://cran.r-project.org/web/packages/gplots/index.html)
+  has a similar interface
+* Provides more parameters to control the behavior of the plot and includes a color key:
+
+```r
+library(gplots)
+heatmap.2(marker_matrix)
+```
+
+## `heatmap.2()` Example
+
+```{r heatmap.2, echo=FALSE, message=FALSE, warning=FALSE}
+library(gplots)
+heatmap.2(marker_matrix)
+```
+
+# Cluster Analysis
+
+## Cluster Analysis
+
+* Cluster analysis groups similar objects together
+* Can identify structure or organization in a dataset
+* [clustering algorithms](https://en.wikipedia.org/wiki/Category:Cluster_analysis_algorithms)
+have been developed for different situations
+
+## Clustering Example
+
+```{r, echo=FALSE}
+# data drawn from three bivariate normal distributions))
+set.seed(1337)
+n <- 20
+well_clustered_data <- tibble(
+  ID=c(stringr::str_c("A",1:n),stringr::str_c("B",1:n),stringr::str_c("C",1:n)),
+  cluster=c(rep("A",n),rep("B",n),rep("C",n)),
+  f1=c(rnorm(n,0,1),rnorm(n,5,1),rnorm(n,0,1)),
+  f2=c(rnorm(n,0,1),rnorm(n,5,1),rnorm(n,8,1))
+)
+
+unclustered <- ggplot(well_clustered_data, aes(x=f1,y=f2)) +
+  geom_point() +
+  labs(title="Unclustered")
+clustered <- ggplot(well_clustered_data, aes(x=f1,y=f2,color=cluster,shape=cluster)) +
+  geom_point() +
+  labs(title="Clustered")
+
+unclustered | clustered
+```
+
+## Hierarchical Clustering
+
+* *Hierarchical clustering* groups data points together in nested, or *hierarchical*, groups
+* Data points are compared for similarity using a *distance function*
+* Two broad strategies: 
+  - **Agglomerative**: each datum starts in their own groups, and groups are
+  iteratively merged hierarchically into larger groups
+  - **Divisive**: all data points start in the same group, and are recursively
+  split into smaller groups based on their dissimilarity
+
+## Clustering: Distance Function
+
+* Must choose a *distance function*, e.g $d(x, y)$
+* $d(x, y)$ produces a *metric* with magnitude proportional
+  to difference between $x$ and $y$
+* A *metric* is a non-negative number with no meaningful unit
+* Many different metrics, *euclidean distance* often a reasonable choice
+
+$$d(p, q) = \sqrt{(p - q)^2}$$
+
+## Clustering: Linkage Function
+
+* In hierarchical clustering, groups of data are compared to one another
+* *Linkage function* is a distance function for groups of data
+* Many choices of linkage function:
+  - [Single-linkage](https://en.wikipedia.org/wiki/Single-linkage_clustering) - distance between two nearest members of the groups
+  - [Complete-linkage](https://en.wikipedia.org/wiki/Complete-linkage_clustering) - distance between two farthest members of the groups
+  - [Unweighted Pair Group Method with Arithmetic mean (UPGMA)](https://en.wikipedia.org/wiki/UPGMA) - distance is the average distance of all pairs of points between groups
+  - [Weighted Pair Group Method with Arithmetic mean (WPGMA)](https://en.wikipedia.org/wiki/WPGMA) - similar to UPGMA, but weights distances from pairs of groups evenly when merging
+  
+##
+
+<div class="centered">
+<img src="../hierarchical_clustering.png" width="100%">
+</div>
+
+## Clustering Example in R
+
+Below we will cluster the synthetic dataset introduced above in R:
+
+```{r hclust data, fig.dim=c(8,3)}
+ggplot(well_clustered_data, aes(x=f1,y=f2)) +
+  geom_point() +
+  labs(title="Unclustered")
+```
+
+## Clustering Example in R
+
+```{r hclust dist, warning=FALSE, message=FALSE}
+# compute all pairwise distances using euclidean distance
+# as the distance metric
+euc_dist <- dist(dplyr::select(well_clustered_data,-ID))
+
+# produce a clustering of the data using the hclust for
+# hierarchical clustering
+hc <- hclust(euc_dist, method="ave")
+
+# add ID as labels to the clustering object
+hc$labels <- well_clustered_data$ID
+```
+
+## Clustering Example in R
+
+```{r}
+str(hc)
+```
+
+## `hclust()` output
+
+* `hclust()` return object describes the clustering as a tree
+* Can visualize using a [dendrogram](#dendrograms):
+
+```{r hclust dendro, fig.dim=c(8,3), warning=FALSE, message=FALSE}
+library(ggdendro)
+ggdendrogram(hc)
+```
+
+##
+
+<div class="centered">
+<img src="../dendrograms.png" width="100%">
+</div>
+
+## Creating Flat Clusters
+
+* Can split hierarchical clustering into groups based on their pattern
+* Can use the
+[`cutree`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cutree)
+to divide the tree into three groups using `k=3`:
+
+```{r hclust cuttree}
+labels <- cutree(hc,k=3)
+labels
+```
+
+## Creating Flat Clusters
+
+```r
+# we turn our labels into a tibble so we can join them with the original tibble
+well_clustered_data %>%
+  left_join(
+    tibble(
+      ID=names(labels),
+      label=as.factor(labels)
+    )
+  ) %>%
+  ggplot(aes(x=f1,y=f2,color=label)) +
+  geom_point() +
+  labs(title="Clustered")
+```
+
+## Creating Flat Clusters
+
+```{r hclust cutree color, fig.dim=c(8,3), echo=FALSE}
+# we turn our labels into a tibble so we can join them with the original tibble
+well_clustered_data %>%
+  left_join(
+    tibble(
+      ID=names(labels),
+      label=as.factor(labels)
+    )
+  ) %>%
+  ggplot(aes(x=f1,y=f2,color=label)) +
+  geom_point() +
+  labs(title="Clustered")
+```
+
+# Principal Component Analysis
+
 ## Principal Component Analysis
 
 * *principal component analysis* (PCA): statistical procedure that reduces the
@@ -409,264 +668,6 @@ as_tibble(pca$x) %>%
   mutate(PC=fct_relevel(PC,str_c("PC",1:20))) %>%
   ggplot(aes(x=PC,y=projection,color=type)) +
   geom_beeswarm() + labs(title="PCA Projection Plot")
-```
-
-
-# Heatmaps
-
-## Heatmaps
-
-* Heatmaps visualize values associated with a grid of points $(x,y,z)$ as a grid
-of colored rectangles
-* $x$ and $y$ define the grid point coordinates and $z$ is a continuous value
-* A common heatmap you might have seen is the [weather
-map](https://en.wikipedia.org/wiki/Weather_map), which plots current or
-predicted weather patterns on top of a geographic map:
-
-## Weathermaps
-
-<div class="centered">
-<img src="../weather_map.png" width="100%">
-</div>
-
-## Heatmaps in R
-
-* Heatmaps are often used to visualize matrices
-* Can create heatmap in R using the base R
-[`heatmap()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/heatmap)
-function:
-* `heatmap()` function creates a *clustered heatmap* where the rows and columns
-  have been hierarchically clustered
-  
-```r
-# heatmap() requires a R matrix, and cannot accept a tibble or a dataframe
-marker_matrix <- as.matrix(
-  dplyr::select(ad_metadata,c(tau,abeta,iba1,gfap))
-)
-# rownames of the matrix become y labels
-rownames(marker_matrix) <- ad_metadata$ID
-
-heatmap(marker_matrix)
-```
-
-## Example Heatmap
-
-```{r data viz marker heatmap, echo=FALSE}
-# heatmap() requires a R matrix, and cannot accept a tibble or a dataframe
-marker_matrix <- as.matrix(
-  dplyr::select(ad_metadata,c(tau,abeta,iba1,gfap))
-)
-# rownames of the matrix become y labels
-rownames(marker_matrix) <- ad_metadata$ID
-
-heatmap(marker_matrix)
-```
-
-## `heatmap()` Functionality
-
-* Performs hierarchical clustering of the rows and columns using a Euclidean distance function
-* Draws dendrograms on the rows and columns
-* Scales the data in the rows to have mean zero and standard deviation 1
-* Can alter this behavior with arguments:
-
-```r
-heatmap(
-  marker_matrix,
-  Rowv=NA, # don't cluster rows
-  Colv=NA, # don't cluster columns
-  scale="none", # don't scale rows
-)
-```
-
-## Less Fancy Heatmap
-
-```{r data viz pure heatmap, echo=FALSE}
-heatmap(
-  marker_matrix,
-  Rowv=NA, # don't cluster rows
-  Colv=NA, # don't cluster columns
-  scale="none", # don't scale rows
-)
-```
-
-## `heatmap()` Drawback
-
-* The scale mapping $z$ values to colors is very important when interpreting heatmaps
-* `heatmap()` function has the major drawback that no color key is provided!
-*  [`heatmap.2()`](https://www.rdocumentation.org/packages/gplots/versions/3.1.1/topics/heatmap.2)
-  in [`gplots` package](https://cran.r-project.org/web/packages/gplots/index.html)
-  has a similar interface
-* Provides more parameters to control the behavior of the plot and includes a color key:
-
-```r
-library(gplots)
-heatmap.2(marker_matrix)
-```
-
-## `heatmap.2()` Example
-
-```{r heatmap.2, echo=FALSE, message=FALSE, warning=FALSE}
-library(gplots)
-heatmap.2(marker_matrix)
-```
-
-# Cluster Analysis
-
-## Cluster Analysis
-
-* Cluster analysis groups similar objects together
-* Can identify structure or organization in a dataset
-* [clustering algorithms](https://en.wikipedia.org/wiki/Category:Cluster_analysis_algorithms)
-have been developed for different situations
-
-## Clustering Example
-
-```{r, echo=FALSE}
-# data drawn from three bivariate normal distributions))
-set.seed(1337)
-n <- 20
-well_clustered_data <- tibble(
-  ID=c(stringr::str_c("A",1:n),stringr::str_c("B",1:n),stringr::str_c("C",1:n)),
-  cluster=c(rep("A",n),rep("B",n),rep("C",n)),
-  f1=c(rnorm(n,0,1),rnorm(n,5,1),rnorm(n,0,1)),
-  f2=c(rnorm(n,0,1),rnorm(n,5,1),rnorm(n,8,1))
-)
-
-unclustered <- ggplot(well_clustered_data, aes(x=f1,y=f2)) +
-  geom_point() +
-  labs(title="Unclustered")
-clustered <- ggplot(well_clustered_data, aes(x=f1,y=f2,color=cluster,shape=cluster)) +
-  geom_point() +
-  labs(title="Clustered")
-
-unclustered | clustered
-```
-
-## Hierarchical Clustering
-
-* *Hierarchical clustering* groups data points together in nested, or *hierarchical*, groups
-* Data points are compared for similarity using a *distance function*
-* Two broad strategies: 
-  - **Agglomerative**: each datum starts in otart in their own groups, and groups are
-  iteratively merged hierarchically iointsointsnto larger groups data are in a group
-  - **Divisive**: all data points start in the same group, and are recursively
-  split into smaller groups based on their dissimilarity
-
-## Clustering: Distance Function
-
-* Must choose a *distance function*, e.g $d(x, y)$
-* $d(x, y)$ produces a *metric* with magnitude proportional
-  to difference between $x$ and $y$
-* A *metric* is a non-negative number with no meaningful unit
-* Many different metrics, *euclidean distance* often a reasonable choice
-
-$$d(p, q) = \sqrt{(p - q)^2}$$
-
-## Clustering: Linkage Function
-
-* In hierarchical clustering, groups of data are compared to one another
-* *Linkage function* is a distance function for groups of data
-* Many choices of linkage function:
-  - [Single-linkage](https://en.wikipedia.org/wiki/Single-linkage_clustering) - distance between two nearest members of the groups
-  - [Complete-linkage](https://en.wikipedia.org/wiki/Complete-linkage_clustering) - distance between two farthest members of the groups
-  - [Unweighted Pair Group Method with Arithmetic mean (UPGMA)](https://en.wikipedia.org/wiki/UPGMA) - distance is the average distance of all pairs of points between groups
-  - [Weighted Pair Group Method with Arithmetic mean (WPGMA)](https://en.wikipedia.org/wiki/WPGMA) - similar to UPGMA, but weights distances from pairs of groups evenly when merging
-  
-##
-
-<div class="centered">
-<img src="../hierarchical_clustering.png" width="100%">
-</div>
-
-## Clustering Example in R
-
-Below we will cluster the synthetic dataset introduced above in R:
-
-```{r hclust data, fig.dim=c(8,3)}
-ggplot(well_clustered_data, aes(x=f1,y=f2)) +
-  geom_point() +
-  labs(title="Unclustered")
-```
-
-## Clustering Example in R
-
-```{r hclust dist, warning=FALSE, message=FALSE}
-# compute all pairwise distances using euclidean distance
-# as the distance metric
-euc_dist <- dist(dplyr::select(well_clustered_data,-ID))
-
-# produce a clustering of the data using the hclust for
-# hierarchical clustering
-hc <- hclust(euc_dist, method="ave")
-
-# add ID as labels to the clustering object
-hc$labels <- well_clustered_data$ID
-```
-
-## Clustering Example in R
-
-```{r}
-str(hc)
-```
-
-## `hclust()` output
-
-* `hclust()` return object describes the clustering as a tree
-* Can visualize using a [dendrogram](#dendrograms):
-
-```{r hclust dendro, fig.dim=c(8,3), warning=FALSE, message=FALSE}
-library(ggdendro)
-ggdendrogram(hc)
-```
-
-##
-
-<div class="centered">
-<img src="../dendrograms.png" width="100%">
-</div>
-
-## Creating Flat Clusters
-
-* Can split hierarchical clustering into groups based on their pattern
-* Can use the
-[`cutree`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cutree)
-to divide the tree into three groups using `k=3`:
-
-```{r hclust cuttree}
-labels <- cutree(hc,k=3)
-labels
-```
-
-## Creating Flat Clusters
-
-```r
-# we turn our labels into a tibble so we can join them with the original tibble
-well_clustered_data %>%
-  left_join(
-    tibble(
-      ID=names(labels),
-      label=as.factor(labels)
-    )
-  ) %>%
-  ggplot(aes(x=f1,y=f2,color=label)) +
-  geom_point() +
-  labs(title="Clustered")
-```
-
-## Creating Flat Clusters
-
-```{r hclust cutree color, fig.dim=c(8,3), echo=FALSE}
-# we turn our labels into a tibble so we can join them with the original tibble
-well_clustered_data %>%
-  left_join(
-    tibble(
-      ID=names(labels),
-      label=as.factor(labels)
-    )
-  ) %>%
-  ggplot(aes(x=f1,y=f2,color=label)) +
-  geom_point() +
-  labs(title="Clustered")
 ```
 
 # Data Summarization
