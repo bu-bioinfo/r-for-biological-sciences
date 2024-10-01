@@ -442,12 +442,24 @@ well_clustered_data %>%
 <img src="../PCA.png" width="100%">
 </div>
 
+## Another PCA schematic
+
+<div class="centered">
+<img src="../pca_schematic_nature.png" width="100%">
+</div>
+
 ## PCA in Biological Analysis
 
 * Biological datasets often have many thousands of features (e.g. genes) and comparatively few samples
 * Maximum number of PCs in PCA is smaller of (number of features, number of samples)
 * [`stats::prcomp()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp)
 function performs PCA in R
+
+## PCA Visual Intuition for Dimensional Reduction
+
+<div class="centered">
+<img src="../PCA_nature.png" width="100%">
+</div>
 
 ## PCA Example Setup
 
