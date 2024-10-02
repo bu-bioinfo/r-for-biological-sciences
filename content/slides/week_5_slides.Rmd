@@ -448,6 +448,8 @@ well_clustered_data %>%
 <img src="../pca_schematic_nature.png" width="100%">
 </div>
 
+* Lever, J., Krzywinski, M. & Altman, N. Principal component analysis. Nat Methods 14, 641–642 (2017). https://doi.org/10.1038/nmeth.4346
+
 ## PCA in Biological Analysis
 
 * Biological datasets often have many thousands of features (e.g. genes) and comparatively few samples
@@ -460,6 +462,8 @@ function performs PCA in R
 <div class="centered">
 <img src="../PCA_nature.png" width="75%">
 </div>
+
+* Lever, J., Krzywinski, M. & Altman, N. Principal component analysis. Nat Methods 14, 641–642 (2017). https://doi.org/10.1038/nmeth.4346
 
 ## PCA Example Setup
 
