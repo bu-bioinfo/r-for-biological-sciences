@@ -458,7 +458,7 @@ function performs PCA in R
 ## PCA Visual Intuition for Dimensional Reduction
 
 <div class="centered">
-<img src="../PCA_nature.png" width="100%">
+<img src="../PCA_nature.png" width="75%">
 </div>
 
 ## PCA Example Setup
