@@ -47,7 +47,7 @@ including:
 -   Elementary Data Science concepts
 -   "Toolifying" R scripts
 -   Communicating R code and results with RMarkdown
--   Buidling R packages and unit testing strategies
+-   Building R packages and unit testing strategies
 -   Building interactive tools with RShiny
 
 About 1/3 of the materials are inspired by the online textbook [R for
@@ -84,13 +84,13 @@ The blackboard site will only be used for announcements and to host links.
 | [Week 5] \| [slides](slides/week_5_slides.html)   | 10/2 & 10/7   | - Data Sci: PCA & Clustering<br>- Data Viz: Heatmaps & Dendrograms<br>- R Programming: Structures and Iteration                                         | [Data Science Basics]            |
 | [Week 6] \| [slides](slides/week_6_slides.html)   | 10/9 & 10/15  | - Bio: High Throughput Sequencing<br>- Bio: RNAseq<br>- Bio: Count Data<br>- Bio: RNAseq Differential Expression<br>- Bio: Gene Set Enrichment Analysis | [Counts Analysis]                |
 | [Week 7] \| [slides](slides/week_7_slides.html)   | 10/16 & 10/21 | - Data Sci: Distributions<br>- Data Sci: Statistical Tests<br>- R Programming: Styles and Conventions                                                   | [Differential Expression Part 1] |
-| [Week 8] \| [slides](slides/week_8_slides.html)   | 10/23 & 10/28 | - Rshiny                                                                                                                                                | [Differential Expression Part 2] |
-| [Week 9] \| [slides](slides/week_9_slides.html)   | 10/30 & 11/4  | - EngineeRing                                                                                                                                           | [RShiny Basics]                  |
-| [Week 10] \| [slides](slides/week_10_slides.html) | 11/6 & 11/11  | - Data Vis: Plot week<br>- Data Viz: Responsible Plotting                                                                                               | [RShiny Basics]                  |
+| [Week 8] \| [slides](slides/week_8_slides.html)   | 10/23 & 10/28 | - Data Vis: Plot Week<br>- Data Vis: Responsible Plotting                                                                                               | [Differential Expression Part 2] |
+| [Week 9] \| [slides](slides/week_9_slides.html)   | 10/30 & 11/4  | - Rshiny                                                                                                                                                | [RShiny Basics]                  |
+| [Week 10] \| [slides](slides/week_10_slides.html) | 11/6 & 11/11  | - engineeRing                                                                                                                                           | [RShiny Basics]                  |
 | [Week 11]                                         | 11/13 & 11/18 | - Project Work                                                                                                                                          | [Final Project]                  |
 | [Week 12]                                         | 11/20 & 11/25 | - Professional Development Workshops                                                                                                                    |                                  |
 | [Week 13]                                         | 12/2 & 12/4   | - Professional Development Workshops                                                                                                                    |                                  |
-| [Week 14] \|                                      | 12/9          | - Course Feedback                                                                                                                                       |                                  |
+| [Week 14]                                         | 12/9          | - Course Feedback                                                                                                                                       |                                  |
 
 ## Instructors {.unnumbered}
 
