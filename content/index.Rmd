@@ -72,8 +72,7 @@ The blackboard site will only be used for announcements and to host links.
 
 -   Follow [Week N](#class-outlines) links for detailed list of topic
     sections.
--   Assignments are assigned and due on the first day of class each week
-    unless mentioned otherwise
+-   Assignments are assigned and due on Thursdays each week unless mentioned otherwise
 
 | Week                                              | Dates         | Topics                                                                                                                                                  | Assignment                       |
 | ------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
