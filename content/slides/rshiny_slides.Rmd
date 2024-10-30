@@ -78,7 +78,6 @@ ui <- fluidPage(
 ```
 
 ![](../rshiny_dropdown.png){width=80%}
-
 # Outputs
 
 ## Structure of outputs
@@ -125,7 +124,7 @@ server <- function(input, output, session) {
 }
 ```
 
-![](../rshiny_plotoutput){width=80%}
+![](../rshiny_plotoutput.png){width=80%}
 
 ## Output and render functions will typically be used together
 
@@ -135,9 +134,26 @@ server <- function(input, output, session) {
 
 * plotOutput() and renderPlot()
 
+* textOutput() and renderText()
+
+## Outputing the values contained within inputs
+```{r, eval=FALSE}
+# Function example
+states <-c("Massachussets", "New York", "Maryland")
+ui <- fluidPage(
+  selectInput("state", "Choose your state", states),
+  textOutput("selected")
+)
+server <- function(input, output, session) {
+  output$selected <- renderText(input$state)
+}
+```
+
+![](../rshiny_inputs_outputs.png){width=80%}
+
 # HTML Layouts organize your inputs and outputs
 
-## fluidPage Simply Layout
+## fluidPage Simple Layout - Code
 
 ```{r, eval=FALSE}
 fluidPage(
@@ -155,9 +171,11 @@ fluidPage(
 )
 ```
 
+## Simple Layout View
+
 ![](../rshiny_basic_layout.png){width=80%}
 
-## Multirow layout
+## Multirow layout code
 
 ```{r, eval=FALSE}
 fluidPage(
@@ -180,11 +198,12 @@ fluidPage(
 )
 ```
 
+## Multirow Layout View
 ![](../rshiny_multirow_layout.png){width=80%}
 
 # Putting it all together
 
-## Code - Basic Shiny App
+## Code - Basic Shiny App UI
 ```{r, eval=FALSE}
 # Load libraries
 library('shiny')
@@ -202,7 +221,10 @@ ui <- fluidPage(
     )
   )
 )
+```
 
+## Code Basic Shiny App Server
+```{r, eval=FALSE}
 # renderPlot() creates the output sent to output$plot by calling ggplot
 server <- function(input, output, session) {
   output$plot <- renderPlot(
@@ -215,7 +237,7 @@ shinyApp(ui = ui, server = server)
 
 ## View of basic Shiny App
 
-![](../rshiny_basic_view){width=80%}
+![](../rshiny_basic_view.png){width=80%}
 
 # Reactivity
 
