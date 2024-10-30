@@ -3514,6 +3514,15 @@ shinyApp(ui = ui, server = server)</pre>
 </ul></li>
 <li><p>Reactivity can be used to control the flow of data and actions through your application</p></li>
 <li><p><a href='https://mastering-shiny.org/basic-reactivity.html' title=''>https://mastering-shiny.org/basic-reactivity.html</a></p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Reactive Expressions</h2></hgroup><article  id="reactive-expressions">
+
+<ul>
+<li><p>render* functions are reactive expressions</p></li>
+<li><p>You can create your own by wrapping your function with <code>reactive({})</code></p></li>
+<li><p>Reactive expressions cache their results and only return a new result if it detects any changes in dependencies</p></li>
+<li><p>Render* + built-in input selections are a simple example of reactivity</p></li>
 </ul></article></slide>
 
 
