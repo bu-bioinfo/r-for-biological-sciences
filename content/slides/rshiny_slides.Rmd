@@ -253,3 +253,13 @@ change
 * Reactivity can be used to control the flow of data and actions through your application
 
 * https://mastering-shiny.org/basic-reactivity.html
+
+## Reactive Expressions
+
+* render* functions are reactive expressions
+- You can create your own by wrapping your function with `reactive({})`
+
+* Reactive expressions cache their results and only return a new result if it
+detects any changes in dependencies
+
+* Render* + built-in input selections are a simple example of reactivity
