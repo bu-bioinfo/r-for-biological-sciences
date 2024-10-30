@@ -124,7 +124,7 @@ server <- function(input, output, session) {
 }
 ```
 
-![](../rshiny_plotoutput.png){width=80%}
+![](../rshiny_plotoutput.png){width=50%}
 
 ## Output and render functions will typically be used together
 
@@ -149,7 +149,7 @@ server <- function(input, output, session) {
 }
 ```
 
-![](../rshiny_inputs_outputs.png){width=80%}
+![](../rshiny_inputs_outputs.png){width=50%}
 
 # HTML Layouts organize your inputs and outputs
 
