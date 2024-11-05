@@ -800,3 +800,47 @@ this should be the only place you need to go.
 ::: {.box .readmore}
 * [R packages](https://r-pkgs.org/index.html) by Hadley Wickam and Jenny Bryan
 :::
+
+# R Package Management
+
+## Renv
+
+- Creates reproducible environments for R projects, similar to conda and git
+
+- Attempts to create isolated, portable and reproducible environments in R
+
+## Renv Graphical Schematic
+
+![](renv_schematic.png){width=100%}
+
+## Making a renv environment
+
+- renv::init() will initialize a new renv environment and creates:
+  - renv/library: a directory containing all of the packages used by your environment
+  - renv.lock: a file that records metadata on packages 
+  - .Rprofile: Ensures that on startup, your R session utilizes the renv library
+  
+## Installing new packages in renv
+
+- renv::install() can install from CRAN, github, bioconductor, etc. 
+
+- You can specify exact versions of the package you want installed
+  - renv::install("bioc::package@0.6.18")
+  
+## Recording installed packages in renv
+
+- renv::snapshot() will record any newly installed packages in your environment
+
+- Updates the lockfile with the current state of dependencies
+
+- The lockfile can be used to restore an environment if needed
+
+## How it enables reproducibility
+
+- renv.lock, .Rprofile, renv/settings.json and renv/activate.R all describe
+your environment
+
+- Check files into a git repository to share with yourself or a collaborator
+
+- Renv will be automatically downloaded when the project is opened and it will 
+ask you to restore the environment if it doesn't already exist
