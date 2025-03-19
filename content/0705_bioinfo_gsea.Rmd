@@ -534,7 +534,8 @@ simply convert MGI symbols to all uppercase. This will work for the subset of
 genes where the orthologs have the same symbol but will misidentify many genes
 where they do not share the same base name. One way to properly perform this
 kind of 'orthology' mapping is to use `biomaRt`, which we have discussed
-previously. :::
+previously. 
+:::
 
 
 For this example, we have already made simulated vectors containing the gene

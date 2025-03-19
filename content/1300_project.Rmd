@@ -227,7 +227,7 @@ explore a differential expression dataset.
 
 * Tab with sortable table displaying differential expression results
   - Optional: enable gene name search functionality to filter rows of table
-* Tab with content similar to that described in [Assignment 7]
+* Tab with content similar to that described in [Assignment 6 / 7]
 
 ## Choose-your-own Adventure
 
@@ -257,7 +257,7 @@ dataset.
 
   - Main Panel
     + Barplot of fgsea NES for top pathways selected by slider
-    + Optional: Click on barplot for pathway to display table entry
+    + Click on barplot for pathway to display table entry
 
 * Tab 2
   - Sidebar
